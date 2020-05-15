@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Dashboard from "./Components/Dashboard/DashMain";
 import SignUp from "./Components/Authentication/SignUp";
+import Temp from "./Components/Dashboard/Temp"
 import './App.css';
 
 class App extends Component{
@@ -13,7 +14,7 @@ class App extends Component{
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Dashboard appContext={this}/>
+      currentScreen: <Temp appContext={this}/>
     })
   }
 
