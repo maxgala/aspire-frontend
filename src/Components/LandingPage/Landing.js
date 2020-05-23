@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import MaxLogo from "../MAX Logo.png";
+import MaxLogo from "../Images/max_logo.png";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
@@ -20,16 +20,20 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: 'rgba(0,0,0,0.8)',
     },
     img: {
-        width: '5vw'
+        width: '10vw'
     },
     content: {
         flexGrow: 1,
         height: '100vh',
+        width: '100vw',
         overflow: 'auto',
+        marginTop: '64px',
     },
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
+        paddingLeft: '0px',
+        paddingRight: '0px',
     },
     navButtons:{
         marginLeft: 'calc((100vw - 375px)*0.07)'
@@ -89,9 +93,6 @@ class Landing extends Component{
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar className={classes.toolbar}>
                         <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
-                        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                            ASPIRE
-                        </Typography>
                         <div className={classes.navButtons}>
                             <Button
                                 variant="contained"
@@ -109,7 +110,7 @@ class Landing extends Component{
                     </Toolbar>
                 </AppBar>
                 <main className={classes.content}>
-                    <Container maxWidth="lg" className={classes.container}>
+                    <Container maxWidth="100vw" className={classes.container}>
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
