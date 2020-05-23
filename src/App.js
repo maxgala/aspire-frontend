@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Dashboard from "./Components/Dashboard/DashMain";
+import Landing from "./Components/LandingPage/Landing";
 import './App.css';
 
 class App extends Component{
@@ -12,7 +12,7 @@ class App extends Component{
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Dashboard appContext={this}/>
+      currentScreen: <Landing appContext={this}/>
     })
   }
 
