@@ -7,7 +7,10 @@ import MaxLogo from "../MAX Logo.png";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import MainImage from "./MainImage";
+import AboutMax from "./AboutMax";
+import Features from "./Features";
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -62,7 +65,7 @@ function withMyHook(Component){
     }
 }
 
-class DashMain extends Component{
+class Landing extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -107,7 +110,9 @@ class DashMain extends Component{
                 </AppBar>
                 <main className={classes.content}>
                     <Container maxWidth="lg" className={classes.container}>
-                        
+                        <MainImage/>
+                        <AboutMax/>
+                        <Features/>
                     </Container>
                 </main>
             </div>
@@ -115,5 +120,5 @@ class DashMain extends Component{
     }
 }
 
-DashMain = withMyHook(DashMain);
-export default DashMain;
+Landing = withMyHook(Landing);
+export default Landing;
