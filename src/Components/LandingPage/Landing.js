@@ -7,6 +7,7 @@ import MaxLogo from "../MAX Logo.png";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -48,10 +49,9 @@ const useStyles = makeStyles(theme => ({
         borderColor: 'white'
     },
     toolbar: {
-
+        display: 'flex'
     }
 }));
-
 
 // writing a hook just to incorporate the CSS defined outside under classes
 // feel free to use this function in any other function
@@ -107,7 +107,7 @@ class DashMain extends Component{
                 </AppBar>
                 <main className={classes.content}>
                     <Container maxWidth="lg" className={classes.container}>
-
+                        
                     </Container>
                 </main>
             </div>
