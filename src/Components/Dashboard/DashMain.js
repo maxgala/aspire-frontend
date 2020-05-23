@@ -1,26 +1,20 @@
 import React, {Component} from 'react';
-import MohaimenComponent from "./MohaimenComponent";
 import Button from "@material-ui/core/Button";
-import SomeOtherComponent from "./SomeOtherComponent";
 
 class DashMain extends Component{
     constructor(props){
         super(props);
         this.state = {
-            comp_val: []
+
         }
     }
 
     componentDidMount() {
-        this.setState({
-            comp_val: <MohaimenComponent appContext={this}/>
-        })
+
     }
 
     handleClick = (event) => {
-        this.setState({
-            comp_val: <SomeOtherComponent appContext={this}/>
-        })
+
     };
 
     render(){
@@ -36,7 +30,6 @@ class DashMain extends Component{
                 >
                     Change this
                 </Button>
-                {this.state.comp_val}
             </div>
         );
     }
