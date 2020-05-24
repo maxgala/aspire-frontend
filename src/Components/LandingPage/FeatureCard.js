@@ -62,11 +62,11 @@ class FeatureCard extends Component{
         <div className={classes.image} style={{margin: '20px'}} onClick={this.handleClick}>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <p className={classes.small_text}>more text on the flip side</p>
-          <img style={{width: '100%', height: '100%'}} src={CardFront} alt="Stock Image"/>
+          <img style={{width: '100%', height: '100%'}} src={CardFront} alt="Front of feature card"/>
         </div>
  
         <div className={classes.image} style={{margin: '20px'}} onClick={this.handleClick}>
-          <img style={{width: '100%', height: '100%'}} src={CardBack} alt="Stock Image"/>
+          <img style={{width: '100%', height: '100%'}} src={CardBack} alt="Back of feature card"/>
           <p className={classes.back_text}>{this.props.back_text}</p>
         </div>
       </ReactCardFlip>

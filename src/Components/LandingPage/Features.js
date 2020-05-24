@@ -3,9 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import FeatureCard from "./FeatureCard.js"
 
 class Features extends Component{
-  constructor(props) {
-    super(props);
-  }
   render() {
     return(
       <div style={{backgroundColor: '#F1F1F1'}}>
