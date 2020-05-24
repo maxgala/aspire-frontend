@@ -8,7 +8,7 @@ class Features extends Component{
   }
   render() {
     return(
-      <div style={{backgroundColor: 'lightgray'}}>
+      <div style={{backgroundColor: '#F1F1F1'}}>
         <h1 style={{paddingTop: '30px'}}>Features</h1>
         <Grid
           container
@@ -18,28 +18,28 @@ class Features extends Component{
         >
           <Grid
             container
-            item xs={12}
+            item xs={9}
             spacing={1}
             alignItems="center"
             justify="center"
           >
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-              <FeatureCard />
-              <FeatureCard />
-              <FeatureCard />
+              <FeatureCard front_text="Exclusive Coffee Chat Series" back_text="To be determined"/>
+              <FeatureCard front_text="Professional Career & Board Opportunities" back_text="To be determined"/>
+              <FeatureCard front_text="Hire MAX Professional Talent" back_text="To be determined"/>
             </div>
           </Grid>
           <Grid
             container
-            item xs={12}
+            item xs={9}
             spacing={1}
             alignItems="center"
             justify="center"
           >
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-              <FeatureCard />
-              <FeatureCard />
-              <FeatureCard />
+              <FeatureCard front_text="Resume Bank" back_text="To be determined"/>
+              <FeatureCard front_text="MAX Events" back_text="To be determined"/>
+              <FeatureCard front_text="MAX Resources" back_text="To be determined"/>
             </div>
           </Grid>
         </Grid>
