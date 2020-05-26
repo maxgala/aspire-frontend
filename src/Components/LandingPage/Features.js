@@ -7,7 +7,7 @@ class Features extends Component{
     render() {
         return(
             <div style={{marginTop: '10vh'}}>
-                <h1>HI there</h1>
+                <h1></h1>
             </div>
         );
     }
