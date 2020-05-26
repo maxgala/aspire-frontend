@@ -4,7 +4,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
-import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import MainImage from "./MainImage";
@@ -110,7 +109,7 @@ class Landing extends Component{
                     </Toolbar>
                 </AppBar>
                 <main className={classes.content}>
-                    <Container maxWidth="100vw" className={classes.container}>
+                    <Container style={{maxWidth: "100vw"}} className={classes.container}>
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
