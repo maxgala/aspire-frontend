@@ -3,9 +3,9 @@ import Grid from "@material-ui/core/Grid";
 import FeatureCard from "./FeatureCard.js"
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   background: { 
-    color: '#F1F1F1',
+    backgroundColor: '#F1F1F1',
   },
   features_title: { 
     paddingTop: '30px',
