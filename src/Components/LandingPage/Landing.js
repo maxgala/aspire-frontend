@@ -33,13 +33,15 @@ const useStyles = makeStyles(theme => ({
     content: {
         flexGrow: 1,
         width: '100vw',
-        height: '100vh',
         overflow: 'hidden',
         marginTop: '64px',
     },
     container: {
+        maxWidth: '100vw',
         paddingTop: theme.spacing(0),
         paddingBottom: theme.spacing(0),
+        paddingLeft: '0px',
+        paddingRight: '0px',
     },
     // sign in and registration button CSS elements
     // button regular and hover colors are different
@@ -125,7 +127,7 @@ class Landing extends Component{
                     </Toolbar>
                 </AppBar>
                 <main className={classes.content}>
-                    <Container maxWidth={"lg"} className={classes.container}>
+                    <Container className={classes.container}>
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
