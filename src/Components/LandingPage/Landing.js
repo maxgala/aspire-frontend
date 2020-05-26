@@ -128,7 +128,7 @@ class Landing extends Component{
                     </Toolbar>
                 </AppBar>
                 <main className={classes.content}>
-                    <Container maxWidth="100vw" className={classes.container}>
+                    <Container style={{maxWidth: "100vw"}} className={classes.container}>
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
