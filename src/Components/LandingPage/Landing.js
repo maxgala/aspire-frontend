@@ -10,14 +10,13 @@ import MainImage from "./MainImage";
 import AboutMax from "./AboutMax";
 import Features from "./Features";
 
-
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
     },
     // appBar background restrictions for transparency
     appBar: {
-        background: 'transparent',
+        backgroundColor: 'rgba(0,0,0,0.8)',
         boxShadow: 'none'
     },
     // this css element is for the div containing the image
@@ -33,16 +32,14 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        height: '100vh',
         width: '100vw',
-        overflow: 'auto',
+        height: '100vh',
+        overflow: 'hidden',
         marginTop: '64px',
     },
     container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-        paddingLeft: '0px',
-        paddingRight: '0px',
+        paddingTop: theme.spacing(0),
+        paddingBottom: theme.spacing(0),
     },
     // sign in and registration button CSS elements
     // button regular and hover colors are different
@@ -128,7 +125,7 @@ class Landing extends Component{
                     </Toolbar>
                 </AppBar>
                 <main className={classes.content}>
-                    <Container style={{maxWidth: "100vw"}} className={classes.container}>
+                    <Container maxWidth={"lg"} className={classes.container}>
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
