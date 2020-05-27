@@ -2,22 +2,16 @@ import React, {Component} from "react";
 import UpArrow from "../Images/up_arrow.svg";
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   image: { 
     position: 'fixed',
     width: '50px',
     height: '50px',
     bottom:0,
     marginLeft: '-25px',
-    // left:0,
     flex: '1',
-    // display: 'flex',
     justifyContent: 'flex-end',
     marginBottom: '18px',
-    // '&:hover': {
-    //   backgroundColor: "#F1F1F1",
-    //   color: '#484848'
-    // }
   },
 }));
 
