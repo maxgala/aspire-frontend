@@ -6,9 +6,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import MainImage from "./MainImage";
-import AboutMax from "./AboutMax";
-import Features from "./Features";
+import MainImage from "./MainImage.js";
+import AboutMax from "./AboutMax.js";
+import Features from "./Features.js";
+import ScrollToTop from "./ScrollToTop.js";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -28,7 +29,8 @@ const useStyles = makeStyles(theme => ({
     },
     // this css element describes the size of the image
     img: {
-        width: '12vw'
+        width: '10vw',
+        padding: '10px',
     },
     content: {
         flexGrow: 1,
@@ -39,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     container: {
         maxWidth: '100vw',
         paddingTop: theme.spacing(0),
-        paddingBottom: theme.spacing(0),
+        paddingBottom: theme.spacing(10),
         paddingLeft: '0px',
         paddingRight: '0px',
     },
@@ -92,15 +94,21 @@ class Landing extends Component{
         this.state = {
 
         }
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
 
     }
 
-    handleClick = (event) => {
-
-    };
+    handleClick(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
 
     render(){
         const classes = this.props.classes;
@@ -109,7 +117,7 @@ class Landing extends Component{
                 <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar className={classes.toolbar}>
-                        <div className={classes.imageLogo}>
+                        <div className={classes.imageLogo} onClick={this.handleClick}>
                             <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
                         </div>
                         <Button
@@ -131,6 +139,7 @@ class Landing extends Component{
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
+                        <ScrollToTop/>
                     </Container>
                 </main>
             </div>
