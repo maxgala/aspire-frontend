@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         width: '100vw',
         overflow: 'hidden',
-        marginTop: '64px',
+        marginTop: '10vh'
     },
     container: {
         maxWidth: '100vw',
@@ -75,7 +75,8 @@ const useStyles = makeStyles(theme => ({
     // for containing the logo and the sign in buttons
     toolbar: {
         display: 'flex',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        height: '10vh'
     },
 }));
 
