@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     toolbar: {
         display: 'flex',
         justifyContent: 'flex-end'
-    }
+    },
 }));
 
 // writing a hook just to incorporate the CSS defined outside under classes
