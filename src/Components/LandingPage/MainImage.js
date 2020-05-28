@@ -8,14 +8,13 @@ const useStyles = makeStyles(theme => ({
     sectionstyle: {
         width: "100vw",
         height: "100vh",
-        backgroundColor: 'rgba(0,0,0,0.8)',
         marginRight : "0",
         marginLeft  : "0",
         },
 
     h1style: {
         color: "white",
-        padding: "",
+        paddingTop: "15%",
         fontFamily: "Arial",
         fontSize: "50px",
         textAlign: 'center',
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 
     button: {
         backgroundColor: "#6EA0B5",
-        marginTop:"5%",
+        marginTop:"2%",
         borderRadius: 50,
         color: "white",
         '&:hover': {
@@ -41,11 +40,11 @@ const useStyles = makeStyles(theme => ({
         }
     },
     total: {
-        position: 'absolute', left: '50%', top: '45%',
-        transform: 'translate(-50%, -50%)',
+        position: 'absolute', left: '50%', top: '0%',
+        transform: 'translate(-50%, 0%)',
+        backgroundColor: 'rgba(0,0,0,0.8)',
         width: '100vw',
-        height: '100vh',
-        backgroundColor: 'rgba(0, 0, 0, 0.8)'
+        height: '100vh'
     }
 }));
 
@@ -66,7 +65,7 @@ class MainImage extends Component{
         const classes = this.props.classes;
         return(
             <div className={classes.sectionStyle}>
-                <img style={{width: '100vw', height: '100vh'}}  
+                <img style={{width: '100%', height: '100%'}}  
                     resizeMode="contain" src={Mainback} alt="Main Image"/>
                 <div className={classes.total}>
                     <h1 className={classes.h1style}>Aspire for Excellence</h1>
