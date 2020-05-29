@@ -28,9 +28,9 @@ const useStyles = makeStyles(theme => ({
   },
   back_text: { 
     position: 'absolute',
-    fontSize: '1vw',
+    top: '15%',
+    fontSize: '1.5vw',
     width: '100%',
-    height: '100%',
     paddingLeft: '10px',
     paddingRight: '10px',
     color: 'black',

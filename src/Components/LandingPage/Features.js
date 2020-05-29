@@ -50,15 +50,15 @@ class Features extends Component{
             <div className={classes.grid}>
               <FeatureCard
                 front_text="Exclusive Coffee Chat Series"
-                back_text="To be determined"
+                back_text="Schedule a meeting with a high performing, accomplished Senior Executive to help guide and shape your career."
               />
               <FeatureCard
-                front_text="Professional Career & Board Opportunities"
-                back_text="To be determined"
+                front_text="Professional Job Opportunities"
+                back_text="Employers are eager to hire from the talented individuals in the MAX Network. Apply to job opportunities posted directly from a MAX Aspire member."
               />
               <FeatureCard
-                front_text="Hire MAX Professional Talent"
-                back_text="To be determined"
+                front_text="Board Opportunities"
+                back_text="As MAX grows and is recognized for its talent, Board opportunities become available. Apply to opportunities to serve on a Board of Directors!"
               />
             </div>
           </Grid>
@@ -71,16 +71,16 @@ class Features extends Component{
           >
             <div className={classes.grid}>
               <FeatureCard
+                front_text="Hire MAX Professional Talent"
+                back_text="Are you looking to hire exceptional aspiring professionals from the MAX Network? Post a job on MAX Aspire so you can hire great talent!"
+              />
+              <FeatureCard
                 front_text="Resume Bank"
-                back_text="To be determined"
+                back_text="Senior Executives have access to all resumes of the Aspiring Professionals who sign up. You may magically be contacted regarding a potential match for a listed or unlisted role."
               />
               <FeatureCard
-                front_text="MAX Events"
-                back_text="To be determined"
-              />
-              <FeatureCard
-                front_text="MAX Resources"
-                back_text="To be determined"
+                front_text="Mock Interviews"
+                back_text="Ace your next interview by being well prepared through MAX Aspire’s Mock Interviews. Book an interview and get that dream job you have been preparing for!"
               />
             </div>
           </Grid>
