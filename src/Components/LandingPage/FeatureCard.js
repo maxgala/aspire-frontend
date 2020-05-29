@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   front_text: { 
     position: 'absolute',
     marginTop: '30%',
-    fontSize: '1.5vw',
+    fontSize: '24px',
     width: '100%',
     paddingLeft: '20px',
     paddingRight: '20px',
@@ -22,17 +22,18 @@ const useStyles = makeStyles(theme => ({
   small_text: { 
     position: 'absolute',
     marginTop: '60%',
-    fontSize: '1vw',
+    fontSize: '12px',
     width: '100%',
     color: 'white',
   },
   back_text: { 
     position: 'absolute',
-    top: '15%',
-    fontSize: '1.5vw',
+    top: '40%',
+    transform: 'translate(0%, -50%)',
+    fontSize: '20px',
     width: '100%',
-    paddingLeft: '10px',
-    paddingRight: '10px',
+    paddingLeft: '15px',
+    paddingRight: '15px',
     color: 'black',
   },
 }));
