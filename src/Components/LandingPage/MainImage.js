@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
         top: '0%',
         transform: 'translate(-50%, 0%)',
         backgroundColor: 'rgba(0,0,0,0.8)',
-        width: '100vw',
+        width: '100%',
         height: '100vh'
     }
 }));

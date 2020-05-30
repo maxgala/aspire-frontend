@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Landing from "./Components/LandingPage/Landing";
-import SignIn from "./Components/Authentication/SignIn";
 import './App.css';
 
 class App extends Component{
@@ -13,7 +12,7 @@ class App extends Component{
 
   componentDidMount() {
     this.setState({
-      currentScreen: <SignIn appContext={this}/>
+      currentScreen: <Landing appContext={this}/>
     })
   }
 
