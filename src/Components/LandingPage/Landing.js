@@ -10,6 +10,7 @@ import MainImage from "./MainImage.js";
 import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
+import SignIn from "../Authentication/SignIn";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,8 +30,8 @@ const useStyles = makeStyles(theme => ({
     },
     // this css element describes the size of the image
     img: {
-        width: '10vw',
-        padding: '10px',
+        width: '150px',
+        padding: '1vw',
     },
     content: {
         flexGrow: 1,
@@ -111,6 +112,12 @@ class Landing extends Component{
       });
     }
 
+    changeToSignIn = (event) => {
+        this.props.appContext.setState({
+            currentScreen: <SignIn appContext={this.props.appContext}/>
+        })
+    };
+
     render(){
         const classes = this.props.classes;
         return (
@@ -124,6 +131,7 @@ class Landing extends Component{
                         <Button
                             variant="outlined"
                             className={classes.sign_in}
+                            onClick={this.changeToSignIn}
                         >
                             <b>Sign in</b>
                         </Button>
