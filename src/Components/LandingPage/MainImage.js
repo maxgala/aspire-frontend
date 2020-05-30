@@ -59,16 +59,13 @@ function withMyHook(Component){
 }
 
 class MainImage extends Component{
-    constructor(props) {
-        super(props);
-    }
-    
+
     render() {
         const classes = this.props.classes;
         return(
             <div className={classes.sectionStyle}>
                 <img style={{width: '100vw', height: '90vh'}}  
-                    resizeMode="contain" src={Mainback} alt="Main Image"/>
+                    resizeMode="contain" src={Mainback} alt="Main"/>
                 <div className={classes.total}>
                     <h1 className={classes.h1style}>Aspire for Excellence</h1>
                     <h3 className={classes.subheading}>Any successful career starts with a <span className={classes.networkstyle}>good network</span></h3>
