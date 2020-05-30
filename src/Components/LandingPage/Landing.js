@@ -30,8 +30,8 @@ const useStyles = makeStyles(theme => ({
     },
     // this css element describes the size of the image
     img: {
-        width: '10vw',
-        padding: '10px',
+        width: '150px',
+        padding: '1vw',
     },
     content: {
         flexGrow: 1,
