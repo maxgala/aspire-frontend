@@ -10,6 +10,7 @@ import MainImage from "./MainImage.js";
 import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
+import Membership from "./Membership";
 
 const useStyles = makeStyles(theme => ({
     root: {
