@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 
     h1style: {
         color: "white",
-        paddingTop: "15%",
+        paddingTop: "20vh",
         fontFamily: "Arial",
         fontSize: "50px",
         textAlign: 'center',
@@ -40,11 +40,13 @@ const useStyles = makeStyles(theme => ({
         }
     },
     total: {
-        position: 'absolute', left: '50%', top: '0%',
+        position: 'absolute',
+        left: '50%',
+        top: '0%',
         transform: 'translate(-50%, 0%)',
         backgroundColor: 'rgba(0,0,0,0.8)',
-        width: '100vw',
-        height: '100vh'
+        width: '100%',
+        height: '75vh'
     }
 }));
 
@@ -65,13 +67,12 @@ class MainImage extends Component{
         const classes = this.props.classes;
         return(
             <div className={classes.sectionStyle}>
-                <img style={{width: '100%', height: '100%'}}  
+                <img style={{width: '100%', height: '65vh'}}  
                     resizeMode="contain" src={Mainback} alt="Main Image"/>
                 <div className={classes.total}>
                     <h1 className={classes.h1style}>Aspire for Excellence</h1>
                     <h3 className={classes.subheading}>Any successful career starts with a <span className={classes.networkstyle}>good network</span></h3>
-                    <Button className={classes.button}variant="contained">Learn More</Button>
-                    
+                    <Button className={classes.button} variant="contained">Learn More</Button>
                 </div>
             </div>
             

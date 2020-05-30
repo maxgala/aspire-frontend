@@ -14,8 +14,8 @@ const useStyles = makeStyles(() => ({
     color: 'black',
   },
   grid: { 
-    display: 'flex',
-    flexDirection: 'row',
+    paddingLeft: '10%',
+    paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -39,50 +39,79 @@ class Features extends Component{
           spacing={1}
           alignItems="center"
           justify="center"
-        >
+          className={classes.grid}
+        >  
           <Grid
             container
-            item xs={9}
+            item xs={12} sm={9} md={6} lg={4}
             spacing={1}
             alignItems="center"
             justify="center"
           >
-            <div className={classes.grid}>
-              <FeatureCard
-                front_text="Exclusive Coffee Chat Series"
-                back_text="To be determined"
-              />
-              <FeatureCard
-                front_text="Professional Career & Board Opportunities"
-                back_text="To be determined"
-              />
-              <FeatureCard
-                front_text="Hire MAX Professional Talent"
-                back_text="To be determined"
-              />
-            </div>
+            <FeatureCard
+              front_text="Exclusive Coffee Chat Series"
+              back_text="Schedule an exclusive meeting with a high performing, accomplished Senior Executive to help guide, mentor, and assist in shaping your career."
+            />
           </Grid>
           <Grid
             container
-            item xs={9}
+            item xs={12} sm={9} md={6} lg={4}
             spacing={1}
             alignItems="center"
             justify="center"
           >
-            <div className={classes.grid}>
-              <FeatureCard
-                front_text="Resume Bank"
-                back_text="To be determined"
-              />
-              <FeatureCard
-                front_text="MAX Events"
-                back_text="To be determined"
-              />
-              <FeatureCard
-                front_text="MAX Resources"
-                back_text="To be determined"
-              />
-            </div>
+            <FeatureCard
+              front_text="Professional Job Opportunities"
+              back_text="Employers are eager to hire from the talented individuals in the MAX Network. Apply to job opportunities posted directly from a MAX Aspire member."
+            />
+          </Grid>
+          <Grid
+            container
+            item xs={12} sm={9} md={6} lg={4}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <FeatureCard
+              front_text="Board Opportunities"
+              back_text="As MAX grows and is recognized for its talent, Board opportunities become available. Apply to opportunities to serve on a Board of Directors!"
+            />
+          </Grid>
+          <Grid
+            container
+            item xs={12} sm={9} md={6} lg={4}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <FeatureCard
+              front_text="Hire MAX Professional Talent"
+              back_text="Are you looking to hire exceptional aspiring professionals from the MAX Network? Post a job on MAX Aspire so you can hire great talent!"
+            />
+          </Grid>
+          <Grid
+            container
+            item xs={12} sm={9} md={6} lg={4}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <FeatureCard
+              front_text="Resume Bank"
+              back_text="Senior Executives have access to all resumes of the Aspiring Professionals who sign up. You may magically be contacted regarding a potential match for a listed or unlisted role."
+            />
+          </Grid>
+          <Grid
+            container
+            item xs={12} sm={9} md={6} lg={4}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <FeatureCard
+              front_text="Mock Interviews"
+              back_text="Ace your next interview by being well prepared through MAX Aspire’s Mock Interviews. Book an interview and get that dream job you have been preparing for!"
+            />
           </Grid>
         </Grid>
       </div>
