@@ -1,4 +1,5 @@
-import React from "react";
+import React, {Component} from "react";
+import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import aboutMax from "../Images/aboutMax.png";
 import icon1 from "../Images/icon_1.png";
@@ -7,30 +8,32 @@ import icon3 from "../Images/icon_3.png";
 
 const useStyles = makeStyles(theme => ({
   h1style: {
-    top: '83%',
+    position: 'relative',
     color: "black",
     fontSize: "20px",
-    textAlign: 'left',
     marginBottom: "0",
     marginTop: "0",
-    position: 'absolute',
-    left: '55%',
+    // left: '55%',
     letterSpacing: "0px",
-    textAlign: 'left',
-    height:'auto',
-    paddingRight:"10%",
+    padding: '5%'
+    // height:'auto',
+    // paddingRight:"10%",
+    // paddingTop: '5%',
   },
   f1:{
     fontFamily: "Bold 36px/48px Nunito Sans;",
+    textAlign: 'center',
   },
   f2:{
     fontFamily: "Regular 18px/24px Montserrat",
-    maxWidth: '450px'
+    maxWidth: '450px',
+    textAlign: 'center',
   },
   f3:{
     fontFamily: "Bold 26px/36px Nunito Sans",
     marginLeft: "1em",
-    maxWidth: '350px'
+    maxWidth: '350px',
+    textAlign: 'left',
   },
   tab: { 
     display: "flex",
@@ -40,30 +43,82 @@ const useStyles = makeStyles(theme => ({
     verticalAlign: "middle",
   },
   about: {
-    height:'auto',
+    display: 'grid',
+    height:'fit-content',
     width: "100vw",
-    minHeight: "50vw",
+    minHeight: "75vh",
     overflow: "hidden",
     marginRight : "0",
     marginLeft  : "0",
   },
   total: {
-    position: 'absolute',
-    left: '25%',
-    top: '85%',
-    transform: 'translate(-50%, 0%)',
-    paddingLeft:"10%",
-  }
+    // float: 'left',
+    // gridColumn: '1',
+    // gridRow: '1',
+    // position: 'absolute',
+    // left: '25%',
+    // top: '85%',
+    // height: '400px',
+    // transform: 'translate(-50%, 0%)',
+    // paddingLeft:"10%",
+    // paddingTop: '25%',
+    width: '100%',
+    height: '60vh',
+    padding: '5%',
+  },
+  grid: { 
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 }));
 
 export default function CSSGrid() {
   const classes = useStyles();
 
   return (
-    <div className={classes.about}>     
-      <div className={classes.total}>
-         <img style={{width: '35vw', height: '60vh', padding:"2%"}}resizeMode="contain" src={aboutMax} alt="About Image"/>
-      </div>
+    <Grid
+      container
+      item
+      spacing={1}
+      alignItems="center"
+      justify="center"
+      className={classes.grid}
+    >
+    <Grid
+            container
+            item xs={12} sm={9} md={6} lg={6}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+      <img class={classes.total} resizeMode="contain" src={aboutMax} alt="About Image"/>
+      </Grid>
+      <Grid
+            container
+            item xs={12} sm={9} md={6} lg={6}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+      <AboutContent/>
+      </Grid>
+    </Grid>
+  );
+}
+
+function withMyHook(Component){
+    return function WrappedComponent(props){
+        const classes = useStyles();
+        return <Component {...props} classes={classes}/>
+    }
+}
+
+class AboutContent extends Component{
+  render() {
+    const classes = this.props.classes;
+    return (
       <div className={classes.h1style}>
         <h1 className={classes.f1}><b>About MAX Aspire</b></h1>
         <p className={classes.f2}>
@@ -82,6 +137,8 @@ export default function CSSGrid() {
           MAX Aspire is by MAX, for MAX.
         </p>
       </div>
-    </div>    
-  );
+    )
+  }
 }
+
+AboutContent = withMyHook(AboutContent);

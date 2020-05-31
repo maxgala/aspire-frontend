@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: theme.spacing(10),
         paddingLeft: '0px',
         paddingRight: '0px',
+        position: 'relative'
     },
     // sign in and registration button CSS elements
     // button regular and hover colors are different
