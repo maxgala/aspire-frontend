@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     // sign in and registration button CSS elements
     // button regular and hover colors are different
     sign_in: {
-        width: 100,
+        width: '125px',
         margin: theme.spacing(1),
         backgroundColor: "#1A1A1A",
         borderStyle: "solid",
@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     register: {
-        width: 100,
+        width: '125px',
         margin: theme.spacing(1),
         backgroundColor: "#b5a165",
         color: "white",
