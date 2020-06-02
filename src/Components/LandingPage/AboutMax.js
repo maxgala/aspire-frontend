@@ -35,6 +35,12 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '350px',
     textAlign: 'left',
   },
+   f4:{
+    fontFamily: "Regular 10px/12px Montserrat",
+    maxWidth: '450px',
+    textAlign: 'center',
+    fontSize:"10px",
+  },
   tab: { 
     display: "flex",
     alignItems:"center",
@@ -122,7 +128,7 @@ class AboutContent extends Component{
       <div className={classes.h1style}>
         <h1 className={classes.f1}><b>About MAX Aspire</b></h1>
         <p className={classes.f2}>
-          <b>MAX Aspire</b> is an online platform to connect high performing, accomplished <b>Senior Executives</b> to talented, up and coming <b>Aspiring Professionals</b> in the MAX network.
+          MAX Aspire is an online platform to connect high performing, accomplished Senior Executives to talented, up and coming Aspiring Professionals in the MAX network.
         </p>
         <p className={classes.tab} style={{marginTop: '60px'}}> <img resizeMode="contain" src={icon2} alt="About Image"/>  
           <span className={classes.f3}><b>Privileged Access to Senior Level Professionals</b></span>
@@ -133,8 +139,8 @@ class AboutContent extends Component{
         <p className={classes.tab}> <img resizeMode="contain" src={icon3} alt="About Image"/>
           <span className={classes.f3}><b>Ability to Apply and Hire From Exclusive Job Board</b></span>
         </p>
-        <p className={classes.f2} style={{marginTop: '60px'}}>
-          MAX Aspire is by MAX, for MAX.
+        <p className={classes.f4} style={{marginTop: '60px'}}>
+          *MAX Aspire is by MAX, for MAX
         </p>
       </div>
     )
