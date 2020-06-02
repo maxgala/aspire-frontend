@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
         top: '0%',
         transform: 'translate(-50%, 0%)',
         backgroundColor: 'rgba(0,0,0,0.8)',
-        width: '100%',
+        width: '100vw',
         height: '75vh'
     }
 }));
@@ -64,7 +64,7 @@ class MainImage extends Component{
         const classes = this.props.classes;
         return(
             <div className={classes.sectionStyle}>
-                <img style={{width: '100%', height: '65vh'}}  
+                <img style={{width: '100%', height: '65vh', marginTop: '10vh'}}  
                     resizeMode="contain" src={Mainback} alt="Main"/>
                 <div className={classes.total}>
                     <h1 className={classes.h1style}>Aspire for Excellence</h1>

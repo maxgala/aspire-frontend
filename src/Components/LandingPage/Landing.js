@@ -36,8 +36,7 @@ const useStyles = makeStyles(theme => ({
     content: {
         flexGrow: 1,
         width: '100vw',
-        overflow: 'hidden',
-        marginTop: '10vh'
+        overflow: 'hidden'
     },
     container: {
         maxWidth: '100vw',
@@ -45,6 +44,7 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: theme.spacing(10),
         paddingLeft: '0px',
         paddingRight: '0px',
+        position: 'relative'
     },
     // sign in and registration button CSS elements
     // button regular and hover colors are different
