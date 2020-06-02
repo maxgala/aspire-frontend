@@ -13,12 +13,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: "20px",
     marginBottom: "0",
     marginTop: "0",
-    // left: '55%',
     letterSpacing: "0px",
     padding: '5%'
-    // height:'auto',
-    // paddingRight:"10%",
-    // paddingTop: '5%',
   },
   f1:{
     fontFamily: "Bold 36px/48px Nunito Sans;",
@@ -58,16 +54,6 @@ const useStyles = makeStyles(theme => ({
     marginLeft  : "0",
   },
   total: {
-    // float: 'left',
-    // gridColumn: '1',
-    // gridRow: '1',
-    // position: 'absolute',
-    // left: '25%',
-    // top: '85%',
-    // height: '400px',
-    // transform: 'translate(-50%, 0%)',
-    // paddingLeft:"10%",
-    // paddingTop: '25%',
     width: '100%',
     height: '60vh',
     padding: '5%',
@@ -92,33 +78,33 @@ export default function CSSGrid() {
       justify="center"
       className={classes.grid}
     >
-    <Grid
-            container
-            item xs={12} sm={9} md={6} lg={6}
-            spacing={1}
-            alignItems="center"
-            justify="center"
-          >
-      <img class={classes.total} resizeMode="contain" src={aboutMax} alt="About Image"/>
+      <Grid
+        container
+        item xs={12} sm={9} md={6} lg={6}
+        spacing={1}
+        alignItems="center"
+        justify="center"
+      >
+        <img class={classes.total} resizeMode="contain" src={aboutMax} alt="About MAX Image"/>
       </Grid>
       <Grid
-            container
-            item xs={12} sm={9} md={6} lg={6}
-            spacing={1}
-            alignItems="center"
-            justify="center"
-          >
-      <AboutContent/>
+        container
+        item xs={12} sm={9} md={6} lg={6}
+        spacing={1}
+        alignItems="center"
+        justify="center"
+      >
+        <AboutContent/>
       </Grid>
     </Grid>
   );
 }
 
 function withMyHook(Component){
-    return function WrappedComponent(props){
-        const classes = useStyles();
-        return <Component {...props} classes={classes}/>
-    }
+  return function WrappedComponent(props){
+    const classes = useStyles();
+    return <Component {...props} classes={classes}/>
+  }
 }
 
 class AboutContent extends Component{

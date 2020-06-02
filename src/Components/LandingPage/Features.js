@@ -6,8 +6,6 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   background: { 
     backgroundColor: '#F1F1F1',
-    // minHeight: '100vh',
-    // overflow: 'hidden'
   },
   features_title: { 
     paddingTop: '30px',
