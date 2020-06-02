@@ -36,8 +36,7 @@ const useStyles = makeStyles(theme => ({
     content: {
         flexGrow: 1,
         width: '100vw',
-        overflow: 'hidden',
-        marginTop: '10vh'
+        overflow: 'hidden'
     },
     container: {
         maxWidth: '100vw',
