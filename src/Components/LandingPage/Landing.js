@@ -95,7 +95,7 @@ class Landing extends Component{
         super(props);
         this.state = {
 
-        }
+        };
         this.handleClick = this.handleClick.bind(this);
     }
 
