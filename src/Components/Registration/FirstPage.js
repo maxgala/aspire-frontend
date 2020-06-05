@@ -10,6 +10,9 @@ import Container from '@material-ui/core/Container';
 import MaxBrand from "../Images/max_brand_logo.png";
 import SignIn from "../Authentication/SignIn";
 import SecondPage from "./SecondPage";
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Box from "@material-ui/core/Box";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -40,7 +43,34 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
+    progress:{
+        marginTop: '3vh',
+        width: '100%',
+    },
 }));
+
+function LinearProgressWithLabel(props) {
+    return (
+        <Box display="flex" alignItems="center">
+            <Box width="100%" mr={1}>
+                <LinearProgress variant="determinate" {...props} />
+            </Box>
+            <Box minWidth={35}>
+                <Typography variant="body2" color="textPrimary"><b>{`${Math.round(
+                    props.value,
+                )}%`}</b></Typography>
+            </Box>
+        </Box>
+    );
+}
+
+LinearProgressWithLabel.propTypes = {
+    /**
+     * The value of the progress indicator for the determinate and buffer variants.
+     * Value between 0 and 100.
+     */
+    value: PropTypes.number.isRequired,
+};
 
 function withMyHook(Component){
     return function WrappedComponent(props){
@@ -58,7 +88,8 @@ class FirstPage extends Component {
             lastName: '',
             phone: '',
             email: '',
-            password: ''
+            password: '',
+            progress: 0
         }
     }
 
@@ -188,6 +219,9 @@ class FirstPage extends Component {
                                 />
                             </Grid>
                         </Grid>
+                        <div className={classes.progress}>
+                            <LinearProgressWithLabel value={this.state.progress} />
+                        </div>
                         <Button
                             type="submit"
                             variant="contained"
