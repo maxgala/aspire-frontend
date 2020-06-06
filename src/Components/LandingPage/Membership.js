@@ -1,53 +1,75 @@
 import React, {Component} from "react";
-import Mainback from "../Images/max-mainimg.jpg";
+import Grid from "@material-ui/core/Grid";
+import MembershipCard from "./MembershipCard.js"
 import {makeStyles} from "@material-ui/core/styles";
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
+const useStyles = makeStyles(() => ({
+  background: { 
+    backgroundColor: 'white',
+  },
+  grid: { 
+    paddingLeft: '10%',
+    paddingRight: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  features_title: { 
+    paddingTop: '30px',
+    fontWeight: '500',
+    fontSize: '36px',
+    color: 'black',
+  },
+}));
 
-const useStyles = makeStyles({
-    root: {
-      maxWidth: 345,
-    },
-    media: {
-      height: 140,
-    },
-  });
-  
-  export default function Membership() {
-    const classes = useStyles();
-  
-    return (
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
+function withMyHook(Component){
+    return function WrappedComponent(props){
+        const classes = useStyles();
+        return <Component {...props} classes={classes}/>
+    }
+}
+
+class Membership extends Component{
+  render() {
+    const classes = this.props.classes;
+    return(
+      <div className={classes.background}>
+        <h1 className={classes.features_title}>Memberships</h1>
+        <Grid
+          container
+          spacing={8}
+          alignItems="center"
+          justify="center"
+          className={classes.grid}
+          > 
+          <Grid
+            container
+            item xs={6} sm={6} md={6} lg={4}
+            spacing={0}
+            alignItems="center"
+            justify="center"
+          >
+            <MembershipCard
+              front_text="Mentee"
+              inner_text="Pricing Plan:"
+            />
+          </Grid>
+          <Grid
+            container
+            item xs={6} sm={6} md={6} lg={4}
+            spacing={0}
+            alignItems="center"
+            justify="center"
+          >
+            <MembershipCard
+              front_text="Mentor"
+              inner_text="Pricing Plan"
+            />
+          </Grid>
+        </Grid>
+      </div>
     );
   }
+}
+
+Membership = withMyHook(Membership);
+export default Membership;

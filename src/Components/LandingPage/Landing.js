@@ -10,8 +10,7 @@ import MainImage from "./MainImage.js";
 import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
-import Membership from "./Membership";
-
+import Membership from "./Membership.js";
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -142,6 +141,7 @@ class Landing extends Component{
                         <AboutMax/>
                         <Features/>
                         <ScrollToTop/>
+                        <Membership/>
                     </Container>
                 </main>
             </div>
