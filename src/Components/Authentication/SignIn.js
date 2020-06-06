@@ -11,6 +11,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
 import MaxBrand from "../Images/max_brand_logo.png";
 import AppBar from "@material-ui/core/AppBar";
+import Registration from "../Registration/Registration";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -91,7 +92,9 @@ class SignIn extends Component{
     }
 
     changeToSignUp = (event) => {
-        console.log("Change to sign up here");
+        this.props.appContext.setState({
+            currentScreen: <Registration appContext={this.props.appContext}/>
+        })
     };
 
     handleUsernameChange = (event) => {
@@ -169,6 +172,11 @@ class SignIn extends Component{
                             <Grid item xs>
                                 <Link href="#" variant="h7">
                                     <b>Forgot your password? Click Here </b>
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="#" variant="h7" color={"secondary"} onClick={this.changeToSignUp}>
+                                    <b>Don't have an account? Sign Up</b>
                                 </Link>
                             </Grid>
                         </Grid>
