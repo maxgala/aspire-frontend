@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core';
 import Mainback from "../Images/max-mainimg.jpg";
 import {makeStyles} from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles(theme => ({
     sectionstyle: {
         width: "100vw",
@@ -51,15 +50,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function withMyHook(Component){
-    return function WrappedComponent(props){
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
         const classes = useStyles();
         return <Component {...props} classes={classes}/>
     }
 }
 
-class MainImage extends Component{
-
+class MainImage extends Component {
     render() {
         const classes = this.props.classes;
         return(
@@ -76,5 +74,6 @@ class MainImage extends Component{
         );
     }
 }
+
 MainImage = withMyHook(MainImage);
 export default MainImage;

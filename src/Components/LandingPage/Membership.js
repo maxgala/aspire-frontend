@@ -12,23 +12,26 @@ const useStyles = makeStyles(() => ({
     paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: '30px'
   },
-  features_title: { 
+  features_title: {
+    margin: '0px',
     paddingTop: '30px',
+    paddingBottom: '30px',
     fontWeight: '500',
     fontSize: '36px',
     color: 'black',
   },
 }));
 
-function withMyHook(Component){
-    return function WrappedComponent(props){
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
         const classes = useStyles();
         return <Component {...props} classes={classes}/>
     }
 }
 
-class Membership extends Component{
+class Membership extends Component {
   render() {
     const classes = this.props.classes;
     return(
@@ -43,26 +46,28 @@ class Membership extends Component{
           > 
           <Grid
             container
-            item xs={12} sm={6} md={6} lg={4}
-            spacing={0}
+            item xs={12} sm={9} md={6} lg={4}
             alignItems="center"
             justify="center"
           >
             <MembershipCard
-              front_text="Mentee"
+              front_text="Aspiring Professionals"
               inner_text="Pricing Plan:"
+              description="As an aspiring professional, you can use the MAX Aspire application to apply to jobs, schedule coffee chats with senior executives, and connect with fellow aspiring professionals!"
+              type="aspiring_professional"
             />
           </Grid>
           <Grid
             container
-            item xs={12} sm={6} md={6} lg={4}
-            spacing={0}
+            item xs={12} sm={9} md={6} lg={4}
             alignItems="center"
             justify="center"
           >
             <MembershipCard
-              front_text="Mentor"
+              front_text="Senior Executives"
               inner_text="Pricing Plan"
+              description="As a senior executive, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior executives!"
+              type="senior_executive"
             />
           </Grid>
         </Grid>
