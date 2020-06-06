@@ -11,6 +11,8 @@ import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
 import Membership from "./Membership.js";
+import SignIn from "../Authentication/SignIn";
+
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -29,14 +31,13 @@ const useStyles = makeStyles(theme => ({
     },
     // this css element describes the size of the image
     img: {
-        width: '10vw',
-        padding: '10px',
+        width: '150px',
+        padding: '1vw',
     },
     content: {
         flexGrow: 1,
         width: '100vw',
-        overflow: 'hidden',
-        marginTop: '10vh'
+        overflow: 'hidden'
     },
     container: {
         maxWidth: '100vw',
@@ -44,11 +45,12 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: theme.spacing(10),
         paddingLeft: '0px',
         paddingRight: '0px',
+        position: 'relative'
     },
     // sign in and registration button CSS elements
     // button regular and hover colors are different
     sign_in: {
-        width: 100,
+        width: '125px',
         margin: theme.spacing(1),
         backgroundColor: "#1A1A1A",
         borderStyle: "solid",
@@ -61,7 +63,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     register: {
-        width: 100,
+        width: '125px',
         margin: theme.spacing(1),
         backgroundColor: "#b5a165",
         color: "white",
@@ -111,6 +113,12 @@ class Landing extends Component{
       });
     }
 
+    changeToSignIn = (event) => {
+        this.props.appContext.setState({
+            currentScreen: <SignIn appContext={this.props.appContext}/>
+        })
+    };
+
     render(){
         const classes = this.props.classes;
         return (
@@ -124,6 +132,7 @@ class Landing extends Component{
                         <Button
                             variant="outlined"
                             className={classes.sign_in}
+                            onClick={this.changeToSignIn}
                         >
                             <b>Sign in</b>
                         </Button>
