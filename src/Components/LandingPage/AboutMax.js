@@ -85,7 +85,7 @@ export default function CSSGrid() {
         alignItems="center"
         justify="center"
       >
-        <img class={classes.total} resizeMode="contain" src={aboutMax} alt="About MAX Image"/>
+        <img class={classes.total} resizeMode="contain" src={aboutMax} alt="max_about"/>
       </Grid>
       <Grid
         container
@@ -116,13 +116,13 @@ class AboutContent extends Component{
         <p className={classes.f2}>
           MAX Aspire is an online platform to connect high performing, accomplished Senior Executives to talented, up and coming Aspiring Professionals in the MAX network.
         </p>
-        <p className={classes.tab} style={{marginTop: '60px'}}> <img resizeMode="contain" src={icon2} alt="About Image"/>  
+        <p className={classes.tab} style={{marginTop: '60px'}}> <img resizeMode="contain" src={icon2} alt="access"/>
           <span className={classes.f3}><b>Privileged Access to Senior Level Professionals</b></span>
         </p>
-        <p className={classes.tab}> <img resizeMode="contain" src={icon1} alt="About Image"/>
+        <p className={classes.tab}> <img resizeMode="contain" src={icon1} alt="career"/>
           <span className={classes.f3}><b>Professional Career and Board Opportunities</b></span>
         </p>
-        <p className={classes.tab}> <img resizeMode="contain" src={icon3} alt="About Image"/>
+        <p className={classes.tab}> <img resizeMode="contain" src={icon3} alt="exec board"/>
           <span className={classes.f3}><b>Ability to Apply and Hire From Exclusive Job Board</b></span>
         </p>
         <p className={classes.f4} style={{marginTop: '60px'}}>

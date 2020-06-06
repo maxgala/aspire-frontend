@@ -11,6 +11,7 @@ import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
 import SignIn from "../Authentication/SignIn";
+import Registration from "../Registration/Registration";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -95,7 +96,7 @@ class Landing extends Component{
         super(props);
         this.state = {
 
-        }
+        };
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -115,6 +116,12 @@ class Landing extends Component{
     changeToSignIn = (event) => {
         this.props.appContext.setState({
             currentScreen: <SignIn appContext={this.props.appContext}/>
+        })
+    };
+
+    changeToSignUp = (event) => {
+        this.props.appContext.setState({
+            currentScreen: <Registration appContext={this.props.appContext}/>
         })
     };
 
@@ -138,6 +145,7 @@ class Landing extends Component{
                         <Button
                             variant="outlined"
                             className={classes.register}
+                            onClick={this.changeToSignUp}
                         >
                             <b>Register</b>
                         </Button>
