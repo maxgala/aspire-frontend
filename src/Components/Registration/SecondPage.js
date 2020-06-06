@@ -10,8 +10,124 @@ import MaxBrand from "../Images/max_brand_logo.png";
 import FirstPage from "./FirstPage";
 import LinearWithValueLabel from './linearprogress';
 import Industries from './industry';
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import Checkbox from "@material-ui/core/Checkbox";
+import ListItemText from "@material-ui/core/ListItemText";
+import Input from "@material-ui/core/Input";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
+import FinalPage from "./FinalPage";
 
+const IndustryLabels = [];
+for (let i=0; i < Industries.length; ++i){
+    IndustryLabels.push(Industries[i]["name"])
+}
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
+const Province = [
+    {
+        value: 'ON',
+        label: 'Ontario',
+    },
+    {
+        value: 'QC',
+        label: 'Quebec',
+    },
+    {
+        value: 'NS',
+        label: 'Nova Scotia',
+    },
+    {
+        value: 'NB',
+        label: 'New Brunswick',
+    },
+    {
+        value: 'MB',
+        label: 'Manitoba',
+    },
+    {
+        value: 'BC',
+        label: 'British Columbia',
+    },
+    {
+        value: 'PE',
+        label: 'Prince Edward Island',
+    },
+    {
+        value: 'SK',
+        label: 'Saskatchewan',
+    },
+    {
+        value: 'AB',
+        label: 'Alberta'
+    },
+    {
+        value: 'NL',
+        label: 'Newfoundland and Labrador'
+    },
+    {
+        value: 'NT',
+        label: 'Northwest Territories'
+    },
+    {
+        value: 'YT',
+        label: 'Yukon'
+    },
+    {
+        value: 'NU',
+        label: 'Nunavut'
+    }
+];
+
+const Education = [
+    {
+        value: 'Highschool',
+        label: 'High School Diploma or GED',
+    },
+    {
+        value: 'Associate',
+        label: 'Associate Degree',
+    },
+    {
+        value: 'Bachelors',
+        label: 'Bachelor\'s Degree',
+    },
+    {
+        value: 'Masters',
+        label: 'Master\'s Degree',
+    },
+    {
+        value: 'Postgrad',
+        label: 'Post Graduate Degree',
+    },
+    {
+        value: 'Doctorate',
+        label: 'Doctorate Degree',
+    },
+    {
+        value: 'Professional',
+        label: 'Professional Degree',
+    }
+];
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -28,6 +144,9 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
+    },
+    formControl:{
+        width: '100%'
     },
     submit_back: {
         margin: theme.spacing(3, 0, 2),
@@ -74,21 +193,46 @@ class SecondPage extends Component {
 
     constructor(props) {
         super(props);
-        /* change this to the props
         this.state = {
-            firstName: this.props.firstPage.firstName,
-            lastName: this.props.firstPage.lastName,
-            phone: this.props.firstPage.phone,
-            email: this.props.firstPage.email,
-            password: this.props.firstPage.password,
-            ageGroup: this.props.firstPage.ageGroup
-
-        }*/
-        this.state = {
-            progress: 33,
-            industry: ''
+            firstName: this.props.prev.firstName,
+            lastName: this.props.prev.lastName,
+            phone: this.props.prev.phone,
+            email: this.props.prev.email,
+            password: this.props.prev.password,
+            ageGroup: this.props.prev.ageGroup,
+            progress: 50,
+            industry: [],
+            title: '',
+            company: '',
+            education: '',
+            province: '',
+            dialogueOpen: false,
         }
     }
+
+    handleProvinceChange = (event) => {
+        this.setState({
+            province: event.target.value
+        })
+    };
+
+    handleEducationChange = (event) => {
+        this.setState({
+            education: event.target.value
+        })
+    };
+
+    handleTitleChange = (event) => {
+        this.setState({
+            title: event.target.value
+        })
+    };
+
+    handleCompanyChange = (event) => {
+        this.setState({
+            company: event.target.value
+        })
+    };
 
     changeToPage1 = (event) => {
         this.props.appContext.setState({
@@ -96,6 +240,33 @@ class SecondPage extends Component {
         })
     };
 
+    changeToPage3 = (event) => {
+        if (this.state.industry === [] || this.state.industry === undefined || this.state.industry === ''
+            || this.state.title === '' || this.state.title === undefined
+            || this.state.company === '' || this.state.company === undefined
+            || this.state.education === '' || this.state.education === undefined
+            || this.state.province === '' || this.state.province === undefined){
+            this.setState({
+                dialogueOpen: true
+            });
+            return;
+        }
+        this.props.appContext.setState({
+            registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state}/>
+        })
+    };
+
+    setIndustry = (event) => {
+        this.setState({
+            industry: event.target.value
+        })
+    };
+
+    handleDialog = (event) => {
+        this.setState({
+            dialogueOpen: !(this.state.dialogueOpen)
+        })
+    };
 
     render() {
         const classes = this.props.classes;
@@ -110,17 +281,88 @@ class SecondPage extends Component {
                     <div className={classes.form}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
+                                <FormControl required className={classes.formControl}>
+                                    <InputLabel id="industry-mutiple-checkbox-label">Select Industry (Up to 3)</InputLabel>
+                                    <Select
+                                        labelId="industry-mutiple-checkbox-label"
+                                        id="industry-mutiple-checkbox"
+                                        multiple
+                                        value={this.state.industry}
+                                        onChange={this.setIndustry}
+                                        input={<Input />}
+                                        renderValue={(selected) => selected.join(', ')}
+                                        MenuProps={MenuProps}
+                                    >
+                                        {IndustryLabels.map((name) => (
+                                            <MenuItem key={name} value={name}>
+                                                <Checkbox checked={this.state.industry.indexOf(name) > -1} />
+                                                <ListItemText primary={name} />
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <TextField
-                                    autoComplete="fname"
-                                    name="firstName"
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    value={this.state.firstName}
-                                    onChange={this.handleFirstNameChange}
+                                    id="title"
+                                    label="Title"
+                                    name="title"
+                                    autoComplete="title"
+                                    value={this.state.title}
+                                    onChange={this.handleTitleChange}
                                 />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="company"
+                                    label="Company"
+                                    name="company"
+                                    autoComplete="company"
+                                    value={this.state.company}
+                                    onChange={this.handleCompanyChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="outlined-select-education"
+                                    required
+                                    fullWidth
+                                    select
+                                    label="Highest Level of Education"
+                                    value={this.state.education}
+                                    onChange={this.handleEducationChange}
+                                    variant="outlined"
+                                >
+                                    {Education.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    id="outlined-select-education"
+                                    required
+                                    fullWidth
+                                    select
+                                    label="Province"
+                                    value={this.state.province}
+                                    onChange={this.handleProvinceChange}
+                                    variant="outlined"
+                                >
+                                    {Province.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                             </Grid>
                         </Grid>
                         <LinearWithValueLabel progress={this.state.progress}/>
@@ -138,11 +380,32 @@ class SecondPage extends Component {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={this.changeToPage3}
                         >
                             <b>Next</b>
                         </Button>
                     </div>
                 </div>
+                <Dialog
+                    open={this.state.dialogueOpen}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly!!"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            Please fill out all the required fields
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleDialog} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Container>
         );
     }

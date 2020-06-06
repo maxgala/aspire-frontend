@@ -111,10 +111,9 @@ class FirstPage extends Component {
             phone: '',
             email: '',
             password: '',
-            progress: 0,
+            progress: 33,
             errorDisplay: '',
             dialogueOpen: false,
-            runDialogue: [],
             ageGroup: ''
         }
     }
@@ -133,7 +132,7 @@ class FirstPage extends Component {
             return;
         }
         this.props.appContext.setState({
-            registrationScreen: <SecondPage appContext={this.props.appContext} firstPage={this.state}/>
+            registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
 
@@ -335,7 +334,7 @@ class FirstPage extends Component {
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are filled in properly!!"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly!!"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
                              Please fill out all the required fields
