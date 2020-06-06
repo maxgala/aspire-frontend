@@ -157,8 +157,10 @@ class Landing extends Component{
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
-                        <ScrollToTop/>
                         <Membership/>
+
+                        {/* Scroll to top and footer components at bottom */}
+                        <ScrollToTop/>
                     </Container>
                 </main>
             </div>
