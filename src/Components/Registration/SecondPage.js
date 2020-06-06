@@ -23,7 +23,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
-import FinalPage from "./FinalPage";
+import ThirdPage from "./ThirdPage";
 
 const IndustryLabels = [];
 for (let i=0; i < Industries.length; ++i){
@@ -252,7 +252,7 @@ class SecondPage extends Component {
             return;
         }
         this.props.appContext.setState({
-            registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state}/>
+            registrationScreen: <ThirdPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
 
@@ -308,7 +308,7 @@ class SecondPage extends Component {
                                     required
                                     fullWidth
                                     id="title"
-                                    label="Title"
+                                    label="Title/Position"
                                     name="title"
                                     autoComplete="title"
                                     value={this.state.title}

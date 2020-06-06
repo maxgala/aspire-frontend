@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
-import FirstPage from "./FirstPage";
+import FirstPage from "./ThirdPage";
 
 const useStyles = makeStyles((theme) => ({
     root: {

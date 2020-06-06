@@ -111,7 +111,7 @@ class FirstPage extends Component {
             phone: '',
             email: '',
             password: '',
-            progress: 33,
+            progress: 25,
             errorDisplay: '',
             dialogueOpen: false,
             ageGroup: ''
