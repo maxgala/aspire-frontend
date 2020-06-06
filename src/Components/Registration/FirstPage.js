@@ -10,9 +10,15 @@ import Container from '@material-ui/core/Container';
 import MaxBrand from "../Images/max_brand_logo.png";
 import SignIn from "../Authentication/SignIn";
 import SecondPage from "./SecondPage";
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Box from "@material-ui/core/Box";
-import PropTypes from "prop-types";
+import LinearWithValueLabel from "./linearprogress";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide'
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -22,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     avatar: {
-        marginTop: '7vh',
+        marginTop: '0vh',
         width: '100px',
         padding: '1vw',
     },
@@ -32,45 +38,65 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: "#6EA0B5",
         marginTop:"5%",
         height: 50,
         width: '50%',
         borderRadius: 50,
+        backgroundColor: "#b5a165",
         color: "white",
+        borderColor: '#484848',
         '&:hover': {
             backgroundColor: "#F1F1F1",
             color: '#484848'
         }
     },
-    progress:{
-        marginTop: '3vh',
-        width: '100%',
-    },
+    error:{
+        color: 'red'
+    }
 }));
 
-function LinearProgressWithLabel(props) {
-    return (
-        <Box display="flex" alignItems="center">
-            <Box width="100%" mr={1}>
-                <LinearProgress variant="determinate" {...props} />
-            </Box>
-            <Box minWidth={35}>
-                <Typography variant="body2" color="textPrimary"><b>{`${Math.round(
-                    props.value,
-                )}%`}</b></Typography>
-            </Box>
-        </Box>
-    );
-}
+const AgeGroups = [
+    {
+        value: '0-12',
+        label: 'Under 12',
+    },
+    {
+        value: '12-17',
+        label: '12-17',
+    },
+    {
+        value: '18-24',
+        label: '18-24',
+    },
+    {
+        value: '25-34',
+        label: '25-34',
+    },
+    {
+        value: '35-44',
+        label: '35-44',
+    },
+    {
+        value: '45-54',
+        label: '45-54',
+    },
+    {
+        value: '55-64',
+        label: '55-64',
+    },
+    {
+        value: '65-74',
+        label: '65-74',
+    },
+    {
+        value: '75-150',
+        label: 'Over 75',
+    },
+];
 
-LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
-    value: PropTypes.number.isRequired,
-};
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function withMyHook(Component){
     return function WrappedComponent(props){
@@ -89,7 +115,11 @@ class FirstPage extends Component {
             phone: '',
             email: '',
             password: '',
-            progress: 0
+            progress: 0,
+            errorDisplay: '',
+            dialogueOpen: false,
+            runDialogue: [],
+            ageGroup: ''
         }
     }
 
@@ -98,8 +128,12 @@ class FirstPage extends Component {
             || this.state.password === '' || this.state.password === undefined
             || this.state.lastName === '' || this.state.lastName === undefined
             || this.state.email === '' || this.state.email === undefined
-            || this.state.phone === '' || this.state.phone === undefined){
-            window.alert("Not filled in");
+            || this.state.phone === '' || this.state.phone === undefined
+            || this.state.ageGroup === '' || this.state.ageGroup === undefined
+            || this.state.errorDisplay !== 'None'){
+            this.setState({
+                dialogueOpen: true
+            });
             return;
         }
         this.props.appContext.setState({
@@ -132,6 +166,30 @@ class FirstPage extends Component {
     handlePhoneChange = (event) => {
         this.setState({
             phone: event.target.value
+        })
+    };
+
+    handleDialog = (event) => {
+        this.setState({
+            dialogueOpen: !(this.state.dialogueOpen)
+        })
+    };
+
+    handleConfirmCheck = (event) => {
+        if (event.target.value === this.state.password){
+            this.setState({
+                errorDisplay: 'None'
+            })
+        }else{
+            this.setState({
+                errorDisplay: ''
+            })
+        }
+    };
+
+    handleYearChange = (event) => {
+        this.setState({
+            ageGroup: event.target.value
         })
     };
 
@@ -207,6 +265,24 @@ class FirstPage extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    id="outlined-select-birthYear"
+                                    required
+                                    fullWidth
+                                    select
+                                    label="Age Group"
+                                    value={this.state.ageGroup}
+                                    onChange={this.handleYearChange}
+                                    variant="outlined"
+                                >
+                                    {AgeGroups.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
                                     variant="outlined"
                                     required
                                     fullWidth
@@ -218,10 +294,25 @@ class FirstPage extends Component {
                                     onChange={this.handlePasswordChange}
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="confirm password"
+                                    label="Confirm Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                    onChange={this.handleConfirmCheck}
+                                />
+                                <FormHelperText style={{
+                                    display: this.state.errorDisplay,
+                                    color: 'red'
+                                }} id="component-error-text"> <b>Error! Passwords don't match </b></FormHelperText>
+                            </Grid>
                         </Grid>
-                        <div className={classes.progress}>
-                            <LinearProgressWithLabel value={this.state.progress} />
-                        </div>
+                        <LinearWithValueLabel progress={this.state.progress}/>
                         <Button
                             type="submit"
                             variant="contained"
@@ -240,6 +331,26 @@ class FirstPage extends Component {
                         </Grid>
                     </div>
                 </div>
+                <Dialog
+                    open={this.state.dialogueOpen}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are filled in properly!!"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                             Please fill out all the required fields
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleDialog} color="primary">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Container>
         );
     }

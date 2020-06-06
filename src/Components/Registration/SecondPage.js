@@ -9,10 +9,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MaxBrand from "../Images/max_brand_logo.png";
 import SignIn from "../Authentication/SignIn";
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Box from "@material-ui/core/Box";
-import PropTypes from "prop-types";
 import FirstPage from "./FirstPage";
+import LinearWithValueLabel from './linearprogress';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,13 +30,15 @@ const useStyles = makeStyles((theme) => ({
     },
     submit_back: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: "#6EA0B5",
         marginTop:"5%",
         marginRight: '5%',
         height: 50,
         width: '30%',
         borderRadius: 50,
-        color: "white",
+        backgroundColor: "#1A1A1A",
+        borderStyle: "solid",
+        color: "#F1F1F1",
+        borderColor: "#484848",
         '&:hover': {
             backgroundColor: "#F1F1F1",
             color: '#484848'
@@ -47,45 +47,20 @@ const useStyles = makeStyles((theme) => ({
 
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: "#6EA0B5",
         marginTop:"5%",
         height: 50,
         width: '30%',
+        borderStyle: 'solid',
         borderRadius: 50,
+        backgroundColor: "#b5a165",
         color: "white",
+        borderColor: '#484848',
         '&:hover': {
             backgroundColor: "#F1F1F1",
             color: '#484848'
         }
     },
-    progress:{
-        marginTop: '3vh',
-        width: '100%',
-    },
 }));
-
-function LinearProgressWithLabel(props) {
-    return (
-        <Box display="flex" alignItems="center">
-            <Box width="100%" mr={1}>
-                <LinearProgress variant="determinate" {...props} />
-            </Box>
-            <Box minWidth={35}>
-                <Typography variant="body2" color="textPrimary"><b>{`${Math.round(
-                    props.value,
-                )}%`}</b></Typography>
-            </Box>
-        </Box>
-    );
-}
-
-LinearProgressWithLabel.propTypes = {
-    /**
-     * The value of the progress indicator for the determinate and buffer variants.
-     * Value between 0 and 100.
-     */
-    value: PropTypes.number.isRequired,
-};
 
 function withMyHook(Component){
     return function WrappedComponent(props){
@@ -237,9 +212,7 @@ class SecondPage extends Component {
                                 />
                             </Grid>
                         </Grid>
-                        <div className={classes.progress}>
-                            <LinearProgressWithLabel value={this.state.progress} />
-                        </div>
+                        <LinearWithValueLabel progress={this.state.progress}/>
                         <Button
                             type="submit"
                             variant="contained"
