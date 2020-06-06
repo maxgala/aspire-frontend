@@ -57,12 +57,8 @@ const useStyles = makeStyles((theme) => ({
 
 const AgeGroups = [
     {
-        value: '0-12',
-        label: 'Under 12',
-    },
-    {
-        value: '12-17',
-        label: '12-17',
+        value: '0-17',
+        label: 'Under 17',
     },
     {
         value: '18-24',

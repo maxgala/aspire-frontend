@@ -2,15 +2,16 @@ import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MaxBrand from "../Images/max_brand_logo.png";
-import SignIn from "../Authentication/SignIn";
 import FirstPage from "./FirstPage";
 import LinearWithValueLabel from './linearprogress';
+import Industries from './industry';
+
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     avatar: {
-        marginTop: '7vh',
+        marginTop: '0vh',
         width: '100px',
         padding: '1vw',
     },
@@ -80,15 +81,10 @@ class SecondPage extends Component {
             phone: this.props.firstPage.phone,
             email: this.props.firstPage.email,
             password: this.props.firstPage.password,
-            progress: 33
+            ageGroup: this.props.firstPage.ageGroup
 
         }*/
         this.state = {
-            firstName: '',
-            lastName: '',
-            phone: '',
-            email: '',
-            password: '',
             progress: 33,
             industry: ''
         }
@@ -100,39 +96,6 @@ class SecondPage extends Component {
         })
     };
 
-    handlePasswordChange = (event) => {
-        this.setState({password: event.target.value});
-    };
-
-    handleFirstNameChange = (event) => {
-        this.setState({
-            firstName: event.target.value
-        })
-    };
-
-    handleLastNameChange = (event) => {
-        this.setState({
-            lastName: event.target.value
-        })
-    };
-
-    handleEmailChange = (event) => {
-        this.setState({
-            email: event.target.value
-        })
-    };
-
-    handlePhoneChange = (event) => {
-        this.setState({
-            phone: event.target.value
-        })
-    };
-
-    changeToSignIn = event => {
-        this.props.appContext.props.appContext.setState({
-            currentScreen: <SignIn appContext={this.props.appContext}/>
-        });
-    };
 
     render() {
         const classes = this.props.classes;
@@ -146,7 +109,7 @@ class SecondPage extends Component {
                     </Typography>
                     <div className={classes.form}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12}>
                                 <TextField
                                     autoComplete="fname"
                                     name="firstName"
@@ -157,58 +120,6 @@ class SecondPage extends Component {
                                     label="First Name"
                                     value={this.state.firstName}
                                     onChange={this.handleFirstNameChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="lname"
-                                    value={this.state.lastName}
-                                    onChange={this.handleLastNameChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    value={this.state.email}
-                                    onChange={this.handleEmailChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="phone"
-                                    label="Phone Number"
-                                    name="phone"
-                                    autoComplete="phone"
-                                    value={this.state.phone}
-                                    onChange={this.handlePhoneChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="current-password"
-                                    onChange={this.handlePasswordChange}
                                 />
                             </Grid>
                         </Grid>
@@ -230,13 +141,6 @@ class SecondPage extends Component {
                         >
                             <b>Next</b>
                         </Button>
-                        <Grid container justify="center">
-                            <Grid item>
-                                <Link href="#" variant="h7" onClick={this.changeToSignIn}>
-                                    <b>Already have an account? Sign in</b>
-                                </Link>
-                            </Grid>
-                        </Grid>
                     </div>
                 </div>
             </Container>

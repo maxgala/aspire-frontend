@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Landing from "./Components/LandingPage/Landing";
+import Registration from "./Components/Registration/Registration"
 import './App.css';
 
 class App extends Component{
@@ -12,7 +13,7 @@ class App extends Component{
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Landing appContext={this}/>
+      currentScreen: <Registration appContext={this}/>
     })
   }
 
