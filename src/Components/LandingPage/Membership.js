@@ -43,7 +43,7 @@ class Membership extends Component{
           > 
           <Grid
             container
-            item xs={6} sm={6} md={6} lg={4}
+            item xs={12} sm={6} md={6} lg={4}
             spacing={0}
             alignItems="center"
             justify="center"
@@ -55,7 +55,7 @@ class Membership extends Component{
           </Grid>
           <Grid
             container
-            item xs={6} sm={6} md={6} lg={4}
+            item xs={12} sm={6} md={6} lg={4}
             spacing={0}
             alignItems="center"
             justify="center"
