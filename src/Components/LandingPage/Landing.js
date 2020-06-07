@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   img: {
     float: 'left',
     align: 'left',
-    width: '175px',
+    width: window.innerWidth < 480 ? '125px' : '175px',
   },
   content: {
     flexGrow: 1,
@@ -52,10 +52,10 @@ const useStyles = makeStyles(theme => ({
   // button regular and hover colors are different
   sign_in: {
     marginLeft: 'auto',
-    width: '125px',
-    height: '40px',
-    fontSize: '18px',
-    margin: theme.spacing(1),
+    width: window.innerWidth < 480 ? '100px' : '125px',
+    height: window.innerWidth < 480 ? '30px' : '40px',
+    fontSize: window.innerWidth < 480 ? '15px' : '18px',
+    margin: window.innerWidth < 480 ? '0' : theme.spacing(1),
     backgroundColor: "#1A1A1A",
     borderStyle: "solid",
     color: "#F1F1F1",
@@ -67,10 +67,10 @@ const useStyles = makeStyles(theme => ({
     }
   },
   register: {
-    width: '125px',
-    height: '40px',
-    fontSize: '18px',
-    margin: theme.spacing(1),
+    width: window.innerWidth < 480 ? '100px' : '125px',
+    height: window.innerWidth < 480 ? '30px' : '40px',
+    fontSize: window.innerWidth < 480 ? '15px' : '18px',
+    margin: window.innerWidth < 480 ? '0' : theme.spacing(1),
     backgroundColor: "#b5a165",
     color: "white",
     borderRadius: 25,
