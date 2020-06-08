@@ -11,7 +11,7 @@ import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
 import SignIn from "../Authentication/SignIn";
-import Carousal from "./Carousal.js";
+import Quote from "./Quote.js";
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -149,7 +149,7 @@ class Landing extends Component{
                         <AboutMax/>
                         <Features/>
                         <ScrollToTop/>
-                        <Carousal/>
+                        <Quote/>
                     </Container>
                 </main>
             </div>
