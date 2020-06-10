@@ -13,9 +13,8 @@ import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
+import {DropzoneDialog} from 'material-ui-dropzone';
 import SecondPage from "./SecondPage";
-import TextField from "@material-ui/core/TextField";
-import FileBase64 from 'react-file-base64';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -96,19 +95,18 @@ class ThirdPage extends Component{
     constructor(props) {
         super(props);
         this.state ={
-            /*
-            firstName: this.props.prev.firstName,
-            lastName: this.props.prev.lastName,
-            phone: this.props.prev.phone,
-            email: this.props.prev.email,
-            password: this.props.prev.password,
-            ageGroup: this.props.prev.ageGroup,
-            industry: this.props.prev.industry,
-            title: this.props.prev.title,
-            company: this.props.prev.company,
-            education: this.props.prev.education,
-            province: this.props.prev.province,
-             */
+            firstName: this.props.prev ? this.props.prev.firstName : '',
+            lastName: this.props.prev ? this.props.prev.lastName : '',
+            phone: this.props.prev ? this.props.prev.phone : '',
+            email: this.props.prev ? this.props.prev.email : '',
+            password: this.props.prev ? this.props.prev.password : '',
+            ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
+            industry: this.props.prev ? this.props.prev.industry : '',
+            title: this.props.prev ? this.props.prev.title : '',
+            company: this.props.prev ? this.props.prev.company : '',
+            education: this.props.prev ? this.props.prev.education : '',
+            province: this.props.prev ? this.props.prev.province : '',
+            open: false,
             files: [],
             progress: 75,
             dialogueOpen: false,
@@ -116,16 +114,42 @@ class ThirdPage extends Component{
         }
     }
 
-    getFiles(files){
-        this.setState({ files: files })
+    handleClose() {
+        this.setState({
+            open: false
+        });
     }
 
+    handleSave(files) {
+        let document = "";
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function () {
+            // Saving files to state for further use and closing Modal.
+            document = reader.result;
+            console.log(this);
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+        this.setState({
+            files: [document],
+            open: false
+        });
+    }
+
+    handleOpen() {
+        this.setState({
+            open: true,
+        });
+    }
 
     changeToPage2 = (event) => {
         this.props.appContext.setState({
             registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
+
     render() {
         const classes = this.props.classes;
         return(
@@ -138,16 +162,22 @@ class ThirdPage extends Component{
                     </Typography>
                     <div className={classes.form}>
                         <Grid container spacing={2}>
-                            <Grid xs={12} sm={6}>
-                                <FileBase64
-                                    style={{backgroundColor: "DodgerBlue"}}
-                                    multiple={ true }
-                                    onDone={ this.getFiles.bind(this) }
+                            <Grid xs={12}>
+                                <Button className={classes.uploadImage} onClick={this.handleOpen.bind(this)}>
+                                    <b>Add Image</b>
+                                </Button>
+                                <DropzoneDialog
+                                    open={this.state.open}
+                                    onSave={this.handleSave.bind(this)}
+                                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                                    showPreviews={true}
+                                    maxFileSize={5000000}
+                                    onClose={this.handleClose.bind(this)}
                                 />
                             </Grid>
                             <Grid xs={12} sm={6}>
                                 { this.state.files.map((file,i) => {
-                                    return <img key={i} src={file.base64} alt={"profile-pic-64"} className={classes.profilePic}/>
+                                    return <img key={i} src={file.base64} alt={"profile-pic"} className={classes.profilePic}/>
                                 }) }
                             </Grid>
                         </Grid>
@@ -179,7 +209,7 @@ class ThirdPage extends Component{
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly!!"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
                             Please fill out all the required fields
@@ -187,7 +217,7 @@ class ThirdPage extends Component{
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleDialog} color="primary">
-                            Close
+                            <b>Close</b>
                         </Button>
                     </DialogActions>
                 </Dialog>

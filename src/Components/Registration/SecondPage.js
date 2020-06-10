@@ -23,6 +23,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
+import Education from "./Education";
+import Province from "./Provinces";
 import ThirdPage from "./ThirdPage";
 
 const IndustryLabels = [];
@@ -33,91 +35,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Province = [
-    {
-        value: 'ON',
-        label: 'Ontario',
-    },
-    {
-        value: 'QC',
-        label: 'Quebec',
-    },
-    {
-        value: 'NS',
-        label: 'Nova Scotia',
-    },
-    {
-        value: 'NB',
-        label: 'New Brunswick',
-    },
-    {
-        value: 'MB',
-        label: 'Manitoba',
-    },
-    {
-        value: 'BC',
-        label: 'British Columbia',
-    },
-    {
-        value: 'PE',
-        label: 'Prince Edward Island',
-    },
-    {
-        value: 'SK',
-        label: 'Saskatchewan',
-    },
-    {
-        value: 'AB',
-        label: 'Alberta'
-    },
-    {
-        value: 'NL',
-        label: 'Newfoundland and Labrador'
-    },
-    {
-        value: 'NT',
-        label: 'Northwest Territories'
-    },
-    {
-        value: 'YT',
-        label: 'Yukon'
-    },
-    {
-        value: 'NU',
-        label: 'Nunavut'
-    }
-];
-
-const Education = [
-    {
-        value: 'Highschool',
-        label: 'High School Diploma or GED',
-    },
-    {
-        value: 'Associate',
-        label: 'Associate Degree',
-    },
-    {
-        value: 'Bachelors',
-        label: 'Bachelor\'s Degree',
-    },
-    {
-        value: 'Masters',
-        label: 'Master\'s Degree',
-    },
-    {
-        value: 'Postgrad',
-        label: 'Post Graduate Degree',
-    },
-    {
-        value: 'Doctorate',
-        label: 'Doctorate Degree',
-    },
-    {
-        value: 'Professional',
-        label: 'Professional Degree',
-    }
-];
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -139,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         marginTop: '0vh',
         width: '100px',
+        height: '100px',
         padding: '1vw',
     },
     form: {
@@ -180,6 +98,9 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
+    label: {
+        fontSize: 'larger'
+    }
 }));
 
 function withMyHook(Component){
@@ -194,12 +115,12 @@ class SecondPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: this.props.prev.firstName,
-            lastName: this.props.prev.lastName,
-            phone: this.props.prev.phone,
-            email: this.props.prev.email,
-            password: this.props.prev.password,
-            ageGroup: this.props.prev.ageGroup,
+            firstName: this.props.prev ? this.props.prev.firstName : '',
+            lastName: this.props.prev ? this.props.prev.lastName : '',
+            phone: this.props.prev ? this.props.prev.phone : '',
+            email: this.props.prev ? this.props.prev.email : '',
+            password: this.props.prev ? this.props.prev.password : '',
+            ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
             progress: 50,
             industry: [],
             title: '',
@@ -236,7 +157,7 @@ class SecondPage extends Component {
 
     changeToPage1 = (event) => {
         this.props.appContext.setState({
-            registrationScreen: <FirstPage appContext={this.props.appContext}/>
+            registrationScreen: <FirstPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
 
@@ -282,7 +203,7 @@ class SecondPage extends Component {
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
                                 <FormControl required className={classes.formControl}>
-                                    <InputLabel id="industry-mutiple-checkbox-label">Select Industry (Up to 3)</InputLabel>
+                                    <InputLabel className={classes.label} id="industry-mutiple-checkbox-label">Select Industry (Up to 3)</InputLabel>
                                     <Select
                                         labelId="industry-mutiple-checkbox-label"
                                         id="industry-mutiple-checkbox"
@@ -394,7 +315,7 @@ class SecondPage extends Component {
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly!!"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
                             Please fill out all the required fields
@@ -402,7 +323,7 @@ class SecondPage extends Component {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleDialog} color="primary">
-                            Close
+                            <b>Close</b>
                         </Button>
                     </DialogActions>
                 </Dialog>
