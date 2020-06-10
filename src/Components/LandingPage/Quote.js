@@ -71,6 +71,11 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
 }));
+const styles = {
+    ['@media (max-width:400px)']: { // eslint-disable-line no-useless-computed-key
+      display: 'None'
+  }
+}
 const quotes={
   0:{
     
@@ -127,15 +132,33 @@ class Quote extends Component{
 
   
   }
-  setCurrent(value){this.setState({current:value})}
-  setActive(value){this.setState({active:value})}
+  //setCurrent(value){this.setState({current:value})}
+  //setActive(value){this.setState({active:value})}
+  HandleRightArrowClick=(event)=>{
+    if (this.state.active<3){
+      //this.setActive(this.state.active+1)
+      this.setState({current:quotes[this.state.active+1],active:this.state.active+1})
+    }  
+   // this.setCurrent(quotes[this.state.active]);
+   
+  }
+  HandleLeftArrowClick=(event)=>{
+    if (this.state.active>0){
+      this.setState({current:quotes[this.state.active-1],active:this.state.active-1})
+    } 
+   // this.setCurrent(quotes[this.state.active]);
+  }
 
   HandleSetClick=(event)=>{
-    console.log("HIIIIIII");
-    
-    this.setCurrent(quotes[event.target.getAttribute("data-quote")]) ;
-    this.setActive(event.target.getAttribute("data-quote"));
+
+    //this.setCurrent(quotes[event.target.getAttribute("data-quote")]) ;
+    this.setState({active:event.target.getAttribute("data-quote"),current:quotes[event.target.getAttribute("data-quote")]})
+  // this.setActive(event.target.getAttribute("data-quote"));
+    console.log(event.target.getAttribute("data-quote"));
+    console.log(this.state.current);
+    console.log("HIFJDSJJS");
   }
+
   render(){
 
 
@@ -151,7 +174,7 @@ class Quote extends Component{
       `}
       
       
-      style={{  paddingTop: '30px'}} ><b>What our members have to say</b></h1>
+      style={{paddingTop: '30px'}}><b>What our members have to say</b></h1>
      
     <Grid
     container
@@ -159,27 +182,24 @@ class Quote extends Component{
    // spacing={1}
     alignItems="center"
     justify="center"
-    className={css ` `}
-  > <img  className={css` position: absolute;left: 150px;display: flex; `} src={left}   
-        onClick={ alert('Hello!')}
+    className={css ` `}>
+    <img styles={styles}  className={css` position: absolute;left: 150px;display: flex; `} src={left}   
+      onClick={this.HandleLeftArrowClick}
     />
-  <img  className={css` position: absolute;right: 150px;display: flex; `} src={right}/>
+  <img styles={styles} className={css` position: absolute;right: 150px;display: flex; `} src={right}  
+     onClick={this.HandleRightArrowClick}/>
     <Grid
       container
       item xs={6} sm={4}md={2} lg={2}
-
       //alignItems="center"
       justify="left"
-   
-    >
+    > 
           <p className={css`
-            width: 45%;
-            height:30vh;
-           
-          
+            width: 100px;
+            height:250px;  
             border-radius: 50%;
-         
           `}> 
+          {console.log(this.state.current)}
             {this.state.current.quote}    
           </p>
     </Grid>
@@ -227,6 +247,7 @@ class Quote extends Component{
       background-color:#45454d
      }
      `}>
+
       {Object.keys(quotes).map(index=>(
         <span
         onClick={this.HandleSetClick}
