@@ -4,6 +4,8 @@ import { css, cx } from 'emotion'
 import { makeStyles } from "@material-ui/core/styles";
 import aboutMax from "../Images/aboutMax.png";
 import Grid from "@material-ui/core/Grid";
+import left from "../Images/arrow_left.png";
+import right from "../Images/arrow_right.png";
 function withMyHook(Component){
   return function WrappedComponent(props){
     const classes = useStyles();
@@ -82,15 +84,36 @@ const quotes={
    `} src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Sean_Cunningham_Head_Shot.jpg"/>
   },
    1:{
-    client:"Coco",
-    quote:"In order to be irreplaceable one must always be different."
+    client:"\"In order to be irreplaceable one must always be different. Coco\"",
+    quote:<img className={css`
+    width: 180%;
+    height:80%;
+    padding:2%;
+    border-radius: 50%;
+    
+   `} src="https://images.squarespace-cdn.com/content/v1/5c64375df4e5314e7985012c/1565025240158-JV7FOIODKHPLAZOIRGRN/ke17ZwdGBToddI8pDm48kC-KQ8StUrUTl7SMDbWuteJZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PI2jhaLsRRsAwInQ5q0zH86wR4v5ScThrPpqJ8W9VBf8cKMshLAGzx4R3EDFOm1kBS/marcus+square+head+shot.jpg?format=750w"/>
+  
   },
    2:{
-    quote:"Always remember that you are absolutely unique. Just like everyone else"
+     client:"\"Always remember that you are absolutely unique. Just like everyone else\"",
+    quote:<img className={css`
+    width: 180%;
+    height:80%;
+    padding:2%;
+    border-radius: 50%;
+    
+   `} src="https://wrisenergy.org/wp-content/uploads/2019/06/Professional-headshot-square.jpg"/>
+  
   },
    3:{
-    client:"Jodie Foster",
-    quote:"Normal is not something to aspire to, it’s something to get away from.”"
+    client:"\"Normal is not something to aspire to, it’s something to get away from. Jodie Foster\"",
+    quote:<img className={css`
+    width: 180%;
+    height:80%;
+    padding:2%;
+    border-radius: 50%;
+    
+   `} src="https://www.headshotsnyc.com/wp-content/gallery/multiple-crops/Linked-in-crop-1.jpg"/>
   },
 }
 class Quote extends Component{
@@ -129,6 +152,7 @@ class Quote extends Component{
       
       
       style={{  paddingTop: '30px'}} ><b>What our members have to say</b></h1>
+     
     <Grid
     container
     item
@@ -136,18 +160,21 @@ class Quote extends Component{
     alignItems="center"
     justify="center"
     className={css ` `}
-  >
+  > <img  className={css` position: absolute;left: 150px;display: flex; `} src={left}   
+        onClick={ alert('Hello!')}
+    />
+  <img  className={css` position: absolute;right: 150px;display: flex; `} src={right}/>
     <Grid
       container
-      item xs={4} sm={4}md={3} lg={2}
+      item xs={6} sm={4}md={2} lg={2}
 
       //alignItems="center"
       justify="left"
    
     >
           <p className={css`
-            width: 50%;
-            height:37vh;
+            width: 45%;
+            height:30vh;
            
           
             border-radius: 50%;
@@ -170,6 +197,7 @@ class Quote extends Component{
       font-size:20px;`}><i><b>Jodie Foster</b></i></p>
       
     </Grid>
+    
   </Grid>
   <div className={css`
      display:flex;
@@ -208,6 +236,7 @@ class Quote extends Component{
         ))}
 
 </div>
+
 
   </div>
 
