@@ -1,13 +1,14 @@
 import React, {Component} from "react";
 import UpArrow from "../Images/up_arrow.svg";
 import {makeStyles} from "@material-ui/core/styles";
+import Newsletter from "../Images/newsletter.png";
 
 const useStyles = makeStyles(() => ({
   image: { 
     position: 'fixed',
     width: '50px',
     height: '50px',
-    bottom:0,
+    bottom: 0,
     marginLeft: '-25px',
     flex: '1',
     justifyContent: 'flex-end',
@@ -40,8 +41,11 @@ class ScrollToTop extends Component{
   render() {
     const classes = this.props.classes;
     return (
-      <div onClick={this.handleClick}>
-        <img src={UpArrow} alt="Scroll To Top Arrow" className={classes.image}/>
+      <div>
+        <div onClick={this.handleClick}>
+          <img src={UpArrow} alt="Scroll To Top Arrow" className={classes.image}/>
+        </div>
+        <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black'}}></div>
       </div>
     )
   }
