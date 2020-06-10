@@ -123,10 +123,10 @@ class SecondPage extends Component {
             ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
             progress: 50,
             industry: [],
-            title: '',
-            company: '',
-            education: '',
-            province: '',
+            title: this.props.prev ? this.props.prev.title : '',
+            company: this.props.prev ? this.props.prev.company : '',
+            education: this.props.prev ? this.props.prev.education : '',
+            province: this.props.prev ? this.props.prev.province : '',
             dialogueOpen: false,
         }
     }

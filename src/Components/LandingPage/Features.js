@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
     paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: '30px',
   },
 }));
 
