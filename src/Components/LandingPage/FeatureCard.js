@@ -8,7 +8,12 @@ import image3 from "../Images/features/image3.png";
 import image4 from "../Images/features/image4.png";
 import image5 from "../Images/features/image5.png";
 import image6 from "../Images/features/image6.png";
-import tint from "../Images/features/tint.png";
+import fimage1 from "../Images/features/fimage1.png";
+import fimage2 from "../Images/features/fimage2.png";
+import fimage3 from "../Images/features/fimage3.png";
+import fimage4 from "../Images/features/fimage4.png";
+import fimage5 from "../Images/features/fimage5.png";
+import fimage6 from "../Images/features/fimage6.png";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -59,7 +64,8 @@ class FeatureCard extends Component{
     super(props);
     this.state = {
       isFlipped: false,
-      images: [image1, image2, image3, image4, image5, image6]
+      images: [image1, image2, image3, image4, image5, image6],
+      fimages: [fimage1, fimage2, fimage3, fimage4, fimage5, fimage6],
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -73,14 +79,13 @@ class FeatureCard extends Component{
     const classes = this.props.classes;
     return (
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
-        <div className={classes.image} onClick={this.handleClick}>
+        <div className={classes.image} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <p className={classes.small_text}>more text on the flip side</p>
-          <img style={{width: '100%', height: '100%', opacity: '1'}} src={this.state.images[this.props.card_number - 1]} alt="Front of feature card"/>
-          <img style={{width: '100%', height: '100%', transform: 'translate(0%, -104%)', opacity: '0.4', marginBottom: '-100%'}} src={tint} alt="Tint on front of feature card"/>
+          <img style={{width: '100%', height: '100%'}} src={this.state.fimages[this.props.card_number - 1]} alt="Front of feature card"/>
         </div>
  
-        <div className={classes.image} onClick={this.handleClick}>
+        <div className={classes.image} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
           <p className={classes.back_text}>{this.props.back_text}</p>
           <img style={{width: '100%', height: '100%'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
         </div>
