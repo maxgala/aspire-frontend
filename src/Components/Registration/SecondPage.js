@@ -9,7 +9,6 @@ import Container from '@material-ui/core/Container';
 import MaxBrand from "../Images/max_brand_logo.png";
 import FirstPage from "./FirstPage";
 import LinearWithValueLabel from './linearprogress';
-import Industries from './industry';
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -23,6 +22,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
+import Industries from './industry';
+import IndustryTags from './industry_tags';
 import Country from "./Country";
 import States from './States';
 import Education from "./Education";
@@ -33,6 +34,11 @@ import Chip from "@material-ui/core/Chip";
 const IndustryLabels = [];
 for (let i=0; i < Industries.length; ++i){
     IndustryLabels.push(Industries[i]["name"])
+}
+
+const IndustryTagsLabels = [];
+for (let i=0; i < IndustryTags.length; ++i){
+    IndustryTagsLabels.push(IndustryTags[i]["name"]);
 }
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -131,28 +137,32 @@ class SecondPage extends Component {
             password: this.props.prev ? this.props.prev.password : '',
             ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
             progress: 50,
-            industry: [],
+            industry: this.props.prev ? this.props.prev.industry : '',
+            industry_tags: [],
             title: this.props.prev ? this.props.prev.title : '',
             company: this.props.prev ? this.props.prev.company : '',
             education: this.props.prev ? this.props.prev.education : '',
             province: this.props.prev ? this.props.prev.province : '',
             country: this.props.prev ? this.props.prev.country : '',
-            states: this.props.prev ? this.props.prev.state : '',
+            states: this.props.prev ? this.props.prev.states : '',
             dialogueOpen: false,
             displayProvince: 'None',
-            displayStates: 'None'
+            displayStates: 'None',
+            customIndustryDisplay: 'None'
         }
     }
 
     handleProvinceChange = (event) => {
         this.setState({
+            states: '',
             province: event.target.value
         })
     };
 
     handleStateChange = (event) => {
         this.setState({
-            states: event.target.value
+            states: event.target.value,
+            province: ''
         })
     };
     handleCountryChange = (event) => {
@@ -161,6 +171,12 @@ class SecondPage extends Component {
             displayStates: event.target.value === 'USA' ? '' : 'None',
             displayProvince: event.target.value === 'CA' ? '' : 'None'
         });
+    };
+
+    handleIndustryChange = (event) => {
+        this.setState({
+            industry: event.target.value
+        })
     };
 
     handleEducationChange = (event) => {
@@ -188,7 +204,8 @@ class SecondPage extends Component {
     };
 
     changeToPage3 = (event) => {
-        if (this.state.industry.length === 0 || this.state.industry === '' ||
+        if (this.state.industry === '' || this.state.industry === undefined ||
+            this.state.industry_tags.length === 0 || this.state.industry_tags === '' ||
             this.state.title === '' || this.state.title === undefined ||
             this.state.company === '' || this.state.company === undefined ||
             this.state.education === '' || this.state.education === undefined ||
@@ -203,9 +220,9 @@ class SecondPage extends Component {
         })
     };
 
-    setIndustry = (event) => {
+    setIndustryTags = (event) => {
         this.setState({
-            industry: event.target.value
+            industry_tags: event.target.value
         })
     };
 
@@ -214,6 +231,20 @@ class SecondPage extends Component {
             dialogueOpen: !(this.state.dialogueOpen)
         })
     };
+
+    componentDidMount() {
+        if (this.state.country === 'CA'){
+            this.setState({
+                displayProvince: '',
+                states: ''
+            })
+        }else if (this.state.country === 'USA'){
+            this.setState({
+                displayStates: '',
+                province: ''
+            })
+        }
+    }
 
     render() {
         const classes = this.props.classes;
@@ -228,14 +259,32 @@ class SecondPage extends Component {
                     <div className={classes.form}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
+                                <TextField
+                                    id="outlined-select-education"
+                                    required
+                                    fullWidth
+                                    select
+                                    label="Industry"
+                                    value={this.state.industry}
+                                    onChange={this.handleIndustryChange}
+                                    variant="outlined"
+                                >
+                                    {IndustryLabels.map((option) => (
+                                        <MenuItem key={option} value={option}>
+                                            {option}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <FormControl required className={classes.formControl}>
-                                    <InputLabel className={classes.label} id="industry-mutiple-checkbox-label">Select Industry (Up to 3)</InputLabel>
+                                    <InputLabel className={classes.label} id="industry-mutiple-checkbox-label">Select Tags (Up to 3)</InputLabel>
                                     <Select
                                         labelId="industry-mutiple-checkbox-label"
                                         id="industry-mutiple-checkbox"
                                         multiple
-                                        value={this.state.industry}
-                                        onChange={this.setIndustry}
+                                        value={this.state.industry_tags}
+                                        onChange={this.setIndustryTags}
                                         input={<Input id="select-multiple-chip"/>}
                                         renderValue={(selected) => (
                                             <div className={classes.chips}>
@@ -246,9 +295,9 @@ class SecondPage extends Component {
                                         )}
                                         MenuProps={MenuProps}
                                     >
-                                        {IndustryLabels.map((name) => (
+                                        {IndustryTagsLabels.map((name) => (
                                             <MenuItem key={name} value={name}>
-                                                <Checkbox checked={this.state.industry.indexOf(name) > -1} />
+                                                <Checkbox checked={this.state.industry_tags.indexOf(name) > -1} />
                                                 <ListItemText primary={name} />
                                             </MenuItem>
                                         ))}
@@ -341,7 +390,7 @@ class SecondPage extends Component {
                                     required
                                     fullWidth
                                     select
-                                    label="Province"
+                                    label="Province/Territories"
                                     value={this.state.province}
                                     onChange={this.handleProvinceChange}
                                     variant="outlined"
@@ -386,7 +435,7 @@ class SecondPage extends Component {
                     <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            Please fill out all the required fields
+                            <b> Please fill out all the required fields </b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

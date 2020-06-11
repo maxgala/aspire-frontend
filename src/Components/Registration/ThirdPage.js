@@ -107,13 +107,14 @@ class ThirdPage extends Component{
             education: this.props.prev ? this.props.prev.education : '',
             province: this.props.prev ? this.props.prev.province : '',
             country: this.props.prev ? this.props.prev.country : '',
-            states: this.props.prev ? this.props.prev.state : '',
+            states: this.props.prev ? this.props.prev.states : '',
             open: false,
             files: [],
             progress: 75,
             dialogueOpen: false,
             filePreview: []
         };
+        console.log(this.state)
     }
 
     handleClose() {
@@ -214,7 +215,7 @@ class ThirdPage extends Component{
                     <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            Please fill out all the required fields
+                            <b> Please fill out all the required fields </b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
