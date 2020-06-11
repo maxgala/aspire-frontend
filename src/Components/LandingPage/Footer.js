@@ -2,35 +2,22 @@ import React, {Component} from "react";
 import { Button } from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import Newsletter from "../Images/newsletter.png";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(theme => ({
-    sectionstyle: {
-        width: "100vw",
-        height: "100px",
-        marginRight : "0",
-        marginLeft  : "0",
-    },
     h1style: {
         color: 'white',
         fontFamily: 'Arial',
-        fontSize: '50px',
-        textAlign: 'center',
+        fontSize: '40px',
+        textAlign: 'left',
         margin: '0',
-        paddingLeft: '35px',
-        paddingRight: '35px'
-    },
-    subheading: {
-        color: "white",
-        paddingLeft: '30px',
-        paddingRight: '30px'
-    },
-    networkstyle: {
-        color: "gold",
-        marginTop: "10px"
     },
     button: {
+        display: 'inline-block',
+        width: '300px',
+        height: '60px',
+        fontSize: window.innerWidth < 885 ? '0.875rem' : '24px',
         backgroundColor: "#6EA0B5",
-        marginTop:"2%",
         borderRadius: 50,
         color: "white",
         '&:hover': {
@@ -38,20 +25,24 @@ const useStyles = makeStyles(theme => ({
             color: '#484848'
         }
     },
-    total: {
+    newsletter: {
         position: 'absolute',
-        left: '50%',
-        top: '0%',
-        transform: 'translate(-50%, 0%)',
-        backgroundColor: 'rgba(0,0,0,0.8)',
-        width: '110%',
-        height: '75vh'
+        width: '100%',
+        bottom: '0',
+        paddingBottom: window.innerWidth < 885 ? '150px' : '190px',
+        textAlign: 'left',
+        display: 'inline-block',
     },
-    img: {
-        paddingTop: '20vh',
-        width: '350px',
-        paddingLeft: '20px',
-        paddingRight: '20px'
+    toolbar: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        width: '100%',
+    },
+    grid: { 
+        paddingLeft: '10vw',
+        paddingRight: '10vw',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 }));
 
@@ -67,8 +58,34 @@ class Footer extends Component {
     render() {
         const classes = this.props.classes;
         return(
-            <div className={classes.sectionStyle}>
-                <img style={{width: '100%', marginBottom: '-10px', marginTop: '10vh'}} resizeMode="contain" src={Newsletter} alt="Main"/>
+            <div className={classes.toolbar}>
+                <img style={{width: '100%', height: '300px', marginBottom: '-10px', marginTop: '10vh'}} resizeMode="contain" src={Newsletter} alt="Main"/>
+                <div className={classes.newsletter}>
+                    <Grid
+                      container
+                      item
+                      spacing={1}
+                      className={classes.grid}
+                    >
+                      <Grid
+                        container
+                        item xs={7} sm={9}
+                        spacing={1}
+                      >
+                        <h1 className={classes.h1style}>Subscribe to our newsletter</h1>
+                      </Grid>
+                      <Grid
+                        container
+                        item xs={5} sm={3}
+                        spacing={1}
+                        alignItems="right"
+                        justify="right"
+                      >
+                        <Button className={classes.button} variant="contained">Subscribe</Button>
+                      </Grid>
+                    </Grid>
+                    
+                </div>
             </div>
             
         );
