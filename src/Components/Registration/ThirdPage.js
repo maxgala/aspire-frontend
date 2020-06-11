@@ -33,7 +33,11 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
+    uploadText: {
+      margin: theme.spacing(1, 0, 1)
+    },
     uploadImage:{
+        marginLeft: theme.spacing(3),
         backgroundColor: "#6EA0B5",
         height: 50,
         color: "white",
@@ -59,8 +63,10 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     profilePic:{
-        width: '100%',
-        height: 'auto'
+        margin: theme.spacing(3, 0, 2),
+        width: '120px',
+        height: 'auto',
+        borderRadius: '50%'
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -77,6 +83,11 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
+    textAlignment: {
+        marginLeft: '10%',
+        margin: theme.spacing(3,0,2),
+        textAlign: 'left'
+    }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -107,7 +118,13 @@ class ThirdPage extends Component{
             education: this.props.prev ? this.props.prev.education : '',
             province: this.props.prev ? this.props.prev.province : '',
             open: false,
-            files: [],
+            fileDialogOpen: false,
+            imageFiles: [],
+            resumeFiles: [],
+            profilePicPreviewText: 'Upload a Photo',
+            profilePicButtonText: 'Upload',
+            resumeUploadText: 'Upload your Resume',
+            resumeButtonText: 'Upload',
             progress: 75,
             dialogueOpen: false,
             filePreview: []
@@ -120,22 +137,29 @@ class ThirdPage extends Component{
         });
     }
 
+    handleResumeSave(resume){
+        console.log(resume)
+    }
+
     handleSave(files) {
         let document = "";
         let reader = new FileReader();
         reader.readAsDataURL(files[0]);
+        let page = this;
         reader.onload = function () {
+            console.log(files[0].name);
             // Saving files to state for further use and closing Modal.
             document = reader.result;
-            console.log(this);
+            page.setState({
+                profilePicPreviewText: files[0].name,
+                profilePicButtonText: 'Upload Again',
+                imageFiles: [document],
+                open: false
+            })
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
-        this.setState({
-            files: [document],
-            open: false
-        });
     }
 
     handleOpen() {
@@ -163,22 +187,53 @@ class ThirdPage extends Component{
                     <div className={classes.form}>
                         <Grid container spacing={2}>
                             <Grid xs={12}>
-                                <Button className={classes.uploadImage} onClick={this.handleOpen.bind(this)}>
-                                    <b>Add Image</b>
-                                </Button>
+                                { this.state.imageFiles.map((file,i) => {
+                                    return <img key={i} src={file} alt={"profile-pic"} className={classes.profilePic}/>
+                                }) }
+                            </Grid>
+
+                            <Grid xs={12} className={classes.textAlignment}>
+                                <div style={{display: 'inline-flex'}}>
+                                    <Typography className={classes.uploadText} component="h6" variant="h6">
+                                        {this.state.profilePicPreviewText}
+                                    </Typography>
+                                    <Button className={classes.uploadImage} onClick={this.handleOpen.bind(this)}>
+                                        <b>
+                                            {this.state.profilePicButtonText}
+                                        </b>
+                                    </Button>
+                                </div>
                                 <DropzoneDialog
                                     open={this.state.open}
                                     onSave={this.handleSave.bind(this)}
-                                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                                    acceptedFiles={['image/*']}
                                     showPreviews={true}
                                     maxFileSize={5000000}
                                     onClose={this.handleClose.bind(this)}
+                                    filesLimit={1}
+                                    fileObjects={this.state.files}
                                 />
                             </Grid>
-                            <Grid xs={12} sm={6}>
-                                { this.state.files.map((file,i) => {
-                                    return <img key={i} src={file.base64} alt={"profile-pic"} className={classes.profilePic}/>
-                                }) }
+
+                            <Grid xs={12} className={classes.textAlignment}>
+                                <div style={{display: 'inline-flex'}}>
+                                    <Typography className={classes.uploadText} component="h6" variant="h6">
+                                        {this.state.resumeUploadText}
+                                    </Typography>
+                                    <Button className={classes.uploadImage} onClick={event => this.setState({fileDialogOpen: true})}>
+                                        <b>
+                                            {this.state.resumeButtonText}
+                                        </b>
+                                    </Button>
+                                </div>
+                                <DropzoneDialog
+                                    open={this.state.fileDialogOpen}
+                                    onSave={this.handleResumeSave.bind(this)}
+                                    maxFileSize={5000000}
+                                    onClose={event=>{this.setState({fileDialogOpen: false})}}
+                                    filesLimit={1}
+                                    fileObjects={this.state.resumeFiles}
+                                />
                             </Grid>
                         </Grid>
                         <LinearWithValueLabel progress={this.state.progress}/>
