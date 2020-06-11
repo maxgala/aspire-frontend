@@ -106,12 +106,14 @@ class ThirdPage extends Component{
             company: this.props.prev ? this.props.prev.company : '',
             education: this.props.prev ? this.props.prev.education : '',
             province: this.props.prev ? this.props.prev.province : '',
+            country: this.props.prev ? this.props.prev.country : '',
+            states: this.props.prev ? this.props.prev.state : '',
             open: false,
             files: [],
             progress: 75,
             dialogueOpen: false,
             filePreview: []
-        }
+        };
     }
 
     handleClose() {

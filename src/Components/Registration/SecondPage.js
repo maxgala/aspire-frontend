@@ -23,9 +23,12 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
+import Country from "./Country";
+import States from './States';
 import Education from "./Education";
 import Province from "./Provinces";
 import ThirdPage from "./ThirdPage";
+import Chip from "@material-ui/core/Chip";
 
 const IndustryLabels = [];
 for (let i=0; i < Industries.length; ++i){
@@ -82,7 +85,13 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
-
+    chips: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    chip: {
+        margin: 2,
+    },
     submit: {
         margin: theme.spacing(3, 0, 2),
         marginTop:"5%",
@@ -127,7 +136,11 @@ class SecondPage extends Component {
             company: this.props.prev ? this.props.prev.company : '',
             education: this.props.prev ? this.props.prev.education : '',
             province: this.props.prev ? this.props.prev.province : '',
+            country: this.props.prev ? this.props.prev.country : '',
+            states: this.props.prev ? this.props.prev.state : '',
             dialogueOpen: false,
+            displayProvince: 'None',
+            displayStates: 'None'
         }
     }
 
@@ -135,6 +148,19 @@ class SecondPage extends Component {
         this.setState({
             province: event.target.value
         })
+    };
+
+    handleStateChange = (event) => {
+        this.setState({
+            states: event.target.value
+        })
+    };
+    handleCountryChange = (event) => {
+        this.setState({
+            country: event.target.value,
+            displayStates: event.target.value === 'USA' ? '' : 'None',
+            displayProvince: event.target.value === 'CA' ? '' : 'None'
+        });
     };
 
     handleEducationChange = (event) => {
@@ -162,11 +188,11 @@ class SecondPage extends Component {
     };
 
     changeToPage3 = (event) => {
-        if (this.state.industry === [] || this.state.industry === undefined || this.state.industry === ''
-            || this.state.title === '' || this.state.title === undefined
-            || this.state.company === '' || this.state.company === undefined
-            || this.state.education === '' || this.state.education === undefined
-            || this.state.province === '' || this.state.province === undefined){
+        if (this.state.industry.length === 0 || this.state.industry === '' ||
+            this.state.title === '' || this.state.title === undefined ||
+            this.state.company === '' || this.state.company === undefined ||
+            this.state.education === '' || this.state.education === undefined ||
+            this.state.country === '' || this.state.country === undefined){
             this.setState({
                 dialogueOpen: true
             });
@@ -210,8 +236,14 @@ class SecondPage extends Component {
                                         multiple
                                         value={this.state.industry}
                                         onChange={this.setIndustry}
-                                        input={<Input />}
-                                        renderValue={(selected) => selected.join(', ')}
+                                        input={<Input id="select-multiple-chip"/>}
+                                        renderValue={(selected) => (
+                                            <div className={classes.chips}>
+                                                {selected.map((value) => (
+                                                    <Chip key={value} label={value} className={classes.chip} />
+                                                ))}
+                                            </div>
+                                        )}
                                         MenuProps={MenuProps}
                                     >
                                         {IndustryLabels.map((name) => (
@@ -268,6 +300,42 @@ class SecondPage extends Component {
                                 </TextField>
                             </Grid>
                             <Grid item xs={12}>
+                                <TextField
+                                    id="outlined-select-education"
+                                    required
+                                    fullWidth
+                                    select
+                                    label="Country"
+                                    value={this.state.country}
+                                    onChange={this.handleCountryChange}
+                                    variant="outlined"
+                                >
+                                    {Country.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid style={{display: this.state.displayStates}} item xs={12}>
+                                <TextField
+                                    id="outlined-select-education"
+                                    required
+                                    fullWidth
+                                    select
+                                    label="States"
+                                    value={this.state.states}
+                                    onChange={this.handleStateChange}
+                                    variant="outlined"
+                                >
+                                    {States.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid style={{display: this.state.displayProvince}} item xs={12}>
                                 <TextField
                                     id="outlined-select-education"
                                     required

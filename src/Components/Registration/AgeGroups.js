@@ -1,7 +1,7 @@
 const AgeGroups = [
     {
         value: '0-17',
-        label: 'Under 17',
+        label: 'Under 18',
     },
     {
         value: '18-24',
