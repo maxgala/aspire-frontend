@@ -29,16 +29,14 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     paddingLeft: '20px',
     paddingRight: '20px',
-    color: 'white',
-    zIndex: '100',
+    color: 'white'
   },
   small_text: { 
     position: 'absolute',
     marginTop: '75%',
     fontSize: '16px',
     width: '100%',
-    color: 'white',
-    zIndex: '100',
+    color: 'white'
   },
   back_text: { 
     position: 'absolute',
@@ -82,12 +80,12 @@ class FeatureCard extends Component{
         <div className={classes.image} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <p className={classes.small_text}>more text on the flip side</p>
-          <img style={{width: '100%', height: '100%'}} src={this.state.fimages[this.props.card_number - 1]} alt="Front of feature card"/>
+          <img style={{width: '100%'}} src={this.state.fimages[this.props.card_number - 1]} alt="Front of feature card"/>
         </div>
  
         <div className={classes.image} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
           <p className={classes.back_text}>{this.props.back_text}</p>
-          <img style={{width: '100%', height: '100%'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
+          <img style={{width: '100%'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
         </div>
       </ReactCardFlip>
     )
