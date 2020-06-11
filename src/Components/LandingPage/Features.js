@@ -52,6 +52,7 @@ class Features extends Component{
             <FeatureCard
               front_text="Exclusive Coffee Chat Series"
               back_text="Schedule an exclusive meeting with a high performing, accomplished Senior Executive to help guide, mentor, and assist in shaping your career."
+              card_number={1}
             />
           </Grid>
           <Grid
@@ -64,6 +65,7 @@ class Features extends Component{
             <FeatureCard
               front_text="Professional Job Opportunities"
               back_text="Employers are eager to hire from the talented individuals in the MAX Network. Apply to job opportunities posted directly from a MAX Aspire member."
+              card_number={2}
             />
           </Grid>
           <Grid
@@ -76,6 +78,7 @@ class Features extends Component{
             <FeatureCard
               front_text="Board Opportunities"
               back_text="As MAX grows and is recognized for its talent, Board opportunities become available. Apply to opportunities to serve on a Board of Directors!"
+              card_number={3}
             />
           </Grid>
           <Grid
@@ -88,6 +91,7 @@ class Features extends Component{
             <FeatureCard
               front_text="Hire MAX Professional Talent"
               back_text="Are you looking to hire exceptional aspiring professionals from the MAX Network? Post a job on MAX Aspire so you can hire great talent!"
+              card_number={4}
             />
           </Grid>
           <Grid
@@ -100,6 +104,7 @@ class Features extends Component{
             <FeatureCard
               front_text="Resume Bank"
               back_text="Senior Executives have access to all resumes of the Aspiring Professionals who sign up. You may magically be contacted regarding a potential match for a listed or unlisted role."
+              card_number={5}
             />
           </Grid>
           <Grid
@@ -112,6 +117,7 @@ class Features extends Component{
             <FeatureCard
               front_text="Mock Interviews"
               back_text="Ace your next interview by being well prepared through MAX Aspire’s Mock Interviews. Book an interview and get that dream job you have been preparing for!"
+              card_number={6}
             />
           </Grid>
         </Grid>

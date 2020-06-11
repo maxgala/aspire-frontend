@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
         paddingRight: '30px'
     },
     networkstyle: {
-        color: "gold",
+        color: "#B5A165",
         marginTop: "10px"
     },
     button: {
