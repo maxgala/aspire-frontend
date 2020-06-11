@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 import Newsletter from "../Images/newsletter.png";
 import Grid from "@material-ui/core/Grid";
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
   newsletterText: {
@@ -14,9 +15,9 @@ const useStyles = makeStyles(theme => ({
   },
   subscribeButton: {
     display: 'inline-block',
-    width: '300px',
-    height: '60px',
-    fontSize: window.innerWidth < 885 ? '0.875rem' : '24px',
+    width: '250px',
+    height: '50px',
+    fontSize: window.innerWidth < 885 ? '0.875rem' : '20px',
     backgroundColor: "#6EA0B5",
     borderRadius: 50,
     color: "white",
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     width: '100%',
     bottom: '0',
-    paddingBottom: window.innerWidth < 885 ? '150px' : '190px',
+    paddingBottom: window.innerWidth < 590 ? '110px' : window.innerWidth < 1280 ? '140px' : '190px',
     textAlign: 'left',
     display: 'inline-block',
   },
@@ -38,8 +39,8 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end'
   },
   grid: { 
-    paddingLeft: '10vw',
-    paddingRight: '10vw',
+    paddingLeft: '5vw',
+    paddingRight: '5vw',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -48,6 +49,13 @@ const useStyles = makeStyles(theme => ({
     height: '300px',
     marginBottom: '-10px',
     marginTop: '10vh'
+  },
+  input: {
+    color: 'white',
+    fontSize: '20px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    width: '100%'
   }
 }));
 
@@ -74,14 +82,26 @@ class Footer extends Component {
           >
             <Grid
               container
-              item xs={7} sm={9}
+              item xs={12} lg={6}
               spacing={1}
             >
               <h1 className={classes.newsletterText}>Subscribe to our newsletter</h1>
             </Grid>
             <Grid
               container
-              item xs={5} sm={3}
+              item xs={12} lg={3}
+              spacing={1}
+              alignItems="right"
+              justify="right"
+            >
+                <TextField id="standard-basic" placeholder="yourEmail@email.com"
+                  InputProps={{
+                    className: classes.input
+                  }}/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} lg={3}
               spacing={1}
               alignItems="right"
               justify="right"
