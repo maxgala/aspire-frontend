@@ -2,6 +2,13 @@ import React, {Component} from "react";
 import ReactCardFlip from 'react-card-flip';
 import CardFront from "../Images/feature_card_front.png";
 import CardBack from "../Images/feature_card_back.png";
+import image1 from "../Images/features/image1.png";
+import image2 from "../Images/features/image2.png";
+import image3 from "../Images/features/image3.png";
+import image4 from "../Images/features/image4.png";
+import image5 from "../Images/features/image5.png";
+import image6 from "../Images/features/image6.png";
+import tint from "../Images/features/tint.png";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -12,19 +19,21 @@ const useStyles = makeStyles(theme => ({
   },
   front_text: { 
     position: 'absolute',
-    marginTop: '30%',
-    fontSize: '24px',
+    marginTop: '25%',
+    fontSize: '30px',
     width: '100%',
     paddingLeft: '20px',
     paddingRight: '20px',
     color: 'white',
+    zIndex: '100',
   },
   small_text: { 
     position: 'absolute',
-    marginTop: '60%',
-    fontSize: '12px',
+    marginTop: '75%',
+    fontSize: '16px',
     width: '100%',
     color: 'white',
+    zIndex: '100',
   },
   back_text: { 
     position: 'absolute',
@@ -35,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: '15px',
     paddingRight: '15px',
     color: 'black',
-  },
+  }
 }));
 
 function withMyHook(Component){
@@ -49,7 +58,8 @@ class FeatureCard extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      isFlipped: false
+      isFlipped: false,
+      images: [image1, image2, image3, image4, image5, image6]
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -66,12 +76,13 @@ class FeatureCard extends Component{
         <div className={classes.image} onClick={this.handleClick}>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <p className={classes.small_text}>more text on the flip side</p>
-          <img style={{width: '100%', height: '100%'}} src={CardFront} alt="Front of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '1'}} src={this.state.images[this.props.card_number - 1]} alt="Front of feature card"/>
+          <img style={{width: '100%', height: '100%', transform: 'translate(0%, -104%)', opacity: '0.4', marginBottom: '-100%'}} src={tint} alt="Tint on front of feature card"/>
         </div>
  
         <div className={classes.image} onClick={this.handleClick}>
           <p className={classes.back_text}>{this.props.back_text}</p>
-          <img style={{width: '100%', height: '100%'}} src={CardBack} alt="Back of feature card"/>
+          <img style={{width: '100%', height: '100%'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
         </div>
       </ReactCardFlip>
     )
