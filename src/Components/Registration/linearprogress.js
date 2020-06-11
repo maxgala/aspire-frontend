@@ -12,9 +12,9 @@ function LinearProgressWithLabel(props) {
                 <LinearProgress variant="determinate" {...props} />
             </Box>
             <Box minWidth={35}>
-                <Typography variant="body2" color="textSecondary">{`${Math.round(
+                <Typography variant="body2" color="textPrimary"><b>{`${Math.round(
                     props.value,
-                )}%`}</Typography>
+                )}%`}</b></Typography>
             </Box>
         </Box>
     );
@@ -36,7 +36,6 @@ const useStyles = makeStyles({
 });
 
 export default function LinearWithValueLabel(value) {
-    console.log(value.progress);
     const classes = useStyles();
 
     return (

@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         marginTop: '10vh',
         width: '100px',
+        height: '100px',
         padding: '1vw',
     },
     form: {
