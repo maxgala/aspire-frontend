@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import { Button } from '@material-ui/core';
 import Mainback from "../Images/max-mainimg.jpg";
 import {makeStyles} from "@material-ui/core/styles";
-
+import MaxLogo from "../Images/max_logo.png";
 
 const useStyles = makeStyles(theme => ({
     sectionstyle: {
@@ -10,25 +10,25 @@ const useStyles = makeStyles(theme => ({
         height: "100vh",
         marginRight : "0",
         marginLeft  : "0",
-        },
-
+    },
     h1style: {
-        color: "white",
-        paddingTop: "20vh",
-        fontFamily: "Arial",
-        fontSize: "50px",
+        color: 'white',
+        fontFamily: 'Arial',
+        fontSize: '50px',
         textAlign: 'center',
-        marginBottom: "0"
-      },
-
+        margin: '0',
+        paddingLeft: '35px',
+        paddingRight: '35px'
+    },
     subheading: {
-        color: "white"
+        color: "white",
+        paddingLeft: '30px',
+        paddingRight: '30px'
     },
     networkstyle: {
-        color: "gold",
+        color: "#B5A165",
         marginTop: "10px"
     },
-
     button: {
         backgroundColor: "#6EA0B5",
         marginTop:"2%",
@@ -45,21 +45,26 @@ const useStyles = makeStyles(theme => ({
         top: '0%',
         transform: 'translate(-50%, 0%)',
         backgroundColor: 'rgba(0,0,0,0.8)',
-        width: '100vw',
+        width: '110%',
         height: '75vh'
-    }
+    },
+    img: {
+        paddingTop: '20vh',
+        width: '350px',
+        paddingLeft: '20px',
+        paddingRight: '20px'
+    },
 }));
 
 
-function withMyHook(Component){
-    return function WrappedComponent(props){
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
         const classes = useStyles();
         return <Component {...props} classes={classes}/>
     }
 }
 
-class MainImage extends Component{
-
+class MainImage extends Component {
     render() {
         const classes = this.props.classes;
         return(
@@ -67,6 +72,7 @@ class MainImage extends Component{
                 <img style={{width: '100%', height: '65vh', marginTop: '10vh'}}  
                     resizeMode="contain" src={Mainback} alt="Main"/>
                 <div className={classes.total}>
+                    <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
                     <h1 className={classes.h1style}>Aspire for Excellence</h1>
                     <h3 className={classes.subheading}>Any successful career starts with a <span className={classes.networkstyle}>good network</span></h3>
                     <Button className={classes.button} variant="contained">Learn More</Button>
@@ -76,5 +82,6 @@ class MainImage extends Component{
         );
     }
 }
+
 MainImage = withMyHook(MainImage);
 export default MainImage;
