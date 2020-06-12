@@ -34,10 +34,11 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
     },
     uploadText: {
-      margin: theme.spacing(1, 0, 1)
+        margin: theme.spacing(2, 0, 1),
+        width: window.innerWidth < 480 ? '180px' : '200px'
     },
     uploadImage:{
-        marginLeft: theme.spacing(3),
+        marginLeft: theme.spacing(1,0,1),
         backgroundColor: "#6EA0B5",
         height: 50,
         color: "white",
@@ -85,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlignment: {
         marginLeft: '10%',
-        margin: theme.spacing(3,0,2),
+        margin: theme.spacing(1,0,1),
         textAlign: 'left'
     }
 }));
@@ -119,11 +120,15 @@ class ThirdPage extends Component{
             province: this.props.prev ? this.props.prev.province : '',
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
+            industry_tags: this.props.prev ? this.props.prev.industry_tags : '',
+            mentor: false,
+            resumeURL: "",
+            profilePicURL: "",
             open: false,
             fileDialogOpen: false,
             imageFiles: [],
             resumeFiles: [],
-            profilePicPreviewText: 'Upload a Photo',
+            profilePicPreviewText: 'Upload your Photo',
             profilePicButtonText: 'Upload',
             resumeUploadText: 'Upload your Resume',
             resumeButtonText: 'Upload',
@@ -131,7 +136,6 @@ class ThirdPage extends Component{
             dialogueOpen: false,
             filePreview: []
         };
-        console.log(this.state)
     }
 
     handleClose() {
@@ -141,7 +145,12 @@ class ThirdPage extends Component{
     }
 
     handleResumeSave(resume){
-        console.log(resume)
+        this.setState({
+            resumeUploadText: resume[0]['name'],
+            resumeButtonText: 'Upload Again',
+            fileDialogOpen: false,
+            resumeFiles: resume
+        })
     }
 
     handleSave(files) {
@@ -194,11 +203,10 @@ class ThirdPage extends Component{
                                     return <img key={i} src={file} alt={"profile-pic"} className={classes.profilePic}/>
                                 }) }
                             </Grid>
-
                             <Grid xs={12} className={classes.textAlignment}>
                                 <div style={{display: 'inline-flex'}}>
-                                    <Typography className={classes.uploadText} component="h6" variant="h6">
-                                        {this.state.profilePicPreviewText}
+                                    <Typography className={classes.uploadText} component="h6" variant="subtitle2">
+                                        <b>{this.state.profilePicPreviewText}</b>
                                     </Typography>
                                     <Button className={classes.uploadImage} onClick={this.handleOpen.bind(this)}>
                                         <b>
@@ -220,8 +228,8 @@ class ThirdPage extends Component{
 
                             <Grid xs={12} className={classes.textAlignment}>
                                 <div style={{display: 'inline-flex'}}>
-                                    <Typography className={classes.uploadText} component="h6" variant="h6">
-                                        {this.state.resumeUploadText}
+                                    <Typography className={classes.uploadText} component="h6" variant="subtitle2">
+                                        <b>{this.state.resumeUploadText}</b>
                                     </Typography>
                                     <Button className={classes.uploadImage} onClick={event => this.setState({fileDialogOpen: true})}>
                                         <b>

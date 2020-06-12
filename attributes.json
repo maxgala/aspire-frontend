@@ -1,0 +1,25 @@
+{
+  "registration": {
+    "firstName": "",
+    "lastName": "",
+    "phone": "",
+    "email": "",
+    "password": "",
+    "ageGroup": "",
+    "industry": "",
+    "title": "",
+    "company": "",
+    "education": "",
+    "province": "",
+    "country": "",
+    "states": "",
+    "industry_tags": "",
+    "mentor": false,
+    "resumeURL": "",
+    "profilePicURL": ""
+  },
+  "sign_in": {
+    "username": "",
+    "password": ""
+  }
+}
