@@ -104,6 +104,7 @@ class ThirdPage extends Component{
             password: this.props.prev ? this.props.prev.password : '',
             ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
             industry: this.props.prev ? this.props.prev.industry : '',
+            industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
             title: this.props.prev ? this.props.prev.title : '',
             company: this.props.prev ? this.props.prev.company : '',
             education: this.props.prev ? this.props.prev.education : '',
