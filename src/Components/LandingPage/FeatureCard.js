@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import ReactCardFlip from 'react-card-flip';
-import CardFront from "../Images/feature_card_front.png";
-import CardBack from "../Images/feature_card_back.png";
 import image1 from "../Images/features/image1.png";
 import image2 from "../Images/features/image2.png";
 import image3 from "../Images/features/image3.png";
