@@ -1,13 +1,7 @@
 import React, {Component} from "react";
 import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import Slide from "@material-ui/core/Slide";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
 import {DropzoneDialog} from 'material-ui-dropzone';
 import SecondPage from "./SecondPage";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -91,11 +86,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
-
-
 function withMyHook(Component){
     return function WrappedComponent(props){
         const classes = useStyles();
@@ -133,7 +123,6 @@ class ThirdPage extends Component{
             resumeUploadText: 'Upload your Resume',
             resumeButtonText: 'Upload',
             progress: 75,
-            dialogueOpen: false,
             filePreview: []
         };
     }
@@ -207,6 +196,11 @@ class ThirdPage extends Component{
                                 <div style={{display: 'inline-flex'}}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.profilePicPreviewText}</b>
+                                        <Tooltip title={"For various reasons"}>
+                                            <Typography variant="caption" style={{color: 'grey', cursor: 'pointer'}} display="block" gutterBottom>
+                                                Why am I being asked about this?
+                                            </Typography>
+                                        </Tooltip>
                                     </Typography>
                                     <Button className={classes.uploadImage} onClick={this.handleOpen.bind(this)}>
                                         <b>
@@ -230,6 +224,11 @@ class ThirdPage extends Component{
                                 <div style={{display: 'inline-flex'}}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.resumeUploadText}</b>
+                                        <Tooltip title={"For various reasons"}>
+                                            <Typography variant="caption" style={{color: 'grey', cursor: 'pointer'}} display="block" gutterBottom>
+                                                Why am I being asked about this?
+                                            </Typography>
+                                        </Tooltip>
                                     </Typography>
                                     <Button className={classes.uploadImage} onClick={event => this.setState({fileDialogOpen: true})}>
                                         <b>
@@ -267,26 +266,6 @@ class ThirdPage extends Component{
                         </Button>
                     </div>
                 </div>
-                <Dialog
-                    open={this.state.dialogueOpen}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={this.handleDialog}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description"
-                >
-                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-slide-description">
-                            <b> Please fill out all the required fields </b>
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleDialog} color="primary">
-                            <b>Close</b>
-                        </Button>
-                    </DialogActions>
-                </Dialog>
             </Container>
         );
     }
