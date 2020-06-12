@@ -138,7 +138,7 @@ class SecondPage extends Component {
             ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
             progress: 50,
             industry: this.props.prev ? this.props.prev.industry : '',
-            industry_tags: [],
+            industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
             title: this.props.prev ? this.props.prev.title : '',
             company: this.props.prev ? this.props.prev.company : '',
             education: this.props.prev ? this.props.prev.education : '',
@@ -205,7 +205,6 @@ class SecondPage extends Component {
 
     changeToPage3 = (event) => {
         if (this.state.industry === '' || this.state.industry === undefined ||
-            this.state.industry_tags.length === 0 || this.state.industry_tags === '' ||
             this.state.title === '' || this.state.title === undefined ||
             this.state.company === '' || this.state.company === undefined ||
             this.state.education === '' || this.state.education === undefined ||
@@ -277,7 +276,7 @@ class SecondPage extends Component {
                                 </TextField>
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControl required className={classes.formControl}>
+                                <FormControl className={classes.formControl}>
                                     <InputLabel className={classes.label} id="industry-mutiple-checkbox-label">Select Tags (Up to 3)</InputLabel>
                                     <Select
                                         labelId="industry-mutiple-checkbox-label"

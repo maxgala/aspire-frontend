@@ -1,13 +1,7 @@
 import React, {Component} from "react";
 import Container from "@material-ui/core/Container";
 import {makeStyles} from "@material-ui/core/styles";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import Slide from "@material-ui/core/Slide";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
 import {DropzoneDialog} from 'material-ui-dropzone';
 import SecondPage from "./SecondPage";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -33,7 +28,12 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
+    uploadText: {
+        margin: theme.spacing(2, 0, 1),
+        width: window.innerWidth < 480 ? '180px' : '200px'
+    },
     uploadImage:{
+        marginLeft: theme.spacing(1,0,1),
         backgroundColor: "#6EA0B5",
         height: 50,
         color: "white",
@@ -59,8 +59,10 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     profilePic:{
-        width: '100%',
-        height: 'auto'
+        margin: theme.spacing(3, 0, 2),
+        width: '120px',
+        height: 'auto',
+        borderRadius: '50%'
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -77,12 +79,12 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
+    textAlignment: {
+        marginLeft: '10%',
+        margin: theme.spacing(1,0,1),
+        textAlign: 'left'
+    }
 }));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
-
 
 function withMyHook(Component){
     return function WrappedComponent(props){
@@ -102,19 +104,28 @@ class ThirdPage extends Component{
             password: this.props.prev ? this.props.prev.password : '',
             ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
             industry: this.props.prev ? this.props.prev.industry : '',
+            industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
             title: this.props.prev ? this.props.prev.title : '',
             company: this.props.prev ? this.props.prev.company : '',
             education: this.props.prev ? this.props.prev.education : '',
             province: this.props.prev ? this.props.prev.province : '',
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
+            industry_tags: this.props.prev ? this.props.prev.industry_tags : '',
+            mentor: false,
+            resumeURL: "",
+            profilePicURL: "",
             open: false,
-            files: [],
+            fileDialogOpen: false,
+            imageFiles: [],
+            resumeFiles: [],
+            profilePicPreviewText: 'Upload your Photo',
+            profilePicButtonText: 'Upload',
+            resumeUploadText: 'Upload your Resume',
+            resumeButtonText: 'Upload',
             progress: 75,
-            dialogueOpen: false,
             filePreview: []
         };
-        console.log(this.state)
     }
 
     handleClose() {
@@ -123,22 +134,34 @@ class ThirdPage extends Component{
         });
     }
 
+    handleResumeSave(resume){
+        this.setState({
+            resumeUploadText: resume[0]['name'],
+            resumeButtonText: 'Upload Again',
+            fileDialogOpen: false,
+            resumeFiles: resume
+        })
+    }
+
     handleSave(files) {
         let document = "";
         let reader = new FileReader();
         reader.readAsDataURL(files[0]);
+        let page = this;
         reader.onload = function () {
+            console.log(files[0].name);
             // Saving files to state for further use and closing Modal.
             document = reader.result;
-            console.log(this);
+            page.setState({
+                profilePicPreviewText: files[0].name,
+                profilePicButtonText: 'Upload Again',
+                imageFiles: [document],
+                open: false
+            })
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
-        this.setState({
-            files: [document],
-            open: false
-        });
     }
 
     handleOpen() {
@@ -166,22 +189,62 @@ class ThirdPage extends Component{
                     <div className={classes.form}>
                         <Grid container spacing={2}>
                             <Grid xs={12}>
-                                <Button className={classes.uploadImage} onClick={this.handleOpen.bind(this)}>
-                                    <b>Add Image</b>
-                                </Button>
+                                { this.state.imageFiles.map((file,i) => {
+                                    return <img key={i} src={file} alt={"profile-pic"} className={classes.profilePic}/>
+                                }) }
+                            </Grid>
+                            <Grid xs={12} className={classes.textAlignment}>
+                                <div style={{display: 'inline-flex'}}>
+                                    <Typography className={classes.uploadText} component="h6" variant="subtitle2">
+                                        <b>{this.state.profilePicPreviewText}</b>
+                                        <Tooltip title={"For various reasons"}>
+                                            <Typography variant="caption" style={{color: 'grey', cursor: 'pointer'}} display="block" gutterBottom>
+                                                Why am I being asked about this?
+                                            </Typography>
+                                        </Tooltip>
+                                    </Typography>
+                                    <Button className={classes.uploadImage} onClick={this.handleOpen.bind(this)}>
+                                        <b>
+                                            {this.state.profilePicButtonText}
+                                        </b>
+                                    </Button>
+                                </div>
                                 <DropzoneDialog
                                     open={this.state.open}
                                     onSave={this.handleSave.bind(this)}
-                                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                                    acceptedFiles={['image/*']}
                                     showPreviews={true}
                                     maxFileSize={5000000}
                                     onClose={this.handleClose.bind(this)}
+                                    filesLimit={1}
+                                    fileObjects={this.state.files}
                                 />
                             </Grid>
-                            <Grid xs={12} sm={6}>
-                                { this.state.files.map((file,i) => {
-                                    return <img key={i} src={file.base64} alt={"profile-pic"} className={classes.profilePic}/>
-                                }) }
+
+                            <Grid xs={12} className={classes.textAlignment}>
+                                <div style={{display: 'inline-flex'}}>
+                                    <Typography className={classes.uploadText} component="h6" variant="subtitle2">
+                                        <b>{this.state.resumeUploadText}</b>
+                                        <Tooltip title={"For various reasons"}>
+                                            <Typography variant="caption" style={{color: 'grey', cursor: 'pointer'}} display="block" gutterBottom>
+                                                Why am I being asked about this?
+                                            </Typography>
+                                        </Tooltip>
+                                    </Typography>
+                                    <Button className={classes.uploadImage} onClick={event => this.setState({fileDialogOpen: true})}>
+                                        <b>
+                                            {this.state.resumeButtonText}
+                                        </b>
+                                    </Button>
+                                </div>
+                                <DropzoneDialog
+                                    open={this.state.fileDialogOpen}
+                                    onSave={this.handleResumeSave.bind(this)}
+                                    maxFileSize={5000000}
+                                    onClose={event=>{this.setState({fileDialogOpen: false})}}
+                                    filesLimit={1}
+                                    fileObjects={this.state.resumeFiles}
+                                />
                             </Grid>
                         </Grid>
                         <LinearWithValueLabel progress={this.state.progress}/>
@@ -204,26 +267,6 @@ class ThirdPage extends Component{
                         </Button>
                     </div>
                 </div>
-                <Dialog
-                    open={this.state.dialogueOpen}
-                    TransitionComponent={Transition}
-                    keepMounted
-                    onClose={this.handleDialog}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description"
-                >
-                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-slide-description">
-                            <b> Please fill out all the required fields </b>
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleDialog} color="primary">
-                            <b>Close</b>
-                        </Button>
-                    </DialogActions>
-                </Dialog>
             </Container>
         );
     }
