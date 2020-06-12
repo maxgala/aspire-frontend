@@ -13,7 +13,9 @@ The directory hierarchy will be as following:
     - public (will be built from the prod build)
         - All Static Files 
     - package.json (contains any packages we will be using)
-             
+
+### Deployment
+This project is deployed on [Heroku](https://max-aspire-frontend.herokuapp.com/).
 
 ### Available Scripts
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
