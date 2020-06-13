@@ -53,8 +53,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     color: 'white',
     fontSize: '20px',
-    paddingLeft: '20px',
-    paddingRight: '20px',
+    padding: '20px',
     width: '100%'
   }
 }));
