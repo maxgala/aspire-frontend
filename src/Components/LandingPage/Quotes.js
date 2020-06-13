@@ -4,7 +4,10 @@ import { css, cx } from 'emotion'
 import { makeStyles } from "@material-ui/core/styles";
 import aboutMax from "../Images/aboutMax.png";
 import Grid from "@material-ui/core/Grid";
-
+import pic0 from "../Images/faceShot/pic0.png";
+import pic1 from "../Images/faceShot/pic1.png";
+import pic2 from "../Images/faceShot/pic2.png";
+import pic3 from "../Images/faceShot/pic3.png";
 export const quotes={
     0:{
       
@@ -19,7 +22,7 @@ export const quotes={
         text-align:center;
        }
       
-     `} src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Sean_Cunningham_Head_Shot.jpg"/>
+     `} src={pic0}/>
     },
      1:{
       client:"\"In order to be irreplaceable one must always be different. Coco\"",
@@ -34,7 +37,7 @@ export const quotes={
         }
       
       
-     `} src="https://images.squarespace-cdn.com/content/v1/5c64375df4e5314e7985012c/1565025240158-JV7FOIODKHPLAZOIRGRN/ke17ZwdGBToddI8pDm48kC-KQ8StUrUTl7SMDbWuteJZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PI2jhaLsRRsAwInQ5q0zH86wR4v5ScThrPpqJ8W9VBf8cKMshLAGzx4R3EDFOm1kBS/marcus+square+head+shot.jpg?format=750w"/>
+     `} src={pic1}/>
     
     },
      2:{
@@ -49,7 +52,7 @@ export const quotes={
          text-align:center;
         }
       
-     `} src="https://wrisenergy.org/wp-content/uploads/2019/06/Professional-headshot-square.jpg"/>
+     `} src={pic2}/>
     
     },
      3:{
@@ -64,7 +67,7 @@ export const quotes={
          text-align:center;
         }
       
-     `} src="https://www.headshotsnyc.com/wp-content/gallery/multiple-crops/Linked-in-crop-1.jpg"/>
+     `}src={pic3}/>
     },
   }
   
