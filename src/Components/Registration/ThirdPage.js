@@ -111,7 +111,6 @@ class ThirdPage extends Component{
             province: this.props.prev ? this.props.prev.province : '',
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
-            industry_tags: this.props.prev ? this.props.prev.industry_tags : '',
             mentor: false,
             resumeURL: "",
             profilePicURL: "",
