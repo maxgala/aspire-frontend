@@ -9,11 +9,26 @@ const useStyles = makeStyles(() => ({
     width: '50px',
     height: '50px',
     bottom: 0,
+    right: 1,
+    marginRight: '10px',
     marginLeft: '-25px',
     flex: '1',
     justifyContent: 'flex-end',
     marginBottom: '18px',
   },
+  scrollToTop: {
+    display: window.innerWidth < 480 ? 'none' : '',
+    fontSize: '12px',
+    position: 'fixed',
+    width: '100px',
+    height: '50px',
+    bottom: 0,
+    right: 1,
+    marginRight: '55px',
+    flex: '1',
+    justifyContent: 'flex-end',
+    paddingTop: '10px',
+  }
 }));
 
 function withMyHook(Component){
@@ -43,9 +58,8 @@ class ScrollToTop extends Component{
     return (
       <div>
         <div onClick={this.handleClick}>
-          <img src={UpArrow} alt="Scroll To Top Arrow" className={classes.image}/>
+          <p className={classes.scrollToTop}>scroll to top</p><img src={UpArrow} alt="Scroll To Top Arrow" className={classes.image}/>
         </div>
-        <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black'}}></div>
       </div>
     )
   }
