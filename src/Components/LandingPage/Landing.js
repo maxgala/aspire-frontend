@@ -164,10 +164,10 @@ class Landing extends Component{
                         <AboutMax/>
                         <Features/>
                         <Membership/>
+                        <Carousal/>
 
                         {/* Scroll to top and footer components at bottom */}
                         <ScrollToTop/>
-                        <Carousal/>
                     </Container>
                 </main>
             </div>
