@@ -17,8 +17,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide'
+import Slide from '@material-ui/core/Slide';
 import MenuItem from "@material-ui/core/MenuItem";
+import AgeGroups from "./AgeGroups";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         marginTop: '0vh',
         width: '100px',
+        height: '100px',
         padding: '1vw',
     },
     form: {
@@ -55,45 +57,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AgeGroups = [
-    {
-        value: '0-12',
-        label: 'Under 12',
-    },
-    {
-        value: '12-17',
-        label: '12-17',
-    },
-    {
-        value: '18-24',
-        label: '18-24',
-    },
-    {
-        value: '25-34',
-        label: '25-34',
-    },
-    {
-        value: '35-44',
-        label: '35-44',
-    },
-    {
-        value: '45-54',
-        label: '45-54',
-    },
-    {
-        value: '55-64',
-        label: '55-64',
-    },
-    {
-        value: '65-74',
-        label: '65-74',
-    },
-    {
-        value: '75-150',
-        label: 'Over 75',
-    },
-];
-
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -110,16 +73,23 @@ class FirstPage extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            firstName: '',
-            lastName: '',
-            phone: '',
-            email: '',
-            password: '',
-            progress: 0,
+            firstName: this.props.prev ? this.props.prev.firstName : '',
+            lastName: this.props.prev ? this.props.prev.lastName : '',
+            phone: this.props.prev ? this.props.prev.phone : '',
+            email: this.props.prev ? this.props.prev.email : '',
+            password: this.props.prev ? this.props.prev.password : '',
+            ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
+            industry: this.props.prev ? this.props.prev.industry : '',
+            industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+            title: this.props.prev ? this.props.prev.title : '',
+            company: this.props.prev ? this.props.prev.company : '',
+            education: this.props.prev ? this.props.prev.education : '',
+            province: this.props.prev ? this.props.prev.province : '',
+            country: this.props.prev ? this.props.prev.country : '',
+            states: this.props.prev ? this.props.prev.states : '',
+            progress: 25,
             errorDisplay: '',
             dialogueOpen: false,
-            runDialogue: [],
-            ageGroup: ''
         }
     }
 
@@ -137,7 +107,7 @@ class FirstPage extends Component {
             return;
         }
         this.props.appContext.setState({
-            registrationScreen: <SecondPage appContext={this.props.appContext} firstPage={this.state}/>
+            registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
 
@@ -288,6 +258,7 @@ class FirstPage extends Component {
                                     fullWidth
                                     name="password"
                                     label="Password"
+                                    value={this.state.password}
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
@@ -339,15 +310,15 @@ class FirstPage extends Component {
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are filled in properly!!"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                             Please fill out all the required fields
+                            <b>Please fill out all the required fields</b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleDialog} color="primary">
-                            Close
+                            <b>Close</b>
                         </Button>
                     </DialogActions>
                 </Dialog>
