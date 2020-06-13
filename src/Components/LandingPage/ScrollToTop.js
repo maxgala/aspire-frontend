@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import UpArrow from "../Images/up_arrow.svg";
+import UpArrow from "../Images/up_arrow_gold.png";
 import {makeStyles} from "@material-ui/core/styles";
 import Newsletter from "../Images/newsletter.png";
 
@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
   scrollToTop: {
     display: window.innerWidth < 480 ? 'none' : '',
     fontSize: '12px',
+    color: '#B5A165',
     position: 'fixed',
     width: '100px',
     height: '50px',
