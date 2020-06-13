@@ -12,6 +12,7 @@ import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
 import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
+import Carousal from "./Carousal.js";
 import Registration from "../Registration/Registration";
 
 const useStyles = makeStyles(theme => ({
@@ -163,6 +164,7 @@ class Landing extends Component{
                         <AboutMax/>
                         <Features/>
                         <Membership/>
+                        <Carousal/>
 
                         {/* Scroll to top and footer components at bottom */}
                         <ScrollToTop/>
