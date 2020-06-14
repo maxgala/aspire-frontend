@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
   rightArrow: {
     cursor: 'pointer',
     position: 'absolute',
+    align: 'left',
     display: window.innerWidth < 600 ? 'none' : 'flex',
   },
   leftArrow: {
@@ -89,10 +90,9 @@ class Quote extends Component {
       current: q.quotes[0],
       active: 0,
       numQuotes: 4,
- 
     }
   }
-  
+
   timer(){
     clearInterval(this.interval);
     this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
@@ -108,6 +108,7 @@ class Quote extends Component {
     } else if (this.state.active === 3) {
       this.setState({current: q.quotes[0], active: 0})
     }
+    console.log("FJFGJDJGJDJ");
     this.timer();
   }
 
@@ -117,6 +118,7 @@ class Quote extends Component {
     } else if (this.state.active === 0) {
       this.setState({current: q.quotes[this.state.numQuotes - 1], active: this.state.numQuotes - 1})
     }
+   
     this.timer();
   }
 
@@ -129,8 +131,10 @@ class Quote extends Component {
 
   render() {
     const classes = this.props.classes;
+   
     return (
-      <div className={classes.carousal}>
+ 
+      <div onTouchStart={this.HandleRightArrowClick} className={classes.carousal}>
         <h1 className={classes.header}><b>What our members have to say</b></h1>
           <Grid
           container
@@ -182,6 +186,7 @@ class Quote extends Component {
                 src={right}  
                 onClick={this.HandleRightArrowClick}
                 alt={"Testimonial Right Arrow"}
+                
               />
             </Grid>
         </Grid>
@@ -199,17 +204,17 @@ class Quote extends Component {
             }
             span::before{
               content:"";
-              height:6px;
-              width:6px;
+              height:10px;
+              width:10px;
               background-color:#d4d4d4;
               border-radius:50%;
               transition:background-color 0.3s ease;
             }
             span:hover::before{
-              background-color:#45454d
+              background-color:rgb(197,179,88)
             }
             span[data-image="${this.state.active}"]::before{
-             background-color:#45454d
+             background-color:rgb(197,179,88)
             }
           `}>
             {Object.keys(q.quotes).map(index=>(
@@ -221,6 +226,7 @@ class Quote extends Component {
             ))}
         </div>
       </div>
+
     )
   }
 }
