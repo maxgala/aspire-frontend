@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import UpArrow from "../Images/up_arrow_gold.png";
 import {makeStyles} from "@material-ui/core/styles";
-import Newsletter from "../Images/newsletter.png";
 
 const useStyles = makeStyles(() => ({
   image: { 
