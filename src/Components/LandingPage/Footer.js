@@ -74,7 +74,7 @@ class Footer extends Component {
     return (
       <div>
         <div className={classes.toolbar}>
-          <img className={classes.image} resizeMode="contain" src={Newsletter} alt="Newsletter"/>
+          <img className={classes.image} src={Newsletter} alt="Newsletter"/>
           <div className={classes.newsletter}>
             <Grid
               container
@@ -93,8 +93,8 @@ class Footer extends Component {
                 container
                 item xs={12} lg={3}
                 spacing={1}
-                alignItems="right"
-                justify="right"
+                alignItems="center"
+                justify="flex-start"
               >
                 <TextField id="standard-basic" placeholder="yourEmail@email.com"
                   InputProps={{
@@ -103,10 +103,10 @@ class Footer extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12} lg={3}
+                item xs={12} lg={2}
                 spacing={1}
-                alignItems="right"
-                justify="right"
+                alignItems="center"
+                justify="flex-start"
               >
                 <Button className={classes.subscribeButton} variant="contained">Subscribe</Button>
               </Grid>
