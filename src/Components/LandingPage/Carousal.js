@@ -80,14 +80,26 @@ function withMyHook(Component){
   }
 }
 
+
+
 class Quote extends Component { 
   constructor(props) {
     super(props);
     this.state = {
       current: q.quotes[0],
       active: 0,
-      numQuotes: 4
+      numQuotes: 4,
+ 
     }
+  }
+  
+  timer(){
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
   }
 
   HandleRightArrowClick = (event) => {
@@ -96,18 +108,24 @@ class Quote extends Component {
     } else if (this.state.active === 3) {
       this.setState({current: q.quotes[0], active: 0})
     }
+    this.timer();
   }
+
   HandleLeftArrowClick = (event) => {
     if (this.state.active > 0) {
       this.setState({current: q.quotes[this.state.active-1], active: this.state.active-1})
     } else if (this.state.active === 0) {
       this.setState({current: q.quotes[this.state.numQuotes - 1], active: this.state.numQuotes - 1})
     }
+    this.timer();
   }
 
   HandleSetClick = (event) => {
     this.setState({active:event.target.getAttribute("data-image"),current:q.quotes[event.target.getAttribute("data-image")]})
+    this.timer();
   }
+
+  
 
   render() {
     const classes = this.props.classes;
