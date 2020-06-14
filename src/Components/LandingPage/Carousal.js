@@ -130,6 +130,7 @@ class Quote extends Component {
               <img className={classes.leftArrow} 
                 src={left}   
                 onClick={this.HandleLeftArrowClick}
+                alt={"Testimonial Left Arrow"}
               />
             </Grid>
             <Grid
@@ -162,6 +163,7 @@ class Quote extends Component {
               <img className={classes.rightArrow} 
                 src={right}  
                 onClick={this.HandleRightArrowClick}
+                alt={"Testimonial Right Arrow"}
               />
             </Grid>
         </Grid>

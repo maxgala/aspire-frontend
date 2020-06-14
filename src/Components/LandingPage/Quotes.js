@@ -18,7 +18,7 @@ export const quotes={
       text-align:center;
      }
     
-   `} src={pic0}/>
+   `} src={pic0} alt={"Testimonial Quote"}/>
   },
    1:{
     client:"\"In order to be irreplaceable one must always be different. Coco\"",
@@ -33,7 +33,7 @@ export const quotes={
       }
     
     
-   `} src={pic1}/>
+   `} src={pic1} alt={"Testimonial Quote"}/>
   
   },
    2:{
@@ -48,7 +48,7 @@ export const quotes={
        text-align:center;
       }
     
-   `} src={pic2}/>
+   `} src={pic2} alt={"Testimonial Quote"}/>
   
   },
    3:{
@@ -63,7 +63,7 @@ export const quotes={
        text-align:center;
       }
     
-   `}src={pic3}/>
+   `}src={pic3} alt={"Testimonial Quote"}/>
   },
 }
   

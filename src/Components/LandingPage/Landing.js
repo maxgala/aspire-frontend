@@ -10,6 +10,7 @@ import MainImage from "./MainImage.js";
 import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
+import Footer from "./Footer.js";
 import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
@@ -44,7 +45,6 @@ const useStyles = makeStyles(theme => ({
   container: {
     maxWidth: '100vw',
     paddingTop: theme.spacing(0),
-    paddingBottom: theme.spacing(10),
     paddingLeft: '0px',
     paddingRight: '0px',
     position: 'relative'
@@ -167,6 +167,7 @@ class Landing extends Component{
                         <Carousal/>
 
                         {/* Scroll to top and footer components at bottom */}
+                        <Footer/>
                         <ScrollToTop/>
                     </Container>
                 </main>
