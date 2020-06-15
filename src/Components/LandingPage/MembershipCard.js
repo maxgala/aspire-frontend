@@ -71,7 +71,7 @@ class MembershipCard extends Component {
     return (
       <div>
         <div className={classes.card}>
-          <img className={classes.image} src={this.props.type === 'aspiring_professional' ? AspiringProfessional : SeniorExecutive} alt="Membership_image"/>
+          <img className={classes.image} src={this.props.type === 'aspiring_professional' ? AspiringProfessional : SeniorExecutive} alt="Membership"/>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <h2 className={classes.small_text}>{this.props.description}</h2>
           <Button className={classes.button} variant="contained" onClick={this.joinNow}>Join Now</Button>
