@@ -6,6 +6,10 @@ import Grid from "@material-ui/core/Grid";
 import left from "../Images/arrow_left.png";
 import right from "../Images/arrow_right.png";
 import * as q from "./Quotes.js";
+import Swipe from 'react-easy-swipe';
+import ReactDOM from 'react-dom';
+//import {View, Text} from 'react-native';
+//import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 const useStyles = makeStyles(theme => ({
   // TODO: find way to do this with makeStyles
@@ -133,8 +137,8 @@ class Quote extends Component {
     const classes = this.props.classes;
    
     return (
- 
-      <div onTouchStart={this.HandleRightArrowClick} className={classes.carousal}>
+      <Swipe onSwipeEnd={this.HandleRightArrowClick}>
+      <div  className={classes.carousal}>
         <h1 className={classes.header}><b>What our members have to say</b></h1>
           <Grid
           container
@@ -226,7 +230,7 @@ class Quote extends Component {
             ))}
         </div>
       </div>
-
+      </Swipe>
     )
   }
 }
