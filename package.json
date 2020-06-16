@@ -20,6 +20,7 @@
     "react-file-base64": "^1.0.3",
     "react-image-filter": "^0.1.2",
     "react-preview-file": "^0.1.3",
+    "react-s3": "^1.3.1",
     "react-scripts": "3.4.1",
     "serve": "^11.3.2"
   },
