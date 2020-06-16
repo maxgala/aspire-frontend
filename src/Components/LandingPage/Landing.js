@@ -13,6 +13,8 @@ import ScrollToTop from "./ScrollToTop.js";
 import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
 import Registration from "../Registration/Registration";
+import SeniorExec from './SeniorExec';
+import SeniorExecGrid from './SeniorExecGrid';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -163,6 +165,7 @@ class Landing extends Component{
                         <AboutMax/>
                         <Features/>
                         <Membership/>
+                        <SeniorExecGrid/>
 
                         {/* Scroll to top and footer components at bottom */}
                         <ScrollToTop/>

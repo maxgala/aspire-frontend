@@ -69,7 +69,7 @@ class MainImage extends Component {
         const classes = this.props.classes;
         return(
             <div className={classes.sectionStyle}>
-                <img style={{width: '100%', height: '65vh', marginTop: '10vh'}}  
+                <img   
                     resizeMode="contain" src={Mainback} alt="Main"/>
                 <div className={classes.total}>
                     <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
