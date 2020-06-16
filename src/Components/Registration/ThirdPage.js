@@ -10,6 +10,7 @@ import LinearWithValueLabel from "./linearprogress";
 import {DropzoneDialog} from 'material-ui-dropzone';
 import SecondPage from "./SecondPage";
 import Tooltip from "@material-ui/core/Tooltip";
+import S3FileUpload from 'react-s3';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -111,7 +112,6 @@ class ThirdPage extends Component{
             province: this.props.prev ? this.props.prev.province : '',
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
-            industry_tags: this.props.prev ? this.props.prev.industry_tags : '',
             mentor: false,
             resumeURL: "",
             profilePicURL: "",
@@ -134,13 +134,39 @@ class ThirdPage extends Component{
         });
     }
 
+    uploadToS3(file, resume=true){
+        let config = {
+            bucketName: 'aspire-frontend-files-test',
+            dirName: this.state.firstName+'-'+this.state.lastName, /* will change based on users */
+            region: 'ca-central-1',
+            accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+            secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+        };
+        let page = this
+        S3FileUpload
+            .uploadFile(file, config)
+            .then(data => {
+                if (!resume){
+                    page.setState({
+                        profilePicURL: data.location
+                    })
+                }else{
+                    page.setState({
+                        resumeURL: data.location
+                    })
+                }
+            })
+            .catch(err => console.error(err))
+    };
+
     handleResumeSave(resume){
         this.setState({
             resumeUploadText: resume[0]['name'],
             resumeButtonText: 'Upload Again',
             fileDialogOpen: false,
             resumeFiles: resume
-        })
+        });
+        this.uploadToS3(resume[0], true);
     }
 
     handleSave(files) {
@@ -149,7 +175,6 @@ class ThirdPage extends Component{
         reader.readAsDataURL(files[0]);
         let page = this;
         reader.onload = function () {
-            console.log(files[0].name);
             // Saving files to state for further use and closing Modal.
             document = reader.result;
             page.setState({
@@ -157,7 +182,8 @@ class ThirdPage extends Component{
                 profilePicButtonText: 'Upload Again',
                 imageFiles: [document],
                 open: false
-            })
+            });
+            page.uploadToS3(files[0], false);
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
