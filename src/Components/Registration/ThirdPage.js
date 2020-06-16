@@ -11,6 +11,7 @@ import {DropzoneDialog} from 'material-ui-dropzone';
 import SecondPage from "./SecondPage";
 import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from 'react-s3';
+import FinalPage from "./FinalPage";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -201,6 +202,11 @@ class ThirdPage extends Component{
             registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
+    changeToFinalPage = (event) =>  {
+        this.props.appContext.setState({
+            registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state}/>
+        });
+    };
 
     render() {
         const classes = this.props.classes;
@@ -288,6 +294,7 @@ class ThirdPage extends Component{
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={this.changeToFinalPage}
                         >
                             <b>Next</b>
                         </Button>

@@ -12,6 +12,7 @@ import MaxLogo from "../Images/max_logo.png";
 import MaxBrand from "../Images/max_brand_logo.png";
 import AppBar from "@material-ui/core/AppBar";
 import Registration from "../Registration/Registration";
+import Landing from "../LandingPage/Landing";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
     // this css element describes the size of the image
     img: {
+        cursor: 'pointer',
         width: '150px',
         padding: '1vw',
     },
@@ -92,6 +94,12 @@ class SignIn extends Component{
         }
     }
 
+    changeToLanding = event => {
+        this.props.appContext.setState({
+            currentScreen: <Landing appContext={this.props.appContext}/>
+        })
+    };
+
     changeToSignUp = (event) => {
         this.props.appContext.setState({
             currentScreen: <Registration appContext={this.props.appContext}/>
@@ -123,7 +131,7 @@ class SignIn extends Component{
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar className={classes.toolbar}>
                         <div className={classes.imageLogo}>
-                            <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
+                            <img src={MaxLogo} alt="MAX_logo" onClick={this.changeToLanding} className={classes.img}/>
                         </div>
                     </Toolbar>
                 </AppBar>
