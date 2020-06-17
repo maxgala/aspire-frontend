@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import ReactCardFlip from 'react-card-flip';
+import image from "../Images/features/image.png";
+import tint from "../Images/features/tint2.png";
 import image1 from "../Images/features/image1.png";
 import image2 from "../Images/features/image2.png";
 import image3 from "../Images/features/image3.png";
@@ -18,7 +20,8 @@ const useStyles = makeStyles(theme => ({
   image: { 
     position: 'relative',
     textAlign: 'center',
-    margin: '10px',
+    marginLeft: '10px',
+    marginRight: '10px'
   },
   front_text: { 
     position: 'absolute',
@@ -34,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: '75%',
     fontSize: '16px',
     width: '100%',
-    color: 'white'
+    color: 'white',
   },
   back_text: { 
     position: 'absolute',
@@ -44,15 +47,15 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     paddingLeft: '15px',
     paddingRight: '15px',
-    color: 'black',
+    color: 'white',
   }
 }));
 
 function withMyHook(Component){
-    return function WrappedComponent(props){
-        const classes = useStyles();
-        return <Component {...props} classes={classes}/>
-    }
+  return function WrappedComponent(props){
+    const classes = useStyles();
+    return <Component {...props} classes={classes}/>
+  }
 }
 
 class FeatureCard extends Component{
@@ -60,8 +63,8 @@ class FeatureCard extends Component{
     super(props);
     this.state = {
       isFlipped: false,
-      images: [image1, image2, image3, image4, image5, image6],
-      fimages: [fimage1, fimage2, fimage3, fimage4, fimage5, fimage6],
+      images: [image, image, image, image, image, image],
+      fimages: [image, image, image, image, image, image],
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -75,15 +78,17 @@ class FeatureCard extends Component{
     const classes = this.props.classes;
     return (
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
-        <div className={classes.image} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
+        <div className={classes.image} onClick={this.handleClick} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <p className={classes.small_text}>more text on the flip side</p>
-          <img style={{width: '100%'}} src={this.state.fimages[this.props.card_number - 1]} alt="Front of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on front of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '0.2'}} src={this.state.fimages[this.props.card_number - 1]} alt="Front of feature card"/>
         </div>
  
-        <div className={classes.image} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
+        <div className={classes.image} onClick={this.handleClick} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
           <p className={classes.back_text}>{this.props.back_text}</p>
-          <img style={{width: '100%'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on front of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '0.2'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
         </div>
       </ReactCardFlip>
     )
