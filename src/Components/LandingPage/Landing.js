@@ -15,7 +15,7 @@ import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
 import Registration from "../Registration/Registration";
-
+import JobSection from "./JobSection.js";
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -163,6 +163,7 @@ class Landing extends Component{
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
+                        <JobSection/>
                         <Membership/>
                         <Carousal/>
 
