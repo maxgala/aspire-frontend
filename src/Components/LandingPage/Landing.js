@@ -10,7 +10,7 @@ import MainImage from "./MainImage.js";
 import AboutMax from "./AboutMax.js";
 import Features from "./Features.js";
 import ScrollToTop from "./ScrollToTop.js";
-import Footer from "./Footer.js";
+//import Footer from "./Footer.js";
 import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
@@ -170,7 +170,7 @@ class Landing extends Component{
                         <Carousal/>
 
                         {/* Scroll to top and footer components at bottom */}
-                        <Footer/>
+                        {/* <Footer/> */}
                         <ScrollToTop/>
                     </Container>
                 </main>
