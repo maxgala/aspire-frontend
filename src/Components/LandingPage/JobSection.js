@@ -114,7 +114,7 @@ class JobSection extends Component{
         <Grid container spacing={3} className={classes.grid}>
             <Grid item xs={6}>
               <div className={classes.box}>
-                <img className={classes.image}src={Globe}/>
+                <img className={classes.image} src={Globe} alt="Role Icon"/>
                 <div className={classes.boxInner}>
                     <h6 className={classes.role}>Role Name</h6> 
                     <h6 className={classes.companyName}>Company Name</h6> 
@@ -124,7 +124,7 @@ class JobSection extends Component{
 
             <Grid item xs={6} >
               <div className={classes.box2} >
-                <img className={classes.image}src={Globe}/>
+                <img className={classes.image} src={Globe} alt="Role Icon"/>
                 <div className={classes.boxInner} >
                     <h6 className={classes.role}>Role Name</h6> 
                     <h6 className={classes.companyName}>Company Name</h6> 
@@ -142,7 +142,7 @@ class JobSection extends Component{
         
             <Grid item xs={6}>
               <div className={classes.box} >
-                <img className={classes.image}src={Globe}/>
+                <img className={classes.image} src={Globe} alt="Role Icon"/>
                 <div className={classes.boxInner} >
                     <h6 className={classes.role}>Role Name</h6> 
                     <h6 className={classes.companyName}>Company Name</h6> 
@@ -152,7 +152,7 @@ class JobSection extends Component{
 
             <Grid item xs={6} >
             <div className={classes.box2 } >
-                <img className={classes.image}src={Globe}/>
+                <img className={classes.image} src={Globe} alt="Role Icon"/>
                 <div className={classes.boxInner} >
                     <h6 className={classes.role}>Role Name</h6> 
                     <h6 className={classes.companyName}>Company Name</h6> 
