@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from '@material-ui/core/TextField';
 import { faFacebookF, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import MailchimpSubscribe from "react-mailchimp-subscribe";
 
 const useStyles = makeStyles(theme => ({
   newsletterText: {
@@ -68,7 +69,80 @@ function withMyHook(Component) {
   }
 }
 
+const CustomForm = ({ status, message, onValidated, classes }) => {
+  let email;
+
+  const submit = () =>
+    email &&
+    email.value.indexOf("@") > -1 &&
+    onValidated({
+      EMAIL: email.value
+    });
+
+  const updateEmail = (event) => email = event.target;
+
+  return (
+    <Grid
+      container
+      item xs={12}
+      spacing={1}
+      className={classes.grid}
+    >
+      <Grid
+        container
+        item xs={12} lg={6}
+        spacing={1}
+      >
+        <h1 className={classes.newsletterText}>Subscribe to our newsletter</h1>
+      </Grid>
+      <Grid
+        container
+        item xs={12} lg={3}
+        spacing={1}
+        alignItems="center"
+        justify="flex-start"
+      >
+        {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
+        {status === "error" && (
+          <div
+            style={{ color: "red" }}
+            dangerouslySetInnerHTML={{ __html: message }}
+          />
+        )}
+        {status === "success" && (
+          <div
+            style={{ color: "green" }}
+            dangerouslySetInnerHTML={{ __html: message }}
+          />
+        )}
+        <TextField
+          id="standard-basic"
+          onChange={updateEmail}
+          type="email"
+          placeholder="yourEmail@email.com"
+          InputProps={{className: classes.input}}/>
+      </Grid>
+      <Grid
+        container
+        item xs={12} lg={2}
+        spacing={1}
+        alignItems="center"
+        justify="flex-start"
+      >
+        <Button onClick={submit} className={classes.subscribeButton} variant="contained">Subscribe</Button>
+      </Grid>
+    </Grid>
+  );
+};
+
 class Footer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: process.env.MAILCHIMP_URL
+    }
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -76,41 +150,17 @@ class Footer extends Component {
         <div className={classes.toolbar}>
           <img className={classes.image} src={Newsletter} alt="Newsletter"/>
           <div className={classes.newsletter}>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              className={classes.grid}
-            >
-              <Grid
-                container
-                item xs={12} lg={6}
-                spacing={1}
-              >
-                <h1 className={classes.newsletterText}>Subscribe to our newsletter</h1>
-              </Grid>
-              <Grid
-                container
-                item xs={12} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="flex-start"
-              >
-                <TextField id="standard-basic" placeholder="yourEmail@email.com"
-                  InputProps={{
-                    className: classes.input
-                  }}/>
-              </Grid>
-              <Grid
-                container
-                item xs={12} lg={2}
-                spacing={1}
-                alignItems="center"
-                justify="flex-start"
-              >
-                <Button className={classes.subscribeButton} variant="contained">Subscribe</Button>
-              </Grid>
-            </Grid>
+            <MailchimpSubscribe
+              url={this.state.url}
+              render={({ subscribe, status, message }) => (
+                <CustomForm
+                  status={status}
+                  message={message}
+                  onValidated={formData => subscribe(formData)}
+                  classes={classes}
+                />
+              )}
+            />
           </div>
         </div>
         <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black'}}>
