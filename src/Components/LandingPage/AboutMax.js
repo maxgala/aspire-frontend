@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import aboutMax from "../Images/aboutMax.png";
+import aboutMax from "../Images/aboutMax.jpg";
 import icon1 from "../Images/icon_1.png";
 import icon2 from "../Images/icon_2.png";
 import icon3 from "../Images/icon_3.png";
@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
   },
   f2:{
     fontFamily: "Regular 18px/24px Montserrat",
-    maxWidth: '450px',
-    textAlign: 'center',
+    maxWidth: '550px',
+    textAlign: 'left',
   },
   f3:{
     fontFamily: "Bold 26px/36px Nunito Sans",
@@ -55,8 +55,9 @@ const useStyles = makeStyles(theme => ({
   },
   total: {
     width: '100%',
-    height: '60vh',
+    // height: '60vh',
     padding: '5%',
+    borderRadius: '20%',
   },
   grid: { 
     paddingLeft: '10%',
@@ -114,10 +115,13 @@ class AboutContent extends Component{
       <div className={classes.h1style}>
         <h1 className={classes.f1}><b>About MAX Aspire</b></h1>
         <p className={classes.f2}>
-          MAX Aspire is an online platform to connect high performing, accomplished Senior Executives to talented, up and coming Aspiring Professionals in the MAX network.
+          MAX Aspire is an online platform to connect accomplished, high performing Senior Professionals who have made a commitment to meeting and advising Aspiring Professionals in the MAX network.
+        </p>
+        <p className={classes.f2}>
+          These noteworthy Senior Professionals have excelled in their respective fields and have a large network.
         </p>
         <p className={classes.tab} style={{marginTop: '60px'}}> <img src={icon2} alt="access"/>
-          <span className={classes.f3}><b>Privileged Access to Senior Level Professionals</b></span>
+          <span className={classes.f3}><b>Privileged Access to Senior Level Professionals, including curated meetings</b></span>
         </p>
         <p className={classes.tab}> <img src={icon1} alt="career"/>
           <span className={classes.f3}><b>Professional Career and Board Opportunities</b></span>
