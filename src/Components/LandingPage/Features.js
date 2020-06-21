@@ -8,9 +8,10 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#F1F1F1',
   },
   features_title: { 
+    fontFamily: "Nunito Sans",
+    fontWeight: "bold",
+    fontSize: "48px",
     paddingTop: '30px',
-    fontWeight: '500',
-    fontSize: '36px',
     color: 'black',
   },
   grid: { 
@@ -76,8 +77,8 @@ class Features extends Component{
             justify="center"
           >
             <FeatureCard
-              front_text="Board Opportunities"
-              back_text="As MAX grows and is recognized for its talent, Board opportunities become available. Apply to opportunities to serve on a Board of Directors!"
+              front_text="Board of Director Opportunities"
+              back_text="As MAX grows and is recognized for its talent, Board positions are presented. Apply to opportunities to serve on a Board of Directors."
               card_number={3}
             />
           </Grid>
@@ -103,7 +104,7 @@ class Features extends Component{
           >
             <FeatureCard
               front_text="Resume Bank"
-              back_text="Senior Executives have access to all resumes of the Aspiring Professionals who sign up. You may magically be contacted regarding a potential match for a listed or unlisted role."
+              back_text="Senior Professionals on MAX Aspire have access to all resumes of Aspiring Professionals who sign up. You may fortuitously be contacted regarding a potential match for a listed or unlisted role."
               card_number={5}
             />
           </Grid>
