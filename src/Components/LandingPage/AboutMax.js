@@ -17,18 +17,25 @@ const useStyles = makeStyles(theme => ({
     padding: '5%'
   },
   f1:{
-    fontFamily: "Bold 36px/48px Nunito Sans;",
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "36px",
     textAlign: 'center',
   },
   f2:{
-    fontFamily: "Regular 18px/24px Montserrat",
-    maxWidth: '550px',
+    fontFamily: "Montserrat",
+    fontSize: "18px",
+    maxWidth: '600px',
     textAlign: 'left',
+    paddingLeft: '60px',
+    paddingRight: '10px'
   },
   f3:{
-    fontFamily: "Bold 26px/36px Nunito Sans",
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "24px",
     marginLeft: "1em",
-    maxWidth: '350px',
+    maxWidth: '550px',
     textAlign: 'left',
   },
    f4:{
@@ -55,7 +62,6 @@ const useStyles = makeStyles(theme => ({
   },
   total: {
     width: '100%',
-    // height: '60vh',
     padding: '5%',
     borderRadius: '20%',
   },
@@ -81,7 +87,7 @@ export default function CSSGrid() {
     >
       <Grid
         container
-        item xs={12} sm={9} md={6} lg={6}
+        item xs={12} sm={9} md={9} lg={6}
         spacing={1}
         alignItems="center"
         justify="center"
@@ -90,7 +96,7 @@ export default function CSSGrid() {
       </Grid>
       <Grid
         container
-        item xs={12} sm={9} md={6} lg={6}
+        item xs={12} sm={9} md={9} lg={6}
         spacing={1}
         alignItems="center"
         justify="center"
