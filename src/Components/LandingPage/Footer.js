@@ -139,7 +139,7 @@ class Footer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: process.env.MAILCHIMP_URL
+      url: process.env.REACT_APP_MAILCHIMP_URL
     }
   }
 
