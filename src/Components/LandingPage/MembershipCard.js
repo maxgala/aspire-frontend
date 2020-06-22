@@ -15,18 +15,23 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#F1F1F1'
   },
   front_text: { 
-    fontSize: '24px',
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "30px",
     paddingBottom: '10px',
     color: 'black',
     textAlign: 'left',
     marginLeft : '10%'
   },
   small_text: { 
+    fontFamily: "Montserrat",
+    fontSize: "18px",
+    fontWeight: '1',
     textAlign: 'left',
     marginLeft: '10%',
     marginRight: '10%',
-    fontSize: '15px',
     height: '200px',
+    color: '#484848',
   },
   button: {
     backgroundColor: "#6EA0B5",
@@ -59,8 +64,8 @@ class MembershipCard extends Component {
   joinNow() {
     if (this.props.type === 'aspiring_professional') {
       console.log("Joining as an aspiring professional")
-    } else if (this.props.type === 'senior_executive') {
-      console.log("Joining as a senior executive")
+    } else if (this.props.type === 'senior_professional') {
+      console.log("Joining as a senior professional")
     } else {
       console.log("Invalid membership type")
     }

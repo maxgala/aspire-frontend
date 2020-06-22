@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: "30px",
     position: 'absolute',
     marginTop: '25%',
-    fontSize: '30px',
     width: '100%',
     paddingLeft: '20px',
     paddingRight: '20px',
