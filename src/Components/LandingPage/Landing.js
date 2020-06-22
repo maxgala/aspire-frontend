@@ -52,6 +52,11 @@ const useStyles = makeStyles(theme => ({
   // sign in and registration button CSS elements
   // button regular and hover colors are different
   sign_in: {
+    fontFamily: "Montserrat",
+    // fontSize: "24px",
+    fontWeight: '1',
+    // color: '#707070',
+    textTransform: "capitalize",
     marginLeft: 'auto',
     width: window.innerWidth < 480 ? '100px' : '125px',
     height: window.innerWidth < 480 ? '30px' : '40px',
@@ -68,6 +73,10 @@ const useStyles = makeStyles(theme => ({
     }
   },
   register: {
+    fontFamily: "Montserrat",
+    fontWeight: '1',
+    color: '#707070',
+    textTransform: "capitalize",
     width: window.innerWidth < 480 ? '100px' : '125px',
     height: window.innerWidth < 480 ? '30px' : '40px',
     fontSize: window.innerWidth < 480 ? '15px' : '18px',
