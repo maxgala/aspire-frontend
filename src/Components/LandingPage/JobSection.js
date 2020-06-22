@@ -46,12 +46,14 @@ const useStyles = makeStyles(theme => ({
     },
     header1:{
         fontFamily: 'Nunito Sans',
+        fontWeight: 'bold',
         fontSize:'5vw',
         marginTop:'0vw',
         marginBottom:'0vw',
     },
     header2:{
         fontFamily:'Nunito Sans',
+        fontWeight: 'bold',
         marginRight:'25vw',
         marginLeft:'25vw',
         marginTop:'0vw',
@@ -65,14 +67,15 @@ const useStyles = makeStyles(theme => ({
         textAlign:'left',
     },
     companyName:{
-        fontFamily:'Nunito Sans',
-        fontSize:'1.5vw',
+        fontFamily:'Montserrat',
+        fontSize:'1.2vw',
         color:'#B5A165',
         marginTop:'0vw',
         marginBottom:'0vw',
         textAlign:'left',
     }, 
     button: {
+        textTransform: 'capitalize',
         backgroundColor: "#6EA0B5",
         marginBottom:"2%",
         borderRadius: 50,
@@ -82,8 +85,10 @@ const useStyles = makeStyles(theme => ({
             color: '#484848'
         },
         fontSize:'1.5vw',
+        fontWeight: 'bold',
         fontFamily: 'Nunito Sans',
-        whiteSpace:'pre',
+        paddingLeft: '60px',
+        paddingRight: '60px'
     },
     background: {  
          backgroundColor: '#F1F1F1',
@@ -135,8 +140,8 @@ class JobSection extends Component{
             <Grid item xs={12}>
             <div >
               <h1 className={classes.header1}>Our Jobs</h1>
-              <p className={classes.header2}><b>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</b></p> 
-              <Button className={classes.button} variant="contained"> <strong>        Join Now        </strong> </Button>
+              <p className={classes.header2}><b>Apply directly to Full Time Jobs, Internships, or Board Positions posted by MAX Aspire members</b></p> 
+              <Button className={classes.button} variant="contained">Join Now</Button>
             </div>
             </Grid>
         

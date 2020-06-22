@@ -38,17 +38,10 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '550px',
     textAlign: 'left',
   },
-   f4:{
-    fontFamily: "Regular 10px/12px Montserrat",
-    maxWidth: '450px',
-    textAlign: 'center',
-    fontSize:"10px",
-  },
   tab: { 
     display: "flex",
     alignItems:"center",
     justifyContent:"top",
-    fontFamily: "Bold 36px/48px Nunito Sans;",
     verticalAlign: "middle",
   },
   about: {
@@ -134,9 +127,6 @@ class AboutContent extends Component{
         </p>
         <p className={classes.tab}> <img src={icon3} alt="exec board"/>
           <span className={classes.f3}><b>Ability to Apply and Hire From Exclusive Job Board</b></span>
-        </p>
-        <p className={classes.f4} style={{marginTop: '60px'}}>
-          *MAX Aspire is by MAX, for MAX
         </p>
       </div>
     )
