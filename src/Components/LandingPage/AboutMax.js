@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
   f2:{
     fontFamily: "Montserrat",
     fontSize: "18px",
-    maxWidth: '600px',
+    maxWidth: '800px',
     textAlign: 'left',
     paddingLeft: '60px',
     paddingRight: '10px'
@@ -56,7 +56,10 @@ const useStyles = makeStyles(theme => ({
   total: {
     width: '100%',
     padding: '5%',
-    borderRadius: '20%',
+    borderTopLeftRadius: '50%',
+    borderTopRightRadius: '10%',
+    borderBottomRightRadius: '50%',
+    borderBottomLeftRadius: '10%',
   },
   grid: { 
     paddingLeft: '10%',
@@ -80,7 +83,7 @@ export default function CSSGrid() {
     >
       <Grid
         container
-        item xs={12} sm={9} md={9} lg={6}
+        item xs={12} sm={11} md={10} lg={6}
         spacing={1}
         alignItems="center"
         justify="center"
@@ -89,7 +92,7 @@ export default function CSSGrid() {
       </Grid>
       <Grid
         container
-        item xs={12} sm={9} md={9} lg={6}
+        item xs={12} sm={11} md={10} lg={6}
         spacing={1}
         alignItems="center"
         justify="center"
