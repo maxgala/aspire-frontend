@@ -15,7 +15,7 @@ import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
 import Registration from "../Registration/Registration";
-
+import JobSection from "./JobSection.js";
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -52,6 +52,9 @@ const useStyles = makeStyles(theme => ({
   // sign in and registration button CSS elements
   // button regular and hover colors are different
   sign_in: {
+    fontFamily: "Montserrat",
+    fontWeight: '1',
+    textTransform: "capitalize",
     marginLeft: 'auto',
     width: window.innerWidth < 480 ? '100px' : '125px',
     height: window.innerWidth < 480 ? '30px' : '40px',
@@ -68,6 +71,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   register: {
+    fontFamily: "Montserrat",
+    fontWeight: '1',
+    textTransform: "capitalize",
     width: window.innerWidth < 480 ? '100px' : '125px',
     height: window.innerWidth < 480 ? '30px' : '40px',
     fontSize: window.innerWidth < 480 ? '15px' : '18px',
@@ -163,6 +169,7 @@ class Landing extends Component{
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
+                        <JobSection/>
                         <Membership/>
                         <Carousal/>
 

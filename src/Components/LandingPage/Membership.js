@@ -15,11 +15,12 @@ const useStyles = makeStyles(() => ({
     paddingBottom: '30px'
   },
   features_title: {
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "48px",
     margin: '0px',
     paddingTop: '30px',
     paddingBottom: '30px',
-    fontWeight: '500',
-    fontSize: '36px',
     color: 'black',
   },
 }));
@@ -46,7 +47,7 @@ class Membership extends Component {
           > 
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item xs={12} sm={9} md={6} lg={5}
             alignItems="center"
             justify="center"
           >
@@ -59,15 +60,15 @@ class Membership extends Component {
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item xs={12} sm={9} md={6} lg={5}
             alignItems="center"
             justify="center"
           >
             <MembershipCard
-              front_text="Senior Executives"
+              front_text="Senior Professionals"
               inner_text="Pricing Plan"
-              description="As a senior executive, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior executives!"
-              type="senior_executive"
+              description="As a senior professional, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
+              type="senior_professional"
             />
           </Grid>
         </Grid>

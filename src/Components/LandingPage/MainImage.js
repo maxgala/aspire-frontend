@@ -12,15 +12,19 @@ const useStyles = makeStyles(theme => ({
         marginLeft  : "0",
     },
     h1style: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "Bold",
+        fontSize: "72px",
         color: 'white',
-        fontFamily: 'Arial',
-        fontSize: '50px',
         textAlign: 'center',
         margin: '0',
         paddingLeft: '35px',
         paddingRight: '35px'
     },
     subheading: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "Bold",
+        fontSize: "24px",
         color: "white",
         paddingLeft: '30px',
         paddingRight: '30px'
@@ -30,6 +34,11 @@ const useStyles = makeStyles(theme => ({
         marginTop: "10px"
     },
     button: {
+        fontFamily: "Montserrat",
+        fontSize: "24px",
+        textTransform: "capitalize",
+        paddingLeft: '20px',
+        paddingRight: '20px',
         backgroundColor: "#6EA0B5",
         marginTop:"2%",
         borderRadius: 50,
