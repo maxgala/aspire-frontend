@@ -57,11 +57,10 @@ class SeniorExecText extends Component {
         return(
             
              <div className={classes.total}>
-                <h1 className={classes.features_title}> Our Senior Executives</h1>
+                <h1 className={classes.features_title}> Our Senior Professionals</h1>
                 
-                <h3 className={classes.subheading}>We have over 100 senior executives 
-                available on our platform. Book an exclusive coffee chat with one 
-                of them today!</h3>           
+                <h3 className={classes.subheading}>We have over 100 Senior Professionals 
+                commited to the MAX Aspire Platform. Book your exclusive coffee chat!</h3>           
                 <Button className={classes.button} variant="contained">Join Now</Button>
                  
          </div>

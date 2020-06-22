@@ -27,14 +27,14 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         fontSize: '18px',
         fontWeight: '100',
+        
         marginTop: '14%',
         width : '23%',
     },
     hovertext: {
         color: "white",
-        // padding: '30px,',
         fontSize: '24px',
-        width: '23%',
+        width : '23%',
         marginTop: '8%',
         textAlign: 'center',
         position: 'absolute'
@@ -49,7 +49,7 @@ function withMyHook(Component) {
     }
 }
 
-class SmallSeniorExec extends Component {
+class SmallSeniorExecBottom extends Component {
 
     constructor(props) {
         super(props);
@@ -101,18 +101,18 @@ class SmallSeniorExec extends Component {
             
              <div className={classes.sectionstyle}>
                            
-                 
+            
 
                 <h3 className={classes.hovertext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
                  onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
                 <h3 className={classes.extratext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
                  onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
                 
-                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopLeftRadius: '30%', borderBottomRightRadius: '30%'}} 
+                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopRightRadius: '30%', borderBottomLeftRadius: '30%'}} 
                 onMouseEnter={this.handleEnter}
                 resizeMode="contain" src={this.props.image} alt="Senior Exec"/>
                 
-                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopLeftRadius: '30%', borderBottomRightRadius: '30%'}} 
+                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopRightRadius: '30%', borderBottomLeftRadius: '30%'}} 
                 onMouseLeave={this.handleExit}  
                  resizeMode="contain" src={this.props.hover_image} alt="Senior Exec" /> 
          </div>
@@ -121,5 +121,5 @@ class SmallSeniorExec extends Component {
     }
 }
 
-SmallSeniorExec = withMyHook(SmallSeniorExec);
-export default SmallSeniorExec;
+SmallSeniorExecBottom = withMyHook(SmallSeniorExecBottom);
+export default SmallSeniorExecBottom;

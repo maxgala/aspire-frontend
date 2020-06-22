@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import { Button } from '@material-ui/core';
-import SeniorExecImg from "../Images/seniorexec1.png";
 import {makeStyles} from "@material-ui/core/styles";
-import SeniorExecLargeHover from "../Images/SeniorExecLargeHover.png";
+
 
 const useStyles = makeStyles(theme => ({
     sectionstyle: {
@@ -24,12 +22,24 @@ const useStyles = makeStyles(theme => ({
         color: 'black',
         padding: '0'
       },
-    hovertext: {
-        color: "black",
-        // paddingRight: '30px,',
-        margin: '10%',
+      extratext: {
+        color: "white",
+        fontSize: '18px',
+        fontWeight: '100',
         textAlign: 'center',
-        position: 'absolute'
+        position: 'absolute',
+        marginTop: '100%',
+        width : '100%',
+    },
+    hovertext: {
+        color: "white",
+        // padding: '30px,',
+        fontSize: '24px',
+        marginLeft: '5%',
+        marginTop: '75%',
+        textAlign: 'center',
+        position: 'absolute',
+        width : '100%',
     }
 }));
 
@@ -46,11 +56,11 @@ class SeniorExec extends Component{
       super(props);
       this.state = {
         isHover: false,
-        display_1: '',
-        display_2: 'None'
+        display1: '',
+        display2: 'None',
+        text: 'None'
       };
-      this.handleClick = this.handleClick.bind(this);
-      this.handleImage = this.handleImage.bind(this);
+     
     }
 
 handleImage = event => {
@@ -61,40 +71,51 @@ handleImage = event => {
     });
 }
 
-handleClick = event => {
+
+
+handleEnter = event => {
      //event.preventDefault();
-        if (this.state.display2 === 'None'){
-            this.setState({
-                display2 : '',
-                display1 : 'None',
-                text:''
+        this.setState({
+            display2 : '',
+            display1 : 'None',
+            text:''
         });
-        }
-        else
-        {
-            this.setState({
-            display2 : 'None',
-            display1: '',
-            text:'None'
-        });
+        
     }
-}
+
+
+handleExit = event => {
+    //event.preventDefault();
+           
+           this.setState({
+           display2 : 'None',
+           display1: '',
+           text:'None'
+       });
+   }
+
 
 
 
     render() {
         const classes = this.props.classes;
+        
         return(
             
              <div className={classes.overallposition} style={{backgroundColor: this.state.color}} >
-                 <h3 className={classes.hovertext} style={{display: this.state.text}} onMouseEnter={this.handleClick} 
-                 onMouseLeave={this.handleClick}>Hi</h3>
-                <img style={{width: '100%', marginTop: '0vh', display: this.state.display1}} 
-                onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}
-                resizeMode="contain" src={SeniorExecImg} alt="Senior Exec"/>
-                <img style={{width: '100%', marginTop: '0vh', display: this.state.display2}} 
-                onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}  
-                 resizeMode="contain" src={SeniorExecLargeHover} alt="Senior Exec"/>            
+                 
+                <h3 className={classes.hovertext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
+                 onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
+                <h3 className={classes.extratext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
+                 onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
+                
+                <img style={{width: '100%', marginTop: '0vh', display: this.state.display1, borderTopLeftRadius: '20%', borderBottomRightRadius: '20%'}} 
+                onMouseEnter={this.handleEnter}
+                resizeMode="contain" src={this.props.image} alt="Senior Exec"/>
+                
+                <img style={{width: '100%', marginTop: '0vh', display: this.state.display2, borderTopLeftRadius: '20%', borderBottomRightRadius: '20%'}} 
+                onMouseLeave={this.handleExit}  
+                 resizeMode="contain" src={this.props.hover_image} alt="Senior Exec" />            
                  
          </div>
             

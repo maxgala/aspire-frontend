@@ -4,18 +4,30 @@ import SeniorExec from "./SeniorExec.js"
 import {makeStyles} from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
 import SmallSeniorExec from "./SmallSeniorExec";
+import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
+import SmallSeniorExecImg from "../Images/senior/Latafat_Faran.jpg";
+import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
+import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg"
+import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg"
 
 const useStyles = makeStyles(() => ({
   background: { 
     backgroundColor: 'white',
+  },
+  seniorexec:{
+    marginTop :'10vh',
+    backgroundColor: 'white'
   },
   grid: { 
     paddingLeft: '15%',
     paddingRight: '15%',
     justifyContent: 'center',
     alignItems: 'start',
-    paddingBottom: '0px'
-  }
+    paddingBottom: '10vh'
+  },
+  second: {
+    marginTop : '4%'
+},
 }));
 
 function withMyHook(Component) {
@@ -26,86 +38,162 @@ function withMyHook(Component) {
 }
 
 class Membership extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isHover: false,
+      phone: '',
+      desktop: 'None'
+    };
+    this.handleClick = this.handleClick.bind(this);
+    
+  }
+
+
+handleClick = event => {
+   //event.preventDefault();
+      if (window.innerWidth > '800px'){
+          this.setState({
+              phone : 'None',
+              desktop : ''
+      });
+      }
+      else
+      {
+          this.setState({
+          phone : '',
+          desktop: 'None'
+    });
+  }
+}
+
   render() {
     const classes = this.props.classes;
     return(
-      <div className={classes.background}>
-        
-        <Grid
-          container
-          spacing={0}
-          alignItems="center"
-          justify="center"
-          className={classes.grid}
-          > 
+      <div className={classes.seniorexec}>
+          <div className={classes.background} style={{display: window.innerWidth > 800 ? '' : 'None'}}>
           <Grid
             container
-            item xs={8} 
-            spacing={0}
+            spacing={2}
             alignItems="center"
             justify="center"
-          >
-              <Grid
+            className={classes.grid}
+            > 
+            <Grid
               container
-              item xs={12} 
-              spacing = {3}
+              item xs={8} 
+              spacing={0}
               alignItems="center"
               justify="center"
-              
+            >
+                <Grid
+                container
+                item xs={12} 
+                spacing = {4}
+                alignItems="center"
+                justify="center"
+                
+                >
+                    <Grid
+                    container
+                    item xs={6}
+                    alignItems="center"
+                    justify="center"
+                    >
+                        <SeniorExec
+                      name_text="Salman Zahid"
+                      extra_text="President & CEO of Green Shield Canada"
+                      image = {SeniorExecImg}
+                      hover_image = {SeniorExecImgHover}
+                      
+                      />
+                      
+                    </Grid>
+                    <Grid
+                    container
+                    item xs={6}
+                    alignItems="center"
+                    justify="center"
+                    >
+                        <SeniorExec
+                      name_text="Salman Zahid"
+                      extra_text="President & CEO of Green Shield Canada"
+                      image = {SeniorExecImg}
+                      hover_image = {SeniorExecImgHover}
+                      />
+                      
+                    </Grid>
+                    <SeniorExecText/>
+                    
+                </Grid>  
+            </Grid>
+            <Grid
+              container
+              item xs={4} 
+              alignItems="flex-end"
+              justify="flex-end"
+            >
+              <SmallSeniorExec
+                name_text="Latafat Faran"
+                extra_text="Executive Vice President at Core Development Group"
+                image = {SmallSeniorExecImg}
+                hover_image = {SmallSeniorExecImgHover}
+              />
+              <SmallSeniorExecBottom
+                name_text="Latafat Faran"
+                extra_text="Executive Vice President at Core Development Group"
+                image = {SmallSeniorExecImg}
+                hover_image = {SmallSeniorExecImgHover}
+              />
+            </Grid>
+          </Grid>
+        </div>
+
+          <div className={classes.background} style={{display: window.innerWidth > 800 ? 'None' : ''}}>
+            <Grid
+              container
+              item xs={12}
+              spacing={0}
+              alignItems="center"
+              justify="center"
+              className={classes.grid}
+              > 
+              <Grid
+                container
+                item xs={6} 
+                alignItems="flex-end"
+                justify="flex-end"
               >
-                  <Grid
-                  container
-                  item xs={6}
-                  alignItems="center"
-                  justify="center"
-                  >
-                      <SeniorExec
-                    front_text="Aspiring Professionals"
-                    inner_text="Pricing Plan:"
-                    description="As an aspiring professional, you can use the MAX Aspire application to apply to jobs, schedule coffee chats with senior executives, and connect with fellow aspiring professionals!"
-                    type="aspiring_professional"
-                    />
-                    
-                  </Grid>
-                  <Grid
-                  container
-                  item xs={6}
-                  alignItems="center"
-                  justify="center"
-                  >
-                      <SeniorExec
-                    front_text="Aspiring Professionals"
-                    inner_text="Pricing Plan:"
-                    description="As an aspiring professional, you can use the MAX Aspire application to apply to jobs, schedule coffee chats with senior executives, and connect with fellow aspiring professionals!"
-                    type="aspiring_professional"
-                    />
-                    
-                  </Grid>
-                  <SeniorExecText/>
-                  
-              </Grid>  
-          </Grid>
-          <Grid
-            container
-            item xs={4} 
-            alignItems="flex-end"
-            justify="flex-end"
-          >
-            <SmallSeniorExec
-              front_text="Senior Executives"
-              inner_text="Pricing Plan"
-              description="As a senior executive, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior executives!"
-              type="senior_executive"
-            />
-            <SmallSeniorExec
-              front_text="Senior Executives"
-              inner_text="Pricing Plan"
-              description="As a senior executive, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior executives!"
-              type="senior_executive"
-            />
-          </Grid>
-        </Grid>
+              <SmallSeniorExec
+                name_text="Latafat Faran"
+                extra_text="Executive Vice President at Core Development Group"
+                image = {SmallSeniorExecImg}
+                hover_image = {SmallSeniorExecImgHover}
+              />
+              
+              </Grid>
+              <Grid
+                container
+                item xs={6} 
+                spacing={0}
+                alignItems="center"
+                justify="center"
+              >
+              
+              <SmallSeniorExecBottom
+                name_text="Latafat Faran"
+                extra_text="Executive Vice President at Core Development Group"
+                image = {SmallSeniorExecImg}
+                hover_image = {SmallSeniorExecImgHover}
+              />
+              </Grid>
+              
+              <SeniorExecText/>
+              
+            </Grid>
+        </div>
       </div>
+      
     );
   }
 }
