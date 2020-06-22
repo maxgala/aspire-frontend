@@ -19,22 +19,26 @@ const useStyles = makeStyles(theme => ({
     marginRight: '10px',
   },
   front_text: { 
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "30px",
     position: 'absolute',
     marginTop: '25%',
-    fontSize: '30px',
     width: '100%',
     paddingLeft: '20px',
     paddingRight: '20px',
     color: 'white'
   },
   small_text: { 
+    fontFamily: "Montserrat",
+    fontSize: "18px",
     position: 'absolute',
     marginTop: '75%',
-    fontSize: '16px',
     width: '100%',
     color: 'white',
   },
   back_text: { 
+    fontFamily: "Montserrat",
     fontSize: '20px',
     width: '100%',
     marginTop: '30%',
