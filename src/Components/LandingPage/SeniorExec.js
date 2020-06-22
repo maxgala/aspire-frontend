@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
         color: "white",
         // padding: '30px,',
         fontSize: '24px',
-        marginLeft: '5%',
+        
         marginTop: '75%',
         textAlign: 'center',
         position: 'absolute',
