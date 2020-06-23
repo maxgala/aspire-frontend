@@ -15,6 +15,8 @@ import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
 import Registration from "../Registration/Registration";
+import SeniorExecGrid from './SeniorExecGrid';
+
 import JobSection from "./JobSection.js";
 const useStyles = makeStyles(theme => ({
   root: {
@@ -169,6 +171,7 @@ class Landing extends Component{
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
+                        <SeniorExecGrid/>
                         <JobSection/>
                         <Membership/>
                         <Carousal/>
