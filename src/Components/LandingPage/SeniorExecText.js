@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core';
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
-    
     senior_prof_title: {
         fontWeight: '500',
         fontSize: '35px',
@@ -12,11 +11,10 @@ const useStyles = makeStyles(theme => ({
         textAlign : 'left',
         margin: '5px',
         paddingTop: '5%'
-      },
-      subheading: {
+    },
+    subheading: {
         color: "black",
         paddingLeft: '1%',
-        
         textAlign: 'left',
         fontSize: '22px',
         fontWeight: '100',
@@ -37,7 +35,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 function withMyHook(Component) {
     return function WrappedComponent(props) {
         const classes = useStyles();
@@ -48,17 +45,13 @@ function withMyHook(Component) {
 class SeniorExecText extends Component {
     render() {
         const classes = this.props.classes;
-        return(
-            
-             <div>
+
+        return (
+            <div>
                 <h1 className={classes.senior_prof_title}> Our Senior Professionals</h1>
-                
-                <h3 className={classes.subheading}>We have over 100 Senior Professionals 
-                commited to the MAX Aspire Platform. Book your exclusive coffee chat!</h3>           
+                <h3 className={classes.subheading}>We have over 100 Senior Professionals commited to the MAX Aspire Platform. Book your exclusive coffee chat!</h3>           
                 <Button className={classes.button} variant="contained">Join Now</Button>
-                 
-         </div>
-            
+            </div>
         );
     }
 }

@@ -28,13 +28,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 function withMyHook(Component) {
-    return function WrappedComponent(props) {
-        const classes = useStyles();
-        return <Component {...props} classes={classes}/>
-    }
+  return function WrappedComponent(props) {
+    const classes = useStyles();
+    return <Component {...props} classes={classes}/>
+  }
 }
 
-class Membership extends Component {
+class SeniorExecGrid extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,39 +42,20 @@ class Membership extends Component {
       phone: '',
       desktop: 'None'
     };
-    this.handleClick = this.handleClick.bind(this);
-    
   }
-
-
-handleClick = event => {
-      if (window.innerWidth > '900px'){
-          this.setState({
-              phone : 'None',
-              desktop : ''
-      });
-      }
-      else
-      {
-          this.setState({
-          phone : '',
-          desktop: 'None'
-    });
-  }
-}
 
   render() {
     const classes = this.props.classes;
     return(
       <div className={classes.seniorexec}>
-          <div className={classes.background} style={{display: window.innerWidth > 900 ? '' : 'None'}}>
+        <div className={classes.background} style={{display: window.innerWidth > 900 ? '' : 'None'}}>
           <Grid
             container
             spacing={2}
             alignItems="center"
             justify="center"
             className={classes.grid}
-            > 
+          > 
             <Grid
               container
               item xs={8} 
@@ -82,46 +63,41 @@ handleClick = event => {
               alignItems="center"
               justify="center"
             >
-                <Grid
+              <Grid
                 container
                 item xs={12} 
                 spacing = {4}
                 alignItems="center"
                 justify="center"
-                
+              >
+                <Grid
+                  container
+                  item xs={6}
+                  alignItems="center"
+                  justify="center"
                 >
-                    <Grid
-                    container
-                    item xs={6}
-                    alignItems="center"
-                    justify="center"
-                    >
-                        <SeniorExec
-                      name_text="Salman Zahid"
-                      extra_text="President & CEO of Green Shield Canada"
-                      image = {SeniorExecImg}
-                      hover_image = {SeniorExecImgHover}
-                      
-                      />
-                      
-                    </Grid>
-                    <Grid
-                    container
-                    item xs={6}
-                    alignItems="center"
-                    justify="center"
-                    >
-                        <SeniorExec
-                      name_text="Salman Zahid"
-                      extra_text="President & CEO of Green Shield Canada"
-                      image = {SeniorExecImg}
-                      hover_image = {SeniorExecImgHover}
-                      />
-                      
-                    </Grid>
-                    <SeniorExecText/>
-                    
-                </Grid>  
+                  <SeniorExec
+                    name_text="Salman Zahid"
+                    extra_text="President & CEO of Green Shield Canada"
+                    image = {SeniorExecImg}
+                    hover_image = {SeniorExecImgHover}
+                  />
+                </Grid>
+                <Grid
+                  container
+                  item xs={6}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <SeniorExec
+                    name_text="Salman Zahid"
+                    extra_text="President & CEO of Green Shield Canada"
+                    image = {SeniorExecImg}
+                    hover_image = {SeniorExecImgHover}
+                  />
+                </Grid>
+                <SeniorExecText/>
+              </Grid>  
             </Grid>
             <Grid
               container
@@ -144,80 +120,76 @@ handleClick = event => {
             </Grid>
           </Grid>
         </div>
-          <div className={classes.background} style={{display: (window.innerWidth > 900 || window.innerWidth <= 650) ? 'None' : ''}}>
+        
+        <div className={classes.background} style={{display: (window.innerWidth > 900 || window.innerWidth <= 650) ? 'None' : ''}}>
+          <Grid
+            container
+            item xs={12}
+            spacing={0}
+            alignItems="center"
+            justify="center"
+            className={classes.grid}
+          >
             <Grid
               container
-              item xs={12}
-              spacing={0}
-              alignItems="center"
-              justify="center"
-              className={classes.grid}
-              > 
-              <Grid
-                container
-                item xs={6}
-                alignItems="flex-end"
-                justify="flex-end"
-              >
+              item xs={6}
+              alignItems="flex-end"
+              justify="flex-end"
+            >
               <SmallSeniorExec
                 name_text="Latafat Faran"
                 extra_text="Executive Vice President at Core Development Group"
                 image = {SmallSeniorExecImg}
                 hover_image = {SmallSeniorExecImgHover}
               />
-              
-              </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={0}
-                alignItems="center"
-                justify="center"
-              >
-              
+            </Grid>
+            <Grid
+              container
+              item xs={6}
+              spacing={0}
+              alignItems="center"
+              justify="center"
+            >
               <SmallSeniorExecBottom
                 name_text="Latafat Faran"
                 extra_text="Executive Vice President at Core Development Group"
                 image = {SmallSeniorExecImg}
                 hover_image = {SmallSeniorExecImgHover}
               />
-              </Grid>
-              
-              <SeniorExecText/>
-              
             </Grid>
+            <SeniorExecText/>
+          </Grid>
         </div>
+        
         <div className={classes.background} style={{display: window.innerWidth > 650 ? 'None' : ''}}>
+          <Grid
+            container
+            item xs={12}
+            spacing={0}
+            alignItems="center"
+            justify="center"
+            className={classes.grid}
+          > 
             <Grid
               container
               item xs={12}
-              spacing={0}
-              alignItems="center"
-              justify="center"
-              className={classes.grid}
-              > 
-              <Grid
-                container
-                item xs={12}
-                alignItems="flex-end"
-                justify="flex-end"
-              >
+              alignItems="flex-end"
+              justify="flex-end"
+            >
               <SmallSeniorExec
                 name_text="Latafat Faran"
                 extra_text="Executive Vice President at Core Development Group"
                 image = {SmallSeniorExecImg}
                 hover_image = {SmallSeniorExecImgHover}
               />
-              
-              </Grid>
-              <SeniorExecText/>
             </Grid>
+            <SeniorExecText/>
+          </Grid>
         </div>
       </div>
-      
     );
   }
 }
 
-Membership = withMyHook(Membership);
-export default Membership;
+SeniorExecGrid = withMyHook(SeniorExecGrid);
+export default SeniorExecGrid;

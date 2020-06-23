@@ -1,12 +1,11 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles(theme => ({
     overallposition: {
         position: 'relative'
     },
-      extratext: {
+    extratext: {
         color: "white",
         fontSize: '18px',
         fontWeight: '100',
@@ -25,7 +24,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 function withMyHook(Component) {
     return function WrappedComponent(props) {
         const classes = useStyles();
@@ -35,67 +33,53 @@ function withMyHook(Component) {
 
 class SeniorExec extends Component{
     constructor(props) {
-      super(props);
-      this.state = {
-        isHover: false,
-        display1: '',
-        display2: 'None',
-        text: 'None'
-      };
-     
+        super(props);
+        this.state = {
+            isHover: false,
+            display1: '',
+            display2: 'None',
+            text: 'None'
+        };
     }
 
-handleImage = event => {
-    this.setState({
-        display_1: '',
-        display_2: 'None',
-        text: ''
-    });
-}
+    handleImage = event => {
+        this.setState({
+            display_1: '',
+            display_2: 'None',
+            text: ''
+        });
+    }
 
-
-
-handleEnter = event => {
+    handleEnter = event => {
         this.setState({
             display2 : '',
             display1 : 'None',
             text:''
         });
-        
     }
 
-
-handleExit = event => {
-           this.setState({
+    handleExit = event => {
+        this.setState({
            display2 : 'None',
            display1: '',
            text:'None'
-       });
-   }
-
-
-
+        });
+    }
 
     render() {
         const classes = this.props.classes;
         
         return(
-            
-             <div className={classes.overallposition} style={{backgroundColor: this.state.color}} >
-                 
-                <h3 className={classes.hovertext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '30px'}} onMouseEnter={this.handleEnter} 
-                 onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
-                <h3 className={classes.extratext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '30px'}} onMouseEnter={this.handleEnter} 
-                 onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
-                
+            <div className={classes.overallposition} style={{backgroundColor: this.state.color}} >
+                <h3 className={classes.hovertext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '30px'}}
+                    onMouseEnter={this.handleEnter} onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
+                <h3 className={classes.extratext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '30px'}}
+                    onMouseEnter={this.handleEnter} onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
                 <img style={{width: '100%', marginTop: '0vh', display: this.state.display1, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
-                onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
-                
+                    onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
                 <img style={{width: '100%', marginTop: '0vh', display: this.state.display2, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
-                onMouseLeave={this.handleExit} src={this.props.hover_image} alt="Senior Exec" />            
-                 
-         </div>
-            
+                    onMouseLeave={this.handleExit} src={this.props.hover_image} alt="Senior Exec" />            
+            </div>
         );
     }
 }
