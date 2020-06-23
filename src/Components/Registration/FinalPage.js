@@ -5,8 +5,6 @@ import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
 import LinearWithValueLabel from "./linearprogress";
 import Button from "@material-ui/core/Button";
 import ThirdPage from "./ThirdPage";
@@ -17,6 +15,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
+import Tooltip from "@material-ui/core/Tooltip";
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import SeniorExecutive from "../Images/senior_exec_membership.png";
+import AspiringMember from "../Images/aspiring_prof_membership.png";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -24,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    titlePaper: {
+        margin: theme.spacing(0, 0, 3)
     },
     avatar: {
         marginTop: '0vh',
@@ -69,8 +78,54 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
+    disagree: {
+        margin: theme.spacing(3, 0, 2),
+        width: '30%',
+        backgroundColor: "#1A1A1A",
+        borderStyle: "solid",
+        color: "#F1F1F1",
+        borderColor: "#484848",
+        '&:hover': {
+            backgroundColor: "#F1F1F1",
+            color: '#484848'
+        }
+    },
+    agree: {
+        margin: theme.spacing(3, 0, 2),
+        width: '30%',
+        backgroundColor: "#b5a165",
+        color: "white",
+        borderColor: '#484848',
+        '&:hover': {
+            backgroundColor: "#F1F1F1",
+            color: '#484848'
+        }
+    },
+    payButton: {
+        borderRadius: 50,
+        backgroundColor: "#6EA0B5",
+        borderStyle: "solid",
+        color: "#F1F1F1",
+        '&:hover': {
+            backgroundColor: "#F1F1F1",
+            color: '#484848'
+        }
+    },
     choice:{
-        width: '75%'
+        width: '25%'
+    }, 
+    term: {
+        color: 'black', 
+        '&:hover': {
+            color: 'red'
+        }
+    },
+    cardRoot: {
+        margin: theme.spacing(0, 2, 1),
+        maxWidth: 300
+    },
+    media: {
+        height: 140,
     }
 }));
 
@@ -103,7 +158,6 @@ class FinalPage extends Component{
             profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
             progress: 100,
-            user_choice: "No",
             checked: false,
             open: false
         }
@@ -130,37 +184,20 @@ class FinalPage extends Component{
     };
 
     handleUserChoice = (event) => {
-        if (event.target.value === "Yes"){
+        if (this.state.senior_executive ===  false){
             this.setState({
                 senior_executive: true,
-                user_choice: "Yes"
             })
         }else{
             this.setState({
                 senior_executive: false,
-                user_choice: "No"
             })
         }
     };
 
-    componentDidMount() {
-        if (this.state.senior_executive === true){
-            this.setState({
-                senior_executive: true,
-                user_choice: "Yes"
-            })
-        }else{
-            this.setState({
-                senior_executive: false,
-                user_choice: "No"
-            })
-        }
-    }
-
     readConditions = (event) => {
         this.setState({
-            open: true,
-            checked: true
+            open: true
         })
     };
 
@@ -178,33 +215,96 @@ class FinalPage extends Component{
                 <div className={classes.form}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Typography className={classes.choiceText} component="h4" variant="h6">
-                                Would you like to be considered as a Senior Executive?
-                            </Typography>
-                            <TextField
-                                id="outlined-select-education"
-                                className={classes.choice}
-                                select
-                                value={this.state.user_choice}
-                                onChange={this.handleUserChoice}
-                                variant="outlined"
-                            >
-                                {["Yes", "No"].map((option) => (
-                                    <MenuItem key={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                            <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            checked={this.state.senior_executive}
+                                            onChange={this.handleUserChoice}
+                                            name="checkedD"
+                                        />}
+                                    label={
+                                        <Tooltip title={
+                                            <p>Senior Executive means the chief executive officer,
+                                                chief operating officer, chief financial officer, or
+                                                anyone in charge of a principal business unit or function.
+                                            </p>}>
+                                            <b>I would like to be considered as a Senior Executive</b>
+                                        </Tooltip>
+                                    }
+                            />
                         </Grid>
+                        <Grid item xs={12}>
+                            <div className={classes.titlePaper}>
+                                <Typography component="h1" variant="h5">
+                                    Memberships
+                                </Typography>
+                            </div>
+                        </Grid>
+                        <div style={{display: window.innerWidth < 480 ? '' : 'inline-flex'}}>
+                            <Card className={classes.cardRoot}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={AspiringMember}
+                                        title="Contemplative Reptile"
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="h2">
+                                            <b> Mentee </b>
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions>
+                                    <Button fullWidth className={classes.payButton} color="primary">
+                                        <b>Try for Free</b>
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                            <Card className={classes.cardRoot}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={SeniorExecutive}
+                                        title="Contemplative Reptile"
+                                    />
+                                    <CardContent>
+                                        <Typography gutterBottom variant="h5" component="h2">
+                                            <b> Mentee </b>
+                                        </Typography>
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                                <CardActions>
+                                    <Button fullWidth className={classes.payButton} color="primary">
+                                        <b>Sign Up for Premium</b>
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                        </div>
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={
                                     <Checkbox
                                         checked={this.state.checked}
-                                        onChange={this.readConditions}
+                                        onChange={event => {this.setState({checked: !this.state.checked})}}
                                         name="checkedD"
                                     />}
-                                label="I agree to the terms and conditions"
+                                label={<b>I agree to the <Tooltip title={"Click on me to read the Terms and Conditions"}>
+                                    <u onClick={this.readConditions} style = {{color: 'red'}}> terms and conditions </u>
+                                </Tooltip> </b>}
                             />
                         </Grid>
                     </Grid>
@@ -365,11 +465,23 @@ class FinalPage extends Component{
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Disagree
+                        <Button
+                            onClick={this.handleClose}
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            className={classes.disagree}
+                        >
+                            <b>Disagree</b>
                         </Button>
-                        <Button onClick={this.handleAccept} color="primary">
-                            Agree
+                        <Button
+                            onClick={this.handleAccept}
+                            variant="contained"
+                            type="submit"
+                            color="primary"
+                            className={classes.agree}
+                        >
+                            <b>Agree</b>
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -380,3 +492,64 @@ class FinalPage extends Component{
 
 FinalPage = withMyHook(FinalPage);
 export default FinalPage;
+
+/*
+<div style={{display: window.innerWidth < 480 ? '' : 'inline-flex'}}>
+                            <Grid item xs={12}>
+                                <Card className={classes.cardRoot}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={AspiringMember}
+                                            title="Contemplative Reptile"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                Lizard
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                                                across all continents except Antarctica
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions>
+                                        <Button size="small" color="primary">
+                                            Share
+                                        </Button>
+                                        <Button size="small" color="primary">
+                                            Learn More
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Card className={classes.cardRoot}>
+                                    <CardActionArea>
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={SeniorExecutive}
+                                            title="Contemplative Reptile"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="h2">
+                                                Lizard
+                                            </Typography>
+                                            <Typography variant="body2" color="textSecondary" component="p">
+                                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                                                across all continents except Antarctica
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                    <CardActions>
+                                        <Button size="small" color="primary">
+                                            Share
+                                        </Button>
+                                        <Button size="small" color="primary">
+                                            Learn More
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        </div>
+ */
