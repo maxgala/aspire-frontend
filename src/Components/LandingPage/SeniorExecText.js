@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
     
-    features_title: {
+    senior_prof_title: {
         fontWeight: '500',
         fontSize: '35px',
         color: 'black',
@@ -34,10 +34,6 @@ const useStyles = makeStyles(theme => ({
             backgroundColor: "#F1F1F1",
             color: '#484848'
         }
-    },
-    total: {
-       
-    
     }
 }));
 
@@ -54,8 +50,8 @@ class SeniorExecText extends Component {
         const classes = this.props.classes;
         return(
             
-             <div className={classes.total}>
-                <h1 className={classes.features_title}> Our Senior Professionals</h1>
+             <div>
+                <h1 className={classes.senior_prof_title}> Our Senior Professionals</h1>
                 
                 <h3 className={classes.subheading}>We have over 100 Senior Professionals 
                 commited to the MAX Aspire Platform. Book your exclusive coffee chat!</h3>           

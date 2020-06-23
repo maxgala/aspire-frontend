@@ -24,10 +24,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'start',
     paddingBottom: '10vh'
-  },
-  second: {
-    marginTop : '4%'
-},
+  }
 }));
 
 function withMyHook(Component) {

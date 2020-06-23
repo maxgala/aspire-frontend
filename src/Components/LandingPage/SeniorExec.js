@@ -3,25 +3,9 @@ import {makeStyles} from "@material-ui/core/styles";
 
 
 const useStyles = makeStyles(theme => ({
-    sectionstyle: {
-        width: "100vw",
-        height: "100%",
-        margin: '0',
-        padding: '0'
-    },
     overallposition: {
         position: 'relative'
     },
-    features_title: {
-        top: '3182px',
-        left: '135px',
-        width: '728px',
-        height: '98px',
-        fontWeight: '500',
-        fontSize: '36px',
-        color: 'black',
-        padding: '0'
-      },
       extratext: {
         color: "white",
         fontSize: '18px',
@@ -33,9 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
     hovertext: {
         color: "white",
-        // padding: '30px,',
         fontSize: '24px',
-        
         marginTop: '75%',
         textAlign: 'center',
         position: 'absolute',

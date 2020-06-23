@@ -8,16 +8,6 @@ const useStyles = makeStyles(theme => ({
         margin: '0',
         padding: '0'
     },
-    features_title: {
-        top: '3182px',
-        left: '135px',
-        width: '728px',
-        height: '98px',
-        fontWeight: '500',
-        fontSize: '36px',
-        color: 'black',
-        padding: '0'
-      },
       extratext: {
         color: "white",
         textAlign: 'center',
