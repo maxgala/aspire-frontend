@@ -302,7 +302,7 @@ class FinalPage extends Component{
                                         onChange={event => {this.setState({checked: !this.state.checked})}}
                                         name="checkedD"
                                     />}
-                                label={<b>I agree to the <Tooltip title={"Click on me to read the Terms and Conditions"}>
+                                label={<b>I agree to the <Tooltip title={"Click to read the Terms and Conditions"}>
                                     <u onClick={this.readConditions} style = {{color: 'red'}}> terms and conditions </u>
                                 </Tooltip> </b>}
                             />
