@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'white',
   },
   seniorexec:{
-    marginTop :'10vh',
+    paddingTop :'10vh',
     backgroundColor: 'white'
   },
   grid: { 
