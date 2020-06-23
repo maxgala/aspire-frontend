@@ -110,12 +110,10 @@ handleExit = event => {
                  onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
                 
                 <img style={{width: '100%', marginTop: '0vh', display: this.state.display1, borderTopLeftRadius: '20%', borderBottomRightRadius: '20%'}} 
-                onMouseEnter={this.handleEnter}
-                resizeMode="contain" src={this.props.image} alt="Senior Exec"/>
+                onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
                 
                 <img style={{width: '100%', marginTop: '0vh', display: this.state.display2, borderTopLeftRadius: '20%', borderBottomRightRadius: '20%'}} 
-                onMouseLeave={this.handleExit}  
-                 resizeMode="contain" src={this.props.hover_image} alt="Senior Exec" />            
+                onMouseLeave={this.handleExit} src={this.props.hover_image} alt="Senior Exec" />            
                  
          </div>
             

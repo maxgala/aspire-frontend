@@ -1,8 +1,5 @@
 import React, {Component} from "react";
-import { Button } from '@material-ui/core';
-import SmallSeniorExecImg from "../Images/senior/Bulbulia_Ahmed.jpg";
 import {makeStyles} from "@material-ui/core/styles";
-import MaxLogo from "../Images/max_logo.png";
 
 const useStyles = makeStyles(theme => ({
     sectionstyle: {
@@ -73,7 +70,6 @@ class SmallSeniorExecBottom extends Component {
   
   
   handleEnter = event => {
-       //event.preventDefault();
           this.setState({
               display2 : '',
               display1 : 'None',
@@ -84,8 +80,6 @@ class SmallSeniorExecBottom extends Component {
   
   
   handleExit = event => {
-      //event.preventDefault();
-             
              this.setState({
              display2 : 'None',
              display1: '',
@@ -109,12 +103,10 @@ class SmallSeniorExecBottom extends Component {
                  onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
                 
                 <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopRightRadius: '30%', borderBottomLeftRadius: '30%'}} 
-                onMouseEnter={this.handleEnter}
-                resizeMode="contain" src={this.props.image} alt="Senior Exec"/>
+                onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
                 
                 <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopRightRadius: '30%', borderBottomLeftRadius: '30%'}} 
-                onMouseLeave={this.handleExit}  
-                 resizeMode="contain" src={this.props.hover_image} alt="Senior Exec" /> 
+                onMouseLeave={this.handleExit} src={this.props.hover_image} alt="Senior Exec" /> 
          </div>
             
         );

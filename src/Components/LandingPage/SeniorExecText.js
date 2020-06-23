@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import { Button } from '@material-ui/core';
-import SeniorExecImg from "../Images/seniorexec1.png";
 import {makeStyles} from "@material-ui/core/styles";
-import MaxLogo from "../Images/max_logo.png";
 
 const useStyles = makeStyles(theme => ({
     

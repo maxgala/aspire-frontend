@@ -15,7 +15,6 @@ import Membership from "./Membership.js";
 import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
 import Registration from "../Registration/Registration";
-import SeniorExec from './SeniorExec';
 import SeniorExecGrid from './SeniorExecGrid';
 
 import JobSection from "./JobSection.js";
