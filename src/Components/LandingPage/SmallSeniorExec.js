@@ -14,14 +14,14 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         fontSize: '18px',
         fontWeight: '100',
-        marginTop: '14%',
-        width : '23%',
+        marginTop: window.innerWidth <= 650 ? '40%' : '11%',
+        width : window.innerWidth < 900 ? window.innerWidth <= 650 ? '70%' : '35%' : '23%',
     },
     hovertext: {
         color: "white",
         fontSize: '24px',
-        width: '23%',
-        marginTop: '8%',
+        width : window.innerWidth < 900 ? window.innerWidth <= 650 ? '70%' : '35%' : '23%',
+        marginTop: window.innerWidth <= 650 ? '20%' : '4%',
         textAlign: 'center',
         position: 'absolute'
     }
@@ -59,7 +59,6 @@ class SmallSeniorExec extends Component {
   
   
   handleEnter = event => {
-       //event.preventDefault();
           this.setState({
               display2 : '',
               display1 : 'None',
@@ -70,8 +69,6 @@ class SmallSeniorExec extends Component {
   
   
   handleExit = event => {
-      //event.preventDefault();
-             
              this.setState({
              display2 : 'None',
              display1: '',
@@ -87,15 +84,15 @@ class SmallSeniorExec extends Component {
             
              <div className={classes.sectionstyle}>
 
-                <h3 className={classes.hovertext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
+                <h3 className={classes.hovertext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '50px'}} onMouseEnter={this.handleEnter} 
                  onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
-                <h3 className={classes.extratext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
+                <h3 className={classes.extratext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '50px'}} onMouseEnter={this.handleEnter} 
                  onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
                 
-                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopLeftRadius: '30%', borderBottomRightRadius: '30%'}} 
+                <img style={{width: '90%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
                 onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
                 
-                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopLeftRadius: '30%', borderBottomRightRadius: '30%'}} 
+                <img style={{width: '90%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
                 onMouseLeave={this.handleExit} src={this.props.hover_image} alt="Senior Exec" /> 
 
          </div>

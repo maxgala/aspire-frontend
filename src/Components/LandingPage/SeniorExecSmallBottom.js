@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
     sectionstyle: {
-        width: "100vw",
+        width: "100%",
         height: "100%",
         margin: '0',
         padding: '0'
@@ -14,15 +14,14 @@ const useStyles = makeStyles(theme => ({
         position: 'absolute',
         fontSize: '18px',
         fontWeight: '100',
-        
-        marginTop: '14%',
-        width : '23%',
+        marginTop: '11%',
+        width : window.innerWidth < 900 ? '35%' : '23%',
     },
     hovertext: {
         color: "white",
         fontSize: '24px',
-        width : '23%',
-        marginTop: '8%',
+        width : window.innerWidth < 900 ? '35%' : '23%',
+        marginTop: '4%',
         textAlign: 'center',
         position: 'absolute'
     }
@@ -84,18 +83,16 @@ class SmallSeniorExecBottom extends Component {
         return(
             
              <div className={classes.sectionstyle}>
-                           
-            
 
-                <h3 className={classes.hovertext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
+                <h3 className={classes.hovertext} style={{display: this.state.text, paddingLeft: '50px', paddingRight: '30px'}} onMouseEnter={this.handleEnter} 
                  onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
-                <h3 className={classes.extratext} style={{display: this.state.text}} onMouseEnter={this.handleEnter} 
+                <h3 className={classes.extratext} style={{display: this.state.text, paddingLeft: '50px', paddingRight: '30px'}} onMouseEnter={this.handleEnter} 
                  onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
                 
-                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopRightRadius: '30%', borderBottomLeftRadius: '30%'}} 
+                <img style={{width: '90%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopRightRadius: '5vw', borderBottomLeftRadius: '12vw'}} 
                 onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
                 
-                <img style={{width: '100%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopRightRadius: '30%', borderBottomLeftRadius: '30%'}} 
+                <img style={{width: '90%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopRightRadius: '5vw', borderBottomLeftRadius: '12vw'}} 
                 onMouseLeave={this.handleExit} src={this.props.hover_image} alt="Senior Exec" /> 
          </div>
             

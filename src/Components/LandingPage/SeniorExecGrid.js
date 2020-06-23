@@ -48,8 +48,7 @@ class Membership extends Component {
 
 
 handleClick = event => {
-   //event.preventDefault();
-      if (window.innerWidth > '800px'){
+      if (window.innerWidth > '900px'){
           this.setState({
               phone : 'None',
               desktop : ''
@@ -68,7 +67,7 @@ handleClick = event => {
     const classes = this.props.classes;
     return(
       <div className={classes.seniorexec}>
-          <div className={classes.background} style={{display: window.innerWidth > 800 ? '' : 'None'}}>
+          <div className={classes.background} style={{display: window.innerWidth > 900 ? '' : 'None'}}>
           <Grid
             container
             spacing={2}
@@ -145,8 +144,7 @@ handleClick = event => {
             </Grid>
           </Grid>
         </div>
-
-          <div className={classes.background} style={{display: window.innerWidth > 800 ? 'None' : ''}}>
+          <div className={classes.background} style={{display: (window.innerWidth > 900 || window.innerWidth <= 650) ? 'None' : ''}}>
             <Grid
               container
               item xs={12}
@@ -157,7 +155,7 @@ handleClick = event => {
               > 
               <Grid
                 container
-                item xs={6} 
+                item xs={6}
                 alignItems="flex-end"
                 justify="flex-end"
               >
@@ -171,7 +169,7 @@ handleClick = event => {
               </Grid>
               <Grid
                 container
-                item xs={6} 
+                item xs={6}
                 spacing={0}
                 alignItems="center"
                 justify="center"
@@ -187,6 +185,32 @@ handleClick = event => {
               
               <SeniorExecText/>
               
+            </Grid>
+        </div>
+        <div className={classes.background} style={{display: window.innerWidth > 650 ? 'None' : ''}}>
+            <Grid
+              container
+              item xs={12}
+              spacing={0}
+              alignItems="center"
+              justify="center"
+              className={classes.grid}
+              > 
+              <Grid
+                container
+                item xs={12}
+                alignItems="flex-end"
+                justify="flex-end"
+              >
+              <SmallSeniorExec
+                name_text="Latafat Faran"
+                extra_text="Executive Vice President at Core Development Group"
+                image = {SmallSeniorExecImg}
+                hover_image = {SmallSeniorExecImgHover}
+              />
+              
+              </Grid>
+              <SeniorExecText/>
             </Grid>
         </div>
       </div>
