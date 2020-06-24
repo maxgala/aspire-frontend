@@ -11,6 +11,7 @@ import {DropzoneDialog} from 'material-ui-dropzone';
 import SecondPage from "./SecondPage";
 import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from 'react-s3';
+import FinalPage from "./FinalPage";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -112,6 +113,7 @@ class ThirdPage extends Component{
             province: this.props.prev ? this.props.prev.province : '',
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
+            senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
             mentor: false,
             resumeURL: "",
             profilePicURL: "",
@@ -201,6 +203,11 @@ class ThirdPage extends Component{
             registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
+    changeToFinalPage = (event) =>  {
+        this.props.appContext.setState({
+            registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state}/>
+        });
+    };
 
     render() {
         const classes = this.props.classes;
@@ -214,12 +221,12 @@ class ThirdPage extends Component{
                     </Typography>
                     <div className={classes.form}>
                         <Grid container spacing={2}>
-                            <Grid xs={12}>
+                            <Grid item xs={12}>
                                 { this.state.imageFiles.map((file,i) => {
                                     return <img key={i} src={file} alt={"profile-pic"} className={classes.profilePic}/>
                                 }) }
                             </Grid>
-                            <Grid xs={12} className={classes.textAlignment}>
+                            <Grid item xs={12} className={classes.textAlignment}>
                                 <div style={{display: 'inline-flex'}}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.profilePicPreviewText}</b>
@@ -247,7 +254,7 @@ class ThirdPage extends Component{
                                 />
                             </Grid>
 
-                            <Grid xs={12} className={classes.textAlignment}>
+                            <Grid item xs={12} className={classes.textAlignment}>
                                 <div style={{display: 'inline-flex'}}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.resumeUploadText}</b>
@@ -288,6 +295,7 @@ class ThirdPage extends Component{
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            onClick={this.changeToFinalPage}
                         >
                             <b>Next</b>
                         </Button>

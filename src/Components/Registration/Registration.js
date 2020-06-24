@@ -6,6 +6,7 @@ import MaxLogo from "../Images/max_logo.png";
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import FirstPage from "./FirstPage";
+import Landing from "../LandingPage/Landing";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     // this css element describes the size of the image
     img: {
+        cursor: 'pointer',
         width: '150px',
         padding: '1vw',
     },
@@ -52,6 +54,12 @@ class Registration extends Component{
         }
     }
 
+    changeToLanding = event => {
+        this.props.appContext.setState({
+            currentScreen: <Landing appContext={this.props.appContext}/>
+        })
+    };
+
     componentDidMount() {
         this.setState({
             registrationScreen: <FirstPage appContext={this}/>
@@ -66,7 +74,7 @@ class Registration extends Component{
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar className={classes.toolbar}>
                         <div className={classes.imageLogo}>
-                            <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
+                            <img src={MaxLogo} alt="MAX_logo" onClick={this.changeToLanding} className={classes.img}/>
                         </div>
                     </Toolbar>
                 </AppBar>
