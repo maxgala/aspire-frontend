@@ -335,11 +335,16 @@ class FinalPage extends Component{
                     aria-labelledby="scroll-dialog-title"
                     aria-describedby="scroll-dialog-description"
                 >
-                    <DialogTitle id="scroll-dialog-title"><h2><strong>Terms and Conditions</strong></h2></DialogTitle>
+                    <DialogTitle id="scroll-dialog-title">
+                        <div>
+                            <h2>Terms and Conditions</h2>
+                        </div>
+                    </DialogTitle>
                     <DialogContent>
                         <DialogContentText
                             id="scroll-dialog-description"
                             tabIndex={-1}
+                            component={'span'}
                         >
                             <p>Welcome to MAX Aspire!</p>
 

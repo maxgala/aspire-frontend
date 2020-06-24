@@ -221,12 +221,12 @@ class ThirdPage extends Component{
                     </Typography>
                     <div className={classes.form}>
                         <Grid container spacing={2}>
-                            <Grid xs={12}>
+                            <Grid item xs={12}>
                                 { this.state.imageFiles.map((file,i) => {
                                     return <img key={i} src={file} alt={"profile-pic"} className={classes.profilePic}/>
                                 }) }
                             </Grid>
-                            <Grid xs={12} className={classes.textAlignment}>
+                            <Grid item xs={12} className={classes.textAlignment}>
                                 <div style={{display: 'inline-flex'}}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.profilePicPreviewText}</b>
@@ -254,7 +254,7 @@ class ThirdPage extends Component{
                                 />
                             </Grid>
 
-                            <Grid xs={12} className={classes.textAlignment}>
+                            <Grid item xs={12} className={classes.textAlignment}>
                                 <div style={{display: 'inline-flex'}}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.resumeUploadText}</b>

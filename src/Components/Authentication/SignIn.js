@@ -13,6 +13,7 @@ import MaxBrand from "../Images/max_brand_logo.png";
 import AppBar from "@material-ui/core/AppBar";
 import Registration from "../Registration/Registration";
 import Landing from "../LandingPage/Landing";
+import signInImage from "../Images/aboutMax.jpg";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '1vw',
     },
     image: {
-        backgroundImage: 'url(https://i.picsum.photos/id/1003/1181/1772.jpg)',
+        backgroundImage: `url(${signInImage})`, //'url(https://i.picsum.photos/id/1003/1181/1772.jpg)',
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -178,14 +179,14 @@ class SignIn extends Component{
                         </Button>
                         <br/>
                         <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="h7">
-                                    <b>Forgot your password? Click Here </b>
+                            <Grid item xs={12}>
+                                <Link href="#" variant="body1">
+                                    <b>Forgot your password?</b>
                                 </Link>
                             </Grid>
-                            <Grid item>
-                                <Link href="#" variant="h7" color={"secondary"} onClick={this.changeToSignUp}>
-                                    <b>Don't have an account? Sign Up</b>
+                            <Grid item xs={12}>
+                                <Link href="#" variant="body1" color={"secondary"} onClick={this.changeToSignUp}>
+                                    <b>Don't have an account?</b>
                                 </Link>
                             </Grid>
                         </Grid>

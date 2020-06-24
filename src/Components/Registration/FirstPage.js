@@ -236,7 +236,7 @@ class FirstPage extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    id="outlined-select-birthYear"
+                                    id="outlined"
                                     required
                                     fullWidth
                                     select
@@ -296,7 +296,7 @@ class FirstPage extends Component {
                         </Button>
                         <Grid container justify="center">
                             <Grid item>
-                                <Link href="#" variant="h7" onClick={this.changeToSignIn}>
+                                <Link href="#" variant="body1" onClick={this.changeToSignIn}>
                                     <b>Already have an account? Sign in</b>
                                 </Link>
                             </Grid>
