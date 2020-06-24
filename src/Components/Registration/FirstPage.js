@@ -274,7 +274,7 @@ class FirstPage extends Component {
                                     name="confirm password"
                                     label="Confirm Password"
                                     type="password"
-                                    id="password"
+                                    id="password-confirm"
                                     autoComplete="current-password"
                                     onChange={this.handleConfirmCheck}
                                 />
