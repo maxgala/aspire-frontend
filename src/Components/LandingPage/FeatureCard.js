@@ -79,7 +79,7 @@ class FeatureCard extends Component{
     const classes = this.props.classes;
     return (
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
-        <div className={classes.image} onClick={this.handleClick} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
+        <div className={classes.image} onClick={this.handleClick} onMouseEnter={this.handleClick}>
           <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on front of feature card"/>
           <img style={{width: '100%', height: '100%', opacity: '0.2'}} src={this.state.images[this.props.card_number - 1]} alt="Front of feature card"/>
           <div className={classes.centered}>
@@ -88,7 +88,7 @@ class FeatureCard extends Component{
           </div>
         </div>
  
-        <div className={classes.image} onClick={this.handleClick} onMouseEnter={this.handleClick} onMouseLeave={this.handleClick}>
+        <div className={classes.image} onClick={this.handleClick} onMouseLeave={this.handleClick}>
           <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on front of feature card"/>
           <img style={{width: '100%', height: '100%', opacity: '0.2'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
           <div className={classes.centered}>
