@@ -63,6 +63,8 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '5px',
     paddingLeft: '25px',
     paddingRight: '25px',
+    marginTop: window.innerWidth < 1280 ? '10px' : '20px',
+    marginBottom: '20px',
     width: '100%'
   }
 }));
