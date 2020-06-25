@@ -56,8 +56,13 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     color: 'white',
+    border: '1px solid #8e8e8e',
+    borderRadius: '20px',
     fontSize: '20px',
-    padding: '20px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    paddingLeft: '25px',
+    paddingRight: '25px',
     width: '100%'
   }
 }));
@@ -116,10 +121,11 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
           />
         )}
         <TextField
-          id="standard-basic"
+          id="outlined"
           onChange={updateEmail}
           type="email"
-          placeholder="yourEmail@email.com"
+          variant="standard"
+          placeholder="email@maxaspire.com"
           InputProps={{className: classes.input}}/>
       </Grid>
       <Grid
