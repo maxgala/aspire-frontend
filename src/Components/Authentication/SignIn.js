@@ -14,6 +14,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Registration from "../Registration/Registration";
 import Landing from "../LandingPage/Landing";
 import signInImage from "../Images/aboutMax.jpg";
+import Dashboard from "../Dashboard/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -122,6 +123,9 @@ class SignIn extends Component{
         }
         console.log("Username is: "+this.state.username)
         console.log("Password is: "+this.state.password)
+        this.props.appContext.setState({
+            currentScreen: <Dashboard appContext={this.props.appContext}/>
+        })
     };
 
     render() {
