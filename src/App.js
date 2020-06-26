@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Landing from "./Components/LandingPage/Landing";
 import './App.css';
+import Stripe from "./Components/Payment/Stripe";
 
 class App extends Component{
   constructor(props){
@@ -12,7 +13,7 @@ class App extends Component{
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Landing appContext={this}/>
+      currentScreen: <Stripe appContext={this}/>
     })
   }
 
