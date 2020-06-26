@@ -16,8 +16,8 @@ import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
 import Registration from "../Registration/Registration";
 import SeniorExecGrid from './SeniorExecGrid';
-
 import JobSection from "./JobSection.js";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
