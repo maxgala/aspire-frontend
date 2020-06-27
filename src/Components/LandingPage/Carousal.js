@@ -8,8 +8,8 @@ import right from "../Images/arrow_right.png";
 import * as q from "./Quotes.js";
 import Swipe from 'react-easy-swipe';
 import ReactDOM from 'react-dom';
-//import {View, Text} from 'react-native';
-//import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { useSwipeable, Swipeable } from 'react-swipeable'
+
 
 const useStyles = makeStyles(theme => ({
   // TODO: find way to do this with makeStyles
@@ -45,12 +45,13 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     position: 'absolute',
     align: 'left',
-    display: window.innerWidth < 600 ? 'none' : 'flex',
+    ['@media (max-width:670px)']:{display:'None'},
+   
   },
   leftArrow: {
     cursor: 'pointer',
     position: 'absolute',
-    display: window.innerWidth < 600 ? 'none' : 'flex',
+    ['@media (max-width:670px)']:{display:'None'},
   },
   // sign in and registration button CSS elements
   // button regular and hover colors are different
@@ -59,10 +60,6 @@ const useStyles = makeStyles(theme => ({
     height: '200px',
     justify: 'left',
     borderRadius: '50%',
-    // '&:hover': {
-    //   backgroundColor: "#F1F1F1",
-    //   color: '#484848'
-    // }
   },
   header: {
     fontFamily: 'Nunito Sans',
@@ -74,8 +71,14 @@ const useStyles = makeStyles(theme => ({
   },
   carousal: {
     alignItems: 'center',
-    margin: '40px auto',
+    paddingTop:'8%',
+    paddingBottom:'8%',
+    backgroundColor:'#FFFFFF',
   },
+  paragraph: {
+    height: '220px',
+    marginTop:'0px',
+  }
 }));
 
 function withMyHook(Component){
@@ -137,7 +140,7 @@ class Quote extends Component {
     const classes = this.props.classes;
    
     return (
-      <Swipe onSwipeEnd={this.HandleRightArrowClick}>
+      <Swipeable onSwipedRight={this.HandleLeftArrowClick} onSwipedLeft={this.HandleRightArrowClick} >
       <div  className={classes.carousal}>
         <h1 className={classes.header}><b>What our members have to say</b></h1>
           <Grid
@@ -176,8 +179,9 @@ class Quote extends Component {
               spacing={1}
               justify="center"
             >
-              <p style={{fontSize: '25px', paddingLeft: '40px', paddingRight: '40px'}}><i>{this.state.current.client}</i></p>
               <p style={{fontSize: '20px'}}><i><b>Jodie Foster - CEO of BestWork</b></i></p>
+              <p className={classes.paragraph} style={{fontSize: '25px', paddingLeft: '40px', paddingRight: '40px'}}><i>{this.state.current.client}</i></p>
+            
             </Grid>
             <Grid
               container
@@ -190,7 +194,6 @@ class Quote extends Component {
                 src={right}  
                 onClick={this.HandleRightArrowClick}
                 alt={"Testimonial Right Arrow"}
-                
               />
             </Grid>
         </Grid>
@@ -208,8 +211,8 @@ class Quote extends Component {
             }
             span::before{
               content:"";
-              height:10px;
-              width:10px;
+              height:13px;
+              width:13px;
               background-color:#d4d4d4;
               border-radius:50%;
               transition:background-color 0.3s ease;
@@ -230,7 +233,7 @@ class Quote extends Component {
             ))}
         </div>
       </div>
-      </Swipe>
+      </Swipeable>
     )
   }
 }
