@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import left from "../Images/arrow_left.png";
 import right from "../Images/arrow_right.png";
 import * as q from "./Quotes.js";
+import { Swipeable } from 'react-swipeable'
 
 const useStyles = makeStyles(theme => ({
   // TODO: find way to do this with makeStyles
@@ -40,12 +41,14 @@ const useStyles = makeStyles(theme => ({
   rightArrow: {
     cursor: 'pointer',
     position: 'absolute',
-    display: window.innerWidth < 600 ? 'none' : 'flex',
+    align: 'left',
+    '@media (max-width:670px)':{display:'None'},
+   
   },
   leftArrow: {
     cursor: 'pointer',
     position: 'absolute',
-    display: window.innerWidth < 600 ? 'none' : 'flex',
+    '@media (max-width:670px)':{display:'None'},
   },
   // sign in and registration button CSS elements
   // button regular and hover colors are different
@@ -54,10 +57,6 @@ const useStyles = makeStyles(theme => ({
     height: '200px',
     justify: 'left',
     borderRadius: '50%',
-    // '&:hover': {
-    //   backgroundColor: "#F1F1F1",
-    //   color: '#484848'
-    // }
   },
   header: {
     fontFamily: 'Nunito Sans',
@@ -69,8 +68,20 @@ const useStyles = makeStyles(theme => ({
   },
   carousal: {
     alignItems: 'center',
-    margin: '40px auto',
+    paddingTop:'8%',
+    paddingBottom:'8%',
+    backgroundColor:'#FFFFFF',
   },
+  paragraph: {
+    height: '220px',
+    marginTop:'0px',
+    marginBottom:'30px',
+    fontFamily:'Nunito',
+    fontSize: '25px',
+    paddingLeft: '40px', 
+    paddingRight: '40px',
+    fontStyle:'italic',
+  }
 }));
 
 function withMyHook(Component){
@@ -86,8 +97,17 @@ class Quote extends Component {
     this.state = {
       current: q.quotes[0],
       active: 0,
-      numQuotes: 4
+      numQuotes: 4,
     }
+  }
+
+  timer(){
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
   }
 
   HandleRightArrowClick = (event) => {
@@ -96,23 +116,29 @@ class Quote extends Component {
     } else if (this.state.active === 3) {
       this.setState({current: q.quotes[0], active: 0})
     }
+    this.timer();
   }
+
   HandleLeftArrowClick = (event) => {
     if (this.state.active > 0) {
       this.setState({current: q.quotes[this.state.active-1], active: this.state.active-1})
     } else if (this.state.active === 0) {
       this.setState({current: q.quotes[this.state.numQuotes - 1], active: this.state.numQuotes - 1})
     }
+    this.timer();
   }
 
   HandleSetClick = (event) => {
     this.setState({active:event.target.getAttribute("data-image"),current:q.quotes[event.target.getAttribute("data-image")]})
+    this.timer();
   }
 
   render() {
     const classes = this.props.classes;
+   
     return (
-      <div className={classes.carousal}>
+      <Swipeable onSwipedRight={this.HandleLeftArrowClick} onSwipedLeft={this.HandleRightArrowClick} >
+      <div  className={classes.carousal}>
         <h1 className={classes.header}><b>What our members have to say</b></h1>
           <Grid
           container
@@ -150,8 +176,9 @@ class Quote extends Component {
               spacing={1}
               justify="center"
             >
-              <p style={{fontSize: '25px', paddingLeft: '40px', paddingRight: '40px'}}><i>{this.state.current.client}</i></p>
               <p style={{fontSize: '20px'}}><i><b>Jodie Foster - CEO of BestWork</b></i></p>
+              <p className={classes.paragraph}>{this.state.current.client}</p>
+            
             </Grid>
             <Grid
               container
@@ -181,17 +208,17 @@ class Quote extends Component {
             }
             span::before{
               content:"";
-              height:6px;
-              width:6px;
+              height:13px;
+              width:13px;
               background-color:#d4d4d4;
               border-radius:50%;
               transition:background-color 0.3s ease;
             }
             span:hover::before{
-              background-color:#45454d
+              background-color:rgb(197,179,88)
             }
             span[data-image="${this.state.active}"]::before{
-             background-color:#45454d
+             background-color:rgb(197,179,88)
             }
           `}>
             {Object.keys(q.quotes).map(index=>(
@@ -203,6 +230,7 @@ class Quote extends Component {
             ))}
         </div>
       </div>
+      </Swipeable>
     )
   }
 }
