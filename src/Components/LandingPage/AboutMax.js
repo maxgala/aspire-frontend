@@ -66,6 +66,8 @@ const useStyles = makeStyles(theme => ({
     paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop:'2%',
+    paddingBottom:'2%',
   },
 }));
 

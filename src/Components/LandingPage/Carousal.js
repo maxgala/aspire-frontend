@@ -68,9 +68,9 @@ const useStyles = makeStyles(theme => ({
   },
   carousal: {
     alignItems: 'center',
-    paddingTop:'8%',
+    paddingTop:'4%',
     paddingBottom:'8%',
-    backgroundColor:'#FFFFFF',
+    backgroundColor:'#f1f1f1',
   },
   paragraph: {
     height: '220px',

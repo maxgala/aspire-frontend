@@ -6,13 +6,15 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   background: { 
     backgroundColor: 'white',
+    paddingTop:'3%',
+    paddingBottom:'5%',
   },
   grid: { 
     paddingLeft: '10%',
     paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: '30px'
+    paddingBottom: '30px',
   },
   features_title: {
     fontFamily: "Nunito Sans",
