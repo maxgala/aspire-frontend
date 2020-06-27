@@ -6,10 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import left from "../Images/arrow_left.png";
 import right from "../Images/arrow_right.png";
 import * as q from "./Quotes.js";
-import Swipe from 'react-easy-swipe';
-import ReactDOM from 'react-dom';
-import { useSwipeable, Swipeable } from 'react-swipeable'
-
+import { Swipeable } from 'react-swipeable'
 
 const useStyles = makeStyles(theme => ({
   // TODO: find way to do this with makeStyles
@@ -45,13 +42,13 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     position: 'absolute',
     align: 'left',
-    ['@media (max-width:670px)']:{display:'None'},
+    '@media (max-width:670px)':{display:'None'},
    
   },
   leftArrow: {
     cursor: 'pointer',
     position: 'absolute',
-    ['@media (max-width:670px)']:{display:'None'},
+    '@media (max-width:670px)':{display:'None'},
   },
   // sign in and registration button CSS elements
   // button regular and hover colors are different
@@ -94,8 +91,6 @@ function withMyHook(Component){
   }
 }
 
-
-
 class Quote extends Component { 
   constructor(props) {
     super(props);
@@ -121,7 +116,6 @@ class Quote extends Component {
     } else if (this.state.active === 3) {
       this.setState({current: q.quotes[0], active: 0})
     }
-    console.log("FJFGJDJGJDJ");
     this.timer();
   }
 
@@ -131,7 +125,6 @@ class Quote extends Component {
     } else if (this.state.active === 0) {
       this.setState({current: q.quotes[this.state.numQuotes - 1], active: this.state.numQuotes - 1})
     }
-   
     this.timer();
   }
 
@@ -139,8 +132,6 @@ class Quote extends Component {
     this.setState({active:event.target.getAttribute("data-image"),current:q.quotes[event.target.getAttribute("data-image")]})
     this.timer();
   }
-
-  
 
   render() {
     const classes = this.props.classes;
