@@ -78,6 +78,12 @@ const useStyles = makeStyles(theme => ({
   paragraph: {
     height: '220px',
     marginTop:'0px',
+    marginBottom:'30px',
+    fontFamily:'Nunito',
+    fontSize: '25px',
+    paddingLeft: '40px', 
+    paddingRight: '40px',
+    fontStyle:'italic',
   }
 }));
 
@@ -180,7 +186,7 @@ class Quote extends Component {
               justify="center"
             >
               <p style={{fontSize: '20px'}}><i><b>Jodie Foster - CEO of BestWork</b></i></p>
-              <p className={classes.paragraph} style={{fontSize: '25px', paddingLeft: '40px', paddingRight: '40px'}}><i>{this.state.current.client}</i></p>
+              <p className={classes.paragraph}>{this.state.current.client}</p>
             
             </Grid>
             <Grid
