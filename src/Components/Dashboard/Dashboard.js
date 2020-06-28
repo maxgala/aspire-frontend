@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
   img: {
     float: 'left',
     align: 'left',
-    width: window.innerWidth < 480 ? '125px' : '175px',
+    '@media (max-width: 480px)': {width: '125px'},
+    width: '175px'
   },
   content: {
     flexGrow: 1,
@@ -37,15 +38,19 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden'
   },
   profile_container: {
-    width: window.innerWidth > 700 ? '300px' : '0px',
-    display: window.innerWidth > 700 ? '' : 'None',
+    '@media (max-width: 700px)': {
+      width: '0px',
+      display: 'None'
+    },
+    width: '300px',
     paddingTop: theme.spacing(0),
     paddingLeft: '0px',
     paddingRight: '0px',
     position: 'relative'
   },
   dashboard_container: {
-    maxWidth: window.innerWidth > 700 ? 'calc(100% - 300px)' : '100%',
+    '@media (max-width: 700px)': {maxWidth: '100%'},
+    maxWidth: 'calc(100% - 300px)',
     paddingTop: theme.spacing(0),
     paddingLeft: '0px',
     paddingRight: '0px',

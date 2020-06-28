@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     width: '250px',
     height: '50px',
-    fontSize: window.innerWidth < 885 ? '0.875rem' : '20px',
+    '@media (max-width: 885px)': {fontSize: '0.875rem'},
+    fontSize: '20px',
     backgroundColor: "#6EA0B5",
     borderRadius: 50,
     color: "white",
@@ -33,7 +34,11 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     width: '100%',
     bottom: '0',
-    paddingBottom: window.innerWidth < 590 ? '110px' : window.innerWidth < 1280 ? '140px' : '190px',
+    '@media (max-width: 1280px)': {
+      paddingBottom: '140px',
+      '@media (max-width: 599px)': {paddingBottom: '110px'},
+    },
+    paddingBottom: '190px',
     textAlign: 'left',
     display: 'inline-block',
   },
@@ -62,7 +67,8 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '5px',
     paddingLeft: '25px',
     paddingRight: '25px',
-    marginTop: window.innerWidth < 1280 ? '10px' : '20px',
+    '@media (max-width: 1280px)': {marginTop: '10px'},
+    marginTop: '20px',
     marginBottom: '20px',
     width: '100%'
   }

@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     },
     uploadText: {
         margin: theme.spacing(2, 0, 1),
-        width: window.innerWidth < 480 ? '180px' : '200px'
+        '@media (max-width: 480px)': {width: '180px'},
+        width: '200px',
     },
     uploadImage:{
         marginLeft: theme.spacing(1,0,1),
