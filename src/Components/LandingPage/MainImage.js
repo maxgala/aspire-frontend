@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
     h1style: {
         fontFamily: "Nunito Sans",
         fontWeight: "Bold",
-        fontSize: "72px",
+        '@media (max-width: 800px)': {fontSize: '55px'},
+        fontSize: '72px',
         color: 'white',
         textAlign: 'center',
         margin: '0',
@@ -24,10 +25,11 @@ const useStyles = makeStyles(theme => ({
     subheading: {
         fontFamily: "Nunito Sans",
         fontWeight: "Bold",
-        fontSize: "24px",
+        '@media (max-width: 800px)': {fontSize: '18px'},
+        fontSize: '24px',
         color: "white",
         paddingLeft: '30px',
-        paddingRight: '30px'
+        paddingRight: '30px',
     },
     networkstyle: {
         color: "#B5A165",
@@ -35,7 +37,8 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         fontFamily: "Montserrat",
-        fontSize: "24px",
+        '@media (max-width: 800px)': {fontSize: '18px'},
+        fontSize: '24px',
         textTransform: "capitalize",
         paddingLeft: '20px',
         paddingRight: '20px',
@@ -55,7 +58,7 @@ const useStyles = makeStyles(theme => ({
         transform: 'translate(-50%, 0%)',
         backgroundColor: 'rgba(0,0,0,0.8)',
         width: '110%',
-        height: '75vh'
+        height: '85vh',
     },
     img: {
         paddingTop: '20vh',
@@ -63,6 +66,12 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: '20px',
         paddingRight: '20px'
     },
+    mainBack: {
+        width: '100%',
+        height: '75vh',
+        marginTop: '10vh',
+        backgroundSize: 'cover',
+    }
 }));
 
 
@@ -74,16 +83,23 @@ function withMyHook(Component) {
 }
 
 class MainImage extends Component {
+    handleClick(e) {
+        e.preventDefault();
+        document.getElementById('about_max').scrollIntoView({
+            behavior: 'smooth'
+        });
+      }
+
     render() {
         const classes = this.props.classes;
         return(
             <div className={classes.sectionStyle}>
-                <img style={{width: '100%', height: '65vh', marginTop: '10vh'}} src={Mainback} alt="Main"/>
+                <img className={classes.mainBack} src={Mainback} alt="Main"/>
                 <div className={classes.total}>
                     <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
                     <h1 className={classes.h1style}>Aspire for Excellence</h1>
                     <h3 className={classes.subheading}>Any successful career starts with a <span className={classes.networkstyle}>good network</span></h3>
-                    <Button className={classes.button} variant="contained">Learn More</Button>
+                    <Button onClick={this.handleClick} className={classes.button} variant="contained">Learn More</Button>
                 </div>
             </div>
             

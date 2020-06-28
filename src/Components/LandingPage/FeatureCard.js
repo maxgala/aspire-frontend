@@ -22,24 +22,18 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "30px",
+    '@media (max-width: 500px)': {fontSize: '24px'},
     position: 'absolute',
-    marginTop: '25%',
+    marginTop: '40%',
     width: '100%',
     paddingLeft: '20px',
     paddingRight: '20px',
     color: 'white'
   },
-  small_text: { 
-    fontFamily: "Montserrat",
-    fontSize: "18px",
-    position: 'absolute',
-    marginTop: '75%',
-    width: '100%',
-    color: 'white',
-  },
   back_text: { 
     fontFamily: "Montserrat",
     fontSize: '20px',
+    '@media (max-width: 500px)': {fontSize: '16px'},
     width: '100%',
     marginTop: '30%',
     paddingLeft: '20px',
@@ -84,7 +78,6 @@ class FeatureCard extends Component{
           <img style={{width: '100%', height: '100%', opacity: '0.2'}} src={this.state.images[this.props.card_number - 1]} alt="Front of feature card"/>
           <div className={classes.centered}>
             <h2 className={classes.front_text}>{this.props.front_text}</h2>
-            <p className={classes.small_text}>more text on the flip side</p>
           </div>
         </div>
  

@@ -76,6 +76,7 @@ export default function CSSGrid() {
 
   return (
     <Grid
+      id="about_max"
       container
       item
       spacing={1}
