@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         height: '75vh',
         marginTop: '10vh',
-        backgroundSize: 'cover',
+        objectFit: 'cover',
     }
 }));
 

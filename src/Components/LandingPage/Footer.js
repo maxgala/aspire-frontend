@@ -56,7 +56,8 @@ const useStyles = makeStyles(theme => ({
   image: {
     width: '100%',
     height: '300px',
-    marginBottom: '-10px'
+    marginBottom: '-10px',
+    objectFit: 'cover',
   },
   input: {
     color: 'white',
