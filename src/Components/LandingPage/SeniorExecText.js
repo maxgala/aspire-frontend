@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
         margin: '0'
     },
     button: {
+        textTransform: 'none',
         backgroundColor: "#6EA0B5",
         width: '30%',
         display: 'flex',

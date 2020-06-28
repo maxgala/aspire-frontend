@@ -36,6 +36,7 @@ const useStyles = makeStyles(theme => ({
     color: '#484848',
   },
   button: {
+    textTransform: 'none',
     backgroundColor: "#6EA0B5",
     marginTop:"2%",
     marginBottom: '6%',

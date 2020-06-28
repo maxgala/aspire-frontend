@@ -38,8 +38,8 @@ const useStyles = makeStyles(theme => ({
     button: {
         fontFamily: "Montserrat",
         '@media (max-width: 800px)': {fontSize: '18px'},
-        fontSize: '24px',
-        textTransform: "capitalize",
+        fontSize: '20px',
+        textTransform: 'none',
         paddingLeft: '20px',
         paddingRight: '20px',
         backgroundColor: "#6EA0B5",
@@ -99,7 +99,7 @@ class MainImage extends Component {
                     <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
                     <h1 className={classes.h1style}>Aspire for Excellence</h1>
                     <h3 className={classes.subheading}>Any successful career starts with a <span className={classes.networkstyle}>good network</span></h3>
-                    <Button onClick={this.handleClick} className={classes.button} variant="contained">Learn More</Button>
+                    <Button onClick={this.handleClick} className={classes.button} variant="contained">Learn more</Button>
                 </div>
             </div>
             

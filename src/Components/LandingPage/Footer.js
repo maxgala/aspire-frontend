@@ -17,11 +17,14 @@ const useStyles = makeStyles(theme => ({
     margin: '0',
   },
   subscribeButton: {
+    textTransform: 'none',
     display: 'inline-block',
     width: '250px',
     height: '50px',
     '@media (max-width: 885px)': {fontSize: '0.875rem'},
+    fontFamily: 'Nunito Sans',
     fontSize: '20px',
+    fontWeight: 'bold',
     backgroundColor: "#6EA0B5",
     borderRadius: 50,
     color: "white",
@@ -31,6 +34,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   newsletter: {
+    fontFamily: 'Nunito Sans',
+    fontSize: '36px',
+    fontWeight: 'bold',
     position: 'absolute',
     width: '100%',
     bottom: '0',
@@ -143,7 +149,7 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
         alignItems="center"
         justify="flex-start"
       >
-        <Button onClick={submit} className={classes.subscribeButton} variant="contained">Subscribe</Button>
+        <Button onClick={submit} className={classes.subscribeButton} variant="contained">Sign Up</Button>
       </Grid>
     </Grid>
   );

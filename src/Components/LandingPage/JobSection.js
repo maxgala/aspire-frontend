@@ -76,7 +76,7 @@ const useStyles = makeStyles(theme => ({
         textAlign:'left',
     }, 
     button: {
-        textTransform: 'capitalize',
+        textTransform: 'none',
         backgroundColor: "#6EA0B5",
         marginBottom:"2%",
         borderRadius: 50,
