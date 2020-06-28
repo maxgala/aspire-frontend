@@ -1,6 +1,7 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 import { Button } from '@material-ui/core';
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles} from '@material-ui/core/styles';
+import Registration from '../Registration/Registration';
 
 const useStyles = makeStyles(theme => ({
     senior_prof_title: {
@@ -43,6 +44,12 @@ function withMyHook(Component) {
 }
 
 class SeniorExecText extends Component {
+    changeToSignUp = (event) => {
+        this.props.appContext.setState({
+            currentScreen: <Registration appContext={this.props.appContext}/>
+        })
+    };
+
     render() {
         const classes = this.props.classes;
 
@@ -50,7 +57,7 @@ class SeniorExecText extends Component {
             <div>
                 <h1 className={classes.senior_prof_title}> Our Senior Professionals</h1>
                 <h3 className={classes.subheading}>We have over 100 Senior Professionals commited to the MAX Aspire Platform. Book your exclusive coffee chat!</h3>           
-                <Button className={classes.button} variant="contained">Join Now</Button>
+                <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Join Now</Button>
             </div>
         );
     }

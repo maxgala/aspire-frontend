@@ -29,7 +29,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: '24px',
     width : '23%',
     marginTop: '4%',
-    width : '23%',
     '@media (max-width: 650px)': {
       marginTop: '20%',
       width: '70%',

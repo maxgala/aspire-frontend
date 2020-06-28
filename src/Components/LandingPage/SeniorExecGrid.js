@@ -7,8 +7,8 @@ import SmallSeniorExec from "./SmallSeniorExec";
 import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
 import SmallSeniorExecImg from "../Images/senior/Latafat_Faran.jpg";
 import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
-import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg"
-import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg"
+import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
+import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg";
 
 const useStyles = makeStyles(() => ({
   background_lg: { 
@@ -106,7 +106,7 @@ class SeniorExecGrid extends Component {
                     hover_image = {SeniorExecImgHover}
                   />
                 </Grid>
-                <SeniorExecText/>
+                <SeniorExecText appContext={this.props.appContext}/>
               </Grid>  
             </Grid>
             <Grid
@@ -167,7 +167,7 @@ class SeniorExecGrid extends Component {
                 hover_image = {SmallSeniorExecImgHover}
               />
             </Grid>
-            <SeniorExecText/>
+            <SeniorExecText appContext={this.props.appContext}/>
           </Grid>
         </div>
         
@@ -193,7 +193,7 @@ class SeniorExecGrid extends Component {
                 hover_image = {SmallSeniorExecImgHover}
               />
             </Grid>
-            <SeniorExecText/>
+            <SeniorExecText appContext={this.props.appContext}/>
           </Grid>
         </div>
       </div>

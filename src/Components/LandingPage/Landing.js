@@ -171,9 +171,9 @@ class Landing extends Component{
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
-                        <SeniorExecGrid/>
-                        <JobSection/>
-                        <Membership/>
+                        <SeniorExecGrid appContext={this.props.appContext}/>
+                        <JobSection appContext={this.props.appContext}/>
+                        <Membership appContext={this.props.appContext}/>
                         <Carousal/>
 
                         {/* Scroll to top and footer components at bottom */}
