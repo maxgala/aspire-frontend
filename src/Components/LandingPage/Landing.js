@@ -39,6 +39,10 @@ const useStyles = makeStyles(theme => ({
     align: 'left',
     '@media (max-width: 480px)': {width: '125px'},
     width: '175px',
+    '&:hover': {
+      cursor: 'pointer',
+      filter: 'sepia(60%)'
+    }
   },
   content: {
     flexGrow: 1,
