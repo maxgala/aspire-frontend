@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: "18px",
     maxWidth: '800px',
     textAlign: 'left',
+    '@media (max-width: 1280px)': {paddingLeft: '10px'},
     paddingLeft: '60px',
     paddingRight: '10px'
   },
@@ -54,6 +55,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft  : "0",
   },
   total: {
+    objectFit: 'cover',
     width: '100%',
     padding: '5%',
     borderTopLeftRadius: '50%',
@@ -76,6 +78,7 @@ export default function CSSGrid() {
 
   return (
     <Grid
+      id="about_max"
       container
       item
       spacing={1}

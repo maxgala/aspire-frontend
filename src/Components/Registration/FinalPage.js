@@ -126,6 +126,12 @@ const useStyles = makeStyles((theme) => ({
     },
     media: {
         height: 140,
+    },
+    membership_options: {
+        '@media (min-width: 480px)': {
+            display: 'inline-flex',
+        },
+        margin: 'auto',
     }
 }));
 
@@ -240,7 +246,7 @@ class FinalPage extends Component{
                                 </Typography>
                             </div>
                         </Grid>
-                        <div style={{display: window.innerWidth < 480 ? '' : 'inline-flex'}}>
+                        <div className={classes.membership_options}>
                             <Card className={classes.cardRoot}>
                                 <CardActionArea>
                                     <CardMedia

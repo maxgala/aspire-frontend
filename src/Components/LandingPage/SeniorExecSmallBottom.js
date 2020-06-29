@@ -15,12 +15,14 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     fontWeight: '100',
     marginTop: '11%',
-    width : window.innerWidth < 900 ? '35%' : '23%',
+    width : '23%',
+    '@media (max-width: 900px)': {width: '35%'},
   },
   hovertext: {
     color: "white",
     fontSize: '24px',
-    width : window.innerWidth < 900 ? '35%' : '23%',
+    width : '23%',
+    '@media (max-width: 900px)': {width: '35%'},
     marginTop: '4%',
     textAlign: 'center',
     position: 'absolute'

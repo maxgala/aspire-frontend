@@ -3,12 +3,14 @@ import AspiringProfessional from "../Images/aspiring_prof_membership.png";
 import SeniorExecutive from "../Images/senior_exec_membership.png";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
+import Registration from '../Registration/Registration';
 
 const useStyles = makeStyles(theme => ({
   image: { 
     width: '100%',
     height: '300px',
     paddingBottom: '30px',
+    objectFit: 'cover',
   },
   card: {
     height: '100%',
@@ -34,6 +36,7 @@ const useStyles = makeStyles(theme => ({
     color: '#484848',
   },
   button: {
+    textTransform: 'none',
     backgroundColor: "#6EA0B5",
     marginTop:"2%",
     marginBottom: '6%',
@@ -56,20 +59,11 @@ function withMyHook(Component) {
 }
 
 class MembershipCard extends Component {
-  constructor(props) {
-    super(props);
-    this.joinNow = this.joinNow.bind(this);
-  }
-
-  joinNow() {
-    if (this.props.type === 'aspiring_professional') {
-      console.log("Joining as an aspiring professional")
-    } else if (this.props.type === 'senior_professional') {
-      console.log("Joining as a senior professional")
-    } else {
-      console.log("Invalid membership type")
-    }
-  }
+  changeToSignUp = (event) => {
+    this.props.appContext.setState({
+      currentScreen: <Registration appContext={this.props.appContext}/>
+    })
+  };
 
   render() {
     const classes = this.props.classes;
@@ -79,7 +73,7 @@ class MembershipCard extends Component {
           <img className={classes.image} src={this.props.type === 'aspiring_professional' ? AspiringProfessional : SeniorExecutive} alt="Membership"/>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <h2 className={classes.small_text}>{this.props.description}</h2>
-          <Button className={classes.button} variant="contained" onClick={this.joinNow}>Join Now</Button>
+          <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Join Now</Button>
         </div>
       </div>
     )
