@@ -16,7 +16,7 @@ class JobApplicationCard extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        <div>
+        <div style={{width: '300px', height: '140px', borderStyle: 'solid', marginBottom: '20px'}}>
           <p>JOB APPLICATION CARD</p>
         </div>
       </div>

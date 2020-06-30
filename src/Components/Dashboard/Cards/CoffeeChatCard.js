@@ -16,7 +16,7 @@ class CoffeeChatCard extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        <div>
+        <div style={{width: '300px', height: '120px', borderStyle: 'solid', marginBottom: '20px'}}>
           <p>COFFEE CHAT CARD</p>
         </div>
       </div>
