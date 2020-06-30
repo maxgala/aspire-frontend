@@ -17,6 +17,9 @@ import SeniorExecGrid from '../LandingPage/SeniorExecGrid';
 import JobSection from "../LandingPage/JobSection.js";
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Home from "./Home";
+import CoffeeChats from "./CoffeeChats";
+import Jobs from "./Jobs";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -120,83 +123,109 @@ const useStyles = makeStyles(theme => ({
 
 // writing a hook just to incorporate the CSS defined outside under classes
 // feel free to use this function in any other function
-function withMyHook(Component){
-    return function WrappedComponent(props){
-        const classes = useStyles();
-        return <Component {...props} classes={classes}/>
-    }
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
+    const classes = useStyles();
+    return <Component {...props} classes={classes}/>
+  }
 }
 
-class Dashboard extends Component{
-    render(){
-        const classes = this.props.classes;
-        return (
-          <div className={classes.root}>
-            <CssBaseline />
-            <main className={classes.content}>
-              <Grid
-                container
-                item
-                spacing={1}
-                alignItems="center"
-                justify="center"
-                className={classes.grid}
-              >
-                <Container className={classes.profile_container}>
-                    <UserProfile/>
-                </Container>
-
-                <Container className={classes.dashboard_container}>
-                  <Toolbar className={classes.toolbar}>
-                    <div className={classes.navLogo} onClick={this.handleClick}>
-                      <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
-                    </div>
-                    <Button
-                      variant="outlined"
-                      className={classes.coffee_chat_text}
-                      onClick={this.changeToCoffeeChats}
-                    >
-                      <b>Coffee Chats</b>
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      className={classes.jobs_text}
-                      onClick={this.changeToJobs}
-                    >
-                      <b>Jobs</b>
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      className={classes.dashboard_text}
-                      onClick={this.changeToDashboard}
-                    >
-                      <b>Dashboard</b>
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      className={classes.user_profile}
-                      onClick={this.openUserProfile}
-                    >
-                      <FontAwesomeIcon icon={faReact} style={{width: '40px', height: '40px'}}/>
-                    </Button>
-                  </Toolbar>
-                  
-                  <AboutMax/>
-                  <Features/>
-                  <SeniorExecGrid/>
-                  <JobSection/>
-                  <Membership/>
-                  <Carousal/>
-
-                  {/* Scroll to top and footer components at bottom */}
-                  <Footer/>
-                  <ScrollToTop/>
-                </Container>
-              </Grid>
-            </main>
-          </div>
-        );
+class Dashboard extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      currentScreen: []
     }
+    this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
+    this.changeToJobs = this.changeToJobs.bind(this);
+    this.changeToDashboard = this.changeToDashboard.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      currentScreen: <Home appContext={this}/>
+    })
+  }
+
+  changeToCoffeeChats() {
+    this.setState({
+      currentScreen: <CoffeeChats appContext={this}/>
+    }) 
+  }
+
+  changeToJobs() {
+    this.setState({
+      currentScreen: <Jobs appContext={this}/>
+    }) 
+  }
+
+  changeToDashboard() {
+    this.setState({
+      currentScreen: <Home appContext={this}/>
+    }) 
+  }
+
+  render(){
+    const classes = this.props.classes;
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <main className={classes.content}>
+          <Grid
+            container
+            item
+            spacing={1}
+            alignItems="center"
+            justify="center"
+            className={classes.grid}
+          >
+            <Container className={classes.profile_container}>
+              <UserProfile/>
+            </Container>
+
+            <Container className={classes.dashboard_container}>
+              <Toolbar className={classes.toolbar}>
+                <div className={classes.navLogo} onClick={this.handleClick}>
+                  <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
+                </div>
+                <Button
+                  variant="outlined"
+                  className={classes.coffee_chat_text}
+                  onClick={this.changeToCoffeeChats}
+                >
+                  <b>Coffee Chats</b>
+                </Button>
+                <Button
+                  variant="outlined"
+                  className={classes.jobs_text}
+                  onClick={this.changeToJobs}
+                >
+                  <b>Jobs</b>
+                </Button>
+                <Button
+                  variant="outlined"
+                  className={classes.dashboard_text}
+                  onClick={this.changeToDashboard}
+                >
+                  <b>Dashboard</b>
+                </Button>
+                <Button
+                  variant="outlined"
+                  className={classes.user_profile}
+                  onClick={this.openUserProfile}
+                >
+                  <FontAwesomeIcon icon={faReact} style={{width: '40px', height: '40px'}}/>
+                </Button>
+              </Toolbar>
+              <div className="Dashboard">
+                {this.state.currentScreen}
+              </div>
+            </Container>
+          </Grid>
+        </main>
+      </div>
+    );
+  }
 }
 
 Dashboard = withMyHook(Dashboard);
