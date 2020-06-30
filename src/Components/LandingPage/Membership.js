@@ -58,6 +58,7 @@ class Membership extends Component {
               inner_text="Pricing Plan:"
               description="As an aspiring professional, you can use the MAX Aspire application to apply to jobs, schedule coffee chats with senior executives, and connect with fellow aspiring professionals!"
               type="aspiring_professional"
+              buttonText="Join Now"
               appContext={this.props.appContext}
             />
           </Grid>
@@ -72,6 +73,7 @@ class Membership extends Component {
               inner_text="Pricing Plan"
               description="As a senior professional, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
               type="senior_professional"
+              buttonText="Join Now"
               appContext={this.props.appContext}
             />
           </Grid>

@@ -47,7 +47,10 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
         backgroundColor: "#F1F1F1",
         color: '#484848'
-    }
+    },
+    '@media (max-width: 480px)': {
+      marginTop: '10%'
+    },
   }
 }));
 
@@ -73,7 +76,7 @@ class MembershipCard extends Component {
           <img className={classes.image} src={this.props.type === 'aspiring_professional' ? AspiringProfessional : SeniorExecutive} alt="Membership"/>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <h2 className={classes.small_text}>{this.props.description}</h2>
-          <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Join Now</Button>
+          <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>{this.props.buttonText}</Button>
         </div>
       </div>
     )

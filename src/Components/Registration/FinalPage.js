@@ -16,13 +16,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import SeniorExecutive from "../Images/senior_exec_membership.png";
-import AspiringMember from "../Images/aspiring_prof_membership.png";
+import MembershipCard from "../LandingPage/MembershipCard";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -132,7 +126,23 @@ const useStyles = makeStyles((theme) => ({
             display: 'inline-flex',
         },
         margin: 'auto',
-    }
+    },
+    grid: {
+        paddingLeft: '10%',
+        paddingRight: '10%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: '30px',
+    },
+    features_title: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "Bold",
+        fontSize: "48px",
+        margin: '0px',
+        paddingTop: '30px',
+        paddingBottom: '30px',
+        color: 'black',
+    },
 }));
 
 function withMyHook(Component){
@@ -210,7 +220,7 @@ class FinalPage extends Component{
     render() {
         const classes = this.props.classes;
         return(
-            <Container component="main" maxWidth="sm">
+            <Container component="main" maxWidth="lg">
                 <CssBaseline />
                 <div className={classes.paper}>
                     <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
@@ -239,67 +249,62 @@ class FinalPage extends Component{
                                     }
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <div className={classes.titlePaper}>
-                                <Typography component="h1" variant="h5">
-                                    Memberships
-                                </Typography>
-                            </div>
-                        </Grid>
-                        <div className={classes.membership_options}>
-                            <Card className={classes.cardRoot}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={AspiringMember}
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            <b> Mentee </b>
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Button fullWidth className={classes.payButton} color="primary">
-                                        <b>Try for Free</b>
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                            <Card className={classes.cardRoot}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={SeniorExecutive}
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            <b> Mentee </b>
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Button fullWidth className={classes.payButton} color="primary">
-                                        <b>Sign Up for Premium</b>
-                                    </Button>
-                                </CardActions>
-                            </Card>
+                        <div style={{width: "100%", alignItems: "center"}}>
+                            <h1 className={classes.features_title}>Memberships</h1>
                         </div>
+                        <Grid
+                            container
+                            spacing={8}
+                            alignItems="center"
+                            justify="center"
+                            className={classes.grid}
+                        >
+                            <Grid
+                                container
+                                item xs={12} sm={9} md={6} lg={4}
+                                alignItems="center"
+                                justify="center"
+                            >
+                                <MembershipCard
+                                    front_text="Aspiring Professionals - Free"
+                                    inner_text="Pricing Plan:"
+                                    description="With the free membership plan, you can view job applications and schedule coffee chats and mock interviews on a pay per use basis"
+                                    type="aspiring_professional"
+                                    buttonText={"Try for Free"}
+                                    appContext={this.props.appContext}
+                                />
+                            </Grid>
+                            <Grid
+                                container
+                                item xs={12} sm={9} md={6} lg={4}
+                                alignItems="center"
+                                justify="center"
+                            >
+                                <MembershipCard
+                                    front_text="Aspiring Professionals - Premium"
+                                    inner_text="Pricing Plan:"
+                                    description="With the premium membership plan, you can view and apply to jobs, schedule unlimited coffee chats and mock interviews with senior executives"
+                                    type="aspiring_professional"
+                                    buttonText={"Sign Up for Premium"}
+                                    appContext={this.props.appContext}
+                                />
+                            </Grid>
+                            <Grid
+                                container
+                                item xs={12} sm={9} md={6} lg={4}
+                                alignItems="center"
+                                justify="center"
+                            >
+                                <MembershipCard
+                                    front_text="Senior Professionals - Platinum"
+                                    inner_text="Pricing Plan"
+                                    description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
+                                    type="senior_professional"
+                                    buttonText="Sign Up for Platinum"
+                                    appContext={this.props.appContext}
+                                />
+                            </Grid>
+                        </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={
