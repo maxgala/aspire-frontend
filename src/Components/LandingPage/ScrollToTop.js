@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '18px',
   },
   scrollToTop: {
-    display: window.innerWidth < 480 ? 'none' : '',
+    '@media (max-width: 480px)': {display: 'None'},
     fontSize: '12px',
     color: '#B5A165',
     position: 'fixed',

@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Newsletter from "../Images/newsletter.png";
 import Grid from "@material-ui/core/Grid";
 import TextField from '@material-ui/core/TextField';
-import { faFacebookF, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faInstagram, faLinkedin, faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 
@@ -17,10 +17,14 @@ const useStyles = makeStyles(theme => ({
     margin: '0',
   },
   subscribeButton: {
+    textTransform: 'none',
     display: 'inline-block',
     width: '250px',
     height: '50px',
-    fontSize: window.innerWidth < 885 ? '0.875rem' : '20px',
+    '@media (max-width: 885px)': {fontSize: '0.875rem'},
+    fontFamily: 'Nunito Sans',
+    fontSize: '20px',
+    fontWeight: 'bold',
     backgroundColor: "#6EA0B5",
     borderRadius: 50,
     color: "white",
@@ -30,10 +34,17 @@ const useStyles = makeStyles(theme => ({
     }
   },
   newsletter: {
+    fontFamily: 'Nunito Sans',
+    fontSize: '36px',
+    fontWeight: 'bold',
     position: 'absolute',
     width: '100%',
     bottom: '0',
-    paddingBottom: window.innerWidth < 590 ? '110px' : window.innerWidth < 1280 ? '140px' : '190px',
+    '@media (max-width: 1280px)': {
+      paddingBottom: '140px',
+      '@media (max-width: 599px)': {paddingBottom: '110px'},
+    },
+    paddingBottom: '190px',
     textAlign: 'left',
     display: 'inline-block',
   },
@@ -52,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     height: '300px',
     marginBottom: '-10px',
-    marginTop: '10vh'
+    objectFit: 'cover',
   },
   input: {
     color: 'white',
@@ -63,7 +74,8 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '5px',
     paddingLeft: '25px',
     paddingRight: '25px',
-    marginTop: window.innerWidth < 1280 ? '10px' : '20px',
+    '@media (max-width: 1280px)': {marginTop: '10px'},
+    marginTop: '20px',
     marginBottom: '20px',
     width: '100%'
   }
@@ -137,7 +149,7 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
         alignItems="center"
         justify="flex-start"
       >
-        <Button onClick={submit} className={classes.subscribeButton} variant="contained">Subscribe</Button>
+        <Button onClick={submit} className={classes.subscribeButton} variant="contained">Sign Up</Button>
       </Grid>
     </Grid>
   );
@@ -172,9 +184,10 @@ class Footer extends Component {
           </div>
         </div>
         <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black'}}>
-          <a href="https://www.facebook.com/muslimawardsXgala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', margin: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faFacebookF} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
-          <a href="https://www.instagram.com/max.gala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', margin: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faInstagram} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
-          <a href="https://www.linkedin.com/company/max-muslim-awards/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', margin: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faLinkedin} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://www.facebook.com/muslimawardsXgala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faFacebookF} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://www.instagram.com/max.gala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faInstagram} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://www.linkedin.com/company/max-muslim-awards/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faLinkedin} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="http://maxgala.com/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faReact} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
         </div>
       </div>
     );

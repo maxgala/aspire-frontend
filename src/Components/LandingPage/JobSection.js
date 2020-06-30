@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Globe from "../Images/globe.png";
 import { Button } from '@material-ui/core';
+import Registration from '../Registration/Registration';
 
 const useStyles = makeStyles(theme => ({
     box: {
@@ -75,7 +76,7 @@ const useStyles = makeStyles(theme => ({
         textAlign:'left',
     }, 
     button: {
-        textTransform: 'capitalize',
+        textTransform: 'none',
         backgroundColor: "#6EA0B5",
         marginBottom:"2%",
         borderRadius: 50,
@@ -111,66 +112,68 @@ function withMyHook(Component){
 }
 
 class JobSection extends Component{
-  render() {
-    const classes = this.props.classes;
-    return (
-      <div className={classes.background}>
-    
-        <Grid container spacing={3} className={classes.grid}>
-            <Grid item xs={6}>
-              <div className={classes.box}>
-                <img className={classes.image} src={Globe} alt="Role Icon"/>
-                <div className={classes.boxInner}>
-                    <h6 className={classes.role}>Role Name</h6> 
-                    <h6 className={classes.companyName}>Company Name</h6> 
-                </div>
-              </div>
-            </Grid>
+    changeToSignUp = (event) => {
+        this.props.appContext.setState({
+            currentScreen: <Registration appContext={this.props.appContext}/>
+        })
+    };
 
-            <Grid item xs={6} >
-              <div className={classes.box2} >
-                <img className={classes.image} src={Globe} alt="Role Icon"/>
-                <div className={classes.boxInner} >
-                    <h6 className={classes.role}>Role Name</h6> 
-                    <h6 className={classes.companyName}>Company Name</h6> 
-                </div>
-              </div>
-            </Grid>
-    
-            <Grid item xs={12}>
-            <div >
-              <h1 className={classes.header1}>Our Jobs</h1>
-              <p className={classes.header2}><b>Apply directly to Full Time Jobs, Internships, or Board Positions posted by MAX Aspire members</b></p> 
-              <Button className={classes.button} variant="contained">Join Now</Button>
-            </div>
-            </Grid>
+    render() {
+        const classes = this.props.classes;
+        return (
+          <div className={classes.background}>
+            <Grid container spacing={3} className={classes.grid}>
+                <Grid item xs={6}>
+                    <div className={classes.box}>
+                        <img className={classes.image} src={Globe} alt="Role Icon"/>
+                        <div className={classes.boxInner}>
+                            <h6 className={classes.role}>Role Name</h6> 
+                            <h6 className={classes.companyName}>Company Name</h6> 
+                        </div>
+                    </div>
+                </Grid>
+
+                <Grid item xs={6} >
+                    <div className={classes.box2} >
+                        <img className={classes.image} src={Globe} alt="Role Icon"/>
+                        <div className={classes.boxInner} >
+                            <h6 className={classes.role}>Role Name</h6> 
+                            <h6 className={classes.companyName}>Company Name</h6> 
+                            </div>
+                        </div>
+                    </Grid>
         
-            <Grid item xs={6}>
-              <div className={classes.box} >
-                <img className={classes.image} src={Globe} alt="Role Icon"/>
-                <div className={classes.boxInner} >
-                    <h6 className={classes.role}>Role Name</h6> 
-                    <h6 className={classes.companyName}>Company Name</h6> 
-                </div>
-              </div>
-            </Grid>
+                    <Grid item xs={12}>
+                        <div>
+                            <h1 className={classes.header1}>Our Jobs</h1>
+                            <p className={classes.header2}><b>Apply directly to Full Time Jobs, Internships, or Board Positions posted by MAX Aspire members</b></p> 
+                            <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Join Now</Button>
+                        </div>
+                    </Grid>
 
-            <Grid item xs={6} >
-            <div className={classes.box2 } >
-                <img className={classes.image} src={Globe} alt="Role Icon"/>
-                <div className={classes.boxInner} >
-                    <h6 className={classes.role}>Role Name</h6> 
-                    <h6 className={classes.companyName}>Company Name</h6> 
-                </div>
-              </div>
-            </Grid>
+                    <Grid item xs={6}>
+                        <div className={classes.box} >
+                            <img className={classes.image} src={Globe} alt="Role Icon"/>
+                            <div className={classes.boxInner} >
+                                <h6 className={classes.role}>Role Name</h6> 
+                                <h6 className={classes.companyName}>Company Name</h6> 
+                            </div>
+                        </div>
+                    </Grid>
 
-        </Grid>
-    
-    </div>
-
+                    <Grid item xs={6} >
+                        <div className={classes.box2 } >
+                            <img className={classes.image} src={Globe} alt="Role Icon"/>
+                            <div className={classes.boxInner} >
+                                <h6 className={classes.role}>Role Name</h6> 
+                                <h6 className={classes.companyName}>Company Name</h6> 
+                            </div>
+                        </div>
+                    </Grid>
+                </Grid>
+            </div>
         )
-  }
+    }
 }
 
 JobSection = withMyHook(JobSection);

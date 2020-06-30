@@ -6,6 +6,8 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   background: { 
     backgroundColor: '#F1F1F1',
+    paddingTop:'1%',
+    paddingBottom:'5%',
   },
   features_title: { 
     fontFamily: "Nunito Sans",

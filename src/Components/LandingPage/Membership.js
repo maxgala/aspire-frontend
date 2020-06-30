@@ -6,13 +6,15 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   background: { 
     backgroundColor: 'white',
+    paddingTop:'3%',
+    paddingBottom:'5%',
   },
   grid: { 
     paddingLeft: '10%',
     paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: '30px'
+    paddingBottom: '30px',
   },
   features_title: {
     fontFamily: "Nunito Sans",
@@ -56,6 +58,7 @@ class Membership extends Component {
               inner_text="Pricing Plan:"
               description="As an aspiring professional, you can use the MAX Aspire application to apply to jobs, schedule coffee chats with senior executives, and connect with fellow aspiring professionals!"
               type="aspiring_professional"
+              appContext={this.props.appContext}
             />
           </Grid>
           <Grid
@@ -69,6 +72,7 @@ class Membership extends Component {
               inner_text="Pricing Plan"
               description="As a senior professional, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
               type="senior_professional"
+              appContext={this.props.appContext}
             />
           </Grid>
         </Grid>
