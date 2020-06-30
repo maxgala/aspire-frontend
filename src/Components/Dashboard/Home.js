@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
     fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
+    marginBottom: '10px',
     textAlign: 'left',
     color: 'black'
   }
@@ -46,22 +47,22 @@ class Home extends Component {
           <Grid
             container
             spacing={1}
-            alignItems="left"
-            justify="left"
+            alignItems="flex-start"
+            justify="flex-start"
           >  
             <Grid
               container
               item xs={6}
               spacing={1}
-              alignItems="left"
-              justify="left"
+              alignItems="flex-start"
+              justify="flex-start"
             >
               <Grid
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <p className={classes.section_title}>Registered Coffee Chats</p>
               </Grid>
@@ -69,8 +70,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <CoffeeChatCard/>
               </Grid>
@@ -78,8 +79,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <CoffeeChatCard/>
               </Grid>
@@ -88,8 +89,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <p className={classes.section_title}>Job Postings</p>
               </Grid>
@@ -97,8 +98,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <JobPostingCard/>
               </Grid>
@@ -106,8 +107,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <JobPostingCard/>
               </Grid>
@@ -116,15 +117,15 @@ class Home extends Component {
               container
               item xs={6}
               spacing={1}
-              alignItems="left"
-              justify="left"
+              alignItems="flex-start"
+              justify="flex-start"
             >
               <Grid
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <p className={classes.section_title}>Your Job Application</p>
               </Grid>
@@ -132,8 +133,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <JobApplicationCard/>
               </Grid>
@@ -141,8 +142,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <JobApplicationCard/>
               </Grid>
@@ -150,8 +151,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <JobApplicationCard/>
               </Grid>
@@ -159,8 +160,8 @@ class Home extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="left"
-                justify="left"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <JobApplicationCard/>
               </Grid>
