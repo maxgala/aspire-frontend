@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
 import Container from "@material-ui/core/Container";
@@ -14,6 +15,8 @@ import Membership from "../LandingPage/Membership.js";
 import Carousal from "../LandingPage/Carousal.js";
 import SeniorExecGrid from '../LandingPage/SeniorExecGrid';
 import JobSection from "../LandingPage/JobSection.js";
+import { faReact } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     float: 'left',
     align: 'left',
     '@media (max-width: 480px)': {width: '125px'},
-    width: '175px'
+    width: '150px'
   },
   content: {
     flexGrow: 1,
@@ -69,6 +72,50 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  coffee_chat_text: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    marginLeft: 'auto',
+    fontSize: '18px',
+    color: "#F1F1F1",
+    '&:hover': {
+      backgroundColor: "#F1F1F1",
+      color: '#484848'
+    }
+  },
+  jobs_text: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    color: "#F1F1F1",
+    '&:hover': {
+      backgroundColor: "#F1F1F1",
+      color: '#484848'
+    }
+  },
+  dashboard_text: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    color: "#F1F1F1",
+    '&:hover': {
+      backgroundColor: "#F1F1F1",
+      color: '#484848'
+    }
+  },
+  user_profile: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    color: "#F1F1F1",
+    borderRadius: '100%',
+    width: '60px',
+    height: '60px',
+    '&:hover': {
+      backgroundColor: "#F1F1F1",
+      color: '#484848'
+    }
+  },
 }));
 
 // writing a hook just to incorporate the CSS defined outside under classes
@@ -104,6 +151,34 @@ class Dashboard extends Component{
                     <div className={classes.navLogo} onClick={this.handleClick}>
                       <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
                     </div>
+                    <Button
+                      variant="outlined"
+                      className={classes.coffee_chat_text}
+                      onClick={this.changeToCoffeeChats}
+                    >
+                      <b>Coffee Chats</b>
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      className={classes.jobs_text}
+                      onClick={this.changeToJobs}
+                    >
+                      <b>Jobs</b>
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      className={classes.dashboard_text}
+                      onClick={this.changeToDashboard}
+                    >
+                      <b>Dashboard</b>
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      className={classes.user_profile}
+                      onClick={this.openUserProfile}
+                    >
+                      <FontAwesomeIcon icon={faReact} style={{width: '40px', height: '40px'}}/>
+                    </Button>
                   </Toolbar>
                   
                   <AboutMax/>
