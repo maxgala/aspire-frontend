@@ -11,6 +11,7 @@ import {logEvent, Result, ErrorResult} from './util';
 import './cardStyle.css';
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
 
 const useStyles = makeStyles((theme) => ({
     submit: {
@@ -188,13 +189,30 @@ const stripePromise = loadStripe('pk_test_51Gug4qLfzbEt5UVhauq1BUNsK43H4mkdAChHA
 class Stripe extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            open: true,
+        }
+    }
+
+    handleClose = (event) => {
+        this.setState({
+            open: false
+        })
     }
 
     render() {
         return(
-            <Elements stripe={stripePromise}>
-                <InjectedCheckoutForm />
-            </Elements>
+            <Dialog
+                maxWidth={"md"}
+                fullWidth={true}
+                onClose={this.handleClose}
+                aria-labelledby="stripe-dialog"
+                open={this.state.open}
+            >
+                <Elements stripe={stripePromise}>
+                    <InjectedCheckoutForm />
+                </Elements>
+            </Dialog>
         )
     }
 }
