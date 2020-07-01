@@ -13,12 +13,9 @@ function withMyHook(Component) {
 
 class CoffeeChats extends Component {
   render() {
-    const classes = this.props.classes;
     return (
       <div>
-        <div>
-          <p>COFFEE CHATS</p>
-        </div>
+        <p>COFFEE CHATS</p>
       </div>
     )
   }
