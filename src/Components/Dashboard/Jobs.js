@@ -13,12 +13,9 @@ function withMyHook(Component) {
 
 class Jobs extends Component {
   render() {
-    const classes = this.props.classes;
     return (
       <div>
-        <div>
-          <p>JOBS PAGE</p>
-        </div>
+        <p>JOBS PAGE</p>
       </div>
     )
   }

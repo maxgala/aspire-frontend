@@ -28,12 +28,14 @@ const useStyles = makeStyles(theme => ({
     float: 'left',
     align: 'left',
     '@media (max-width: 480px)': {width: '125px'},
-    width: '150px'
+    width: '150px',
+    cursor: 'pointer'
   },
   content: {
     flexGrow: 1,
     width: '100vw',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    backgroundColor: '#eaeaea'
   },
   profile_container: {
     '@media (max-width: 700px)': {
@@ -48,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
   dashboard_container: {
     '@media (max-width: 700px)': {maxWidth: '100%'},
-    maxWidth: 'calc(100% - 300px)',
+    maxWidth: 'calc(100vw - 300px)',
     paddingTop: theme.spacing(0),
     paddingLeft: '0px',
     paddingRight: '0px',
@@ -178,7 +180,7 @@ class Dashboard extends Component {
             <Container className={classes.dashboard_container}>
               <Toolbar className={classes.toolbar}>
                 <div className={classes.navLogo} onClick={this.handleClick}>
-                  <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
+                  <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
                 </div>
                 <Button
                   variant="outlined"
