@@ -173,6 +173,9 @@ class FinalPage extends Component{
             resumeURL: this.props.prev ? this.props.prev.resumeURL : '',
             profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
+            aspire_free: {},
+            aspire_premium: {},
+            aspire_platinum: {},
             progress: 100,
             checked: false,
             open: false
@@ -216,6 +219,31 @@ class FinalPage extends Component{
             open: true
         })
     };
+
+    handleAspireFreeClick = event => {
+        this.setState({
+            aspire_free: {border: '2px', borderStyle: 'solid', borderColor: 'red'},
+            aspire_premium: {},
+            aspire_platinum: {}
+        })
+    };
+
+    handleAspirePremiumClick = event => {
+        this.setState({
+            aspire_premium: {border: '2px', borderStyle: 'solid', borderColor: 'red'},
+            aspire_free: {},
+            aspire_platinum: {}
+        })
+    };
+
+    handleAspirePlatimumClick = event => {
+        this.setState({
+            aspire_platinum: {border: '2px', borderStyle: 'solid', borderColor: 'red'},
+            aspire_premium: {},
+            aspire_free: {}
+        })
+    };
+
 
     render() {
         const classes = this.props.classes;
@@ -265,14 +293,17 @@ class FinalPage extends Component{
                                 alignItems="center"
                                 justify="center"
                             >
-                                <MembershipCard
-                                    front_text="Aspiring Professionals - Free"
-                                    inner_text="Pricing Plan:"
-                                    description="With the free membership plan, you can view job applications and schedule coffee chats and mock interviews on a pay per use basis"
-                                    type="aspiring_professional"
-                                    buttonText={"Try for Free"}
-                                    appContext={this.props.appContext}
-                                />
+                                <div style={this.state.aspire_free}>
+                                    <MembershipCard
+                                        front_text="Aspiring Professionals - Free"
+                                        inner_text="Pricing Plan:"
+                                        description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
+                                        type="aspiring_professional"
+                                        buttonText={"Try for Free"}
+                                        buttonFunction={this.handleAspireFreeClick}
+                                        appContext={this.props.appContext}
+                                    />
+                                </div>
                             </Grid>
                             <Grid
                                 container
@@ -280,14 +311,17 @@ class FinalPage extends Component{
                                 alignItems="center"
                                 justify="center"
                             >
-                                <MembershipCard
-                                    front_text="Aspiring Professionals - Premium"
-                                    inner_text="Pricing Plan:"
-                                    description="With the premium membership plan, you can view and apply to jobs, schedule unlimited coffee chats and mock interviews with senior executives"
-                                    type="aspiring_professional"
-                                    buttonText={"Sign Up for Premium"}
-                                    appContext={this.props.appContext}
-                                />
+                                <div style={this.state.aspire_premium}>
+                                    <MembershipCard
+                                        front_text="Aspiring Professionals - Premium"
+                                        inner_text="Pricing Plan:"
+                                        description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
+                                        type="aspiring_professional"
+                                        buttonText={"Sign Up for Premium"}
+                                        buttonFunction={this.handleAspirePremiumClick}
+                                        appContext={this.props.appContext}
+                                    />
+                                </div>
                             </Grid>
                             <Grid
                                 container
@@ -295,14 +329,17 @@ class FinalPage extends Component{
                                 alignItems="center"
                                 justify="center"
                             >
-                                <MembershipCard
-                                    front_text="Senior Professionals - Platinum"
-                                    inner_text="Pricing Plan"
-                                    description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
-                                    type="senior_professional"
-                                    buttonText="Sign Up for Platinum"
-                                    appContext={this.props.appContext}
-                                />
+                                <div style={this.state.aspire_platinum}>
+                                    <MembershipCard
+                                        front_text="Senior Professionals - Platinum"
+                                        inner_text="Pricing Plan"
+                                        description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
+                                        type="senior_professional"
+                                        buttonText="Sign Up for Platinum"
+                                        buttonFunction={this.handleAspirePlatimumClick}
+                                        appContext={this.props.appContext}
+                                    />
+                                </div>
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>

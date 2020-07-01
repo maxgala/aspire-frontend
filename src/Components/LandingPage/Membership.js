@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import MembershipCard from "./MembershipCard.js"
 import {makeStyles} from "@material-ui/core/styles";
+import Registration from "../Registration/Registration";
 
 const useStyles = makeStyles(() => ({
   background: { 
@@ -35,6 +36,12 @@ function withMyHook(Component) {
 }
 
 class Membership extends Component {
+  changeToSignUp = (event) => {
+    this.props.appContext.setState({
+      currentScreen: <Registration appContext={this.props.appContext}/>
+    })
+  };
+
   render() {
     const classes = this.props.classes;
     return(
@@ -59,6 +66,7 @@ class Membership extends Component {
               description="As an aspiring professional, you can use the MAX Aspire application to apply to jobs, schedule coffee chats with senior executives, and connect with fellow aspiring professionals!"
               type="aspiring_professional"
               buttonText="Join Now"
+              buttonFunction={this.changeToSignUp}
               appContext={this.props.appContext}
             />
           </Grid>
@@ -74,6 +82,7 @@ class Membership extends Component {
               description="As a senior professional, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
               type="senior_professional"
               buttonText="Join Now"
+              buttonFunction={this.changeToSignUp}
               appContext={this.props.appContext}
             />
           </Grid>

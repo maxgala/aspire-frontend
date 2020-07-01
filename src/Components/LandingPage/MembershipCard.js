@@ -62,11 +62,6 @@ function withMyHook(Component) {
 }
 
 class MembershipCard extends Component {
-  changeToSignUp = (event) => {
-    this.props.appContext.setState({
-      currentScreen: <Registration appContext={this.props.appContext}/>
-    })
-  };
 
   render() {
     const classes = this.props.classes;
@@ -76,7 +71,7 @@ class MembershipCard extends Component {
           <img className={classes.image} src={this.props.type === 'aspiring_professional' ? AspiringProfessional : SeniorExecutive} alt="Membership"/>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <h2 className={classes.small_text}>{this.props.description}</h2>
-          <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>{this.props.buttonText}</Button>
+          <Button className={classes.button} variant="contained" onClick={this.props.buttonFunction}>{this.props.buttonText}</Button>
         </div>
       </div>
     )
