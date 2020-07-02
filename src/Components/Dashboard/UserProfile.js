@@ -8,7 +8,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     top: '0',
     left: '0',
-    position: 'fixed'
+    position: 'fixed',
+    height: '100%',
+    width: '300px',
+    backgroundColor: 'white',
   },
 }));
 
