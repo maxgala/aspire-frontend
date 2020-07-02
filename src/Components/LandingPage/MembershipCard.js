@@ -3,7 +3,6 @@ import AspiringProfessional from "../Images/aspiring_prof_membership.png";
 import SeniorExecutive from "../Images/senior_exec_membership.png";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import Registration from '../Registration/Registration';
 
 const useStyles = makeStyles(theme => ({
   image: { 
@@ -19,11 +18,10 @@ const useStyles = makeStyles(theme => ({
   front_text: { 
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
-    fontSize: "30px",
+    fontSize: "28px",
     paddingBottom: '10px',
     color: 'black',
-    textAlign: 'left',
-    marginLeft : '10%'
+    textAlign: 'center'
   },
   small_text: { 
     fontFamily: "Montserrat",

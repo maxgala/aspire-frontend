@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import MembershipCard from "./MembershipCard.js"
 import {makeStyles} from "@material-ui/core/styles";
-import Registration from "../Registration/Registration";
 
 const useStyles = makeStyles(() => ({
   background: { 
@@ -10,7 +9,7 @@ const useStyles = makeStyles(() => ({
     paddingTop:'3%',
     paddingBottom:'5%',
   },
-  grid: { 
+  grid: {
     paddingLeft: '10%',
     paddingRight: '10%',
     justifyContent: 'center',
@@ -36,12 +35,38 @@ function withMyHook(Component) {
 }
 
 class Membership extends Component {
-  changeToSignUp = (event) => {
-    this.props.appContext.setState({
-      currentScreen: <Registration appContext={this.props.appContext}/>
+  constructor(props) {
+    super(props);
+    this.state = {
+      aspire_free: {},
+      aspire_premium: {},
+      aspire_platinum: {}
+    }
+  }
+
+  handleAspirePremiumClick = event => {
+    this.setState({
+      aspire_free: {},
+      aspire_premium: {borderStyle: 'solid', borderWidth: '2px', borderColor: 'red'},
+      aspire_platinum: {}
     })
   };
 
+  handleAspirePlatinumClick = event => {
+    this.setState({
+      aspire_free: {},
+      aspire_premium: {},
+      aspire_platinum: {borderStyle: 'solid', borderWidth: '2px', borderColor: 'red'}
+    })
+  };
+
+  handleAspireFreeClick = event => {
+    this.setState({
+      aspire_free: {borderStyle: 'solid', borderWidth: '2px', borderColor: 'red'},
+      aspire_premium: {},
+      aspire_platinum: {}
+    })
+  };
   render() {
     const classes = this.props.classes;
     return(
@@ -55,35 +80,54 @@ class Membership extends Component {
           className={classes.grid}
           > 
           <Grid
+              style={this.state.aspire_free}
             container
-            item xs={12} sm={9} md={6} lg={5}
+            item xs={12} sm={9} md={6} lg={4}
             alignItems="center"
             justify="center"
           >
             <MembershipCard
-              front_text="Aspiring Professionals"
-              inner_text="Pricing Plan:"
-              description="As an aspiring professional, you can use the MAX Aspire application to apply to jobs, schedule coffee chats with senior executives, and connect with fellow aspiring professionals!"
-              type="aspiring_professional"
-              buttonText="Join Now"
-              buttonFunction={this.changeToSignUp}
-              appContext={this.props.appContext}
+                front_text={"Aspiring Professionals Free"}
+                inner_text="Pricing Plan:"
+                description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
+                type="aspiring_professional"
+                buttonText={"Try for Free"}
+                buttonFunction={this.props.landing ? this.props.freeFunction : this.handleAspireFreeClick}
+                appContext={this.props.appContext}
             />
           </Grid>
           <Grid
+              style={this.state.aspire_premium}
             container
-            item xs={12} sm={9} md={6} lg={5}
+            item xs={12} sm={9} md={6} lg={4}
             alignItems="center"
             justify="center"
           >
             <MembershipCard
-              front_text="Senior Professionals"
-              inner_text="Pricing Plan"
-              description="As a senior professional, you can get exclusive access to board positions, get the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
-              type="senior_professional"
-              buttonText="Join Now"
-              buttonFunction={this.changeToSignUp}
-              appContext={this.props.appContext}
+                front_text="Aspiring Professionals Premium"
+                inner_text="Pricing Plan:"
+                description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
+                type="aspiring_professional"
+                buttonText={"Sign Up for Premium"}
+                buttonFunction={this.props.landing ? this.props.premiumFunction : this.handleAspirePremiumClick}
+                appContext={this.props.appContext}
+            />
+          </Grid>
+          <Grid
+              style={this.state.aspire_platinum}
+              container
+              item xs={12} sm={9} md={6} lg={4}
+              alignItems="center"
+              justify="center"
+          >
+            <MembershipCard
+                front_text="Senior Professionals Platinum"
+                inner_text="Pricing Plan"
+                description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
+                type="senior_professional"
+                buttonText="Sign Up for Platinum"
+                buttonFunction={this.props.landing ? this.props.platinumFunction : this.handleAspirePlatinumClick}
+                appContext={this.props.appContext}
             />
           </Grid>
         </Grid>

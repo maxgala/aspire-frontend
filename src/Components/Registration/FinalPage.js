@@ -17,6 +17,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
 import MembershipCard from "../LandingPage/MembershipCard";
+import Membership from "../LandingPage/Membership";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -173,9 +174,9 @@ class FinalPage extends Component{
             resumeURL: this.props.prev ? this.props.prev.resumeURL : '',
             profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
-            aspire_free: {},
-            aspire_premium: {},
-            aspire_platinum: {},
+            aspire_free: true,
+            aspire_premium: false,
+            aspire_platinum: false,
             progress: 100,
             checked: false,
             open: false
@@ -222,25 +223,25 @@ class FinalPage extends Component{
 
     handleAspireFreeClick = event => {
         this.setState({
-            aspire_free: {border: '2px', borderStyle: 'solid', borderColor: 'red'},
-            aspire_premium: {},
-            aspire_platinum: {}
+            aspire_free: true,
+            aspire_premium: false,
+            aspire_platinum: false
         })
     };
 
     handleAspirePremiumClick = event => {
         this.setState({
-            aspire_premium: {border: '2px', borderStyle: 'solid', borderColor: 'red'},
-            aspire_free: {},
-            aspire_platinum: {}
+            aspire_premium: true,
+            aspire_free: false,
+            aspire_platinum: false
         })
     };
 
     handleAspirePlatimumClick = event => {
         this.setState({
-            aspire_platinum: {border: '2px', borderStyle: 'solid', borderColor: 'red'},
-            aspire_premium: {},
-            aspire_free: {}
+            aspire_platinum: true,
+            aspire_premium: false,
+            aspire_free: false
         })
     };
 
@@ -258,71 +259,12 @@ class FinalPage extends Component{
                 </div>
                 <div className={classes.form}>
                     <Grid container spacing={2}>
-                        <div style={{width: "100%", alignItems: "center"}}>
-                            <h1 className={classes.features_title}>Memberships</h1>
-                        </div>
-                        <Grid
-                            container
-                            spacing={8}
-                            alignItems="center"
-                            justify="center"
-                            className={classes.grid}
-                        >
-                            <Grid
-                                container
-                                item xs={12} sm={9} md={6} lg={4}
-                                alignItems="center"
-                                justify="center"
-                            >
-                                <div style={this.state.aspire_free}>
-                                    <MembershipCard
-                                        front_text="Aspiring Professionals - Free"
-                                        inner_text="Pricing Plan:"
-                                        description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
-                                        type="aspiring_professional"
-                                        buttonText={"Try for Free"}
-                                        buttonFunction={this.handleAspireFreeClick}
-                                        appContext={this.props.appContext}
-                                    />
-                                </div>
-                            </Grid>
-                            <Grid
-                                container
-                                item xs={12} sm={9} md={6} lg={4}
-                                alignItems="center"
-                                justify="center"
-                            >
-                                <div style={this.state.aspire_premium}>
-                                    <MembershipCard
-                                        front_text="Aspiring Professionals - Premium"
-                                        inner_text="Pricing Plan:"
-                                        description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
-                                        type="aspiring_professional"
-                                        buttonText={"Sign Up for Premium"}
-                                        buttonFunction={this.handleAspirePremiumClick}
-                                        appContext={this.props.appContext}
-                                    />
-                                </div>
-                            </Grid>
-                            <Grid
-                                container
-                                item xs={12} sm={9} md={6} lg={4}
-                                alignItems="center"
-                                justify="center"
-                            >
-                                <div style={this.state.aspire_platinum}>
-                                    <MembershipCard
-                                        front_text="Senior Professionals - Platinum"
-                                        inner_text="Pricing Plan"
-                                        description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
-                                        type="senior_professional"
-                                        buttonText="Sign Up for Platinum"
-                                        buttonFunction={this.handleAspirePlatimumClick}
-                                        appContext={this.props.appContext}
-                                    />
-                                </div>
-                            </Grid>
-                        </Grid>
+                        <Membership appContext={this.props.appContext}
+                                    landing={false}
+                                    freeFunction={this.handleAspireFreeClick}
+                                    premiumFunction={this.handleAspirePremiumClick}
+                                    platinumFunction={this.handleAspirePlatimumClick}
+                        />
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={
