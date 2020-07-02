@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Landing from "./Components/LandingPage/Landing";
 import './App.css';
 import Registration from "./Components/Registration/Registration";
+import Stripe from "./Components/Payment/Stripe";
 
 class App extends Component{
   constructor(props){

@@ -258,25 +258,6 @@ class FinalPage extends Component{
                 </div>
                 <div className={classes.form}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.senior_executive}
-                                            onChange={this.handleUserChoice}
-                                            name="checkedD"
-                                        />}
-                                    label={
-                                        <Tooltip title={
-                                            <p>Senior Executive means the chief executive officer,
-                                                chief operating officer, chief financial officer, or
-                                                anyone in charge of a principal business unit or function.
-                                            </p>}>
-                                            <b>I would like to be considered as a Senior Executive</b>
-                                        </Tooltip>
-                                    }
-                            />
-                        </Grid>
                         <div style={{width: "100%", alignItems: "center"}}>
                             <h1 className={classes.features_title}>Memberships</h1>
                         </div>
@@ -341,6 +322,25 @@ class FinalPage extends Component{
                                     />
                                 </div>
                             </Grid>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={this.state.senior_executive}
+                                        onChange={this.handleUserChoice}
+                                        name="checkedD"
+                                    />}
+                                label={
+                                    <Tooltip title={
+                                        <p>Senior Executive means the chief executive officer,
+                                            chief operating officer, chief financial officer, or
+                                            anyone in charge of a principal business unit or function.
+                                        </p>}>
+                                        <b>I would like to be considered as a Senior Executive</b>
+                                    </Tooltip>
+                                }
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel
