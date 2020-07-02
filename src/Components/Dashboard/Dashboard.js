@@ -17,13 +17,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  // this css element is for the div containing the image
-  // this is used so that we can align the image to the right
   navLogo:{
     display: 'flex',
     justifyContent: 'start'
   },
-  // this css element describes the size of the image
   img: {
     float: 'left',
     align: 'left',
@@ -35,7 +32,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     width: '100vw',
     overflow: 'hidden',
-    backgroundColor: '#eaeaea'
+    backgroundColor: '#eaeaea',
+    height: '100vh',
   },
   profile_container: {
     '@media (max-width: 700px)': {
@@ -50,13 +48,12 @@ const useStyles = makeStyles(theme => ({
   },
   dashboard_container: {
     '@media (max-width: 700px)': {maxWidth: '100%'},
-    maxWidth: 'calc(100vw - 300px)',
+    maxWidth: 'calc(100vw - 299px)',
     paddingTop: theme.spacing(0),
     paddingLeft: '0px',
     paddingRight: '0px',
     position: 'relative'
   },
-  // for containing the logo and the sign in buttons
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-start',
@@ -115,8 +112,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// writing a hook just to incorporate the CSS defined outside under classes
-// feel free to use this function in any other function
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
