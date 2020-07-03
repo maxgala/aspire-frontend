@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     flex: '1',
     justifyContent: 'flex-end',
     marginBottom: '18px',
+    cursor: 'pointer'
   },
   scrollToTop: {
     '@media (max-width: 480px)': {display: 'None'},
@@ -28,6 +29,7 @@ const useStyles = makeStyles(() => ({
     flex: '1',
     justifyContent: 'flex-end',
     paddingTop: '10px',
+    cursor: 'pointer'
   }
 }));
 
