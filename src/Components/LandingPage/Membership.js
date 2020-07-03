@@ -130,6 +130,8 @@ class Membership extends Component {
           scroll={"paper"}
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
+          fullWidth={true}
+          maxWidth={'lg'}
         >
           <DialogTitle id="scroll-dialog-title">
             <div>
@@ -145,78 +147,78 @@ class Membership extends Component {
               <table className={classes.membership_table}>
                 <thead>
                   <tr>
-                    <th class={classes.table_element}>Feature / Membership Type</th>
-                    <th class={classes.table_element}>Free</th>
-                    <th class={classes.table_element}>Premium</th>
-                    <th class={classes.table_element}>Platinum</th>
+                    <th className={classes.table_element}>Feature / Membership Type</th>
+                    <th className={classes.table_element}>Free</th>
+                    <th className={classes.table_element}>Premium</th>
+                    <th className={classes.table_element}>Platinum</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td class={classes.table_element}>See Profiles of Senior Executives Committed to MAX Aspire</td>
-                    <td class={classes.table_element}>Yes</td>
-                    <td class={classes.table_element}>Yes</td>
-                    <td class={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>See Profiles of Senior Executives Committed to MAX Aspire</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Yes</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Request 1-on-1 Coffee Chats wtih Senior Executives</td>
-                    <td class={classes.table_element}>Pay per use</td>
-                    <td class={classes.table_element}>Yes</td>
-                    <td class={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>Request 1-on-1 Coffee Chats wtih Senior Executives</td>
+                    <td className={classes.table_element}>Pay per use</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>N/A</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Request 4-on-1 Coffee Chats wtih Senior Executives</td>
-                    <td class={classes.table_element}>Pay per use</td>
-                    <td class={classes.table_element}>Yes</td>
-                    <td class={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>Request 4-on-1 Coffee Chats wtih Senior Executives</td>
+                    <td className={classes.table_element}>Pay per use</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>N/A</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Access to Mock Interviews</td>
-                    <td class={classes.table_element}>Pay per use</td>
-                    <td class={classes.table_element}>Yes</td>
-                    <td class={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>Access to Mock Interviews</td>
+                    <td className={classes.table_element}>Pay per use</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>N/A</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Ability to Apply to Board Roles</td>
-                    <td class={classes.table_element}>No</td>
-                    <td class={classes.table_element}>Yes</td>
-                    <td class={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Ability to Apply to Board Roles</td>
+                    <td className={classes.table_element}>No</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Yes</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Ability to Contact Individual who Posted Board Role</td>
-                    <td class={classes.table_element}>No</td>
-                    <td class={classes.table_element}>Yes</td>
-                    <td class={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Ability to Contact Individual who Posted Board Role</td>
+                    <td className={classes.table_element}>No</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Yes</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Access to Resume Bank</td>
-                    <td class={classes.table_element}>N/A</td>
-                    <td class={classes.table_element}>N/A</td>
-                    <td class={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Access to Resume Bank</td>
+                    <td className={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>Yes</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Option to Sponsor an Aspiring Professional who is Financially Constrained</td>
-                    <td class={classes.table_element}>N/A</td>
-                    <td class={classes.table_element}>Yes ($49 or $98)</td>
-                    <td class={classes.table_element}>Yes ($49 or $98)</td>
+                    <td className={classes.table_element}>Option to Sponsor an Aspiring Professional who is Financially Constrained</td>
+                    <td className={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>Yes ($49 or $98)</td>
+                    <td className={classes.table_element}>Yes ($49 or $98)</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Starting Credits Received</td>
-                    <td class={classes.table_element}>0</td>
-                    <td class={classes.table_element}>30</td>
-                    <td class={classes.table_element}>30</td>
+                    <td className={classes.table_element}>Starting Credits Received</td>
+                    <td className={classes.table_element}>0</td>
+                    <td className={classes.table_element}>30</td>
+                    <td className={classes.table_element}>30</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Cost to Purchase 5 Additional Credits</td>
-                    <td class={classes.table_element}>$10</td>
-                    <td class={classes.table_element}>$5</td>
-                    <td class={classes.table_element}>$5</td>
+                    <td className={classes.table_element}>Cost to Purchase 5 Additional Credits</td>
+                    <td className={classes.table_element}>$10</td>
+                    <td className={classes.table_element}>$5</td>
+                    <td className={classes.table_element}>$5</td>
                   </tr>
                   <tr>
-                    <td class={classes.table_element}>Refer a Friend Signup Bonus</td>
-                    <td class={classes.table_element}>10 credits</td>
-                    <td class={classes.table_element}>10 credits</td>
-                    <td class={classes.table_element}>10 credits</td>
+                    <td className={classes.table_element}>Refer a Friend Signup Bonus</td>
+                    <td className={classes.table_element}>10 credits</td>
+                    <td className={classes.table_element}>10 credits</td>
+                    <td className={classes.table_element}>10 credits</td>
                   </tr>
                 </tbody>
               </table>
