@@ -135,7 +135,7 @@ class Membership extends Component {
         >
           <DialogTitle id="scroll-dialog-title">
             <div>
-              <h2>Membership Information</h2>
+              <h2 style={{margin: '0px', marginTop: '10px'}}>Membership Breakdown</h2>
             </div>
           </DialogTitle>
           <DialogContent>
@@ -147,7 +147,7 @@ class Membership extends Component {
               <table className={classes.membership_table}>
                 <thead>
                   <tr>
-                    <th className={classes.table_element}>Feature / Membership Type</th>
+                    <th className={classes.table_element}>Feature</th>
                     <th className={classes.table_element}>Free</th>
                     <th className={classes.table_element}>Premium</th>
                     <th className={classes.table_element}>Platinum</th>
