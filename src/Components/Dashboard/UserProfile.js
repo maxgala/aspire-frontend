@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import pic0 from "../Images/faceShot/pic0.png";
-import { css } from 'emotion'
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
 
@@ -10,105 +10,163 @@ const useStyles = makeStyles(theme => ({
     top: '0',
     left: '0',
     height: '100%',
-    width: '23.5%',
+    width: '300px',
     position: 'fixed',
     textAlign: 'justify',
-
-    /*position: 'fixed',
-    height: '100%',
-    width: '300px',
-    backgroundColor: 'white',*/
+    borderRadius: '0% 0% 3% 3%',
+    boxShadow:' 0px 1.1px 8px #00000052',
+    backgroundColor: 'white'
   },
 
   name: {
     fontFamily: 'minion-pro, serif',
-    fontStyle: 'italic',
     fontWeight: 'bolder',
-    fontSize: '2vw',
-    margin: '1vw 2vw 1vw 2vw',
+    fontSize: '30px',
+    margin: '5px 20px 10px 20px',
     textAlign: 'center',
     display: 'block',
   },
 
   occupation: {
-    margin: '1vw 3vw 1vw 3vw',
+    margin: '10px 30px 10px 30px',
     fontFamily: 'myriad-pro, sans-serif',
-    fontStyle: 'italic',
     fontWeight: '550',
-    fontSize: '1.5vw',
+    fontSize: '15px',
+    textAlign: 'center',
+    display: 'block',
+  },
+  city:{
+    margin: '18px 40px 5px 40px',
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: '550',
+    fontSize: '15px',
     textAlign: 'center',
     display: 'block',
   },
 
   company: {
-    margin: '2vw 4vw 2vw 4vw',
+    margin: '5px 40px 20px 40px',
     fontFamily: 'myriad-pro, sans-serif',
-    fontSize: '1.2vw',
+    fontSize: '18px',
+    textAlign: 'center',
+    display: 'block',
+    fontWeight: 'bold',
+  },
+
+  numCoffeChat: {
+    margin:'10px 40px 10px 40px',
+    fontFamily: 'myriad-pro, sans-serif',
+    fontSize: '15px',
     textAlign: 'center',
     display: 'block',
   },
 
-  numCoffeChat: {
-    margin:'3vw 4vw 2vw 4vw',
-    fontFamily: 'myriad-pro, sans-serif',
-    fontStyle: 'italic',
-    fontWeight: '800',
-    fontSize: '1.5vw',
-    textAlign: 'left',
-    display: 'block',
-  },
-
   circle:{
-    position: 'fixed',
+    position: 'relative',
     textAlign: 'justify',
-    height: '13vw',
-    width: '13vw',
-    margin: '0vw 2vw 3vw 2vw',
-    display: 'flex',
+    height: '130px',
+    width: '130px',
+    margin: '15px 85px 20px 85px',
     borderRadius: '50%',
     backgroundColor: '#B6A165',
     display: 'inline-block',
-    left: '3%',
     boxShadow: '0px 6px 6px #00000029',
   },
   
   credits: {
     fontFamily: 'minion-pro, serif',
     fontWeight: 'bolder',
-    fontSize: '3.5vw',
+    fontSize: '40px',
     color: '#FFFFFF',
-    margin: '3vw 2vw 0vw 2vw',
+    margin: '30px 20px 0px 20px',
     textAlign: 'center',
   },
 
   available: {
     fontFamily: 'minion-pro, serif',
     fontWeight: 'bolder',
-    fontSize: '1vw',
+    fontSize: '10px',
     color: '#FFFFFF',
-    margin: '0vw 2vw 1vw 2vw',
+    margin: '0px 20px 10px 20px',
     textAlign: 'center',
   },
 
-  borderline:{
-    borderRight: '0.2vw solid #58595B',
-    height: '45vw',
-    position: 'absolute',
-    left: '93%',
-    margin: '4vw 2vw 4vw 2vw',
-  },
-
   image:{
-    width: '75%',
+    width: '60%',
     height: 'auto',
     padding: '5%',
     left: '10%',
     borderRadius: '50%',
+    marginTop:'10%',
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'block',
-  }
+  },
 
+  button: {
+    textTransform: 'none',
+    backgroundColor: "#B6A165",
+    marginBottom:"2%",
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: 50,
+    color: "#000000",
+    position:'relative',
+    display: 'block',
+    '&:hover': {
+        backgroundColor: "#F1F1F1",
+        color: '#484848'
+    },
+    
+    fontSize:'15px',
+    fontWeight: 'bold',
+    fontFamily:'myriad-pro, sans-serif',
+    paddingLeft: '50px',
+    paddingRight: '50px'
+  },
+
+
+  button1: {
+    textTransform: 'none',
+    backgroundColor: "#000000",
+    marginBottom:"2%",
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop:'20px',
+    borderRadius: 50,
+    color: "#FFFFFF",
+    position:'relative',
+    display: 'block',
+    '&:hover': {
+        backgroundColor: "#F1F1F1",
+        color: '#484848'
+    },
+    fontSize:'15px',
+    fontWeight: 'bold',
+    fontFamily:'myriad-pro, sans-serif',
+    paddingLeft: '75px',
+    paddingRight: '75px'
+  },
+
+  updateProfile:{
+    margin:'20px 40px 10px 40px',
+    fontFamily: 'myriad-pro, sans-serif',
+    fontSize: '12px',
+    textAlign: 'center',
+    display: 'block',
+    color:'#6EA0B5',
+    cursor:'pointer',
+  },
+
+  contact:{
+    margin:'5px 40px 10px 40px',
+    fontFamily: 'myriad-pro, sans-serif',
+    fontSize: '12px',
+    textAlign: 'center',
+    display: 'block',
+    color:'#6EA0B5',
+    cursor:'pointer',
+  }
 }));
 
 
@@ -126,19 +184,28 @@ class Landing extends Component{
     return (
  
       <div className={classes.root}>
-        <div className={classes.borderline}></div>
+        
         <a>
           <img className={classes.image} src={pic0} alt={"User Profile"}/>
           <span>
             <p className={classes.name}>Ali Khan</p>
             <p className={classes.occupation}>Director of Marketing and Communication</p>
-            <p className={classes.company}><b><i>IBM</i></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toronto, ON</p>
+            <p className={classes.city}>Toronto, ON</p>
+            <p className={classes.company}><b>IBM</b></p>
             <p className={classes.numCoffeChat}>32 Coffee Chats</p>
+            <p className={classes.numCoffeChat}>45 Jobs Applied To</p>
             <div className={classes.circle}>
               <p className={classes.credits}>1500</p>
               <p className={classes.available}>Credits Available</p>
             </div>
+
           </span>
+          <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
+          <Button className={classes.button1} variant="contained" onClick={this.changeToSignUp}>Post a Job</Button> 
+          <p className={classes.updateProfile}>Update your profile</p>
+          <p className={classes.contact}>Contact Admin Support</p>
+       
+       
         </a>
       </div>
       
