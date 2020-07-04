@@ -37,7 +37,12 @@ const useStyles = makeStyles(theme => ({
   img: {
     float: 'left',
     align: 'left',
-    width: window.innerWidth < 480 ? '125px' : '175px',
+    '@media (max-width: 480px)': {width: '125px'},
+    width: '175px',
+    '&:hover': {
+      cursor: 'pointer',
+      filter: 'sepia(60%)'
+    }
   },
   content: {
     flexGrow: 1,
@@ -58,10 +63,17 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '1',
     textTransform: "capitalize",
     marginLeft: 'auto',
-    width: window.innerWidth < 480 ? '100px' : '125px',
-    height: window.innerWidth < 480 ? '30px' : '40px',
-    fontSize: window.innerWidth < 480 ? '15px' : '18px',
-    margin: window.innerWidth < 480 ? '0' : theme.spacing(1),
+    '@media (max-width: 480px)': {
+      marginLeft: 'auto',
+      width: '100px',
+      height: '30px',
+      fontSize: '15px',
+      margin: '0'
+    },
+    width: '125px',
+    height: '40px',
+    fontSize: '18px',
+    margin: theme.spacing(1),
     backgroundColor: "#1A1A1A",
     borderStyle: "solid",
     color: "#F1F1F1",
@@ -76,10 +88,16 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Montserrat",
     fontWeight: '1',
     textTransform: "capitalize",
-    width: window.innerWidth < 480 ? '100px' : '125px',
-    height: window.innerWidth < 480 ? '30px' : '40px',
-    fontSize: window.innerWidth < 480 ? '15px' : '18px',
-    margin: window.innerWidth < 480 ? '0' : theme.spacing(1),
+    '@media (max-width: 480px)': {
+      width: '100px',
+      height: '30px',
+      fontSize: '15px',
+      margin: '0'
+    },
+    width: '125px',
+    height: '40px',
+    fontSize: '18px',
+    margin: theme.spacing(1),
     backgroundColor: "#b5a165",
     color: "white",
     borderRadius: 25,
@@ -171,9 +189,9 @@ class Landing extends Component{
                         <MainImage/>
                         <AboutMax/>
                         <Features/>
-                        <SeniorExecGrid/>
-                        <JobSection/>
-                        <Membership/>
+                        <SeniorExecGrid appContext={this.props.appContext}/>
+                        <JobSection appContext={this.props.appContext}/>
+                        <Membership appContext={this.props.appContext}/>
                         <Carousal/>
 
                         {/* Scroll to top and footer components at bottom */}

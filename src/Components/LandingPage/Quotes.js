@@ -7,7 +7,7 @@ import pic3 from "../Images/faceShot/pic3.png";
 
 export const quotes={
   0: {
-    client:"\"When one door of happiness closes, another opens; but often we look so long at the closed door that we do not see the one which has been opened for us.\"",
+    client:"When one door of happiness closes, another opens; but often we look so long at the closed door that we do not see the one which has been opened for us.",
     image:<img className={css`
     width: 100%;
     height:100%;
@@ -21,7 +21,7 @@ export const quotes={
    `} src={pic0} alt={"Testimonial Quote"}/>
   },
    1:{
-    client:"\"In order to be irreplaceable one must always be different. Coco\"",
+    client:"In order to be irreplaceable one must always be different. Coco",
     image:<img className={css`
     width: 100%;
     height:100%;
@@ -37,7 +37,7 @@ export const quotes={
   
   },
    2:{
-     client:"\"Always remember that you are absolutely unique. Just like everyone else\"",
+     client:"Always remember that you are absolutely unique. Just like everyone else",
     image:<img className={css`
     width: 100%;
     height:100%;
@@ -52,7 +52,7 @@ export const quotes={
   
   },
    3:{
-    client:"\"Normal is not something to aspire to, it’s something to get away from. Jodie Foster\"",
+    client:"Normal is not something to aspire to, it’s something to get away from. Jodie Foster",
     image:<img className={css`
     width: 100%;
     height:100%;

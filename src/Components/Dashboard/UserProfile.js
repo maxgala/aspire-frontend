@@ -13,6 +13,11 @@ const useStyles = makeStyles(theme => ({
     width: '23.5%',
     position: 'fixed',
     textAlign: 'justify',
+
+    /*position: 'fixed',
+    height: '100%',
+    width: '300px',
+    backgroundColor: 'white',*/
   },
 
   name: {

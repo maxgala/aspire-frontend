@@ -14,14 +14,28 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     fontSize: '18px',
     fontWeight: '100',
-    marginTop: window.innerWidth <= 650 ? '40%' : '11%',
-    width : window.innerWidth < 900 ? window.innerWidth <= 650 ? '70%' : '35%' : '23%',
+    marginTop: '11%',
+    width : '23%',
+    '@media (max-width: 650px)': {
+      marginTop: '40%',
+      width: '70%',
+    },
+    '@media (max-width: 900px)': {
+      width: '35%',
+    },
   },
   hovertext: {
     color: "white",
     fontSize: '24px',
-    width : window.innerWidth < 900 ? window.innerWidth <= 650 ? '70%' : '35%' : '23%',
-    marginTop: window.innerWidth <= 650 ? '20%' : '4%',
+    width : '23%',
+    marginTop: '4%',
+    '@media (max-width: 650px)': {
+      marginTop: '20%',
+      width: '70%',
+    },
+    '@media (max-width: 900px)': {
+      width: '35%',
+    },
     textAlign: 'center',
     position: 'absolute'
   }

@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
   },
   header: {
     fontFamily: 'Nunito Sans',
-    fontSize: '40px',
+    fontSize: '48px',
     fontWeight: 'bolder',
     textAlign: 'center',
     paddingLeft: '30px',
@@ -73,14 +73,19 @@ const useStyles = makeStyles(theme => ({
     backgroundColor:'#f1f1f1',
   },
   paragraph: {
-    height: '220px',
-    marginTop:'0px',
-    marginBottom:'30px',
+    margin: 'auto',
     fontFamily:'Nunito',
-    fontSize: '25px',
+    fontSize: '20px',
     paddingLeft: '40px', 
     paddingRight: '40px',
     fontStyle:'italic',
+    color: '#484848'
+  },
+  title: {
+    fontSize: '22px',
+    fontFamily: 'Nunito',
+    fontWeight: 'bold',
+    color: '#484848'
   }
 }));
 
@@ -176,7 +181,7 @@ class Quote extends Component {
               spacing={1}
               justify="center"
             >
-              <p style={{fontSize: '20px'}}><i><b>Jodie Foster - CEO of BestWork</b></i></p>
+              <p className={classes.title}>Jodie Foster - CEO of BestWork</p>
               <p className={classes.paragraph}>{this.state.current.client}</p>
             
             </Grid>
@@ -197,6 +202,7 @@ class Quote extends Component {
         <div className={css`
            display:flex;
            justify-content:center;
+           padding-top: 50px;
            span{
              height:20px;
              width:20px;

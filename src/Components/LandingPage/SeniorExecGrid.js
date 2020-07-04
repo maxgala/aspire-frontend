@@ -7,12 +7,22 @@ import SmallSeniorExec from "./SmallSeniorExec";
 import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
 import SmallSeniorExecImg from "../Images/senior/Latafat_Faran.jpg";
 import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
-import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg"
-import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg"
+import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
+import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg";
 
 const useStyles = makeStyles(() => ({
-  background: { 
+  background_lg: { 
     backgroundColor: 'white',
+    '@media (max-width: 1000px)': {display: 'None'},
+  },
+  background_md: { 
+    backgroundColor: 'white',
+    '@media (max-width: 550px)': {display: 'None'},
+    '@media (min-width: 1000px)': {display: 'None'}
+  },
+  background_sm: { 
+    backgroundColor: 'white',
+    '@media (min-width: 550px)': {display: 'None'}
   },
   seniorexec:{
     paddingTop :'10vh',
@@ -48,7 +58,7 @@ class SeniorExecGrid extends Component {
     const classes = this.props.classes;
     return(
       <div className={classes.seniorexec}>
-        <div className={classes.background} style={{display: window.innerWidth > 900 ? '' : 'None'}}>
+        <div className={classes.background_lg}>
           <Grid
             container
             spacing={2}
@@ -96,7 +106,7 @@ class SeniorExecGrid extends Component {
                     hover_image = {SeniorExecImgHover}
                   />
                 </Grid>
-                <SeniorExecText/>
+                <SeniorExecText appContext={this.props.appContext}/>
               </Grid>  
             </Grid>
             <Grid
@@ -121,7 +131,7 @@ class SeniorExecGrid extends Component {
           </Grid>
         </div>
         
-        <div className={classes.background} style={{display: (window.innerWidth > 900 || window.innerWidth <= 650) ? 'None' : ''}}>
+        <div className={classes.background_md}>
           <Grid
             container
             item xs={12}
@@ -157,11 +167,11 @@ class SeniorExecGrid extends Component {
                 hover_image = {SmallSeniorExecImgHover}
               />
             </Grid>
-            <SeniorExecText/>
+            <SeniorExecText appContext={this.props.appContext}/>
           </Grid>
         </div>
         
-        <div className={classes.background} style={{display: window.innerWidth > 650 ? 'None' : ''}}>
+        <div className={classes.background_sm}>
           <Grid
             container
             item xs={12}
@@ -183,7 +193,7 @@ class SeniorExecGrid extends Component {
                 hover_image = {SmallSeniorExecImgHover}
               />
             </Grid>
-            <SeniorExecText/>
+            <SeniorExecText appContext={this.props.appContext}/>
           </Grid>
         </div>
       </div>
