@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Home from "./Home";
 import CoffeeChats from "./CoffeeChats";
 import Jobs from "./Jobs";
+import JobView from "./JobView";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -170,7 +171,10 @@ class Dashboard extends Component {
           >
             <Container className={classes.profile_container}>
               <UserProfile/>
+              
+              
             </Container>
+            <JobView/>
 
             <Container className={classes.dashboard_container}>
               <Toolbar className={classes.toolbar}>
