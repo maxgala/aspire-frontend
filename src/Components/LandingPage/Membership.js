@@ -135,7 +135,7 @@ class Membership extends Component {
         >
           <DialogTitle id="scroll-dialog-title">
             <div>
-              <h2 style={{margin: '0px', marginTop: '10px'}}>Membership Breakdown</h2>
+              <h2 style={{margin: '0px', marginTop: '10px', color: '#B5A165'}}>Membership Options</h2>
             </div>
           </DialogTitle>
           <DialogContent>
@@ -191,6 +191,12 @@ class Membership extends Component {
                     <td className={classes.table_element}>Yes</td>
                   </tr>
                   <tr>
+                    <td className={classes.table_element}>Ability to Post Jobs</td>
+                    <td className={classes.table_element}>No</td>
+                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Yes</td>
+                  </tr>
+                  <tr>
                     <td className={classes.table_element}>Access to Resume Bank</td>
                     <td className={classes.table_element}>N/A</td>
                     <td className={classes.table_element}>N/A</td>
@@ -230,7 +236,7 @@ class Membership extends Component {
               type="submit"
               variant="contained"
               color="primary"
-              style={{margin: 'auto'}}
+              style={{margin: 'auto', backgroundColor: '#B5A165'}}
             >
               <b>Close</b>
             </Button>
