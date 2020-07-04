@@ -4,7 +4,6 @@ import pic0 from "../Images/faceShot/pic0.png";
 import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-
   root: {
     display: 'flex',
     top: '0',
@@ -182,10 +181,8 @@ class Landing extends Component{
     const classes = this.props.classes;
     
     return (
- 
       <div className={classes.root}>
-        
-        <a>
+        <div style={{margin: 'auto'}}>
           <img className={classes.image} src={pic0} alt={"User Profile"}/>
           <span>
             <p className={classes.name}>Ali Khan</p>
@@ -198,17 +195,13 @@ class Landing extends Component{
               <p className={classes.credits}>1500</p>
               <p className={classes.available}>Credits Available</p>
             </div>
-
           </span>
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
           <Button className={classes.button1} variant="contained" onClick={this.changeToSignUp}>Post a Job</Button> 
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
-       
-       
-        </a>
+        </div>
       </div>
-      
     );
   }
 }
