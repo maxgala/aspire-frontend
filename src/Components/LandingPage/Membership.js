@@ -271,6 +271,12 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>10 credits</td>
                     <td className={classes.table_element_plat}>10 credits</td>
                   </tr>
+                  <tr>
+                    <th style={{borderTop: '4px solid #dddddd'}} className={classes.table_element}>Membership Price</th>
+                    <th style={{borderTop: '4px solid #dddddd'}} className={classes.table_element_free}>Free</th>
+                    <th style={{borderTop: '4px solid #dddddd'}} className={classes.table_element_premium}>$49</th>
+                    <th style={{borderTop: '4px solid #dddddd'}} className={classes.table_element_plat}>$75</th>
+                  </tr>
                 </tbody>
               </table>
             </DialogContentText>
