@@ -169,9 +169,9 @@ class Membership extends Component {
                 <thead>
                   <tr>
                     <th className={classes.table_element}>Feature</th>
-                    <th className={classes.table_element_free}>Free</th>
-                    <th className={classes.table_element_premium}>Premium</th>
-                    <th className={classes.table_element_plat}>Platinum</th>
+                    <th className={classes.table_element_free}>Aspiring Professional - Free</th>
+                    <th className={classes.table_element_premium}>Aspiring Professional - Premium</th>
+                    <th className={classes.table_element_plat}>Senior Executive - Platinum</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -212,22 +212,22 @@ class Membership extends Component {
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
-                    <td className={classes.table_element}>Request 1-on-1 Coffee Chats wtih Senior Executives</td>
+                    <td className={classes.table_element}>1-on-1 Coffee Chats with Senior Executives</td>
                     <td className={classes.table_element_free}>Pay per use</td>
-                    <td className={classes.table_element_premium}>Yes</td>
-                    <td className={classes.table_element_plat}>-</td>
+                    <td className={classes.table_element_premium}>Yes, can request</td>
+                    <td className={classes.table_element_plat}>Yes, leading</td>
                   </tr>
                   <tr>
-                    <td className={classes.table_element}>Request 4-on-1 Coffee Chats wtih Senior Executives</td>
+                    <td className={classes.table_element}>4-on-1 Coffee Chats with Senior Executives</td>
                     <td className={classes.table_element_free}>Pay per use</td>
-                    <td className={classes.table_element_premium}>Yes</td>
-                    <td className={classes.table_element_plat}>-</td>
+                    <td className={classes.table_element_premium}>Yes, can request</td>
+                    <td className={classes.table_element_plat}>Yes, leading</td>
                   </tr>
                   <tr>
-                    <td className={classes.table_element}>Access to Mock Interviews</td>
+                    <td className={classes.table_element}>Mock Interviews with Senior Executives</td>
                     <td className={classes.table_element_free}>Pay per use</td>
-                    <td className={classes.table_element_premium}>Yes</td>
-                    <td className={classes.table_element_plat}>-</td>
+                    <td className={classes.table_element_premium}>Yes, can request</td>
+                    <td className={classes.table_element_plat}>Yes, leading</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Ability to Apply to Board Roles</td>
@@ -243,21 +243,21 @@ class Membership extends Component {
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Access to Resume Bank</td>
-                    <td className={classes.table_element_free}>-</td>
-                    <td className={classes.table_element_premium}>-</td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>No</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Option to Sponsor an Aspiring Professional who is Financially Constrained</td>
-                    <td className={classes.table_element_free}>-</td>
+                    <td className={classes.table_element_free}>No</td>
                     <td className={classes.table_element_premium}>Yes ($49 or more)</td>
                     <td className={classes.table_element_plat}>Yes ($49 or more)</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Starting Credits Received</td>
-                    <td className={classes.table_element_free}>0</td>
-                    <td className={classes.table_element_premium}>30</td>
-                    <td className={classes.table_element_plat}>30</td>
+                    <td className={classes.table_element_free}>0 credits</td>
+                    <td className={classes.table_element_premium}>30 credits</td>
+                    <td className={classes.table_element_plat}>30 credits</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Cost to Purchase 5 Additional Credits</td>
