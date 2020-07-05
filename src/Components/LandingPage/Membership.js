@@ -52,6 +52,27 @@ const useStyles = makeStyles(() => ({
     border: '1px solid #dddddd',
     textAlign: 'left',
     padding: '8px'
+  },
+  table_element_free: {
+    border: '1px solid #dddddd',
+    textAlign: 'left',
+    padding: '8px',
+    backgroundColor: '#daa067',
+    color: 'white'
+  },
+  table_element_premium: {
+    border: '1px solid #dddddd',
+    textAlign: 'left',
+    padding: '8px',
+    backgroundColor: '#A9A9A9',
+    color: 'white'
+  },
+  table_element_plat: {
+    border: '1px solid #dddddd',
+    textAlign: 'left',
+    padding: '8px',
+    backgroundColor: '#B5A165',
+    color: 'white'
   }
 }));
 
@@ -148,83 +169,107 @@ class Membership extends Component {
                 <thead>
                   <tr>
                     <th className={classes.table_element}>Feature</th>
-                    <th className={classes.table_element}>Free</th>
-                    <th className={classes.table_element}>Premium</th>
-                    <th className={classes.table_element}>Platinum</th>
+                    <th className={classes.table_element_free}>Free</th>
+                    <th className={classes.table_element_premium}>Premium</th>
+                    <th className={classes.table_element_plat}>Platinum</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className={classes.table_element}>See Profiles of Senior Executives Committed to MAX Aspire</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Ability to View Job Postings</td>
+                    <td className={classes.table_element_free}>Yes</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
-                    <td className={classes.table_element}>Request 1-on-1 Coffee Chats wtih Senior Executives</td>
-                    <td className={classes.table_element}>Pay per use</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>Ability to Apply for Jobs Posted</td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
-                    <td className={classes.table_element}>Request 4-on-1 Coffee Chats wtih Senior Executives</td>
-                    <td className={classes.table_element}>Pay per use</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>N/A</td>
+                    <td className={classes.table_element}>Ability to Contact Person who Posted the Job</td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
-                    <td className={classes.table_element}>Access to Mock Interviews</td>
-                    <td className={classes.table_element}>Pay per use</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>N/A</td>
-                  </tr>
-                  <tr>
-                    <td className={classes.table_element}>Ability to Apply to Board Roles</td>
-                    <td className={classes.table_element}>No</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>Yes</td>
-                  </tr>
-                  <tr>
-                    <td className={classes.table_element}>Ability to Contact Individual who Posted Board Role</td>
-                    <td className={classes.table_element}>No</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element}>Post Resume/CV on Jobs Bank (accessible by Senior Executives)</td>
+                    <td className={classes.table_element_free}>Yes</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Ability to Post Jobs</td>
-                    <td className={classes.table_element}>No</td>
-                    <td className={classes.table_element}>Yes</td>
-                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
+                  </tr>
+                  <tr>
+                    <td className={classes.table_element}>See Profiles of Senior Executives Committed to MAX Aspire</td>
+                    <td className={classes.table_element_free}>Yes</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
+                  </tr>
+                  <tr>
+                    <td className={classes.table_element}>Request 1-on-1 Coffee Chats wtih Senior Executives</td>
+                    <td className={classes.table_element_free}>Pay per use</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>N/A</td>
+                  </tr>
+                  <tr>
+                    <td className={classes.table_element}>Request 4-on-1 Coffee Chats wtih Senior Executives</td>
+                    <td className={classes.table_element_free}>Pay per use</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>N/A</td>
+                  </tr>
+                  <tr>
+                    <td className={classes.table_element}>Access to Mock Interviews</td>
+                    <td className={classes.table_element_free}>Pay per use</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>N/A</td>
+                  </tr>
+                  <tr>
+                    <td className={classes.table_element}>Ability to Apply to Board Roles</td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
+                  </tr>
+                  <tr>
+                    <td className={classes.table_element}>Ability to Contact Individual who Posted Board Role</td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>Yes</td>
+                    <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Access to Resume Bank</td>
-                    <td className={classes.table_element}>N/A</td>
-                    <td className={classes.table_element}>N/A</td>
-                    <td className={classes.table_element}>Yes</td>
+                    <td className={classes.table_element_free}>N/A</td>
+                    <td className={classes.table_element_premium}>N/A</td>
+                    <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Option to Sponsor an Aspiring Professional who is Financially Constrained</td>
-                    <td className={classes.table_element}>N/A</td>
-                    <td className={classes.table_element}>Yes ($49 or $98)</td>
-                    <td className={classes.table_element}>Yes ($49 or $98)</td>
+                    <td className={classes.table_element_free}>N/A</td>
+                    <td className={classes.table_element_premium}>Yes ($49 or $98)</td>
+                    <td className={classes.table_element_plat}>Yes ($49 or $98)</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Starting Credits Received</td>
-                    <td className={classes.table_element}>0</td>
-                    <td className={classes.table_element}>30</td>
-                    <td className={classes.table_element}>30</td>
+                    <td className={classes.table_element_free}>0</td>
+                    <td className={classes.table_element_premium}>30</td>
+                    <td className={classes.table_element_plat}>30</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Cost to Purchase 5 Additional Credits</td>
-                    <td className={classes.table_element}>$10</td>
-                    <td className={classes.table_element}>$5</td>
-                    <td className={classes.table_element}>$5</td>
+                    <td className={classes.table_element_free}>$10</td>
+                    <td className={classes.table_element_premium}>$5</td>
+                    <td className={classes.table_element_plat}>$5</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Refer a Friend Signup Bonus</td>
-                    <td className={classes.table_element}>10 credits</td>
-                    <td className={classes.table_element}>10 credits</td>
-                    <td className={classes.table_element}>10 credits</td>
+                    <td className={classes.table_element_free}>10 credits</td>
+                    <td className={classes.table_element_premium}>10 credits</td>
+                    <td className={classes.table_element_plat}>10 credits</td>
                   </tr>
                 </tbody>
               </table>
