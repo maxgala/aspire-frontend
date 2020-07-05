@@ -215,19 +215,19 @@ class Membership extends Component {
                     <td className={classes.table_element}>Request 1-on-1 Coffee Chats wtih Senior Executives</td>
                     <td className={classes.table_element_free}>Pay per use</td>
                     <td className={classes.table_element_premium}>Yes</td>
-                    <td className={classes.table_element_plat}>N/A</td>
+                    <td className={classes.table_element_plat}>-</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Request 4-on-1 Coffee Chats wtih Senior Executives</td>
                     <td className={classes.table_element_free}>Pay per use</td>
                     <td className={classes.table_element_premium}>Yes</td>
-                    <td className={classes.table_element_plat}>N/A</td>
+                    <td className={classes.table_element_plat}>-</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Access to Mock Interviews</td>
                     <td className={classes.table_element_free}>Pay per use</td>
                     <td className={classes.table_element_premium}>Yes</td>
-                    <td className={classes.table_element_plat}>N/A</td>
+                    <td className={classes.table_element_plat}>-</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Ability to Apply to Board Roles</td>
@@ -243,15 +243,15 @@ class Membership extends Component {
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Access to Resume Bank</td>
-                    <td className={classes.table_element_free}>N/A</td>
-                    <td className={classes.table_element_premium}>N/A</td>
+                    <td className={classes.table_element_free}>-</td>
+                    <td className={classes.table_element_premium}>-</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Option to Sponsor an Aspiring Professional who is Financially Constrained</td>
-                    <td className={classes.table_element_free}>N/A</td>
-                    <td className={classes.table_element_premium}>Yes ($49 or $98)</td>
-                    <td className={classes.table_element_plat}>Yes ($49 or $98)</td>
+                    <td className={classes.table_element_free}>-</td>
+                    <td className={classes.table_element_premium}>Yes ($49 or more)</td>
+                    <td className={classes.table_element_plat}>Yes ($49 or more)</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Starting Credits Received</td>
