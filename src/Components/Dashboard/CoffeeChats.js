@@ -77,103 +77,92 @@ class CoffeeChats extends Component {
           <h1 className={classes.coffeeChat}>Coffee Chats</h1>
           <Grid
             container
+            item xs={12}
             spacing={1}
             alignItems="flex-start"
-            justify="flex-start"
-          >  
+            justify="center"
+          >
             <Grid
               container
-              item xs={12}
+              item xs={12} sm={6} md={3}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
               <Grid
                 container
-                item xs={3}
+                item xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Industry</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter/>
-                </Grid>
+                <p className={classes.section_title}>Industry</p>
               </Grid>
-
               <Grid
                 container
-                item xs={3}
+                item xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Title</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter/>
-                </Grid>
+                <Filter/>
               </Grid>
+            </Grid>
 
-
-
-              <Grid
+            <Grid
               container
-              item xs={6}
+              item xs={12} sm={6} md={3}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
+            >
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Additional Filters</p>
-                </Grid>
+                <p className={classes.section_title}>Job Title</p>
+              </Grid>
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Filter/>
+              </Grid>
+            </Grid>
 
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter/>
-                </Grid>
+            <Grid
+              container
+              item xs={12} sm={12} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <p className={classes.section_title}>Additional Filters</p>
+              </Grid>
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Filter/>
               </Grid>
             </Grid>
           </Grid>
-
 
           <div className={classes.sort}>
             <p className={classes.date}> Sort date posted by:
@@ -184,114 +173,95 @@ class CoffeeChats extends Component {
             </p>
           </div>
 
-
           <Grid
-          container
-          spacing={1}
-          alignItems="flex-start"
-          justify="flex-start"
-          >  
+            container
+            item xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="center"
+          >
             <Grid
               container
-              item xs={6}
+              item xs={12} sm={9} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
-
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
+              <CoffeeChatCard/>
             </Grid>
-
             <Grid
               container
-              item xs={6}
+              item xs={12} sm={9} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard/>
-              </Grid>
+              <CoffeeChatCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <CoffeeChatCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <CoffeeChatCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <CoffeeChatCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <CoffeeChatCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <CoffeeChatCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <CoffeeChatCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <CoffeeChatCard/>
             </Grid>
           </Grid>
-
         </div>
       </div>
     )
