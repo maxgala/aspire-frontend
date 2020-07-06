@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import pic0 from "../Images/faceShot/pic0.png";
 import { Button } from '@material-ui/core';
+import { faMapMarker, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -187,8 +189,8 @@ class Landing extends Component{
           <span>
             <p className={classes.name}>Ali Khan</p>
             <p className={classes.occupation}>Director of Marketing and Communication</p>
-            <p className={classes.city}>Toronto, ON</p>
-            <p className={classes.company}><b>IBM</b></p>
+            <p className={classes.city}><FontAwesomeIcon icon={faMapMarker} style={{width: '14px', height: '14px', margin: '2px', marginRight: '10px'}}/>Toronto, ON</p>
+            <p className={classes.company}><FontAwesomeIcon icon={faBuilding} style={{width: '14px', height: '14px', margin: '2px', marginRight: '10px'}}/><b>IBM</b></p>
             <p className={classes.numCoffeChat}>32 Coffee Chats</p>
             <p className={classes.numCoffeChat}>45 Jobs Applied To</p>
             <div className={classes.circle}>

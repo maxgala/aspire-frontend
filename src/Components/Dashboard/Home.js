@@ -7,8 +7,8 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingLeft: '15%',
+    paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
