@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
     paddingRight: '5%',
     justifyContent: 'center',
     alignItems: 'center',
-    // height: '100%',
+    height: '100%',
   },
   booking_history: {
     fontFamily: 'PT Sans',
