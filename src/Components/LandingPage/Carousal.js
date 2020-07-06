@@ -42,16 +42,18 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     position: 'absolute',
     align: 'left',
-    '@media (max-width:670px)':{display:'None'},
    
   },
   leftArrow: {
     cursor: 'pointer',
     position: 'absolute',
-    '@media (max-width:670px)':{display:'None'},
   },
-  // sign in and registration button CSS elements
-  // button regular and hover colors are different
+  testimonialSmall: {
+    '@media (min-width: 960px)': {display:'None'},
+  },
+  testimonialLarge: {
+    '@media (max-width: 959px)': {display:'None'},
+  },
   picture: {
     width: '200px',
     height: '200px',
@@ -143,61 +145,75 @@ class Quote extends Component {
    
     return (
       <Swipeable onSwipedRight={this.HandleLeftArrowClick} onSwipedLeft={this.HandleRightArrowClick} >
-      <div  className={classes.carousal}>
+      <div className={classes.carousal}>
         <h1 className={classes.header}><b>What our members have to say</b></h1>
-          <Grid
+        <Grid
           container
           item
           alignItems="center"
           justify="center"
+        >
+          <Grid
+            container
+            item xs={1}
+            spacing={1}
+            alignItems="center"
+            justify="center"
           >
-            <Grid
-              container
-              item xs={1}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <img className={classes.leftArrow} 
-                src={left}   
-                onClick={this.HandleLeftArrowClick}
-                alt={"Testimonial Left Arrow"}
-              />
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={4} md={3} lg={2}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <p className={classes.picture}> 
-                {this.state.current.image}    
-              </p>
-            </Grid>
-            <Grid
-              container
-              item  xs={12} sm={6} md={5} lg={4}
-              spacing={1}
-              justify="center"
-            >
-              <p className={classes.title}>Jodie Foster - CEO of BestWork</p>
-              <p className={classes.paragraph}>{this.state.current.client}</p>
-            
-            </Grid>
-            <Grid
-              container
-              item xs={1}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <img className={classes.rightArrow} 
-                src={right}  
-                onClick={this.HandleRightArrowClick}
-                alt={"Testimonial Right Arrow"}
-              />
-            </Grid>
+            <img className={classes.leftArrow} 
+              src={left}   
+              onClick={this.HandleLeftArrowClick}
+              alt={"Testimonial Left Arrow"}
+            />
+          </Grid>
+          <Grid
+            container
+            item xs={9} sm={9} md={4} lg={3}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <p className={classes.picture}> 
+              {this.state.current.image}    
+            </p>
+          </Grid>
+          <Grid
+            container
+            item xs={1}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+            className={classes.testimonialSmall}
+          >
+            <img className={classes.rightArrow} 
+              src={right}  
+              onClick={this.HandleRightArrowClick}
+              alt={"Testimonial Right Arrow"}
+            />
+          </Grid>
+          <Grid
+            container
+            item xs={12} sm={9} md={6} lg={5}
+            spacing={1}
+            justify="center"
+          >
+            <p className={classes.title}>Jodie Foster - CEO of BestWork</p>
+            <p className={classes.paragraph}>{this.state.current.client}</p>
+          </Grid>
+          <Grid
+            container
+            item xs={1}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+            className={classes.testimonialLarge}
+          >
+            <img className={classes.rightArrow} 
+              src={right}  
+              onClick={this.HandleRightArrowClick}
+              alt={"Testimonial Right Arrow"}
+            />
+          </Grid>
         </Grid>
         <div className={css`
            display:flex;
