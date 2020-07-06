@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import CoffeeCard from "./Cards/CoffeeCard";
+import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
 
 const useStyles = makeStyles(() => ({
@@ -205,7 +205,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
               <Grid
                 container
@@ -214,7 +214,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
               <Grid
                 container
@@ -223,7 +223,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
 
               <Grid
@@ -233,7 +233,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
             </Grid>
 
@@ -251,7 +251,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
               <Grid
                 container
@@ -260,7 +260,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
               <Grid
                 container
@@ -269,7 +269,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
               <Grid
                 container
@@ -278,7 +278,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
               <Grid
                 container
@@ -287,7 +287,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeCard/>
+                <CoffeeChatCard/>
               </Grid>
             </Grid>
           </Grid>
