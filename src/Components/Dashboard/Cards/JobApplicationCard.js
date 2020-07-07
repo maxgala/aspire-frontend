@@ -3,9 +3,9 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '80%',
+    width: '95%',
     maxWidth: '300px',
-    height: '140px',
+    height: '180px',
     borderStyle: 'solid',
     marginBottom: '20px',
     borderRadius: '20px'

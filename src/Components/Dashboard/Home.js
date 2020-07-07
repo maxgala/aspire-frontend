@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles(() => ({
   home_page: { 
     paddingLeft: '15%',
-    paddingRight: '10%',
+    paddingRight: '5%',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
@@ -47,7 +47,7 @@ class Home extends Component {
           <h1 className={classes.booking_history}>Your Booking History</h1>
           <Grid
             container
-            spacing={1}
+            spacing={8}
             alignItems="flex-start"
             justify="flex-start"
           >  
@@ -97,7 +97,7 @@ class Home extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12}
+                item xs={12} sm={12} md={6}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -106,7 +106,7 @@ class Home extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12}
+                item xs={12} sm={12} md={6}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -129,15 +129,6 @@ class Home extends Component {
                 justify="flex-start"
               >
                 <p className={classes.section_title}>Your Job Application</p>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <JobApplicationCard/>
               </Grid>
               <Grid
                 container
