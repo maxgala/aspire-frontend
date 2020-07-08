@@ -121,7 +121,6 @@ class CheckoutForm extends React.Component {
                 paymentMethod: null,
             });
         } else {
-            console.log('[PaymentMethod]', payload.paymentMethod);
             this.setState({
                 paymentMethod: payload.paymentMethod,
                 errorMessage: null,
