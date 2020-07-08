@@ -4,11 +4,13 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles(() => ({
   card: {
     width: '95%',
-    maxWidth: '700px',
-    height: '160px',
+    maxWidth: '350px',
+    height: '40px',
     borderStyle: 'solid',
     marginBottom: '20px',
-    borderRadius: '20px'
+    borderRadius: '12px',
+    borderColor:'#707070',
+    borderWidth:'thin',
   }
 }));
 
@@ -19,16 +21,16 @@ function withMyHook(Component) {
   }
 }
 
-class CoffeeChatCard extends Component {
+class FilterCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
-        <p>COFFEE CHAT CARD</p>
+        <p> </p>
       </div>
     )
   }
 }
 
-CoffeeChatCard = withMyHook(CoffeeChatCard);
-export default CoffeeChatCard;
+FilterCard = withMyHook(FilterCard);
+export default FilterCard;

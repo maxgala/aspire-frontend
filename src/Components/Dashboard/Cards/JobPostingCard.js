@@ -4,9 +4,8 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '80%',
-    maxWidth: '300px',
-    height: '140px',
+    width: '95%',
+    height: '190px',
     borderStyle: 'solid',
     marginBottom: '20px',
     borderRadius: '20px',

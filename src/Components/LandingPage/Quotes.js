@@ -7,7 +7,7 @@ import pic3 from "../Images/faceShot/pic3.png";
 
 export const quotes={
   0: {
-    client:"When one door of happiness closes, another opens; but often we look so long at the closed door that we do not see the one which has been opened for us.",
+    client:"Character is the sum of one’s good habits (virtues) and bad habits (vices). These habits mark us and affect the ways in which we respond to life’s events and challenges. Our character is our profile of habits and dispositions to act in certain ways.",
     image:<img className={css`
     width: 100%;
     height:100%;
@@ -21,7 +21,7 @@ export const quotes={
    `} src={pic0} alt={"Testimonial Quote"}/>
   },
    1:{
-    client:"In order to be irreplaceable one must always be different. Coco",
+    client:"Character is the sum of one’s good habits (virtues) and bad habits (vices). These habits mark us and affect the ways in which we respond to life’s events and challenges. Our character is our profile of habits and dispositions to act in certain ways.",
     image:<img className={css`
     width: 100%;
     height:100%;
@@ -37,7 +37,7 @@ export const quotes={
   
   },
    2:{
-     client:"Always remember that you are absolutely unique. Just like everyone else",
+     client:"Character is the sum of one’s good habits (virtues) and bad habits (vices). These habits mark us and affect the ways in which we respond to life’s events and challenges. Our character is our profile of habits and dispositions to act in certain ways.",
     image:<img className={css`
     width: 100%;
     height:100%;
@@ -52,7 +52,7 @@ export const quotes={
   
   },
    3:{
-    client:"Normal is not something to aspire to, it’s something to get away from. Jodie Foster",
+    client:"Character is the sum of one’s good habits (virtues) and bad habits (vices). These habits mark us and affect the ways in which we respond to life’s events and challenges. Our character is our profile of habits and dispositions to act in certain ways.",
     image:<img className={css`
     width: 100%;
     height:100%;
