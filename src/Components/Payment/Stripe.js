@@ -198,7 +198,7 @@ class CheckoutForm extends React.Component {
     }
 }
 
-const stripePromise = loadStripe('pk_test_51Gug4qLfzbEt5UVhauq1BUNsK43H4mkdAChHAGxumOZ6Jpks8VaGIbGlbxG0bP0v2n3V5nl31yJG3ewzPzEs5N6E00wcmCJI8p');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
 
 class Stripe extends Component{
     render() {
