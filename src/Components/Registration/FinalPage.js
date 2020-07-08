@@ -16,8 +16,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
-import MembershipCard from "../LandingPage/MembershipCard";
 import Membership from "../LandingPage/Membership";
+import Stripe from "../Payment/Stripe";
+import Landing from "../LandingPage/Landing";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -179,7 +180,8 @@ class FinalPage extends Component{
             aspire_platinum: false,
             progress: 100,
             checked: false,
-            open: false
+            open: false,
+            openStripe: false
         }
     }
 
@@ -212,6 +214,24 @@ class FinalPage extends Component{
             this.setState({
                 senior_executive: false,
             })
+        }
+    };
+
+    handleStripeClose = (event) => {
+        this.setState({
+            openStripe: false
+        })
+    };
+
+    handleSubmit = (event) => {
+        if (this.state.aspire_premium === true || this.state.aspire_platinum === true){
+            this.setState({
+                openStripe: true
+            })
+        }else{
+            this.props.appContext.props.appContext.setState({
+                currentScreen: <Landing appContext={this.props.appContext}/>
+            });
         }
     };
 
@@ -261,6 +281,9 @@ class FinalPage extends Component{
                     <Grid container spacing={2}>
                         <Membership appContext={this.props.appContext}
                                     landing={false}
+                                    freeButtonText={"Try for Free"}
+                                    premiumButtonText={"Sign Up for Premium"}
+                                    platinumButtonText={"Sign Up for Platinum"}
                                     freeFunction={this.handleAspireFreeClick}
                                     premiumFunction={this.handleAspirePremiumClick}
                                     platinumFunction={this.handleAspirePlatimumClick}
@@ -314,6 +337,7 @@ class FinalPage extends Component{
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={this.handleSubmit}
                     >
                         <b>Submit</b>
                     </Button>
@@ -479,6 +503,17 @@ class FinalPage extends Component{
                             <b>Agree</b>
                         </Button>
                     </DialogActions>
+                </Dialog>
+                <Dialog
+                    maxWidth={"md"}
+                    fullWidth={true}
+                    disableEscapeKeyDown
+                    disableBackdropClick
+                    onClose={this.handleStripeClose}
+                    aria-labelledby="stripe-dialog"
+                    open={this.state.openStripe}
+                >
+                    <Stripe appContext={this.props.appContext}/>
                 </Dialog>
             </Container>
         );

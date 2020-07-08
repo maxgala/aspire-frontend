@@ -75,24 +75,27 @@ class Membership extends Component {
 
 
   handleAspirePremiumClick = event => {
+    this.props.premiumFunction();
     this.setState({
       aspire_free: {},
-      aspire_premium: {borderStyle: 'solid', borderWidth: '2px', borderColor: 'red'},
+      aspire_premium: {borderStyle: 'solid', borderWidth: '2px', borderColor: '#b5a165'},
       aspire_platinum: {}
     })
   };
 
   handleAspirePlatinumClick = event => {
+    this.props.platinumFunction();
     this.setState({
       aspire_free: {},
       aspire_premium: {},
-      aspire_platinum: {borderStyle: 'solid', borderWidth: '2px', borderColor: 'red'}
+      aspire_platinum: {borderStyle: 'solid', borderWidth: '2px', borderColor: '#b5a165'}
     })
   };
 
   handleAspireFreeClick = event => {
+    this.props.freeFunction();
     this.setState({
-      aspire_free: {borderStyle: 'solid', borderWidth: '2px', borderColor: 'red'},
+      aspire_free: {borderStyle: 'solid', borderWidth: '2px', borderColor: '#b5a165'},
       aspire_premium: {},
       aspire_platinum: {}
     })
@@ -123,55 +126,58 @@ class Membership extends Component {
           className={classes.grid}
           > 
           <Grid
-              style={this.state.aspire_free}
             container
             item xs={12} sm={9} md={6} lg={4}
             alignItems="center"
             justify="center"
           >
-            <MembershipCard
-                front_text={"Aspiring Professionals Free"}
-                inner_text="Pricing Plan:"
-                description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
-                type="aspiring_professional"
-                buttonText={"Try for Free"}
-                buttonFunction={this.props.landing ? this.props.freeFunction : this.handleAspireFreeClick}
-                appContext={this.props.appContext}
-            />
+            <div style={this.state.aspire_free}>
+              <MembershipCard
+                  front_text={"Aspiring Professionals Free"}
+                  inner_text="Pricing Plan:"
+                  description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
+                  type="aspiring_professional"
+                  buttonText={this.props.freeButtonText}
+                  buttonFunction={this.props.landing ? this.props.freeFunction : this.handleAspireFreeClick}
+                  appContext={this.props.appContext}
+              />
+            </div>
           </Grid>
           <Grid
-              style={this.state.aspire_premium}
             container
             item xs={12} sm={9} md={6} lg={4}
             alignItems="center"
             justify="center"
           >
-            <MembershipCard
-                front_text="Aspiring Professionals Premium"
-                inner_text="Pricing Plan:"
-                description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
-                type="aspiring_professional"
-                buttonText={"Sign Up for Premium"}
-                buttonFunction={this.props.landing ? this.props.premiumFunction : this.handleAspirePremiumClick}
-                appContext={this.props.appContext}
-            />
+            <div style={this.state.aspire_premium}>
+              <MembershipCard
+                  front_text="Aspiring Professionals Premium"
+                  inner_text="Pricing Plan:"
+                  description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
+                  type="aspiring_professional"
+                  buttonText={this.props.premiumButtonText}
+                  buttonFunction={this.props.landing ? this.props.premiumFunction : this.handleAspirePremiumClick}
+                  appContext={this.props.appContext}
+              />
+            </div>
           </Grid>
           <Grid
-              style={this.state.aspire_platinum}
               container
               item xs={12} sm={9} md={6} lg={4}
               alignItems="center"
               justify="center"
           >
-            <MembershipCard
-                front_text="Senior Professionals Platinum"
-                inner_text="Pricing Plan"
-                description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
-                type="senior_professional"
-                buttonText="Sign Up for Platinum"
-                buttonFunction={this.props.landing ? this.props.platinumFunction : this.handleAspirePlatinumClick}
-                appContext={this.props.appContext}
-            />
+            <div style={this.state.aspire_platinum}>
+              <MembershipCard
+                  front_text="Senior Professionals Platinum"
+                  inner_text="Pricing Plan"
+                  description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
+                  type="senior_professional"
+                  buttonText={this.props.platinumButtonText}
+                  buttonFunction={this.props.landing ? this.props.platinumFunction : this.handleAspirePlatinumClick}
+                  appContext={this.props.appContext}
+              />
+            </div>
           </Grid>
         </Grid>
         <p className={classes.more_info} onClick={this.openMemberships}>more information about the membership options</p>

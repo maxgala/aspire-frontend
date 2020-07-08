@@ -11,7 +11,7 @@ import {logEvent, Result, ErrorResult} from './util';
 import './cardStyle.css';
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
+import Landing from "../LandingPage/Landing";
 
 const useStyles = makeStyles((theme) => ({
     submit: {
@@ -28,7 +28,23 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: "#F1F1F1",
             color: '#484848'
         }
-    }
+    },
+    cancel: {
+        margin: theme.spacing(3, 0, 3),
+        marginTop:"5%",
+        marginRight: '5%',
+        height: 50,
+        width: '30%',
+        borderRadius: 50,
+        backgroundColor: "#1A1A1A",
+        borderStyle: "solid",
+        color: "#F1F1F1",
+        borderColor: "#484848",
+        '&:hover': {
+            backgroundColor: "#F1F1F1",
+            color: '#484848'
+        }
+    },
 }));
 
 function withMyHook(Component){
@@ -58,6 +74,7 @@ class CheckoutForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            open: this.props.open,
             name: '',
             postal: '',
             errorMessage: null,
@@ -101,6 +118,12 @@ class CheckoutForm extends React.Component {
                 paymentMethod: payload.paymentMethod,
                 errorMessage: null,
             });
+            setTimeout(function() { //Start the timer
+                this.props.appContext.props.appContext.setState({
+                    currentScreen: <Landing appContext={this.props.appContext}/>
+                });
+            }.bind(this), 2000)
+
         }
     };
 
@@ -175,44 +198,18 @@ class CheckoutForm extends React.Component {
     }
 }
 
-const InjectedCheckoutForm = () => (
-    <ElementsConsumer>
-        {({stripe, elements}) => (
-            <CheckoutForm stripe={stripe} elements={elements} />
-        )}
-    </ElementsConsumer>
-);
-
-
 const stripePromise = loadStripe('pk_test_51Gug4qLfzbEt5UVhauq1BUNsK43H4mkdAChHAGxumOZ6Jpks8VaGIbGlbxG0bP0v2n3V5nl31yJG3ewzPzEs5N6E00wcmCJI8p');
 
 class Stripe extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: true,
-        }
-    }
-
-    handleClose = (event) => {
-        this.setState({
-            open: false
-        })
-    }
-
     render() {
         return(
-            <Dialog
-                maxWidth={"md"}
-                fullWidth={true}
-                onClose={this.handleClose}
-                aria-labelledby="stripe-dialog"
-                open={this.state.open}
-            >
-                <Elements stripe={stripePromise}>
-                    <InjectedCheckoutForm />
-                </Elements>
-            </Dialog>
+            <Elements stripe={stripePromise} appContext={this.props.appContext}>
+                <ElementsConsumer>
+                    {({stripe, elements}) => (
+                        <CheckoutForm stripe={stripe} elements={elements} appContext={this.props.appContext}/>
+                    )}
+                </ElementsConsumer>
+            </Elements>
         )
     }
 }
