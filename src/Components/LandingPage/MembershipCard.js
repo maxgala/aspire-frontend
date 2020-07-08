@@ -3,7 +3,6 @@ import AspiringProfessional from "../Images/aspiring_prof_membership.png";
 import SeniorExecutive from "../Images/senior_exec_membership.png";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
-import Registration from '../Registration/Registration';
 
 const useStyles = makeStyles(theme => ({
   image: { 
@@ -19,11 +18,10 @@ const useStyles = makeStyles(theme => ({
   front_text: { 
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
-    fontSize: "30px",
+    fontSize: "28px",
     paddingBottom: '10px',
     color: 'black',
-    textAlign: 'left',
-    marginLeft : '10%'
+    textAlign: 'center'
   },
   small_text: { 
     fontFamily: "Montserrat",
@@ -47,7 +45,10 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
         backgroundColor: "#F1F1F1",
         color: '#484848'
-    }
+    },
+    '@media (max-width: 480px)': {
+      marginTop: '10%'
+    },
   }
 }));
 
@@ -59,12 +60,6 @@ function withMyHook(Component) {
 }
 
 class MembershipCard extends Component {
-  changeToSignUp = (event) => {
-    this.props.appContext.setState({
-      currentScreen: <Registration appContext={this.props.appContext}/>
-    })
-  };
-
   render() {
     const classes = this.props.classes;
     return (
@@ -73,7 +68,7 @@ class MembershipCard extends Component {
           <img className={classes.image} src={this.props.type === 'aspiring_professional' ? AspiringProfessional : SeniorExecutive} alt="Membership"/>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <h2 className={classes.small_text}>{this.props.description}</h2>
-          <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Join Now</Button>
+          <Button className={classes.button} variant="contained" onClick={this.props.buttonFunction}><b>{this.props.buttonText}</b></Button>
         </div>
       </div>
     )

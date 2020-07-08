@@ -133,10 +133,6 @@ class Landing extends Component{
         this.handleClick = this.handleClick.bind(this);
     }
 
-    componentDidMount() {
-
-    }
-
     handleClick(e) {
       e.preventDefault();
       window.scrollTo({
@@ -191,7 +187,15 @@ class Landing extends Component{
                         <Features/>
                         <SeniorExecGrid appContext={this.props.appContext}/>
                         <JobSection appContext={this.props.appContext}/>
-                        <Membership appContext={this.props.appContext}/>
+                        <Membership appContext={this.props.appContext}
+                                    landing={true}
+                                    freeButtonText={"Join Now"}
+                                    premiumButtonText={"Join Now"}
+                                    platinumButtonText={"Join Now"}
+                                    freeFunction={this.changeToSignUp}
+                                    premiumFunction={this.changeToSignUp}
+                                    platinumFunction={this.changeToSignUp}
+                        />
                         <Carousal/>
 
                         {/* Scroll to top and footer components at bottom */}
