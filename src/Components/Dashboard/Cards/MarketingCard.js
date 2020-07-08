@@ -3,14 +3,12 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '100%',
-    maxWidth: '350px',
-    height: '40px',
+    width: '90%',
+    maxWidth: '700px',
+    height: '170px',
     borderStyle: 'solid',
-    marginBottom: '20px',
-    borderRadius: '12px',
-    borderColor:'#707070',
-    borderWidth:'thin',
+    marginBottom: '25px',
+    borderRadius: '20px'
   }
 }));
 
@@ -21,16 +19,16 @@ function withMyHook(Component) {
   }
 }
 
-class FilterCard extends Component {
+class MarketingCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
-        <p> </p>
+        <p>Marketing Card</p>
       </div>
     )
   }
 }
 
-FilterCard = withMyHook(FilterCard);
-export default FilterCard;
+MarketingCard = withMyHook(MarketingCard);
+export default MarketingCard;
