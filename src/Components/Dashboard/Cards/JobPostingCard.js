@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -8,7 +9,8 @@ const useStyles = makeStyles(() => ({
     height: '140px',
     borderStyle: 'solid',
     marginBottom: '20px',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    color: '#6EA0B5'
   }
 }));
 
@@ -24,7 +26,11 @@ class JobPostingCard extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
-        <p>JOB POSTING CARD</p>
+        <h1>JOB TITLE</h1>
+        <span>Company</span>
+        <span>Location</span>
+        <h3>Date posted</h3>
+        <Button variant="contained" color="primary" >Apply</Button>
       </div>
     )
   }

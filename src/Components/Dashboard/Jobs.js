@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
+import JobPostingCard from "./Cards/JobPostingCard"
+
 
 const useStyles = makeStyles(() => ({
 }));
@@ -16,6 +18,7 @@ class Jobs extends Component {
     return (
       <div>
         <p>JOBS PAGE</p>
+        <JobPostingCard/>
       </div>
     )
   }
