@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import MarketingCard from "./Cards/MarketingCard";
+import JobApplicationCard from "./Cards/JobApplicationCard";
 import Filter from "./Cards/FilterCard";
 
 const useStyles = makeStyles(() => ({
@@ -237,7 +237,7 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <MarketingCard/>
+              <JobApplicationCard/>
             </Grid>
             <Grid
               container
@@ -246,7 +246,7 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <MarketingCard/>
+              <JobApplicationCard/>
             </Grid>
             <Grid
               container
@@ -255,62 +255,7 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <MarketingCard/>
-            </Grid>
-
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <MarketingCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <MarketingCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <MarketingCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <MarketingCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <MarketingCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <MarketingCard/>
+              <JobApplicationCard/>
             </Grid>
 
             <Grid
@@ -320,7 +265,7 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <MarketingCard/>
+              <JobApplicationCard/>
             </Grid>
             <Grid
               container
@@ -329,7 +274,7 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <MarketingCard/>
+              <JobApplicationCard/>
             </Grid>
             <Grid
               container
@@ -338,7 +283,62 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <MarketingCard/>
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+
+            <Grid
+              container
+              item xs={12} sm={9} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={9} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
             </Grid>
           </Grid>
         </div>
