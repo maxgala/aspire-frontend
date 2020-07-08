@@ -47,6 +47,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const labelStyle={
+        color: '#6b7c93',
+        fontWeight: 300,
+        letterSpacing: '0.025em',
+        marginTop: '16px',
+        display: 'block'
+};
+
 function withMyHook(Component){
     return function WrappedComponent(props){
         const classes = useStyles();
@@ -133,7 +141,7 @@ class CheckoutForm extends React.Component {
         const classes = this.props.classes;
         return (
             <form onSubmit={this.handleSubmit}>
-                <label htmlFor="name">Full Name</label>
+                <label style={labelStyle} htmlFor="name">Full Name</label>
                 <input
                     id="name"
                     required
@@ -143,7 +151,7 @@ class CheckoutForm extends React.Component {
                         this.setState({name: event.target.value});
                     }}
                 />
-                <label htmlFor="cardNumber">Card Number</label>
+                <label style={labelStyle} htmlFor="cardNumber">Card Number</label>
                 <CardNumberElement
                     id="cardNumber"
                     onBlur={logEvent('blur')}
@@ -152,7 +160,7 @@ class CheckoutForm extends React.Component {
                     onReady={logEvent('ready')}
                     options={ELEMENT_OPTIONS}
                 />
-                <label htmlFor="expiry">Card Expiration</label>
+                <label style={labelStyle} htmlFor="expiry">Card Expiration</label>
                 <CardExpiryElement
                     id="expiry"
                     onBlur={logEvent('blur')}
@@ -161,7 +169,7 @@ class CheckoutForm extends React.Component {
                     onReady={logEvent('ready')}
                     options={ELEMENT_OPTIONS}
                 />
-                <label htmlFor="cvc">CVC</label>
+                <label style={labelStyle} htmlFor="cvc">CVC</label>
                 <CardCvcElement
                     id="cvc"
                     onBlur={logEvent('blur')}
@@ -170,7 +178,7 @@ class CheckoutForm extends React.Component {
                     onReady={logEvent('ready')}
                     options={ELEMENT_OPTIONS}
                 />
-                <label htmlFor="postal">Postal Code</label>
+                <label style={labelStyle} htmlFor="postal">Postal Code</label>
                 <input
                     id="postal"
                     required

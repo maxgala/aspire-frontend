@@ -6,12 +6,6 @@
     box-sizing: border-box;
 }
 
-body,
-html {
-    background-color: #f6f9fc;
-    font-size: 18px;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-}
 
 form {
     max-width: 800px;
@@ -30,15 +24,6 @@ form {
         max-width: 300px;
         margin: 80px auto;
     }
-}
-
-
-label {
-    color: #6b7c93;
-    font-weight: 300;
-    letter-spacing: 0.025em;
-    margin-top: 16px;
-    display: block;
 }
 
 input {
