@@ -174,7 +174,6 @@ class Dashboard extends Component {
               
               
             </Container>
-            <JobView/>
 
             <Container className={classes.dashboard_container}>
               <Toolbar className={classes.toolbar}>
