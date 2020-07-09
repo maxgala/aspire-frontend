@@ -111,7 +111,7 @@ class CoffeeChatCard extends Component {
             spacing={1}
             alignItems="flex-start"
             justify="flex-start"
-            style={{height: '160px'}}
+            style={{height: '170px'}}
           >
             <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
           </Grid>

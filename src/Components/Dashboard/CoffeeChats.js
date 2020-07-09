@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
   },
 
   sort:{
-    alignItems: 'left',
+    alignItems: 'flex-start',
     textAlign: 'left',
     marginBottom:'40px'
   },
@@ -181,7 +181,7 @@ class CoffeeChats extends Component {
           >
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -190,7 +190,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -199,7 +199,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -208,7 +208,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -217,7 +217,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -226,7 +226,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -235,7 +235,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -244,7 +244,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -253,7 +253,7 @@ class CoffeeChats extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
