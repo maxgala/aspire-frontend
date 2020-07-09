@@ -166,8 +166,8 @@ class CoffeeChats extends Component {
           <div className={classes.sort}>
             <p className={classes.date}> Sort date posted by:
             <select className={classes.select}>
-              <option  value="Ascending">Ascending</option>
-              <option  value="descending">Descending</option>
+              <option value="Ascending">Ascending</option>
+              <option value="descending">Descending</option>
             </select>
             </p>
           </div>
@@ -186,7 +186,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
@@ -195,7 +195,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
@@ -204,7 +204,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={true}/>
             </Grid>
             <Grid
               container
@@ -213,7 +213,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
@@ -222,7 +222,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
             </Grid>
             <Grid
               container
@@ -231,7 +231,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
             </Grid>
             <Grid
               container
@@ -240,7 +240,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
@@ -249,7 +249,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
@@ -258,7 +258,7 @@ class CoffeeChats extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
             </Grid>
           </Grid>
         </div>

@@ -4,13 +4,29 @@ import image from "../../Images/faceShot/pic1.png";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(() => ({
-  card: {
+  cardOne: {
     width: '95%',
     maxWidth: '700px',
     height: '160px',
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor: '#B6A165'
+  },
+  cardFour: {
+    width: '95%',
+    maxWidth: '700px',
+    height: '160px',
+    marginBottom: '20px',
+    borderRadius: '20px',
+    backgroundColor: '#455E6A'
+  },
+  cardBooked: {
+    width: '95%',
+    maxWidth: '700px',
+    height: '160px',
+    marginBottom: '20px',
+    borderRadius: '20px',
+    backgroundColor: '#9D9D9D'
   },
   image:{
     width: '100px',
@@ -31,11 +47,14 @@ const useStyles = makeStyles(() => ({
   subtitle: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
-    fontStyle: 'italic',
     width: '100%',
     textAlign: 'left',
     margin: '5px',
     color: 'white'
+  },
+  name: {
+    fontStyle: 'italic',
+    paddingRight: '5px'
   },
   company: {
     fontFamily: 'myriad-pro, sans-serif',
@@ -54,6 +73,16 @@ const useStyles = makeStyles(() => ({
     paddingTop: '20px',
     fontSize: '10px',
     color: 'white'
+  },
+  booked: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
+    textAlign: 'right',
+    margin: '5px',
+    paddingTop: '5px',
+    fontSize: '8px',
+    color: 'white',
+    float: 'right'
   }
 }));
 
@@ -68,7 +97,7 @@ class CoffeeChatCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div className={classes.card}>
+      <div className={this.props.booked ? classes.cardBooked : this.props.oneOnOneCard ? classes.cardOne : classes.cardFour}>
         <Grid
           container
           item xs={12}
@@ -93,8 +122,11 @@ class CoffeeChatCard extends Component {
             alignItems="flex-start"
             justify="flex-start"
           >
-            <p className={classes.title}>One-on-One</p>
-            <p className={classes.subtitle}>Yusuf H, Finance Professional</p>
+            <p className={classes.title}>
+              {this.props.oneOnOneCard ? "One-on-One" : "Four-on-One"}
+              {this.props.booked ? <span className={classes.booked}>booked</span> : ''}
+            </p>
+            <p className={classes.subtitle}><span className={classes.name}>Yusuf H</span> Finance Professional</p>
             <p className={classes.company}>TD</p>
             <p className={classes.date}>Scheduled: July 10th, 2020</p>
           </Grid>

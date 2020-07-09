@@ -74,7 +74,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={true} booked={false}/>
                 </Grid>
                 <Grid
                   container
@@ -83,7 +83,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={false} booked={false}/>
                 </Grid>
               </Grid>
 
@@ -209,7 +209,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={false} booked={false}/>
                 </Grid>
                 <Grid
                   container
@@ -218,7 +218,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={true} booked={false}/>
                 </Grid>
               </Grid>
 
