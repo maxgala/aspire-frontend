@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
 
   mainPage: { 
     paddingLeft: '10%',
-    paddingRight: '10%',
+    paddingRight: '15%',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
@@ -108,7 +108,6 @@ class CoffeeChats extends Component {
                 <Filter/>
               </Grid>
             </Grid>
-
             <Grid
               container
               item xs={12} sm={6} md={3}
