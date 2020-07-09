@@ -8,9 +8,9 @@ const useStyles = makeStyles(() => ({
     width: '95%',
     maxWidth: '700px',
     height: '160px',
-    borderStyle: 'solid',
     marginBottom: '20px',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    backgroundColor: '#B6A165'
   },
   image:{
     width: '100px',
@@ -19,28 +19,41 @@ const useStyles = makeStyles(() => ({
     margin: 'auto',
   },
   title: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bolder',
     width: '100%',
     textAlign: 'left',
     margin: '5px',
     paddingTop: '10px',
-    fontSize: '20px'
+    fontSize: '20px',
+    color: 'white'
   },
   subtitle: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
     width: '100%',
     textAlign: 'left',
-    margin: '5px'
+    margin: '5px',
+    color: 'white'
   },
   company: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
     width: '100%',
     textAlign: 'left',
-    margin: '5px'
+    margin: '5px',
+    color: 'white'
   },
   date: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
     width: '100%',
     textAlign: 'right',
     margin: '5px',
     paddingTop: '20px',
-    fontSize: '10px'
+    fontSize: '10px',
+    color: 'white'
   }
 }));
 
