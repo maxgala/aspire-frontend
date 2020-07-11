@@ -513,7 +513,7 @@ class FinalPage extends Component{
                     aria-labelledby="stripe-dialog"
                     open={this.state.openStripe}
                 >
-                    <Stripe appContext={this.props.appContext}/>
+                    <Stripe appContext={this.props.appContext} finalPage={this}/>
                 </Dialog>
             </Container>
         );
