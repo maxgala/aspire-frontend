@@ -30,8 +30,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     cancel: {
-        margin: theme.spacing(3, 0, 3),
-        marginTop:"5%",
         marginRight: '5%',
         height: 50,
         width: '30%',
@@ -134,6 +132,12 @@ class CheckoutForm extends React.Component {
         }
     };
 
+    goBackPrev = event => {
+        this.props.finalPage.setState({
+            openStripe: false
+        })
+    };
+
     render() {
         const {stripe} = this.props;
         const {postal, name, paymentMethod, errorMessage} = this.state;
@@ -192,6 +196,14 @@ class CheckoutForm extends React.Component {
                     <Result>Got PaymentMethod: {paymentMethod.id}</Result>
                 )}<br/>
                 <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.cancel}
+                    onClick={this.goBackPrev}
+                >
+                    <b>Go Back</b>
+                </Button>
+                <Button
                     type="submit"
                     disabled={!stripe}
                     variant="contained"
@@ -213,7 +225,7 @@ class Stripe extends Component{
             <Elements stripe={stripePromise} appContext={this.props.appContext}>
                 <ElementsConsumer>
                     {({stripe, elements}) => (
-                        <CheckoutForm stripe={stripe} elements={elements} appContext={this.props.appContext}/>
+                        <CheckoutForm stripe={stripe} elements={elements} appContext={this.props.appContext} finalPage={this.props.finalPage}/>
                     )}
                 </ElementsConsumer>
             </Elements>
