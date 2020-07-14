@@ -10,8 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
-  background: { 
-    backgroundColor: 'white',
+  background: {
     paddingTop:'3%',
     paddingBottom:'5%',
     textAlign: 'center'
