@@ -163,7 +163,7 @@ class FinalPage extends Component{
             phone: this.props.prev ? this.props.prev.phone : '',
             email: this.props.prev ? this.props.prev.email : '',
             password: this.props.prev ? this.props.prev.password : '',
-            ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
+            year_of_birth: this.props.prev ? this.props.prev.year_of_birth : '',
             industry: this.props.prev ? this.props.prev.industry : '',
             industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
             title: this.props.prev ? this.props.prev.title : '',
@@ -175,6 +175,8 @@ class FinalPage extends Component{
             resumeURL: this.props.prev ? this.props.prev.resumeURL : '',
             profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
+            general_email_consent: this.props.prev ? this.props.prev.general_email_consent : false,
+            aspire_email_consent: this.props.prev ? this.props.prev.aspire_email_consent : false,
             aspire_free: true,
             aspire_premium: false,
             aspire_platinum: false,
@@ -213,6 +215,30 @@ class FinalPage extends Component{
         }else{
             this.setState({
                 senior_executive: false,
+            })
+        }
+    };
+
+    handleGeneralEmailChoice = (event) => {
+        if (this.state.general_email_consent ===  false) {
+            this.setState({
+                general_email_consent: true,
+            })
+        } else {
+            this.setState({
+                general_email_consent: false,
+            })
+        }
+    };
+
+    handleAspireEmailChoice = (event) => {
+        if (this.state.aspire_email_consent ===  false) {
+            this.setState({
+                aspire_email_consent: true,
+            })
+        } else {
+            this.setState({
+                aspire_email_consent: false,
             })
         }
     };
@@ -274,7 +300,7 @@ class FinalPage extends Component{
                 <div className={classes.paper}>
                     <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
                     <Typography component="h1" variant="h5">
-                        Registration Info
+                        Registration
                     </Typography>
                 </div>
                 <div className={classes.form}>
@@ -303,6 +329,38 @@ class FinalPage extends Component{
                                             anyone in charge of a principal business unit or function.
                                         </p>}>
                                         <b>I would like to be considered as a Senior Executive</b>
+                                    </Tooltip>
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={this.state.general_email_consent}
+                                        onChange={this.handleGeneralEmailChoice}
+                                        name="checkedD"
+                                    />}
+                                label={
+                                    <Tooltip title={
+                                        <p>TODO: tooltip text</p>}>
+                                        <b>I would like to signup for general MAX related emails</b>
+                                    </Tooltip>
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={this.state.aspire_email_consent}
+                                        onChange={this.handleAspireEmailChoice}
+                                        name="checkedD"
+                                    />}
+                                label={
+                                    <Tooltip title={
+                                        <p>TODO: tooltip text</p>}>
+                                        <b>I would like to signup for MAX Aspire related emails</b>
                                     </Tooltip>
                                 }
                             />
