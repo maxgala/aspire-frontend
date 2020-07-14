@@ -132,25 +132,25 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Home appContext={this}/>
+      currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     })
   }
 
   changeToCoffeeChats() {
     this.setState({
-      currentScreen: <CoffeeChats appContext={this}/>
+      currentScreen: <CoffeeChats appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToJobs() {
     this.setState({
-      currentScreen: <Jobs appContext={this}/>
+      currentScreen: <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToDashboard() {
     this.setState({
-      currentScreen: <Home appContext={this}/>
+      currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
