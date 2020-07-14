@@ -135,7 +135,7 @@ class SecondPage extends Component {
             phone: this.props.prev ? this.props.prev.phone : '',
             email: this.props.prev ? this.props.prev.email : '',
             password: this.props.prev ? this.props.prev.password : '',
-            ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
+            year_of_birth: this.props.prev ? this.props.prev.year_of_birth : '',
             progress: 50,
             industry: this.props.prev ? this.props.prev.industry : '',
             industry_tags: this.props.prev ? this.props.prev.industry_tags : [],

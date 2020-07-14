@@ -19,7 +19,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import MenuItem from "@material-ui/core/MenuItem";
-import AgeGroups from "./AgeGroups";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -78,7 +77,7 @@ class FirstPage extends Component {
             phone: this.props.prev ? this.props.prev.phone : '',
             email: this.props.prev ? this.props.prev.email : '',
             password: this.props.prev ? this.props.prev.password : '',
-            ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
+            year_of_birth: this.props.prev ? this.props.prev.year_of_birth : '',
             industry: this.props.prev ? this.props.prev.industry : '',
             industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
             title: this.props.prev ? this.props.prev.title : '',
@@ -100,7 +99,7 @@ class FirstPage extends Component {
             || this.state.lastName === '' || this.state.lastName === undefined
             || this.state.email === '' || this.state.email === undefined
             || this.state.phone === '' || this.state.phone === undefined
-            || this.state.ageGroup === '' || this.state.ageGroup === undefined
+            || this.state.year_of_birth === '' || this.state.year_of_birth === undefined
             || this.state.errorDisplay !== 'None'){
             this.setState({
                 dialogueOpen: true
@@ -160,7 +159,7 @@ class FirstPage extends Component {
 
     handleYearChange = (event) => {
         this.setState({
-            ageGroup: event.target.value
+            year_of_birth: event.target.value
         })
     };
 
@@ -236,21 +235,16 @@ class FirstPage extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
-                                    id="outlined"
+                                    variant="outlined"
                                     required
                                     fullWidth
-                                    select
-                                    label="Age Group"
-                                    value={this.state.ageGroup}
+                                    id="birth"
+                                    label="Year of Birth"
+                                    name="birth"
+                                    autoComplete="birth"
+                                    value={this.state.year_of_birth}
                                     onChange={this.handleYearChange}
-                                    variant="outlined"
-                                >
-                                    {AgeGroups.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
+                                />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
