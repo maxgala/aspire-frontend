@@ -132,7 +132,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Home appContext={this}/>
+      currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     })
   }
 
