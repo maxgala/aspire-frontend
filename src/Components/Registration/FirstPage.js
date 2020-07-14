@@ -235,13 +235,15 @@ class FirstPage extends Component {
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
+                                    id="date"
+                                    label="Birthday"
+                                    type="date"
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
                                     variant="outlined"
                                     required
                                     fullWidth
-                                    id="birth"
-                                    label="Year of Birth"
-                                    name="birth"
-                                    autoComplete="birth"
                                     value={this.state.year_of_birth}
                                     onChange={this.handleYearChange}
                                 />
