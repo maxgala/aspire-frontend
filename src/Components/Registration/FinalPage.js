@@ -16,13 +16,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import SeniorExecutive from "../Images/senior_exec_membership.png";
-import AspiringMember from "../Images/aspiring_prof_membership.png";
+import Membership from "../LandingPage/Membership";
+import Stripe from "../Payment/Stripe";
+import Landing from "../LandingPage/Landing";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -132,7 +128,23 @@ const useStyles = makeStyles((theme) => ({
             display: 'inline-flex',
         },
         margin: 'auto',
-    }
+    },
+    grid: {
+        paddingLeft: '10%',
+        paddingRight: '10%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: '30px',
+    },
+    features_title: {
+        fontFamily: "Nunito Sans",
+        fontWeight: "Bold",
+        fontSize: "48px",
+        margin: '0px',
+        paddingTop: '30px',
+        paddingBottom: '30px',
+        color: 'black',
+    },
 }));
 
 function withMyHook(Component){
@@ -163,9 +175,13 @@ class FinalPage extends Component{
             resumeURL: this.props.prev ? this.props.prev.resumeURL : '',
             profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
+            aspire_free: true,
+            aspire_premium: false,
+            aspire_platinum: false,
             progress: 100,
             checked: false,
-            open: false
+            open: false,
+            openStripe: false
         }
     }
 
@@ -201,16 +217,59 @@ class FinalPage extends Component{
         }
     };
 
+    handleStripeClose = (event) => {
+        this.setState({
+            openStripe: false
+        })
+    };
+
+    handleSubmit = (event) => {
+        if (this.state.aspire_premium === true || this.state.aspire_platinum === true){
+            this.setState({
+                openStripe: true
+            })
+        }else{
+            this.props.appContext.props.appContext.setState({
+                currentScreen: <Landing appContext={this.props.appContext}/>
+            });
+        }
+    };
+
     readConditions = (event) => {
         this.setState({
             open: true
         })
     };
 
+    handleAspireFreeClick = event => {
+        this.setState({
+            aspire_free: true,
+            aspire_premium: false,
+            aspire_platinum: false
+        })
+    };
+
+    handleAspirePremiumClick = event => {
+        this.setState({
+            aspire_premium: true,
+            aspire_free: false,
+            aspire_platinum: false
+        })
+    };
+
+    handleAspirePlatimumClick = event => {
+        this.setState({
+            aspire_platinum: true,
+            aspire_premium: false,
+            aspire_free: false
+        })
+    };
+
+
     render() {
         const classes = this.props.classes;
         return(
-            <Container component="main" maxWidth="sm">
+            <Container component="main" maxWidth="lg">
                 <CssBaseline />
                 <div className={classes.paper}>
                     <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
@@ -220,86 +279,34 @@ class FinalPage extends Component{
                 </div>
                 <div className={classes.form}>
                     <Grid container spacing={2}>
+                        <Membership appContext={this.props.appContext}
+                                    landing={false}
+                                    freeButtonText={"Try for Free"}
+                                    premiumButtonText={"Sign Up for Premium"}
+                                    platinumButtonText={"Sign Up for Platinum"}
+                                    freeFunction={this.handleAspireFreeClick}
+                                    premiumFunction={this.handleAspirePremiumClick}
+                                    platinumFunction={this.handleAspirePlatimumClick}
+                        />
                         <Grid item xs={12}>
                             <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.senior_executive}
-                                            onChange={this.handleUserChoice}
-                                            name="checkedD"
-                                        />}
-                                    label={
-                                        <Tooltip title={
-                                            <p>Senior Executive means the chief executive officer,
-                                                chief operating officer, chief financial officer, or
-                                                anyone in charge of a principal business unit or function.
-                                            </p>}>
-                                            <b>I would like to be considered as a Senior Executive</b>
-                                        </Tooltip>
-                                    }
+                                control={
+                                    <Checkbox
+                                        checked={this.state.senior_executive}
+                                        onChange={this.handleUserChoice}
+                                        name="checkedD"
+                                    />}
+                                label={
+                                    <Tooltip title={
+                                        <p>Senior Executive means the chief executive officer,
+                                            chief operating officer, chief financial officer, or
+                                            anyone in charge of a principal business unit or function.
+                                        </p>}>
+                                        <b>I would like to be considered as a Senior Executive</b>
+                                    </Tooltip>
+                                }
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <div className={classes.titlePaper}>
-                                <Typography component="h1" variant="h5">
-                                    Memberships
-                                </Typography>
-                            </div>
-                        </Grid>
-                        <div className={classes.membership_options}>
-                            <Card className={classes.cardRoot}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={AspiringMember}
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            <b> Mentee </b>
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Button fullWidth className={classes.payButton} color="primary">
-                                        <b>Try for Free</b>
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                            <Card className={classes.cardRoot}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={SeniorExecutive}
-                                        title="Contemplative Reptile"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            <b> Mentee </b>
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary" component="p">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Button fullWidth className={classes.payButton} color="primary">
-                                        <b>Sign Up for Premium</b>
-                                    </Button>
-                                </CardActions>
-                            </Card>
-                        </div>
                         <Grid item xs={12}>
                             <FormControlLabel
                                 control={
@@ -330,6 +337,7 @@ class FinalPage extends Component{
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={this.handleSubmit}
                     >
                         <b>Submit</b>
                     </Button>
@@ -495,6 +503,17 @@ class FinalPage extends Component{
                             <b>Agree</b>
                         </Button>
                     </DialogActions>
+                </Dialog>
+                <Dialog
+                    maxWidth={"md"}
+                    fullWidth={true}
+                    disableEscapeKeyDown
+                    disableBackdropClick
+                    onClose={this.handleStripeClose}
+                    aria-labelledby="stripe-dialog"
+                    open={this.state.openStripe}
+                >
+                    <Stripe appContext={this.props.appContext}/>
                 </Dialog>
             </Container>
         );
