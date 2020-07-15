@@ -123,7 +123,16 @@ class Home extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={12}
+                  item xs={12} sm={12} md={6}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <JobPostingCard/>
+                </Grid>
+                <Grid
+                  container
+                  item xs={12} sm={12} md={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
