@@ -6,9 +6,10 @@ const useStyles = makeStyles(() => ({
   card: {
     width: '95%',
     minHeight: '130px',
-    maxWidth: '300px',
+    maxWidth: '500px',
     height: '18vw',
     marginBottom: '20px',
+    marginRight: '10%',
     borderRadius: '20px',
     backgroundColor:'#58595B',
 
@@ -16,7 +17,7 @@ const useStyles = makeStyles(() => ({
   button: {
     textTransform: 'none',
     backgroundColor: "#FFFFFF",
-    marginTop:"20%",
+    marginTop:"15%",
     borderRadius: 50,
     color: "#58595B",
     position:'relative',
@@ -25,9 +26,8 @@ const useStyles = makeStyles(() => ({
         backgroundColor: "#F1F1F1",
         color: '#484848'
     },
-    width:'8vw',
-    fontSize:'0.7vw',
-    fontWeight: 'bold',
+    width:'10vw',
+    fontSize:'0.9vw',
     fontFamily:'myriad-pro, sans-serif',
     paddingLeft: '5px',
     paddingRight: '5px'
@@ -43,17 +43,16 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
     width: '100%',
     textAlign: 'left',
-    marginBottom:'5%',
+    marginBottom:'2%',
     marginRight:'0%',
     marginLeft:'0%',
-    fontSize: '1.3vw',
+    fontSize: '1.5vw',
     color: 'white',
     padding:'4px',
   },
 
   line:{
     width:"55%",
-    //marginTop: "",
     marginLeft: "0px"
   },
 
@@ -116,7 +115,7 @@ class JobPostingCard extends Component {
 
           <Grid
             container
-            item xs={6}
+            item xs={4}
             spacing={1}
             alignItems="flex-start"
             justify="flex-start"
@@ -143,7 +142,7 @@ class JobPostingCard extends Component {
           </Grid>
           <Grid
           container
-          item xs={6}
+          item xs={8}
           spacing={1}
           alignItems="flex-start"
           justify="flex-start"
@@ -170,8 +169,6 @@ class JobPostingCard extends Component {
             </Grid>
           </Grid>
         </Grid>
-
-
         <Grid
             container
             item xs={12}
@@ -179,7 +176,6 @@ class JobPostingCard extends Component {
             alignItems="flex-start"
             justify="center"  
           >
-
           <Grid
             container
             item xs={6}
@@ -199,7 +195,6 @@ class JobPostingCard extends Component {
               <Button className={classes.button}>Edit Job Post</Button>
             </Grid>
           </Grid>
-
           <Grid
             container
             item xs={6}
@@ -220,7 +215,6 @@ class JobPostingCard extends Component {
             </Grid>
           </Grid>
         </Grid>
-
         </div>
       </div>
     )
