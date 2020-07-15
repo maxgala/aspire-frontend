@@ -123,8 +123,11 @@ class SignIn extends Component{
         }
         console.log("Username is: "+this.state.username)
         console.log("Password is: "+this.state.password)
+        // TODO: Get information from AWS cognito pool
+        // TODO: Check what role the user is, will redirect to different dashboard
+        let isSeniorExec = true // will set this based on role
         this.props.appContext.setState({
-            currentScreen: <Dashboard appContext={this.props.appContext}/>
+            currentScreen: <Dashboard appContext={this.props.appContext} isSeniorExec={isSeniorExec}/>
         })
     };
 

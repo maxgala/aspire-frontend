@@ -135,7 +135,7 @@ class SecondPage extends Component {
             phone: this.props.prev ? this.props.prev.phone : '',
             email: this.props.prev ? this.props.prev.email : '',
             password: this.props.prev ? this.props.prev.password : '',
-            ageGroup: this.props.prev ? this.props.prev.ageGroup : '',
+            year_of_birth: this.props.prev ? this.props.prev.year_of_birth : '',
             progress: 50,
             industry: this.props.prev ? this.props.prev.industry : '',
             industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
@@ -254,7 +254,7 @@ class SecondPage extends Component {
                 <div className={classes.paper}>
                     <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
                     <Typography component="h1" variant="h5">
-                        Registration Info
+                        Registration
                     </Typography>
                     <div className={classes.form}>
                         <Grid container spacing={2}>

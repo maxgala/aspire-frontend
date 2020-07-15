@@ -4,6 +4,11 @@ import pic0 from "../Images/faceShot/pic0.png";
 import { Button } from '@material-ui/core';
 import { faMapMarker, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -167,6 +172,15 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     color:'#6EA0B5',
     cursor:'pointer',
+  },
+  faq:{
+    margin:'5px 40px 10px 40px',
+    fontFamily: 'myriad-pro, sans-serif',
+    fontSize: '12px',
+    textAlign: 'center',
+    display: 'block',
+    color:'#6EA0B5',
+    cursor:'pointer',
   }
 }));
 
@@ -179,6 +193,25 @@ function withMyHook(Component){
 }
 
 class Landing extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    }
+  }
+
+  openFaq = (event) => {
+    this.setState({
+      open: true
+    })
+  };
+
+  handleClose = event =>{
+    this.setState({
+      open: false
+    })
+  };
+
   render() {
     const classes = this.props.classes;
     
@@ -202,6 +235,42 @@ class Landing extends Component{
           <Button className={classes.button1} variant="contained" onClick={this.changeToSignUp}>Post a Job</Button> 
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
+          <p className={classes.faq} onClick={this.openFaq}>FAQ</p>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            scroll={"paper"}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+            fullWidth={true}
+            maxWidth={'lg'}
+          >
+            <DialogTitle id="scroll-dialog-title">
+              <div>
+                <h2 style={{margin: '0px', marginTop: '10px', color: '#B5A165'}}>FAQ</h2>
+              </div>
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                id="scroll-dialog-description"
+                tabIndex={-1}
+                component={'span'}
+              >
+                <p>TODO: Frequently asked questions section</p>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={this.handleClose}
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{margin: 'auto', backgroundColor: '#B5A165'}}
+              >
+                <b>Close</b>
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </div>
     );
