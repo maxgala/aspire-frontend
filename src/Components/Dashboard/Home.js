@@ -95,6 +95,7 @@ class Home extends Component {
               >
                 <CoffeeChatCard oneOnOneCard={false} booked={false}/>
               </Grid>
+
               <Grid
                 container
                 item xs={6}
@@ -104,8 +105,8 @@ class Home extends Component {
               >
                 <CoffeeChatCard oneOnOneCard={true} booked={false}/>
               </Grid>
+              
             </Grid>
-
             {this.props.isSeniorExec ?
               <Grid
                 container
