@@ -61,7 +61,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor :'white',
     color: '#58595B',
     display: 'flex',
-    marginLeft: '9%',
+    marginLeft: '18%',
     marginTop: '1%',
     paddingLeft: '3%',
     paddingRight: '3%',
