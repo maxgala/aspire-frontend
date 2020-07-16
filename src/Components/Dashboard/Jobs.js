@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
   },
 
   sort:{
-    alignItems: 'left',
+    alignItems: 'flex-start',
     textAlign: 'left',
     marginBottom:'40px',
     marginLeft:'20px',
@@ -115,8 +115,8 @@ class JobBoard extends Component {
                   container
                   item xs={12}
                   spacing={1}
-                  alignItems="left"
-                  justify="left"
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
                   <Filter/>
                 </Grid>

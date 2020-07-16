@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     color: '#58595b',
     fontWeight: 'bold',
-    marginTop: '50px',
+    marginTop: '30px',
   },
   section_title: {
     fontFamily: 'PT Sans',
@@ -74,7 +74,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={true} booked={false}/>
                 </Grid>
                 <Grid
                   container
@@ -83,7 +83,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={false} booked={false}/>
                 </Grid>
               </Grid>
 
@@ -209,7 +209,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={false} booked={false}/>
                 </Grid>
                 <Grid
                   container
@@ -218,7 +218,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard/>
+                  <CoffeeChatCard oneOnOneCard={true} booked={false}/>
                 </Grid>
               </Grid>
 

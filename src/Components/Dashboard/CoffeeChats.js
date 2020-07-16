@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
 
   mainPage: { 
     paddingLeft: '10%',
-    paddingRight: '10%',
+    paddingRight: '15%',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
   },
 
   sort:{
-    alignItems: 'left',
+    alignItems: 'flex-start',
     textAlign: 'left',
     marginBottom:'40px'
   },
@@ -108,7 +108,6 @@ class CoffeeChats extends Component {
                 <Filter/>
               </Grid>
             </Grid>
-
             <Grid
               container
               item xs={12} sm={6} md={3}
@@ -167,8 +166,8 @@ class CoffeeChats extends Component {
           <div className={classes.sort}>
             <p className={classes.date}> Sort date posted by:
             <select className={classes.select}>
-              <option  value="Ascending">Ascending</option>
-              <option  value="descending">Descending</option>
+              <option value="Ascending">Ascending</option>
+              <option value="descending">Descending</option>
             </select>
             </p>
           </div>
@@ -182,84 +181,84 @@ class CoffeeChats extends Component {
           >
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={true}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={6}
+              item xs={12} sm={12} md={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
-              <CoffeeChatCard/>
+              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
             </Grid>
           </Grid>
         </div>
