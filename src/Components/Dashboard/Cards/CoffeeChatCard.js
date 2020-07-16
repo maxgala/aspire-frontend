@@ -104,7 +104,6 @@ const useStyles = makeStyles(() => ({
     fontSize: '8px',
     position: 'absolute',
     fontWeight: '400',
-    color: 'gray',
     borderRadius: 50,
     backgroundColor :'white',
     color: '#58595B',
