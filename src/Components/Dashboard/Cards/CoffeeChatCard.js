@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
   cardOne: {
     width: '95%',
     maxWidth: '700px',
-    height: '160px',
+    height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor: '#B6A165'
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   cardFour: {
     width: '95%',
     maxWidth: '700px',
-    height: '160px',
+    height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor: '#455E6A'
@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
   cardBooked: {
     width: '95%',
     maxWidth: '700px',
-    height: '160px',
+    height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor: '#9D9D9D'

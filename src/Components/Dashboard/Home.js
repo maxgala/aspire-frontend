@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     color: '#58595b',
     fontWeight: 'bold',
-    marginTop: '50px',
+    marginTop: '30px',
   },
   section_title: {
     fontFamily: 'PT Sans',
