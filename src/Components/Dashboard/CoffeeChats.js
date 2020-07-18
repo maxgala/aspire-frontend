@@ -7,8 +7,8 @@ import Filter from "./Cards/FilterCard";
 const useStyles = makeStyles(() => ({
 
   mainPage: { 
-    paddingLeft: '10%',
-    paddingRight: '15%',
+    paddingLeft: '5%',
+    paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',

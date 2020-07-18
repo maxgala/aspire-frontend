@@ -41,11 +41,11 @@ const useStyles = makeStyles(() => ({
     color: 'white',
   },
   image:{
-    width: '100px',
-    height: '100px',
+    width: '120px',
+    height: '120px',
     borderRadius: '50%',
     margin: 'auto',
-    marginTop: '40px',
+    marginTop: '30px',
     marginLeft: '10px',
     marginRight: '20px',
     display: 'inline-block'
@@ -100,6 +100,10 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     float: 'right'
   },
+  button_container: {
+    alignItems: 'flex-end',
+    justify: 'flex-end',
+  },
   button: {
     fontSize: '8px',
     position: 'absolute',
@@ -144,13 +148,13 @@ class CoffeeChatCard extends Component {
     return (
       <div className={this.props.booked ? classes.cardBooked : this.props.oneOnOneCard ? classes.cardOne : classes.cardFour}>
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
-        <div style={{width: 'calc(95% - 120px)', display: 'inline-block', transform: 'translate(0%, -60%)',}}>
+        <div style={{width: 'calc(95% - 140px)', display: 'inline-block', transform: 'translate(0%, -65%)',}}>
           <Grid
             container
             item xs={12}
             spacing={1}
-            alignItems="flex-start"
-            justify="center"
+            alignItems="center"
+            justify="flex-start"
             style={{height: '180px'}}
           >
             <Grid
@@ -183,26 +187,12 @@ class CoffeeChatCard extends Component {
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
+              style={{padding: '0px', marginLeft: '5px'}}
             >
-              <hr style={{width: '120px', textAlign:'right', marginLeft: '0%', marginTop:'1%', marginBottom: '5px' , height: 1, paddingBottom:'0'}}></hr>
-            </Grid>
-            <Grid
-              container
-              item xs={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <Button className={classes.button} variant="contained" color="primary" >View Booking</Button>
-            </Grid>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <div><span className={classes.date}>Available: July 10th, 2020</span></div>
+              <hr style={{width: '120px', textAlign:'right', marginLeft: '0%', marginTop:'1%', marginBottom: '1%' , height: 1, paddingBottom:'0'}}></hr>
+              <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
+              <span className={classes.date}>Available: July 10th, 2020</span>
+              <br/>
             </Grid>
           </Grid>
         </div>
