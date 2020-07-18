@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
-    paddingLeft: '15%',
+    paddingLeft: '5%',
     paddingRight: '5%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -19,13 +19,15 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     color: '#58595b',
     fontWeight: 'bold',
-    marginTop: '30px',
+    marginTop: '20px',
+    marginBottom: '0px'
   },
   section_title: {
     fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
     marginBottom: '10px',
+    marginTop: '15px',
     textAlign: 'left',
     color: 'black'
   }
@@ -43,14 +45,20 @@ class Home extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        {this.props.isSeniorExec ?
-          <div className={classes.home_page}>
-            <h1 className={classes.booking_history}>Your Booking History</h1>
+        <div className={classes.home_page}>
+          <h1 className={classes.booking_history}>Your Booking History</h1>
+          <Grid
+            container
+            alignItems="flex-start"
+            justify="flex-start"
+          >  
             <Grid
               container
+              item xs={12}
+              spacing={1}
               alignItems="flex-start"
               justify="flex-start"
-            >  
+            >
               <Grid
                 container
                 item xs={12}
@@ -58,35 +66,47 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Registered Coffee Chats</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={6}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-                </Grid>
-                <Grid
-                  container
-                  item xs={6}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-                </Grid>
+                <p className={classes.section_title}>Registered Coffee Chats</p>
               </Grid>
+              <Grid
+                container
+                item xs={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
+              </Grid>
+              <Grid
+                container
+                item xs={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
+              </Grid>
+              <Grid
+                container
+                item xs={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <CoffeeChatCard oneOnOneCard={false} booked={false}/>
+              </Grid>
+              <Grid
+                container
+                item xs={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
+              </Grid>
+            </Grid>
 
+            {this.props.isSeniorExec ?
               <Grid
                 container
                 item xs={12}
@@ -96,7 +116,16 @@ class Home extends Component {
               >
                 <Grid
                   container
-                  item xs={12}
+                  item xs={8}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <p className={classes.section_title}>Your Job Applications</p>
+                </Grid>
+                <Grid
+                  container
+                  item xs={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -128,10 +157,10 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <JobPostingCard/>
+                  <JobApplicationCard/>
                 </Grid>
               </Grid>
-
+            :
               <Grid
                 container
                 item xs={12}
@@ -141,7 +170,7 @@ class Home extends Component {
               >
                 <Grid
                   container
-                  item xs={12}
+                  item xs={8}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -151,132 +180,6 @@ class Home extends Component {
                 <Grid
                   container
                   item xs={4}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <JobApplicationCard/>
-                </Grid>
-                <Grid
-                  container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <JobApplicationCard/>
-                </Grid>
-                <Grid
-                  container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <JobApplicationCard/>
-                </Grid>
-              </Grid>
-            </Grid>
-          </div>
-        :
-          <div className={classes.home_page}>
-            <h1 className={classes.booking_history}>Your Booking History</h1>
-            <Grid
-              container
-              alignItems="flex-start"
-              justify="flex-start"
-            >  
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Registered Coffee Chats</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={6}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-                </Grid>
-                <Grid
-                  container
-                  item xs={6}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Your Job Application</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <JobApplicationCard/>
-                </Grid>
-                <Grid
-                  container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <JobApplicationCard/>
-                </Grid>
-                <Grid
-                  container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <JobApplicationCard/>
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -290,7 +193,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <JobPostingCard/>
+                  <JobApplicationCard/>
                 </Grid>
                 <Grid
                   container
@@ -299,7 +202,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <JobPostingCard/>
+                  <JobApplicationCard/>
                 </Grid>
                 <Grid
                   container
@@ -311,9 +214,9 @@ class Home extends Component {
                   <JobPostingCard/>
                 </Grid>
               </Grid>
-            </Grid>
-          </div>
-        }
+            }
+          </Grid>
+        </div>
       </div>
     )
   }
