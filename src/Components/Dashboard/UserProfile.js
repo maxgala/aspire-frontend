@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     width: '130px',
     margin: '15px 85px 20px 85px',
     borderRadius: '50%',
-    backgroundColor: '#B6A165',
+    backgroundColor: '#B5A165',
     display: 'inline-block',
     boxShadow: '0px 6px 6px #00000029',
   },
@@ -111,7 +111,7 @@ const useStyles = makeStyles(theme => ({
 
   button: {
     textTransform: 'none',
-    backgroundColor: "#B6A165",
+    backgroundColor: "#B5A165",
     marginBottom:"2%",
     marginLeft: 'auto',
     marginRight: 'auto',

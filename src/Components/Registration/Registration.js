@@ -26,9 +26,14 @@ const useStyles = makeStyles((theme) => ({
     },
     // this css element describes the size of the image
     img: {
-        cursor: 'pointer',
-        width: '150px',
-        padding: '1vw',
+        float: 'left',
+        align: 'left',
+        '@media (max-width: 480px)': {width: '125px'},
+        width: '175px',
+        '&:hover': {
+          cursor: 'pointer',
+          filter: 'sepia(60%)'
+        }
     },
     image: {
         backgroundImage: 'url(https://i.picsum.photos/id/1003/1181/1772.jpg)',
@@ -37,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+    },
+    toolbar: {
+        height: '10vh'
     }
 }));
 

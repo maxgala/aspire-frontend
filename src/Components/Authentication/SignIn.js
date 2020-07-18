@@ -35,9 +35,14 @@ const useStyles = makeStyles((theme) => ({
     },
     // this css element describes the size of the image
     img: {
-        cursor: 'pointer',
-        width: '150px',
-        padding: '1vw',
+        float: 'left',
+        align: 'left',
+        '@media (max-width: 480px)': {width: '125px'},
+        width: '175px',
+        '&:hover': {
+          cursor: 'pointer',
+          filter: 'sepia(60%)'
+        }
     },
     image: {
         backgroundImage: `url(${signInImage})`, //'url(https://i.picsum.photos/id/1003/1181/1772.jpg)',
@@ -77,7 +82,10 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: "#F1F1F1",
             color: '#484848'
         }
-    }
+    },
+    toolbar: {
+        height: '10vh'
+    },
 }));
 
 function withMyHook(Component){
@@ -121,8 +129,6 @@ class SignIn extends Component{
             window.alert("Not filled in");
             return;
         }
-        console.log("Username is: "+this.state.username)
-        console.log("Password is: "+this.state.password)
         // TODO: Get information from AWS cognito pool
         // TODO: Check what role the user is, will redirect to different dashboard
         let isSeniorExec = false // will set this based on role
