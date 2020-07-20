@@ -41,6 +41,52 @@ function withMyHook(Component) {
 }
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      coffee_chats: [
+        {
+          type: 'one',
+          booked: false,
+          name: 'Mohaimen K',
+          title: 'Software Engineering',
+          company: 'Microsoft',
+          tags: ['Software', 'Programming', 'Product'],
+          available: 'July 1th, 2020'
+        },
+        {
+          type: 'one',
+          booked: false,
+          name: 'Ahmed H',
+          title: 'Software Engineering',
+          company: 'Tealbook',
+          tags: ['Software', 'Frontend', 'Programming'],
+          available: 'August 10th, 2020'
+        },
+        {
+          type: 'four',
+          booked: false,
+          name: 'Malak A',
+          title: 'Software Engineering',
+          company: 'MAX',
+          tags: ['Software', 'Programming'],
+          available: 'August 5th, 2021'
+        },
+        {
+          type: 'one',
+          booked: false,
+          name: 'Fatum A',
+          title: 'Software Engineering',
+          company: 'MAX',
+          tags: ['Software', 'Programming'],
+          available: 'May 5th, 2021'
+        },
+      ],
+      job_applications: [],
+      job_postings: []
+    }
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -68,42 +114,17 @@ class Home extends Component {
               >
                 <p className={classes.section_title}>Registered Coffee Chats</p>
               </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-              </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-              </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-              </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-              </Grid>
+              {this.state.coffee_chats.map((chat) => (
+                <Grid
+                  container
+                  item xs={6}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <CoffeeChatCard oneOnOneCard={chat.type === 'one' ? true : false} booked={chat.booked} data={chat}/>
+                </Grid>
+              ))}
             </Grid>
 
             {this.props.isSeniorExec ?

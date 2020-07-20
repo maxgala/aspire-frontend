@@ -165,11 +165,11 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <h1 className={classes.title}>
-                {this.props.oneOnOneCard ? "One-on-One" : "Four-on-One"}
-                {this.props.booked ? <span className={classes.booked}>booked</span> : ''}
+                {this.props.data.type === 'one' ? "One-on-One" : "Four-on-One"}
+                {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''}
               </h1>
-              <p className={classes.subtitle}><span className={classes.name}>Yusuf H</span> Finance Professional</p>
-              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} style={{width: '18px', height: '18px', marginRight: '15px'}}/></span>TD</span>
+              <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
+              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} style={{width: '18px', height: '18px', marginRight: '15px'}}/></span>{this.props.data.company}</span>
             </Grid>
             <Grid
               container
@@ -178,8 +178,9 @@ class CoffeeChatCard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <span className={classes.tag}>Marketing</span>
-              <span className={classes.tag}>Software</span>
+              {this.props.data.tags.map((tag) => (
+                <span className={classes.tag}>{tag}</span>
+              ))}
             </Grid>
             <Grid
               container
@@ -191,7 +192,7 @@ class CoffeeChatCard extends Component {
             >
               <hr style={{width: '120px', textAlign:'right', marginLeft: '0%', marginTop:'1%', marginBottom: '1%' , height: 1, paddingBottom:'0'}}></hr>
               <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
-              <span className={classes.date}>Available: July 10th, 2020</span>
+              <span className={classes.date}>Available: {this.props.data.available}</span>
               <br/>
             </Grid>
           </Grid>
