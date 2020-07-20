@@ -68,7 +68,70 @@ function withMyHook(Component) {
 }
 
 class CoffeeChats extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      coffee_chats: [
+        {
+          type: 'one',
+          booked: false,
+          name: 'Mohaimen K',
+          title: 'Software Engineer',
+          company: 'Microsoft',
+          tags: ['Software', 'Programming', 'Product'],
+          available: 'July 1th, 2020'
+        },
+        {
+          type: 'one',
+          booked: false,
+          name: 'Ahmed H',
+          title: 'Software Engineer',
+          company: 'Tealbook',
+          tags: ['Software', 'Frontend', 'Programming'],
+          available: 'August 10th, 2020'
+        },
+        {
+          type: 'four',
+          booked: false,
+          name: 'Malak A',
+          title: 'Software Engineer',
+          company: 'MAX',
+          tags: ['Software', 'Programming'],
+          available: 'August 5th, 2021'
+        },
+        {
+          type: 'one',
+          booked: true,
+          name: 'Fatum A',
+          title: 'Software Engineer',
+          company: 'MAX',
+          tags: ['Software', 'Programming'],
+          available: 'May 5th, 2021'
+        },
+        {
+          type: 'one',
+          booked: false,
+          name: 'Mohaimen K',
+          title: 'Software Engineer',
+          company: 'Microsoft',
+          tags: ['Software', 'Programming', 'Product'],
+          available: 'July 1th, 2020'
+        },
+        {
+          type: 'one',
+          booked: false,
+          name: 'Ahmed H',
+          title: 'Software Engineer',
+          company: 'Tealbook',
+          tags: ['Software', 'Frontend', 'Programming'],
+          available: 'August 10th, 2020'
+        },
+      ],
+      job_applications: [],
+      job_postings: []
+    }
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -179,87 +242,18 @@ class CoffeeChats extends Component {
             alignItems="flex-start"
             justify="center"
           >
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={true}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-            </Grid>
+            {this.state.coffee_chats.map((chat, key) => (
+              <Grid
+                key={key}
+                container
+                item xs={12} sm={12} md={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <CoffeeChatCard oneOnOneCard={chat.type === 'one' ? true : false} booked={chat.booked} data={chat}/>
+              </Grid>
+            ))}
           </Grid>
         </div>
       </div>
