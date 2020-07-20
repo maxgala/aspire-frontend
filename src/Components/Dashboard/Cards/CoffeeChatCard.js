@@ -112,7 +112,6 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     fontSize: '8px',
-    // position: 'absolute',
     fontWeight: '400',
     borderRadius: 50,
     backgroundColor :'white',
