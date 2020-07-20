@@ -49,7 +49,7 @@ class Home extends Component {
           type: 'one',
           booked: false,
           name: 'Mohaimen K',
-          title: 'Software Engineering',
+          title: 'Software Engineer',
           company: 'Microsoft',
           tags: ['Software', 'Programming', 'Product'],
           available: 'July 1th, 2020'
@@ -58,7 +58,7 @@ class Home extends Component {
           type: 'one',
           booked: false,
           name: 'Ahmed H',
-          title: 'Software Engineering',
+          title: 'Software Engineer',
           company: 'Tealbook',
           tags: ['Software', 'Frontend', 'Programming'],
           available: 'August 10th, 2020'
@@ -67,7 +67,7 @@ class Home extends Component {
           type: 'four',
           booked: false,
           name: 'Malak A',
-          title: 'Software Engineering',
+          title: 'Software Engineer',
           company: 'MAX',
           tags: ['Software', 'Programming'],
           available: 'August 5th, 2021'
@@ -76,7 +76,7 @@ class Home extends Component {
           type: 'one',
           booked: false,
           name: 'Fatum A',
-          title: 'Software Engineering',
+          title: 'Software Engineer',
           company: 'MAX',
           tags: ['Software', 'Programming'],
           available: 'May 5th, 2021'
@@ -114,8 +114,9 @@ class Home extends Component {
               >
                 <p className={classes.section_title}>Registered Coffee Chats</p>
               </Grid>
-              {this.state.coffee_chats.map((chat) => (
+              {this.state.coffee_chats.map((chat, key) => (
                 <Grid
+                  key={key}
                   container
                   item xs={6}
                   spacing={1}

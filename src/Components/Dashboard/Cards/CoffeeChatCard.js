@@ -55,22 +55,28 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bolder',
     width: '100%',
     textAlign: 'left',
-    margin: '5px',
-    paddingTop: '10px',
+    paddingTop: '5px',
     fontSize: '20px',
-    color: 'white'
+    color: 'white',
+    margin: '0px',
+    marginLeft: '5px',
+    marginTop: '5px'
   },
   subtitle: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
     width: '100%',
     textAlign: 'left',
-    margin: '5px',
-    color: 'white'
+    color: 'white',
+    margin: '0px',
+    marginLeft: '5px',
+    marginTop: '5px'
   },
   name: {
     fontStyle: 'italic',
-    paddingRight: '5px'
+    paddingRight: '5px',
+    margin: '0px',
+    marginTop: '5px'
   },
   company: {
     fontFamily: 'myriad-pro, sans-serif',
@@ -106,7 +112,7 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     fontSize: '8px',
-    position: 'absolute',
+    // position: 'absolute',
     fontWeight: '400',
     borderRadius: 50,
     backgroundColor :'white',
@@ -116,22 +122,27 @@ const useStyles = makeStyles(() => ({
       color: '#484848'
     }
   },
-  tag: {
-    width: '60px',
-    float: 'left',
+  tag_container: {
+    width: 'auto',
     borderStyle: 'solid',
+    borderWidth: '0.5px',
+    borderRadius: 50,
+    borderColor: 'white',
+    margin: '5px',
+    marginLeft: '0px'
+  },
+  tag: {
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    left: '15px',
+    right: '15px',
+    float: 'left',
     fontSize: '8px',
     fontWeight: '100',
     color: 'white',
-    borderWidth: '0.5px',
-    borderRadius: 50,
-    marginRight: '2%',
-    borderColor: 'white',
     display: 'flex',
-    paddingLeft: '3%',
-    paddingRight: '3%',
-    paddingTop: '0.5%',
-    paddingBottom: '0.5%',
   }
 }));
 
@@ -152,7 +163,7 @@ class CoffeeChatCard extends Component {
           <Grid
             container
             item xs={12}
-            spacing={1}
+            spacing={0}
             alignItems="center"
             justify="flex-start"
             style={{height: '180px'}}
@@ -160,7 +171,7 @@ class CoffeeChatCard extends Component {
             <Grid
               container
               item xs={12}
-              spacing={1}
+              spacing={0}
               alignItems="flex-start"
               justify="flex-start"
             >
@@ -170,30 +181,28 @@ class CoffeeChatCard extends Component {
               </h1>
               <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
               <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} style={{width: '18px', height: '18px', marginRight: '15px'}}/></span>{this.props.data.company}</span>
-            </Grid>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              {this.props.data.tags.map((tag) => (
-                <span className={classes.tag}>{tag}</span>
+              {this.props.data.tags.map((tag, key) => (
+                <span key={key} className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
               ))}
             </Grid>
             <Grid
               container
               item xs={8}
-              spacing={1}
+              spacing={0}
               alignItems="flex-start"
               justify="flex-start"
-              style={{padding: '0px', marginLeft: '5px'}}
             >
-              <hr style={{width: '120px', textAlign:'right', marginLeft: '0%', marginTop:'1%', marginBottom: '1%' , height: 1, paddingBottom:'0'}}></hr>
-              <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
+              <hr style={{width: '90%', textAlign:'right', marginLeft: '0%', marginTop:'1%', marginBottom: '1%' , height: 1, paddingBottom:'0'}}></hr>
               <span className={classes.date}>Available: {this.props.data.available}</span>
-              <br/>
+            </Grid>
+            <Grid
+              container
+              item xs={4}
+              spacing={0}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
             </Grid>
           </Grid>
         </div>
