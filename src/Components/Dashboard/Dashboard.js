@@ -170,8 +170,6 @@ class Dashboard extends Component {
           >
             <Container className={classes.profile_container}>
               <UserProfile/>
-              
-              
             </Container>
 
             <Container className={classes.dashboard_container}>
