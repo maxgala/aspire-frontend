@@ -103,8 +103,9 @@ class Home extends Component {
                 justify="flex-start"
               >
                 <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-              </Grid>  
+              </Grid>
             </Grid>
+
             {this.props.isSeniorExec ?
               <Grid
                 container
