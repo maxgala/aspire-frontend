@@ -13,9 +13,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '290px',
-    maxWidth: '400px',
-    height: '150px',
+    width: '90%',
+    maxWidth: '500px',
+    height: '190px',
     borderStyle: 'solid',
     borderRadius: 11,
     backgroundColor: '#6EA0B5',
