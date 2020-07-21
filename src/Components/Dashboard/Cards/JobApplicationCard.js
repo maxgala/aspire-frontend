@@ -28,7 +28,6 @@ const useStyles = makeStyles(() => ({
     marginBottom: '5%'
   },
   jobTitle:{
-    fontSize: '12px',
     marginLeft: '7%',
     fontSize: '19px',
     marginTop:'5%px',
@@ -38,21 +37,19 @@ const useStyles = makeStyles(() => ({
   text2:{
     fontSize: '15px',
     marginLeft: '7%',
-    fontSize: '10px',
     marginTop:'66px',
     fontWeight: '100',
   },
   text3:{
     fontSize: '15px',
     marginLeft: '7%',
-    fontSize: '10px',
     marginTop:'6px',
     fontWeight: '100',
   },
   text4:{
     marginLeft: '7%',
     marginTop: '3%',
-    fontSize: '6px',
+    fontSize: '10px',
     fontWeight: '100',
     float: 'left',
     marginBottom: '15%',
@@ -62,15 +59,14 @@ const useStyles = makeStyles(() => ({
     fontSize: '8px',
     position: 'absolute',
     fontWeight: '400',
-    color: 'gray',
     borderRadius: 50,
     backgroundColor :'white',
     color: '#58595B',
     display: 'flex',
-    marginLeft: '11%',
+    marginLeft: '18%',
     marginTop: '1%',
-    paddingLeft: '3%',
-    paddingRight: '3%',
+    paddingLeft: '2%',
+    paddingRight: '2%',
     paddingTop: '0.5%',
     paddingBottom: '0.5%',
     '&:hover': {
@@ -79,7 +75,7 @@ const useStyles = makeStyles(() => ({
   }
   },
   tag: {
-    transform: 'translate(-110%, 340%)',
+    transform: 'translate(-160%, 340%)',
     float: 'left',
     borderStyle: 'solid',
     fontSize: '7px',
@@ -111,7 +107,6 @@ const useStyles = makeStyles(() => ({
   header: {
     textAlign: 'left',
     marginLeft:'20px',
-    fontSize: '16px',
     fontWeight: '100',
     fontSize: '18px'
   },
@@ -133,13 +128,8 @@ const useStyles = makeStyles(() => ({
     marginTop: '4%',
     color: '#000000'
   },
-  back:{
-    // backgroundColor: 'blue'
-  },
   textpopup:{
     fontSize: '15px',
-    // marginLeft: '4%',
-   
     marginTop:'66px',
     fontWeight: '100',
     marginRight: '16%'

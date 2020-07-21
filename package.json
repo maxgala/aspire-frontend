@@ -53,7 +53,6 @@
     ]
   },
   "devDependencies": {
-    "prop-types": "^15.7.2",
-    "webpack-cli": "^3.3.12"
+    "prop-types": "^15.7.2"
   }
 }

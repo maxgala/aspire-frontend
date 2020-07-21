@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Home from "./Home";
 import CoffeeChats from "./CoffeeChats";
 import Jobs from "./Jobs";
-import JobView from "./JobView";
 
 const useStyles = makeStyles(theme => ({
   root: {
