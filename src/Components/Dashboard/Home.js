@@ -4,6 +4,7 @@ import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
+import TestData from "./coffee_chats_test_data.json";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
@@ -44,44 +45,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coffee_chats: [
-        {
-          type: 'one',
-          booked: false,
-          name: 'Mohaimen K',
-          title: 'Software Engineer',
-          company: 'Microsoft',
-          tags: ['Software', 'Programming', 'Product'],
-          available: 'July 1th, 2020'
-        },
-        {
-          type: 'one',
-          booked: false,
-          name: 'Ahmed H',
-          title: 'Software Engineer',
-          company: 'Tealbook',
-          tags: ['Software', 'Frontend', 'Programming'],
-          available: 'August 10th, 2020'
-        },
-        {
-          type: 'four',
-          booked: false,
-          name: 'Malak A',
-          title: 'Software Engineer',
-          company: 'MAX',
-          tags: ['Software', 'Programming'],
-          available: 'August 5th, 2021'
-        },
-        {
-          type: 'one',
-          booked: false,
-          name: 'Fatum A',
-          title: 'Software Engineer',
-          company: 'MAX',
-          tags: ['Software', 'Programming'],
-          available: 'May 5th, 2021'
-        },
-      ],
+      coffee_chats: TestData,
       job_applications: [],
       job_postings: []
     }
