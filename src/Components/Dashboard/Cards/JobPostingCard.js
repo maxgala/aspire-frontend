@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Button } from '@material-ui/core';
 import view from "../../Images/view.png";
 import edit from "../../Images/edit.png";
 import Tooltip from '@material-ui/core/Tooltip';
+
 const useStyles = makeStyles(() => ({
   card: {
     width: '100%',
@@ -12,7 +12,6 @@ const useStyles = makeStyles(() => ({
     maxWidth: '500px',
     height: '180px',
     marginBottom: '20px',
-    //marginRight: '10%',
     borderRadius: '20px',
     backgroundColor:'#58595B',
 
@@ -186,8 +185,6 @@ class JobPostingCard extends Component {
               <p className={classes.active}>34</p>
             </Grid>
           </Grid>
-          
-
 
           <Grid
           container
@@ -204,7 +201,7 @@ class JobPostingCard extends Component {
               justify="flex-start"
             >
               <Tooltip title="Edit" arrow>
-               <img className={classes.image1} src={edit} />
+               <img className={classes.image1} src={edit} alt="Edit Job Posting"/>
               </Tooltip>
             </Grid>
           </Grid>
@@ -224,7 +221,7 @@ class JobPostingCard extends Component {
               justify="flex-start"
             >
               <Tooltip title="View" arrow>
-                <img className={classes.image2} src={view} />
+                <img className={classes.image2} src={view} alt="View Job Posting"/>
               </Tooltip>
             </Grid>
           </Grid>
