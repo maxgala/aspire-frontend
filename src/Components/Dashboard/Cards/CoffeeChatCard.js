@@ -142,6 +142,28 @@ const useStyles = makeStyles(() => ({
     fontWeight: '100',
     color: 'white',
     display: 'flex',
+  },
+  bar: {
+    width: '90%',
+    textAlign:'right',
+    marginLeft: '0%',
+    marginTop: '1%',
+    marginBottom: '1%',
+    height: 1,
+    paddingBottom:'0'
+  },
+  container: {
+    width: 'calc(95% - 140px)',
+    display: 'inline-block',
+    transform: 'translate(0%, -65%)'
+  },
+  company_icon: {
+    width: '18px',
+    height: '18px',
+    marginRight: '15px'
+  },
+  outer_grid: {
+    height: '180px'
   }
 }));
 
@@ -158,14 +180,14 @@ class CoffeeChatCard extends Component {
     return (
       <div className={this.props.booked ? classes.cardBooked : this.props.oneOnOneCard ? classes.cardOne : classes.cardFour}>
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
-        <div style={{width: 'calc(95% - 140px)', display: 'inline-block', transform: 'translate(0%, -65%)',}}>
+        <div className={classes.container}>
           <Grid
             container
             item xs={12}
             spacing={0}
             alignItems="center"
             justify="flex-start"
-            style={{height: '180px'}}
+            className={classes.outer_grid}
           >
             <Grid
               container
@@ -179,7 +201,7 @@ class CoffeeChatCard extends Component {
                 {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''}
               </h1>
               <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
-              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} style={{width: '18px', height: '18px', marginRight: '15px'}}/></span>{this.props.data.company}</span>
+              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>
               {this.props.data.tags.map((tag, key) => (
                 <span key={key} className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
               ))}
@@ -191,7 +213,7 @@ class CoffeeChatCard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <hr style={{width: '90%', textAlign:'right', marginLeft: '0%', marginTop:'1%', marginBottom: '1%' , height: 1, paddingBottom:'0'}}></hr>
+              <hr className={classes.bar}></hr>
               <span className={classes.date}>Available: {this.props.data.available}</span>
             </Grid>
             <Grid
