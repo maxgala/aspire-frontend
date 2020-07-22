@@ -2,14 +2,17 @@ import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Button } from '@material-ui/core';
+import view from "../../Images/view.png";
+import edit from "../../Images/edit.png";
+import Tooltip from '@material-ui/core/Tooltip';
 const useStyles = makeStyles(() => ({
   card: {
-    width: '95%',
+    width: '100%',
     minHeight: '130px',
     maxWidth: '500px',
-    height: '18vw',
+    height: '180px',
     marginBottom: '20px',
-    marginRight: '10%',
+    //marginRight: '10%',
     borderRadius: '20px',
     backgroundColor:'#58595B',
 
@@ -46,9 +49,8 @@ const useStyles = makeStyles(() => ({
     marginBottom:'2%',
     marginRight:'0%',
     marginLeft:'0%',
-    fontSize: '1.5vw',
+    fontSize: '18px',
     color: 'white',
-    padding:'4px',
   },
 
   line:{
@@ -57,25 +59,25 @@ const useStyles = makeStyles(() => ({
   },
 
   datePosted:{
-    fontSize: '0.8vw',
+    fontSize: '0.9vw',
     textAlign:'left',
     left:'10%',
     color: 'white',
     fontWeight:"700",
     padding:'4px',
-    margin:'0vw 0vw 0.7vw 0vw',
+    margin:'5px 0px 8px 0px',
   },
 
   status:{
-    fontSize: '0.8vw',
-    margin:'0vw 0vw 0.7vw 0vw',
+    fontSize: '0.9vw',
+    margin:'0px 0px 6px 8px',
     color: 'white',
     fontWeight:"700"
   },
 
   active:{
-    fontSize: '0.8vw',
-    margin:'0vw 0vw 0.7vw 0.5vw',
+    fontSize: '0.9vw',
+    margin:'0px 0px 6px 8px',
     color:'#6EA0B5',
     left:'10%',
     fontWeight:"700"
@@ -84,7 +86,24 @@ const useStyles = makeStyles(() => ({
   padding:{
     padding:'0px',
     margin:'0px'
+  },
+
+  image1:{
+    width: '15px',
+    height:'30px',
+    display: 'block',
+    margin:'10px 0px 0px 20px',
+    cursor: "pointer"
+  },
+
+  image2:{
+    width: '22px',
+    height:'22px',
+    display: 'block',
+    margin:'15px 0px 8px 10px',
+    cursor: "pointer"
   }
+
 
 }));
 
@@ -110,16 +129,15 @@ class JobPostingCard extends Component {
             item xs={12}
             spacing={1}
             alignItems="flex-start"
-            justify="center"
+            justify="flex-start"
           >
 
           <Grid
             container
-            item xs={4}
+            item xs={5}
             spacing={1}
             alignItems="flex-start"
-            justify="flex-start"
-         
+            justify="flex-start"         
           >
             <Grid
               container
@@ -142,7 +160,7 @@ class JobPostingCard extends Component {
           </Grid>
           <Grid
           container
-          item xs={8}
+          item xs={4}
           spacing={1}
           alignItems="flex-start"
           justify="flex-start"
@@ -168,21 +186,15 @@ class JobPostingCard extends Component {
               <p className={classes.active}>34</p>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid
-            container
-            item xs={12}
-            spacing={1}
-            alignItems="flex-start"
-            justify="center"  
-          >
+          
+
+
           <Grid
-            container
-            item xs={6}
-            spacing={1}
-            alignItems="flex-start"
-            justify="center"
-            style={{padding:"0px"}}
+          container
+          item xs={2}
+          spacing={1}
+          alignItems="flex-start"
+          justify="flex-start"
           >
             <Grid
               container
@@ -190,31 +202,36 @@ class JobPostingCard extends Component {
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
-              style={{maxheight: '3vw', width:"4vw"}}
             >
-              <Button className={classes.button}>Edit Job Post</Button>
+              <Tooltip title="Edit" arrow>
+               <img className={classes.image1} src={edit} />
+              </Tooltip>
             </Grid>
           </Grid>
+
           <Grid
-            container
-            item xs={6}
-            spacing={1}
-            alignItems="flex-start"
-            justify="flex-end"
-            style={{padding:"0px"}}
+          container
+          item xs={2}
+          spacing={1}
+          alignItems="flex-start"
+          justify="flex-start"
           >
             <Grid
               container
               item xs={12}
               spacing={1}
               alignItems="flex-start"
-              justify="center"
-              style={{maxheight: '4vw',width:"3vw"}}
+              justify="flex-start"
             >
-              <Button className={classes.button}>View Submissions</Button>
+              <Tooltip title="View" arrow>
+                <img className={classes.image2} src={view} />
+              </Tooltip>
             </Grid>
           </Grid>
+
+
         </Grid>
+   
         </div>
       </div>
     )
