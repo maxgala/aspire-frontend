@@ -51,7 +51,6 @@ const useStyles = makeStyles(() => ({
     marginLeft:'0%',
     fontSize: '18px',
     color: 'white',
-    
   },
 
   line:{
@@ -138,9 +137,7 @@ class JobPostingCard extends Component {
             item xs={5}
             spacing={1}
             alignItems="flex-start"
-            justify="flex-start"
-            
-         
+            justify="flex-start"         
           >
             <Grid
               container
