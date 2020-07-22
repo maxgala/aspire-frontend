@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
-import TestData from "./coffee_chats_test_data.json";
+import TestData from "./CoffeeChatsTestData";
 
 const useStyles = makeStyles(() => ({
 
@@ -198,7 +198,7 @@ class CoffeeChats extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <CoffeeChatCard oneOnOneCard={chat.type === 'one' ? true : false} booked={chat.booked} data={chat}/>
+                <CoffeeChatCard data={chat}/>
               </Grid>
             ))}
           </Grid>

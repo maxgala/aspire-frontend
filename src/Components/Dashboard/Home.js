@@ -4,7 +4,7 @@ import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
-import TestData from "./coffee_chats_test_data.json";
+import TestData from "./CoffeeChatsTestData";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
@@ -87,7 +87,7 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CoffeeChatCard oneOnOneCard={chat.type === 'one' ? true : false} booked={chat.booked} data={chat}/>
+                  <CoffeeChatCard data={chat}/>
                 </Grid>
               ))}
             </Grid>

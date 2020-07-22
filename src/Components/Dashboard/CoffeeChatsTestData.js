@@ -1,6 +1,8 @@
-[
+import ChatTypes from './ChatTypes';
+
+const CoffeeChatsTestData = [
   {
-    "type": "one",
+    "type": ChatTypes.oneOnOne,
     "booked": false,
     "name": "Mohaimen K",
     "title": "Software Engineer",
@@ -9,7 +11,7 @@
     "available": "July 1th, 2020"
   },
   {
-    "type": "one",
+    "type": ChatTypes.oneOnOne,
     "booked": false,
     "name": "Ahmed H",
     "title": "Software Engineer",
@@ -18,7 +20,7 @@
     "available": "August 10th, 2020"
   },
   {
-    "type": "four",
+    "type": ChatTypes.fourOnOne,
     "booked": false,
     "name": "Malak A",
     "title": "Software Engineer",
@@ -27,7 +29,7 @@
     "available": "August 5th, 2021"
   },
   {
-    "type": "one",
+    "type": ChatTypes.oneOnOne,
     "booked": true,
     "name": "Fatum A",
     "title": "Software Engineer",
@@ -36,3 +38,5 @@
     "available": "May 15th, 2021"
   }
 ]
+
+export default CoffeeChatsTestData

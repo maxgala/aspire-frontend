@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ChatTypes from '../ChatTypes';
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -27,6 +28,18 @@ const useStyles = makeStyles(() => ({
     borderRadius: '20px',
     textAlign: 'left',
     backgroundColor: '#455E6A',
+    color: 'white',
+  },
+  cardInterview: {
+    width: '95%',
+    maxWidth: '500px',
+    margin: 'auto',
+    height: '180px',
+    marginBottom: '10px',
+    borderRadius: '20px',
+    textAlign: 'left',
+    // need designs for mock interview card
+    backgroundColor: 'red',
     color: 'white',
   },
   cardBooked: {
@@ -178,7 +191,7 @@ class CoffeeChatCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div className={this.props.booked ? classes.cardBooked : this.props.oneOnOneCard ? classes.cardOne : classes.cardFour}>
+      <div className={this.props.data.booked ? classes.cardBooked : this.props.data.type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
         <div className={classes.container}>
           <Grid
@@ -197,7 +210,7 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <h1 className={classes.title}>
-                {this.props.data.type === 'one' ? "One-on-One" : "Four-on-One"}
+                {this.props.data.type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
                 {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''}
               </h1>
               <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
