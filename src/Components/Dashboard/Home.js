@@ -4,6 +4,7 @@ import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
+import TestData from "./CoffeeChatsTestData";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
@@ -41,6 +42,15 @@ function withMyHook(Component) {
 }
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      coffee_chats: TestData,
+      job_applications: [],
+      job_postings: []
+    }
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -68,42 +78,18 @@ class Home extends Component {
               >
                 <p className={classes.section_title}>Registered Coffee Chats</p>
               </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-              </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-              </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-              </Grid>
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-              </Grid>
+              {this.state.coffee_chats.map((chat, key) => (
+                <Grid
+                  key={key}
+                  container
+                  item xs={6}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <CoffeeChatCard data={chat}/>
+                </Grid>
+              ))}
             </Grid>
 
             {this.props.isSeniorExec ?

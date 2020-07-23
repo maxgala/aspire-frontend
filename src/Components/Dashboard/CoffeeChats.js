@@ -3,6 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
+import TestData from "./CoffeeChatsTestData";
 
 const useStyles = makeStyles(() => ({
 
@@ -68,7 +69,16 @@ function withMyHook(Component) {
 }
 
 class CoffeeChats extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      // temporary - just wanted more test data to fill the page
+      coffee_chats: [...TestData, ...TestData],
+      job_applications: [],
+      job_postings: []
+    }
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -179,87 +189,18 @@ class CoffeeChats extends Component {
             alignItems="flex-start"
             justify="center"
           >
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={true}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={true} booked={false}/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={12} md={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <CoffeeChatCard oneOnOneCard={false} booked={false}/>
-            </Grid>
+            {this.state.coffee_chats.map((chat, key) => (
+              <Grid
+                key={key}
+                container
+                item xs={12} sm={12} md={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <CoffeeChatCard data={chat}/>
+              </Grid>
+            ))}
           </Grid>
         </div>
       </div>
