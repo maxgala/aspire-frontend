@@ -12,7 +12,6 @@ const useStyles = makeStyles(() => ({
     paddingRight: '10%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
   },
 
   coffeeChat: {

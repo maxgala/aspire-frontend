@@ -15,11 +15,10 @@ const useStyles = makeStyles(() => ({
   card: {
     width: '90%',
     maxWidth: '500px',
-    height: '190px',
+    height: '180px',
     borderStyle: 'solid',
-    borderRadius: 11,
+    borderRadius: '20px',
     backgroundColor: '#6EA0B5',
-    marginLeft: '4%',
     color: 'white',
     borderColor: '#6EA0B5',
     textAlign: 'left',
@@ -214,33 +213,22 @@ class JobApplicationCard extends Component {
               <span className={classes.jobtitle}>Job Title</span>
               <span onClick={this.handleClose} className={classes.close} ><span><FontAwesomeIcon icon={faTimes} style={{width: '14px', height: '14px', marginRight: '1%', marginBottom:'15%'}}/></span></span>
             </div>
-
           </DialogTitle>
           <DialogContent>
             <DialogContentText
               id="scroll-dialog-description"
-              
               component={'span'}
             >
-              <table className={classes.membership_table}>
-                <thead>
-                  
-                </thead>
-                <tbody>
-                <div className={classes.largebox}>
-                    <span className={classes.textpopup}><span><FontAwesomeIcon icon={faBuilding} style={{width: '15px', height: '15px', marginRight: '1%', marginLeft : '2%'}}/></span>Google</span>
-                    <span className={classes.textpopup2}>Toronto, ON</span>
-                    <span className={classes.textpopup2}>Full Time</span>                    
-                    <h2 className={classes.header}>Job Description:</h2>
-                    <h2 className={classes.descrip}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Non odio euismod lacinia at quis risus sed vulputate. Nulla facilisi cras fermentum odio</h2>
-                    <h2 className={classes.header}>Job Requirements:</h2>
-                    <h2 className={classes.descrip}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Non odio euismod lacinia at quis risus sed vulputate. Nulla facilisi cras fermentum odio</h2>
-                    <span className={classes.tagpopup}>Marketing</span>
-                    <span className={classes.tagpopup}>Software</span>
-                    <span><Button className={classes.button2}> Apply </Button></span>
-                  </div>
-                </tbody>
-              </table>
+              <span className={classes.textpopup}><span><FontAwesomeIcon icon={faBuilding} style={{width: '15px', height: '15px', marginRight: '1%', marginLeft : '2%'}}/></span>Google</span>
+              <span className={classes.textpopup2}>Toronto, ON</span>
+              <span className={classes.textpopup2}>Full Time</span>                    
+              <h2 className={classes.header}>Job Description:</h2>
+              <h2 className={classes.descrip}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Non odio euismod lacinia at quis risus sed vulputate. Nulla facilisi cras fermentum odio</h2>
+              <h2 className={classes.header}>Job Requirements:</h2>
+              <h2 className={classes.descrip}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Non odio euismod lacinia at quis risus sed vulputate. Nulla facilisi cras fermentum odio</h2>
+              <span className={classes.tagpopup}>Marketing</span>
+              <span className={classes.tagpopup}>Software</span>
+              <span><Button className={classes.button2}> Apply </Button></span>
             </DialogContentText>
           </DialogContent>
           <DialogActions>    

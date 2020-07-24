@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     top: '0',
     left: '0',
-    height: '100%',
+    minHeight: '100%',
     width: '300px',
     position: 'fixed',
     textAlign: 'justify',
