@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import pic0 from "../Images/faceShot/pic0.png";
+import close from "../Images/close.png";
 import { Button } from '@material-ui/core';
 import { faMapMarker, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,9 +10,19 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
+import Toolbar from "@material-ui/core/Toolbar";
+import TextField from '@material-ui/core/TextField';
+import Grid from "@material-ui/core/Grid";
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import green from '@material-ui/core/colors/green';
+
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  root1: {
     display: 'flex',
     top: '0',
     left: '0',
@@ -181,7 +192,108 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     color:'#6EA0B5',
     cursor:'pointer',
+  },
+  toolbar: {
+    //display: 'flex',
+    //justifyContent: 'flex-start',
+    height: '8vh',
+    backgroundColor: 'black',
+    boxShadow: '0px 0px 0px',
+    width: '100%',
+  },
+  dialog:{
+    borderRadius:'40%',
+  },
+  box: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '40ch',
+ 
+    },
+   
+    margin:'5px 40px 10px 20px',
+    border: 'none',
+    
+
+  },
+  textbox:{
+    boxShadow: '0px 0px 0px',
+    
+
+    color:'white',
+    '& .MuiInput-underline:before':{
+      borderBottom: "2px solid #B6A165 ",
+      
+    },
+    '& .MuiInput-underline:after':{
+      //borderBottom: "1px solid black ",
+       color: '#455E6A',
+      borderBottom: "2px solid #B6A165 "
+     
+    },
+    '& label.Mui-focused': {
+      color: '#455E6A',
+    
+    },
+    
+  },
+  input:{
+    boxShadow: '0px 0px ', 
+
+  },
+  cssFocused: {},
+
+  limit:{
+    width: '90%',
+    display:'block',
+    margin: '0 auto',
+    textAlign:'right',
+    fontSize:'10px',
+    color:'#58595B',
+  },
+  jobTitles:{
+    margin:'0px 0px 5px 0px',
+  },
+  grid:{
+    paddingLeft:'30px',
+    paddingright:'30px',
+  },
+  text:{
+    font:"Myriad Pro"
+  },
+  close: {
+    position: 'absolute',
+   
+    right:'8%',
+    
+  },
+ 
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: `#B6A165 `,
+    }
+  },
+
+  cssFocused: {},
+
+  notchedOutline: {
+    borderWidth: '2px',
+    borderColor: '#B6A165 '
+  },
+
+  textField:{
+    width:'115ch',
+    margin:'5px 20px 5px 20px',
+  },
+  title:{
+    width: '95%',
+    display:'block',
+    margin: '15px 10px 2px 10px',
+    textAlign:'left',
+    fontSize:'16px',
+    color:'#58595B',
   }
+
 }));
 
 
@@ -196,9 +308,21 @@ class Landing extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      active: 0,
+      value: 'Full-Time',
+  
     }
   }
+  handleChange = event => {
+    this.setState({ value: event.target.value });
+  };
+
+  postJob = (event) => {
+    this.setState({
+      open: true
+    })
+  };
 
   openFaq = (event) => {
     this.setState({
@@ -212,11 +336,12 @@ class Landing extends Component{
     })
   };
 
+
   render() {
     const classes = this.props.classes;
     
     return (
-      <div className={classes.root}>
+      <div className={classes.root1}>
         <div style={{margin: 'auto'}}>
           <img className={classes.image} src={pic0} alt={"User Profile"}/>
           <span>
@@ -232,9 +357,9 @@ class Landing extends Component{
             </div>
           </span>
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
-          <Button className={classes.button1} variant="contained" onClick={this.changeToSignUp}>Post a Job</Button> 
+          <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button> 
           <p className={classes.updateProfile}>Update your profile</p>
-          <p className={classes.contact}>Contact Admin Support</p>
+          <p className={classes.contact}>Contact Admin Support</p>postJob
           <p className={classes.faq} onClick={this.openFaq}>FAQ</p>
           <Dialog
             open={this.state.open}
@@ -243,34 +368,259 @@ class Landing extends Component{
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
             fullWidth={true}
-            maxWidth={'lg'}
+            maxWidth={'md'}
+            PaperProps={{
+              style: { borderRadius: 12 }
+            }}
           >
-            <DialogTitle id="scroll-dialog-title">
+            <Toolbar className={classes.toolbar}>
               <div>
-                <h2 style={{margin: '0px', marginTop: '10px', color: '#B5A165'}}>FAQ</h2>
+                <h2 style={{margin: '0px', marginTop: '10px', color: 'white'}}>Post a Job</h2>
+                
               </div>
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText
-                id="scroll-dialog-description"
-                tabIndex={-1}
-                component={'span'}
+              <img onClick={this.handleClose} className={classes.close} style={{width: '14px', height: '14px'}} src={close}/>
+            </Toolbar>
+            <div className={classes.grid}>
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+           
+            >
+              <Grid
+                container
+                item xs={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"         
               >
-                <p>TODO: Frequently asked questions section</p>
-              </DialogContentText>
-            </DialogContent>
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                
+                      <form className={classes.box} noValidate autoComplete="off">
+                        <TextField label="Job Title" fullWidth className={classes.textbox}  
+                          InputProps={{
+                            classes: {
+                             
+                              root: classes.outline,
+                              focused: classes.cssFocused,
+                              input: classes.input,
+                            }
+                          }}
+                        />
+                      </form>
+                   
+                </Grid>
+              </Grid>
+
+
+              <Grid
+              container
+              item xs={6}
+              spacing={1}
+              alignItems="flex-end"
+              justify="flex-end"
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                > 
+                 <form className={classes.box} noValidate autoComplete="off">
+                        <TextField label="Location" fullWidth className={classes.textbox}  
+                          
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            }
+                          }}
+                        />
+                      </form>
+                </Grid>
+              </Grid>
+
+         
+              <Grid
+                container
+                item xs={6}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"         
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <form className={classes.box} noValidate autoComplete="off">
+                        <TextField label="Company" fullWidth className={classes.textbox}  
+                          
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            }
+                          }}
+                        />
+                      </form>
+                </Grid>
+              </Grid>
+
+            
+  
+     
+    
+             
+              <Grid
+              container
+              item xs={3}
+              spacing={1}
+              alignItems="flex-end"
+              justify="flex-end"
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <FormControlLabel  checked={this.state.value === 'Full-Time'} value='Full-Time' control={<Radio color="primary" />} label="Full-Time"  onChange={this.handleChange}/>
+                </Grid>
+              <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+                >
+                <FormControlLabel  checked={this.state.value === 'Contract'} value="Contract" control={<Radio color="primary" />} label="Contract"  onChange={this.handleChange} />
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                item xs={3}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <FormControlLabel  
+                   
+                   checked={this.state.value === 'Part-Time'}
+                    value='Part-Time' control={<Radio color="primary" />} label="Part-Time"  onChange={this.handleChange}/>
+                </Grid>
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                 <FormControlLabel checked={this.state.value === 'Internship'}  value="Internship" control={<Radio color="primary" />} label="Internship" onChange={this.handleChange}/>
+                </Grid>
+              </Grid>
+              
+             
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="center"
+                justify="center"
+              > 
+                <p className={classes.title}>Job Description</p>
+                   
+                    <TextField
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        fullWidth
+                        InputProps={{
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          },
+                        }}
+
+                        className={classes.textField}  
+                      />
+                      <p className={classes.limit}>Max 400 words</p>
+              </Grid>
+            </Grid>
+            
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+              >
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="center"
+                justify="center"
+              > 
+             
+                    <p className={classes.title}>Job Requirement</p>
+                    <TextField
+                       multiline
+                       rows={4}
+                       variant="outlined"
+                       fullWidth
+                       InputProps={{
+                         classes: {
+                           root: classes.cssOutlinedInput,
+                           focused: classes.cssFocused,
+                           notchedOutline: classes.notchedOutline,
+                         },
+                       }}
+                       className={classes.textField}  
+                      />
+                    <p className={classes.limit}>Max 400 words</p>
+                    
+
+              </Grid>
+            </Grid>
+
+          
+
+
+
+
+
+
+          </Grid>
+          </div>
             <DialogActions>
-              <Button
-                onClick={this.handleClose}
-                type="submit"
-                variant="contained"
-                color="primary"
-                style={{margin: 'auto', backgroundColor: '#B5A165'}}
-              >
-                <b>Close</b>
-              </Button>
+            <Button className={classes.button1} variant="contained" onClick={this.postJob}>Sumbit</Button> 
             </DialogActions>
           </Dialog>
+
         </div>
       </div>
     );
