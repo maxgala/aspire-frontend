@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import image from "../../Images/faceShot/pic1.png";
 import Button from "@material-ui/core/Button";
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CardTypes from '../CardTypes';
 
 const useStyles = makeStyles(() => ({
