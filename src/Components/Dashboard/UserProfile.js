@@ -311,7 +311,8 @@ class Landing extends Component{
       open: false,
       active: 0,
       value: 'Full-Time',
-  
+      description: '',
+      requirement: ''
     }
   }
   handleChange = event => {
@@ -336,6 +337,19 @@ class Landing extends Component{
     })
   };
 
+  handleDescriptionChange = name => event => {
+    console.log(event.target.value)
+    this.setState({
+      description: event.target.value
+    })
+  };
+
+  handleRequirementChange = name => event => {
+    console.log(event.target.value)
+    this.setState({
+      requirement: event.target.value
+    })
+  };
 
   render() {
     const classes = this.props.classes;
@@ -553,21 +567,24 @@ class Landing extends Component{
                 <p className={classes.title}>Job Description</p>
                    
                     <TextField
-                        multiline
-                        rows={4}
-                        variant="outlined"
-                        fullWidth
-                        InputProps={{
-                          classes: {
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.notchedOutline,
-                          },
-                        }}
-
-                        className={classes.textField}  
-                      />
-                      <p className={classes.limit}>Max 400 words</p>
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      fullWidth
+                      inputProps={{
+                        maxLength: 10,
+                        classes: {
+                          root: classes.cssOutlinedInput,
+                          focused: classes.cssFocused,
+                          notchedOutline: classes.notchedOutline,
+                        }
+                      }}
+                      value={this.state.description}
+                      helperText={`${this.state.description.length}/${10} Characters`}
+                      className={classes.textField}
+                      onChange={this.handleDescriptionChange("name")}
+                    />
+                    <p className={classes.limit}>Max 400 words</p>
               </Grid>
             </Grid>
             
@@ -588,36 +605,32 @@ class Landing extends Component{
              
                     <p className={classes.title}>Job Requirement</p>
                     <TextField
-                       multiline
-                       rows={4}
-                       variant="outlined"
-                       fullWidth
-                       InputProps={{
-                         classes: {
-                           root: classes.cssOutlinedInput,
-                           focused: classes.cssFocused,
-                           notchedOutline: classes.notchedOutline,
-                         },
-                       }}
-                       className={classes.textField}  
-                      />
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      fullWidth
+                      inputProps={{
+                        maxLength: 10,
+                        classes: {
+                          root: classes.cssOutlinedInput,
+                          focused: classes.cssFocused,
+                          notchedOutline: classes.notchedOutline,
+                        }
+                      }}
+                      value={this.state.requirement}
+                      helperText={`${this.state.requirement.length}/${10} Characters`}
+                      className={classes.textField}
+                      onChange={this.handleRequirementChange("name")}
+                    />
                     <p className={classes.limit}>Max 400 words</p>
                     
 
               </Grid>
             </Grid>
-
-          
-
-
-
-
-
-
           </Grid>
           </div>
             <DialogActions>
-            <Button className={classes.button1} variant="contained" onClick={this.postJob}>Sumbit</Button> 
+            <Button className={classes.button1} variant="contained" onClick={this.postJob}>Submit</Button> 
             </DialogActions>
           </Dialog>
 
