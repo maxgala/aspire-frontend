@@ -6,19 +6,12 @@ import { Button } from '@material-ui/core';
 import { faMapMarker, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Toolbar from "@material-ui/core/Toolbar";
 import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid";
 import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import green from '@material-ui/core/colors/green';
 
 
 const useStyles = makeStyles(theme => ({
@@ -274,8 +267,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
-  cssFocused: {},
-
   notchedOutline: {
     borderWidth: '2px',
     borderColor: '#B6A165 '
@@ -312,7 +303,8 @@ class Landing extends Component{
       active: 0,
       value: 'Full-Time',
       description: '',
-      requirement: ''
+      requirement: '',
+      max_characters: 1000
     }
   }
   handleChange = event => {
@@ -338,14 +330,12 @@ class Landing extends Component{
   };
 
   handleDescriptionChange = name => event => {
-    console.log(event.target.value)
     this.setState({
       description: event.target.value
     })
   };
 
   handleRequirementChange = name => event => {
-    console.log(event.target.value)
     this.setState({
       requirement: event.target.value
     })
@@ -392,7 +382,7 @@ class Landing extends Component{
                 <h2 style={{margin: '0px', marginTop: '10px', color: 'white'}}>Post a Job</h2>
                 
               </div>
-              <img onClick={this.handleClose} className={classes.close} style={{width: '14px', height: '14px'}} src={close}/>
+              <img onClick={this.handleClose} className={classes.close} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt={"Close button"}/>
             </Toolbar>
             <div className={classes.grid}>
             <Grid
@@ -572,7 +562,7 @@ class Landing extends Component{
                       variant="outlined"
                       fullWidth
                       inputProps={{
-                        maxLength: 10,
+                        maxLength: this.state.max_characters,
                         classes: {
                           root: classes.cssOutlinedInput,
                           focused: classes.cssFocused,
@@ -580,11 +570,10 @@ class Landing extends Component{
                         }
                       }}
                       value={this.state.description}
-                      helperText={`${this.state.description.length}/${10} Characters`}
+                      helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
                       className={classes.textField}
                       onChange={this.handleDescriptionChange("name")}
                     />
-                    <p className={classes.limit}>Max 400 words</p>
               </Grid>
             </Grid>
             
@@ -610,7 +599,7 @@ class Landing extends Component{
                       variant="outlined"
                       fullWidth
                       inputProps={{
-                        maxLength: 10,
+                        maxLength: this.state.max_characters,
                         classes: {
                           root: classes.cssOutlinedInput,
                           focused: classes.cssFocused,
@@ -618,13 +607,10 @@ class Landing extends Component{
                         }
                       }}
                       value={this.state.requirement}
-                      helperText={`${this.state.requirement.length}/${10} Characters`}
+                      helperText={`${this.state.requirement.length}/${this.state.max_characters} Characters`}
                       className={classes.textField}
                       onChange={this.handleRequirementChange("name")}
                     />
-                    <p className={classes.limit}>Max 400 words</p>
-                    
-
               </Grid>
             </Grid>
           </Grid>
