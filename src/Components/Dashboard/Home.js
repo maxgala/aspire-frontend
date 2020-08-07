@@ -114,15 +114,7 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={8}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Your Job Applications</p>
-                </Grid>
+                {/* TODO: cap at 2 job postings and 1 job application for senior exec */}
                 <Grid
                   container
                   item xs={4}
@@ -130,57 +122,65 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <p className={classes.section_title}>Job Postings</p>
+                  <p className={classes.section_title}>Your Job Applications</p>
+                  {this.state.job_applications && this.state.job_applications.length > 0 ?
+                    this.state.job_applications.map((app, key) => (
+                      <Grid
+                        key={key}
+                        container
+                        item xs={12}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                      >
+                        <JobApplicationCard/>
+                      </Grid>
+                    ))
+                  :
+                    <Grid
+                      container
+                      item xs={12}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <EmptyCard type={CardTypes.jobApplication}/>
+                    </Grid>
+                  }
                 </Grid>
-                {/* TODO: cap at 2 job postings and 1 job application for senior exec */}
-                {this.state.job_applications && this.state.job_applications.length > 0 ?
-                  this.state.job_applications.map((app, key) => (
+                <Grid
+                  container
+                  item xs={8}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <p className={classes.section_title}>Job Postings</p>
+                  {this.state.job_postings && this.state.job_postings.length > 0 ?
+                    this.state.job_postings.map((posting, key) => (
+                      <Grid
+                        key={key}
+                        container
+                        item xs={6}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                      >
+                        <JobPostingCard/>
+                      </Grid>
+                    ))
+                  :
                     <Grid
-                      key={key}
                       container
-                      item xs={4}
+                      item xs={12}
                       spacing={1}
                       alignItems="flex-start"
                       justify="flex-start"
                     >
-                      <JobApplicationCard/>
+                      <EmptyCard type={CardTypes.jobPosting}/>
                     </Grid>
-                  ))
-                :
-                  <Grid
-                    container
-                    item xs={6}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <EmptyCard type={CardTypes.jobApplication}/>
-                  </Grid>
-                }
-                {this.state.job_postings && this.state.job_postings.length > 0 ?
-                  this.state.job_postings.map((posting, key) => (
-                    <Grid
-                      key={key}
-                      container
-                      item xs={4}
-                      spacing={1}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <JobPostingCard/>
-                    </Grid>
-                  ))
-                :
-                  <Grid
-                    container
-                    item xs={6}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <EmptyCard type={CardTypes.jobPosting}/>
-                  </Grid>
-                }
+                  }
+                </Grid>
               </Grid>
             :
               <Grid
@@ -190,6 +190,7 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
+                {/* TODO: cap at 2 job applications and 1 job posting for senior exec */}
                 <Grid
                   container
                   item xs={8}
@@ -198,6 +199,30 @@ class Home extends Component {
                   justify="flex-start"
                 >
                   <p className={classes.section_title}>Your Job Application</p>
+                  {this.state.job_applications && this.state.job_applications.length > 0 ?
+                    this.state.job_applications.map((app, key) => (
+                      <Grid
+                        key={key}
+                        container
+                        item xs={6}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                      >
+                        <JobApplicationCard/>
+                      </Grid>
+                    ))
+                  :
+                    <Grid
+                      container
+                      item xs={12}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <EmptyCard type={CardTypes.jobApplication}/>
+                    </Grid>
+                  }
                 </Grid>
                 <Grid
                   container
@@ -207,56 +232,31 @@ class Home extends Component {
                   justify="flex-start"
                 >
                   <p className={classes.section_title}>Job Postings</p>
+                  {this.state.job_postings && this.state.job_postings.length > 0 ?
+                    this.state.job_postings.map((posting, key) => (
+                      <Grid
+                        key={key}
+                        container
+                        item xs={12}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                      >
+                        <JobPostingCard/>
+                      </Grid>
+                    ))
+                  :
+                    <Grid
+                      container
+                      item xs={12}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <EmptyCard type={CardTypes.jobPosting}/>
+                    </Grid>
+                  }
                 </Grid>
-                {/* TODO: cap at 2 job applications and 1 job posting for senior exec */}
-                {this.state.job_applications && this.state.job_applications.length > 0 ?
-                  this.state.job_applications.map((app, key) => (
-                    <Grid
-                      key={key}
-                      container
-                      item xs={4}
-                      spacing={1}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <JobApplicationCard/>
-                    </Grid>
-                  ))
-                :
-                  <Grid
-                    container
-                    item xs={6}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <EmptyCard type={CardTypes.jobApplication}/>
-                  </Grid>
-                }
-                {this.state.job_postings && this.state.job_postings.length > 0 ?
-                  this.state.job_postings.map((posting, key) => (
-                    <Grid
-                      key={key}
-                      container
-                      item xs={4}
-                      spacing={1}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <JobPostingCard/>
-                    </Grid>
-                  ))
-                :
-                  <Grid
-                    container
-                    item xs={6}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <EmptyCard type={CardTypes.jobPosting}/>
-                  </Grid>
-                }
               </Grid>
             }
           </Grid>

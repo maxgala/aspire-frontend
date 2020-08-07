@@ -6,18 +6,16 @@ import CardTypes from '../CardTypes';
 
 const useStyles = makeStyles(() => ({
   cardCoffee: {
-    width: '95%',
+    width: '100%',
     maxWidth: '500px',
-    margin: 'auto',
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
-    textAlign: 'left',
     backgroundColor: '#B5A165',
     color: 'white',
   },
   cardApp: {
-    width: '90%',
+    width: '100%',
     maxWidth: '500px',
     height: '180px',
     borderStyle: 'solid',
@@ -25,26 +23,18 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#6EA0B5',
     color: 'white',
     borderColor: '#6EA0B5',
-    textAlign: 'left',
-    fontWeight: '100',
-    fontFamily: 'Arial', 
-    marginBottom: '5%'
   },
   cardPosting: {
     width: '100%',
-    minHeight: '130px',
-    maxWidth: '500px',
     height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor:'#58595B',
-
   },
   title: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bolder',
     width: '100%',
-    textAlign: 'left',
     paddingTop: '5px',
     fontSize: '20px',
     color: 'white',
@@ -56,7 +46,6 @@ const useStyles = makeStyles(() => ({
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
     width: '100%',
-    textAlign: 'left',
     color: 'white',
     margin: '0px',
     marginLeft: '5px',
@@ -109,7 +98,11 @@ class EmptyCard extends Component {
             {this.props.type === CardTypes.coffeeChat ? "No booked coffee chats" : this.props.type === CardTypes.jobApplication ? "No submitted job applications" : "No job postings created"}
           </h1>
           <p className={classes.subtitle}>{this.props.type === CardTypes.coffeeChat ? "To book one, click the button below." : this.props.type === CardTypes.jobApplication ? "To view job applications, click the button below." : "To post one, click the button below."}</p>
-          <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
+          <span className={classes.button_container}>
+            <Button className={classes.button} variant="contained" color="primary">
+              {this.props.type === CardTypes.coffeeChat ? "View coffee chats" : this.props.type === CardTypes.jobApplication ? "View job applications" : "Create job posting"}
+            </Button>
+          </span>
         </div>
       </Grid>
     )
