@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '0px'
   },
   section_title: {
+    width: '100%',
     fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
@@ -47,9 +48,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coffee_chats: [],
-      job_applications: [],
-      job_postings: []
+      coffee_chats: TestData,
+      job_applications: props.isSeniorExec ? ["1"] : ["1", "2"],
+      job_postings: props.isSeniorExec ? ["1", "2"] : ["1"]
     }
   }
 
