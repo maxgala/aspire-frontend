@@ -129,6 +129,15 @@ class SignIn extends Component{
             window.alert("Not filled in");
             return;
         }
+        // TODO: Save this token in state and use it in API requests once logged in
+        try {
+            await authenticate(this.state.username, this.state.password);
+        }
+        catch (err) {
+            // TODO: Block user from continuing
+            console.error("Authentication failed. " + JSON.stringify(err));
+        }
+
         // TODO: Get information from AWS cognito pool
         // TODO: Check what role the user is, will redirect to different dashboard
         let isSeniorExec = false // will set this based on role
