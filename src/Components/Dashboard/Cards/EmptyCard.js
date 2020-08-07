@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import image from "../../Images/faceShot/pic1.png";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import CardTypes from '../CardTypes';
 
 const useStyles = makeStyles(() => ({
-  cardOne: {
+  cardCoffee: {
     width: '95%',
     maxWidth: '500px',
     margin: 'auto',
@@ -16,49 +16,29 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#B5A165',
     color: 'white',
   },
-  cardFour: {
-    width: '95%',
+  cardApp: {
+    width: '90%',
     maxWidth: '500px',
-    margin: 'auto',
     height: '180px',
-    marginBottom: '10px',
+    borderStyle: 'solid',
     borderRadius: '20px',
-    textAlign: 'left',
-    backgroundColor: '#455E6A',
+    backgroundColor: '#6EA0B5',
     color: 'white',
+    borderColor: '#6EA0B5',
+    textAlign: 'left',
+    fontWeight: '100',
+    fontFamily: 'Arial', 
+    marginBottom: '5%'
   },
-  cardInterview: {
-    width: '95%',
+  cardPosting: {
+    width: '100%',
+    minHeight: '130px',
     maxWidth: '500px',
-    margin: 'auto',
     height: '180px',
-    marginBottom: '10px',
+    marginBottom: '20px',
     borderRadius: '20px',
-    textAlign: 'left',
-    // need designs for mock interview card
-    backgroundColor: 'red',
-    color: 'white',
-  },
-  cardBooked: {
-    width: '95%',
-    maxWidth: '500px',
-    margin: 'auto',
-    height: '180px',
-    marginBottom: '10px',
-    borderRadius: '20px',
-    textAlign: 'left',
-    backgroundColor: '#9D9D9D',
-    color: 'white',
-  },
-  image:{
-    width: '120px',
-    height: '120px',
-    borderRadius: '50%',
-    margin: 'auto',
-    marginTop: '30px',
-    marginLeft: '10px',
-    marginRight: '20px',
-    display: 'inline-block'
+    backgroundColor:'#58595B',
+
   },
   title: {
     fontFamily: 'myriad-pro, sans-serif',
@@ -80,41 +60,8 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     margin: '0px',
     marginLeft: '5px',
-    marginTop: '5px'
-  },
-  name: {
-    fontStyle: 'italic',
-    paddingRight: '5px',
-    margin: '0px',
-    marginTop: '5px'
-  },
-  company: {
-    fontFamily: 'myriad-pro, sans-serif',
-    fontWeight: 'bold',
-    width: '100%',
-    textAlign: 'left',
-    margin: '5px',
-    color: 'white'
-  },
-  date: {
-    fontFamily: 'myriad-pro, sans-serif',
-    fontWeight: 'bold',
-    width: '100%',
-    textAlign: 'left',
-    fontSize: '10px',
-    color: 'white',
-    margin: '0px',
-    float: 'left'
-  },
-  booked: {
-    fontFamily: 'myriad-pro, sans-serif',
-    fontWeight: 'bold',
-    textAlign: 'right',
-    margin: '5px',
-    paddingTop: '5px',
-    fontSize: '8px',
-    color: 'white',
-    float: 'right'
+    marginTop: '5px',
+    marginBottom: '20px',
   },
   button_container: {
     alignItems: 'flex-end',
@@ -131,49 +78,10 @@ const useStyles = makeStyles(() => ({
       color: '#484848'
     }
   },
-  tag_container: {
-    width: 'auto',
-    borderStyle: 'solid',
-    borderWidth: '0.5px',
-    borderRadius: 50,
-    borderColor: 'white',
-    margin: '5px',
-    marginLeft: '0px'
-  },
-  tag: {
-    paddingLeft: '8px',
-    paddingRight: '8px',
-    paddingTop: '3px',
-    paddingBottom: '3px',
-    left: '15px',
-    right: '15px',
-    float: 'left',
-    fontSize: '8px',
-    fontWeight: '100',
-    color: 'white',
-    display: 'flex',
-  },
-  bar: {
-    width: '90%',
-    textAlign:'right',
-    marginLeft: '0%',
-    marginTop: '1%',
-    marginBottom: '1%',
-    height: 1,
-    paddingBottom:'0'
-  },
   container: {
-    width: 'calc(95% - 140px)',
+    width: '95%',
     display: 'inline-block',
-    transform: 'translate(0%, -65%)'
-  },
-  company_icon: {
-    width: '18px',
-    height: '18px',
-    marginRight: '15px'
-  },
-  outer_grid: {
-    height: '180px'
+    alignItems: 'center'
   }
 }));
 
@@ -188,16 +96,22 @@ class EmptyCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div className={classes.cardOne}>
-        <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
+      <Grid
+        container
+        item xs={8}
+        spacing={0}
+        alignItems="center"
+        justify="center"
+        className={this.props.type === CardTypes.coffeeChat ? classes.cardCoffee : this.props.type === CardTypes.jobApplication ? classes.cardApp : classes.cardPosting}
+      >
         <div className={classes.container}>
           <h1 className={classes.title}>
             {this.props.type === CardTypes.coffeeChat ? "No booked coffee chats" : this.props.type === CardTypes.jobApplication ? "No submitted job applications" : "No job postings created"}
           </h1>
-          <p className={classes.subtitle}>To book one, click the button below.</p>
+          <p className={classes.subtitle}>{this.props.type === CardTypes.coffeeChat ? "To book one, click the button below." : this.props.type === CardTypes.jobApplication ? "To view job applications, click the button below." : "To post one, click the button below."}</p>
           <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
         </div>
-      </div>
+      </Grid>
     )
   }
 }

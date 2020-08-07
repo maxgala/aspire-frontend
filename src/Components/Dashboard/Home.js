@@ -47,9 +47,9 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coffee_chats: TestData,
-      job_applications: ["1", "2"],
-      job_postings: ["1"]
+      coffee_chats: [],
+      job_applications: [],
+      job_postings: []
     }
   }
 
@@ -94,7 +94,15 @@ class Home extends Component {
                   </Grid>
                 ))
               :
-                <EmptyCard type={CardTypes.coffeeChat}/>
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <EmptyCard type={CardTypes.coffeeChat}/>
+                </Grid>
               }
             </Grid>
 
@@ -139,7 +147,15 @@ class Home extends Component {
                     </Grid>
                   ))
                 :
-                  <EmptyCard type={CardTypes.jobApplication}/>
+                  <Grid
+                    container
+                    item xs={6}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <EmptyCard type={CardTypes.jobApplication}/>
+                  </Grid>
                 }
                 {this.state.job_postings && this.state.job_postings.length > 0 ?
                   this.state.job_postings.map((posting, key) => (
@@ -155,7 +171,15 @@ class Home extends Component {
                     </Grid>
                   ))
                 :
-                  <EmptyCard type={CardTypes.jobPosting}/>
+                  <Grid
+                    container
+                    item xs={6}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <EmptyCard type={CardTypes.jobPosting}/>
+                  </Grid>
                 }
               </Grid>
             :
@@ -199,7 +223,15 @@ class Home extends Component {
                     </Grid>
                   ))
                 :
-                  <EmptyCard type={CardTypes.jobApplication}/>
+                  <Grid
+                    container
+                    item xs={6}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <EmptyCard type={CardTypes.jobApplication}/>
+                  </Grid>
                 }
                 {this.state.job_postings && this.state.job_postings.length > 0 ?
                   this.state.job_postings.map((posting, key) => (
@@ -215,7 +247,15 @@ class Home extends Component {
                     </Grid>
                   ))
                 :
-                  <EmptyCard type={CardTypes.jobPosting}/>
+                  <Grid
+                    container
+                    item xs={6}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <EmptyCard type={CardTypes.jobPosting}/>
+                  </Grid>
                 }
               </Grid>
             }
