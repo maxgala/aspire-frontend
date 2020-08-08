@@ -12,6 +12,8 @@ import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid";
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const useStyles = makeStyles(theme => ({
@@ -177,6 +179,7 @@ const useStyles = makeStyles(theme => ({
     color:'#6EA0B5',
     cursor:'pointer',
   },
+
   faq:{
     margin:'5px 40px 10px 40px',
     fontFamily: 'myriad-pro, sans-serif',
@@ -186,55 +189,36 @@ const useStyles = makeStyles(theme => ({
     color:'#6EA0B5',
     cursor:'pointer',
   },
+
   toolbar: {
-    //display: 'flex',
-    //justifyContent: 'flex-start',
     height: '8vh',
     backgroundColor: 'black',
     boxShadow: '0px 0px 0px',
     width: '100%',
   },
+
   dialog:{
     borderRadius:'40%',
   },
-  box: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '40ch',
- 
-    },
-   
-    margin:'5px 40px 10px 20px',
-    border: 'none',
-    
 
-  },
   textbox:{
     boxShadow: '0px 0px 0px',
-    
-
     color:'white',
     '& .MuiInput-underline:before':{
-      borderBottom: "2px solid #B6A165 ",
-      
+      borderBottom: "2px solid #B6A165 ",   
     },
     '& .MuiInput-underline:after':{
-      //borderBottom: "1px solid black ",
-       color: '#455E6A',
-      borderBottom: "2px solid #B6A165 "
-     
+      color: '#455E6A',
+      borderBottom: "2px solid #B6A165 "   
     },
     '& label.Mui-focused': {
-      color: '#455E6A',
-    
-    },
-    
+      color: '#455E6A',  
+   },   
   },
+
   input:{
     boxShadow: '0px 0px ', 
-
   },
-  cssFocused: {},
 
   limit:{
     width: '90%',
@@ -244,21 +228,23 @@ const useStyles = makeStyles(theme => ({
     fontSize:'10px',
     color:'#58595B',
   },
+
   jobTitles:{
     margin:'0px 0px 5px 0px',
   },
+
   grid:{
     paddingLeft:'30px',
     paddingright:'30px',
   },
+
   text:{
     font:"Myriad Pro"
   },
+
   close: {
     position: 'absolute',
-   
-    right:'8%',
-    
+    right:'8%',   
   },
  
   cssOutlinedInput: {
@@ -267,15 +253,18 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
+  cssFocused: {},
+
   notchedOutline: {
     borderWidth: '2px',
     borderColor: '#B6A165 '
   },
 
   textField:{
-    width:'115ch',
+    width:'111ch',
     margin:'5px 20px 5px 20px',
   },
+
   title:{
     width: '95%',
     display:'block',
@@ -283,7 +272,48 @@ const useStyles = makeStyles(theme => ({
     textAlign:'left',
     fontSize:'16px',
     color:'#58595B',
+  },
+
+  checkbox: {
+    color: '#B6A165',
+    '&$checked': {
+      color: '#B6A165',
+    },
+  },
+
+  checked: {},
+
+  checkboxGrid:{
+    fontSize:'7px',
+    margin: '5px 5px 0px 14px',
+  },
+
+  radioButton:{
+    color:'#58595B',
+    margin: '5px 20px 0px 30px',
+    fontSize: '16px'
+  },
+
+  radioMarginFirst:{
+    margin: '15px 20px 5px 30px',
+    width:"85%"
+  },
+
+  radioMarginSecond:{
+    margin: '15px 20px 0px 30px',
+    width:"85%"
+  },
+
+  contactBox:{
+    fontSize: '7px',
+    textAlign: 'center',
+    display: 'block',
+    color:'#58595B',
+    cursor:'pointer',
+    marginLeft:"4px"
   }
+
+
 
 }));
 
@@ -304,14 +334,25 @@ class Landing extends Component{
       value: 'Full-Time',
       description: '',
       requirement: '',
-      max_characters: 1000
+      max_characters: 2000,
+      checkedBox: false,
     }
   }
+ 
   handleChange = event => {
     this.setState({ value: event.target.value });
   };
 
+  handleChange2 = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+
   postJob = (event) => {
+    this.setState({
+      open: true
+    })
+  };
+  purchaseCredits = (event) => {
     this.setState({
       open: true
     })
@@ -341,6 +382,7 @@ class Landing extends Component{
     })
   };
 
+
   render() {
     const classes = this.props.classes;
     
@@ -360,6 +402,7 @@ class Landing extends Component{
               <p className={classes.available}>Credits Available</p>
             </div>
           </span>
+         
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
           <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button> 
           <p className={classes.updateProfile}>Update your profile</p>
@@ -382,7 +425,7 @@ class Landing extends Component{
                 <h2 style={{margin: '0px', marginTop: '10px', color: 'white'}}>Post a Job</h2>
                 
               </div>
-              <img onClick={this.handleClose} className={classes.close} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt={"Close button"}/>
+              <img onClick={this.handleClose} className={classes.close} style={{width: '14px', height: '14px'}} src={close}/>
             </Toolbar>
             <div className={classes.grid}>
             <Grid
@@ -390,14 +433,14 @@ class Landing extends Component{
               item xs={12}
               spacing={1}
            
-            >
+            > 
               <Grid
                 container
                 item xs={6}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"         
-              >
+              >    
                 <Grid
                   container
                   item xs={12}
@@ -405,23 +448,19 @@ class Landing extends Component{
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                
-                      <form className={classes.box} noValidate autoComplete="off">
-                        <TextField label="Job Title" fullWidth className={classes.textbox}  
-                          InputProps={{
-                            classes: {
-                             
-                              root: classes.outline,
-                              focused: classes.cssFocused,
-                              input: classes.input,
-                            }
-                          }}
-                        />
-                      </form>
-                   
-                </Grid>
+                  <div className={classes.radioMarginFirst}>   
+                    <TextField label="Job Title" fullWidth className={classes.textbox}  
+                      InputProps={{
+                        classes: {   
+                          root: classes.outline,
+                          focused: classes.cssFocused,
+                          input: classes.input,
+                        }
+                      }}
+                    />
+                  </div>
+                </Grid>        
               </Grid>
-
 
               <Grid
               container
@@ -434,23 +473,21 @@ class Landing extends Component{
                   container
                   item xs={12}
                   spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
+                  alignItems="flex-end"
+                  justify="flex-end"
                 > 
-                 <form className={classes.box} noValidate autoComplete="off">
-                        <TextField label="Location" fullWidth className={classes.textbox}  
-                          
-                          InputProps={{
-                            classes: {
-                              input: classes.input,
-                            }
-                          }}
-                        />
-                      </form>
+                  <div className={classes.radioMarginFirst}>
+                    <TextField label="Location" fullWidth className={classes.textbox}  
+                      InputProps={{
+                        classes: {
+                          input: classes.input,
+                        }
+                      }}
+                    />
+                  </div>
                 </Grid>
               </Grid>
 
-         
               <Grid
                 container
                 item xs={6}
@@ -465,24 +502,18 @@ class Landing extends Component{
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <form className={classes.box} noValidate autoComplete="off">
-                        <TextField label="Company" fullWidth className={classes.textbox}  
-                          
-                          InputProps={{
-                            classes: {
-                              input: classes.input,
-                            }
-                          }}
-                        />
-                      </form>
+                   <div className={classes.radioMarginSecond}>
+                      <TextField label="Company" fullWidth className={classes.textbox}     
+                        InputProps={{
+                          classes: {
+                            input: classes.input,
+                          }
+                        }}
+                      />
+                 </div>
                 </Grid>
               </Grid>
-
-            
-  
-     
-    
-             
+      
               <Grid
               container
               item xs={3}
@@ -497,16 +528,20 @@ class Landing extends Component{
                   alignItems="center"
                   justify="center"
                 >
-                  <FormControlLabel  checked={this.state.value === 'Full-Time'} value='Full-Time' control={<Radio color="primary" />} label="Full-Time"  onChange={this.handleChange}/>
+                  <div className={classes.radioButton}>
+                    <FormControlLabel  checked={this.state.value === 'Full-Time'} value='Full-Time' control={<Radio color="primary" />} label="Full-Time"  onChange={this.handleChange}/>
+                  </div>
                 </Grid>
-              <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="center"
-              justify="center"
+                <Grid
+                container
+                item xs={12}
+                spacing={0}
+                alignItems="center"
+                justify="center"
                 >
-                <FormControlLabel  checked={this.state.value === 'Contract'} value="Contract" control={<Radio color="primary" />} label="Contract"  onChange={this.handleChange} />
+                  <div className={classes.radioButton}>
+                    <FormControlLabel  checked={this.state.value === 'Contract'} value="Contract" control={<Radio color="primary" />} label="Contract"  onChange={this.handleChange} />
+                  </div> 
                 </Grid>
               </Grid>
               <Grid
@@ -523,10 +558,9 @@ class Landing extends Component{
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <FormControlLabel  
-                   
-                   checked={this.state.value === 'Part-Time'}
-                    value='Part-Time' control={<Radio color="primary" />} label="Part-Time"  onChange={this.handleChange}/>
+                  <div className={classes.radioButton}>
+                    <FormControlLabel checked={this.state.value === 'Part-Time'} value='Part-Time' control={<Radio color="primary" />} label="Part-Time"  onChange={this.handleChange}/>
+                  </div>
                 </Grid>
                 <Grid
                   container
@@ -535,91 +569,123 @@ class Landing extends Component{
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                 <FormControlLabel checked={this.state.value === 'Internship'}  value="Internship" control={<Radio color="primary" />} label="Internship" onChange={this.handleChange}/>
+                  <div className={classes.radioButton}>
+                  <FormControlLabel checked={this.state.value === 'Internship'}  value="Internship" control={<Radio color="primary" />} label="Internship" onChange={this.handleChange}/>
+                  </div>
                 </Grid>
               </Grid>
               
-             
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="center"
+                justify="center"
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                > 
+                  <p className={classes.title}>Job Description</p> 
+                      <TextField
+                        multiline
+                        rows={4}
+                        variant="outlined"
+                        fullWidth
+                        InputProps={{
+                          maxLength: this.state.max_characters,
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          },
+                        }}
+                        value={this.state.description}
+                        helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
+                        className={classes.textField}  
+                        onChange={this.handleDescriptionChange("name")}
+                      />      
+                </Grid>
+              </Grid>
+              
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="center"
+                justify="center"
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                > 
+                  <p className={classes.title}>Job Requirement</p>
+                  <TextField
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        maxLength: this.state.max_characters,
+                        classes: {
+                          root: classes.cssOutlinedInput,
+                          focused: classes.cssFocused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
+                      value={this.state.requirement}
+                      helperText={`${this.state.requirement.length}/${this.state.max_characters} Characters`}
+                      className={classes.textField}  
+                      onChange={this.handleRequirementChange("name")}
+                    />
+                </Grid>
+              </Grid>
+            </Grid>
+
             <Grid
               container
               item xs={12}
               spacing={1}
-              alignItems="center"
-              justify="center"
+              alignItems="flex-start"
+              justify="flex-start"
             >
               <Grid
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               > 
-                <p className={classes.title}>Job Description</p>
-                   
-                    <TextField
-                      multiline
-                      rows={4}
-                      variant="outlined"
-                      fullWidth
-                      inputProps={{
-                        maxLength: this.state.max_characters,
-                        classes: {
-                          root: classes.cssOutlinedInput,
-                          focused: classes.cssFocused,
-                          notchedOutline: classes.notchedOutline,
-                        }
-                      }}
-                      value={this.state.description}
-                      helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
-                      className={classes.textField}
-                      onChange={this.handleDescriptionChange("name")}
+                <div  className={classes.contactBox}>
+                  <FormControlLabel
+                    className={classes.checkboxGrid}
+                    control={
+                      <Checkbox
+                        checked={this.state.checkedBox}
+                        onChange={this.handleChange2('checkedBox')}
+                        value="checkedBox"
+                        classes={{
+                          root: classes.checkbox,
+                          checked: classes.checked,
+                        }}
                     />
+                    }
+                    label="Allow candidates to contact me about the posting (maximum of 4) "
+                  />
+                </div>
               </Grid>
             </Grid>
-            
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-              >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              > 
-             
-                    <p className={classes.title}>Job Requirement</p>
-                    <TextField
-                      multiline
-                      rows={4}
-                      variant="outlined"
-                      fullWidth
-                      inputProps={{
-                        maxLength: this.state.max_characters,
-                        classes: {
-                          root: classes.cssOutlinedInput,
-                          focused: classes.cssFocused,
-                          notchedOutline: classes.notchedOutline,
-                        }
-                      }}
-                      value={this.state.requirement}
-                      helperText={`${this.state.requirement.length}/${this.state.max_characters} Characters`}
-                      className={classes.textField}
-                      onChange={this.handleRequirementChange("name")}
-                    />
-              </Grid>
-            </Grid>
-          </Grid>
-          </div>
-            <DialogActions>
-            <Button className={classes.button1} variant="contained" onClick={this.postJob}>Submit</Button> 
-            </DialogActions>
-          </Dialog>
-
+            </div>
+              <DialogActions>
+              <Button className={classes.button1} variant="contained" onClick={this.postJob}>Submit</Button> 
+              </DialogActions>
+            </Dialog>
         </div>
       </div>
     );
