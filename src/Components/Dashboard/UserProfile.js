@@ -12,9 +12,10 @@ import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid";
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 const useStyles = makeStyles(theme => ({
   root1: {
@@ -329,7 +330,9 @@ class Landing extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      openCredits: false,
+      openPostJob: false,
+      openFaq: false,
       active: 0,
       value: 'Full-Time',
       description: '',
@@ -349,24 +352,31 @@ class Landing extends Component{
 
   postJob = (event) => {
     this.setState({
-      open: true
+      openPostJob: true
     })
   };
+
   purchaseCredits = (event) => {
     this.setState({
-      open: true
+      openCredits: true
     })
   };
 
   openFaq = (event) => {
     this.setState({
-      open: true
+      openFaq: true
     })
   };
 
-  handleClose = event =>{
+  handlePostJobClose = event =>{
     this.setState({
-      open: false
+      openPostJob: false
+    })
+  };
+
+  handleFaqClose = event =>{
+    this.setState({
+      openFaq: false
     })
   };
 
@@ -406,11 +416,11 @@ class Landing extends Component{
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
           <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button> 
           <p className={classes.updateProfile}>Update your profile</p>
-          <p className={classes.contact}>Contact Admin Support</p>postJob
+          <p className={classes.contact}>Contact Admin Support</p>
           <p className={classes.faq} onClick={this.openFaq}>FAQ</p>
           <Dialog
-            open={this.state.open}
-            onClose={this.handleClose}
+            open={this.state.openPostJob}
+            onClose={this.handlePostJobClose}
             scroll={"paper"}
             aria-labelledby="scroll-dialog-title"
             aria-describedby="scroll-dialog-description"
@@ -425,7 +435,7 @@ class Landing extends Component{
                 <h2 style={{margin: '0px', marginTop: '10px', color: 'white'}}>Post a Job</h2>
                 
               </div>
-              <img onClick={this.handleClose} className={classes.close} style={{width: '14px', height: '14px'}} src={close}/>
+              <img onClick={this.handlePostJobClose} className={classes.close} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
             </Toolbar>
             <div className={classes.grid}>
             <Grid
@@ -681,11 +691,49 @@ class Landing extends Component{
                 </div>
               </Grid>
             </Grid>
-            </div>
-              <DialogActions>
-              <Button className={classes.button1} variant="contained" onClick={this.postJob}>Submit</Button> 
-              </DialogActions>
-            </Dialog>
+          </div>
+            <DialogActions>
+            <Button className={classes.button1} variant="contained" onClick={this.postJob}>Submit</Button> 
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={this.state.openFaq}
+            onClose={this.handleFaqClose}
+            scroll={"paper"}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+            fullWidth={true}
+            maxWidth={'md'}
+            PaperProps={{
+              style: { borderRadius: 12 }
+            }}
+          >
+            <DialogTitle id="scroll-dialog-title">
+              <div>
+                <h2 style={{margin: '0px', marginTop: '10px', color: '#B5A165'}}>FAQ</h2>
+              </div>
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText
+                id="scroll-dialog-description"
+                tabIndex={-1}
+                component={'span'}
+              >
+                <p>TODO: Frequently asked questions section</p>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={this.handleFaqClose}
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{margin: 'auto', backgroundColor: '#B5A165'}}
+              >
+                <b>Close</b>
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </div>
     );
