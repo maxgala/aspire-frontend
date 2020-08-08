@@ -1,23 +1,44 @@
 ## Aspire Frontend Dashboard
 
 The directory hierarchy will be as following:
+
 - frontend
-    - public
-    - src
-        - Components
-            - feature1
-                - file.js
-            - feature2
-                - file.js
-            - ...
-    - public (will be built from the prod build)
-        - All Static Files 
-    - package.json (contains any packages we will be using)
+  - public
+  - src
+    - Components
+      - feature1
+        - file.js
+      - feature2
+        - file.js
+      - ...
+  - public (will be built from the prod build)
+    - All Static Files
+  - package.json (contains any packages we will be using)
+
+## Dev mode
+
+Define the following environment variables in your shell before launching the application:
+
+```sh
+export REACT_APP_CLIENT_ID=""
+export REACT_APP_USER_POOL_ID=""
+export REACT_APP_BACKEND_URL=""
+```
+
+Or you can add a file named `.env` in the root directory of this project, containing the following:
+
+```
+REACT_APP_CLIENT_ID=""
+REACT_APP_USER_POOL_ID=""
+REACT_APP_BACKEND_URL=""
+```
 
 ### Deployment
+
 This project is deployed on [Heroku](https://max-aspire-frontend.herokuapp.com/).
 
 ### Available Scripts
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 In the project directory, you can run:
