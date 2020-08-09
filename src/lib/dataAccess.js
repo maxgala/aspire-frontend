@@ -3,9 +3,15 @@ import { config } from "../config";
 import * as path from "path";
 
 export const httpGet = (endPoint, accessToken, body) => {
+  let url = path.join(config.BACKEND_URL, endPoint);
+
+  // In dev mode, use the local dev server as a proxy
+  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    url = path.join(endPoint);
+  }
   return axios
     .get(
-      path.join(config.BACKEND_URL, endPoint),
+      url,
       accessToken
         ? {
           data: body,
