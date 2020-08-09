@@ -5,6 +5,7 @@ import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
 import TestData from "./CoffeeChatsTestData";
+import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
@@ -12,7 +13,9 @@ const useStyles = makeStyles(() => ({
     paddingRight: '5%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
+    height: '90vh',
+    marginLeft:"20px",
+    
   },
   booking_history: {
     fontFamily: 'PT Sans',
@@ -24,6 +27,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '0px'
   },
   section_title: {
+  
     fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
@@ -31,6 +35,30 @@ const useStyles = makeStyles(() => ({
     marginTop: '15px',
     textAlign: 'left',
     color: 'black'
+  },
+  jobPostingLarge: {
+    '@media (max-width: 960px)': {display:'None !important;'},
+    fontFamily: 'PT Sans',
+    fontSize: '15px',
+    margin: '5px',
+    marginBottom: '10px',
+    marginTop: '15px',
+    textAlign: 'left',
+    color: 'black'
+  },
+  jobPostingSmall: {
+   '@media (min-width: 959px)': {display:'None '},
+    fontFamily: 'PT Sans',
+    fontSize: '15px',
+    marginRight: '250px',
+    marginLEft: '100px',
+    marginBottom: '10px',
+    marginTop: '15px',
+    color: 'black'
+  },
+  example: {
+    width: '1000px',
+    height: '100px',
   }
 }));
 
@@ -54,8 +82,9 @@ class Home extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div>
+    
         <div className={classes.home_page}>
+        <PerfectScrollbar>
           <h1 className={classes.booking_history}>Your Booking History</h1>
           <Grid
             container
@@ -82,7 +111,7 @@ class Home extends Component {
                 <Grid
                   key={key}
                   container
-                  item xs={6}
+                  item xs={12} sm={12} md={12} lg={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -102,7 +131,7 @@ class Home extends Component {
               >
                 <Grid
                   container
-                  item xs={8}
+                  item xs={8} 
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -116,11 +145,11 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <p className={classes.section_title}>Job Postings</p>
+                  <p className={classes.jobPosting}>Job Postings</p>
                 </Grid>
                 <Grid
                   container
-                  item xs={4}
+                  item xs={6} sm={6} md={6} lg={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -129,7 +158,7 @@ class Home extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={4}
+                  item xs={6} sm={6} md={6} lg={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -138,7 +167,7 @@ class Home extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={4}
+                  item xs={12} sm={12} md={12} lg={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -170,39 +199,45 @@ class Home extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <p className={classes.section_title}>Job Postings</p>
+                  <p className={classes.jobPostingLarge}>Job Postings</p>
                 </Grid>
                 <Grid
                   container
-                  item xs={4}
+                  item xs={6} sm={6} md={4} lg={4}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <JobApplicationCard/>
+                </Grid>
+                <Grid
+                  container
+                  item xs={6} sm={6} md={4} lg={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
                 >
                   <JobApplicationCard/>
                 </Grid>
+              
+                  
+              
                 <Grid
                   container
-                  item xs={4}
+                  item xs={8} sm={8} md={4} lg={4}
                   spacing={1}
                   alignItems="flex-start"
-                  justify="flex-start"
+                  justify="flex-end"
                 >
-                  <JobApplicationCard/>
-                </Grid>
-                <Grid
-                  container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
+                <p className={classes.jobPostingSmall}>Job Postings</p>
                   <JobPostingCard/>
                 </Grid>
               </Grid>
+          
             }
           </Grid>
-        </div>
+
+      </PerfectScrollbar>
       </div>
     )
   }

@@ -3,6 +3,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import Filter from "./Cards/FilterCard";
+import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+
 
 const useStyles = makeStyles(() => ({
 
@@ -11,7 +13,7 @@ const useStyles = makeStyles(() => ({
     paddingRight: '8%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
+    height: '90vh',
   },
 
   JobBoard: {
@@ -77,8 +79,10 @@ class JobBoard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div>
+    
+
         <div className={classes.mainPage}>
+        <PerfectScrollbar>
           <div className={classes.padding}>
             <h1 className={classes.JobBoard}>Job Board</h1>
           </div>
@@ -232,7 +236,7 @@ class JobBoard extends Component {
             
             <Grid
               container
-              item xs={12} sm={9} md={4}
+              item xs={6} sm={6} md={4}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -241,7 +245,7 @@ class JobBoard extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={4}
+              item xs={6} sm={6} md={4}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -250,62 +254,7 @@ class JobBoard extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={9} md={4}
+              item xs={6} sm={6} md={4}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -315,7 +264,7 @@ class JobBoard extends Component {
 
             <Grid
               container
-              item xs={12} sm={9} md={4}
+              item xs={6} sm={6} md={4}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -324,7 +273,7 @@ class JobBoard extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={4}
+              item xs={6} sm={6} md={4}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -333,7 +282,62 @@ class JobBoard extends Component {
             </Grid>
             <Grid
               container
-              item xs={12} sm={9} md={4}
+              item xs={6} sm={6} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+
+            <Grid
+              container
+              item xs={6} sm={6} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={4}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={4}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -341,8 +345,10 @@ class JobBoard extends Component {
               <JobApplicationCard/>
             </Grid>
           </Grid>
+          </PerfectScrollbar>
         </div>
-      </div>
+      
+      
     )
   }
 }
