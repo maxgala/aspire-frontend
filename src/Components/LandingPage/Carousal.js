@@ -197,7 +197,7 @@ class Quote extends Component {
             spacing={1}
             justify="center"
           >
-            <p className={classes.title}>Jodie Foster - CEO of BestWork</p>
+            <p className={classes.title}>{this.state.current.name} - {this.state.current.role} at {this.state.current.company}</p>
             <p className={classes.paragraph}>{this.state.current.testimonial}</p>
           </Grid>
           <Grid

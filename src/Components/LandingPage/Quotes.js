@@ -25,7 +25,7 @@ export const quotes= {
             text-align:center;
         }`}
         src={WaliedSoliman}
-        alt={"Testimonial Picture"}
+        alt={"Walied Soliman Testimonial"}
       />
   },
   1: {
@@ -44,7 +44,7 @@ export const quotes= {
             text-align:center;
         }`}
         src={SalmaSalman}
-        alt={"Testimonial Picture"}
+        alt={"Salma Salman Testimonial"}
       />
   },
   2: {
@@ -63,7 +63,7 @@ export const quotes= {
             text-align:center;
         }`}
         src={MohamedLachemi}
-        alt={"Testimonial Picture"}
+        alt={"Dr. Mohamed Lachemi Testimonial"}
       />
   },
   3: {
@@ -82,7 +82,7 @@ export const quotes= {
             text-align:center;
         }`}
         src={RoblehJama}
-        alt={"Testimonial Picture"}
+        alt={"Robleh Jama Testimonial"}
       />
   },
   4: {
@@ -101,7 +101,7 @@ export const quotes= {
             text-align:center;
         }`}
         src={HindAlAbadleh}
-        alt={"Testimonial Picture"}
+        alt={"Dr. Hind Al-Abadleh Testimonial"}
       />
   },
   5: {
@@ -120,7 +120,7 @@ export const quotes= {
             text-align:center;
         }`}
         src={MuzParkhani}
-        alt={"Testimonial Picture"}
+        alt={"Muz Parkhani Testimonial"}
       />
   },
   6: {
@@ -139,7 +139,7 @@ export const quotes= {
             text-align:center;
         }`}
         src={AliMutaza}
-        alt={"Testimonial Picture"}
+        alt={"Ali Mutaza Testimonial"}
       />
   }
 }
