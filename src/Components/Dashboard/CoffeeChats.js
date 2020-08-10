@@ -4,14 +4,16 @@ import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
 import TestData from "./CoffeeChatsTestData";
+import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 
 const useStyles = makeStyles(() => ({
 
   mainPage: { 
     paddingLeft: '5%',
-    paddingRight: '10%',
+    paddingRight: '5%',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '90vh',
   },
 
   coffeeChat: {
@@ -81,8 +83,9 @@ class CoffeeChats extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div>
+     
         <div className={classes.mainPage}>
+        <PerfectScrollbar>
           <h1 className={classes.coffeeChat}>Coffee Chats</h1>
           <Grid
             container
@@ -192,7 +195,7 @@ class CoffeeChats extends Component {
               <Grid
                 key={key}
                 container
-                item xs={12} sm={12} md={6}
+                item xs={12} sm={12} md={12} lg={6}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -201,8 +204,11 @@ class CoffeeChats extends Component {
               </Grid>
             ))}
           </Grid>
+
+        </PerfectScrollbar>
         </div>
-      </div>
+     
+       
     )
   }
 }
