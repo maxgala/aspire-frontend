@@ -40,6 +40,9 @@ const useStyles = makeStyles(() => ({
   example: {
     width: '1000px',
     height: '100px',
+  },
+  widthScroll:{
+    width:"10px !important",
   }
 }));
 
@@ -64,8 +67,9 @@ class Home extends Component {
     const classes = this.props.classes;
     return (
     
+        <div>
+        <PerfectScrollbar style="width:20px;">
         <div className={classes.home_page}>
-        <PerfectScrollbar>
           <h1 className={classes.booking_history}>Your Booking History</h1>
           <Grid
             container
@@ -231,7 +235,7 @@ class Home extends Component {
           
             }
           </Grid>
-
+        </div>
       </PerfectScrollbar>
       </div>
     )

@@ -80,10 +80,10 @@ class JobBoard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-    
 
+    <div>
+      <PerfectScrollbar>
         <div className={classes.mainPage}>
-        <PerfectScrollbar>
           <div className={classes.padding}>
             <h1 className={classes.JobBoard}>Job Board</h1>
           </div>
@@ -328,6 +328,7 @@ class JobBoard extends Component {
               <JobApplicationCard/>
             </Grid>
           </Grid>
+          </div>
           </PerfectScrollbar>
         </div>
       
