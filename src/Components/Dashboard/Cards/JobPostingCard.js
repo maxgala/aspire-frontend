@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor:'#58595B',
+    boxShadow: "0px 6px 6px #00000029",
 
   },
   button: {

@@ -25,7 +25,8 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     fontWeight: '100',
     fontFamily: 'Arial', 
-    marginBottom: '5%'
+    marginBottom: '5%',
+    boxShadow: "0px 6px 6px #00000029",
   },
   jobTitle:{
     marginLeft: '10%',
