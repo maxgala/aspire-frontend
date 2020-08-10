@@ -236,22 +236,15 @@ class JobApplicationCard extends Component {
               </Grid>
               <Grid
                 container
-                item xs={4}
+                item xs={10}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               > 
                <span className={classes.text2}>Google</span>
-              </Grid>
-              <Grid
-                container
-                item xs={7}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              > 
                <span className={classes.text3}>Toronto, ON</span>
-               </Grid>
+              </Grid>
+              
               </Grid>
               <Grid
                 container
