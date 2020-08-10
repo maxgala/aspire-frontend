@@ -29,6 +29,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '0px'
   },
   section_title: {
+    width: '100%',
     fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
