@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles(() => ({
   card: {
     width: '90%',
-    maxWidth: '500px',
+    maxWidth: '300px',
     height: '180px',
     borderStyle: 'solid',
     borderRadius: '20px',
