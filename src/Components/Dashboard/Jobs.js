@@ -97,8 +97,8 @@ class JobBoard extends Component {
               container
               item xs={12} sm={6} md={6} lg={3}
               spacing={1}
-              alignItems="flex-end"
-              justify="flex-end"
+              alignItems="center"
+              justify="center"
             >
               <Grid
                 container
