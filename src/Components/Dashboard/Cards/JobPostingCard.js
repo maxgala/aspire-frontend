@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
   card: {
     width: '95%',
     minHeight: '130px',
-    maxWidth: '350px',
+    maxWidth: '400px',
     height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',

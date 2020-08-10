@@ -92,13 +92,15 @@ class JobBoard extends Component {
             container
             item xs={12}
             spacing={1}
+            alignItems="center"
+              justify="center"
           >
-        <Grid
+            <Grid
               container
               item xs={12} sm={6} md={6} lg={3}
               spacing={1}
-              alignItems="center"
-              justify="center"
+              alignItems="flex-end"
+              justify="flex-end"
             >
               <Grid
                 container
@@ -113,8 +115,8 @@ class JobBoard extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-end"
+                justify="flex-end"
               >
                 <Filter/>
               </Grid>
@@ -123,8 +125,8 @@ class JobBoard extends Component {
               container
               item xs={12} sm={6} md={6} lg={3}
               spacing={1}
-              alignItems="center"
-              justify="center"
+              alignItems="flex-end"
+              justify="flex-end"
             >
               <Grid
                 container
@@ -139,8 +141,8 @@ class JobBoard extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-end"
+                justify="flex-end"
               >
                 <Filter/>
               </Grid>
@@ -150,8 +152,8 @@ class JobBoard extends Component {
               container
               item xs={12} sm={6} md={6} lg={3}
               spacing={1}
-              alignItems="center"
-              justify="center"
+              alignItems="flex-end"
+              justify="flex-end"
             >
               <Grid
                 container
@@ -166,8 +168,8 @@ class JobBoard extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-end"
+                justify="flex-end"
               >
                 <Filter/>
               </Grid>
@@ -176,8 +178,8 @@ class JobBoard extends Component {
               container
               item xs={12} sm={6} md={6} lg={3}
               spacing={1}
-              alignItems="center"
-              justify="center"
+              alignItems="flex-end"
+              justify="flex-end"
             >
               <Grid
                 container
@@ -192,8 +194,8 @@ class JobBoard extends Component {
                 container
                 item xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-end"
+                justify="flex-end"
               >
                 <Filter/>
               </Grid>
