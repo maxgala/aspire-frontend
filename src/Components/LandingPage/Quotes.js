@@ -1,12 +1,12 @@
 import React from 'react';
 import { css } from 'emotion'
-import WaliedSoliman from "../Images/faceShot/pic0.png";
-import SalmaSalman from "../Images/faceShot/pic1.png";
-import MohamedLachemi from "../Images/faceShot/pic2.png";
-import RoblehJama from "../Images/faceShot/pic3.png";
-import HindAlAbadleh from "../Images/faceShot/pic0.png";
-import MuzParkhani from "../Images/faceShot/pic1.png";
-import AliMutaza from "../Images/faceShot/pic2.png";
+import WaliedSoliman from "../Images/faceShot/Soliman_Walied.jpg";
+import SalmaSalman from "../Images/faceShot/Salman_Salma.jpg";
+import MohamedLachemi from "../Images/faceShot/Lachemi_Dr.Mohamed.jpg";
+import RoblehJama from "../Images/faceShot/Jama_Robleh.jpg";
+import HindAlAbadleh from "../Images/faceShot/Al-Abadleh_Dr.Hind.jpg";
+import MuzParkhani from "../Images/faceShot/Parkhani_Muzammil.png";
+import AliMutaza from "../Images/faceShot/Murtaza_Ali.jpg";
 
 export const quotes= {
   0: {
@@ -109,7 +109,7 @@ export const quotes= {
     name: "Muz Parkhani",
     role: "Director, Global Thematic Return",
     company: "OMERS",
-    iimage:
+    image:
       <img
         className={css`
           width: 100%;

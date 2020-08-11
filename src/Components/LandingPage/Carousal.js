@@ -104,7 +104,7 @@ class Quote extends Component {
     this.state = {
       current: q.quotes[0],
       active: 0,
-      numQuotes: 4,
+      numQuotes: 7,
     }
   }
 
@@ -118,9 +118,9 @@ class Quote extends Component {
   }
 
   HandleRightArrowClick = (event) => {
-    if (this.state.active < 3) {
+    if (this.state.active < 6) {
       this.setState({current: q.quotes[parseInt(this.state.active)+1], active: parseInt(this.state.active)+1})
-    } else if (this.state.active === 3) {
+    } else if (this.state.active === 6) {
       this.setState({current: q.quotes[0], active: 0})
     }
     this.timer();
