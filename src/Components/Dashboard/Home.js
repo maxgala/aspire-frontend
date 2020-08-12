@@ -64,9 +64,9 @@ class Home extends Component {
   render() {
     const classes = this.props.classes;
     return (
-    
-        <div className={classes.home_page}>
+      <div>
         <PerfectScrollbar>
+        <div className={classes.home_page}>
           <h1 className={classes.booking_history}>Your Booking History</h1>
           <Grid
             container
@@ -270,9 +270,9 @@ class Home extends Component {
           
             }
           </Grid>
-
-      </PerfectScrollbar>
       </div>
+      </PerfectScrollbar>
+    </div>
     )
   }
 }
