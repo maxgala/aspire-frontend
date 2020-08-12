@@ -38,26 +38,6 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     color: 'black'
   },
-  jobPostingLarge: {
-    '@media (max-width: 960px)': {display:'None !important;'},
-    fontFamily: 'PT Sans',
-    fontSize: '15px',
-    margin: '5px',
-    marginBottom: '10px',
-    marginTop: '15px',
-    textAlign: 'left',
-    color: 'black'
-  },
-  jobPostingSmall: {
-   '@media (min-width: 959px)': {display:'None '},
-    fontFamily: 'PT Sans',
-    fontSize: '15px',
-    marginRight: '250px',
-    marginLEft: '100px',
-    marginBottom: '10px',
-    marginTop: '15px',
-    color: 'black'
-  },
   example: {
     width: '1000px',
     height: '100px',
