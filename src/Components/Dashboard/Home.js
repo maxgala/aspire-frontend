@@ -30,7 +30,6 @@ const useStyles = makeStyles(() => ({
   
     fontFamily: 'PT Sans',
     fontSize: '15px',
-    marginLeft: '5px',
     marginBottom: '10px',
     marginTop: '15px',
     marginLeft: '15px',
@@ -40,9 +39,6 @@ const useStyles = makeStyles(() => ({
   example: {
     width: '1000px',
     height: '100px',
-  },
-  widthScroll:{
-    width:"10px !important",
   }
 }));
 
@@ -68,7 +64,7 @@ class Home extends Component {
     return (
     
         <div>
-        <PerfectScrollbar style="width:20px;">
+        <PerfectScrollbar>
         <div className={classes.home_page}>
           <h1 className={classes.booking_history}>Your Booking History</h1>
           <Grid
