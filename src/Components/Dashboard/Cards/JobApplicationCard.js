@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 const useStyles = makeStyles(() => ({
   card: {
     width: '90%',
-    maxWidth: '500px',
+    maxWidth: '400px',
     height: '180px',
     borderStyle: 'solid',
     borderRadius: '20px',
@@ -25,7 +25,8 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     fontWeight: '100',
     fontFamily: 'Arial', 
-    marginBottom: '5%'
+    marginBottom: '5%',
+    boxShadow: "0px 6px 6px #00000029",
   },
   jobTitle:{
     marginLeft: '10%',
@@ -36,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
   text2:{
     fontSize: '12px',
-    marginLeft: '7%',
+    marginLeft: '2%',
     marginTop:'10px',
     fontWeight: '100',
   },
@@ -45,6 +46,7 @@ const useStyles = makeStyles(() => ({
     marginLeft: '7%',
     marginTop:'10px',
     fontWeight: '100',
+    flexDirection:'row'
   },
   text4:{
     marginLeft: '18%',
@@ -62,10 +64,9 @@ const useStyles = makeStyles(() => ({
     backgroundColor :'white',
     color: '#58595B',
     display: 'flex',
-   // marginLeft: '18%',
     marginTop: '10px',
-    paddingLeft: '3%',
-    paddingRight: '3%',
+    paddingLeft: '2.5%',
+    paddingRight: '2.5%',
     paddingTop: '0.5%',
     paddingBottom: '0.5%',
     '&:hover': {
@@ -74,7 +75,6 @@ const useStyles = makeStyles(() => ({
   }
   },
   tag: {
-    //transform: 'translate(-160%, 340%)',
     float: 'left',
     borderStyle: 'solid',
     fontSize: '7px',
@@ -231,7 +231,7 @@ class JobApplicationCard extends Component {
                 alignItems="flex-end"
                 justify="flex-end"
               > 
-              <span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '10%', marginTop:'16px',}}/></span>
+              <span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '10%', marginTop:'13px',}}/></span>
                
               </Grid>
               <Grid

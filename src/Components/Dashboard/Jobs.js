@@ -39,6 +39,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '15px',
     margin: '5px',
     marginBottom: '10px',
+    marginLeft: '15px',
     textAlign: 'left',
     color: 'black',
     fontWeight: 'bold',
@@ -79,10 +80,10 @@ class JobBoard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-    
 
+    <div>
+      <PerfectScrollbar>
         <div className={classes.mainPage}>
-        <PerfectScrollbar>
           <div className={classes.padding}>
             <h1 className={classes.JobBoard}>Job Board</h1>
           </div>
@@ -91,130 +92,114 @@ class JobBoard extends Component {
             container
             item xs={12}
             spacing={1}
+            alignItems="center"
+              justify="center"
           >
             <Grid
               container
-              item xs={12} sm={12} md={8}
+              item xs={12} sm={6} md={6} lg={3}
               spacing={1}
               alignItems="flex-end"
               justify="flex-end"
             >
               <Grid
                 container
-                item xs={12} sm={6} md={4}
+                item xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Title</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter/>
-                </Grid>
+                <p className={classes.section_title}>Job Title</p>
               </Grid>
-
               <Grid
                 container
-                item xs={12} sm={6} md={4}
+                item xs={12}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="flex-end"
+                justify="flex-end"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Location</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter/>
-                </Grid>
+                <Filter/>
               </Grid>
-
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={6} md={6} lg={3}
+              spacing={1}
+              alignItems="flex-end"
+              justify="flex-end"
+            >
               <Grid
                 container
-                item xs={12} sm={12} md={4}
+                item xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Type</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
-                >
-                  <Filter/>
-                </Grid>
+                <p className={classes.section_title}>Location</p>
               </Grid>
-              </Grid>
-
               <Grid
                 container
-                item xs={12} sm={12} md={4}
+                item xs={12}
+                spacing={1}
+                alignItems="flex-end"
+                justify="flex-end"
+              >
+                <Filter/>
+              </Grid>
+            </Grid>
+
+            <Grid
+              container
+              item xs={12} sm={6} md={6} lg={3}
+              spacing={1}
+              alignItems="flex-end"
+              justify="flex-end"
+            >
+              <Grid
+                container
+                item xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12} sm={12} md={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Grid
-                    container
-                    item xs={12}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <p className={classes.section_title}>Additional Filters</p>
-                  </Grid>
-                  <Grid
-                    container
-                    item xs={12}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <Filter/>
-                  </Grid>
-                </Grid>
+                <p className={classes.section_title}>Job Type</p>
               </Grid>
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-end"
+                justify="flex-end"
+              >
+                <Filter/>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              item xs={12} sm={6} md={6} lg={3}
+              spacing={1}
+              alignItems="flex-end"
+              justify="flex-end"
+            >
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <p className={classes.section_title}>Additional Filters</p>
+              </Grid>
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-end"
+                justify="flex-end"
+              >
+                <Filter/>
+              </Grid>
+            </Grid>
             </Grid>
 
           <div className={classes.sort}>
@@ -235,116 +220,117 @@ class JobBoard extends Component {
           >
             
             <Grid
-              container
-              item xs={6} sm={6} md={4}
+              container 
+              item xs={6} sm={6} md={6} lg={4}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
               <JobApplicationCard/>
             </Grid>
             <Grid
               container
-              item xs={6} sm={6} md={4}
+              item xs={6} sm={6} md={6} lg={4}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
               <JobApplicationCard/>
             </Grid>
             <Grid
               container
-              item xs={6} sm={6} md={4}
+              item xs={6} sm={6} md={6} lg={4}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-
-            <Grid
-              container
-              item xs={6} sm={6} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={6} sm={6} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={6} sm={6} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={6} sm={6} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={6} sm={6} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <JobApplicationCard/>
-            </Grid>
-            <Grid
-              container
-              item xs={6} sm={6} md={4}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
               <JobApplicationCard/>
             </Grid>
 
             <Grid
               container
-              item xs={6} sm={6} md={4}
+              item xs={6} sm={6} md={6} lg={4}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
               <JobApplicationCard/>
             </Grid>
             <Grid
               container
-              item xs={6} sm={6} md={4}
+              item xs={6} sm={6} md={6} lg={4}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
               <JobApplicationCard/>
             </Grid>
             <Grid
               container
-              item xs={6} sm={6} md={4}
+              item xs={6} sm={6} md={6} lg={4}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={6} lg={4}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={6} lg={4}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={6} lg={4}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
+              <JobApplicationCard/>
+            </Grid>
+
+            <Grid
+              container
+              item xs={6} sm={6} md={6} lg={4}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={6} lg={4}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
+              <JobApplicationCard/>
+            </Grid>
+            <Grid
+              container
+              item xs={6} sm={6} md={6} lg={4}
+              spacing={1}
+              alignItems="center"
+              justify="center"
             >
               <JobApplicationCard/>
             </Grid>
           </Grid>
+          </div>
           </PerfectScrollbar>
         </div>
       

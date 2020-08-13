@@ -83,9 +83,10 @@ class CoffeeChats extends Component {
   render() {
     const classes = this.props.classes;
     return (
-     
-        <div className={classes.mainPage}>
+      
+      <div>  
         <PerfectScrollbar>
+          <div className={classes.mainPage}>
           <h1 className={classes.coffeeChat}>Coffee Chats</h1>
           <Grid
             container
@@ -204,7 +205,7 @@ class CoffeeChats extends Component {
               </Grid>
             ))}
           </Grid>
-
+          </div>
         </PerfectScrollbar>
         </div>
      

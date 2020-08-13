@@ -38,26 +38,6 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     color: 'black'
   },
-  jobPostingLarge: {
-    '@media (max-width: 960px)': {display:'None !important;'},
-    fontFamily: 'PT Sans',
-    fontSize: '15px',
-    margin: '5px',
-    marginBottom: '10px',
-    marginTop: '15px',
-    textAlign: 'left',
-    color: 'black'
-  },
-  jobPostingSmall: {
-   '@media (min-width: 959px)': {display:'None '},
-    fontFamily: 'PT Sans',
-    fontSize: '15px',
-    marginRight: '250px',
-    marginLEft: '100px',
-    marginBottom: '10px',
-    marginTop: '15px',
-    color: 'black'
-  },
   example: {
     width: '1000px',
     height: '100px',
@@ -84,9 +64,9 @@ class Home extends Component {
   render() {
     const classes = this.props.classes;
     return (
-    
-        <div className={classes.home_page}>
+      <div>
         <PerfectScrollbar>
+        <div className={classes.home_page}>
           <h1 className={classes.booking_history}>Your Booking History</h1>
           <Grid
             container
@@ -114,7 +94,7 @@ class Home extends Component {
                   <Grid
                     key={key}
                     container
-                    item xs={6}
+                    item xs={12} sm={12} md={12} lg={6}
                     spacing={1}
                     alignItems="flex-start"
                     justify="flex-start"
@@ -222,7 +202,7 @@ class Home extends Component {
                 {/* TODO: cap at 2 job applications and 1 job posting for senior exec */}
                 <Grid
                   container
-                  item xs={8}
+                  item xs={12} sm={12} md={8}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -235,8 +215,8 @@ class Home extends Component {
                         container
                         item xs={6}
                         spacing={1}
-                        alignItems="flex-start"
-                        justify="flex-start"
+                        alignItems="center"
+                        justify="center"
                       >
                         <JobApplicationCard/>
                       </Grid>
@@ -255,7 +235,7 @@ class Home extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={4}
+                  item xs={8} sm={8} md={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -268,8 +248,8 @@ class Home extends Component {
                         container
                         item xs={12}
                         spacing={1}
-                        alignItems="flex-start"
-                        justify="flex-start"
+                        alignItems="center"
+                        justify="center"
                       >
                         <JobPostingCard/>
                       </Grid>
@@ -290,9 +270,9 @@ class Home extends Component {
           
             }
           </Grid>
-
-      </PerfectScrollbar>
       </div>
+      </PerfectScrollbar>
+    </div>
     )
   }
 }
