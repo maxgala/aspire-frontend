@@ -78,7 +78,13 @@ class CoffeeChats extends Component {
     }
   }
 
+  fetchChats = async () => {
+    const chatData = await httpGet("chats");
+    console.log(chatData);
+  }
+
   render() {
+    this.fetchChats();
     const classes = this.props.classes;
     return (
       <div>

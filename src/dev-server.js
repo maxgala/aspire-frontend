@@ -6,17 +6,33 @@
 const axios = require("axios");
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.get('/*', async (req, res) => {
-  res.send(await apiCall(req.method, req.path, req.data).catch(err => {
+  res.send(await httpGet(req.method, req.path, req.data).catch(err => {
     if (err) {
       console.error(err);
     }
   }));
-
 });
 
-function apiCall(method, path, data) {
+app.post('/*', async (req, res) => {
+  const headers = {
+    "authorization": req.headers.authorization,
+    "content-type": req.headers["content-type"]
+  }
+  res.send(await httpPost(req.path, headers, req.body)
+    .catch(err => {
+      if (err) {
+        console.error(err);
+      }
+    }));
+});
+
+function httpGet(method, path, data) {
   let url = process.env.REACT_APP_BACKEND_URL + path;
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](url, data)
@@ -24,7 +40,28 @@ function apiCall(method, path, data) {
         return resolve(res.data);
       })
       .catch(err => {
-        return reject(err.response.data.error);
+        return reject(err);
+      });
+  });
+}
+
+
+const httpPost = (endPoint, headers, data) => {
+  let url = process.env.REACT_APP_BACKEND_URL + endPoint;
+  return new Promise((resolve, reject) => {
+    return axios
+      .post(
+        url,
+        data,
+        {
+          headers: headers
+        }
+      )
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
       });
   });
 }

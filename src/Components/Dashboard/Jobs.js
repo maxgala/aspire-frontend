@@ -66,15 +66,36 @@ const useStyles = makeStyles(() => ({
 }));
 
 function withMyHook(Component) {
-    return function WrappedComponent(props) {
-      const classes = useStyles();
-      return <Component {...props} classes={classes}/>
-    }
+  return function WrappedComponent(props) {
+    const classes = useStyles();
+    return <Component {...props} classes={classes} />
+  }
 }
 
 class JobBoard extends Component {
-  
+
+  fetchJobs = async () => {
+    const existingJobsData = await httpGet("jobs");
+    console.log(existingJobsData);
+
+    const jobsdata = {
+      "title": "Software Developer",
+      "company": "My-Company",
+      "region": "ON",
+      "city": "Waterloo",
+      "country": "Canada",
+      "job_type": "BOARD_POSITION",
+      "description": "XYZ",
+      "requirements": "XYZ",
+      "job_tags": ["SOFTWARE", "FINANCE"],
+      "salary": 40,
+      "deadline": 1593718782
+    }
+    const response = await httpPost("jobs", config.REACT_APP_ACCESS_TOKEN, JSON.stringify(jobsdata));
+  }
+
   render() {
+    this.fetchJobs();
     const classes = this.props.classes;
     return (
       <div>

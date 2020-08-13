@@ -16,6 +16,7 @@ import Landing from "../LandingPage/Landing";
 import signInImage from "../Images/aboutMax.jpg";
 import Dashboard from "../Dashboard/Dashboard";
 import { authenticate } from "../../lib/authentication";
+import { config } from "../../config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -137,12 +138,17 @@ class SignIn extends Component {
             window.alert("Not filled in");
             return;
         }
-        // TODO: Save this token in state and use it in API requests once logged in
+
         try {
-            await authenticate(
+            const token = await authenticate(
                 this.state.username,
                 this.state.password
             );
+            // this.props.appContext.setState({
+            //     accessToken: token
+            // });
+            config.REACT_APP_ACCESS_TOKEN = token;
+            console.log(token);
         } catch (err) {
             // TODO: Block user from continuing
             console.error("Authentication failed. " + JSON.stringify(err));
