@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     backgroundColor: '#B5A165',
     color: 'white',
+    boxShadow: "0px 6px 6px #00000029",
   },
   cardFour: {
     width: '95%',
@@ -29,6 +30,7 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     backgroundColor: '#455E6A',
     color: 'white',
+    boxShadow: "0px 6px 6px #00000029",
   },
   cardInterview: {
     width: '95%',

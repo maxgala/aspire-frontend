@@ -7,32 +7,15 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '100%',
+    width: '95%',
     minHeight: '130px',
-    maxWidth: '500px',
+    maxWidth: '350px',
     height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor:'#58595B',
+    boxShadow: "0px 6px 6px #00000029",
 
-  },
-  button: {
-    textTransform: 'none',
-    backgroundColor: "#FFFFFF",
-    marginTop:"15%",
-    borderRadius: 50,
-    color: "#58595B",
-    position:'relative',
-    display: 'block',
-    '&:hover': {
-        backgroundColor: "#F1F1F1",
-        color: '#484848'
-    },
-    width:'10vw',
-    fontSize:'0.9vw',
-    fontFamily:'myriad-pro, sans-serif',
-    paddingLeft: '5px',
-    paddingRight: '5px'
   },
 
   innerMargin:{
@@ -48,7 +31,7 @@ const useStyles = makeStyles(() => ({
     marginBottom:'2%',
     marginRight:'0%',
     marginLeft:'0%',
-    fontSize: '18px',
+    fontSize: '17px',
     color: 'white',
   },
 
@@ -58,7 +41,7 @@ const useStyles = makeStyles(() => ({
   },
 
   datePosted:{
-    fontSize: '0.9vw',
+    fontSize: '10px',
     textAlign:'left',
     left:'10%',
     color: 'white',
@@ -68,15 +51,18 @@ const useStyles = makeStyles(() => ({
   },
 
   status:{
-    fontSize: '0.9vw',
+    fontSize: '10px',
     margin:'0px 0px 6px 8px',
     color: 'white',
     fontWeight:"700"
   },
 
   active:{
-    fontSize: '0.9vw',
-    margin:'0px 0px 6px 8px',
+    fontSize: '10px',
+    marginLeft:"35%",
+    marginBottom:"6px",
+    marginTop:"0px",
+    marginRight:"0px",
     color:'#6EA0B5',
     left:'10%',
     fontWeight:"700"
@@ -92,6 +78,8 @@ const useStyles = makeStyles(() => ({
     height:'30px',
     display: 'block',
     margin:'10px 0px 0px 20px',
+    marginLeft:'5%',
+    marginTop:"10px",
     cursor: "pointer"
   },
 
@@ -100,6 +88,9 @@ const useStyles = makeStyles(() => ({
     height:'22px',
     display: 'block',
     margin:'15px 0px 8px 10px',
+    marginLeft:'5%',
+    marginTop:"15px",
+    marginBottom:"8px",
     cursor: "pointer"
   }
 
@@ -197,8 +188,8 @@ class JobPostingCard extends Component {
               container
               item xs={12}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="flex-end"
+              justify="flex-end"
             >
               <Tooltip title="Edit" arrow>
                <img className={classes.image1} src={edit} alt="Edit Job Posting"/>

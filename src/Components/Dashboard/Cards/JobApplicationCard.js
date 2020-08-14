@@ -9,12 +9,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
+import Grid from "@material-ui/core/Grid";
 
 
 const useStyles = makeStyles(() => ({
   card: {
     width: '90%',
-    maxWidth: '500px',
+    maxWidth: '400px',
     height: '180px',
     borderStyle: 'solid',
     borderRadius: '20px',
@@ -24,48 +25,48 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     fontWeight: '100',
     fontFamily: 'Arial', 
-    marginBottom: '5%'
+    marginBottom: '5%',
+    boxShadow: "0px 6px 6px #00000029",
   },
   jobTitle:{
-    marginLeft: '7%',
+    marginLeft: '10%',
     fontSize: '19px',
-    marginTop:'5%px',
+    marginTop:'15px',
     fontWeight: '100',
     marginBottom: '1%',
   },
   text2:{
-    fontSize: '15px',
-    marginLeft: '7%',
-    marginTop:'66px',
+    fontSize: '12px',
+    marginLeft: '2%',
+    marginTop:'10px',
     fontWeight: '100',
   },
   text3:{
-    fontSize: '15px',
+    fontSize: '12px',
     marginLeft: '7%',
-    marginTop:'6px',
+    marginTop:'10px',
     fontWeight: '100',
+    flexDirection:'row'
   },
   text4:{
-    marginLeft: '7%',
-    marginTop: '3%',
+    marginLeft: '18%',
+    marginTop: '10%',
     fontSize: '10px',
     fontWeight: '100',
-    float: 'left',
-    marginBottom: '15%',
-    
+    float: 'left',  
   },
+
   button: {
-    fontSize: '8px',
+    fontSize: '10px',
     position: 'absolute',
     fontWeight: '400',
     borderRadius: 50,
     backgroundColor :'white',
     color: '#58595B',
     display: 'flex',
-    marginLeft: '18%',
-    marginTop: '1%',
-    paddingLeft: '2%',
-    paddingRight: '2%',
+    marginTop: '10px',
+    paddingLeft: '2.5%',
+    paddingRight: '2.5%',
     paddingTop: '0.5%',
     paddingBottom: '0.5%',
     '&:hover': {
@@ -74,7 +75,6 @@ const useStyles = makeStyles(() => ({
   }
   },
   tag: {
-    transform: 'translate(-160%, 340%)',
     float: 'left',
     borderStyle: 'solid',
     fontSize: '7px',
@@ -82,7 +82,8 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     borderWidth: '0.5px',
     borderRadius: 50,
-    marginRight: '2%',
+    marginLeft: '15%',
+    marginTop: '20px',
     borderColor: 'white',
     display: 'flex',
     paddingLeft: '3%',
@@ -159,6 +160,9 @@ const useStyles = makeStyles(() => ({
   button2:{
     marginLeft: '3%',
     color: 'grey'
+  },
+  divStyle:{
+    height:"20px"
   }
 }));
 
@@ -191,16 +195,139 @@ class JobApplicationCard extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
-        <h1 className={classes.jobTitle}>Software Developer</h1>
-        <span className={classes.text2}><span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '1%'}}/></span>Google</span>
-        <span className={classes.text3}>Toronto, ON</span>
-        <hr style={{width: '30%', textAlign:'right', marginLeft: '7%', marginTop:'5%', marginBottom: '0' , height: 1, paddingBottom:'0'}}></hr>
-        <span className={classes.text4}>Posted Jan 5, 2020</span>
-        <Button className={classes.button} onClick={this.openMemberships} variant="contained" color="primary" >View Job</Button>
-        <span className={classes.tag}>Marketing</span>
-        <span className={classes.tag}>Software</span>
+          <Grid
+            container
+            alignItems="flex-start"
+            justify="flex-start"
+          >  
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              > 
+               <h1 className={classes.jobTitle}>Software Developer</h1>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <Grid
+                container
+                item xs={2}
+                spacing={1}
+                alignItems="flex-end"
+                justify="flex-end"
+              > 
+              <span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '10%', marginTop:'13px',}}/></span>
+               
+              </Grid>
+              <Grid
+                container
+                item xs={10}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              > 
+               <span className={classes.text2}>Google</span>
+               <span className={classes.text3}>Toronto, ON</span>
+              </Grid>
+              
+              </Grid>
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-end"
+                  justify="flex-end"
+                > 
+                  <hr style={{width: '40%', textAlign:'right', marginLeft: '10%', marginTop:'30px', marginBottom: '0' , height: 1, paddingBottom:'0'}}></hr>
         
-        <Dialog
+                </Grid>
+              </Grid>
+        
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Grid
+                  container
+                  item xs={7}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                > 
+                  <span className={classes.text4}>Posted Jan 5, 2020</span>
+                </Grid>
+                <Grid
+                  container
+                  item xs={5}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                > 
+                <div className={classes.divStyle}>
+                  <Button className={classes.button} onClick={this.openMemberships} variant="contained" color="primary" >View Job</Button>
+                </div>
+                </Grid>
+              </Grid>
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <Grid
+                container
+                item xs={4}
+                spacing={1}
+                alignItems="center"
+                justify="center"
+              > 
+           <div className={classes.divStyle}>
+                <span className={classes.tag}>Marketing</span>
+                </div>
+              </Grid>
+              <Grid
+                container
+                item xs={8}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              > 
+      <div className={classes.divStyle}>
+                <span className={classes.tag}>Software</span>
+              </div>
+              </Grid>
+            </Grid>
+          </Grid>
+   
+   
+   
+      <Dialog
         className={classes.translate}
           open={this.state.open}
           onClose={this.handleClose}
