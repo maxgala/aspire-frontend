@@ -45,7 +45,7 @@ function httpGet(method, path, data) {
   });
 }
 
-const httpPost = (endPoint, headers, data) => {
+function httpPost(endPoint, headers, data) {
   let url = process.env.REACT_APP_BACKEND_URL + endPoint;
   return new Promise((resolve, reject) => {
     return axios
