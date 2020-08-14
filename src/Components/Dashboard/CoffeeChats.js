@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
 import TestData from "./CoffeeChatsTestData";
+import { httpGet } from "../../lib/dataAccess";
 
 const useStyles = makeStyles(() => ({
 
@@ -79,12 +80,14 @@ class CoffeeChats extends Component {
   }
 
   fetchChats = async () => {
-    const chatData = await httpGet("chats");
-    console.log(chatData);
+    await httpGet("chats");
+  }
+
+  componentDidMount() {
+    this.fetchChats();
   }
 
   render() {
-    this.fetchChats();
     const classes = this.props.classes;
     return (
       <div>

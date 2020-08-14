@@ -45,18 +45,13 @@ function httpGet(method, path, data) {
   });
 }
 
-
 const httpPost = (endPoint, headers, data) => {
   let url = process.env.REACT_APP_BACKEND_URL + endPoint;
   return new Promise((resolve, reject) => {
     return axios
-      .post(
-        url,
-        data,
-        {
-          headers: headers
-        }
-      )
+      .post(url, data, {
+        headers: headers
+      })
       .then((response) => {
         resolve(response.data);
       })

@@ -3,6 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import Filter from "./Cards/FilterCard";
+import { httpGet } from "../../lib/dataAccess";
 
 const useStyles = makeStyles(() => ({
 
@@ -78,24 +79,27 @@ class JobBoard extends Component {
     const existingJobsData = await httpGet("jobs");
     console.log(existingJobsData);
 
-    const jobsdata = {
-      "title": "Software Developer",
-      "company": "My-Company",
-      "region": "ON",
-      "city": "Waterloo",
-      "country": "Canada",
-      "job_type": "BOARD_POSITION",
-      "description": "XYZ",
-      "requirements": "XYZ",
-      "job_tags": ["SOFTWARE", "FINANCE"],
-      "salary": 40,
-      "deadline": 1593718782
-    }
-    const response = await httpPost("jobs", config.REACT_APP_ACCESS_TOKEN, JSON.stringify(jobsdata));
+    // const jobsdata = {
+    //   "title": "Software Developer",
+    //   "company": "My-Company",
+    //   "region": "ON",
+    //   "city": "Waterloo",
+    //   "country": "Canada",
+    //   "job_type": "BOARD_POSITION",
+    //   "description": "XYZ",
+    //   "requirements": "XYZ",
+    //   "job_tags": ["SOFTWARE", "FINANCE"],
+    //   "salary": 40,
+    //   "deadline": 1593718782
+    // }
+    // const response = await httpPost("jobs", config.REACT_APP_ACCESS_TOKEN, JSON.stringify(jobsdata));
+  }
+
+  componentDidMount() {
+    this.fetchJobs();
   }
 
   render() {
-    this.fetchJobs();
     const classes = this.props.classes;
     return (
       <div>
