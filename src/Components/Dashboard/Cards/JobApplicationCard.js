@@ -10,7 +10,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Grid from "@material-ui/core/Grid";
-
+import Moment from 'react-moment';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -212,6 +212,7 @@ class JobApplicationCard extends Component {
   };
 
   render() {
+    Moment.globalFormat = 'MMM DD, YYYY';
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
@@ -299,7 +300,7 @@ class JobApplicationCard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 > 
-                  <span className={classes.text4}>Posted Jan 5, 2020</span>
+                  <span className={classes.text4}>Posted <Moment unix>{this.state.data && this.state.data.created_on}</Moment></span>
                 </Grid>
                 <Grid
                   container
