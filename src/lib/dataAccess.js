@@ -1,6 +1,5 @@
 import axios from "axios";
 import { config } from "../config";
-import * as path from "path";
 
 export const httpGet = (endPoint, accessToken) => {
   let url = config.BACKEND_URL + '/' + endPoint;
