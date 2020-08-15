@@ -77,8 +77,6 @@ const useStyles = makeStyles(() => ({
   tag: {
     float: 'left',
     borderStyle: 'solid',
-    fontSize: '7px',
-    fontWeight: '100',
     color: 'white',
     borderWidth: '0.5px',
     borderRadius: 50,
@@ -86,9 +84,14 @@ const useStyles = makeStyles(() => ({
     marginTop: '20px',
     borderColor: 'white',
     display: 'flex',
-    paddingLeft: '3%',
-    paddingRight: '3%',
-    
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    left: '15px',
+    right: '15px',
+    fontSize: '8px',
+    fontWeight: '100',
   },
   largetext:{
     color: 'black',
@@ -177,9 +180,25 @@ class JobApplicationCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      data: {
+        city: 'loading',
+        region: 'loading',
+        company: '',
+        job_type: '',
+        description: '',
+        requirements: '',
+        tags: []
+      }
     }
   }
+
+  componentDidMount() {
+    this.setState({
+      data: this.props.data
+    })
+  }
+
   openMemberships = (event) => {
     this.setState({
       open: true
@@ -191,6 +210,7 @@ class JobApplicationCard extends Component {
       open: false
     })
   };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -214,7 +234,7 @@ class JobApplicationCard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               > 
-               <h1 className={classes.jobTitle}>Software Developer</h1>
+               <h1 className={classes.jobTitle}>{this.state.data && this.state.data.title}</h1>
               </Grid>
             </Grid>
             <Grid
@@ -241,8 +261,8 @@ class JobApplicationCard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               > 
-               <span className={classes.text2}>Google</span>
-               <span className={classes.text3}>Toronto, ON</span>
+               <span className={classes.text2}>{this.state.data && this.state.data.company}</span>
+               <span className={classes.text3}>{this.state.data && this.state.data.city}, {this.state.data && this.state.data.region}</span>
               </Grid>
               
               </Grid>
@@ -300,33 +320,23 @@ class JobApplicationCard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <Grid
-                container
-                item xs={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              > 
-           <div className={classes.divStyle}>
-                <span className={classes.tag}>Marketing</span>
-                </div>
-              </Grid>
-              <Grid
-                container
-                item xs={8}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              > 
-      <div className={classes.divStyle}>
-                <span className={classes.tag}>Software</span>
-              </div>
-              </Grid>
+              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+                <Grid
+                  key={key}
+                  container
+                  item xs={4}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                > 
+                  <div className={classes.divStyle}>
+                    <span className={classes.tag}>{tag}</span>
+                  </div>
+                </Grid>
+              ))}
             </Grid>
           </Grid>
-   
-   
-   
+
       <Dialog
         className={classes.translate}
           open={this.state.open}
@@ -346,15 +356,16 @@ class JobApplicationCard extends Component {
               id="scroll-dialog-description"
               component={'span'}
             >
-              <span className={classes.textpopup}><span><FontAwesomeIcon icon={faBuilding} style={{width: '15px', height: '15px', marginRight: '1%', marginLeft : '2%'}}/></span>Google</span>
-              <span className={classes.textpopup2}>Toronto, ON</span>
-              <span className={classes.textpopup2}>Full Time</span>                    
+              <span className={classes.textpopup}><span><FontAwesomeIcon icon={faBuilding} style={{width: '15px', height: '15px', marginRight: '1%', marginLeft : '2%'}}/></span>{this.state.data && this.state.data.company}</span>
+              <span className={classes.textpopup2}>{this.state.data && this.state.data.city}, {this.state.data && this.state.data.region}</span>
+              <span className={classes.textpopup2}>{this.state.data && this.state.data.job_type}</span>                    
               <h2 className={classes.header}>Job Description:</h2>
-              <h2 className={classes.descrip}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Non odio euismod lacinia at quis risus sed vulputate. Nulla facilisi cras fermentum odio</h2>
+              <h2 className={classes.descrip}>{this.state.data && this.state.data.description}</h2>
               <h2 className={classes.header}>Job Requirements:</h2>
-              <h2 className={classes.descrip}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Condimentum lacinia quis vel eros. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Non odio euismod lacinia at quis risus sed vulputate. Nulla facilisi cras fermentum odio</h2>
-              <span className={classes.tagpopup}>Marketing</span>
-              <span className={classes.tagpopup}>Software</span>
+              <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>
+              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+                <span key={key} className={classes.tagpopup}>{tag}</span>
+              ))}
               <span><Button className={classes.button2}> Apply </Button></span>
             </DialogContentText>
           </DialogContent>

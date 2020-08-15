@@ -148,7 +148,7 @@ class SignIn extends Component {
             //     accessToken: token
             // });
             config.REACT_APP_ACCESS_TOKEN = token;
-            console.log(token);
+            // console.log(token);
         } catch (err) {
             // TODO: Block user from continuing
             console.error("Authentication failed. " + JSON.stringify(err));
