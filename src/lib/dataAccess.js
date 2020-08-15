@@ -9,7 +9,7 @@ export const httpGet = (endPoint, accessToken) => {
   if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     url = path.join(endPoint);
   }
-
+  
   return axios
     .get(
       url,
