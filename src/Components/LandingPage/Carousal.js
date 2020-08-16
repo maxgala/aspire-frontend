@@ -1,12 +1,12 @@
 import React from 'react';
 import {Component} from "react";
-import { css } from 'emotion'
+import { css } from 'emotion';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import left from "../Images/arrow_left.png";
 import right from "../Images/arrow_right.png";
-import * as q from "./Quotes.js";
-import { Swipeable } from 'react-swipeable'
+import Quotes from "./Quotes.js";
+import { Swipeable } from 'react-swipeable';
 
 const useStyles = makeStyles(theme => ({
   // TODO: find way to do this with makeStyles
@@ -42,7 +42,6 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     position: 'absolute',
     align: 'left',
-   
   },
   leftArrow: {
     cursor: 'pointer',
@@ -88,6 +87,13 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Nunito',
     fontWeight: 'bold',
     color: '#484848'
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    padding: '2%',
+    borderRadius: '50%',
+    '@media (min-width: 960px)': { textAlign: 'center' }
   }
 }));
 
@@ -102,7 +108,7 @@ class Quote extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: q.quotes[0],
+      current: Quotes[0],
       active: 0,
       numQuotes: 7,
     }
@@ -119,24 +125,24 @@ class Quote extends Component {
 
   HandleRightArrowClick = (event) => {
     if (this.state.active < 6) {
-      this.setState({current: q.quotes[parseInt(this.state.active)+1], active: parseInt(this.state.active)+1})
+      this.setState({current: Quotes[parseInt(this.state.active)+1], active: parseInt(this.state.active)+1})
     } else if (this.state.active === 6) {
-      this.setState({current: q.quotes[0], active: 0})
+      this.setState({current: Quotes[0], active: 0})
     }
     this.timer();
   }
 
   HandleLeftArrowClick = (event) => {
     if (this.state.active > 0) {
-      this.setState({current: q.quotes[this.state.active-1], active: this.state.active-1})
+      this.setState({current: Quotes[this.state.active-1], active: this.state.active-1})
     } else if (this.state.active === 0) {
-      this.setState({current: q.quotes[this.state.numQuotes - 1], active: this.state.numQuotes - 1})
+      this.setState({current: Quotes[this.state.numQuotes - 1], active: this.state.numQuotes - 1})
     }
     this.timer();
   }
 
   HandleSetClick = (event) => {
-    this.setState({active:event.target.getAttribute("data-image"),current:q.quotes[event.target.getAttribute("data-image")]})
+    this.setState({active:event.target.getAttribute("data-image"),current: Quotes[event.target.getAttribute("data-image")]})
     this.timer();
   }
 
@@ -174,7 +180,11 @@ class Quote extends Component {
             justify="center"
           >
             <p className={classes.picture}> 
-              {this.state.current.image}    
+              <img
+                className={classes.image}
+                src={this.state.current.image_path}
+                alt={this.state.current.alt_text}
+              />
             </p>
           </Grid>
           <Grid
@@ -243,7 +253,7 @@ class Quote extends Component {
              background-color:rgb(197,179,88)
             }
           `}>
-            {Object.keys(q.quotes).map(index=>(
+            {Object.keys(Quotes).map(index=>(
               <span
                 onClick={this.HandleSetClick}
                 data-image={index}
