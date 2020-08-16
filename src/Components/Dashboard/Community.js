@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Filter from "./Cards/FilterCard";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CommunityCard from "./Cards/CommunityCard";
+import TestData from "./CoffeeChatsTestData";
 
 
 const useStyles = makeStyles(() => ({
@@ -76,7 +77,13 @@ function withMyHook(Component) {
 }
 
 class JobBoard extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      // temporary - just wanted more test data to fill the page
+      community_data: [...TestData, ...TestData, ...TestData],
+    }
+  }
   render() {
     const classes = this.props.classes;
     return (
@@ -191,117 +198,26 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <CommunityCard />
-              </Grid>
+            </Grid>
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="center"
+            >
+              {this.state.community_data.map((chat, key) => (
+                <Grid
+                  key={key}
+                  container
+                  item xs={6} sm={6} md={4} lg={3}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <CommunityCard data={chat} />
+                </Grid>
+              ))}
             </Grid>
           </div>
         </PerfectScrollbar>
