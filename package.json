@@ -17,6 +17,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "amazon-cognito-identity-js": "^4.3.3",
+    "aws-amplify": "^3.0.23",
+    "aws-amplify-react": "^4.1.22",
     "axios": "^0.19.2",
     "emotion": "^10.0.27",
     "material-ui-colors": "^1.0.0",

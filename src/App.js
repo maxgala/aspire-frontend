@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import Landing from "./Components/LandingPage/Landing";
 import './App.css';
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+import { withAuthenticator } from 'aws-amplify-react';
 
+Amplify.configure(aws_exports);
+	
 class App extends Component{
   constructor(props){
     super(props);
@@ -25,4 +30,4 @@ class App extends Component{
   }
 }
 
-export default App;
+export default withAuthenticator(App);
