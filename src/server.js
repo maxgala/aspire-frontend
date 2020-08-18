@@ -70,5 +70,8 @@ function httpPost(endPoint, headers, data) {
       });
   });
 }
-
-app.listen(8080);
+// Choose the port and start the server
+const PORT = process.env.PORT || 8080
+app.listen(PORT, () => {
+  console.log(`Running app on ${PORT}`)
+});
