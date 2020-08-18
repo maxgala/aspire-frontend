@@ -22,6 +22,7 @@
     "material-ui-colors": "^1.0.0",
     "material-ui-dropzone": "^3.1.0",
     "moment": "^2.27.0",
+    "node": "^14.8.0",
     "react": "^16.13.1",
     "react-card-flip": "^1.0.10",
     "react-dom": "^16.13.1",
@@ -36,9 +37,9 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "dev": "concurrently \"node src/dev-server.js\" \"react-scripts start\"",
-    "start": "serve -s build",
-    "build": "react-scripts build",
+    "dev": "concurrently \"node src/server.js\" \"react-scripts start\"",
+    "start": "cd build && node server.js",
+    "build": "react-scripts build && cp src/server.js build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"

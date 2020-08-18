@@ -2,13 +2,8 @@ import axios from "axios";
 import { config } from "../config";
 
 export const httpGet = (endPoint, accessToken) => {
-  let url = config.BACKEND_URL + '/' + endPoint;
+  let url = "api/" + endPoint;
 
-  // In dev mode, use the local dev server as a proxy
-  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    url = endPoint;
-  }
-  
   return axios
     .get(
       url,
@@ -26,12 +21,7 @@ export const httpGet = (endPoint, accessToken) => {
 }
 
 export const httpPost = (endPoint, accessToken, body) => {
-  let url = config.BACKEND_URL + '/' + endPoint;
-
-  // In dev mode, use the local dev server as a proxy
-  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    url = endPoint;
-  }
+  let url = "api/" + endPoint;
 
   return new Promise(async (resolve, reject) => {
     axios
