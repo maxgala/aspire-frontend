@@ -38,9 +38,12 @@ app.post('/api/*', async (req, res) => {
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
-});
+// In dev mode, we don't want to serve static files on requesting *
+if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/index.html"));
+  });
+}
 
 function httpGet(method, path, data) {
   let url = (process.env.REACT_APP_BACKEND_URL + path).replace("api/", "");
