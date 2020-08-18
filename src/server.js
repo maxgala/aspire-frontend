@@ -7,11 +7,15 @@ const axios = require("axios");
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/*', async (req, res) => {
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname)));
+
+app.get('/api/*', async (req, res) => {
   res.send(await httpGet(req.method, req.path, req.data).catch(err => {
     if (err) {
       console.error(err);
@@ -19,7 +23,7 @@ app.get('/*', async (req, res) => {
   }));
 });
 
-app.post('/*', async (req, res) => {
+app.post('/api/*', async (req, res) => {
   const headers = {
     "authorization": req.headers.authorization,
     "content-type": req.headers["content-type"]
@@ -32,8 +36,14 @@ app.post('/*', async (req, res) => {
     }));
 });
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/index.html"));
+});
+
 function httpGet(method, path, data) {
-  let url = process.env.REACT_APP_BACKEND_URL + path;
+  let url = (process.env.REACT_APP_BACKEND_URL + path).replace("api/", "");
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](url, data)
       .then(res => {
@@ -46,7 +56,7 @@ function httpGet(method, path, data) {
 }
 
 function httpPost(endPoint, headers, data) {
-  let url = process.env.REACT_APP_BACKEND_URL + endPoint;
+  let url = (process.env.REACT_APP_BACKEND_URL + endPoint).replace("api/", "");
   return new Promise((resolve, reject) => {
     return axios
       .post(url, data, {
