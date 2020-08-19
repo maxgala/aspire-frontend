@@ -216,15 +216,13 @@ class JobBoard extends Component {
               item xs={12}
               spacing={1}
               alignItems="flex-start"
-              justify="flex-start"
+              justify="center"
             >
-
-              
               {this.state.job_board_data.map((chat, key) => (
                 <Grid
                   key={key}
                   container
-                  item xs={6} sm={6} md={4} lg={3}
+                  item xs={12} sm={9} md={6} lg={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
