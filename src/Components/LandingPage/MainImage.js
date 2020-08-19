@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Button } from '@material-ui/core';
-import Mainback from "../Images/max-mainimg.jpg";
+import Mainback from "../Images/max-mainimg.png";
 import {makeStyles} from "@material-ui/core/styles";
 import MaxLogo from "../Images/max_logo.png";
 
