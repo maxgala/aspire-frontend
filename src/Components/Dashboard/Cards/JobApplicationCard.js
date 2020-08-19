@@ -411,7 +411,7 @@ class JobApplicationCard extends Component {
                 justify="flex-start"
                 >
                   <span className={classes.textpopup}><span style={{marginLeft:'5px'}}><FontAwesomeIcon icon={faBuilding} 
-                  style={{width: '15px', height: '15px', margin: '0px'}}/>
+                  style={{width: '15px', height: '15px', marginRight: '7px'}}/>
                   </span>{this.state.data && this.state.data.company}
                   </span>
                   
@@ -464,10 +464,7 @@ class JobApplicationCard extends Component {
                 justify="flex-start"
                 >
               <h2 className={classes.header}>Job Requirements:</h2>
-              <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>
-              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
-                <span key={key} className={classes.tagpopup}>{tag}</span>
-              ))}                    
+              <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>              
               </Grid>
               
               <Grid
@@ -485,7 +482,7 @@ class JobApplicationCard extends Component {
                 justify="flex-start"
                 >
               {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
-                <span key={key} className={classes.tagpopup}>Hello{tag}</span>
+                <span key={key} className={classes.tagpopup}>{tag}</span>
               ))}               
               </Grid>
 
