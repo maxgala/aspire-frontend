@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Filter from "./Cards/FilterCard";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import ResumeBankCard from "./Cards/ResumeBankCard";
-
+import TestData from "./CoffeeChatsTestData";
 
 const useStyles = makeStyles(() => ({
 
@@ -73,7 +73,13 @@ function withMyHook(Component) {
 }
 
 class JobBoard extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      // temporary - just wanted more test data to fill the page
+      job_board_data: [...TestData, ...TestData, ...TestData],
+    }
+  }
   render() {
     const classes = this.props.classes;
     return (
@@ -93,8 +99,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <Grid
                   container
@@ -119,8 +125,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <Grid
                   container
@@ -146,8 +152,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <Grid
                   container
@@ -172,8 +178,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <Grid
                   container
@@ -213,116 +219,19 @@ class JobBoard extends Component {
               justify="flex-start"
             >
 
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={4} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <ResumeBankCard />
-              </Grid>
+              
+              {this.state.job_board_data.map((chat, key) => (
+                <Grid
+                  key={key}
+                  container
+                  item xs={6} sm={6} md={4} lg={3}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <ResumeBankCard data={chat} />
+                </Grid>
+              ))}
             </Grid>
           </div>
         </PerfectScrollbar>
