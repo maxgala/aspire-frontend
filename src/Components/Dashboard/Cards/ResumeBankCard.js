@@ -37,10 +37,10 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     textAlign: 'left',
     paddingTop: '5px',
-    fontSize: '25px',
+    fontSize: '20px',
     color: '#58595B',
     margin: '0px',
-    marginLeft: '140px',
+    marginLeft: '5px',
     marginTop: '5px'
   },
   title: {
@@ -48,10 +48,10 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'semi-bold',
     width: '100%',
     textAlign: 'left',
-    fontSize: '18px',
+    fontSize: '16px',
     color: '#58595B',
     margin: '0px',
-    marginLeft: '140px',
+    marginLeft: '5px',
     marginTop: '5px'
   },
   subtitle: {
@@ -62,7 +62,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '15px',
     color: '#58595B',
     margin: '0px',
-    marginLeft: '140px',
+    marginLeft: '5px',
     marginTop: '5px'
   },
   company: {
@@ -71,7 +71,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     textAlign: 'left',
     margin: '0px',
-    marginLeft: '140px',
+    marginLeft: '5px',
     marginTop: '5px',
     color: 'white'
   },
@@ -79,7 +79,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'flex-end',
     justify: 'flex-end',
     margin: '24px',
-    marginLeft: '140px',
+    marginLeft: '5px',
   },
   button: {
     fontSize: '12px',
@@ -93,9 +93,9 @@ const useStyles = makeStyles(() => ({
     }
   },
   container: {
-    width: 'calc(95% - px)',
+    width: 'calc(95% - 5px)',
     display: 'inline-block',
-    transform: 'translate(0%, -65%)'
+    transform: 'translate(45%, -65%)'
   },
   company_icon: {
     width: '18px',
