@@ -4,12 +4,12 @@ import image from "../Images/features/image.png";
 import tint from "../Images/features/tint2.png";
 import {makeStyles} from "@material-ui/core/styles";
 // TODO: Uncomment when images are available
-// import image1 from "../Images/features/image1.png";
-// import image2 from "../Images/features/image2.png";
-// import image3 from "../Images/features/image3.png";
-// import image4 from "../Images/features/image4.png";
-// import image5 from "../Images/features/image5.png";
-// import image6 from "../Images/features/image6.png";
+import image7 from "../Images/features/image7.png";
+import image8 from "../Images/features/image8.png";
+import image9 from "../Images/features/image9.png";
+import image10 from "../Images/features/image10.png";
+import image11 from "../Images/features/image11.png";
+import image12 from "../Images/features/image12.png";
 
 const useStyles = makeStyles(theme => ({
   image: { 
@@ -59,7 +59,7 @@ class FeatureCard extends Component{
     super(props);
     this.state = {
       isFlipped: false,
-      images: [image, image, image, image, image, image]
+      images: [image7, image8, image9, image10, image11, image12]
     };
     this.handleClick = this.handleClick.bind(this);
   }
