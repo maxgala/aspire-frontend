@@ -17,7 +17,6 @@ const useStyles = makeStyles(theme => ({
     textAlign:'left',
     marginLeft:'20px',
     fontWeight: '100'
-
   },
   descrip: {
     textAlign: 'left',
@@ -29,7 +28,6 @@ const useStyles = makeStyles(theme => ({
   header: {
     textAlign: 'left',
     marginLeft:'20px',
-    
     fontWeight: '100',
     fontSize: '18px'
   }
@@ -43,6 +41,7 @@ function withMyHook(Component){
   }
 }
 
+// TODO: Job View popup isn't being used at the moment. Connect this to the view job button on job application card.
 class JobView extends Component{
   render() {
     const classes = this.props.classes;
@@ -56,7 +55,6 @@ class JobView extends Component{
             <h2 className={classes.header}>Deadline:</h2>
             <h2 className={classes.descrip}>Get your app in by May 6th</h2>
             <Button> Apply </Button>
-
         </div>
       </div>
     );

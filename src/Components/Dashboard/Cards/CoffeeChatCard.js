@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ChatTypes from '../ChatTypes';
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -17,6 +18,7 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     backgroundColor: '#B5A165',
     color: 'white',
+    boxShadow: "0px 6px 6px #00000029",
   },
   cardFour: {
     width: '95%',
@@ -27,6 +29,19 @@ const useStyles = makeStyles(() => ({
     borderRadius: '20px',
     textAlign: 'left',
     backgroundColor: '#455E6A',
+    color: 'white',
+    boxShadow: "0px 6px 6px #00000029",
+  },
+  cardInterview: {
+    width: '95%',
+    maxWidth: '500px',
+    margin: 'auto',
+    height: '180px',
+    marginBottom: '10px',
+    borderRadius: '20px',
+    textAlign: 'left',
+    // need designs for mock interview card
+    backgroundColor: 'red',
     color: 'white',
   },
   cardBooked: {
@@ -55,22 +70,28 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bolder',
     width: '100%',
     textAlign: 'left',
-    margin: '5px',
-    paddingTop: '10px',
+    paddingTop: '5px',
     fontSize: '20px',
-    color: 'white'
+    color: 'white',
+    margin: '0px',
+    marginLeft: '5px',
+    marginTop: '5px'
   },
   subtitle: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
     width: '100%',
     textAlign: 'left',
-    margin: '5px',
-    color: 'white'
+    color: 'white',
+    margin: '0px',
+    marginLeft: '5px',
+    marginTop: '5px'
   },
   name: {
     fontStyle: 'italic',
-    paddingRight: '5px'
+    paddingRight: '5px',
+    margin: '0px',
+    marginTop: '5px'
   },
   company: {
     fontFamily: 'myriad-pro, sans-serif',
@@ -106,7 +127,6 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     fontSize: '8px',
-    position: 'absolute',
     fontWeight: '400',
     borderRadius: 50,
     backgroundColor :'white',
@@ -116,22 +136,49 @@ const useStyles = makeStyles(() => ({
       color: '#484848'
     }
   },
-  tag: {
-    width: '60px',
-    float: 'left',
+  tag_container: {
+    width: 'auto',
     borderStyle: 'solid',
+    borderWidth: '0.5px',
+    borderRadius: 50,
+    borderColor: 'white',
+    margin: '5px',
+    marginLeft: '0px'
+  },
+  tag: {
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    left: '15px',
+    right: '15px',
+    float: 'left',
     fontSize: '8px',
     fontWeight: '100',
     color: 'white',
-    borderWidth: '0.5px',
-    borderRadius: 50,
-    marginRight: '2%',
-    borderColor: 'white',
     display: 'flex',
-    paddingLeft: '3%',
-    paddingRight: '3%',
-    paddingTop: '0.5%',
-    paddingBottom: '0.5%',
+  },
+  bar: {
+    width: '90%',
+    textAlign:'right',
+    marginLeft: '0%',
+    marginTop: '1%',
+    marginBottom: '1%',
+    height: 1,
+    paddingBottom:'0'
+  },
+  container: {
+    width: 'calc(95% - 140px)',
+    display: 'inline-block',
+    transform: 'translate(0%, -65%)'
+  },
+  company_icon: {
+    width: '18px',
+    height: '18px',
+    marginRight: '15px'
+  },
+  outer_grid: {
+    height: '180px'
   }
 }));
 
@@ -146,53 +193,52 @@ class CoffeeChatCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div className={this.props.booked ? classes.cardBooked : this.props.oneOnOneCard ? classes.cardOne : classes.cardFour}>
+      <div className={this.props.data.booked ? classes.cardBooked : this.props.data.type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
-        <div style={{width: 'calc(95% - 140px)', display: 'inline-block', transform: 'translate(0%, -65%)',}}>
+        <div className={classes.container}>
           <Grid
             container
             item xs={12}
-            spacing={1}
+            spacing={0}
             alignItems="center"
             justify="flex-start"
-            style={{height: '180px'}}
+            className={classes.outer_grid}
           >
             <Grid
               container
               item xs={12}
-              spacing={1}
+              spacing={0}
               alignItems="flex-start"
               justify="flex-start"
             >
               <h1 className={classes.title}>
-                {this.props.oneOnOneCard ? "One-on-One" : "Four-on-One"}
-                {this.props.booked ? <span className={classes.booked}>booked</span> : ''}
+                {this.props.data.type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''}
               </h1>
-              <p className={classes.subtitle}><span className={classes.name}>Yusuf H</span> Finance Professional</p>
-              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} style={{width: '18px', height: '18px', marginRight: '15px'}}/></span>TD</span>
-            </Grid>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <span className={classes.tag}>Marketing</span>
-              <span className={classes.tag}>Software</span>
+              <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
+              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>
+              {this.props.data.tags.map((tag, key) => (
+                <span key={key} className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
+              ))}
             </Grid>
             <Grid
               container
               item xs={8}
-              spacing={1}
+              spacing={0}
               alignItems="flex-start"
               justify="flex-start"
-              style={{padding: '0px', marginLeft: '5px'}}
             >
-              <hr style={{width: '120px', textAlign:'right', marginLeft: '0%', marginTop:'1%', marginBottom: '1%' , height: 1, paddingBottom:'0'}}></hr>
+              <hr className={classes.bar}></hr>
+              <span className={classes.date}>Available: {this.props.data.available}</span>
+            </Grid>
+            <Grid
+              container
+              item xs={4}
+              spacing={0}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
               <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
-              <span className={classes.date}>Available: July 10th, 2020</span>
-              <br/>
             </Grid>
           </Grid>
         </div>

@@ -13,8 +13,8 @@ import { faReact } from '@fortawesome/free-brands-svg-icons';
 import Home from "./Home";
 import CoffeeChats from "./CoffeeChats";
 import Jobs from "./Jobs";
-import JobView from "./JobView";
-
+import Community from "./Community";
+import ResumeBank from "./ResumeBank";
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
   profile_container: {
-    '@media (max-width: 700px)': {
+    '@media (max-width: 750px)': {
       width: '0px',
       display: 'None'
     },
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   dashboard_container: {
-    '@media (max-width: 700px)': {maxWidth: '100%'},
+    '@media (max-width: 750px)': {maxWidth: '100%'},
     maxWidth: 'calc(100vw - 299px)',
     paddingTop: theme.spacing(0),
     paddingLeft: '0px',
@@ -130,12 +130,25 @@ class Dashboard extends Component {
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
     this.changeToJobs = this.changeToJobs.bind(this);
     this.changeToDashboard = this.changeToDashboard.bind(this);
+    this.changeToCommunity=this.changeToCommunity.bind(this);
+    this.changeToResumeBank=this.changeToResumeBank.bind(this);
   }
 
   componentDidMount() {
     this.setState({
       currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     })
+  }
+  changeToResumeBank() {
+    this.setState({
+      currentScreen: <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec}/>
+    }) 
+  }
+
+  changeToCommunity() {
+    this.setState({
+      currentScreen: <Community appContext={this} isSeniorExec={this.props.isSeniorExec}/>
+    }) 
   }
 
   changeToCoffeeChats() {
@@ -184,6 +197,21 @@ class Dashboard extends Component {
                 <Button
                   variant="outlined"
                   className={classes.coffee_chat_text}
+                  onClick={this.changeToResumeBank}
+                >
+                  <b>Resume Bank</b>
+                </Button>
+                <Button
+                  variant="outlined"
+                  className={classes.jobs_text}
+                  onClick={this.changeToCommunity}
+                >
+                  <b>Community</b>
+                </Button>
+
+                <Button
+                  variant="outlined"
+                  className={classes.jobs_text}
                   onClick={this.changeToCoffeeChats}
                 >
                   <b>Coffee Chats</b>

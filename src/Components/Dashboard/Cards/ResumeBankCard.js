@@ -5,13 +5,17 @@ const useStyles = makeStyles(() => ({
   card: {
     width: '95%',
     maxWidth: '400px',
-    height: '40px',
-    borderStyle: 'solid',
-    marginBottom: '20px',
-    borderRadius: '12px',
-    borderColor:'#707070',
-    borderWidth:'thin',
-  }
+    height: '200px',
+    borderRadius: '15px',
+    backgroundColor: '#FFFFFF',
+    color: 'black',
+    textAlign: 'left',
+    fontWeight: '100',
+    fontFamily: 'Arial', 
+    marginBottom: '5%',
+    boxShadow: "0px 6px 6px #00000029",
+  },
+
 }));
 
 function withMyHook(Component) {
@@ -21,16 +25,16 @@ function withMyHook(Component) {
   }
 }
 
-class FilterCard extends Component {
+class JobApplicationCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
-        <p> </p>
+        <p>Resume bank card</p>
       </div>
     )
   }
 }
 
-FilterCard = withMyHook(FilterCard);
-export default FilterCard;
+JobApplicationCard = withMyHook(JobApplicationCard);
+export default JobApplicationCard;
