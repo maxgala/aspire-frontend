@@ -469,10 +469,29 @@ class JobApplicationCard extends Component {
                 <span key={key} className={classes.tagpopup}>{tag}</span>
               ))}                    
               </Grid>
-
+              
               <Grid
                 container
                 item xs={12}
+                spacing={0}
+                alignItems="flex-start"
+                justify="flex-start"
+                >
+                 <Grid
+                container
+                item xs={8}
+                spacing={0}
+                alignItems="flex-start"
+                justify="flex-start"
+                >
+              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+                <span key={key} className={classes.tagpopup}>Hello{tag}</span>
+              ))}               
+              </Grid>
+
+              <Grid
+                container
+                item xs={4}
                 spacing={0}
                 alignItems="space-around"
                 justify="space-around"
@@ -480,7 +499,9 @@ class JobApplicationCard extends Component {
               <DialogActions>
               <Button className={classes.button1} variant="contained" onClick={this.applyJob}>Apply</Button> 
               </DialogActions>
+              </Grid>             
               </Grid>
+              
 
               
             </DialogContentText>
