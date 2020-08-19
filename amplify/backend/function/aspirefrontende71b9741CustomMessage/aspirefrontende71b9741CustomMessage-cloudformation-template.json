@@ -119,7 +119,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-aspirefrontend-dev-224211-deployment",
-					"S3Key": "amplify-builds/aspirefrontende71b9741CustomMessage-666b5543333838777544-build.zip"
+					"S3Key": "amplify-builds/aspirefrontende71b9741CustomMessage-46314b4f517a754c576e-build.zip"
 				}
 			}
 		},

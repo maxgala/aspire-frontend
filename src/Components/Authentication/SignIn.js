@@ -15,8 +15,9 @@ import Registration from "../Registration/Registration";
 import Landing from "../LandingPage/Landing";
 import signInImage from "../Images/aboutMax.jpg";
 import Dashboard from "../Dashboard/Dashboard";
-import { authenticate } from "../../lib/authentication";
-import { config } from "../../config";
+import Amplify, { Auth } from 'aws-amplify';
+import aws_exports from '../../aws-exports';
+Amplify.configure(aws_exports);
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -105,6 +106,7 @@ class SignIn extends Component {
         this.state = {
             username: "",
             password: "",
+            signedIn: false
         };
     }
 
@@ -127,7 +129,18 @@ class SignIn extends Component {
     handlePasswordChange = (event) => {
         this.setState({ password: event.target.value });
     };
-
+    
+    signIn() {
+        const username = this.state.username
+        const password = this.state.password
+        Auth.signIn({
+            username: username,
+            password: password
+        })
+        .then(() => window.alert('successfully signed in'))
+        .catch((err) => window.alert(`Error signing in: ${ err }`))
+    }
+    
     handleClick = async (event) => {
         if (
             this.state.username === "" ||
@@ -138,33 +151,24 @@ class SignIn extends Component {
             window.alert("Not filled in");
             return;
         }
-
-        try {
-            const token = await authenticate(
-                this.state.username,
-                this.state.password
-            );
-            // this.props.appContext.setState({
-            //     accessToken: token
-            // });
-            config.REACT_APP_ACCESS_TOKEN = token;
-            console.log(token);
-        } catch (err) {
-            // TODO: Block user from continuing
-            console.error("Authentication failed. " + JSON.stringify(err));
+        try{
+            await this.signIn()
+            this.setState({signedIn: true})
+            // TODO: Get information from AWS cognito pool
+            // TODO: Check what role the user is, will redirect to different dashboard
+            let isSeniorExec = false; // will set this based on role
+            this.props.appContext.setState({
+                currentScreen: (
+                    <Dashboard
+                        appContext={this.props.appContext}
+                        isSeniorExec={isSeniorExec}
+                    />
+                ),
+            });
+        }catch(err){
+            window.alert(`Error singing in - ${ err }`)
+            return;
         }
-
-        // TODO: Get information from AWS cognito pool
-        // TODO: Check what role the user is, will redirect to different dashboard
-        let isSeniorExec = false; // will set this based on role
-        this.props.appContext.setState({
-            currentScreen: (
-                <Dashboard
-                    appContext={this.props.appContext}
-                    isSeniorExec={isSeniorExec}
-                />
-            ),
-        });
     };
 
     render() {

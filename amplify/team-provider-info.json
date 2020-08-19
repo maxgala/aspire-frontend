@@ -18,6 +18,9 @@
                     "EMAILSUBJECT": "Aspire Frontend Test Confirmation",
                     "EMAILMESSAGE": "Hi there. Please click on the link to verify your account for aspire test"
                 }
+            },
+            "auth": {
+                "aspirefrontend19b1b090": {}
             }
         }
     }
