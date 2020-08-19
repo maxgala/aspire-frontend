@@ -6,12 +6,5 @@
 			"service": "Lambda"
 		}
 	},
-	"auth": {
-		"aspirefrontenda92b527a": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false
-		}
-	}
+	"auth": {}
 }
