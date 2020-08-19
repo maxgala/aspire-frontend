@@ -7,9 +7,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
 import Container from "@material-ui/core/Container";
 import UserProfile from "./UserProfile";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReact } from '@fortawesome/free-brands-svg-icons';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Home from "./Home";
 import CoffeeChats from "./CoffeeChats";
 import Jobs from "./Jobs";
@@ -185,8 +184,6 @@ class Dashboard extends Component {
           >
             <Container className={classes.profile_container}>
               <UserProfile/>
-              
-              
             </Container>
 
             <Container className={classes.dashboard_container}>
