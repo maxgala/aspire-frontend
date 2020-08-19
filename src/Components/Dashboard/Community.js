@@ -210,7 +210,7 @@ class JobBoard extends Component {
                 <Grid
                   key={key}
                   container
-                  item xs={6} sm={6} md={4} lg={3}
+                  item xs={12} sm={6} md={4} lg={3}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
