@@ -2,10 +2,8 @@ import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -57,7 +55,6 @@ const useStyles = makeStyles(() => ({
     fontWeight: '100',
     float: 'left',  
   },
-
   button: {
     fontSize: '10px',
     position: 'absolute',
@@ -74,7 +71,7 @@ const useStyles = makeStyles(() => ({
     '&:hover': {
       backgroundColor: "#F1F1F1",
       color: '#484848'
-  }
+    }
   },
   tag: {
     float: 'left',
@@ -125,7 +122,6 @@ const useStyles = makeStyles(() => ({
   },
   close: {
     float: 'right',
-  
   },
   jobtitle: {
     fontSize: '30px',
@@ -158,7 +154,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     paddingLeft: '3%',
     paddingRight: '3%',
-    
   },
   button2:{
     marginLeft: '3%',
@@ -189,8 +184,8 @@ const useStyles = makeStyles(() => ({
     position:'relative',
     display: 'block',
     '&:hover': {
-        backgroundColor: "#F1F1F1",
-        color: '#484848'
+      backgroundColor: "#F1F1F1",
+      color: '#484848'
     },
     fontSize:'15px',
     fontWeight: 'bold',
@@ -213,8 +208,8 @@ class JobApplicationCard extends Component {
     this.state = {
       open: false,
       data: {
-        city: 'loading',
-        region: 'loading',
+        city: '',
+        region: '',
         company: '',
         job_type: '',
         description: '',
@@ -241,135 +236,136 @@ class JobApplicationCard extends Component {
       open: false
     })
   };
+
   render() {
     Moment.globalFormat = 'MMM DD, YYYY';
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
+        <Grid
+          container
+          alignItems="flex-start"
+          justify="flex-start"
+        >  
           <Grid
             container
+            item xs={12}
+            spacing={1}
             alignItems="flex-start"
             justify="flex-start"
-          >  
+          >
             <Grid
               container
               item xs={12}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
-            >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              > 
-               <h1 className={classes.jobTitle}>{this.state.data && this.state.data.title}</h1>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <Grid
-                container
-                item xs={2}
-                spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
-              > 
-              <span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '10%', marginTop:'13px',}}/></span>
-               
-              </Grid>
-              <Grid
-                container
-                item xs={10}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              > 
-               <span className={classes.text2}>{this.state.data && this.state.data.company}</span>
-               <span className={classes.text3}>{this.state.data && this.state.data.city}, {this.state.data && this.state.data.region}</span>
-              </Grid>
-              
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
-                > 
-                  <hr style={{width: '40%', textAlign:'right', marginLeft: '10%', marginTop:'30px', marginBottom: '0' , height: 1, paddingBottom:'0'}}></hr>
-        
-                </Grid>
-              </Grid>
-        
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item xs={7}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                > 
-                  <span className={classes.text4}>Posted <Moment unix>{this.state.data && this.state.data.created_on}</Moment></span>
-                </Grid>
-                <Grid
-                  container
-                  item xs={5}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                > 
-                <div className={classes.divStyle}>
-                  <Button className={classes.button} onClick={this.openMemberships} variant="contained" color="primary" >View Job</Button>
-                </div>
-                </Grid>
-              </Grid>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
-                <Grid
-                  key={key}
-                  container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                > 
-                  <div className={classes.divStyle}>
-                    <span className={classes.tag}>{tag}</span>
-                  </div>
-                </Grid>
-              ))}
+            > 
+              <h1 className={classes.jobTitle}>{this.state.data && this.state.data.title}</h1>
             </Grid>
           </Grid>
 
-      <Dialog
-        className={classes.translate}
+          <Grid
+            container
+            item xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            <Grid
+              container
+              item xs={2}
+              spacing={1}
+              alignItems="flex-end"
+              justify="flex-end"
+            > 
+              <span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '10%', marginTop:'13px'}}/></span>
+            </Grid>
+            <Grid
+              container
+              item xs={10}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            > 
+              <span className={classes.text2}>{this.state.data && this.state.data.company}</span>
+              <span className={classes.text3}>{this.state.data && this.state.data.city}, {this.state.data && this.state.data.region}</span>
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            item xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-end"
+              justify="flex-end"
+            > 
+              <hr style={{width: '40%', textAlign:'right', marginLeft: '10%', marginTop:'30px', marginBottom: '0' , height: 1, paddingBottom:'0'}}></hr>
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            item xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            <Grid
+              container
+              item xs={7}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            > 
+              <span className={classes.text4}>Posted <Moment unix>{this.state.data && this.state.data.created_on}</Moment></span>
+            </Grid>
+            <Grid
+              container
+              item xs={5}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            > 
+              <div className={classes.divStyle}>
+                <Button className={classes.button} onClick={this.openMemberships} variant="contained" color="primary" >View Job</Button>
+              </div>
+            </Grid>
+          </Grid>
+
+          <Grid
+            container
+            item xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+              <Grid
+                key={key}
+                container
+                item xs={4}
+                spacing={1}
+                alignItems="center"
+                justify="center"
+              > 
+                <div className={classes.divStyle}>
+                  <span className={classes.tag}>{tag}</span>
+                </div>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+
+        <Dialog
+          className={classes.translate}
           open={this.state.open}
           onClose={this.handleClose}
           scroll={"paper"}
@@ -381,130 +377,114 @@ class JobApplicationCard extends Component {
             style: { borderRadius: 12 }
           }}
         >
-          
           <Toolbar className={classes.toolbar}>
-              <div>
-                <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Job Title</h2>
-                
-              </div>
-              <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
-            </Toolbar>
+            <div>
+              <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Job Title</h2>
+            </div>
+            <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
+          </Toolbar>
           
           <DialogContent>
             <DialogContentText
               id="scroll-dialog-description"
               component={'span'}
             >
-            <Grid
-              container
-              item xs={12}
-              spacing={0}
-              alignItems="space-around"
-              justify="space-around"
-              style={{marginBottom:'15px', marginTop: '10px'}}
-            > 
-              <Grid
-                container
-                item xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-                  <span className={classes.textpopup}><span style={{marginLeft:'5px'}}><FontAwesomeIcon icon={faBuilding} 
-                  style={{width: '15px', height: '15px', marginRight: '7px'}}/>
-                  </span>{this.state.data && this.state.data.company}
-                  </span>
-                  
-              </Grid>
-              <Grid
-                container
-                item xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-                  <span className={classes.textpopup2}>
-                  {this.state.data && this.state.data.city},
-                  {this.state.data && this.state.data.region}
-                   </span>
-
-              </Grid>
-              <Grid
-                container
-                item xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-                  <span className={classes.textpopup2}>
-                    {this.state.data && this.state.data.job_type}
-                  </span>                    
-
-              </Grid>
-            </Grid>
-
-            <Grid
-                container
-                item xs={10}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-              
-              <h2 className={classes.header}>Job Description:</h2>
-              <h2 className={classes.descrip}>{this.state.data && this.state.data.description}</h2>
-                                    
-              </Grid>
-
-              <Grid
-                container
-                item xs={10}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-              <h2 className={classes.header}>Job Requirements:</h2>
-              <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>              
-              </Grid>
-              
               <Grid
                 container
                 item xs={12}
                 spacing={0}
                 alignItems="flex-start"
                 justify="flex-start"
+                style={{marginBottom:'15px', marginTop: '10px'}}
+              > 
+                <Grid
+                  container
+                  item xs={3}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
-                 <Grid
+                  <span className={classes.textpopup}><span style={{marginLeft:'5px'}}><FontAwesomeIcon icon={faBuilding} 
+                  style={{width: '15px', height: '15px', marginRight: '7px'}}/>
+                  </span>{this.state.data && this.state.data.company}</span>
+                </Grid>
+                <Grid
+                  container
+                  item xs={3}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                  >
+                    <span className={classes.textpopup2}>
+                      {this.state.data && this.state.data.city},
+                      {this.state.data && this.state.data.region}
+                    </span>
+                </Grid>
+                <Grid
+                  container
+                  item xs={3}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                  >
+                    <span className={classes.textpopup2}>
+                      {this.state.data && this.state.data.job_type}
+                    </span>                    
+                </Grid>
+              </Grid>
+              <Grid
                 container
-                item xs={8}
+                item xs={10}
                 spacing={0}
                 alignItems="flex-start"
                 justify="flex-start"
-                >
-              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
-                <span key={key} className={classes.tagpopup}>{tag}</span>
-              ))}               
+              >
+                <h2 className={classes.header}>Job Description:</h2>
+                <h2 className={classes.descrip}>{this.state.data && this.state.data.description}</h2>
               </Grid>
-
               <Grid
                 container
-                item xs={4}
+                item xs={10}
                 spacing={0}
-                alignItems="space-around"
-                justify="space-around"
-                >
-              <DialogActions>
-              <Button className={classes.button1} variant="contained" onClick={this.applyJob}>Apply</Button> 
-              </DialogActions>
-              </Grid>             
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <h2 className={classes.header}>Job Requirements:</h2>
+                <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>              
               </Grid>
-              
-
-              
+              <Grid
+                container
+                item xs={12}
+                spacing={0}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Grid
+                  container
+                  item xs={8}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+                    <span key={key} className={classes.tagpopup}>{tag}</span>
+                  ))}               
+                </Grid>
+                <Grid
+                  container
+                  item xs={4}
+                  spacing={0}
+                  alignItems="flex-end"
+                  justify="flex-end"
+                >
+                  <DialogActions>
+                    <Button className={classes.button1} variant="contained" onClick={this.applyJob}>Apply</Button> 
+                  </DialogActions>
+                </Grid>             
+              </Grid>
             </DialogContentText>
           </DialogContent>
-          <DialogActions>    
-          </DialogActions>
+          <DialogActions/>
         </Dialog>
       </div>
     )
@@ -513,4 +493,3 @@ class JobApplicationCard extends Component {
 
 JobApplicationCard = withMyHook(JobApplicationCard);
 export default JobApplicationCard;
-
