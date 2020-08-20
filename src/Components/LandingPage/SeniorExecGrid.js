@@ -5,10 +5,12 @@ import {makeStyles} from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
 import SmallSeniorExec from "./SmallSeniorExec";
 import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
-import SmallSeniorExecImg from "../Images/senior/Latafat_Faran.jpg";
+import SmallSeniorExecImg from "../Images/senior/Jalaluddin_Uzma.jpg";
+import SmallSeniorExecImg2 from "../Images/senior/Diop_Cheikh.jpeg";
 import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
 import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
 import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg";
+import SeniorExecImg2 from "../Images/senior/Hali.jpg";
 
 const useStyles = makeStyles(() => ({
   background_lg: { 
@@ -102,7 +104,7 @@ class SeniorExecGrid extends Component {
                   <SeniorExec
                     name_text="Salman Zahid"
                     extra_text="President & CEO of Green Shield Canada"
-                    image = {SeniorExecImg}
+                    image = {SeniorExecImg2}
                     hover_image = {SeniorExecImgHover}
                   />
                 </Grid>
@@ -124,7 +126,7 @@ class SeniorExecGrid extends Component {
               <SmallSeniorExecBottom
                 name_text="Latafat Faran"
                 extra_text="Executive Vice President at Core Development Group"
-                image = {SmallSeniorExecImg}
+                image = {SmallSeniorExecImg2}
                 hover_image = {SmallSeniorExecImgHover}
               />
             </Grid>

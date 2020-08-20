@@ -17,6 +17,8 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     marginLeft: '10px',
     marginRight: '10px',
+    height: '370px',
+    width: '370px'
   },
   front_text: { 
     fontFamily: "Nunito Sans",
