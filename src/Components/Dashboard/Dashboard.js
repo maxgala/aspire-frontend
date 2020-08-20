@@ -14,6 +14,7 @@ import CoffeeChats from "./CoffeeChats";
 import Jobs from "./Jobs";
 import Community from "./Community";
 import ResumeBank from "./ResumeBank";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
