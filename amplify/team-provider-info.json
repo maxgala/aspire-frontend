@@ -10,18 +10,6 @@
             "StackName": "amplify-aspirefrontend-dev-224211",
             "StackId": "arn:aws:cloudformation:us-east-1:143848191537:stack/amplify-aspirefrontend-dev-224211/673ae230-e04c-11ea-9ab4-12709ad3d671",
             "AmplifyAppId": "d18d5wz419d1sn"
-        },
-        "categories": {
-            "function": {
-                "aspirefrontende71b9741CustomMessage": {
-                    "REDIRECTURL": "",
-                    "EMAILSUBJECT": "Aspire Frontend Test Confirmation",
-                    "EMAILMESSAGE": "Hi there. Please click on the link to verify your account for aspire test"
-                }
-            },
-            "auth": {
-                "aspirefrontend19b1b090": {}
-            }
         }
     }
 }

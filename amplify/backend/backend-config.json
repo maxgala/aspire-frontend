@@ -1,17 +1,5 @@
 {
-	"function": {
-		"aspirefrontende71b9741CustomMessage": {
-			"build": true,
-			"providerPlugin": "awscloudformation",
-			"service": "Lambda"
-		}
-	},
 	"auth": {
-		"aspirefrontend19b1b090": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": [],
-			"customAuth": false
-		}
+		
 	}
 }

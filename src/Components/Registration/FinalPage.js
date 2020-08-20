@@ -203,7 +203,12 @@ class FinalPage extends Component{
     signUp() {
         Auth.signUp({
             username: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            attributes: {
+                given_name: this.state.firstName, 
+                family_name: this.state.lastName, 
+                address: "{ region: \"ON\", country: \"CA\"}"
+            }
         })
         .then(() => {
             window.alert('Successfully signed up');
