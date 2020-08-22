@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import Landing from "./Components/LandingPage/Landing";
 import './App.css';
 import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
-//import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
 Amplify.configure({
   Auth: {
