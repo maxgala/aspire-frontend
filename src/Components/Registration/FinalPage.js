@@ -200,14 +200,30 @@ class FinalPage extends Component{
         })
     };
     
-    signUp() {
+    signUp(credits, user_type) {
+        let address = {}
+        if (this.state.country === 'CA'){
+            address = {region: this.state.province, country: this.state.country}
+        }else if (this.state.country === 'USA'){
+            address = {region: this.state.states, country: this.state.country}
+        }else{
+            address = {region: '', country: 'Other'}
+        }
+        address = JSON.stringify(address)
         Auth.signUp({
             username: this.state.email,
             password: this.state.password,
             attributes: {
                 given_name: this.state.firstName, 
                 family_name: this.state.lastName, 
-                address: "{ region: \"ON\", country: \"CA\"}"
+                address: address, 
+                "custom:industry": this.state.industry, 
+                "custom:industry_tags": (this.state.industry_tags).toString(), 
+                "custom:position": this.state.title, 
+                "custom:company": this.state.company, 
+                "custom:education_level": this.state.education,
+                "custom:user_type": user_type, 
+                "custom:credits": credits.toString()
             }
         })
         .then(() => {
@@ -287,25 +303,23 @@ class FinalPage extends Component{
     };
 
     handleSubmit = (event) => {
-        if (this.state.verified){
-            this.confirmSignUp();
-            this.props.appContext.props.appContext.setState({
-                currentScreen: <Landing appContext={this.props.appContext}/>
-            });
-        }else{
-            this.signUp();
-            this.setState({
-                verified: true
-            });
-        }
-        /*
         if (this.state.aspire_premium === true || this.state.aspire_platinum === true){
             this.setState({
                 openStripe: true
             })
         }else{
-            
-        }*/
+            if (this.state.verified){
+                this.confirmSignUp();
+                this.props.appContext.props.appContext.setState({
+                    currentScreen: <Landing appContext={this.props.appContext}/>
+                });
+            }else{
+                this.signUp(0, "free");
+                this.setState({
+                    verified: true
+                });
+            }   
+        }
     };
 
     readConditions = (event) => {
