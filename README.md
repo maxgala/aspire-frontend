@@ -1,19 +1,3 @@
-## Project setup using yarn and nvm
-
-- [Install nvm](https://github.com/nvm-sh/nvm#install--update-script) - NVM stands for Node Version Manager. This is responsible for managing your Node.js server
-
-- The project uses version 14.8.0. So install the node version by running -
-
-`nvm install 14.8.0`
-
-- Install the application by running -
-
-`yarn install`
-
-- Run the application by running locally -
-
-`yarn dev`
-
 ## Aspire Frontend Dashboard
 
 The directory hierarchy will be as following:
@@ -48,8 +32,6 @@ REACT_APP_CLIENT_ID=""
 REACT_APP_USER_POOL_ID=""
 REACT_APP_BACKEND_URL=""
 ```
-
-You can add PORT="" if you are getting a PORT conflict when doing `yarn dev`
 
 ### Deployment
 
