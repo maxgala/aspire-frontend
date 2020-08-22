@@ -15,9 +15,8 @@ import Registration from "../Registration/Registration";
 import Landing from "../LandingPage/Landing";
 import signInImage from "../Images/aboutMax.jpg";
 import Dashboard from "../Dashboard/Dashboard";
-import Amplify, { Auth } from 'aws-amplify';
-import aws_exports from '../../aws-exports';
-Amplify.configure(aws_exports);
+import { Auth } from 'aws-amplify';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -91,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
     toolbar: {
         height: "10vh",
     },
+    circleProgress: {
+        marginTop: "2%"
+    }
 }));
 
 function withMyHook(Component) {
@@ -106,7 +108,13 @@ class SignIn extends Component {
         this.state = {
             username: "",
             password: "",
-            signedIn: false
+            signedIn: false, 
+            barDisplay: 'None', 
+            buttonDisplay: '', 
+            errorMessage: '', 
+            verified: true, 
+            verfiedCode: '', 
+            codeMessage: 'Resend the code?'
         };
     }
 
@@ -121,6 +129,10 @@ class SignIn extends Component {
             currentScreen: <Registration appContext={this.props.appContext} />,
         });
     };
+    
+    handleVerififedCodeChange = (event) => {
+        this.setState({ verfiedCode: event.target.value })
+    }
 
     handleUsernameChange = (event) => {
         this.setState({ username: event.target.value });
@@ -138,28 +150,87 @@ class SignIn extends Component {
             password: password
         })
         .then(() => {
-            window.alert('successfully signed in')
             return this.state.username;
         })
         .catch((err) => {
-            window.alert(`Error signing in: ${ err }`)
+            console.log(err)
+            if (err.code === "UserNotConfirmedException"){
+                this.setState({
+                    verified: false, 
+                    barDisplay: 'None',
+                    buttonDisplay: ''
+                })
+                return null;
+            }
+            this.setState({
+                errorMessage: err.message, 
+                barDisplay: 'None', 
+                buttonDisplay: '', 
+            })
             return null;
         })
     }
     
+    resendCode = async (event) => {
+        await Auth.resendSignUp(this.state.username).then(() => {
+            this.setState({
+                codeMessage: 'Code has been emailed to you. Click here to resend code'
+            })
+        })
+    }
+    
+    handleVerify = async (event) => {
+        this.setState({
+            errorMessage: '', 
+            codeMessage: 'Resend Code'
+        })
+        await Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
+        .then(() => {
+            this.setState({signedIn: true})
+                // TODO: Get information from AWS cognito pool
+                // TODO: Check what role the user is, will redirect to different dashboard
+                let isSeniorExec = false; // will set this based on role
+                this.props.appContext.setState({
+                    currentScreen: (
+                        <Dashboard
+                            appContext={this.props.appContext}
+                            isSeniorExec={isSeniorExec}
+                        />
+                    ),
+                });
+        }).catch(err => {
+            this.setState({
+                errorMessage: "Wrong Code. Try Again"
+            })
+            return;
+        })
+    }
+    
     handleClick = async (event) => {
+        this.setState({
+            errorMessage: ''
+        })
         if (
             this.state.username === "" ||
             this.state.username === undefined ||
             this.state.password === "" ||
             this.state.password === undefined
         ) {
-            window.alert("Not filled in");
+            this.setState({
+                errorMessage: "Not all fields are filled in"
+            })
             return;
         }
         try{
+            this.setState({
+                buttonDisplay: 'None', 
+                barDisplay: ''
+            })
             await this.signIn()
-            .then(() => {
+            .then(val => {
+                if (val === null){
+                    return;
+                }
                 this.setState({signedIn: true})
                 // TODO: Get information from AWS cognito pool
                 // TODO: Check what role the user is, will redirect to different dashboard
@@ -178,9 +249,78 @@ class SignIn extends Component {
             return;
         }
     };
-
+    
+    //"UserNotConfirmedException"
     render() {
         const classes = this.props.classes;
+        if (this.state.verified === false){
+            return (
+                <Grid container component="main" className={classes.root}>
+                    <CssBaseline />
+                    <AppBar position="fixed" className={classes.appBar}>
+                        <Toolbar className={classes.toolbar}>
+                            <div className={classes.imageLogo}>
+                                <img
+                                    src={MaxLogo}
+                                    alt="MAX_logo"
+                                    onClick={this.changeToLanding}
+                                    className={classes.img}
+                                />
+                            </div>
+                        </Toolbar>
+                    </AppBar>
+                    <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                        <div className={classes.paper}>
+                            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+                            <Typography component="h1" variant="body1">
+                                    <b style = {{color: 'Red'}}>{this.state.username}</b> has not been verifed. <br/>
+                                    Please enter the verification code below:
+                            </Typography>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                id="code"
+                                label="Verification Code"
+                                name="code"
+                                autoFocus
+                                value={this.state.verfiedCode}
+                                onChange={this.handleVerififedCodeChange}
+                            />
+                            <CircularProgress style = {{display: this.state.barDisplay}} className = {classes.circleProgress}/>
+                            <Button
+                                type="submit"
+                                style = {{display: this.state.buttonDisplay}}
+                                variant="contained"
+                                className={classes.button}
+                                onClick={this.handleVerify}
+                            >
+                                Verify User
+                            </Button>
+                            <br />
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Typography component="h1" variant="body1" color = {"secondary"}>
+                                        <b> {this.state.errorMessage}</b>
+                                    </Typography>
+                                </Grid>
+                                <Grid style = {{display: this.state.buttonDisplay}} item xs={12}>
+                                    <Link
+                                        style = {{cursor: 'Pointer'}}
+                                        variant="body1"
+                                        color={"secondary"}
+                                        onClick={this.resendCode}
+                                    >
+                                        <b>{this.state.codeMessage}</b>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                </Grid>
+            )
+        }
         return (
             <Grid container component="main" className={classes.root}>
                 <CssBaseline />
@@ -202,7 +342,7 @@ class SignIn extends Component {
                         <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
                         <Typography component="h1" variant="h5">
                             Sign in
-            </Typography>
+                        </Typography>
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -229,22 +369,29 @@ class SignIn extends Component {
                             value={this.state.password}
                             onChange={this.handlePasswordChange}
                         />
+                        <CircularProgress style = {{display: this.state.barDisplay}} className = {classes.circleProgress}/>
                         <Button
                             type="submit"
+                            style = {{display: this.state.buttonDisplay}}
                             variant="contained"
                             className={classes.button}
                             onClick={this.handleClick}
                         >
                             Sign In
-            </Button>
+                        </Button>
                         <br />
                         <Grid container>
                             <Grid item xs={12}>
+                                <Typography component="h1" variant="body1" color = {"secondary"}>
+                                    <b> {this.state.errorMessage}</b>
+                                </Typography>
+                            </Grid>
+                            <Grid style = {{display: this.state.buttonDisplay}} item xs={12}>
                                 <Link href="#" variant="body1">
                                     <b>Forgot your password?</b>
                                 </Link>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid style = {{display: this.state.buttonDisplay}} item xs={12}>
                                 <Link
                                     href="#"
                                     variant="body1"

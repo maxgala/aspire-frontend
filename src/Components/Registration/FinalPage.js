@@ -19,11 +19,8 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Membership from "../LandingPage/Membership";
 import Stripe from "../Payment/Stripe";
 import Landing from "../LandingPage/Landing";
-import aws_exports from '../../aws-exports';
-import Amplify, { Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import TextField from '@material-ui/core/TextField';
-
-Amplify.configure(aws_exports);
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -314,7 +311,7 @@ class FinalPage extends Component{
                     currentScreen: <Landing appContext={this.props.appContext}/>
                 });
             }else{
-                this.signUp(0, "free");
+                this.signUp(0, "FREE");
                 this.setState({
                     verified: true
                 });
