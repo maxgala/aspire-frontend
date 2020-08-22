@@ -133,12 +133,18 @@ class SignIn extends Component {
     signIn() {
         const username = this.state.username
         const password = this.state.password
-        Auth.signIn({
+        return Auth.signIn({
             username: username,
             password: password
         })
-        .then(() => window.alert('successfully signed in'))
-        .catch((err) => window.alert(`Error signing in: ${ err }`))
+        .then(() => {
+            window.alert('successfully signed in')
+            return this.state.username;
+        })
+        .catch((err) => {
+            window.alert(`Error signing in: ${ err }`)
+            return null;
+        })
     }
     
     handleClick = async (event) => {
@@ -153,18 +159,20 @@ class SignIn extends Component {
         }
         try{
             await this.signIn()
-            this.setState({signedIn: true})
-            // TODO: Get information from AWS cognito pool
-            // TODO: Check what role the user is, will redirect to different dashboard
-            let isSeniorExec = false; // will set this based on role
-            this.props.appContext.setState({
-                currentScreen: (
-                    <Dashboard
-                        appContext={this.props.appContext}
-                        isSeniorExec={isSeniorExec}
-                    />
-                ),
-            });
+            .then(() => {
+                this.setState({signedIn: true})
+                // TODO: Get information from AWS cognito pool
+                // TODO: Check what role the user is, will redirect to different dashboard
+                let isSeniorExec = false; // will set this based on role
+                this.props.appContext.setState({
+                    currentScreen: (
+                        <Dashboard
+                            appContext={this.props.appContext}
+                            isSeniorExec={isSeniorExec}
+                        />
+                    ),
+                });  
+            })
         }catch(err){
             window.alert(`Error singing in - ${ err }`)
             return;
