@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
 import Container from "@material-ui/core/Container";
-import UserProfile from "./UserProfile";
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Home from "./SeniorExecs";
