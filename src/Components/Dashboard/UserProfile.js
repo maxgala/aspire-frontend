@@ -392,29 +392,46 @@ class Landing extends Component{
     })
   };
 
+  getUserProfile = () => {
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    let userLocation = "N/A";
+    if (userProfile.address && userProfile.address.formatted) {
+      const address = JSON.parse(userProfile.address.formatted);
+      userLocation = address.region + ", " + address.country;
+    }
+    return {
+      name: userProfile.given_name + " " + userProfile.family_name,
+      occupation: userProfile["custom:position"],
+      location: userLocation,
+      company: userProfile["custom:company"] ?? "N/A",
+      numCoffeeChats: 32,
+      numJobApplications: 45,
+      numCredits: userProfile["custom:credits"],
+    }
+  }
 
   render() {
     const classes = this.props.classes;
-    
+    const userProfile = this.getUserProfile();
     return (
       <div className={classes.root1}>
-        <div style={{margin: 'auto'}}>
-          <img className={classes.image} src={pic0} alt={"User Profile"}/>
+        <div style={{ margin: 'auto' }}>
+          <img className={classes.image} src={pic0} alt={"User Profile"} />
           <span>
-            <p className={classes.name}>Ali Khan</p>
-            <p className={classes.occupation}>Director of Marketing and Communication</p>
-            <p className={classes.city}><FontAwesomeIcon icon={faMapMarker} style={{width: '14px', height: '14px', margin: '2px', marginRight: '10px'}}/>Toronto, ON</p>
-            <p className={classes.company}><FontAwesomeIcon icon={faBuilding} style={{width: '14px', height: '14px', margin: '2px', marginRight: '10px'}}/><b>IBM</b></p>
-            <p className={classes.numCoffeChat}>32 Coffee Chats</p>
-            <p className={classes.numCoffeChat}>45 Jobs Applied To</p>
+            <p className={classes.name}>{userProfile.name}</p>
+            <p className={classes.occupation}>{userProfile.occupation}</p>
+            <p className={classes.city}><FontAwesomeIcon icon={faMapMarker} style={{ width: '14px', height: '14px', margin: '2px', marginRight: '10px' }} />{userProfile.location}</p>
+            <p className={classes.company}><FontAwesomeIcon icon={faBuilding} style={{ width: '14px', height: '14px', margin: '2px', marginRight: '10px' }} /><b>{userProfile.company} </b></p>
+            <p className={classes.numCoffeChat}>{userProfile.numCoffeeChats} Coffee Chats</p>
+            <p className={classes.numCoffeChat}>{userProfile.numJobApplications} Jobs Applied To</p>
             <div className={classes.circle}>
-              <p className={classes.credits}>1500</p>
+              <p className={classes.credits}>{userProfile.numCredits}</p>
               <p className={classes.available}>Credits Available</p>
             </div>
           </span>
-         
+
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
-          <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button> 
+          <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button>
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
           <p className={classes.faq} onClick={this.openFaq}>FAQ</p>

@@ -76,5 +76,5 @@ function httpPost(endPoint, headers, data) {
 // Choose the port and start the server
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
-  console.log(`Running app on ${PORT}`)
+  console.log(`Running proxy server on ${PORT}`)
 });

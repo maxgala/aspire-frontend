@@ -7,7 +7,6 @@ import Filter from "./Cards/FilterCard";
 import { httpGet } from "../../lib/dataAccess";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CardTypes from "./CardTypes";
-import { config } from "../../config";
 
 const useStyles = makeStyles(() => ({
 
@@ -80,7 +79,7 @@ function withMyHook(Component) {
 
 class JobBoard extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       jobs: []
@@ -88,7 +87,7 @@ class JobBoard extends Component {
   }
 
   fetchJobs = async () => {
-    const existingJobsData = await httpGet("jobs", config.REACT_APP_ACCESS_TOKEN);
+    const existingJobsData = await httpGet("jobs", localStorage.getItem("accessToken"));
     this.setState({
       jobs: existingJobsData.data.jobs
     })
@@ -106,7 +105,7 @@ class JobBoard extends Component {
     //   "salary": 40,
     //   "deadline": 1593718782
     // }
-    // const response = await httpPost("jobs", config.REACT_APP_ACCESS_TOKEN, JSON.stringify(jobsdata));
+    // const response = await httpPost("jobs", localStorage.getItem("accessToken"), JSON.stringify(jobsdata));
   }
 
   componentDidMount() {
@@ -264,10 +263,10 @@ class JobBoard extends Component {
                     alignItems="center"
                     justify="center"
                   >
-                    <JobApplicationCard data={jobData}/>
+                    <JobApplicationCard data={jobData} />
                   </Grid>
                 ))
-              :
+                :
                 <Grid
                   container
                   item xs={12}
@@ -275,7 +274,7 @@ class JobBoard extends Component {
                   alignItems="center"
                   justify="center"
                 >
-                  <EmptyCard type={CardTypes.jobApplication}/>
+                  <EmptyCard type={CardTypes.jobApplication} />
                 </Grid>
               }
             </Grid>
