@@ -19,6 +19,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import home from "../Images/navbar/home_web.svg";
+import community from "../Images/navbar/community_web.svg";
+import jobs from "../Images/navbar/jobs_web.svg";
+import chats from "../Images/navbar/chats_web.svg";
 
 const drawerWidth = 300;
 
@@ -68,35 +72,41 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  coffee_chat_text: {
+  coffee_chats: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    padding: '0px',
+    '&:hover': {
+      backgroundColor: "#A9A9A9"
+    }
+  },
+  jobs: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    padding: '0px',
+    '&:hover': {
+      backgroundColor: "#A9A9A9"
+    }
+  },
+  community: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    padding: '0px',
+    '&:hover': {
+      backgroundColor: "#A9A9A9"
+    }
+  },
+  dashboard: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
     marginLeft: 'auto',
+    padding: '0px',
     fontSize: '18px',
-    color: "#F1F1F1",
     '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
-    }
-  },
-  jobs_text: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
-    fontSize: '18px',
-    color: "#F1F1F1",
-    '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
-    }
-  },
-  dashboard_text: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
-    fontSize: '18px',
-    color: "#F1F1F1",
-    '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
+      backgroundColor: "#A9A9A9"
     }
   },
   user_profile: {
@@ -105,11 +115,12 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     color: "#F1F1F1",
     borderRadius: '100%',
+    padding: '0px',
     width: '60px',
     height: '60px',
+    marginLeft: '20px',
     '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
+      backgroundColor: "#A9A9A9"
     }
   },
   appBar: {
