@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
+
 import {makeStyles} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
-import Container from "@material-ui/core/Container";
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import Home from "./SeniorExecs";
 import Professionals from "./AspiringProfessionals";
 import Jobs from "./JobPosts";
@@ -142,39 +141,39 @@ class Dashboard extends Component {
   changeToEscalations() {
     this.setState({
       currentScreen: <Escalations appContext={this}/>
-    }) 
+    })
   }
 
   changeToAdminCoffeeChats() {
     this.setState({
       currentScreen: <AdminCoffeeChats appContext={this} />
-    }) 
+    })
   }
 
   changeToProfessionals() {
     this.setState({
       currentScreen: <Professionals appContext={this} />
-    }) 
+    })
   }
 
   changeToJobs() {
     this.setState({
       currentScreen: <Jobs appContext={this}/>
-    }) 
+    })
   }
 
   changeToSeniorExecs() {
     this.setState({
       currentScreen: <Home appContext={this}/>
-    }) 
+    })
   }
 
   render(){
     const classes = this.props.classes;
     return (
- 
 
-    
+
+
             <div >
               <Toolbar className={classes.toolbar}>
                 <div className={classes.navLogo} onClick={this.handleClick}>
@@ -228,7 +227,7 @@ class Dashboard extends Component {
                 {this.state.currentScreen}
               </div>
             </div>
- 
+
 
 
     );

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
-import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles(theme => ({
@@ -17,8 +16,6 @@ function withMyHook(Component){
 
 class Escalations extends Component{
   render() {
-    const classes = this.props.classes;
-    
     return (
       <div>
           <p>Escalations</p>
