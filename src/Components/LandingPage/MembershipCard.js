@@ -5,7 +5,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
-  image: { 
+  image: {
     width: '100%',
     height: '300px',
     paddingBottom: '30px',
@@ -15,15 +15,22 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     backgroundColor: '#F1F1F1'
   },
-  front_text: { 
+  membership_type_text: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "28px",
+    color: 'black',
+    textAlign: 'center'
+  },
+  front_text: {
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "22px",
     paddingBottom: '10px',
     color: 'black',
     textAlign: 'center'
   },
-  small_text: { 
+  small_text: {
     fontFamily: "Montserrat",
     fontSize: "18px",
     fontWeight: '1',
@@ -66,6 +73,7 @@ class MembershipCard extends Component {
       <div>
         <div className={classes.card}>
           <img className={classes.image} src={this.props.type === 'aspiring_professional' ? AspiringProfessional : SeniorExecutive} alt="Membership"/>
+          <h2 className={classes.membership_type_text}>{this.props.membership_type_text}</h2>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
           <h2 className={classes.small_text}>{this.props.description}</h2>
           <Button className={classes.button} variant="contained" onClick={this.props.buttonFunction}><b>{this.props.buttonText}</b></Button>
