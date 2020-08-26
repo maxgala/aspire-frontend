@@ -11,7 +11,6 @@ import {logEvent, Result, ErrorResult} from './util';
 import './cardStyle.css';
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import Landing from "../LandingPage/Landing";
 
 const useStyles = makeStyles((theme) => ({
     submit: {
@@ -129,7 +128,7 @@ class CheckoutForm extends React.Component {
                 openStripe: false
             })
             
-            if (this.props.finalPage.state.aspire_premium ==  true){
+            if (this.props.finalPage.state.aspire_premium === true){
                 this.props.finalPage.signUp(25, "PAID");
                 this.props.finalPage.setState({
                     verified: true

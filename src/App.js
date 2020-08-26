@@ -7,13 +7,13 @@ Amplify.configure({
   Auth: {
 
       // REQUIRED - Amazon Cognito Region
-      region: 'us-east-1',
+      region: process.env.REACT_APP_COGNITO_REGION,
 
       // OPTIONAL - Amazon Cognito User Pool ID
-      userPoolId: 'us-east-1_osaXQ2xh5',
+      userPoolId: process.env.REACT_APP_COGNITO_USER_POOL_ID,
 
       // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-      userPoolWebClientId: '1ev0u0hf43ank26v9t9oo693bb',
+      userPoolWebClientId: process.env.REACT_APP_COGNITO_APP_CLIENT_ID,
   }
 });
 
