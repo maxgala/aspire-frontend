@@ -2,12 +2,10 @@ import React, {Component} from 'react';
 import clsx from 'clsx';
 
 import {makeStyles, useTheme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
-import Container from "@material-ui/core/Container";
 import UserProfile from "./UserProfile";
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,8 +20,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import Divider from '@material-ui/core/Divider';
-
 
 
 const drawerWidth = 300;
@@ -44,13 +40,7 @@ const useStyles = makeStyles(theme => ({
     width: '150px',
     cursor: 'pointer'
   },
-  content: {
-    flexGrow: 1,
-    width: '100vw',
-    overflow: 'hidden',
-    backgroundColor: '#eaeaea',
-    height: '100vh',
-  },
+  
   profile_container: {
     '@media (max-width: 750px)': {
       width: '0px',
