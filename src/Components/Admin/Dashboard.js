@@ -1,19 +1,17 @@
 import React, {Component} from 'react';
+
 import {makeStyles} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
-import Container from "@material-ui/core/Container";
-import UserProfile from "./UserProfile";
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Home from "./Home";
-import CoffeeChats from "./CoffeeChats";
-import Jobs from "./Jobs";
-import Community from "./Community";
-import ResumeBank from "./ResumeBank";
+
+import Home from "./SeniorExecs";
+import Professionals from "./AspiringProfessionals";
+import Jobs from "./JobPosts";
+import AdminCoffeeChats from "./AdminCoffeeChats";
+import Escalations from "./Escalations";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,7 +48,8 @@ const useStyles = makeStyles(theme => ({
   },
   dashboard_container: {
     '@media (max-width: 750px)': {maxWidth: '100%'},
-    maxWidth: 'calc(100vw - 299px)',
+    //maxWidth: 'calc(100vw - 299px)',
+    width:'100%',
     paddingTop: theme.spacing(0),
     paddingLeft: '0px',
     paddingRight: '0px',
@@ -79,7 +78,7 @@ const useStyles = makeStyles(theme => ({
       color: '#484848'
     }
   },
-  jobs_text: {
+  text: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
     fontSize: '18px',
@@ -127,106 +126,94 @@ class Dashboard extends Component {
     this.state = {
       currentScreen: []
     }
-    this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
+    this.changeToProfessionals = this.changeToProfessionals.bind(this);
     this.changeToJobs = this.changeToJobs.bind(this);
-    this.changeToDashboard = this.changeToDashboard.bind(this);
-    this.changeToCommunity=this.changeToCommunity.bind(this);
-    this.changeToResumeBank=this.changeToResumeBank.bind(this);
+    this.changeToSeniorExecs = this.changeToSeniorExecs.bind(this);
+    this.changeToAdminCoffeeChats=this.changeToAdminCoffeeChats.bind(this);
+    this.changeToEscalations=this.changeToEscalations.bind(this);
   }
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
+      currentScreen: <Home appContext={this}/>
     })
   }
-  changeToResumeBank() {
+  changeToEscalations() {
     this.setState({
-      currentScreen: <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: <Escalations appContext={this}/>
+    })
   }
 
-  changeToCommunity() {
+  changeToAdminCoffeeChats() {
     this.setState({
-      currentScreen: <Community appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: <AdminCoffeeChats appContext={this} />
+    })
   }
 
-  changeToCoffeeChats() {
+  changeToProfessionals() {
     this.setState({
-      currentScreen: <CoffeeChats appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: <Professionals appContext={this} />
+    })
   }
 
   changeToJobs() {
     this.setState({
-      currentScreen: <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: <Jobs appContext={this}/>
+    })
   }
 
-  changeToDashboard() {
+  changeToSeniorExecs() {
     this.setState({
-      currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: <Home appContext={this}/>
+    })
   }
 
   render(){
     const classes = this.props.classes;
     return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <main className={classes.content}>
-          <Grid
-            container
-            item
-            spacing={1}
-            alignItems="center"
-            justify="center"
-            className={classes.grid}
-          >
-            <Container className={classes.profile_container}>
-              <UserProfile/>
-            </Container>
 
-            <Container className={classes.dashboard_container}>
+
+
+            <div >
               <Toolbar className={classes.toolbar}>
                 <div className={classes.navLogo} onClick={this.handleClick}>
-                  <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
+                  <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToSeniorExecs}/>
                 </div>
                 <Button
                   variant="outlined"
                   className={classes.coffee_chat_text}
-                  onClick={this.changeToResumeBank}
+                  onClick={this.changeToEscalations}
                 >
-                  <b>Resume Bank</b>
+                  <b>Escalations</b>
                 </Button>
                 <Button
                   variant="outlined"
-                  className={classes.jobs_text}
-                  onClick={this.changeToCommunity}
+                  className={classes.text}
+                  onClick={this.changeToAdminCoffeeChats}
                 >
-                  <b>Community</b>
+                  <b>Coffee Chats</b>
                 </Button>
 
                 <Button
                   variant="outlined"
-                  className={classes.jobs_text}
-                  onClick={this.changeToCoffeeChats}
+                  className={classes.text}
+                  onClick={this.changeToProfessionals}
                 >
-                  <b>Coffee Chats</b>
+                  <b>Aspiring Professional</b>
                 </Button>
                 <Button
                   variant="outlined"
-                  className={classes.jobs_text}
+                  className={classes.text}
                   onClick={this.changeToJobs}
                 >
-                  <b>Jobs</b>
+                  <b>Job Posts</b>
                 </Button>
                 <Button
                   variant="outlined"
                   className={classes.dashboard_text}
-                  onClick={this.changeToDashboard}
+                  onClick={this.changeToSeniorExecs}
                 >
-                  <b>Dashboard</b>
+                  <b>Senior Execs</b>
                 </Button>
                 <Button
                   variant="outlined"
@@ -239,10 +226,10 @@ class Dashboard extends Component {
               <div className="Dashboard">
                 {this.state.currentScreen}
               </div>
-            </Container>
-          </Grid>
-        </main>
-      </div>
+            </div>
+
+
+
     );
   }
 }

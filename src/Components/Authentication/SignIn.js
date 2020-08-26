@@ -17,6 +17,7 @@ import signInImage from "../Images/aboutMax.jpg";
 import Dashboard from "../Dashboard/Dashboard";
 import { Auth } from 'aws-amplify';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import AdminDashboard from "../Admin/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -206,6 +207,17 @@ class SignIn extends Component {
         })
     }
     
+    handleClick2=()=>{
+        this.props.appContext.setState({
+            currentScreen: (
+                <AdminDashboard
+                    appContext={this.props.appContext}
+                    
+                />
+            ),
+        });
+    }
+
     handleClick = async (event) => {
         this.setState({
             errorMessage: ''
@@ -378,6 +390,12 @@ class SignIn extends Component {
                             onClick={this.handleClick}
                         >
                             Sign In
+                        </Button>
+                        <Button
+                            className={classes.button}
+                            onClick={this.handleClick2}
+                        >
+                            Admin
                         </Button>
                         <br />
                         <Grid container>

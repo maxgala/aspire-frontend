@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import JobApplicationCard from "./Cards/JobApplicationCard";
+import EmptyCard from "./Cards/EmptyCard";
 import Filter from "./Cards/FilterCard";
 import { httpGet } from "../../lib/dataAccess";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
-
+import CardTypes from "./CardTypes";
+import { config } from "../../config";
 
 const useStyles = makeStyles(() => ({
 
@@ -78,9 +80,18 @@ function withMyHook(Component) {
 
 class JobBoard extends Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      jobs: []
+    }
+  }
+
   fetchJobs = async () => {
-    const existingJobsData = await httpGet("jobs");
-    console.log(existingJobsData);
+    const existingJobsData = await httpGet("jobs", config.REACT_APP_ACCESS_TOKEN);
+    this.setState({
+      jobs: existingJobsData.data.jobs
+    })
 
     // const jobsdata = {
     //   "title": "Software Developer",
@@ -229,7 +240,7 @@ class JobBoard extends Component {
 
             <div className={classes.sort}>
               <p className={classes.date}> Sort date posted by:
-            <select className={classes.select}>
+                <select className={classes.select}>
                   <option value="Ascending">Ascending</option>
                   <option value="descending">Descending</option>
                 </select>
@@ -243,117 +254,30 @@ class JobBoard extends Component {
               alignItems="flex-end"
               justify="flex-end"
             >
-
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
-              <Grid
-                container
-                item xs={6} sm={6} md={6} lg={4}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <JobApplicationCard />
-              </Grid>
+              {this.state.jobs && this.state.jobs.length > 0 ?
+                this.state.jobs.map((jobData, key) => (
+                  <Grid
+                    key={jobData.job_id}
+                    container
+                    item xs={6} sm={6} md={6} lg={4}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <JobApplicationCard data={jobData}/>
+                  </Grid>
+                ))
+              :
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <EmptyCard type={CardTypes.jobApplication}/>
+                </Grid>
+              }
             </Grid>
           </div>
         </PerfectScrollbar>
