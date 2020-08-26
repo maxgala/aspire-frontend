@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(0, 0, 3)
     },
     avatar: {
-        marginTop: '0vh',
+        marginTop: '3vh',
         width: '100px',
         height: '100px',
         padding: '1vw',
@@ -204,7 +204,7 @@ class FinalPage extends Component{
         }else if (this.state.country === 'USA'){
             address = {region: this.state.states, country: this.state.country}
         }else{
-            address = {region: '', country: 'Other'}
+            address = {region: 'Other', country: 'Other'}
         }
         address = JSON.stringify(address)
         Auth.signUp({
@@ -300,23 +300,23 @@ class FinalPage extends Component{
     };
 
     handleSubmit = (event) => {
-        if (this.state.aspire_premium === true || this.state.aspire_platinum === true){
-            this.setState({
-                openStripe: true
-            })
+        if (this.state.verified){
+            this.confirmSignUp();
+            this.props.appContext.props.appContext.setState({
+                currentScreen: <Landing appContext={this.props.appContext}/>
+            });
         }else{
-            if (this.state.verified){
-                this.confirmSignUp();
-                this.props.appContext.props.appContext.setState({
-                    currentScreen: <Landing appContext={this.props.appContext}/>
-                });
+            if (this.state.aspire_premium === true || this.state.aspire_platinum === true){
+                this.setState({
+                    openStripe: true
+                })
             }else{
                 this.signUp(0, "FREE");
                 this.setState({
                     verified: true
-                });
-            }   
-        }
+                });   
+            }
+        }   
     };
 
     readConditions = (event) => {
@@ -354,7 +354,7 @@ class FinalPage extends Component{
         const classes = this.props.classes;
         if (this.state.verified){
             return( 
-                <Container component="main" maxWidth="lg">
+                <Container component="main" maxWidth="sm">
                     <CssBaseline />
                     <div className={classes.paper}>
                         <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
@@ -362,29 +362,39 @@ class FinalPage extends Component{
                             Registration
                         </Typography>
                     </div>
-                    <Grid item xs={12}>
-                        <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="confirmationCode"
-                            label="Confirmation Code"
-                            name="confirmationCode"
-                            autoComplete="confirmationCode"
-                            value={this.state.confirmationCode}
-                            onChange={this.handleConfirmationCodeChange}
-                        />
-                    </Grid>
-                    <Button
-                            disabled={!this.state.checked}
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={this.handleSubmit}
-                        >
-                            <b>Submit</b>
-                    </Button>
+                    <div className={classes.form}>
+                        <Grid container spacing={2}>
+                            <div style = {{alignContent: "center"}}>
+                                <Typography component="h1" variant="body1">
+                                    An email has been sent to <b>{this.state.email}</b>. Please enter the verification code below:
+                                </Typography>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        fullWidth
+                                        required
+                                        id="confirmationCode"
+                                        label="Confirmation Code"
+                                        name="confirmationCode"
+                                        autoFocus
+                                        value={this.state.confirmationCode}
+                                        onChange={this.handleConfirmationCodeChange}
+                                    />
+                                </Grid>
+                                <Button
+                                        disabled={!this.state.checked}
+                                        type="submit"
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.submit}
+                                        onClick={this.handleSubmit}
+                                    >
+                                        <b>Submit</b>
+                                </Button>
+                            </div>
+                        </Grid>
+                    </div>
                 </Container> 
             );
         }else{

@@ -155,7 +155,7 @@ class Membership extends Component {
               <MembershipCard
                   front_text={"Aspiring Professionals Free"}
                   inner_text="Pricing Plan:"
-                  description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
+                  description="With the free membership plan, you will able to view jobs on the platform and, schedule coffee chats and mock interviews on a pay per use basis"
                   type="aspiring_professional"
                   buttonText={this.props.freeButtonText}
                   buttonFunction={this.props.landing ? this.props.freeFunction : this.handleAspireFreeClick}
@@ -312,8 +312,8 @@ class Membership extends Component {
                   <tr>
                     <td className={classes.table_element}>Starting Credits Received</td>
                     <td className={classes.table_element_free}>0 credits</td>
-                    <td className={classes.table_element_premium}>30 credits</td>
-                    <td className={classes.table_element_plat}>30 credits</td>
+                    <td className={classes.table_element_premium}>25 credits</td>
+                    <td className={classes.table_element_plat}>25 credits</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Cost to Purchase 5 Additional Credits</td>
