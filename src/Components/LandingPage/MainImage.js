@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     top: "0%",
     transform: "translate(-50%, 0%)",
-    backgroundColor: "rgba(0,0,0,0.8)",
+    // backgroundColor: "rgba(0,0,0,0.8)",
     width: "110%",
     height: "85vh",
   },

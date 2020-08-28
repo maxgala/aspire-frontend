@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '40px',
     textAlign: 'left',
     margin: '0',
+    marginLeft: '20px',
   },
   subscribeButton: {
     textTransform: 'none',

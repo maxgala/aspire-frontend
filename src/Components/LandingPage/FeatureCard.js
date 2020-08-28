@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     marginLeft: '10px',
     marginRight: '10px',
+    marginBottom: '10px',
     height: '370px',
     width: '370px'
   },
@@ -77,7 +78,7 @@ class FeatureCard extends Component{
       <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="vertical">
         <div className={classes.image} onClick={this.handleClick} onMouseEnter={this.handleClick}>
           <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on front of feature card"/>
-          <img style={{width: '100%', height: '100%', opacity: '0.2'}} src={this.state.images[this.props.card_number - 1]} alt="Front of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '0.2', objectFit: 'cover'}} src={this.state.images[this.props.card_number - 1]} alt="Front of feature card"/>
           <div className={classes.centered}>
             <h2 className={classes.front_text}>{this.props.front_text}</h2>
           </div>
@@ -85,7 +86,7 @@ class FeatureCard extends Component{
  
         <div className={classes.image} onClick={this.handleClick} onMouseLeave={this.handleClick}>
           <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on front of feature card"/>
-          <img style={{width: '100%', height: '100%', opacity: '0.2'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '0.2', objectFit: 'cover'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
           <div className={classes.centered}>
             <p className={classes.back_text}>{this.props.back_text}</p>
           </div>

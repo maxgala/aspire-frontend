@@ -4,6 +4,7 @@ import SeniorExec from "./SeniorExec.js"
 import {makeStyles} from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
 import SmallSeniorExec from "./SmallSeniorExec";
+
 import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
 import SmallSeniorExecImg from "../Images/senior/Jalaluddin_Uzma.jpg";
 import SmallSeniorExecImg2 from "../Images/senior/Diop_Cheikh.jpeg";
@@ -11,6 +12,18 @@ import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
 import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
 import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg";
 import SeniorExecImg2 from "../Images/senior/Hali.jpg";
+
+// let projects = [
+//   {
+//     photo: SmallSeniorExecImgHover,
+//     SmallSeniorExecImg,
+//     SmallSeniorExecImg2,
+//     SmallSeniorExecBottom,
+//     SeniorExecImg,
+//     SeniorExecImgHover,
+//     SeniorExecImg2
+//   }
+// ]
 
 const useStyles = makeStyles(() => ({
   background_lg: { 
