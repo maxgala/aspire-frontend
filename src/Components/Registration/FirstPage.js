@@ -87,6 +87,7 @@ class FirstPage extends Component {
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
+            showEmailError: false, 
             progress: 25,
             errorDisplay: 'None',
             dialogueOpen: false,
@@ -95,6 +96,13 @@ class FirstPage extends Component {
     }
 
     changeToPage2 = (event) => {
+        if (!(this.state.email).includes('@')){
+            this.setState({
+                dialogueOpen: true, 
+                showEmailError: true
+            })
+            return;
+        }
         if (this.state.firstName === '' || this.state.firstName === undefined
             || this.state.password === '' || this.state.password === undefined
             || this.state.lastName === '' || this.state.lastName === undefined
@@ -130,6 +138,7 @@ class FirstPage extends Component {
 
     handleEmailChange = (event) => {
         this.setState({
+            showEmailError: false, 
             email: event.target.value
         })
     };
@@ -217,6 +226,7 @@ class FirstPage extends Component {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    error={this.state.showEmailError}
                                     value={this.state.email}
                                     onChange={this.handleEmailChange}
                                 />
@@ -313,7 +323,7 @@ class FirstPage extends Component {
                     <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <b>Please fill out all the required fields</b>
+                            <b>Please fill out all the required fields properly</b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
