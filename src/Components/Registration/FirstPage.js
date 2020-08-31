@@ -18,6 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import MuiPhoneNumber from "material-ui-phone-number";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -90,6 +91,7 @@ class FirstPage extends Component {
             errorDisplay: 'None',
             dialogueOpen: false,
         }
+        this.handlePhoneChange = this.handlePhoneChange.bind(this)
     }
 
     changeToPage2 = (event) => {
@@ -132,12 +134,6 @@ class FirstPage extends Component {
         })
     };
 
-    handlePhoneChange = (event) => {
-        this.setState({
-            phone: event.target.value
-        })
-    };
-
     handleDialog = (event) => {
         this.setState({
             dialogueOpen: !(this.state.dialogueOpen)
@@ -167,6 +163,12 @@ class FirstPage extends Component {
             currentScreen: <SignIn appContext={this.props.appContext}/>
         });
     };
+    
+    handlePhoneChange(value) {
+        this.setState({
+           phone: value
+        });
+     }
 
     render() {
         const classes = this.props.classes;
@@ -182,7 +184,7 @@ class FirstPage extends Component {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    autoComplete="fname"
+                                    autoComplete="firstName"
                                     name="firstName"
                                     variant="outlined"
                                     required
@@ -201,7 +203,7 @@ class FirstPage extends Component {
                                     id="lastName"
                                     label="Last Name"
                                     name="lastName"
-                                    autoComplete="lname"
+                                    autoComplete="lastName"
                                     value={this.state.lastName}
                                     onChange={this.handleLastNameChange}
                                 />
@@ -220,15 +222,17 @@ class FirstPage extends Component {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
+                                <MuiPhoneNumber 
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="phone"
                                     label="Phone Number"
                                     name="phone"
-                                    autoComplete="phone"
                                     value={this.state.phone}
+                                    defaultCountry={'ca'}
+                                    preferredCountries = {['ca','us']}
+                                    disableAreaCodes = {true}
                                     onChange={this.handlePhoneChange}
                                 />
                             </Grid>
