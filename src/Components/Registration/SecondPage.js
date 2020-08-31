@@ -10,12 +10,6 @@ import MaxBrand from "../Images/max_brand_logo.png";
 import FirstPage from "./FirstPage";
 import LinearWithValueLabel from './linearprogress';
 import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
-import ListItemText from "@material-ui/core/ListItemText";
-import Input from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -30,6 +24,7 @@ import Education from "./Education";
 import Province from "./Provinces";
 import ThirdPage from "./ThirdPage";
 import Chip from "@material-ui/core/Chip";
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const IndustryLabels = [];
 for (let i=0; i < Industries.length; ++i){
@@ -44,6 +39,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
+/* Deleting since not required anymore
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -53,9 +49,14 @@ const MenuProps = {
             width: 250,
         },
     },
-};
+};*/
 
 const useStyles = makeStyles((theme) => ({
+	autoComplete: {
+        '& > * + *': {
+            marginTop: theme.spacing(3),
+          },
+    }, 
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -71,6 +72,9 @@ const useStyles = makeStyles((theme) => ({
     form: {
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
+        '& > * + *': {
+            marginTop: theme.spacing(3),
+          },
     },
     formControl:{
         width: '100%'
@@ -219,12 +223,12 @@ class SecondPage extends Component {
             registrationScreen: <ThirdPage appContext={this.props.appContext} prev={this.state}/>
         })
     };
-
-    setIndustryTags = (event) => {
+    
+    onTagsChange = (event, values) => {
         this.setState({
-            industry_tags: event.target.value
-        })
-    };
+            industry_tags: values
+        });
+    }
 
     handleDialog = (event) => {
         this.setState({
@@ -277,32 +281,27 @@ class SecondPage extends Component {
                                 </TextField>
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel className={classes.label} id="industry-mutiple-checkbox-label">Select Tags (Up to 3)</InputLabel>
-                                    <Select
-                                        labelId="industry-mutiple-checkbox-label"
-                                        id="industry-mutiple-checkbox"
-                                        multiple
-                                        value={this.state.industry_tags}
-                                        onChange={this.setIndustryTags}
-                                        input={<Input id="select-multiple-chip"/>}
-                                        renderValue={(selected) => (
-                                            <div className={classes.chips}>
-                                                {selected.map((value) => (
-                                                    <Chip key={value} label={value} className={classes.chip} />
-                                                ))}
-                                            </div>
-                                        )}
-                                        MenuProps={MenuProps}
-                                    >
-                                        {IndustryTagsLabels.map((name) => (
-                                            <MenuItem key={name} value={name}>
-                                                <Checkbox checked={this.state.industry_tags.indexOf(name) > -1} />
-                                                <ListItemText primary={name} />
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                <Autocomplete
+                                    multiple
+                                    id="tags-filled"
+                                    fullWidth
+                                    options={IndustryTags.map((option) => option.name)}
+                                    defaultValue={[]}
+                                    freeSolo
+                                    onChange = {this.onTagsChange}
+                                    renderTags={(value, getTagProps) =>
+                                        value.map((option, index) => (
+                                            <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+                                        ))
+                                    }
+                                    renderInput={(params) => (
+                                        <TextField 
+                                            {...params}
+                                            variant="outlined"
+                                            label="Select Tags (Up to 3)" 
+                                        />
+                                    )}
+                                />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
