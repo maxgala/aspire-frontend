@@ -54,7 +54,6 @@ const useStyles = makeStyles(() => ({
     alignItems: 'flex-start',
     textAlign: 'left',
     marginBottom: '40px',
-    marginLeft: '5px',
   },
 
   date: {
@@ -99,8 +98,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -125,8 +124,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -152,8 +151,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -178,8 +177,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={6} lg={3}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -203,7 +202,7 @@ class JobBoard extends Component {
             </Grid>
 
             <div className={classes.sort}>
-                <p className={classes.date}> Sort date posted by:
+              <p className={classes.date}> Sort date posted by:
                 <select className={classes.select}>
                   <option value="Ascending">Ascending</option>
                   <option value="descending">Descending</option>
@@ -216,13 +215,13 @@ class JobBoard extends Component {
               item xs={12}
               spacing={1}
               alignItems="flex-start"
-              justify="center"
+              justify="flex-start"
             >
               {this.state.job_board_data.map((chat, key) => (
                 <Grid
                   key={key}
                   container
-                  item xs={12} sm={12} md={6} lg={4} xl={3}
+                  item xs={12} sm={6} md={6} lg={4} xl={3}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"

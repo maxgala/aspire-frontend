@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const useStyles = makeStyles(() => ({
   card: {
     width: '95%',
-    maxWidth: '500px',
-    margin: 'auto',
+    maxWidth: '370px',
+    marginLeft:"7px",
     height: '230px',
     marginBottom: '10px',
     borderRadius: '20px',
@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '20px',
     color: '#58595B',
     margin: '0px',
-    marginLeft: '5px',
+    marginLeft: '10px',
     marginTop: '5px'
   },
   title: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '16px',
     color: '#58595B',
     margin: '0px',
-    marginLeft: '5px',
+    marginLeft: '10px',
     marginTop: '5px'
   },
   subtitle: {
@@ -62,7 +62,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '15px',
     color: '#58595B',
     margin: '0px',
-    marginLeft: '5px',
+    marginLeft: '10px',
     marginTop: '5px'
   },
   company: {
@@ -71,7 +71,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     textAlign: 'left',
     margin: '0px',
-    marginLeft: '5px',
+    marginLeft: '10px',
     marginTop: '5px',
     color: 'white'
   },

@@ -37,21 +37,21 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'minion-pro, serif',
     fontWeight: 'bolder',
     fontSize: '30px',
-    margin: '5px 20px 10px 20px',
+    margin: '2% 20px 10px 20px',
     textAlign: 'center',
     display: 'block',
   },
 
   occupation: {
-    margin: '10px 30px 10px 30px',
+    margin: '3% 30px 3% 30px',
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: '550',
     fontSize: '15px',
     textAlign: 'center',
     display: 'block',
   },
-  city: {
-    margin: '18px 40px 5px 40px',
+  city:{
+    margin: '2vh 40px 1vh 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: '550',
     fontSize: '15px',
@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   company: {
-    margin: '5px 40px 20px 40px',
+    margin: '1vh 40px 2vh 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '18px',
     textAlign: 'center',
@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   numCoffeChat: {
-    margin: '10px 40px 10px 40px',
+    margin:'1vh 40px 1vh 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '15px',
     textAlign: 'center',
@@ -81,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'justify',
     height: '130px',
     width: '130px',
-    margin: '15px 85px 20px 85px',
+    margin: '2vh 85px 2vh 85px',
     borderRadius: '50%',
     backgroundColor: '#B5A165',
     display: 'inline-block',
@@ -109,10 +109,10 @@ const useStyles = makeStyles(theme => ({
   image: {
     width: '60%',
     height: 'auto',
-    padding: '5%',
+    padding: '1vh',
     left: '10%',
     borderRadius: '50%',
-    marginTop: '10%',
+    marginTop:'2vh',
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'block',
@@ -121,7 +121,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     textTransform: 'none',
     backgroundColor: "#B5A165",
-    marginBottom: "2%",
+    marginBottom:"1vh",
     marginLeft: 'auto',
     marginRight: 'auto',
     borderRadius: 50,
@@ -144,10 +144,10 @@ const useStyles = makeStyles(theme => ({
   button1: {
     textTransform: 'none',
     backgroundColor: "#000000",
-    marginBottom: "2%",
+    marginBottom:"1vh",
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: '20px',
+    marginTop:'1.5vh',
     borderRadius: 50,
     color: "#FFFFFF",
     position: 'relative',
@@ -162,9 +162,8 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: '75px',
     paddingRight: '75px'
   },
-
-  updateProfile: {
-    margin: '20px 40px 10px 40px',
+  updateProfile:{
+    margin:'2vh 40px 1vh 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '12px',
     textAlign: 'center',
@@ -172,9 +171,11 @@ const useStyles = makeStyles(theme => ({
     color: '#6EA0B5',
     cursor: 'pointer',
   },
-
-  contact: {
-    margin: '5px 40px 10px 40px',
+  contact:{
+    marginTop:"1vh",
+    marginLeft:"40px",
+    marginBottom:"1vh",
+    marginRight:"40px",
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '12px',
     textAlign: 'center',
@@ -182,9 +183,8 @@ const useStyles = makeStyles(theme => ({
     color: '#6EA0B5',
     cursor: 'pointer',
   },
-
-  faq: {
-    margin: '5px 40px 10px 40px',
+  faq:{
+    margin:'1vh 40px 1vh 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '12px',
     textAlign: 'center',
@@ -315,9 +315,6 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     marginLeft: "4px"
   }
-
-
-
 }));
 
 
@@ -441,7 +438,7 @@ class Landing extends Component {
           <span>
             <p className={classes.name}>{userProfile.name}</p>
             <p className={classes.occupation}>{userProfile.occupation}</p>
-            <p className={classes.city}><FontAwesomeIcon icon={faMapMarker} style={{ width: '14px', height: '14px', margin: '2px', marginRight: '10px' }} />{userProfile.location}</p>
+            <p className={classes.city}><FontAwesomeIcon icon={faMapMarker} style={{ width: '14px', height: '14px', marginTop: '2px', marginRight: '10px' }} />{userProfile.location}</p>
             <p className={classes.company}><FontAwesomeIcon icon={faBuilding} style={{ width: '14px', height: '14px', margin: '2px', marginRight: '10px' }} /><b>{userProfile.company} </b></p>
             <p className={classes.numCoffeChat}>{userProfile.numCoffeeChats} Coffee Chats</p>
             <p className={classes.numCoffeChat}>{userProfile.numJobApplications} Jobs Applied To</p>
