@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     height: '100vh',
   },
   profile_container: {
-    '@media (max-width: 750px)': {
+    '@media (max-width: 963px)': {
       width: '0px',
       display: 'None'
     },
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   dashboard_container: {
-    '@media (max-width: 750px)': {maxWidth: '100%'},
+    '@media (max-width: 963px)': {maxWidth: '100%'},
     maxWidth: 'calc(100vw - 299px)',
     paddingTop: theme.spacing(0),
     paddingLeft: '0px',
@@ -183,7 +183,7 @@ class Dashboard extends Component {
             justify="center"
             className={classes.grid}
           >
-            <Container className={classes.profile_container}>
+           <Container className={classes.profile_container}>
               <UserProfile/>
             </Container>
 
