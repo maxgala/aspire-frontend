@@ -41,26 +41,26 @@ const useStyles = makeStyles(() => ({
 }));
 
 let images = [
-  { photo: { SmallSeniorExecImgHover } },
-  { photo: { SmallSeniorExecImg } },
-  { photo: { SmallSeniorExecImg2 } },
-  { photo: { SmallSeniorExecBottom } },
-  { photo: { SeniorExecImg } },
-  { photo: { SeniorExecImgHover } },
-  { photo: { SeniorExecImg2 } },
+  { photo: SmallSeniorExecImgHover },
+  { photo: SmallSeniorExecImg },
+  { photo: SmallSeniorExecImg2 },
+  { photo: SmallSeniorExecBottom },
+  { photo: SeniorExecImg },
+  { photo:  SeniorExecImgHover },
+  { photo:  SeniorExecImg2 }
 ];
 
 function shuffledImages() {
-  while (images.length < 4) {
-    let num = Math.floor(Math.random() * 4);
-    if (num !== images) {
-      images.push(num);
+  let shuffledImages = []
+  while (shuffledImages.length < 4) {
+    let num = Math.floor(Math.random() * (images.length - 1));
+    if (!shuffledImages.includes(num)) {
+      shuffledImages.push(num);
     }
-    return images;
   }
-  let execImages = [];
-  for (let i in images) {
-    execImages.push(execImages[i]);
+  let execImages = []
+  for (let i of shuffledImages) {
+    execImages.push(images[i])
   }
   return execImages;
 }
@@ -79,7 +79,7 @@ class SeniorExecGrid extends Component {
       isHover: false,
       phone: "",
       desktop: "None",
-      displayImages: [],
+      displayImages: images
     };
     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
@@ -96,6 +96,7 @@ class SeniorExecGrid extends Component {
 
   render() {
     const classes = this.props.classes;
+    console.log(this.state.displayImages)
     return (
       <div className={classes.seniorexec}>
         <div className={classes.background_lg}>
@@ -132,7 +133,8 @@ class SeniorExecGrid extends Component {
                   <SeniorExec
                     name_text="Salman Zahid"
                     extra_text="President & CEO of Green Shield Canada"
-                    id="theimage"
+                    image={this.state.displayImages[1].photo}
+                    hover_image={this.state.displayImages[1].photo}
                   />
                 </Grid>
                 <Grid
@@ -146,7 +148,8 @@ class SeniorExecGrid extends Component {
                     name_text="Salman Zahid"
                     extra_text="President & CEO of Green Shield Canada"
                     id="theimage"
-                    image={this.state.displayImages[0]}
+                    image={this.state.displayImages[0].photo}
+                    hover_image={this.state.displayImages[0].photo}
                   />
                 </Grid>
                 <SeniorExecText appContext={this.props.appContext} />
@@ -163,11 +166,15 @@ class SeniorExecGrid extends Component {
                 name_text="Latafat Faran"
                 extra_text="Executive Vice President at Core Development Group"
                 id="theimage"
+                image={this.state.displayImages[2].photo}
+                hover_image={this.state.displayImages[2].photo}
               />
               <SmallSeniorExecBottom
                 name_text="Latafat Faran"
                 extra_text="Executive Vice President at Core Development Group"
                 id="theimage"
+                image={this.state.displayImages[3].photo}
+                hover_image={this.state.displayImages[3].photo}
               />
             </Grid>
           </Grid>
