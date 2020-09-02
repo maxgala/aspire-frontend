@@ -22,9 +22,7 @@ import jwtDecode from "jwt-decode";
 const useStyles = makeStyles(theme => ({
   root1: {
     display: 'flex',
-    // top: '0',
-    // left: '0',
-    // minHeight: '100%',
+    flex: '1',
     overflowX: 'hidden',
     width: '100%',
     position: 'relative',

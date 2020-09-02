@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-start',
-    height: '10vh',
+    height: '10px',
     backgroundColor: 'black',
     boxShadow: 'none',
     width: '100%',
