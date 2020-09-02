@@ -2,10 +2,8 @@ import React, {Component} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -17,7 +15,7 @@ import close from "../../Images/close.png";
 const useStyles = makeStyles(() => ({
   card: {
     width: '90%',
-    maxWidth: '400px',
+    maxWidth: '350px',
     height: '180px',
     borderStyle: 'solid',
     borderRadius: '20px',
@@ -31,9 +29,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: "0px 6px 6px #00000029",
   },
   jobTitle:{
-    marginLeft: '15%',
     fontSize: '19px',
-    marginTop:'15px',
     fontWeight: '100',
     marginBottom: '1%',
   },
@@ -51,13 +47,11 @@ const useStyles = makeStyles(() => ({
     flexDirection:'row'
   },
   text4:{
-    marginLeft: '18%',
     marginTop: '10%',
     fontSize: '10px',
     fontWeight: '100',
     float: 'left',  
   },
-
   button: {
     fontSize: '10px',
     position: 'absolute',
@@ -67,22 +61,23 @@ const useStyles = makeStyles(() => ({
     color: '#58595B',
     display: 'flex',
     marginTop: '10px',
-    paddingLeft: '2.5%',
-    paddingRight: '2.5%',
-    paddingTop: '0.5%',
-    paddingBottom: '0.5%',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
     '&:hover': {
       backgroundColor: "#F1F1F1",
       color: '#484848'
-  }
+    }
   },
-  tag: {
+  tag1: {
     float: 'left',
     borderStyle: 'solid',
+    fontSize: '7px',
+    fontWeight: '100',
     color: 'white',
     borderWidth: '0.5px',
     borderRadius: 50,
-    marginLeft: '15%',
     marginTop: '20px',
     borderColor: 'white',
     display: 'flex',
@@ -90,17 +85,29 @@ const useStyles = makeStyles(() => ({
     paddingRight: '8px',
     paddingTop: '3px',
     paddingBottom: '3px',
-    left: '15px',
-    right: '15px',
-    fontSize: '8px',
+  },
+  tag2: {
+    float: 'left',
+    borderStyle: 'solid',
+    fontSize: '7px',
     fontWeight: '100',
+    color: 'white',
+    borderWidth: '0.5px',
+    borderRadius: 50,
+    marginLeft: '10%',
+    marginTop: '20px',
+    borderColor: 'white',
+    display: 'flex',
+    paddingLeft: '8px',
+    paddingRight: '8px',
+    paddingTop: '3px',
+    paddingBottom: '3px',   
   },
   largetext:{
     color: 'black',
     textAlign:'left',
     marginLeft:'20px',
     fontWeight: '100'
-
   },
   descrip: {
     textAlign: 'left',
@@ -123,25 +130,23 @@ const useStyles = makeStyles(() => ({
   translate: {
     transform: 'translate(0%, 0%)',
   },
-  close: {
-    float: 'right',
-  
-  },
   jobtitle: {
     fontSize: '30px',
-    paddingLeft: '15%',
+    marginLeft: '10px',
     marginTop: '4%',
     color: '#000000'
   },
   textpopup:{
     fontSize: '15px',
-    marginTop:'8%',
+    marginTop:'66px',
     fontWeight: '100',
+    marginRight: '16%'
   },
   textpopup2:{
     fontSize: '15px',
     marginLeft: '4%',
-    marginTop:'8%',
+    marginRight: '16%',
+    marginTop:'6px',
     fontWeight: '100',
   },
   tagpopup: {
@@ -157,8 +162,7 @@ const useStyles = makeStyles(() => ({
     borderColor: 'black',
     display: 'flex',
     paddingLeft: '3%',
-    paddingRight: '3%',
-    
+    paddingRight: '3%',   
   },
   button2:{
     marginLeft: '3%',
@@ -167,9 +171,9 @@ const useStyles = makeStyles(() => ({
   divStyle:{
     height:"20px"
   },
-  closes:{
-    position: 'absolute',
-    right:'5%',   
+  card1:{
+    marginLeft:"30px",
+    marginTop:"15px",
   },
   toolbar: {
     height: '8vh',
@@ -177,26 +181,9 @@ const useStyles = makeStyles(() => ({
     boxShadow: '0px 0px 0px',
     width: '100%',
   },
-  button1: {
-    textTransform: 'none',
-    backgroundColor: "#000000",
-    marginBottom:"2%",
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop:'20px',
-    borderRadius: 50,
-    color: "#FFFFFF",
-    position:'relative',
-    display: 'block',
-    '&:hover': {
-        backgroundColor: "#F1F1F1",
-        color: '#484848'
-    },
-    fontSize:'15px',
-    fontWeight: 'bold',
-    fontFamily:'myriad-pro, sans-serif',
-    paddingLeft: '75px',
-    paddingRight: '75px'
+  closes:{
+    position: 'absolute',
+    right:'5%',   
   },
 }));
 
@@ -213,8 +200,8 @@ class JobApplicationCard extends Component {
     this.state = {
       open: false,
       data: {
-        city: 'loading',
-        region: 'loading',
+        city: '',
+        region: '',
         company: '',
         job_type: '',
         description: '',
@@ -222,12 +209,6 @@ class JobApplicationCard extends Component {
         tags: []
       }
     }
-  }
-
-  componentDidMount() {
-    this.setState({
-      data: this.props.data
-    })
   }
 
   openMemberships = (event) => {
@@ -241,11 +222,20 @@ class JobApplicationCard extends Component {
       open: false
     })
   };
+
+  componentDidMount() {
+    this.setState({
+      data: this.props.data
+    })
+  }
+
   render() {
     Moment.globalFormat = 'MMM DD, YYYY';
     const classes = this.props.classes;
+    
     return (
       <div className={classes.card}>
+        <div className={classes.card1}>
           <Grid
             container
             alignItems="flex-start"
@@ -265,7 +255,7 @@ class JobApplicationCard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               > 
-               <h1 className={classes.jobTitle}>{this.state.data && this.state.data.title}</h1>
+                <h1 className={classes.jobTitle}>{this.state.data && this.state.data.title}</h1>
               </Grid>
             </Grid>
             <Grid
@@ -277,13 +267,12 @@ class JobApplicationCard extends Component {
             >
               <Grid
                 container
-                item xs={2}
+                item xs={1}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="flex-start"
+                justify="flex-start"
               > 
-              <span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '10%', marginTop:'13px',}}/></span>
-               
+                <span><FontAwesomeIcon icon={faBuilding} style={{width: '9px', height: '9px', marginRight: '10%', marginTop:'13px',}}/></span> 
               </Grid>
               <Grid
                 container
@@ -292,220 +281,205 @@ class JobApplicationCard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               > 
-               <span className={classes.text2}>{this.state.data && this.state.data.company}</span>
-               <span className={classes.text3}>{this.state.data && this.state.data.city}, {this.state.data && this.state.data.region}</span>
+                <span className={classes.text2}>{this.state.data && this.state.data.company}</span>
+                <span className={classes.text3}>{this.state.data && this.state.data.city}, {this.state.data && this.state.data.region}</span>
               </Grid>
-              
-              </Grid>
+            </Grid>
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
               <Grid
                 container
                 item xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
+              > 
+                <hr style={{width: '40%', textAlign:'left', marginLeft: '0%', marginTop:'30px', marginBottom: '0' , height: 1, paddingBottom:'0'}}></hr>
+      
+              </Grid>
+            </Grid>
+        
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <Grid
+                container
+                item xs={7}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              > 
+                <span className={classes.text4}>Posted <Moment unix>{this.state.data && this.state.data.created_on}</Moment></span>
+              </Grid>
+              <Grid
+                container
+                item xs={5}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              > 
+                <div className={classes.divStyle}>
+                  <Button className={classes.button} onClick={this.openMemberships} variant="contained" color="primary" >View Job</Button>
+                </div>
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+              <Grid
+                key={key}
+                container
+                item xs={3}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              > 
+                <div className={classes.divStyle}>
+                  <span className={classes.tag1}>Marketing</span>
+                </div>
+              </Grid>
+              ))}
+            </Grid>
+          </Grid>
+  
+
+          <Dialog
+            className={classes.translate}
+            open={this.state.open}
+            onClose={this.handleClose}
+            scroll={"paper"}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+            fullWidth={true}
+            maxWidth={'md'}
+            PaperProps={{
+              style: { borderRadius: 12 }
+            }}
+          >
+            <Toolbar className={classes.toolbar}>
+              <div>
+                <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Job Title</h2>
+              </div>
+              <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
+            </Toolbar>
+
+            <DialogContent>
+              <DialogContentText
+                id="scroll-dialog-description"
+                component={'span'}
               >
                 <Grid
                   container
                   item xs={12}
-                  spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
-                > 
-                  <hr style={{width: '40%', textAlign:'right', marginLeft: '10%', marginTop:'30px', marginBottom: '0' , height: 1, paddingBottom:'0'}}></hr>
-        
-                </Grid>
-              </Grid>
-        
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item xs={7}
-                  spacing={1}
+                  spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
+                  style={{marginBottom:'15px', marginTop: '10px'}}
                 > 
-                  <span className={classes.text4}>Posted <Moment unix>{this.state.data && this.state.data.created_on}</Moment></span>
+                  <Grid
+                    container
+                    item xs={3}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.textpopup}><span style={{marginLeft:'5px'}}><FontAwesomeIcon icon={faBuilding} 
+                    style={{width: '15px', height: '15px', marginRight: '7px'}}/>
+                    </span>{this.state.data && this.state.data.company}</span>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={3}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    >
+                      <span className={classes.textpopup2}>
+                        {this.state.data && this.state.data.city},
+                        {this.state.data && this.state.data.region}
+                      </span>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={3}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    >
+                      <span className={classes.textpopup2}>
+                        {this.state.data && this.state.data.job_type}
+                      </span>                    
+                  </Grid>
                 </Grid>
                 <Grid
                   container
-                  item xs={5}
-                  spacing={1}
+                  item xs={10}
+                  spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
-                > 
-                <div className={classes.divStyle}>
-                  <Button className={classes.button} onClick={this.openMemberships} variant="contained" color="primary" >View Job</Button>
-                </div>
+                >
+                  <h2 className={classes.header}>Job Description:</h2>
+                  <h2 className={classes.descrip}>{this.state.data && this.state.data.description}</h2>
                 </Grid>
-              </Grid>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
                 <Grid
-                  key={key}
                   container
-                  item xs={4}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                > 
-                  <div className={classes.divStyle}>
-                    <span className={classes.tag}>{tag}</span>
-                  </div>
+                  item xs={10}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <h2 className={classes.header}>Job Requirements:</h2>
+                  <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>              
                 </Grid>
-              ))}
-            </Grid>
-          </Grid>
-
-      <Dialog
-        className={classes.translate}
-          open={this.state.open}
-          onClose={this.handleClose}
-          scroll={"paper"}
-          aria-labelledby="scroll-dialog-title"
-          aria-describedby="scroll-dialog-description"
-          fullWidth={true}
-          maxWidth={'md'}
-          PaperProps={{
-            style: { borderRadius: 12 }
-          }}
-        >
-          
-          <Toolbar className={classes.toolbar}>
-              <div>
-                <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Job Title</h2>
-                
-              </div>
-              <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
-            </Toolbar>
-          
-          <DialogContent>
-            <DialogContentText
-              id="scroll-dialog-description"
-              component={'span'}
-            >
-            <Grid
-              container
-              item xs={12}
-              spacing={0}
-              alignItems="space-around"
-              justify="space-around"
-              style={{marginBottom:'15px', marginTop: '10px'}}
-            > 
-              <Grid
-                container
-                item xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
-                  <span className={classes.textpopup}><span style={{marginLeft:'5px'}}><FontAwesomeIcon icon={faBuilding} 
-                  style={{width: '15px', height: '15px', marginRight: '7px'}}/>
-                  </span>{this.state.data && this.state.data.company}
-                  </span>
-                  
-              </Grid>
-              <Grid
-                container
-                item xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-                  <span className={classes.textpopup2}>
-                  {this.state.data && this.state.data.city},
-                  {this.state.data && this.state.data.region}
-                   </span>
-
-              </Grid>
-              <Grid
-                container
-                item xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-                  <span className={classes.textpopup2}>
-                    {this.state.data && this.state.data.job_type}
-                  </span>                    
-
-              </Grid>
-            </Grid>
-
-            <Grid
-                container
-                item xs={10}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-              
-              <h2 className={classes.header}>Job Description:</h2>
-              <h2 className={classes.descrip}>{this.state.data && this.state.data.description}</h2>
-                                    
-              </Grid>
-
-              <Grid
-                container
-                item xs={10}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-              <h2 className={classes.header}>Job Requirements:</h2>
-              <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>              
-              </Grid>
-              
-              <Grid
-                container
-                item xs={12}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-                 <Grid
-                container
-                item xs={8}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                >
-              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
-                <span key={key} className={classes.tagpopup}>{tag}</span>
-              ))}               
-              </Grid>
-
-              <Grid
-                container
-                item xs={4}
-                spacing={0}
-                alignItems="space-around"
-                justify="space-around"
-                >
-              <DialogActions>
-              <Button className={classes.button1} variant="contained" onClick={this.applyJob}>Apply</Button> 
-              </DialogActions>
-              </Grid>             
-              </Grid>
-              
-
-              
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>    
-          </DialogActions>
-        </Dialog>
+                  <Grid
+                    container
+                    item xs={8}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+                      <span key={key} className={classes.tagpopup}>{tag}</span>
+                    ))}               
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={4}
+                    spacing={0}
+                    alignItems="flex-end"
+                    justify="flex-end"
+                  >
+                    <DialogActions>
+                      <Button className={classes.button1} variant="contained" onClick={this.applyJob}>Apply</Button> 
+                    </DialogActions>
+                  </Grid>             
+                </Grid>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions/>
+          </Dialog>
+        </div>
       </div>
     )
   }
@@ -513,4 +487,3 @@ class JobApplicationCard extends Component {
 
 JobApplicationCard = withMyHook(JobApplicationCard);
 export default JobApplicationCard;
-

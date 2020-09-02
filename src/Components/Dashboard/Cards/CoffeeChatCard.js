@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   cardOne: {
     width: '95%',
     maxWidth: '500px',
-    margin: 'auto',
+    marginLeft:"5px",
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
   cardFour: {
     width: '95%',
     maxWidth: '500px',
-    margin: 'auto',
+    marginLeft:"5px",
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',

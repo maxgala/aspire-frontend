@@ -1,5 +1,4 @@
 import axios from "axios";
-import { config } from "../config";
 
 export const httpGet = (endPoint, accessToken) => {
   let url = "api/" + endPoint;

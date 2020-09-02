@@ -28,7 +28,6 @@ const useStyles = makeStyles(() => ({
   },
 
   padding: {
-    marginLeft: '5px',
   },
 
   grid: {
@@ -58,7 +57,6 @@ const useStyles = makeStyles(() => ({
     alignItems: 'flex-start',
     textAlign: 'left',
     marginBottom: '40px',
-    marginLeft: '5px',
   },
 
   date: {
@@ -105,8 +103,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={3}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -131,8 +129,8 @@ class JobBoard extends Component {
                 container
                 item xs={12} sm={6} md={3}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -156,10 +154,10 @@ class JobBoard extends Component {
 
               <Grid
                 container
-                item xs={12} sm={12} md={5}
+                item xs={12} sm={12} md={6}
                 spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -183,7 +181,7 @@ class JobBoard extends Component {
             </Grid>
 
             <div className={classes.sort}>
-                <p className={classes.date}> Sort date posted by:
+              <p className={classes.date}> Sort date posted by:
                 <select className={classes.select}>
                   <option value="Ascending">Ascending</option>
                   <option value="descending">Descending</option>
@@ -204,13 +202,13 @@ class JobBoard extends Component {
               item xs={12}
               spacing={1}
               alignItems="flex-start"
-              justify="center"
+              justify="flex-start"
             >
               {this.state.community_data.map((chat, key) => (
                 <Grid
                   key={key}
                   container
-                  item xs={6} sm={6} md={4} lg={3}
+                  item xs={12} sm={6} md={4} lg={3}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
