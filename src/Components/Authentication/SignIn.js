@@ -17,7 +17,6 @@ import signInImage from "../Images/aboutMax.jpg";
 import Dashboard from "../Dashboard/Dashboard";
 import { authenticate } from "../../lib/authentication";
 import jwtDecode from "jwt-decode";
-import { config } from "../../config";
 import AdminDashboard from "../Admin/Dashboard";
 
 const useStyles = makeStyles((theme) => ({
