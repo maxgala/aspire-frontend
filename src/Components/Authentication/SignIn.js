@@ -135,8 +135,8 @@ class SignIn extends Component {
     });
   }
 
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
+  handleUsernameChange = (event) => {
+    this.setState({ username: event.target.value });
   };
 
   handleClick = async (event) => {
@@ -232,13 +232,13 @@ class SignIn extends Component {
               onClick={this.handleClick}
             >
               Sign In
-                    </Button>
+            </Button>
             <Button
               className={classes.button}
               onClick={this.handleClick2}
             >
               Admin
-                    </Button>
+            </Button>
             <br />
             <Grid container>
               <Grid item xs={12}>
