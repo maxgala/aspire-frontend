@@ -61,7 +61,6 @@ function shuffledImages() {
   let execImages = [];
   for (let i in images) {
     execImages.push(execImages[i]);
-    console.log(execImages)
   }
   return execImages;
 }
