@@ -6,7 +6,6 @@ import Filter from "./Cards/FilterCard";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
 import CardTypes from "./CardTypes";
-import { config } from "../../config";
 import { httpGet } from "../../lib/dataAccess";
 
 const useStyles = makeStyles(() => ({
