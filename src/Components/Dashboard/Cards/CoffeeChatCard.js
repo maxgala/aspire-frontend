@@ -7,7 +7,6 @@ import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatTypes from '../ChatTypes';
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -173,7 +172,6 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     fontSize: '22px',
     textAlign: 'left',
-    fontSize: '15px',
     color: '#B6A165',
     margin: '0px',
     float: 'left'
