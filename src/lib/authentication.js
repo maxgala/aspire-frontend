@@ -22,8 +22,8 @@ export const authenticate = (username, password) => {
       onSuccess: function (result) {
         var accessToken = result.getAccessToken().getJwtToken();
         /* Use the idToken for Logins Map when Federating User Pools with identity pools or when passing through an Authorization Header to an API Gateway Authorizer */
-        // var idToken = result.idToken.jwtToken;
-        // TODO: May have to resolve idToken
+        localStorage.setItem("idToken", result.idToken.jwtToken);
+        localStorage.setItem("accessToken", accessToken);
         resolve(accessToken);
       },
       onFailure: function (err) {

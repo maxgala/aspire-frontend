@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import { makeStyles } from "@material-ui/core/styles";
 import pic0 from "../Images/faceShot/pic0.png";
 import close from "../Images/close.png";
 import { Button } from '@material-ui/core';
@@ -16,6 +16,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import { httpGet } from "../../lib/dataAccess";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(theme => ({
   root1: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     position: 'fixed',
     textAlign: 'justify',
     borderRadius: '0% 0% 3% 3%',
-    boxShadow:' 0px 1.1px 8px #00000052',
+    boxShadow: ' 0px 1.1px 8px #00000052',
     backgroundColor: 'white'
   },
 
@@ -48,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     display: 'block',
   },
-  city:{
+  city: {
     margin: '18px 40px 5px 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: '550',
@@ -67,14 +69,14 @@ const useStyles = makeStyles(theme => ({
   },
 
   numCoffeChat: {
-    margin:'10px 40px 10px 40px',
+    margin: '10px 40px 10px 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '15px',
     textAlign: 'center',
     display: 'block',
   },
 
-  circle:{
+  circle: {
     position: 'relative',
     textAlign: 'justify',
     height: '130px',
@@ -85,7 +87,7 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     boxShadow: '0px 6px 6px #00000029',
   },
-  
+
   credits: {
     fontFamily: 'minion-pro, serif',
     fontWeight: 'bolder',
@@ -104,13 +106,13 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
   },
 
-  image:{
+  image: {
     width: '60%',
     height: 'auto',
     padding: '5%',
     left: '10%',
     borderRadius: '50%',
-    marginTop:'10%',
+    marginTop: '10%',
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'block',
@@ -119,21 +121,21 @@ const useStyles = makeStyles(theme => ({
   button: {
     textTransform: 'none',
     backgroundColor: "#B5A165",
-    marginBottom:"2%",
+    marginBottom: "2%",
     marginLeft: 'auto',
     marginRight: 'auto',
     borderRadius: 50,
     color: "#000000",
-    position:'relative',
+    position: 'relative',
     display: 'block',
     '&:hover': {
-        backgroundColor: "#F1F1F1",
-        color: '#484848'
+      backgroundColor: "#F1F1F1",
+      color: '#484848'
     },
-    
-    fontSize:'15px',
+
+    fontSize: '15px',
     fontWeight: 'bold',
-    fontFamily:'myriad-pro, sans-serif',
+    fontFamily: 'myriad-pro, sans-serif',
     paddingLeft: '50px',
     paddingRight: '50px'
   },
@@ -142,53 +144,53 @@ const useStyles = makeStyles(theme => ({
   button1: {
     textTransform: 'none',
     backgroundColor: "#000000",
-    marginBottom:"2%",
+    marginBottom: "2%",
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop:'20px',
+    marginTop: '20px',
     borderRadius: 50,
     color: "#FFFFFF",
-    position:'relative',
+    position: 'relative',
     display: 'block',
     '&:hover': {
-        backgroundColor: "#F1F1F1",
-        color: '#484848'
+      backgroundColor: "#F1F1F1",
+      color: '#484848'
     },
-    fontSize:'15px',
+    fontSize: '15px',
     fontWeight: 'bold',
-    fontFamily:'myriad-pro, sans-serif',
+    fontFamily: 'myriad-pro, sans-serif',
     paddingLeft: '75px',
     paddingRight: '75px'
   },
 
-  updateProfile:{
-    margin:'20px 40px 10px 40px',
+  updateProfile: {
+    margin: '20px 40px 10px 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '12px',
     textAlign: 'center',
     display: 'block',
-    color:'#6EA0B5',
-    cursor:'pointer',
+    color: '#6EA0B5',
+    cursor: 'pointer',
   },
 
-  contact:{
-    margin:'5px 40px 10px 40px',
+  contact: {
+    margin: '5px 40px 10px 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '12px',
     textAlign: 'center',
     display: 'block',
-    color:'#6EA0B5',
-    cursor:'pointer',
+    color: '#6EA0B5',
+    cursor: 'pointer',
   },
 
-  faq:{
-    margin:'5px 40px 10px 40px',
+  faq: {
+    margin: '5px 40px 10px 40px',
     fontFamily: 'myriad-pro, sans-serif',
     fontSize: '12px',
     textAlign: 'center',
     display: 'block',
-    color:'#6EA0B5',
-    cursor:'pointer',
+    color: '#6EA0B5',
+    cursor: 'pointer',
   },
 
   toolbar: {
@@ -198,56 +200,56 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
 
-  dialog:{
-    borderRadius:'40%',
+  dialog: {
+    borderRadius: '40%',
   },
 
-  textbox:{
+  textbox: {
     boxShadow: '0px 0px 0px',
-    color:'white',
-    '& .MuiInput-underline:before':{
-      borderBottom: "2px solid #B6A165 ",   
+    color: 'white',
+    '& .MuiInput-underline:before': {
+      borderBottom: "2px solid #B6A165 ",
     },
-    '& .MuiInput-underline:after':{
+    '& .MuiInput-underline:after': {
       color: '#455E6A',
-      borderBottom: "2px solid #B6A165 "   
+      borderBottom: "2px solid #B6A165 "
     },
     '& label.Mui-focused': {
-      color: '#455E6A',  
-   },   
+      color: '#455E6A',
+    },
   },
 
-  input:{
-    boxShadow: '0px 0px ', 
+  input: {
+    boxShadow: '0px 0px ',
   },
 
-  limit:{
+  limit: {
     width: '90%',
-    display:'block',
+    display: 'block',
     margin: '0 auto',
-    textAlign:'right',
-    fontSize:'10px',
-    color:'#58595B',
+    textAlign: 'right',
+    fontSize: '10px',
+    color: '#58595B',
   },
 
-  jobTitles:{
-    margin:'0px 0px 5px 0px',
+  jobTitles: {
+    margin: '0px 0px 5px 0px',
   },
 
-  grid:{
-    paddingLeft:'30px',
-    paddingright:'30px',
+  grid: {
+    paddingLeft: '30px',
+    paddingright: '30px',
   },
 
-  text:{
-    font:"Myriad Pro"
+  text: {
+    font: "Myriad Pro"
   },
 
   close: {
     position: 'absolute',
-    right:'8%',   
+    right: '8%',
   },
- 
+
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
       borderColor: `#B6A165 `,
@@ -261,18 +263,18 @@ const useStyles = makeStyles(theme => ({
     borderColor: '#B6A165 '
   },
 
-  textField:{
-    width:'111ch',
-    margin:'5px 20px 5px 20px',
+  textField: {
+    width: '111ch',
+    margin: '5px 20px 5px 20px',
   },
 
-  title:{
+  title: {
     width: '95%',
-    display:'block',
+    display: 'block',
     margin: '15px 10px 2px 10px',
-    textAlign:'left',
-    fontSize:'16px',
-    color:'#58595B',
+    textAlign: 'left',
+    fontSize: '16px',
+    color: '#58595B',
   },
 
   checkbox: {
@@ -284,34 +286,34 @@ const useStyles = makeStyles(theme => ({
 
   checked: {},
 
-  checkboxGrid:{
-    fontSize:'7px',
+  checkboxGrid: {
+    fontSize: '7px',
     margin: '5px 5px 0px 14px',
   },
 
-  radioButton:{
-    color:'#58595B',
+  radioButton: {
+    color: '#58595B',
     margin: '5px 20px 0px 30px',
     fontSize: '16px'
   },
 
-  radioMarginFirst:{
+  radioMarginFirst: {
     margin: '15px 20px 5px 30px',
-    width:"85%"
+    width: "85%"
   },
 
-  radioMarginSecond:{
+  radioMarginSecond: {
     margin: '15px 20px 0px 30px',
-    width:"85%"
+    width: "85%"
   },
 
-  contactBox:{
+  contactBox: {
     fontSize: '7px',
     textAlign: 'center',
     display: 'block',
-    color:'#58595B',
-    cursor:'pointer',
-    marginLeft:"4px"
+    color: '#58595B',
+    cursor: 'pointer',
+    marginLeft: "4px"
   }
 
 
@@ -319,14 +321,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function withMyHook(Component){
-  return function WrappedComponent(props){
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
     const classes = useStyles();
-    return <Component {...props} classes={classes}/>
+    return <Component {...props} classes={classes} />
   }
 }
 
-class Landing extends Component{
+class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -339,9 +341,25 @@ class Landing extends Component{
       requirement: '',
       max_characters: 2000,
       checkedBox: false,
+      numJobs: 0,
+      numChats: 0
     }
   }
- 
+
+  componentDidMount() {
+    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("accessToken")).then((jobs) => {
+      this.setState({
+        numJobs: jobs.data.count
+      })
+    });
+    httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("accessToken")).then((chats) => {
+      this.setState({
+        numChats: chats.data.count
+      })
+    });
+  }
+
   handleChange = event => {
     this.setState({ value: event.target.value });
   };
@@ -368,13 +386,13 @@ class Landing extends Component{
     })
   };
 
-  handlePostJobClose = event =>{
+  handlePostJobClose = event => {
     this.setState({
       openPostJob: false
     })
   };
 
-  handleFaqClose = event =>{
+  handleFaqClose = event => {
     this.setState({
       openFaq: false
     })
@@ -392,29 +410,49 @@ class Landing extends Component{
     })
   };
 
+  getUserProfile = () => {
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    let userLocation = "N/A";
+    if (userProfile.address && userProfile.address.formatted) {
+      const address = JSON.parse(userProfile.address.formatted);
+      if (!address.country.includes("Other")) {
+        userLocation = address.region + ", " + address.country;
+      }
+    }
+
+    return {
+      name: userProfile.given_name + " " + userProfile.family_name,
+      occupation: userProfile["custom:position"],
+      location: userLocation,
+      company: userProfile["custom:company"] ?? "N/A",
+      numCoffeeChats: this.state.numChats,
+      numJobApplications: this.state.numJobs,
+      numCredits: userProfile["custom:credits"],
+    }
+  }
 
   render() {
     const classes = this.props.classes;
-    
+    const userProfile = this.getUserProfile();
     return (
       <div className={classes.root1}>
-        <div style={{margin: 'auto'}}>
-          <img className={classes.image} src={pic0} alt={"User Profile"}/>
+        <div style={{ margin: 'auto' }}>
+          <img className={classes.image} src={pic0} alt={"User Profile"} />
           <span>
-            <p className={classes.name}>Ali Khan</p>
-            <p className={classes.occupation}>Director of Marketing and Communication</p>
-            <p className={classes.city}><FontAwesomeIcon icon={faMapMarker} style={{width: '14px', height: '14px', margin: '2px', marginRight: '10px'}}/>Toronto, ON</p>
-            <p className={classes.company}><FontAwesomeIcon icon={faBuilding} style={{width: '14px', height: '14px', margin: '2px', marginRight: '10px'}}/><b>IBM</b></p>
-            <p className={classes.numCoffeChat}>32 Coffee Chats</p>
-            <p className={classes.numCoffeChat}>45 Jobs Applied To</p>
+            <p className={classes.name}>{userProfile.name}</p>
+            <p className={classes.occupation}>{userProfile.occupation}</p>
+            <p className={classes.city}><FontAwesomeIcon icon={faMapMarker} style={{ width: '14px', height: '14px', margin: '2px', marginRight: '10px' }} />{userProfile.location}</p>
+            <p className={classes.company}><FontAwesomeIcon icon={faBuilding} style={{ width: '14px', height: '14px', margin: '2px', marginRight: '10px' }} /><b>{userProfile.company} </b></p>
+            <p className={classes.numCoffeChat}>{userProfile.numCoffeeChats} Coffee Chats</p>
+            <p className={classes.numCoffeChat}>{userProfile.numJobApplications} Jobs Applied To</p>
             <div className={classes.circle}>
-              <p className={classes.credits}>1500</p>
+              <p className={classes.credits}>{userProfile.numCredits}</p>
               <p className={classes.available}>Credits Available</p>
             </div>
           </span>
-         
+
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
-          <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button> 
+          <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button>
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
           <p className={classes.faq} onClick={this.openFaq}>FAQ</p>
@@ -432,211 +470,211 @@ class Landing extends Component{
           >
             <Toolbar className={classes.toolbar}>
               <div>
-                <h2 style={{margin: '0px', marginTop: '10px', color: 'white'}}>Post a Job</h2>
-                
+                <h2 style={{ margin: '0px', marginTop: '10px', color: 'white' }}>Post a Job</h2>
+
               </div>
-              <img onClick={this.handlePostJobClose} className={classes.close} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
+              <img onClick={this.handlePostJobClose} className={classes.close} style={{ width: '14px', height: '14px', cursor: 'pointer' }} src={close} alt="Close button" />
             </Toolbar>
             <div className={classes.grid}>
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-           
-            > 
               <Grid
                 container
-                item xs={6}
+                item xs={12}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"         
-              >    
+
+              >
                 <Grid
                   container
-                  item xs={12}
+                  item xs={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <div className={classes.radioMarginFirst}>   
-                    <TextField label="Job Title" fullWidth className={classes.textbox}  
-                      InputProps={{
-                        classes: {   
-                          root: classes.outline,
-                          focused: classes.cssFocused,
-                          input: classes.input,
-                        }
-                      }}
-                    />
-                  </div>
-                </Grid>        
-              </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <div className={classes.radioMarginFirst}>
+                      <TextField label="Job Title" fullWidth className={classes.textbox}
+                        InputProps={{
+                          classes: {
+                            root: classes.outline,
+                            focused: classes.cssFocused,
+                            input: classes.input,
+                          }
+                        }}
+                      />
+                    </div>
+                  </Grid>
+                </Grid>
 
-              <Grid
-              container
-              item xs={6}
-              spacing={1}
-              alignItems="flex-end"
-              justify="flex-end"
-              >
                 <Grid
                   container
-                  item xs={12}
+                  item xs={6}
                   spacing={1}
                   alignItems="flex-end"
                   justify="flex-end"
-                > 
-                  <div className={classes.radioMarginFirst}>
-                    <TextField label="Location" fullWidth className={classes.textbox}  
-                      InputProps={{
-                        classes: {
-                          input: classes.input,
-                        }
-                      }}
-                    />
-                  </div>
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                item xs={6}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"         
-              >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
                 >
-                   <div className={classes.radioMarginSecond}>
-                      <TextField label="Company" fullWidth className={classes.textbox}     
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-end"
+                    justify="flex-end"
+                  >
+                    <div className={classes.radioMarginFirst}>
+                      <TextField label="Location" fullWidth className={classes.textbox}
                         InputProps={{
                           classes: {
                             input: classes.input,
                           }
                         }}
                       />
-                 </div>
+                    </div>
+                  </Grid>
                 </Grid>
-              </Grid>
-      
-              <Grid
-              container
-              item xs={3}
-              spacing={1}
-              alignItems="flex-end"
-              justify="flex-end"
-              >
+
                 <Grid
                   container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <div className={classes.radioButton}>
-                    <FormControlLabel  checked={this.state.value === 'Full-Time'} value='Full-Time' control={<Radio color="primary" />} label="Full-Time"  onChange={this.handleChange}/>
-                  </div>
-                </Grid>
-                <Grid
-                container
-                item xs={12}
-                spacing={0}
-                alignItems="center"
-                justify="center"
-                >
-                  <div className={classes.radioButton}>
-                    <FormControlLabel  checked={this.state.value === 'Contract'} value="Contract" control={<Radio color="primary" />} label="Contract"  onChange={this.handleChange} />
-                  </div> 
-                </Grid>
-              </Grid>
-              <Grid
-                container
-                item xs={3}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item xs={12}
+                  item xs={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <div className={classes.radioButton}>
-                    <FormControlLabel checked={this.state.value === 'Part-Time'} value='Part-Time' control={<Radio color="primary" />} label="Part-Time"  onChange={this.handleChange}/>
-                  </div>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <div className={classes.radioButton}>
-                  <FormControlLabel checked={this.state.value === 'Internship'}  value="Internship" control={<Radio color="primary" />} label="Internship" onChange={this.handleChange}/>
-                  </div>
-                </Grid>
-              </Grid>
-              
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                > 
-                  <p className={classes.title}>Job Description</p> 
-                      <TextField
-                        multiline
-                        rows={4}
-                        variant="outlined"
-                        fullWidth
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <div className={classes.radioMarginSecond}>
+                      <TextField label="Company" fullWidth className={classes.textbox}
                         InputProps={{
-                          maxLength: this.state.max_characters,
                           classes: {
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.notchedOutline,
-                          },
+                            input: classes.input,
+                          }
                         }}
-                        value={this.state.description}
-                        helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
-                        className={classes.textField}  
-                        onChange={this.handleDescriptionChange("name")}
-                      />      
+                      />
+                    </div>
+                  </Grid>
                 </Grid>
-              </Grid>
-              
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
+
+                <Grid
+                  container
+                  item xs={3}
+                  spacing={1}
+                  alignItems="flex-end"
+                  justify="flex-end"
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <div className={classes.radioButton}>
+                      <FormControlLabel checked={this.state.value === 'Full-Time'} value='Full-Time' control={<Radio color="primary" />} label="Full-Time" onChange={this.handleChange} />
+                    </div>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={0}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <div className={classes.radioButton}>
+                      <FormControlLabel checked={this.state.value === 'Contract'} value="Contract" control={<Radio color="primary" />} label="Contract" onChange={this.handleChange} />
+                    </div>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item xs={3}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <div className={classes.radioButton}>
+                      <FormControlLabel checked={this.state.value === 'Part-Time'} value='Part-Time' control={<Radio color="primary" />} label="Part-Time" onChange={this.handleChange} />
+                    </div>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <div className={classes.radioButton}>
+                      <FormControlLabel checked={this.state.value === 'Internship'} value="Internship" control={<Radio color="primary" />} label="Internship" onChange={this.handleChange} />
+                    </div>
+                  </Grid>
+                </Grid>
+
                 <Grid
                   container
                   item xs={12}
                   spacing={1}
                   alignItems="center"
                   justify="center"
-                > 
-                  <p className={classes.title}>Job Requirement</p>
-                  <TextField
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <p className={classes.title}>Job Description</p>
+                    <TextField
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      fullWidth
+                      InputProps={{
+                        maxLength: this.state.max_characters,
+                        classes: {
+                          root: classes.cssOutlinedInput,
+                          focused: classes.cssFocused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
+                      value={this.state.description}
+                      helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
+                      className={classes.textField}
+                      onChange={this.handleDescriptionChange("name")}
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <p className={classes.title}>Job Requirement</p>
+                    <TextField
                       multiline
                       rows={4}
                       variant="outlined"
@@ -651,49 +689,49 @@ class Landing extends Component{
                       }}
                       value={this.state.requirement}
                       helperText={`${this.state.requirement.length}/${this.state.max_characters} Characters`}
-                      className={classes.textField}  
+                      className={classes.textField}
                       onChange={this.handleRequirementChange("name")}
                     />
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
 
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
               <Grid
                 container
                 item xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
-              > 
-                <div  className={classes.contactBox}>
-                  <FormControlLabel
-                    className={classes.checkboxGrid}
-                    control={
-                      <Checkbox
-                        checked={this.state.checkedBox}
-                        onChange={this.handleChange2('checkedBox')}
-                        value="checkedBox"
-                        classes={{
-                          root: classes.checkbox,
-                          checked: classes.checked,
-                        }}
+              >
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <div className={classes.contactBox}>
+                    <FormControlLabel
+                      className={classes.checkboxGrid}
+                      control={
+                        <Checkbox
+                          checked={this.state.checkedBox}
+                          onChange={this.handleChange2('checkedBox')}
+                          value="checkedBox"
+                          classes={{
+                            root: classes.checkbox,
+                            checked: classes.checked,
+                          }}
+                        />
+                      }
+                      label="Allow candidates to contact me about the posting (maximum of 4) "
                     />
-                    }
-                    label="Allow candidates to contact me about the posting (maximum of 4) "
-                  />
-                </div>
+                  </div>
+                </Grid>
               </Grid>
-            </Grid>
-          </div>
+            </div>
             <DialogActions>
-            <Button className={classes.button1} variant="contained" onClick={this.postJob}>Submit</Button> 
+              <Button className={classes.button1} variant="contained" onClick={this.postJob}>Submit</Button>
             </DialogActions>
           </Dialog>
           <Dialog
@@ -710,7 +748,7 @@ class Landing extends Component{
           >
             <DialogTitle id="scroll-dialog-title">
               <div>
-                <h2 style={{margin: '0px', marginTop: '10px', color: '#B5A165'}}>FAQ</h2>
+                <h2 style={{ margin: '0px', marginTop: '10px', color: '#B5A165' }}>FAQ</h2>
               </div>
             </DialogTitle>
             <DialogContent>
@@ -728,7 +766,7 @@ class Landing extends Component{
                 type="submit"
                 variant="contained"
                 color="primary"
-                style={{margin: 'auto', backgroundColor: '#B5A165'}}
+                style={{ margin: 'auto', backgroundColor: '#B5A165' }}
               >
                 <b>Close</b>
               </Button>
