@@ -199,7 +199,7 @@ class SignIn extends Component {
             <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
             <Typography component="h1" variant="h5">
               Sign in
-            </Typography>
+        </Typography>
             <TextField
               variant="outlined"
               margin="normal"
@@ -233,13 +233,13 @@ class SignIn extends Component {
               onClick={this.handleClick}
             >
               Sign In
-                        </Button>
+                    </Button>
             <Button
               className={classes.button}
               onClick={this.handleClick2}
             >
               Admin
-                        </Button>
+                    </Button>
             <br />
             <Grid container>
               <Grid item xs={12}>
@@ -261,9 +261,6 @@ class SignIn extends Component {
           </div>
         </Grid>
       </Grid>
-          </div >
-        </Grid >
-      </Grid >
     );
   }
 }
