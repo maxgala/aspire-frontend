@@ -14,16 +14,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 
-// remove after 
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
-
-
-
-
-
-
 const useStyles = makeStyles(() => ({
   cardOne: {
     width: '95%',
@@ -83,8 +73,8 @@ const useStyles = makeStyles(() => ({
     display: 'inline-block'
   },
   image2:{
-    width: '180px',
-    height: '180px',
+    width: '225px',
+    height: '225px',
     borderRadius: '50%',
     margin: 'auto',
     marginTop: '30px',
@@ -106,7 +96,7 @@ const useStyles = makeStyles(() => ({
   },
   title2: {
     fontFamily: 'myriad-pro, sans-serif',
-    fontSize: '18px',
+    fontSize: '30px',
     width: '100%',
     textAlign: 'left',
     paddingTop: '5px',
@@ -174,6 +164,17 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     fontSize: '15px',
     color: 'black',
+    margin: '0px',
+    float: 'left'
+  },
+  credits: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
+    width: '100%',
+    fontSize: '22px',
+    textAlign: 'left',
+    fontSize: '15px',
+    color: '#B6A165',
     margin: '0px',
     float: 'left'
   },
@@ -367,14 +368,10 @@ class CoffeeChatCard extends Component {
         city: 'loading',
         region: 'loading',
         company: '',
-        job_type: '',
+        chat_type: '',
         description: '',
         requirements: '',
         tags: [],
-        value: 'Full-Time',
-        description: '',
-        requirement: '',
-        max_characters: 2000,
         checkedBox: false,
       }
     })
@@ -393,22 +390,7 @@ class CoffeeChatCard extends Component {
     this.setState({ [name]: event.target.checked });
   };
 
-  //create coffee chat
-  handleDescriptionChange = name => event => {
-    this.setState({
-      description: event.target.value
-    })
-  };
-  handleRequirementChange = name => event => {
-    this.setState({
-      requirement: event.target.value
-    })
-  };
-  postChat = (event) => {
-    this.setState({
-      openPostChat: true
-    })
-  };
+
 
   render() {
     const classes = this.props.classes;
@@ -491,171 +473,8 @@ class CoffeeChatCard extends Component {
               id="scroll-dialog-description"
               component={'span'}
             >
-              
-
-
-
-              <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-              >
-                
-                <Grid
-                container
-                item xs={10}
-                spacing={3}
-                alignItems="flex-start"
-                justify="flex-start"
-                className={classes.gridtop}
-              
-                >
-                  <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                  className={classes.gridtop}
-                >
-                  <span className={classes.radioButton}>
-                    <FormControlLabel  checked={this.state.value === 'One-on-One'} value='One-on-One' control={<Radio color="primary" />} label="One-on-One"  onChange={this.handleChange}/>
-                  </span>
-                  <span className={classes.radioButton}>
-                    <FormControlLabel  checked={this.state.value === 'Four-on-One'} value="Four-on-One" control={<Radio color="primary" />} label="Four-on-One"  onChange={this.handleChange} />
-                  </span> 
-                  <span className={classes.radioButton}>
-                    <FormControlLabel  checked={this.state.value === 'Mock Interview'} value="Mock Interview" control={<Radio color="primary" />} label="Mock Interview"  onChange={this.handleChange} />
-                  </span> 
-
-                </Grid>
-                  <Grid
-                  container
-                  item xs={6}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-
-                >
-                  <TextField
-                    id="date"
-                    label="Date"
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    value={this.state.year_of_birth}
-                    onChange={this.handleYearChange}
-                    className={classes.gridmargin}
-                  />
-                </Grid>
-                <Grid
-                  container
-                  item xs={6}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                <TextField
-                    id="time"
-                    label="Time"
-                    type="time"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    value={this.state.time_of_chat}
-                    onChange={this.handleTimeChange}
-                    className={classes.gridmargin}
-                  />
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                <p className={classes.title2}>Job Description</p> 
-                      <TextField
-                        multiline
-                        rows={4}
-                        variant="outlined"
-                        fullWidth
-                        InputProps={{
-                          maxLength: this.state.max_characters,
-                          classes: {
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.notchedOutline,
-                          },
-                        }}
-                        value={this.state.description}
-                        helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
-                        className={classes.textField}  
-                        onChange={this.handleDescriptionChange("name")}
-                      />  
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                <p className={classes.title2}>Tags</p> 
-                      <TextField
-                        multiline
-                        rows={1}
-                        variant="outlined"
-                        fullWidth
-                        InputProps={{
-                          maxLength: this.state.max_characters,
-                          classes: {
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.notchedOutline,
-                          },
-                        }}
-                        value={this.state.tagsgiven}
-                        helperText={`${this.state.requirement.length}/${this.state.max_characters} Characters`}
-                      className={classes.textField}  
-                      onChange={this.handleRequirementChange("name")}
-                      />  
-                </Grid>
-                </Grid>
-                <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
-              >
-                
-              <DialogActions>
-                <Button className={classes.button2} variant="contained" onClick={this.applyJob}>Submit</Button> 
-              </DialogActions>
-              </Grid>
-
-  
-              </Grid>
-              
-              
-                
-                
-              
-              
-
-
-
-            {/* <Grid
+             
+            <Grid
               container
               item xs={12}
               spacing={0}
@@ -710,7 +529,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.date2}>{this.props.data.available}</span>
+                    <span className={classes.subtitle2}>{this.props.data.available}</span>
                   </Grid>
                   <Grid
                     container
@@ -728,7 +547,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.date2}>Credits</span>
+                    <span className={classes.credits}>Credits</span>
                   </Grid>
                 </Grid>
               </Grid>
@@ -746,7 +565,7 @@ class CoffeeChatCard extends Component {
               <DialogActions style={{marginRight: '5%'}}>
               <Button className={classes.button2} variant="contained" onClick={this.applyJob}>Register</Button> 
               </DialogActions>
-              </Grid>              */}
+              </Grid>             
               
               
             </DialogContentText>
