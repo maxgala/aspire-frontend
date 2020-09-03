@@ -185,7 +185,7 @@ class SignIn extends Component {
             errorMessage: '', 
             codeMessage: 'Resend Code'
         })
-        await Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
+        await Auth.confirmSignUp(this.state.username, this.state.verfiedCode)
         .then(() => {
             this.setState({signedIn: true})
                 // TODO: Get information from AWS cognito pool
@@ -200,8 +200,9 @@ class SignIn extends Component {
                     ),
                 });
         }).catch(err => {
+            console.log(err)
             this.setState({
-                errorMessage: "Wrong Code. Try Again"
+                errorMessage: "Wrong Code"
             })
             return;
         })
