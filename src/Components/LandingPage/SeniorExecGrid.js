@@ -5,13 +5,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
 import SmallSeniorExec from "./SmallSeniorExec";
 
-import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
+// import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
 import SmallSeniorExecImg from "../Images/senior/Jalaluddin_Uzma.jpg";
 import SmallSeniorExecImg2 from "../Images/senior/Diop_Cheikh.jpeg";
 import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
 import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
-import SeniorExecImgHover from "../Images/senior/Salman_Zahid2.jpg";
-import SeniorExecImg2 from "../Images/senior/Hali.jpg";
+import One from "../Images/senior/Abbas_Ali.jpg";
+import Two from "../Images/senior/Abdul Gaffor_ Thouheed.jpeg"; 
+import Three from "../Images/senior/Abou-Sweid_Samer.jpg";
+import Four from "../Images/senior/Afzal_Raveel.jpg";
+import Five from "../Images/senior/Agha_Kazim.jpg";
+import Six from "../Images/senior/Ahmad_Armughan.jpg";
+import Seven from "../Images/senior/Ahmad_Farah.jpeg";
+import Eight from "../Images/senior/Hali.jpg";
 
 const useStyles = makeStyles(() => ({
   background_lg: {
@@ -41,13 +47,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 let images = [
-  { photo: SmallSeniorExecImgHover },
+  { photo: Two },
   { photo: SmallSeniorExecImg },
   { photo: SmallSeniorExecImg2 },
-  { photo: SmallSeniorExecBottom },
   { photo: SeniorExecImg },
-  { photo:  SeniorExecImgHover },
-  { photo:  SeniorExecImg2 }
+  { photo: One },
+  { photo: Three },
+  { photo: Four },
+  { photo: Five },
+  { photo: Six },
+  { photo: Seven },
+  { photo: Eight }
 ];
 
 function shuffledImages() {

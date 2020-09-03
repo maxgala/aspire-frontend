@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '36px',
     fontWeight: 'bold',
     position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     width: '100%',
     bottom: '0',
     '@media (max-width: 1280px)': {
