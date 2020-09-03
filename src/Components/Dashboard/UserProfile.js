@@ -22,11 +22,10 @@ import jwtDecode from "jwt-decode";
 const useStyles = makeStyles(theme => ({
   root1: {
     display: 'flex',
-    top: '0',
-    left: '0',
-    minHeight: '100%',
-    width: '300px',
-    position: 'fixed',
+    flex: '1',
+    overflowX: 'hidden',
+    width: '100%',
+    position: 'relative',
     textAlign: 'justify',
     borderRadius: '0% 0% 3% 3%',
     boxShadow: ' 0px 1.1px 8px #00000052',
