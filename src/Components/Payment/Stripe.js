@@ -134,7 +134,7 @@ class CheckoutForm extends React.Component {
                     verified: true
                 });  
             }else{
-                this.props.finalPage.signUp(25, "PAID-SENIOREXEC");
+                this.props.finalPage.signUp(25, "MENTOR");
                 this.props.finalPage.setState({
                     verified: true
                 });  
