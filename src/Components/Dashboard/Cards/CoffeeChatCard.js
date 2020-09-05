@@ -6,6 +6,12 @@ import Button from "@material-ui/core/Button";
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatTypes from '../ChatTypes';
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Toolbar from "@material-ui/core/Toolbar";
+import close from "../../Images/close.png";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -65,6 +71,16 @@ const useStyles = makeStyles(() => ({
     marginRight: '20px',
     display: 'inline-block'
   },
+  image2:{
+    width: '225px',
+    height: '225px',
+    borderRadius: '50%',
+    margin: 'auto',
+    marginTop: '30px',
+    marginLeft: '20px',
+    marginRight: '20px',
+    display: 'inline-block'
+  },
   title: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bolder',
@@ -77,12 +93,33 @@ const useStyles = makeStyles(() => ({
     marginLeft: '5px',
     marginTop: '5px'
   },
+  title2: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontSize: '30px',
+    width: '100%',
+    textAlign: 'left',
+    paddingTop: '5px',
+    color: '#7D7D7D',
+    margin: '0px',
+    marginLeft: '5px',
+    marginTop: '15px'
+  },
   subtitle: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
     width: '100%',
     textAlign: 'left',
     color: 'white',
+    margin: '0px',
+    marginLeft: '5px',
+    marginTop: '5px'
+  },
+  subtitle2: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
+    width: '100%',
+    textAlign: 'left',
+    color: 'black',
     margin: '0px',
     marginLeft: '5px',
     marginTop: '5px'
@@ -106,8 +143,28 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
     width: '100%',
     textAlign: 'left',
-    fontSize: '10px',
+    fontSize: '15px',
     color: 'white',
+    margin: '0px',
+    float: 'left'
+  },
+  date2: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
+    width: '100%',
+    textAlign: 'left',
+    fontSize: '15px',
+    color: 'black',
+    margin: '0px',
+    float: 'left'
+  },
+  credits: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
+    width: '100%',
+    fontSize: '22px',
+    textAlign: 'left',
+    color: '#B6A165',
     margin: '0px',
     float: 'left'
   },
@@ -119,6 +176,16 @@ const useStyles = makeStyles(() => ({
     paddingTop: '5px',
     fontSize: '8px',
     color: 'white',
+    float: 'right'
+  },
+  booked2: {
+    fontFamily: 'myriad-pro, sans-serif',
+    fontWeight: 'bold',
+    textAlign: 'right',
+    margin: '5px',
+    paddingTop: '5px',
+    fontSize: '8px',
+    color: 'black',
     float: 'right'
   },
   button_container: {
@@ -179,6 +246,36 @@ const useStyles = makeStyles(() => ({
   },
   outer_grid: {
     height: '180px'
+  },
+  toolbar: {
+    height: '8vh',
+    backgroundColor: '#455E6A',
+    boxShadow: '0px 0px 0px',
+    width: '100%',
+  },
+  closes:{
+    position: 'absolute',
+    right:'5%',   
+  },
+  button2: {
+    textTransform: 'none',
+    backgroundColor: "#000000",
+    marginBottom:"2%",
+    marginRight: 'auto',
+    marginTop:'20px',
+    borderRadius: 50,
+    color: "#FFFFFF",
+    position:'relative',
+    display: 'block',
+    '&:hover': {
+        backgroundColor: "#F1F1F1",
+        color: '#484848'
+    },
+    fontSize:'15px',
+    fontWeight: 'bold',
+    fontFamily:'myriad-pro, sans-serif',
+    paddingLeft: '50px',
+    paddingRight: '50px'
   }
 }));
 
@@ -190,6 +287,26 @@ function withMyHook(Component) {
 }
 
 class CoffeeChatCard extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    }
+  }
+    
+  handleClose = event =>{
+    this.setState({
+      open: false
+    })
+  };
+
+  openCoffeeChat = (event) => {
+    this.setState({
+      open: true
+    })
+  };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -238,10 +355,131 @@ class CoffeeChatCard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
+              <span className={classes.button_container}><Button  onClick={this.openCoffeeChat} className={classes.button} variant="contained" color="primary">View Booking</Button></span>
             </Grid>
           </Grid>
         </div>
+
+
+        <Dialog
+          className={classes.translate}
+          open={this.state.open}
+          onClose={this.handleClose}
+          scroll={"paper"}
+          aria-labelledby="scroll-dialog-title"
+          aria-describedby="scroll-dialog-description"
+          fullWidth={true}
+          maxWidth={'md'}
+          PaperProps={{
+            style: { borderRadius: 12 }
+          }}
+        >
+          
+          <Toolbar className={classes.toolbar}>
+            <div>
+              <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Register for a Coffee Chat</h2>
+            </div>
+            <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
+          </Toolbar>
+          
+          <DialogContent>
+            <DialogContentText
+              id="scroll-dialog-description"
+              component={'span'}
+            >
+              <Grid
+                container
+                item xs={12}
+                spacing={0}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Grid
+                  container
+                  item xs={4}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <img className={classes.image2} src={image} alt={"Coffee Chat Card"}/>
+                </Grid>
+              
+                <Grid
+                  container
+                  item xs={8}
+                  spacing={0}
+                  alignItems="center"
+                  justify="flex-start"
+                  className={classes.outer_grid}
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <h1 className={classes.title2}>
+                      {this.props.data.type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                      {this.props.data.booked ? <span className={classes.booked2}>booked</span> : ''} with&nbsp;
+                      <span className={classes.name2}>{this.props.data.name}</span>
+                    </h1>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}><span>{this.props.data.title} @ </span>{this.props.data.company}</span>
+                  
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}>{this.props.data.available}</span>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.date2}>{this.props.data.description}</span>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={5}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.credits}>25 Credits</span>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                item xs={12}
+                spacing={0}
+                alignItems="space-around"
+                justify="flex-end"
+              >
+                <DialogActions style={{marginRight: '5%'}}>
+                  <Button className={classes.button2} variant="contained" onClick={this.applyJob}>Register</Button> 
+                </DialogActions>
+              </Grid>             
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>    
+          </DialogActions>
+        </Dialog>
       </div>
     )
   }
