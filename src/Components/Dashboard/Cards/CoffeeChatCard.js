@@ -138,14 +138,6 @@ const useStyles = makeStyles(() => ({
     margin: '5px',
     color: 'white'
   },
-  company2: {
-    fontFamily: 'myriad-pro, sans-serif',
-    fontWeight: 'bold',
-    width: '100%',
-    textAlign: 'left',
-    margin: '0px',
-    color: 'black'
-  },
   date: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
@@ -220,15 +212,6 @@ const useStyles = makeStyles(() => ({
     margin: '5px',
     marginLeft: '0px'
   },
-  tag_container2: {
-    width: 'auto',
-    borderStyle: 'solid',
-    borderWidth: '0.5px',
-    borderRadius: 50,
-    borderColor: 'black',
-    margin: '5px',
-    marginLeft: '0px'
-  },
   tag: {
     paddingLeft: '8px',
     paddingRight: '8px',
@@ -240,19 +223,6 @@ const useStyles = makeStyles(() => ({
     fontSize: '8px',
     fontWeight: '100',
     color: 'white',
-    display: 'flex',
-  },
-  tag2: {
-    paddingLeft: '8px',
-    paddingRight: '8px',
-    paddingTop: '3px',
-    paddingBottom: '3px',
-    left: '15px',
-    right: '15px',
-    float: 'left',
-    fontSize: '8px',
-    fontWeight: '100',
-    color: 'blck',
     display: 'flex',
   },
   bar: {
@@ -287,27 +257,6 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     right:'5%',   
   },
-  button1: {
-    textTransform: 'none',
-    backgroundColor: "#000000",
-    marginBottom:"2%",
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop:'20px',
-    borderRadius: 50,
-    color: "#FFFFFF",
-    position:'relative',
-    display: 'block',
-    '&:hover': {
-        backgroundColor: "#F1F1F1",
-        color: '#484848'
-    },
-    fontSize:'15px',
-    fontWeight: 'bold',
-    fontFamily:'myriad-pro, sans-serif',
-    paddingLeft: '75px',
-    paddingRight: '75px'
-  },
   button2: {
     textTransform: 'none',
     backgroundColor: "#000000",
@@ -327,12 +276,6 @@ const useStyles = makeStyles(() => ({
     fontFamily:'myriad-pro, sans-serif',
     paddingLeft: '50px',
     paddingRight: '50px'
-  },
-  gridmargin: {
-    
-  },
-  gridtop: {
-    marginTop: '1%'
   }
 }));
 
