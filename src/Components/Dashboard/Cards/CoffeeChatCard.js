@@ -301,18 +301,10 @@ class CoffeeChatCard extends Component {
     })
   };
 
-  openMemberships = (event) => {
+  openCoffeeChat = (event) => {
     this.setState({
       open: true
     })
-  };
-
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
-
-  handleChange2 = name => event => {
-    this.setState({ [name]: event.target.checked });
   };
 
   render() {
@@ -363,7 +355,7 @@ class CoffeeChatCard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <span className={classes.button_container}><Button  onClick={this.openMemberships} className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
+              <span className={classes.button_container}><Button  onClick={this.openCoffeeChat} className={classes.button} variant="contained" color="primary">View Booking</Button></span>
             </Grid>
           </Grid>
         </div>
@@ -492,8 +484,6 @@ class CoffeeChatCard extends Component {
     )
   }
 }
-
-
 
 CoffeeChatCard = withMyHook(CoffeeChatCard);
 export default CoffeeChatCard;
