@@ -190,13 +190,17 @@ class FinalPage extends Component{
             verified: false, 
             confirmationCode: '',
             openStripe: false,
-            numPages: null,
-            pageNumber: 1
+            tocNumPages: null,
+            privacyNumPages: null
         }
     }
 
-    onDocumentLoad = ({ numPages }) => {
-        this.setState({ numPages });
+    onTocDocumentLoad = ({ numPages }) => {
+        this.setState({ tocNumPages: numPages });
+    }
+
+    onPrivacyDocumentLoad = ({ numPages }) => {
+        this.setState({ privacyNumPages: numPages });
     }
 
     changeToPage3 = (event) => {
