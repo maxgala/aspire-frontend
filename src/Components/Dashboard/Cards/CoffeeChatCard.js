@@ -193,7 +193,7 @@ const useStyles = makeStyles(() => ({
     margin: '5px',
     paddingTop: '5px',
     fontSize: '8px',
-    color: 'white',
+    color: 'black',
     float: 'right'
   },
   button_container: {
@@ -348,32 +348,16 @@ class CoffeeChatCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      startDate: new Date()
-      }
+      open: false
     }
-  
-  handleChange3 = date => {
-      this.setState({
-        startDate: date
-      });
-  };
+  }
     
   handleClose = event =>{
     this.setState({
-      open: false,
-      data: {
-        city: 'loading',
-        region: 'loading',
-        company: '',
-        chat_type: '',
-        description: '',
-        requirements: '',
-        tags: [],
-        checkedBox: false,
-      }
+      open: false
     })
   };
+
   openMemberships = (event) => {
     this.setState({
       open: true
@@ -387,8 +371,6 @@ class CoffeeChatCard extends Component {
   handleChange2 = name => event => {
     this.setState({ [name]: event.target.checked });
   };
-
-
 
   render() {
     const classes = this.props.classes;
@@ -445,7 +427,7 @@ class CoffeeChatCard extends Component {
 
 
         <Dialog
-        className={classes.translate}
+          className={classes.translate}
           open={this.state.open}
           onClose={this.handleClose}
           scroll={"paper"}
@@ -459,44 +441,42 @@ class CoffeeChatCard extends Component {
         >
           
           <Toolbar className={classes.toolbar}>
-              <div>
-                <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Register for a Coffee Chat</h2>
-                
-              </div>
-              <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
-            </Toolbar>
+            <div>
+              <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Register for a Coffee Chat</h2>
+            </div>
+            <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
+          </Toolbar>
           
           <DialogContent>
             <DialogContentText
               id="scroll-dialog-description"
               component={'span'}
             >
-             
-            <Grid
-              container
-              item xs={12}
-              spacing={0}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <Grid
-              container
-              item xs={4}
-              spacing={0}
-              alignItems="flex-start"
-              justify="flex-start"
-              >
-              <img className={classes.image2} src={image} alt={"Coffee Chat Card"}/>
-              </Grid>
-            
               <Grid
                 container
-                item xs={8}
+                item xs={12}
                 spacing={0}
-                alignItems="center"
+                alignItems="flex-start"
                 justify="flex-start"
-                className={classes.outer_grid}
               >
+                <Grid
+                  container
+                  item xs={4}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <img className={classes.image2} src={image} alt={"Coffee Chat Card"}/>
+                </Grid>
+              
+                <Grid
+                  container
+                  item xs={8}
+                  spacing={0}
+                  alignItems="center"
+                  justify="flex-start"
+                  className={classes.outer_grid}
+                >
                   <Grid
                     container
                     item xs={12}
@@ -545,27 +525,21 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.credits}>Credits</span>
+                    <span className={classes.credits}>25 Credits</span>
                   </Grid>
                 </Grid>
               </Grid>
-              
-            
-
               <Grid
                 container
                 item xs={12}
                 spacing={0}
                 alignItems="space-around"
                 justify="flex-end"
-                
-                >
-              <DialogActions style={{marginRight: '5%'}}>
-              <Button className={classes.button2} variant="contained" onClick={this.applyJob}>Register</Button> 
-              </DialogActions>
+              >
+                <DialogActions style={{marginRight: '5%'}}>
+                  <Button className={classes.button2} variant="contained" onClick={this.applyJob}>Register</Button> 
+                </DialogActions>
               </Grid>             
-              
-              
             </DialogContentText>
           </DialogContent>
           <DialogActions>    
