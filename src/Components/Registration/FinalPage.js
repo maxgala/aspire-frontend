@@ -21,6 +21,8 @@ import Stripe from "../Payment/Stripe";
 import Landing from "../LandingPage/Landing";
 import { Auth } from 'aws-amplify';
 import TextField from '@material-ui/core/TextField';
+import { Document, Page, pdfjs } from "react-pdf";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -185,10 +187,16 @@ class FinalPage extends Component{
             progress: 100,
             checked: false,
             open: false,
-            openStripe: false, 
             verified: false, 
-            confirmationCode: ''
+            confirmationCode: '',
+            openStripe: false,
+            numPages: null,
+            pageNumber: 1
         }
+    }
+
+    onDocumentLoad = ({ numPages }) => {
+        this.setState({ numPages });
     }
 
     changeToPage3 = (event) => {
