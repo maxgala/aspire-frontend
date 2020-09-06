@@ -11,10 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const useStyles = makeStyles(() => ({
   card: {
     width: '95%',
-    maxWidth: '500px',
-    margin: 'auto',
+    maxWidth: '400px',
     height: '450px',
     marginBottom: '10px',
+    marginLeft:"7px",
     borderRadius: '20px',
     textAlign: 'left',
     backgroundColor: '#f5f5f5',
@@ -136,12 +136,10 @@ class JobApplicationCard extends Component {
             > 
               <img className={classes.image} src={image} alt={"Community Chat Card"}/>
               <h1 className={classes.name}>{this.props.data.name}</h1>
-             <p className={classes.title}>{this.props.data.title}</p> 
+              <p className={classes.title}>{this.props.data.title}</p> 
               <p className={classes.subtitle}>Toronto, ON</p>
-             <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>
-            
+              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>
             </Grid>
-            
             <Grid
               container
               item xs={12}

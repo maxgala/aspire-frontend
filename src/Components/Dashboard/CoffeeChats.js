@@ -10,8 +10,8 @@ import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 const useStyles = makeStyles(() => ({
 
   mainPage: {
-    paddingLeft: '5%',
-    paddingRight: '5%',
+    paddingLeft: '8%',
+    paddingRight: '8%',
     justifyContent: 'center',
     alignItems: 'center',
     height: '90vh',
@@ -102,14 +102,14 @@ class CoffeeChats extends Component {
               item xs={12}
               spacing={1}
               alignItems="flex-start"
-              justify="center"
+              justify="flex-start"
             >
               <Grid
                 container
                 item xs={12} sm={6} md={3}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -134,8 +134,8 @@ class CoffeeChats extends Component {
                 container
                 item xs={12} sm={6} md={3}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -161,8 +161,8 @@ class CoffeeChats extends Component {
                 container
                 item xs={12} sm={12} md={6}
                 spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
+                alignItems="center"
+                justify="center"
               >
                 <Grid
                   container
@@ -198,17 +198,17 @@ class CoffeeChats extends Component {
               container
               item xs={12}
               spacing={1}
-              alignItems="flex-start"
+              alignItems="center"
               justify="center"
             >
               {this.state.coffee_chats.map((chat, key) => (
                 <Grid
                   key={key}
                   container
-                  item xs={12} sm={12} md={12} lg={6}
+                  item xs={12} sm={12} md={12} lg={6} 
                   spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
+                  alignItems="center"
+                  justify="center"
                 >
                   <CoffeeChatCard data={chat} />
                 </Grid>
