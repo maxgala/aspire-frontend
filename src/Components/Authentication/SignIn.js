@@ -18,6 +18,7 @@ import Dashboard from "../Dashboard/Dashboard";
 import { Auth } from 'aws-amplify';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AdminDashboard from "../Admin/Dashboard";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -150,8 +151,15 @@ class SignIn extends Component {
             username: username,
             password: password
         })
-        .then(() => {
-            return this.state.username;
+        .then(async () => {
+            await Auth.currentSession()
+            .then(res=>{
+                let jwt = res.getAccessToken().getJwtToken()
+                localStorage.setItem("idToken", res.idToken.jwtToken);
+                localStorage.setItem("accessToken", jwt);
+                let userProfile = jwtDecode(localStorage.getItem("idToken"));
+                localStorage.setItem("userProfile", JSON.stringify(userProfile));
+              })
         })
         .catch((err) => {
             console.log(err)
