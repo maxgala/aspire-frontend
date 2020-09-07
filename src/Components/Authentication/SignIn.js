@@ -15,9 +15,10 @@ import Registration from "../Registration/Registration";
 import Landing from "../LandingPage/Landing";
 import signInImage from "../Images/aboutMax.jpg";
 import Dashboard from "../Dashboard/Dashboard";
-import { authenticate } from "../../lib/authentication";
-import jwtDecode from "jwt-decode";
+import { Auth } from 'aws-amplify';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import AdminDashboard from "../Admin/Dashboard";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,12 +87,14 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "#F1F1F1",
       color: "#484848",
-    },
-  },
-  toolbar: {
-    height: "10vh",
-  },
-}));
+       }
+    }, 
+    circleProgress: {
+        marginTop: "2%"
+    }
+}
+));
+
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -101,68 +104,342 @@ function withMyHook(Component) {
 }
 
 class SignIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "",
+            password: "",
+            signedIn: false, 
+            barDisplay: 'None', 
+            buttonDisplay: '', 
+            errorMessage: '', 
+            verified: true, 
+            verfiedCode: '', 
+            codeMessage: 'Resend the code?'
+        };
+    }
+
+    changeToLanding = (event) => {
+        this.props.appContext.setState({
+            currentScreen: <Landing appContext={this.props.appContext} />,
+        });
     };
-  }
 
-  changeToLanding = (event) => {
-    this.props.appContext.setState({
-      currentScreen: <Landing appContext={this.props.appContext} />,
-    });
-  };
+    changeToSignUp = (event) => {
+        this.props.appContext.setState({
+            currentScreen: <Registration appContext={this.props.appContext} />,
+        });
+    };
+    
+    handleVerififedCodeChange = (event) => {
+        this.setState({ verfiedCode: event.target.value })
+    }
+    
+    handleUsernameChange = (event) => {
+        this.setState({ username: event.target.value });
+      };
 
-  changeToSignUp = (event) => {
-    this.props.appContext.setState({
-      currentScreen: <Registration appContext={this.props.appContext} />,
-    });
-  };
 
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
-  };
-  handleClick2 = () => {
-    this.props.appContext.setState({
-      currentScreen: (
-        <AdminDashboard
-          appContext={this.props.appContext}
-
-        />
-      ),
-    });
-  }
-
-  handleUsernameChange = (event) => {
-    this.setState({ username: event.target.value });
-  };
-
-  handleClick = async (event) => {
-    if (
-      this.state.username === "" ||
-      this.state.username === undefined ||
-      this.state.password === "" ||
-      this.state.password === undefined
-    ) {
-      window.alert("Not filled in");
-      return;
+    handlePasswordChange = (event) => {
+        this.setState({ password: event.target.value });
+    };
+    
+    signIn() {
+        const username = this.state.username
+        const password = this.state.password
+        return Auth.signIn({
+            username: username,
+            password: password
+        })
+        .then(async () => {
+            await Auth.currentSession()
+            .then(res=>{
+                let jwt = res.getAccessToken().getJwtToken()
+                localStorage.setItem("idToken", res.idToken.jwtToken);
+                localStorage.setItem("accessToken", jwt);
+                let userProfile = jwtDecode(localStorage.getItem("idToken"));
+                localStorage.setItem("userProfile", JSON.stringify(userProfile));
+              })
+        })
+        .catch((err) => {
+            console.log(err)
+            if (err.code === "UserNotConfirmedException"){
+                this.setState({
+                    verified: false, 
+                    barDisplay: 'None',
+                    buttonDisplay: ''
+                })
+                return null;
+            }
+            this.setState({
+                errorMessage: err.message, 
+                barDisplay: 'None', 
+                buttonDisplay: '', 
+            })
+            return null;
+        })
+    }
+    
+    resendCode = async (event) => {
+        await Auth.resendSignUp(this.state.username).then(() => {
+            this.setState({
+                codeMessage: 'Code has been emailed to you. Click here to resend code'
+            })
+        })
+    }
+    
+    handleVerify = async (event) => {
+        this.setState({
+            errorMessage: '', 
+            codeMessage: 'Resend Code'
+        })
+        await Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
+        .then(() => {
+            this.setState({signedIn: true})
+                // TODO: Get information from AWS cognito pool
+                // TODO: Check what role the user is, will redirect to different dashboard
+                let isSeniorExec = false; // will set this based on role
+                this.props.appContext.setState({
+                    currentScreen: (
+                        <Dashboard
+                            appContext={this.props.appContext}
+                            isSeniorExec={isSeniorExec}
+                        />
+                    ),
+                });
+        }).catch(err => {
+            this.setState({
+                errorMessage: "Wrong Code. Try Again"
+            })
+            return;
+        })
+    }
+    
+    handleClick2=()=>{
+        this.props.appContext.setState({
+            currentScreen: (
+                <AdminDashboard
+                    appContext={this.props.appContext}
+                    
+                />
+            ),
+        });
     }
 
-    try {
-      await authenticate(
-        this.state.username,
-        this.state.password
-      );
-      var userProfile = jwtDecode(localStorage.getItem("idToken"));
-      localStorage.setItem("userProfile", JSON.stringify(userProfile));
-    } catch (err) {
-      // TODO: Block user from continuing
-      console.error("Authentication failed. " + err);
+    handleClick = async (event) => {
+        this.setState({
+            errorMessage: ''
+        })
+        if (
+            this.state.username === "" ||
+            this.state.username === undefined ||
+            this.state.password === "" ||
+            this.state.password === undefined
+        ) {
+            this.setState({
+                errorMessage: "Not all fields are filled in"
+            })
+            return;
+        }
+        try{
+            this.setState({
+                buttonDisplay: 'None', 
+                barDisplay: ''
+            })
+            await this.signIn()
+            .then(val => {
+                if (val === null){
+                    return;
+                }
+                this.setState({signedIn: true})
+                // TODO: Get information from AWS cognito pool
+                // TODO: Check what role the user is, will redirect to different dashboard
+                let isSeniorExec = false; // will set this based on role
+                this.props.appContext.setState({
+                    currentScreen: (
+                        <Dashboard
+                            appContext={this.props.appContext}
+                            isSeniorExec={isSeniorExec}
+                        />
+                    ),
+                });  
+            })
+        }catch(err){
+            window.alert(`Error singing in - ${ err }`)
+            return;
+        }
+    };
+    
+    //"UserNotConfirmedException"
+    render() {
+        const classes = this.props.classes;
+        if (this.state.verified === false){
+            return (
+                <Grid container component="main" className={classes.root}>
+                    <CssBaseline />
+                    <AppBar position="fixed" className={classes.appBar}>
+                        <Toolbar className={classes.toolbar}>
+                            <div className={classes.imageLogo}>
+                                <img
+                                    src={MaxLogo}
+                                    alt="MAX_logo"
+                                    onClick={this.changeToLanding}
+                                    className={classes.img}
+                                />
+                            </div>
+                        </Toolbar>
+                    </AppBar>
+                    <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                        <div className={classes.paper}>
+                            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+                            <Typography component="h1" variant="body1">
+                                    <b style = {{color: 'Red'}}>{this.state.username}</b> has not been verifed. <br/>
+                                    Please enter the verification code below:
+                            </Typography>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                id="code"
+                                label="Verification Code"
+                                name="code"
+                                autoFocus
+                                value={this.state.verfiedCode}
+                                onChange={this.handleVerififedCodeChange}
+                            />
+                            <CircularProgress style = {{display: this.state.barDisplay}} className = {classes.circleProgress}/>
+                            <Button
+                                type="submit"
+                                style = {{display: this.state.buttonDisplay}}
+                                variant="contained"
+                                className={classes.button}
+                                onClick={this.handleVerify}
+                            >
+                                Verify User
+                            </Button>
+                            <br />
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Typography component="h1" variant="body1" color = {"secondary"}>
+                                        <b> {this.state.errorMessage}</b>
+                                    </Typography>
+                                </Grid>
+                                <Grid style = {{display: this.state.buttonDisplay}} item xs={12}>
+                                    <Link
+                                        style = {{cursor: 'Pointer'}}
+                                        variant="body1"
+                                        color={"secondary"}
+                                        onClick={this.resendCode}
+                                    >
+                                        <b>{this.state.codeMessage}</b>
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                </Grid>
+            )
+        }
+        return (
+            <Grid container component="main" className={classes.root}>
+                <CssBaseline />
+                <AppBar position="fixed" className={classes.appBar}>
+                    <Toolbar className={classes.toolbar}>
+                        <div className={classes.imageLogo}>
+                            <img
+                                src={MaxLogo}
+                                alt="MAX_logo"
+                                onClick={this.changeToLanding}
+                                className={classes.img}
+                            />
+                        </div>
+                    </Toolbar>
+                </AppBar>
+                <Grid item xs={false} sm={4} md={7} className={classes.image} />
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <div className={classes.paper}>
+                        <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+                        <Typography component="h1" variant="h5">
+                            Sign in
+                        </Typography>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            value={this.state.username}
+                            onChange={this.handleUsernameChange}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            value={this.state.password}
+                            onChange={this.handlePasswordChange}
+                        />
+                        <CircularProgress style = {{display: this.state.barDisplay}} className = {classes.circleProgress}/>
+                        <Button
+                            type="submit"
+                            style = {{display: this.state.buttonDisplay}}
+                            variant="contained"
+                            className={classes.button}
+                            onClick={this.handleClick}
+                        >
+                            Sign In
+                        </Button>
+                        <Button
+                            className={classes.button}
+                            onClick={this.handleClick2}
+                        >
+                            Admin
+                        </Button>
+                        <br />
+                        <Grid container>
+                            <Grid item xs={12}>
+                                <Typography component="h1" variant="body1" color = {"secondary"}>
+                                    <b> {this.state.errorMessage}</b>
+                                </Typography>
+                            </Grid>
+                            <Grid style = {{display: this.state.buttonDisplay}} item xs={12}>
+                                <Link href="#" variant="body1">
+                                    <b>Forgot your password?</b>
+                                </Link>
+                            </Grid>
+                            <Grid style = {{display: this.state.buttonDisplay}} item xs={12}>
+                                <Link
+                                    href="#"
+                                    variant="body1"
+                                    color={"secondary"}
+                                    onClick={this.changeToSignUp}
+                                >
+                                    <b>Don't have an account?</b>
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Grid>
+            </Grid>
+        );
     }
+}
 
-    // TODO: Get information from AWS cognito pool
+SignIn = withMyHook(SignIn);
+export default SignIn;
+
+/*
+ *     // TODO: Get information from AWS cognito pool
     // TODO: Check what role the user is, will redirect to different dashboard
     let isSeniorExec = false; // will set this based on role
     this.props.appContext.setState({
@@ -263,6 +540,4 @@ class SignIn extends Component {
     );
   }
 }
-
-SignIn = withMyHook(SignIn);
-export default SignIn;
+ */
