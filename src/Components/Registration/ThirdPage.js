@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     avatar: {
-        marginTop: '0vh',
+        marginTop: '3vh',
         width: '100px',
         height: '100px',
         padding: '1vw',
