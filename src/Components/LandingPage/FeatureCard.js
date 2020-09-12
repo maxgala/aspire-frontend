@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import ReactCardFlip from 'react-card-flip';
-import image from "../Images/features/image.png";
 import tint from "../Images/features/tint2.png";
 import {makeStyles} from "@material-ui/core/styles";
 // TODO: Uncomment when images are available

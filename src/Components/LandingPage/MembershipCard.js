@@ -19,8 +19,9 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "28px",
-    color: 'black',
-    textAlign: 'center'
+    color: 'white',
+    textAlign: 'center',
+    marginTop: '-200px'
   },
   front_text: {
     fontFamily: "Nunito Sans",
@@ -28,8 +29,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: "22px",
     paddingBottom: '10px',
     color: 'white',
-    textAlign: 'center',
-    marginTop: '-200px'
+    textAlign: 'center'
   },
   small_text: {
     fontFamily: "Montserrat",
@@ -41,30 +41,27 @@ const useStyles = makeStyles(theme => ({
     height: '200px',
     color: '#484848',
   },
-
   payment: { 
-  borderRadius: '50%',
-  width: '170px',
-  height: '170px',
-  padding: '10px',
-  background: '#f7f7f7',
-  color: 'white',
-  textAlign: 'center',
-  marginLeft: '80px',
-  marginTop: '-20px',
-  position: 'relative'
+    borderRadius: '50%',
+    width: '170px',
+    height: '170px',
+    padding: '10px',
+    background: '#f7f7f7',
+    color: 'white',
+    textAlign: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '-20px',
+    position: 'relative'
   },
-
   number: { 
-   fontSize: '60px',
-   marginTop: '30px'
-    },
-
-    month: { 
-      fontSize: '20px',
-      marginTop: '30px'
-       },
-
+    fontSize: '60px',
+    marginTop: '30px'
+  },
+  month: { 
+    fontSize: '20px',
+    marginTop: '30px'
+  },
   button: {
     textTransform: 'none',
     backgroundColor: "#f7f7f7",

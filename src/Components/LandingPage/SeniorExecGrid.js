@@ -114,7 +114,6 @@ class SeniorExecGrid extends Component {
 
   render() {
     const classes = this.props.classes;
-    console.log(this.state.displayImages)
     return (
       <div className={classes.seniorexec}>
         <div className={classes.background_lg}>
