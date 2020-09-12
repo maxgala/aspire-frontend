@@ -207,12 +207,18 @@ class FinalPage extends Component{
             address = {region: 'Other', country: 'Other'}
         }
         address = JSON.stringify(address)
+        let phone_val = this.state.phone.replace(/\s/g, '').replace('(','').replace(')','').replace('-','')
+        phone_val = phone_val.replace('(', '')
+        phone_val = phone_val.replace(')', '')
+        
         Auth.signUp({
             username: this.state.email,
             password: this.state.password,
             attributes: {
                 given_name: this.state.firstName, 
                 family_name: this.state.lastName, 
+                phone_number: phone_val, 
+                birthdate: this.state.year_of_birth, 
                 address: address, 
                 "custom:industry": this.state.industry, 
                 "custom:industry_tags": (this.state.industry_tags).toString(), 
