@@ -12,7 +12,7 @@ import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
 import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
 import One from "../Images/senior/Ali_Ammar.jpg";
 import Two from "../Images/senior/Abdul Gaffor_ Thouheed.jpeg"; 
-import Three from "../Images/senior/Ahmed_Najma.jpg";
+// import Three from "../Images/senior/Hadibhai_Aly.jpg";
 import Four from "../Images/senior/Chahdi_Mohammed.jpg";
 import Five from "../Images/senior/Emes_Aaron.png";
 import Six from "../Images/senior/Al-Abadleh_Dr. Hind (1).jpg";
@@ -56,7 +56,7 @@ let images = [
   { photo: SmallSeniorExecImg2 },
   { photo: SeniorExecImg },
   { photo: One },
-  { photo: Three },
+  // { photo: Three },
   { photo: Four },
   { photo: Five },
   { photo: Six },

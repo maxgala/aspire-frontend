@@ -104,7 +104,7 @@ class SeniorExec extends Component {
             display: this.state.display1,
             borderTopLeftRadius: "5vw",
             borderBottomRightRadius: "12vw",
-            width: '290px',
+            width: '280px',
             height: '400px'
           }}
           onMouseEnter={this.handleEnter}
@@ -117,7 +117,7 @@ class SeniorExec extends Component {
             display: this.state.display2,
             borderTopLeftRadius: "5vw",
             borderBottomRightRadius: "12vw",
-            width: '290px',
+            width: '280px',
             height: '400px'
           }}
           onMouseLeave={this.handleExit}

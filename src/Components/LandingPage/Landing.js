@@ -188,9 +188,9 @@ class Landing extends Component{
                         <JobSection appContext={this.props.appContext}/>
                         <Membership appContext={this.props.appContext}
                                     landing={true}
-                                    freeButtonText={"Join Now"}
-                                    premiumButtonText={"Join Now"}
-                                    platinumButtonText={"Join Now"}
+                                    freeButtonText={"Select"}
+                                    premiumButtonText={"Select"}
+                                    platinumButtonText={"Select"}
                                     freeFunction={this.changeToSignUp}
                                     premiumFunction={this.changeToSignUp}
                                     platinumFunction={this.changeToSignUp}
