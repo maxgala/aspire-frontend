@@ -36,16 +36,20 @@ const useStyles = makeStyles((theme) => ({
     color: "#B5A165",
     marginTop: "10px",
   },
+
   button: {
     fontFamily: "Montserrat",
+    fontWeight: "Bold",
     "@media (max-width: 800px)": { fontSize: "18px" },
     fontSize: "20px",
     textTransform: "none",
     paddingLeft: "20px",
     paddingRight: "20px",
-    backgroundColor: "#6EA0B5",
-    width: '180px',
-    marginTop: "1%",
+    backgroundColor: "Transparent",
+    border: '1px solid white',
+    width: '160px',
+    margin: '10px',
+    marginTop: "2%",
     marginBottom: '10px',
     borderRadius: 50,
     color: "white",
@@ -55,25 +59,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
-  button2: {
-    fontFamily: "Montserrat",
-    "@media (max-width: 800px)": { fontSize: "18px" },
-    fontSize: "20px",
-    textTransform: "none",
-    paddingLeft: "20px",
-    paddingRight: "20px",
-    backgroundColor: "#6EA0B5",
-    borderRadius: 50,
-    width: '180px',
-    display: 'block',
-    left: '700px',
-    color: "white",
-    "&:hover": {
-      backgroundColor: "#F1F1F1",
-      color: "#484848",
-    },
-
-  },
   total: {
     position: "absolute",
     left: "50%",
@@ -118,14 +103,54 @@ class MainImage extends Component {
     });
   }
 
+  handleClick3(e) {
+    e.preventDefault();
+    document.getElementById("max_jobs").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+
+  handleClick4(e) {
+    e.preventDefault();
+    document.getElementById("seniors").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+
+  handleClick5(e) {
+    e.preventDefault();
+    document.getElementById("testimonials").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+
+  handleClick6(e) {
+    e.preventDefault();
+    document.getElementById("membership").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+
+  handleClick7(e) {
+    e.preventDefault();
+    document.getElementById("features").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
   render() {
     const classes = this.props.classes;
     return (
       <div className={classes.sectionStyle}>
-          <div className="video-container">
-        <video id="main-video" className={classes.Mainback} autoPlay loop muted>
-          <source src={Mainback} type="video/mp4" />
-        </video>
+        <div className="video-container">
+          <video
+            id="main-video"
+            className={classes.Mainback}
+            autoPlay
+            loop
+            muted
+          >
+            <source src={Mainback} type="video/mp4" />
+          </video>
         </div>
         <div className={classes.total}>
           <img src={MaxLogo} alt="MAX_logo" className={classes.img} />
@@ -135,19 +160,56 @@ class MainImage extends Component {
             <span className={classes.networkstyle}>good network</span>
           </h3>
           <Button
+            onClick={this.handleClick7}
+            className={classes.button}
+            variant="contained"
+          >
+            Features
+          </Button>
+          <Button
+            onClick={this.handleClick4}
+            className={classes.button}
+            variant="contained"
+          >
+            Seniors
+          </Button>
+          <Button
+            onClick={this.handleClick3}
+            className={classes.button}
+            variant="contained"
+          >
+            Jobs
+          </Button>
+          <Button
+            onClick={this.handleClick6}
+            className={classes.button}
+            variant="contained"
+          >
+            Membership
+          </Button>
+          <Button
+            onClick={this.handleClick5}
+            className={classes.button}
+            variant="contained"
+          >
+            Testimonials
+          </Button>
+          <Button
             onClick={this.handleClick}
             className={classes.button}
             variant="contained"
           >
-            Learn more
+            About
           </Button>
-        
+
           <Button
             onClick={this.handleClick2}
-            className={classes.button2}
-            variant="contained">
+            className={classes.button}
+            variant="contained"
+          >
             Subscribe
           </Button>
+        
         </div>
       </div>
     );

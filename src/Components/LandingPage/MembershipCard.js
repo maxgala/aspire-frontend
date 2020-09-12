@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   background: '#f7f7f7',
   color: '#000',
   textAlign: 'center',
-  marginLeft: '75px',
+  marginLeft: '80px',
   marginTop: '-20px',
   position: 'relative'
   },
@@ -97,7 +97,7 @@ class MembershipCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div>
+      <div id="membership">
         <div className={classes.card}>
           <div>
           <img className={classes.image} src={Membership} alt="Membership"/>
