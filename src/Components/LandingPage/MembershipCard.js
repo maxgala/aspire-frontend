@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
-  image: { 
+  image: {
     width: '100%',
     height: '250px',
     paddingBottom: '30px',
@@ -15,17 +15,23 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     border: '1px solid black'
   },
-  front_text: { 
+  membership_type_text: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "28px",
+    color: 'black',
+    textAlign: 'center'
+  },
+  front_text: {
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "22px",
     paddingBottom: '10px',
     color: 'white',
     textAlign: 'center',
     marginTop: '-200px'
   },
-
-  small_text: { 
+  small_text: {
     fontFamily: "Montserrat",
     fontSize: "18px",
     fontWeight: '1',
@@ -93,11 +99,12 @@ class MembershipCard extends Component {
       <div id="membership">
         <div className={classes.card}>
           <div>
-          <img className={classes.image} src={Membership} alt="Membership"/>
-          <h2 className={classes.front_text}>{this.props.front_text}</h2>
-          <div className={classes.payment} style={this.props.payment}>
-            <div className={classes.number}>{this.props.number}<span className={classes.month}> /m</span></div>
-          </div>
+            <img className={classes.image} src={Membership} alt="Membership"/>
+            <h2 className={classes.membership_type_text}>{this.props.membership_type_text}</h2>
+            <h2 className={classes.front_text}>{this.props.front_text}</h2>
+            <div className={classes.payment} style={this.props.payment}>
+              <div className={classes.number}>{this.props.number}<span className={classes.month}> /m</span></div>
+            </div>
           </div>
           <h2 className={classes.small_text}>{this.props.description}</h2>
           <Button className={classes.button} variant="contained" onClick={this.props.buttonFunction}><b>{this.props.buttonText}</b></Button>

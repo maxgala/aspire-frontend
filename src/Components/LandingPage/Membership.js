@@ -1,6 +1,6 @@
 import React, {Component} from "react";
+
 import Grid from "@material-ui/core/Grid";
-import MembershipCard from "./MembershipCard.js"
 import {makeStyles} from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -8,6 +8,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import Tooltip from '@material-ui/core/Tooltip';
+
+import MembershipCard from "./MembershipCard.js"
 
 const useStyles = makeStyles(() => ({
   background: {
@@ -73,7 +77,11 @@ const useStyles = makeStyles(() => ({
     padding: '8px',
     backgroundColor: '#B5A165',
     color: 'white'
-  }
+  },
+  tooltip: {
+    display: 'inline-block',
+    marginLeft: '10px',
+  },
 }));
 
 function withMyHook(Component) {
@@ -138,14 +146,20 @@ class Membership extends Component {
     const classes = this.props.classes;
     return(
       <div className={classes.background}>
-        <h1 className={classes.features_title}>Memberships</h1>
+        <h1 className={classes.features_title}>Memberships
+          <div className={classes.tooltip} onClick={this.openMemberships} >
+            <Tooltip  title="More information about the membership options">
+              <InfoOutlinedIcon size="x2"/>
+            </Tooltip>
+          </div>
+        </h1>
         <Grid
           container
           spacing={8}
           alignItems="center"
           justify="center"
           className={classes.grid}
-          > 
+          >
           <Grid
             container
             item xs={12} sm={9} md={6} lg={4}
@@ -154,11 +168,12 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_free}>
               <MembershipCard
-                  front_text={"Aspiring Professionals Free"}
                   number="$10"
                   payment={{background:'#6EA0B5'}}
+                  membership_type_text="Free"
+                  front_text={"Aspiring Professionals"}
                   inner_text="Pricing Plan:"
-                  description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
+                  description="With the free membership plan, you will able to view jobs on the platform and, schedule coffee chats and mock interviews on a pay per use basis"
                   type="aspiring_professional"
                   buttonText={this.props.freeButtonText}
                   buttonFunction={this.props.landing ? this.props.freeFunction : this.handleAspireFreeClick}
@@ -174,9 +189,10 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_premium}>
               <MembershipCard
-                  front_text="Aspiring Professionals Premium"
                   payment={{background:'#b5a165'}}
                   number="$5"
+                  membership_type_text="Premium"
+                  front_text="Aspiring Professionals"
                   inner_text="Pricing Plan:"
                   description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
                   type="aspiring_professional"
@@ -194,9 +210,10 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_platinum}>
               <MembershipCard
-                  front_text="Senior Professionals Platinum"
                   number="$0"
                   payment={{color: 'black'}}
+                  membership_type_text="Platinum"
+                  front_text="Senior Professionals"
                   inner_text="Pricing Plan"
                   description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
                   type="senior_professional"
@@ -207,7 +224,6 @@ class Membership extends Component {
             </div>
           </Grid>
         </Grid>
-        <p className={classes.more_info} onClick={this.openMemberships}>more information about the membership options</p>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -319,8 +335,8 @@ class Membership extends Component {
                   <tr>
                     <td className={classes.table_element}>Starting Credits Received</td>
                     <td className={classes.table_element_free}>0 credits</td>
-                    <td className={classes.table_element_premium}>30 credits</td>
-                    <td className={classes.table_element_plat}>30 credits</td>
+                    <td className={classes.table_element_premium}>25 credits</td>
+                    <td className={classes.table_element_plat}>25 credits</td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>Cost to Purchase 5 Additional Credits</td>
