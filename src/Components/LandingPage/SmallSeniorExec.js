@@ -90,13 +90,13 @@ class SmallSeniorExec extends Component {
 
     return (
       <div className={classes.sectionstyle}>
-        <h3 className={classes.hovertext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '50px'}}
+        <h3 className={classes.hovertext} style={{display: this.state.text, paddingLeft: '30px', objectFit: 'cover', paddingRight: '50px'}}
           onMouseEnter={this.handleEnter} onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
-        <h3 className={classes.extratext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '50px'}}
+        <h3 className={classes.extratext} style={{display: this.state.text, paddingLeft: '30px', objectFit: 'cover', paddingRight: '50px'}}
           onMouseEnter={this.handleEnter} onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
-        <img className="seniorPic" style={{width: '270px', height: '290px', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
+        <img className="seniorPic" style={{width: '270px', height: '290px', marginTop: '0vh', objectFit: 'cover', marginBottom:'4vh', display: this.state.display1, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
           onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
-        <img className="seniorPic" style={{width: '270px', height: '290px', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
+        <img className="seniorPic" style={{width: '270px', height: '290px', marginTop: '0vh', objectFit: 'cover', marginBottom:'4vh', display: this.state.display2, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
           onMouseLeave={this.handleExit} src={this.props.image} alt="Senior Exec" /> 
       </div>
     );

@@ -25,18 +25,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: '-200px'
   },
 
-  learn_more: {
-    fontSize: '15px',
-    fontFamily: 'myriad-pro, sans-serif',
-    color: '#6ea0b5',
-    cursor: 'pointer',
-    padding: '5px',
-    display: 'block',
-    '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
-    }
-  },
   small_text: { 
     fontFamily: "Montserrat",
     fontSize: "18px",
@@ -54,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   height: '170px',
   padding: '10px',
   background: '#f7f7f7',
-  color: '#000',
+  color: 'white',
   textAlign: 'center',
   marginLeft: '80px',
   marginTop: '-20px',
@@ -65,6 +53,11 @@ const useStyles = makeStyles(theme => ({
    fontSize: '60px',
    marginTop: '30px'
     },
+
+    month: { 
+      fontSize: '20px',
+      marginTop: '30px'
+       },
 
   button: {
     textTransform: 'none',
@@ -102,13 +95,12 @@ class MembershipCard extends Component {
           <div>
           <img className={classes.image} src={Membership} alt="Membership"/>
           <h2 className={classes.front_text}>{this.props.front_text}</h2>
-          <div className={classes.payment}>
-            <div className={classes.number}>$5</div>
+          <div className={classes.payment} style={this.props.payment}>
+            <div className={classes.number}>{this.props.number}<span className={classes.month}> /m</span></div>
           </div>
           </div>
           <h2 className={classes.small_text}>{this.props.description}</h2>
           <Button className={classes.button} variant="contained" onClick={this.props.buttonFunction}><b>{this.props.buttonText}</b></Button>
-          <p className={classes.learn_more}>Learn More</p>
         </div>
       </div>
     )

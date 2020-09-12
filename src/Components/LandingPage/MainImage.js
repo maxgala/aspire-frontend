@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "30px",
   },
   networkstyle: {
-    color: "#B5A165",
+    color: "white",
     marginTop: "10px",
   },
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "20px",
     backgroundColor: "Transparent",
     border: '1px solid white',
-    width: '160px',
+    width: '230px',
     margin: '10px',
     marginTop: "2%",
     marginBottom: '10px',
@@ -96,42 +96,30 @@ class MainImage extends Component {
       behavior: "smooth",
     });
   }
-  handleClick2(e) {
-    e.preventDefault();
-    document.getElementById("footer").scrollIntoView({
-      behavior: "smooth",
-    });
-  }
 
-  handleClick3(e) {
+  handleClick1(e) {
     e.preventDefault();
     document.getElementById("max_jobs").scrollIntoView({
       behavior: "smooth",
     });
   }
 
-  handleClick4(e) {
+  handleClick2(e) {
     e.preventDefault();
     document.getElementById("seniors").scrollIntoView({
       behavior: "smooth",
     });
   }
 
-  handleClick5(e) {
-    e.preventDefault();
-    document.getElementById("testimonials").scrollIntoView({
-      behavior: "smooth",
-    });
-  }
 
-  handleClick6(e) {
+  handleClick3(e) {
     e.preventDefault();
     document.getElementById("membership").scrollIntoView({
       behavior: "smooth",
     });
   }
 
-  handleClick7(e) {
+  handleClick4(e) {
     e.preventDefault();
     document.getElementById("features").scrollIntoView({
       behavior: "smooth",
@@ -160,56 +148,41 @@ class MainImage extends Component {
             <span className={classes.networkstyle}>good network</span>
           </h3>
           <Button
-            onClick={this.handleClick7}
+            onClick={this.handleClick4}
             className={classes.button}
             variant="contained"
           >
             Features
           </Button>
           <Button
-            onClick={this.handleClick4}
+            onClick={this.handleClick2}
             className={classes.button}
             variant="contained"
           >
-            Seniors
+            Senior Executives
           </Button>
           <Button
-            onClick={this.handleClick3}
+            onClick={this.handleClick1}
             className={classes.button}
             variant="contained"
           >
             Jobs
           </Button>
           <Button
-            onClick={this.handleClick6}
+            onClick={this.handleClick3}
             className={classes.button}
             variant="contained"
           >
             Membership
           </Button>
-          <Button
-            onClick={this.handleClick5}
-            className={classes.button}
-            variant="contained"
-          >
-            Testimonials
-          </Button>
+       
           <Button
             onClick={this.handleClick}
             className={classes.button}
             variant="contained"
           >
-            About
+            About Us
           </Button>
-
-          <Button
-            onClick={this.handleClick2}
-            className={classes.button}
-            variant="contained"
-          >
-            Subscribe
-          </Button>
-        
         </div>
       </div>
     );

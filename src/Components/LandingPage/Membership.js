@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
     paddingBottom:'5%',
     textAlign: 'center'
   },
+
   grid: {
     paddingLeft: '10%',
     paddingRight: '10%',
@@ -154,6 +155,8 @@ class Membership extends Component {
             <div style={this.state.aspire_free}>
               <MembershipCard
                   front_text={"Aspiring Professionals Free"}
+                  number="$10"
+                  payment={{background:'#6EA0B5'}}
                   inner_text="Pricing Plan:"
                   description="With the free membership plan, you will able to view jobs on the platform and you can schedule coffee chats and mock interviews on a pay per use basis"
                   type="aspiring_professional"
@@ -172,6 +175,8 @@ class Membership extends Component {
             <div style={this.state.aspire_premium}>
               <MembershipCard
                   front_text="Aspiring Professionals Premium"
+                  payment={{background:'#b5a165'}}
+                  number="$5"
                   inner_text="Pricing Plan:"
                   description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
                   type="aspiring_professional"
@@ -190,6 +195,8 @@ class Membership extends Component {
             <div style={this.state.aspire_platinum}>
               <MembershipCard
                   front_text="Senior Professionals Platinum"
+                  number="$0"
+                  payment={{color: 'black'}}
                   inner_text="Pricing Plan"
                   description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
                   type="senior_professional"
