@@ -183,7 +183,6 @@ class Landing extends Component{
                 <main className={classes.content}>
                     <Container className={classes.container}>
                         <MainImage/>
-                        <AboutMax/>
                         <Features/>
                         <SeniorExecGrid appContext={this.props.appContext}/>
                         <JobSection appContext={this.props.appContext}/>
@@ -197,7 +196,7 @@ class Landing extends Component{
                                     platinumFunction={this.changeToSignUp}
                         />
                         <Carousal/>
-
+                        <AboutMax/>
                         {/* Scroll to top and footer components at bottom */}
                         <Footer/>
                         <ScrollToTop/>

@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: '140px',
       '@media (max-width: 599px)': {paddingBottom: '110px'},
     },
-    paddingBottom: '190px',
+    paddingBottom: '185px',
     textAlign: 'left',
     display: 'inline-block',
   },
@@ -54,12 +54,14 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end'
+
   },
   grid: { 
     paddingLeft: '5vw',
     paddingRight: '5vw',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '100px'
   },
   image: {
     width: '100%',
@@ -104,6 +106,7 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
 
   return (
     <Grid
+      id="footer"
       container
       item xs={12}
       spacing={1}

@@ -100,11 +100,12 @@ class SeniorExec extends Component {
         </h3>
         <img
           style={{
-            width: "100%",
             marginTop: "0vh",
             display: this.state.display1,
             borderTopLeftRadius: "5vw",
-            borderBottomRightRadius: "12vw"
+            borderBottomRightRadius: "12vw",
+            width: '290px',
+            height: '400px'
           }}
           onMouseEnter={this.handleEnter}
           src={this.props.image}
@@ -112,11 +113,12 @@ class SeniorExec extends Component {
         />
         <img
           style={{
-            width: "100%",
             marginTop: "0vh",
             display: this.state.display2,
             borderTopLeftRadius: "5vw",
             borderBottomRightRadius: "12vw",
+            width: '290px',
+            height: '400px'
           }}
           onMouseLeave={this.handleExit}
           src={this.props.hover_image}

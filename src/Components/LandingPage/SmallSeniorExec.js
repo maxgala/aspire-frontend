@@ -92,9 +92,9 @@ class SmallSeniorExec extends Component {
           onMouseEnter={this.handleEnter} onMouseLeave={this.handleExit}>{this.props.name_text}</h3>
         <h3 className={classes.extratext} style={{display: this.state.text, paddingLeft: '30px', paddingRight: '50px'}}
           onMouseEnter={this.handleEnter} onMouseLeave={this.handleExit}>{this.props.extra_text}</h3>
-        <img style={{width: '90%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
+        <img style={{width: '230px', height: '270px', marginTop: '0vh', marginBottom:'4vh', display: this.state.display1, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
           onMouseEnter={this.handleEnter} src={this.props.image} alt="Senior Exec"/>
-        <img style={{width: '90%', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
+        <img style={{width: '230px', height: '270px', marginTop: '0vh', marginBottom:'4vh', display: this.state.display2, borderTopLeftRadius: '5vw', borderBottomRightRadius: '12vw'}} 
           onMouseLeave={this.handleExit} src={this.props.hover_image} alt="Senior Exec" /> 
       </div>
     );

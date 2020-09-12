@@ -44,13 +44,35 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "20px",
     paddingRight: "20px",
     backgroundColor: "#6EA0B5",
-    marginTop: "2%",
+    width: '180px',
+    marginTop: "1%",
+    marginBottom: '10px',
     borderRadius: 50,
     color: "white",
     "&:hover": {
       backgroundColor: "#F1F1F1",
       color: "#484848",
     },
+  },
+
+  button2: {
+    fontFamily: "Montserrat",
+    "@media (max-width: 800px)": { fontSize: "18px" },
+    fontSize: "20px",
+    textTransform: "none",
+    paddingLeft: "20px",
+    paddingRight: "20px",
+    backgroundColor: "#6EA0B5",
+    borderRadius: 50,
+    width: '180px',
+    display: 'block',
+    left: '700px',
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
+    },
+
   },
   total: {
     position: "absolute",
@@ -89,6 +111,12 @@ class MainImage extends Component {
       behavior: "smooth",
     });
   }
+  handleClick2(e) {
+    e.preventDefault();
+    document.getElementById("footer").scrollIntoView({
+      behavior: "smooth",
+    });
+  }
 
   render() {
     const classes = this.props.classes;
@@ -112,6 +140,13 @@ class MainImage extends Component {
             variant="contained"
           >
             Learn more
+          </Button>
+        
+          <Button
+            onClick={this.handleClick2}
+            className={classes.button2}
+            variant="contained">
+            Subscribe
           </Button>
         </div>
       </div>

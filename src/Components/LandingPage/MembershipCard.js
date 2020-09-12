@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import AspiringProfessional from "../Images/aspiring_prof_membership.png";
+import AspiringProfessional from "../Images/laptop.jpg";
 import SeniorExecutive from "../Images/senior_exec_membership.png";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
