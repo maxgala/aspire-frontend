@@ -530,7 +530,7 @@ class FinalPage extends Component{
                                 <h2>Terms and Conditions</h2>
                             </div>
                         </DialogTitle>
-                        <DialogContent>
+                        <DialogContent style={{overflowX: 'hidden'}}>
                             <DialogContentText
                                 id="scroll-dialog-description"
                                 tabIndex={-1}
@@ -549,6 +549,7 @@ class FinalPage extends Component{
                                                 <Page
                                                     key={`page_${index + 1}`}
                                                     pageNumber={index + 1}
+                                                    width={Math.min(900, (window.innerWidth - 100))}
                                                 />
                                             ),
                                         )
@@ -567,6 +568,7 @@ class FinalPage extends Component{
                                                 <Page
                                                     key={`page_${index + 1}`}
                                                     pageNumber={index + 1}
+                                                    width={Math.min(900, (window.innerWidth - 100))}
                                                 />
                                             ),
                                         )
