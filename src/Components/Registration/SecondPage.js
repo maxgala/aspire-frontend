@@ -199,6 +199,12 @@ class SecondPage extends Component {
     };
 
     changeToPage3 = (event) => {
+        if (this.state.industry_tags.length > 3){
+            this.setState({
+                dialogueOpen: true
+            })
+            return;
+        }
         if (this.state.industry === '' || this.state.industry === undefined ||
             this.state.title === '' || this.state.title === undefined ||
             this.state.company === '' || this.state.company === undefined ||
@@ -437,7 +443,7 @@ class SecondPage extends Component {
                     <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <b> Please fill out all the required fields </b>
+                            <b> Please fill out all the required fields with proper values </b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
