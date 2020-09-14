@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '40px',
     textAlign: 'left',
     margin: '0',
+    marginLeft: '20px',
   },
   subscribeButton: {
     textTransform: 'none',
@@ -38,13 +39,14 @@ const useStyles = makeStyles(theme => ({
     fontSize: '36px',
     fontWeight: 'bold',
     position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     width: '100%',
     bottom: '0',
     '@media (max-width: 1280px)': {
       paddingBottom: '140px',
       '@media (max-width: 599px)': {paddingBottom: '110px'},
     },
-    paddingBottom: '190px',
+    paddingBottom: '185px',
     textAlign: 'left',
     display: 'inline-block',
   },
@@ -52,12 +54,14 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end'
+
   },
   grid: { 
     paddingLeft: '5vw',
     paddingRight: '5vw',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '100px'
   },
   image: {
     width: '100%',
@@ -102,6 +106,7 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
 
   return (
     <Grid
+      id="footer"
       container
       item xs={12}
       spacing={1}

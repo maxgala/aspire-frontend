@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
     paddingBottom:'5%',
     textAlign: 'center'
   },
+
   grid: {
     paddingLeft: '10%',
     paddingRight: '10%',
@@ -167,6 +168,8 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_free}>
               <MembershipCard
+                  number="$10"
+                  payment={{background:'#6EA0B5'}}
                   membership_type_text="Free"
                   front_text={"Aspiring Professionals"}
                   inner_text="Pricing Plan:"
@@ -186,6 +189,8 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_premium}>
               <MembershipCard
+                  payment={{background:'#b5a165'}}
+                  number="$5"
                   membership_type_text="Premium"
                   front_text="Aspiring Professionals"
                   inner_text="Pricing Plan:"
@@ -205,6 +210,8 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_platinum}>
               <MembershipCard
+                  number="$0"
+                  payment={{color: 'black'}}
                   membership_type_text="Platinum"
                   front_text="Senior Professionals"
                   inner_text="Pricing Plan"

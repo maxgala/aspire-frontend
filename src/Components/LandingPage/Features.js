@@ -44,6 +44,7 @@ class Features extends Component{
           alignItems="center"
           justify="center"
           className={classes.grid}
+          id="features"
         >  
           <Grid
             container

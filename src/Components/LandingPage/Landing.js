@@ -183,21 +183,20 @@ class Landing extends Component{
                 <main className={classes.content}>
                     <Container className={classes.container}>
                         <MainImage/>
-                        <AboutMax/>
                         <Features/>
                         <SeniorExecGrid appContext={this.props.appContext}/>
                         <JobSection appContext={this.props.appContext}/>
                         <Membership appContext={this.props.appContext}
                                     landing={true}
-                                    freeButtonText={"Join Now"}
-                                    premiumButtonText={"Join Now"}
-                                    platinumButtonText={"Join Now"}
+                                    freeButtonText={"Select"}
+                                    premiumButtonText={"Select"}
+                                    platinumButtonText={"Select"}
                                     freeFunction={this.changeToSignUp}
                                     premiumFunction={this.changeToSignUp}
                                     platinumFunction={this.changeToSignUp}
                         />
                         <Carousal/>
-
+                        <AboutMax/>
                         {/* Scroll to top and footer components at bottom */}
                         <Footer/>
                         <ScrollToTop/>
