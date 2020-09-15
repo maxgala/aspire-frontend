@@ -52,8 +52,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
 function httpGet(method, path, headers) {
   let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com/Prod' + path).replace("api/", "");
   return new Promise((resolve, reject) => {
-    return axios
-      .get(url, {
+    return axios[method.toLowerCase()](url, {
         headers: headers
       })
       .then(res => {
