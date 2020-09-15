@@ -46,7 +46,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
 }
 
 function httpGet(method, path, data) {
-  let url = ('https://vx4dosp9t1.execute-api.us-east-1.amazonaws.com/Prod/' + path).replace("api/", "");
+  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com/Prod/' + path).replace("api/", "");
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](url, data)
       .then(res => {
@@ -59,7 +59,7 @@ function httpGet(method, path, data) {
 }
 
 function httpPost(endPoint, headers, data) {
-  let url = ('https://vx4dosp9t1.execute-api.us-east-1.amazonaws.com/Prod/' + endPoint).replace("api/", "");
+  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com/Prod/' + endPoint).replace("api/", "");
   return new Promise((resolve, reject) => {
     return axios
       .post(url, data, {
