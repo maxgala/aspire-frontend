@@ -39,18 +39,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-/* Deleting since not required anymore
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};*/
-
 const useStyles = makeStyles((theme) => ({
 	autoComplete: {
         '& > * + *': {
@@ -153,7 +141,9 @@ class SecondPage extends Component {
             dialogueOpen: false,
             displayProvince: 'None',
             displayStates: 'None',
-            customIndustryDisplay: 'None'
+            customIndustryDisplay: 'None', 
+            showError: false, 
+            errorText: ''
         }
     }
 
@@ -209,6 +199,12 @@ class SecondPage extends Component {
     };
 
     changeToPage3 = (event) => {
+        if (this.state.industry_tags.length > 3){
+            this.setState({
+                dialogueOpen: true
+            })
+            return;
+        }
         if (this.state.industry === '' || this.state.industry === undefined ||
             this.state.title === '' || this.state.title === undefined ||
             this.state.company === '' || this.state.company === undefined ||
@@ -228,6 +224,17 @@ class SecondPage extends Component {
         this.setState({
             industry_tags: values
         });
+        if (values.length > 3){
+            this.setState({
+                showError: true, 
+                errorText: 'Please pick up to 3 tags'
+            })
+        }else{
+            this.setState({
+                showError: false, 
+                errorText: ''
+            })
+        }
     }
 
     handleDialog = (event) => {
@@ -299,6 +306,8 @@ class SecondPage extends Component {
                                             {...params}
                                             variant="outlined"
                                             label="Select Tags (Up to 3)" 
+                                            error={this.state.showError}
+                                            helperText = {this.state.errorText}
                                         />
                                     )}
                                 />
@@ -434,7 +443,7 @@ class SecondPage extends Component {
                     <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <b> Please fill out all the required fields </b>
+                            <b> Please fill out all the required fields with proper values </b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
