@@ -16,7 +16,11 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
 
 app.get('/api/*', async (req, res) => {
-  res.send(await httpGet(req.method, req.path, req.data).catch(err => {
+  const headers = {
+    "authorization": req.headers.authorization,
+    "content-type": "application/json"
+  }
+  res.send(await httpGet(req.method, req.path, headers).catch(err => {
     if (err) {
       console.error(err);
     }
@@ -45,21 +49,24 @@ if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
   });
 }
 
-function httpGet(method, path, data) {
-  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com/Prod/' + path).replace("api/", "");
+function httpGet(method, path, headers) {
+  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com/Prod' + path).replace("api/", "");
   return new Promise((resolve, reject) => {
-    return axios[method.toLowerCase()](url, data)
+    return axios
+      .get(url, {
+        headers: headers
+      })
       .then(res => {
-        return resolve(res.data);
+        resolve(res.data);
       })
       .catch(err => {
-        return reject(err);
+        reject(err);
       });
   });
 }
 
 function httpPost(endPoint, headers, data) {
-  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com/Prod/' + endPoint).replace("api/", "");
+  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com/Prod' + endPoint).replace("api/", "");
   return new Promise((resolve, reject) => {
     return axios
       .post(url, data, {
