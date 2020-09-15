@@ -344,12 +344,12 @@ class Landing extends Component {
 
   componentDidMount() {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
-    httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("accessToken")).then((jobs) => {
+    httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken")).then((jobs) => {
       this.setState({
         numJobs: jobs.data.count
       })
     });
-    httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("accessToken")).then((chats) => {
+    httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("idToken")).then((chats) => {
       this.setState({
         numChats: chats.data.count
       })
