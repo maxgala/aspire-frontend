@@ -11,7 +11,6 @@ import {logEvent, Result, ErrorResult} from './util';
 import './cardStyle.css';
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import Landing from "../LandingPage/Landing";
 
 const useStyles = makeStyles((theme) => ({
     submit: {
@@ -123,12 +122,23 @@ class CheckoutForm extends React.Component {
                 paymentMethod: payload.paymentMethod,
                 errorMessage: null,
             });
-            setTimeout(function() { //Start the timer
-                this.props.appContext.props.appContext.setState({
-                    currentScreen: <Landing appContext={this.props.appContext}/>
-                });
-            }.bind(this), 2000)
-
+            // add logic here to the final page for user type
+            
+            this.props.finalPage.setState({
+                openStripe: false
+            })
+            
+            if (this.props.finalPage.state.aspire_premium === true){
+                this.props.finalPage.signUp(25, "PAID");
+                this.props.finalPage.setState({
+                    verified: true
+                });  
+            }else{
+                this.props.finalPage.signUp(25, "MENTOR");
+                this.props.finalPage.setState({
+                    verified: true
+                });  
+            }
         }
     };
 

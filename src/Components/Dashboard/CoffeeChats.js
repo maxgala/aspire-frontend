@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
-//import TestData from "./CoffeeChatsTestData";
 import CardTypes from "./CardTypes";
 import { httpGet, httpPost } from "../../lib/dataAccess";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
@@ -81,21 +80,6 @@ class CoffeeChats extends Component {
       
     }
   }
-   
-  postChats = async () =>{
-    const chatsdata = {
-      "city": "Toronto",
-      "region": "MAX",
-      "chat_type": "ONE_ON_ONE",
-      "chat_status":"RESERVED",
-      "description": "woah Sammer! a very cool person",
-      "title": "",
-      "credits": "5",
-      "senior_executive": 'Sammer Haq',
-      "tags": []
-    }
-    const response = await httpPost("chats", localStorage.getItem("idToken"), JSON.stringify(chatsdata));
-  } 
 
   fetchChats = async () => {
     const existingChatsData = await httpGet("chats", localStorage.getItem("idToken"));
@@ -105,31 +89,8 @@ class CoffeeChats extends Component {
   }
 
 
-  // getUserProfile = () => {
-  //   const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-  //   let userLocation = "N/A";
-  //   if (userProfile.address && userProfile.address.formatted) {
-  //     const address = JSON.parse(userProfile.address.formatted);
-  //     if (!address.country.includes("Other")) {
-  //       userLocation = address.region + ", " + address.country;
-  //     }
-  //   }
-
-  //   return {
-  //     name: userProfile.given_name + " " + userProfile.family_name,
-  //     occupation: userProfile["custom:position"],
-  //     location: userLocation,
-  //     company: userProfile["custom:company"] ?? "N/A",
-  //     numCoffeeChats: this.state.numChats,
-  //     numJobApplications: this.state.numJobs,
-  //     numCredits: userProfile["custom:credits"],
-  //   }
-  // }
-  
-
   componentDidMount() {
     this.fetchChats();
-    this.postChats();
     
   }
 
@@ -217,7 +178,7 @@ class CoffeeChats extends Component {
                   justify="flex-start"
                 >
                   <p className={classes.section_title}>Additional Filters</p>
-                  {/* <p className={classes.section_title}>{userProfile.company}</p> */}
+                  <p className={classes.section_title}>Random Company</p>
                 </Grid>
                 <Grid
                   container

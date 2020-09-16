@@ -1,0 +1,20 @@
+.video-container{
+  position: relative;
+  top: 0;
+  bottom: 0;
+  width: 110%;
+  height: 85vh; 
+  overflow: hidden;
+}
+
+#main-video {
+   min-width: 100%; 
+   min-height: 100%; 
+   width: auto;
+   height: auto;
+   position: relative;
+}
+
+.video{
+  width: 110%;
+}

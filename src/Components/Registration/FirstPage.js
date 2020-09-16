@@ -18,6 +18,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import MuiPhoneNumber from "material-ui-phone-number";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     avatar: {
-        marginTop: '0vh',
+        marginTop: '3vh',
         width: '100px',
         height: '100px',
         padding: '1vw',
@@ -86,13 +87,22 @@ class FirstPage extends Component {
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
+            showEmailError: false, 
             progress: 25,
             errorDisplay: 'None',
             dialogueOpen: false,
         }
+        this.handlePhoneChange = this.handlePhoneChange.bind(this)
     }
 
     changeToPage2 = (event) => {
+        if (!(this.state.email).includes('@')){
+            this.setState({
+                dialogueOpen: true, 
+                showEmailError: true
+            })
+            return;
+        }
         if (this.state.firstName === '' || this.state.firstName === undefined
             || this.state.password === '' || this.state.password === undefined
             || this.state.lastName === '' || this.state.lastName === undefined
@@ -128,13 +138,8 @@ class FirstPage extends Component {
 
     handleEmailChange = (event) => {
         this.setState({
+            showEmailError: false, 
             email: event.target.value
-        })
-    };
-
-    handlePhoneChange = (event) => {
-        this.setState({
-            phone: event.target.value
         })
     };
 
@@ -167,6 +172,12 @@ class FirstPage extends Component {
             currentScreen: <SignIn appContext={this.props.appContext}/>
         });
     };
+    
+    handlePhoneChange(value) {
+        this.setState({
+           phone: value
+        });
+     }
 
     render() {
         const classes = this.props.classes;
@@ -182,7 +193,7 @@ class FirstPage extends Component {
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
-                                    autoComplete="fname"
+                                    autoComplete="firstName"
                                     name="firstName"
                                     variant="outlined"
                                     required
@@ -201,7 +212,7 @@ class FirstPage extends Component {
                                     id="lastName"
                                     label="Last Name"
                                     name="lastName"
-                                    autoComplete="lname"
+                                    autoComplete="lastName"
                                     value={this.state.lastName}
                                     onChange={this.handleLastNameChange}
                                 />
@@ -215,20 +226,23 @@ class FirstPage extends Component {
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
+                                    error={this.state.showEmailError}
                                     value={this.state.email}
                                     onChange={this.handleEmailChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField
+                                <MuiPhoneNumber 
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="phone"
                                     label="Phone Number"
                                     name="phone"
-                                    autoComplete="phone"
                                     value={this.state.phone}
+                                    defaultCountry={'ca'}
+                                    preferredCountries = {['ca','us']}
+                                    disableAreaCodes = {true}
                                     onChange={this.handlePhoneChange}
                                 />
                             </Grid>
@@ -309,7 +323,7 @@ class FirstPage extends Component {
                     <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <b>Please fill out all the required fields</b>
+                            <b>Please fill out all the required fields properly</b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

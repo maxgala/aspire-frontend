@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import clsx from 'clsx';
+import {makeStyles, useTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
-import Container from "@material-ui/core/Container";
 import UserProfile from "./UserProfile";
 import { faReact } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,6 +13,14 @@ import CoffeeChats from "./CoffeeChats";
 import Jobs from "./Jobs";
 import Community from "./Community";
 import ResumeBank from "./ResumeBank";
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Drawer from '@material-ui/core/Drawer';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
+const drawerWidth = 300;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,13 +36,6 @@ const useStyles = makeStyles(theme => ({
     '@media (max-width: 480px)': {width: '125px'},
     width: '150px',
     cursor: 'pointer'
-  },
-  content: {
-    flexGrow: 1,
-    width: '100vw',
-    overflow: 'hidden',
-    backgroundColor: '#eaeaea',
-    height: '100vh',
   },
   profile_container: {
     '@media (max-width: 963px)': {
@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-start',
-    height: '10vh',
+    height: '10px',
     backgroundColor: 'black',
     boxShadow: 'none',
     width: '100%',
@@ -112,12 +112,64 @@ const useStyles = makeStyles(theme => ({
       color: '#484848'
     }
   },
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
 }));
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
-    return <Component {...props} classes={classes}/>
+    const theme= useTheme();
+    return <Component {...props} classes={classes} theme={theme}/>
   }
 }
 
@@ -125,20 +177,38 @@ class Dashboard extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentScreen: []
+      currentScreen: [],
+      open: true
     }
+
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
     this.changeToJobs = this.changeToJobs.bind(this);
     this.changeToDashboard = this.changeToDashboard.bind(this);
     this.changeToCommunity=this.changeToCommunity.bind(this);
     this.changeToResumeBank=this.changeToResumeBank.bind(this);
+    this.setOpen = this.setOpen.bind(this);
+    this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
+    this.handleDrawerClose = this.handleDrawerClose.bind(this);
   }
+
+  setOpen(toggleValue) {
+    this.setState({open: toggleValue})
+  }
+
+  handleDrawerOpen = () => {
+    this.setOpen(true);
+  };
+
+  handleDrawerClose = () => {
+    this.setOpen(false);
+  };
 
   componentDidMount() {
     this.setState({
       currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     })
   }
+
   changeToResumeBank() {
     this.setState({
       currentScreen: <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec}/>
@@ -171,76 +241,97 @@ class Dashboard extends Component {
 
   render(){
     const classes = this.props.classes;
+    const theme = this.props.theme;
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <main className={classes.content}>
-          <Grid
-            container
-            item
-            spacing={1}
-            alignItems="center"
-            justify="center"
-            className={classes.grid}
-          >
-           <Container className={classes.profile_container}>
-              <UserProfile/>
-            </Container>
+        <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: this.state.open,
+          })}
+        >
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, this.state.open && classes.hide)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <div className={classes.navLogo} onClick={this.handleClick}>
+              <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
+            </div>
+            <Button
+              variant="outlined"
+              className={classes.coffee_chat_text}
+              onClick={this.changeToResumeBank}
+            >
+              <b>Resume Bank</b>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.jobs_text}
+              onClick={this.changeToCommunity}
+            >
+              <b>Community</b>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.jobs_text}
+              onClick={this.changeToCoffeeChats}
+            >
+              <b>Coffee Chats</b>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.jobs_text}
+              onClick={this.changeToJobs}
+            >
+              <b>Jobs</b>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.dashboard_text}
+              onClick={this.changeToDashboard}
+            >
+              <b>Dashboard</b>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.user_profile}
+              onClick={this.openUserProfile}
+            >
+              <FontAwesomeIcon icon={faReact} style={{width: '40px', height: '40px'}}/>
+            </Button>
+          </Toolbar>
+        </AppBar>
 
-            <Container className={classes.dashboard_container}>
-              <Toolbar className={classes.toolbar}>
-                <div className={classes.navLogo} onClick={this.handleClick}>
-                  <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
-                </div>
-                <Button
-                  variant="outlined"
-                  className={classes.coffee_chat_text}
-                  onClick={this.changeToResumeBank}
-                >
-                  <b>Resume Bank</b>
-                </Button>
-                <Button
-                  variant="outlined"
-                  className={classes.jobs_text}
-                  onClick={this.changeToCommunity}
-                >
-                  <b>Community</b>
-                </Button>
-
-                <Button
-                  variant="outlined"
-                  className={classes.jobs_text}
-                  onClick={this.changeToCoffeeChats}
-                >
-                  <b>Coffee Chats</b>
-                </Button>
-                <Button
-                  variant="outlined"
-                  className={classes.jobs_text}
-                  onClick={this.changeToJobs}
-                >
-                  <b>Jobs</b>
-                </Button>
-                <Button
-                  variant="outlined"
-                  className={classes.dashboard_text}
-                  onClick={this.changeToDashboard}
-                >
-                  <b>Dashboard</b>
-                </Button>
-                <Button
-                  variant="outlined"
-                  className={classes.user_profile}
-                  onClick={this.openUserProfile}
-                >
-                  <FontAwesomeIcon icon={faReact} style={{width: '40px', height: '40px'}}/>
-                </Button>
-              </Toolbar>
-              <div className="Dashboard">
-                {this.state.currentScreen}
-              </div>
-            </Container>
-          </Grid>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={this.state.open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <UserProfile/>
+        </Drawer>
+        <main
+          className={clsx(classes.content, {
+            [classes.contentShift]: this.state.open,
+          })}
+        >
+          <div className={classes.drawerHeader} />
+          <div className="Dashboard">{this.state.currentScreen}</div>
         </main>
       </div>
     );

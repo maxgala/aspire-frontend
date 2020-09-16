@@ -139,14 +139,6 @@ const useStyles = makeStyles(() => ({
     margin: '5px',
     color: 'white'
   },
-  company2: {
-    fontFamily: 'myriad-pro, sans-serif',
-    fontWeight: 'bold',
-    width: '100%',
-    textAlign: 'left',
-    margin: '0px',
-    color: 'black'
-  },
   date: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
@@ -194,7 +186,7 @@ const useStyles = makeStyles(() => ({
     margin: '5px',
     paddingTop: '5px',
     fontSize: '8px',
-    color: 'white',
+    color: 'black',
     float: 'right'
   },
   button_container: {
@@ -221,15 +213,6 @@ const useStyles = makeStyles(() => ({
     margin: '5px',
     marginLeft: '0px'
   },
-  tag_container2: {
-    width: 'auto',
-    borderStyle: 'solid',
-    borderWidth: '0.5px',
-    borderRadius: 50,
-    borderColor: 'black',
-    margin: '5px',
-    marginLeft: '0px'
-  },
   tag: {
     paddingLeft: '8px',
     paddingRight: '8px',
@@ -241,19 +224,6 @@ const useStyles = makeStyles(() => ({
     fontSize: '8px',
     fontWeight: '100',
     color: 'white',
-    display: 'flex',
-  },
-  tag2: {
-    paddingLeft: '8px',
-    paddingRight: '8px',
-    paddingTop: '3px',
-    paddingBottom: '3px',
-    left: '15px',
-    right: '15px',
-    float: 'left',
-    fontSize: '8px',
-    fontWeight: '100',
-    color: 'blck',
     display: 'flex',
   },
   bar: {
@@ -288,27 +258,6 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     right:'5%',   
   },
-  button1: {
-    textTransform: 'none',
-    backgroundColor: "#000000",
-    marginBottom:"2%",
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop:'20px',
-    borderRadius: 50,
-    color: "#FFFFFF",
-    position:'relative',
-    display: 'block',
-    '&:hover': {
-        backgroundColor: "#F1F1F1",
-        color: '#484848'
-    },
-    fontSize:'15px',
-    fontWeight: 'bold',
-    fontFamily:'myriad-pro, sans-serif',
-    paddingLeft: '75px',
-    paddingRight: '75px'
-  },
   button2: {
     textTransform: 'none',
     backgroundColor: "#000000",
@@ -328,12 +277,6 @@ const useStyles = makeStyles(() => ({
     fontFamily:'myriad-pro, sans-serif',
     paddingLeft: '50px',
     paddingRight: '50px'
-  },
-  gridmargin: {
-    
-  },
-  gridtop: {
-    marginTop: '1%'
   }
 }));
 
@@ -378,19 +321,11 @@ class CoffeeChatCard extends Component {
     })
   };
 
-  openMemberships = (event) => {
+  openCoffeeChat = (event) => {
     this.setState({
       open: true
     })
   };
-
-  // handleChange = event => {
-  //   this.setState({ value: event.target.value });
-  // };
-
-  // handleChange2 = name => event => {
-  //   this.setState({ [name]: event.target.checked });
-  // };
 
   componentDidMount() {
     this.setState({
@@ -435,9 +370,6 @@ class CoffeeChatCard extends Component {
                       <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
                     ))}    
               
-              {/* {this.state.data.chat_tags.map((tag, key) => (
-                <span key={key} className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
-              ))} */}
 
             </Grid>
             <Grid
@@ -457,14 +389,14 @@ class CoffeeChatCard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <span className={classes.button_container}><Button  onClick={this.openMemberships} className={classes.button} variant="contained" color="primary" >View Booking</Button></span>
+              <span className={classes.button_container}><Button  onClick={this.openCoffeeChat} className={classes.button} variant="contained" color="primary">View Booking</Button></span>
             </Grid>
           </Grid>
         </div>
 
 
         <Dialog
-        className={classes.translate}
+          className={classes.translate}
           open={this.state.open}
           onClose={this.handleClose}
           scroll={"paper"}
@@ -478,44 +410,42 @@ class CoffeeChatCard extends Component {
         >
           
           <Toolbar className={classes.toolbar}>
-              <div>
-                <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Register for a Coffee Chat</h2>
-                
-              </div>
-              <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
-            </Toolbar>
+            <div>
+              <h2 style={{margin: '0px', marginTop: '10px', color: 'white' }}>Register for a Coffee Chat</h2>
+            </div>
+            <img onClick={this.handleClose} className={classes.closes} style={{width: '14px', height: '14px', cursor: 'pointer'}} src={close} alt="Close button"/>
+          </Toolbar>
           
           <DialogContent>
             <DialogContentText
               id="scroll-dialog-description"
               component={'span'}
             >
-             
-            <Grid
-              container
-              item xs={12}
-              spacing={0}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <Grid
-              container
-              item xs={4}
-              spacing={0}
-              alignItems="flex-start"
-              justify="flex-start"
-              >
-              <img className={classes.image2} src={image} alt={"Coffee Chat Card"}/>
-              </Grid>
-            
               <Grid
                 container
-                item xs={8}
+                item xs={12}
                 spacing={0}
-                alignItems="center"
+                alignItems="flex-start"
                 justify="flex-start"
-                className={classes.outer_grid}
               >
+                <Grid
+                  container
+                  item xs={4}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <img className={classes.image2} src={image} alt={"Coffee Chat Card"}/>
+                </Grid>
+              
+                <Grid
+                  container
+                  item xs={8}
+                  spacing={0}
+                  alignItems="center"
+                  justify="flex-start"
+                  className={classes.outer_grid}
+                >
                   <Grid
                     container
                     item xs={12}
@@ -568,23 +498,17 @@ class CoffeeChatCard extends Component {
                   </Grid>
                 </Grid>
               </Grid>
-              
-            
-
               <Grid
                 container
                 item xs={12}
                 spacing={0}
                 alignItems="space-around"
                 justify="flex-end"
-                
-                >
-              <DialogActions style={{marginRight: '5%'}}>
-              <Button className={classes.button2} variant="contained" onClick={this.applyJob}>Register</Button> 
-              </DialogActions>
+              >
+                <DialogActions style={{marginRight: '5%'}}>
+                  <Button className={classes.button2} variant="contained" onClick={this.applyJob}>Register</Button> 
+                </DialogActions>
               </Grid>             
-              
-              
             </DialogContentText>
           </DialogContent>
           
@@ -593,8 +517,6 @@ class CoffeeChatCard extends Component {
     )
   }
 }
-
-
 
 CoffeeChatCard = withMyHook(CoffeeChatCard);
 export default CoffeeChatCard;

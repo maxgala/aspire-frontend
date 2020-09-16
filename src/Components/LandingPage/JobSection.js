@@ -122,7 +122,7 @@ class JobSection extends Component{
         const classes = this.props.classes;
         return (
           <div className={classes.background}>
-            <Grid container spacing={3} className={classes.grid}>
+            <Grid container spacing={3} className={classes.grid} id="max_jobs">
                 <Grid item xs={6}>
                     <div className={classes.box}>
                         <img className={classes.image} src={Globe} alt="Role Icon"/>

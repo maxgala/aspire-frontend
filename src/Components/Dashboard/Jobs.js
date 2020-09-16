@@ -84,25 +84,10 @@ class JobBoard extends Component {
   }
 
   fetchJobs = async () => {
-    const existingJobsData = await httpGet("jobs", localStorage.getItem("accessToken"));
+    const existingJobsData = await httpGet("jobs", localStorage.getItem("idToken"));
     this.setState({
       jobs: existingJobsData.data.jobs
     })
-
-    // const jobsdata = {
-    //   "title": "Software Developer",
-    //   "company": "My-Company",
-    //   "region": "ON",
-    //   "city": "Waterloo",
-    //   "country": "Canada",
-    //   "job_type": "BOARD_POSITION",
-    //   "description": "XYZ",
-    //   "requirements": "XYZ",
-    //   "job_tags": ["SOFTWARE", "FINANCE"],
-    //   "salary": 40,
-    //   "deadline": 1593718782
-    // }
-    // const response = await httpPost("jobs", localStorage.getItem("accessToken"), JSON.stringify(jobsdata));
   }
 
   componentDidMount() {
