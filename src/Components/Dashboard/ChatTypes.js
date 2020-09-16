@@ -1,6 +1,6 @@
 const ChatTypes = {
-	oneOnOne: 'OneOnOne',
-	fourOnOne: 'FourOnOne',
+	oneOnOne: 'ChatType.ONE_ON_ONE',
+	fourOnOne: 'ChatType.ONE_ON_FOUR',
 	mockInterview: 'MockInterview'
 }
 

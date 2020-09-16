@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatTypes from '../ChatTypes';
+//pop up
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -349,51 +350,63 @@ class CoffeeChatCard extends Component {
     super(props);
     this.state = {
       open: false,
-      startDate: new Date()
+      data: {
+        city: '',
+        region: '',
+        company: '',
+        chat_type: '',
+        chat_status:'',
+        description: '',
+        credits: '',
+        title: '',
+        booked: false,
+        senior_executive: '',
+        tags: []
       }
     }
+  }
   
-  handleChange3 = date => {
-      this.setState({
-        startDate: date
-      });
-  };
+  // handleChange3 = date => {
+  //     this.setState({
+  //       startDate: date
+  //     });
+  // };
     
   handleClose = event =>{
     this.setState({
-      open: false,
-      data: {
-        city: 'loading',
-        region: 'loading',
-        company: '',
-        chat_type: '',
-        description: '',
-        requirements: '',
-        tags: [],
-        checkedBox: false,
-      }
+      open: false
     })
   };
+
   openMemberships = (event) => {
     this.setState({
       open: true
     })
   };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
-  };
+  // handleChange = event => {
+  //   this.setState({ value: event.target.value });
+  // };
 
-  handleChange2 = name => event => {
-    this.setState({ [name]: event.target.checked });
-  };
+  // handleChange2 = name => event => {
+  //   this.setState({ [name]: event.target.checked });
+  // };
 
+  componentDidMount() {
+    this.setState({
+      data: this.props.data
+    })
+  }
 
 
   render() {
+
     const classes = this.props.classes;
+    
     return (
-      <div className={this.props.data.booked ? classes.cardBooked : this.props.data.type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
+
+      <div className={this.state.data.chat_status === "ChatStatus.RESERVED" ? classes.cardBooked : this.props.data.chat_type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.chat_type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
+        {/* need to get image from s3 bucket --  */}
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
         <div className={classes.container}>
           <Grid
@@ -412,14 +425,20 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <h1 className={classes.title}>
-                {this.props.data.type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
-                {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''}
+                {this.state.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.state.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                {this.state.data.chat_status === "ChatStatus.PENDING" ? <span className={classes.booked}> booked </span> : ''}
               </h1>
-              <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
-              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>
-              {this.props.data.tags.map((tag, key) => (
+              <p className={classes.subtitle}><span className={classes.name}>{this.state.data.senior_executive}</span> {this.props.data.title}</p>
+              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span></span>
+              
+              {this.state.data && this.state.data.chat_tags && this.state.data.chat_tags.map((tag, key) => (
+                      <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
+                    ))}    
+              
+              {/* {this.state.data.chat_tags.map((tag, key) => (
                 <span key={key} className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
-              ))}
+              ))} */}
+
             </Grid>
             <Grid
               container
@@ -429,7 +448,7 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <hr className={classes.bar}></hr>
-              <span className={classes.date}>Available: {this.props.data.available}</span>
+              <span className={classes.date}>Available: {this.state.data.date}</span>
             </Grid>
             <Grid
               container
@@ -505,9 +524,9 @@ class CoffeeChatCard extends Component {
                     justify="flex-start"
                   >
                     <h1 className={classes.title2}>
-                      {this.props.data.type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
-                      {this.props.data.booked ? <span className={classes.booked2}>booked</span> : ''} with&nbsp;
-                      <span className={classes.name2}>{this.props.data.name}</span>
+                    {this.state.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.state.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                {this.state.data.booked ? <span className={classes.booked}>booked</span> : ''} with&nbsp;
+                      <span className={classes.name2}>{this.state.data.senior_executive}</span>
                     </h1>
                   </Grid>
                   <Grid
@@ -517,7 +536,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.subtitle2}><span>{this.props.data.title} @ </span>{this.props.data.company}</span>
+                    <span className={classes.subtitle2}><span>{this.state.data.senior_executive} @ </span>{this.state.data.company}</span>
                   
                   </Grid>
                   <Grid
@@ -527,7 +546,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.subtitle2}>{this.props.data.available}</span>
+                    <span className={classes.subtitle2}>{this.state.data.available}</span>
                   </Grid>
                   <Grid
                     container
@@ -536,7 +555,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.date2}>{this.props.data.description}</span>
+                    <span className={classes.date2}>{this.state.data.description}</span>
                   </Grid>
                   <Grid
                     container
@@ -545,7 +564,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.credits}>Credits</span>
+                    <span className={classes.credits}>{this.state.data.credits} Credits</span>
                   </Grid>
                 </Grid>
               </Grid>
@@ -568,8 +587,7 @@ class CoffeeChatCard extends Component {
               
             </DialogContentText>
           </DialogContent>
-          <DialogActions>    
-          </DialogActions>
+          
         </Dialog>
       </div>
     )
