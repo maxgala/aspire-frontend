@@ -364,7 +364,7 @@ class CoffeeChatCard extends Component {
                 {this.state.data.chat_status === "ChatStatus.PENDING" ? <span className={classes.booked}> booked </span> : ''}
               </h1>
               <p className={classes.subtitle}><span className={classes.name}>{this.state.data.senior_executive}</span> {this.props.data.title}</p>
-              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span></span>
+              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span> Random Company</span>
               
               {this.state.data && this.state.data.chat_tags && this.state.data.chat_tags.map((tag, key) => (
                       <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
@@ -466,7 +466,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.subtitle2}><span>{this.state.data.senior_executive} @ </span>{this.state.data.company}</span>
+                    <span className={classes.subtitle2}><span>{this.state.data.senior_executive} @ </span>{this.state.data.company} Random Company</span>
                   
                   </Grid>
                   <Grid

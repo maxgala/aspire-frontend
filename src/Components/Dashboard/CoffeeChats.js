@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
 import CardTypes from "./CardTypes";
-import { httpGet, httpPost } from "../../lib/dataAccess";
+import { httpGet } from "../../lib/dataAccess";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
 //import { config } from "@fortawesome/fontawesome-svg-core";
