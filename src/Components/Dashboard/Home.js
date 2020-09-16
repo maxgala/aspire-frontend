@@ -64,25 +64,25 @@ class Home extends Component {
   }
 
   fetchJobs = async () => {
-    const existingJobsData = await httpGet("jobs", localStorage.getItem("idToken"));
-    this.setState({
-      jobs: existingJobsData.data.jobs
-    })
-  }
-
-  componentDidMount() {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
     const jobsData = await httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken"));
     const cutOff = this.props.isSeniorExec ? 1 : 2
     this.setState({
       job_applications: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
     });
+  }
 
+  fetchChats = async () => {
+    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
     const chatsData = await httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("idToken"));
     this.setState({
       coffee_chats: chatsData.data.chats.length > 4 ? chatsData.data.chats.slice(0, 4) : chatsData.data.chats
     });
+  }
 
+  componentDidMount() {
+    this.fetchJobs();
+    this.fetchChats();
     // TODO: implement dynamic data for job postings too (filter on posted_by attribute)
   }
 

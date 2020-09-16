@@ -198,16 +198,7 @@ class JobApplicationCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      data: {
-        city: '',
-        region: '',
-        company: '',
-        job_type: '',
-        description: '',
-        requirements: '',
-        tags: []
-      }
+      open: false
     }
   }
 
@@ -222,18 +213,6 @@ class JobApplicationCard extends Component {
       open: false
     })
   };
-
-  componentDidMount() {
-    this.setState({
-      data: this.props.data
-    })
-  }
-
-  componentDidUpdate() {
-    this.setState({
-      data: this.props.data
-    })
-  }
 
   render() {
     Moment.globalFormat = 'MMM DD, YYYY';
@@ -261,7 +240,7 @@ class JobApplicationCard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               > 
-                <h1 className={classes.jobTitle}>{this.state.data && this.state.data.title}</h1>
+                <h1 className={classes.jobTitle}>{this.props.data && this.props.data.title}</h1>
               </Grid>
             </Grid>
             <Grid
@@ -287,8 +266,8 @@ class JobApplicationCard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               > 
-                <span className={classes.text2}>{this.state.data && this.state.data.company}</span>
-                <span className={classes.text3}>{this.state.data && this.state.data.city}, {this.state.data && this.state.data.region}</span>
+                <span className={classes.text2}>{this.props.data && this.props.data.company}</span>
+                <span className={classes.text3}>{this.props.data && this.props.data.city}, {this.props.data && this.props.data.region}</span>
               </Grid>
             </Grid>
             <Grid
@@ -324,7 +303,7 @@ class JobApplicationCard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               > 
-                <span className={classes.text4}>Posted <Moment unix>{this.state.data && this.state.data.created_on}</Moment></span>
+                <span className={classes.text4}>Posted <Moment unix>{this.props.data && this.props.data.created_on}</Moment></span>
               </Grid>
               <Grid
                 container
@@ -345,7 +324,7 @@ class JobApplicationCard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+              {this.props.data && this.props.data.job_tags && this.props.data.job_tags.map((tag, key) => (
               <Grid
                 key={key}
                 container
@@ -405,7 +384,7 @@ class JobApplicationCard extends Component {
                   >
                     <span className={classes.textpopup}><span style={{marginLeft:'5px'}}><FontAwesomeIcon icon={faBuilding} 
                     style={{width: '15px', height: '15px', marginRight: '7px'}}/>
-                    </span>{this.state.data && this.state.data.company}</span>
+                    </span>{this.props.data && this.props.data.company}</span>
                   </Grid>
                   <Grid
                     container
@@ -415,8 +394,8 @@ class JobApplicationCard extends Component {
                     justify="flex-start"
                     >
                       <span className={classes.textpopup2}>
-                        {this.state.data && this.state.data.city},
-                        {this.state.data && this.state.data.region}
+                        {this.props.data && this.props.data.city},
+                        {this.props.data && this.props.data.region}
                       </span>
                   </Grid>
                   <Grid
@@ -427,7 +406,7 @@ class JobApplicationCard extends Component {
                     justify="flex-start"
                     >
                       <span className={classes.textpopup2}>
-                        {this.state.data && this.state.data.job_type}
+                        {this.props.data && this.props.data.job_type}
                       </span>                    
                   </Grid>
                 </Grid>
@@ -439,7 +418,7 @@ class JobApplicationCard extends Component {
                   justify="flex-start"
                 >
                   <h2 className={classes.header}>Job Description:</h2>
-                  <h2 className={classes.descrip}>{this.state.data && this.state.data.description}</h2>
+                  <h2 className={classes.descrip}>{this.props.data && this.props.data.description}</h2>
                 </Grid>
                 <Grid
                   container
@@ -449,7 +428,7 @@ class JobApplicationCard extends Component {
                   justify="flex-start"
                 >
                   <h2 className={classes.header}>Job Requirements:</h2>
-                  <h2 className={classes.descrip}>{this.state.data && this.state.data.requirements}</h2>              
+                  <h2 className={classes.descrip}>{this.props.data && this.props.data.requirements}</h2>              
                 </Grid>
                 <Grid
                   container
@@ -465,7 +444,7 @@ class JobApplicationCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    {this.state.data && this.state.data.job_tags && this.state.data.job_tags.map((tag, key) => (
+                    {this.props.data && this.props.data.job_tags && this.props.data.job_tags.map((tag, key) => (
                       <span key={key} className={classes.tagpopup}>{tag}</span>
                     ))}               
                   </Grid>
