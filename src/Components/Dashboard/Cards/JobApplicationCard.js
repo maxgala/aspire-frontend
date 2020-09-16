@@ -229,6 +229,12 @@ class JobApplicationCard extends Component {
     })
   }
 
+  componentDidUpdate() {
+    this.setState({
+      data: this.props.data
+    })
+  }
+
   render() {
     Moment.globalFormat = 'MMM DD, YYYY';
     const classes = this.props.classes;

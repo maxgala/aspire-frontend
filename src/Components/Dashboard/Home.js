@@ -8,6 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import TestData from "./CoffeeChatsTestData";
 import CardTypes from "./CardTypes";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+import { httpGet } from "../../lib/dataAccess";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
@@ -55,10 +57,33 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coffee_chats: TestData,
-      job_applications: props.isSeniorExec ? ["1"] : ["1", "2"],
-      job_postings: props.isSeniorExec ? ["1", "2"] : ["1"]
+      coffee_chats: [],
+      job_applications: [],
+      job_postings: []
     }
+  }
+
+  fetchJobs = async () => {
+    const existingJobsData = await httpGet("jobs", localStorage.getItem("idToken"));
+    this.setState({
+      jobs: existingJobsData.data.jobs
+    })
+  }
+
+  componentDidMount() {
+    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const jobsData = await httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken"));
+    const cutOff = this.props.isSeniorExec ? 1 : 2
+    this.setState({
+      job_applications: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
+    });
+
+    const chatsData = await httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("idToken"));
+    this.setState({
+      coffee_chats: chatsData.data.chats.length > 4 ? chatsData.data.chats.slice(0, 4) : chatsData.data.chats
+    });
+
+    // TODO: implement dynamic data for job postings too (filter on posted_by attribute)
   }
 
   render() {
@@ -135,14 +160,14 @@ class Home extends Component {
                   {this.state.job_applications && this.state.job_applications.length > 0 ?
                     this.state.job_applications.map((app, key) => (
                       <Grid
-                        key={key}
+                        key={app.job_id}
                         container
                         item xs={12}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobApplicationCard/>
+                        <JobApplicationCard data={app}/>
                       </Grid>
                     ))
                   :
@@ -175,7 +200,7 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobPostingCard/>
+                        <JobPostingCard data={posting}/>
                       </Grid>
                     ))
                   :
