@@ -5,7 +5,6 @@ import EmptyCard from "./Cards/EmptyCard";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
-import TestData from "./CoffeeChatsTestData";
 import CardTypes from "./CardTypes";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import { httpGet } from "../../lib/dataAccess";
