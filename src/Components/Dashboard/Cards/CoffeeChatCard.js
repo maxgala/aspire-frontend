@@ -46,8 +46,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '10px',
     borderRadius: '20px',
     textAlign: 'left',
-    // need designs for mock interview card
-    backgroundColor: 'red',
+    backgroundColor: '#6EA0B5',
     color: 'white',
   },
   cardBooked: {
@@ -334,9 +333,9 @@ class CoffeeChatCard extends Component {
               </h1>
               <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
               <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>
-              {this.props.data.tags.map((tag, key) => (
+              {this.props.data.tags !== "None" ? this.props.data.tags.map((tag, key) => (
                 <span key={key} className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
-              ))}
+              )) : null}
             </Grid>
             <Grid
               container
