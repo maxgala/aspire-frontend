@@ -80,9 +80,19 @@ class Home extends Component {
     });
   }
 
+  fetchPostings = async () => {
+    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const jobsData = await httpGet("jobs?posted_by=" + userInfo.username, localStorage.getItem("idToken"));
+    const cutOff = this.props.isSeniorExec ? 2 : 1
+    this.setState({
+      job_postings: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
+    });
+  }
+
   componentDidMount() {
     this.fetchJobs();
     this.fetchChats();
+    this.fetchPostings();
     // TODO: implement dynamic data for job postings too (filter on posted_by attribute)
   }
 
@@ -148,7 +158,6 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                {/* TODO: cap at 2 job postings and 1 job application for senior exec */}
                 <Grid
                   container
                   item xs={8} 
@@ -158,16 +167,16 @@ class Home extends Component {
                 >
                   <p className={classes.section_title}>Your Job Applications</p>
                   {this.state.job_applications && this.state.job_applications.length > 0 ?
-                    this.state.job_applications.map((app, key) => (
+                    this.state.job_applications.map((jobData, key) => (
                       <Grid
-                        key={app.job_id}
+                        key={jobData.job_id}
                         container
                         item xs={12}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobApplicationCard data={app}/>
+                        <JobApplicationCard data={jobData}/>
                       </Grid>
                     ))
                   :
@@ -224,7 +233,6 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                {/* TODO: cap at 2 job applications and 1 job posting for senior exec */}
                 <Grid
                   container
                   item xs={12} sm={12} md={12} lg={8}
@@ -234,16 +242,16 @@ class Home extends Component {
                 >
                   <p className={classes.section_title}>Your Job Application</p>
                   {this.state.job_applications && this.state.job_applications.length > 0 ?
-                    this.state.job_applications.map((app, key) => (
+                    this.state.job_applications.map((jobData, key) => (
                       <Grid
-                        key={key}
+                        key={jobData.job_id}
                         container
                         item xs={12} sm={6}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobApplicationCard/>
+                        <JobApplicationCard data={jobData}/>
                       </Grid>
                     ))
                   :
@@ -269,14 +277,14 @@ class Home extends Component {
                   {this.state.job_postings && this.state.job_postings.length > 0 ?
                     this.state.job_postings.map((posting, key) => (
                       <Grid
-                        key={key}
+                        key={posting.job_id}
                         container
                         item xs={12}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobPostingCard/>
+                        <JobPostingCard data={posting}/>
                       </Grid>
                     ))
                   :

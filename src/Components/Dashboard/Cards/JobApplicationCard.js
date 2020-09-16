@@ -202,7 +202,7 @@ class JobApplicationCard extends Component {
     }
   }
 
-  openMemberships = (event) => {
+  openApplication = (event) => {
     this.setState({
       open: true
     })
@@ -217,7 +217,7 @@ class JobApplicationCard extends Component {
   render() {
     Moment.globalFormat = 'MMM DD, YYYY';
     const classes = this.props.classes;
-    
+
     return (
       <div className={classes.card}>
         <div className={classes.card1}>
@@ -313,7 +313,7 @@ class JobApplicationCard extends Component {
                 justify="flex-start"
               > 
                 <div className={classes.divStyle}>
-                  <Button className={classes.button} onClick={this.openMemberships} variant="contained" color="primary" >View Job</Button>
+                  <Button className={classes.button} onClick={this.openApplication} variant="contained" color="primary" >View Job</Button>
                 </div>
               </Grid>
             </Grid>
