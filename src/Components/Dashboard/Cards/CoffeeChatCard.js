@@ -292,28 +292,11 @@ class CoffeeChatCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      data: {
-        city: '',
-        region: '',
-        company: '',
-        chat_type: '',
-        chat_status:'',
-        description: '',
-        credits: '',
-        title: '',
-        booked: false,
-        senior_executive: '',
-        tags: []
-      }
+      open: false
+      
     }
   }
-  
-  // handleChange3 = date => {
-  //     this.setState({
-  //       startDate: date
-  //     });
-  // };
+
     
   handleClose = event =>{
     this.setState({
@@ -327,11 +310,6 @@ class CoffeeChatCard extends Component {
     })
   };
 
-  componentDidMount() {
-    this.setState({
-      data: this.props.data
-    })
-  }
 
 
   render() {
@@ -340,7 +318,7 @@ class CoffeeChatCard extends Component {
     
     return (
 
-      <div className={this.state.data.chat_status === "ChatStatus.RESERVED" ? classes.cardBooked : this.props.data.chat_type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.chat_type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
+      <div className={this.props.data.chat_status === "ChatStatus.RESERVED" ? classes.cardBooked : this.props.data.chat_type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.chat_type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
         {/* need to get image from s3 bucket --  */}
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
         <div className={classes.container}>
@@ -360,13 +338,13 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <h1 className={classes.title}>
-                {this.state.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.state.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
-                {this.state.data.chat_status === "ChatStatus.PENDING" ? <span className={classes.booked}> booked </span> : ''}
+                {this.props.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                {this.props.data.chat_status === "ChatStatus.PENDING" ? <span className={classes.booked}> booked </span> : ''}
               </h1>
-              <p className={classes.subtitle}><span className={classes.name}>{this.state.data.senior_executive}</span> {this.props.data.title}</p>
+              <p className={classes.subtitle}><span className={classes.name}>{this.props.data.senior_executive}</span> {this.props.data.title}</p>
               <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span> Random Company</span>
               
-              {this.state.data && this.state.data.chat_tags && this.state.data.chat_tags.map((tag, key) => (
+              {this.props.data && this.props.data.chat_tags && this.props.data.chat_tags.map((tag, key) => (
                       <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
                     ))}    
               
@@ -380,7 +358,7 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <hr className={classes.bar}></hr>
-              <span className={classes.date}>Available: {this.state.data.date}</span>
+              <span className={classes.date}>Available: {this.props.data.date}</span>
             </Grid>
             <Grid
               container
@@ -454,9 +432,9 @@ class CoffeeChatCard extends Component {
                     justify="flex-start"
                   >
                     <h1 className={classes.title2}>
-                    {this.state.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.state.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
-                {this.state.data.booked ? <span className={classes.booked}>booked</span> : ''} with&nbsp;
-                      <span className={classes.name2}>{this.state.data.senior_executive}</span>
+                    {this.props.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''} with&nbsp;
+                      <span className={classes.name2}>{this.props.data.senior_executive}</span>
                     </h1>
                   </Grid>
                   <Grid
@@ -466,7 +444,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.subtitle2}><span>{this.state.data.senior_executive} @ </span>{this.state.data.company} Random Company</span>
+                    <span className={classes.subtitle2}><span>{this.props.data.senior_executive} @ </span>{this.props.data.company} Random Company</span>
                   
                   </Grid>
                   <Grid
@@ -476,7 +454,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.subtitle2}>{this.state.data.available}</span>
+                    <span className={classes.subtitle2}>{this.props.data.available}</span>
                   </Grid>
                   <Grid
                     container
@@ -485,7 +463,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.date2}>{this.state.data.description}</span>
+                    <span className={classes.date2}>{this.props.data.description}</span>
                   </Grid>
                   <Grid
                     container
@@ -494,7 +472,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.credits}>{this.state.data.credits} Credits</span>
+                    <span className={classes.credits}>{this.props.data.credits} Credits</span>
                   </Grid>
                 </Grid>
               </Grid>

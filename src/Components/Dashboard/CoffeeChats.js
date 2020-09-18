@@ -7,8 +7,6 @@ import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
-//import { config } from "@fortawesome/fontawesome-svg-core";
-
 const useStyles = makeStyles(() => ({
 
   mainPage: {
