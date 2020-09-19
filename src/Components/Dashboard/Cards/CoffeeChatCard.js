@@ -6,7 +6,6 @@ import Button from "@material-ui/core/Button";
 import { faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatTypes from '../ChatTypes';
-//pop up
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -293,11 +292,9 @@ class CoffeeChatCard extends Component {
     super(props);
     this.state = {
       open: false
-      
     }
   }
 
-    
   handleClose = event =>{
     this.setState({
       open: false
@@ -310,14 +307,9 @@ class CoffeeChatCard extends Component {
     })
   };
 
-
-
   render() {
-
     const classes = this.props.classes;
-    
     return (
-
       <div className={this.props.data.chat_status === "ChatStatus.RESERVED" ? classes.cardBooked : this.props.data.chat_type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.chat_type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
         {/* need to get image from s3 bucket --  */}
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
@@ -345,10 +337,8 @@ class CoffeeChatCard extends Component {
               <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span> Random Company</span>
               
               {this.props.data && this.props.data.chat_tags && this.props.data.chat_tags.map((tag, key) => (
-                      <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
-                    ))}    
-              
-
+                <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
+              ))}
             </Grid>
             <Grid
               container
@@ -371,7 +361,6 @@ class CoffeeChatCard extends Component {
             </Grid>
           </Grid>
         </div>
-
 
         <Dialog
           className={classes.translate}
@@ -432,8 +421,8 @@ class CoffeeChatCard extends Component {
                     justify="flex-start"
                   >
                     <h1 className={classes.title2}>
-                    {this.props.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
-                {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''} with&nbsp;
+                      {this.props.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                      {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''} with&nbsp;
                       <span className={classes.name2}>{this.props.data.senior_executive}</span>
                     </h1>
                   </Grid>
@@ -489,7 +478,6 @@ class CoffeeChatCard extends Component {
               </Grid>             
             </DialogContentText>
           </DialogContent>
-          
         </Dialog>
       </div>
     )
