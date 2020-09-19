@@ -99,7 +99,6 @@ class Home extends Component {
     this.fetchJobs();
     this.fetchChats();
     this.fetchPostings();
-    // TODO: implement dynamic data for job postings too (filter on posted_by attribute)
   }
 
   render() {
