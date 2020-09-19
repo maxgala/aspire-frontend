@@ -64,10 +64,17 @@ class Home extends Component {
 
   fetchJobs = async () => {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
-    const jobsData = await httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken"));
+    const jobsData = await httpGet("job-applications?userId=" + userInfo.username, localStorage.getItem("idToken"));
     const cutOff = this.props.isSeniorExec ? 1 : 2
+    const data = jobsData.data.length > cutOff ? jobsData.data.slice(0, cutOff) : jobsData.data
+
+    const jobAppData = []
+    data.forEach(async job => {
+      const jobData = await httpGet("jobs/" + job.job_id, localStorage.getItem("idToken"));
+      jobAppData.push(jobData.data)
+    })
     this.setState({
-      job_applications: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
+      job_applications: jobAppData
     });
   }
 
@@ -81,7 +88,7 @@ class Home extends Component {
 
   fetchPostings = async () => {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
-    const jobsData = await httpGet("jobs?posted_by=" + userInfo.username, localStorage.getItem("idToken"));
+    const jobsData = await httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken"));
     const cutOff = this.props.isSeniorExec ? 2 : 1
     this.setState({
       job_postings: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
