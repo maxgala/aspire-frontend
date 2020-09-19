@@ -46,7 +46,8 @@ const useStyles = makeStyles(() => ({
     marginBottom: '10px',
     borderRadius: '20px',
     textAlign: 'left',
-    backgroundColor: '#6EA0B5',
+    // need designs for mock interview card
+    backgroundColor: 'red',
     color: 'white',
   },
   cardBooked: {
@@ -468,7 +469,7 @@ class CoffeeChatCard extends Component {
                 container
                 item xs={12}
                 spacing={0}
-                alignItems="space-around"
+                alignItems="flex-end"
                 justify="flex-end"
               >
                 <DialogActions style={{marginRight: '5%'}}>
