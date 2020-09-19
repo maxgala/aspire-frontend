@@ -101,10 +101,7 @@ class JobBoard extends Component {
     <div>
       <PerfectScrollbar>
         <div className={classes.mainPage}>
-        
-            <h1 className={classes.JobBoard}>Job Board</h1>
-
-
+          <h1 className={classes.JobBoard}>Job Board</h1>
           <Grid
             container
             item xs={12}
