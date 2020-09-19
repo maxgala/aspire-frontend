@@ -293,7 +293,7 @@ class CoffeeChatCard extends Component {
       open: false
     }
   }
-    
+
   handleClose = event =>{
     this.setState({
       open: false
@@ -309,7 +309,8 @@ class CoffeeChatCard extends Component {
   render() {
     const classes = this.props.classes;
     return (
-      <div className={this.props.data.booked ? classes.cardBooked : this.props.data.type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
+      <div className={this.props.data.chat_status === "ChatStatus.RESERVED" ? classes.cardBooked : this.props.data.chat_type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.chat_type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
+        {/* need to get image from s3 bucket --  */}
         <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
         <div className={classes.container}>
           <Grid
@@ -328,14 +329,15 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <h1 className={classes.title}>
-                {this.props.data.type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
-                {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''}
+                {this.props.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                {this.props.data.chat_status === "ChatStatus.PENDING" ? <span className={classes.booked}> booked </span> : ''}
               </h1>
-              <p className={classes.subtitle}><span className={classes.name}>{this.props.data.name}</span> {this.props.data.title}</p>
-              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>
-              {this.props.data.tags !== "None" ? this.props.data.tags.map((tag, key) => (
-                <span key={key} className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
-              )) : null}
+              <p className={classes.subtitle}><span className={classes.name}>{this.props.data.senior_executive}</span> {this.props.data.title}</p>
+              <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span> Random Company</span>
+              
+              {this.props.data && this.props.data.chat_tags && this.props.data.chat_tags.map((tag, key) => (
+                <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
+              ))}
             </Grid>
             <Grid
               container
@@ -345,7 +347,7 @@ class CoffeeChatCard extends Component {
               justify="flex-start"
             >
               <hr className={classes.bar}></hr>
-              <span className={classes.date}>Available: {this.props.data.available}</span>
+              <span className={classes.date}>Available: {this.props.data.date}</span>
             </Grid>
             <Grid
               container
@@ -358,7 +360,6 @@ class CoffeeChatCard extends Component {
             </Grid>
           </Grid>
         </div>
-
 
         <Dialog
           className={classes.translate}
@@ -419,9 +420,9 @@ class CoffeeChatCard extends Component {
                     justify="flex-start"
                   >
                     <h1 className={classes.title2}>
-                      {this.props.data.type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
-                      {this.props.data.booked ? <span className={classes.booked2}>booked</span> : ''} with&nbsp;
-                      <span className={classes.name2}>{this.props.data.name}</span>
+                      {this.props.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
+                      {this.props.data.booked ? <span className={classes.booked}>booked</span> : ''} with&nbsp;
+                      <span className={classes.name2}>{this.props.data.senior_executive}</span>
                     </h1>
                   </Grid>
                   <Grid
@@ -431,7 +432,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.subtitle2}><span>{this.props.data.title} @ </span>{this.props.data.company}</span>
+                    <span className={classes.subtitle2}><span>{this.props.data.senior_executive} @ </span>{this.props.data.company} Random Company</span>
                   
                   </Grid>
                   <Grid
@@ -459,7 +460,7 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.credits}>25 Credits</span>
+                    <span className={classes.credits}>{this.props.data.credits} Credits</span>
                   </Grid>
                 </Grid>
               </Grid>
@@ -476,8 +477,6 @@ class CoffeeChatCard extends Component {
               </Grid>             
             </DialogContentText>
           </DialogContent>
-          <DialogActions>    
-          </DialogActions>
         </Dialog>
       </div>
     )

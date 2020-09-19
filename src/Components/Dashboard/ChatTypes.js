@@ -1,7 +1,7 @@
 const ChatTypes = {
-	oneOnOne: 'OneOnOne',
-	fourOnOne: 'FourOnOne',
-	mockInterview: 'MockInterview'
+	oneOnOne: 'ChatType.ONE_ON_ONE',
+	fourOnOne: 'ChatType.ONE_ON_FOUR',
+	mockInterview: 'ChatType.MOCK_INTERVIEW'
 }
 
 export default ChatTypes;

@@ -3,10 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
-import TestData from "./CoffeeChatsTestData";
+import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
-
+import EmptyCard from "./Cards/EmptyCard";
 const useStyles = makeStyles(() => ({
 
   mainPage: {
@@ -74,15 +74,15 @@ class CoffeeChats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // temporary - just wanted more test data to fill the page
-      coffee_chats: [...TestData, ...TestData],
-      job_applications: [],
-      job_postings: []
+      chats: []
     }
   }
 
   fetchChats = async () => {
-    await httpGet("chats");
+    const existingChatsData = await httpGet("chats", localStorage.getItem("idToken"));
+    this.setState({
+      chats: existingChatsData.data.chats
+    })
   }
 
   componentDidMount() {
@@ -91,6 +91,7 @@ class CoffeeChats extends Component {
 
   render() {
     const classes = this.props.classes;
+    //const userProfile = this.getUserProfile();
     return (
 
       <div>
@@ -172,6 +173,7 @@ class CoffeeChats extends Component {
                   justify="flex-start"
                 >
                   <p className={classes.section_title}>Additional Filters</p>
+                  <p className={classes.section_title}>Random Company</p>
                 </Grid>
                 <Grid
                   container
@@ -201,24 +203,34 @@ class CoffeeChats extends Component {
               alignItems="center"
               justify="center"
             >
-              {this.state.coffee_chats.map((chat, key) => (
+               {this.state.chats && this.state.chats.length > 0 ?
+              this.state.chats.map((chatData, key) => (
                 <Grid
-                  key={key}
+                  key={chatData.chat_id}
                   container
                   item xs={12} sm={12} md={12} lg={6} 
                   spacing={1}
                   alignItems="center"
                   justify="center"
                 >
-                  <CoffeeChatCard data={chat} />
+                  <CoffeeChatCard data={chatData} />
                 </Grid>
-              ))}
+              ))
+              :
+              <Grid
+                container
+                item xs={12}
+                spacing={1}
+                alignItems="center"
+                justify="center"
+              >
+                <EmptyCard type={CardTypes.coffeeChat}/>
+              </Grid>
+              }
             </Grid>
           </div>
         </PerfectScrollbar>
       </div>
-
-
     )
   }
 }
