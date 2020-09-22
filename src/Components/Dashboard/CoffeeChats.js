@@ -74,8 +74,7 @@ class CoffeeChats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chats: [],
-      
+      chats: []
     }
   }
 
@@ -86,10 +85,8 @@ class CoffeeChats extends Component {
     })
   }
 
-
   componentDidMount() {
     this.fetchChats();
-    
   }
 
   render() {
@@ -185,7 +182,7 @@ class CoffeeChats extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <Filter/>
+                  <Filter />
                 </Grid>
               </Grid>
             </Grid>
@@ -234,8 +231,6 @@ class CoffeeChats extends Component {
           </div>
         </PerfectScrollbar>
       </div>
-
-
     )
   }
 }
