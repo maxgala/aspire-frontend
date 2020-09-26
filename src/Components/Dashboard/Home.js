@@ -5,9 +5,10 @@ import EmptyCard from "./Cards/EmptyCard";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
-import TestData from "./CoffeeChatsTestData";
 import CardTypes from "./CardTypes";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+import { httpGet } from "../../lib/dataAccess";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   home_page: { 
@@ -55,10 +56,49 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coffee_chats: TestData,
-      job_applications: props.isSeniorExec ? ["1"] : ["1", "2"],
-      job_postings: props.isSeniorExec ? ["1", "2"] : ["1"]
+      coffee_chats: [],
+      job_applications: [],
+      job_postings: []
     }
+  }
+
+  fetchJobs = async () => {
+    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const jobsData = await httpGet("job-applications?userId=" + userInfo.username, localStorage.getItem("idToken"));
+    const cutOff = this.props.isSeniorExec ? 1 : 2
+    const data = jobsData.data.length > cutOff ? jobsData.data.slice(0, cutOff) : jobsData.data
+
+    const jobAppData = []
+    data.forEach(async job => {
+      const jobData = await httpGet("jobs/" + job.job_id, localStorage.getItem("idToken"));
+      jobAppData.push(jobData.data)
+    })
+    this.setState({
+      job_applications: jobAppData
+    });
+  }
+
+  fetchChats = async () => {
+    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const chatsData = await httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("idToken"));
+    this.setState({
+      coffee_chats: chatsData.data.chats.length > 4 ? chatsData.data.chats.slice(0, 4) : chatsData.data.chats
+    });
+  }
+
+  fetchPostings = async () => {
+    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const jobsData = await httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken"));
+    const cutOff = this.props.isSeniorExec ? 2 : 1
+    this.setState({
+      job_postings: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
+    });
+  }
+
+  componentDidMount() {
+    this.fetchJobs();
+    this.fetchChats();
+    this.fetchPostings();
   }
 
   render() {
@@ -123,7 +163,6 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                {/* TODO: cap at 2 job postings and 1 job application for senior exec */}
                 <Grid
                   container
                   item xs={8} 
@@ -133,16 +172,16 @@ class Home extends Component {
                 >
                   <p className={classes.section_title}>Your Job Applications</p>
                   {this.state.job_applications && this.state.job_applications.length > 0 ?
-                    this.state.job_applications.map((app, key) => (
+                    this.state.job_applications.map((jobData, key) => (
                       <Grid
-                        key={key}
+                        key={jobData.job_id}
                         container
                         item xs={12}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobApplicationCard/>
+                        <JobApplicationCard data={jobData}/>
                       </Grid>
                     ))
                   :
@@ -175,7 +214,7 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobPostingCard/>
+                        <JobPostingCard data={posting}/>
                       </Grid>
                     ))
                   :
@@ -199,7 +238,6 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                {/* TODO: cap at 2 job applications and 1 job posting for senior exec */}
                 <Grid
                   container
                   item xs={12} sm={12} md={12} lg={8}
@@ -209,16 +247,16 @@ class Home extends Component {
                 >
                   <p className={classes.section_title}>Your Job Application</p>
                   {this.state.job_applications && this.state.job_applications.length > 0 ?
-                    this.state.job_applications.map((app, key) => (
+                    this.state.job_applications.map((jobData, key) => (
                       <Grid
-                        key={key}
+                        key={jobData.job_id}
                         container
                         item xs={12} sm={6}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobApplicationCard/>
+                        <JobApplicationCard data={jobData}/>
                       </Grid>
                     ))
                   :
@@ -244,14 +282,14 @@ class Home extends Component {
                   {this.state.job_postings && this.state.job_postings.length > 0 ?
                     this.state.job_postings.map((posting, key) => (
                       <Grid
-                        key={key}
+                        key={posting.job_id}
                         container
                         item xs={12}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobPostingCard/>
+                        <JobPostingCard data={posting}/>
                       </Grid>
                     ))
                   :
