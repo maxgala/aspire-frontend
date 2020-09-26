@@ -43,3 +43,29 @@ export const httpPost = (endPoint, accessToken, body) => {
       });
   });
 }
+
+export const httpPut = (endPoint, accessToken, body) => {
+  let url = "api/" + endPoint;
+
+  return new Promise(async (resolve, reject) => {
+    axios
+      .put(
+        url,
+        body,
+        {
+          headers: {
+            Authorization:
+              "Bearer " + accessToken,
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .then((response) => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
