@@ -160,36 +160,6 @@ function withMyHook(Component){
     }
 }
 
-const CustomForm = ({ status, message, onValidated, classes, email }) => {
-    let checked = false
-
-    const submit = () =>
-        email &&
-        email.indexOf("@") > -1 &&
-        onValidated({
-          EMAIL: email
-        });
-
-    return (
-        <Grid item xs={12}>
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={checked}
-                        onChange={submit}
-                        name="checkedD"
-                    />}
-                label={
-                    <Tooltip title={
-                        <p>TODO: tooltip text</p>}>
-                        <b>I would like to signup for MAX Aspire related emails</b>
-                    </Tooltip>
-                }
-            />
-        </Grid>
-    );
-};
-
 class FinalPage extends Component{
     constructor(props) {
         super(props);
@@ -317,18 +287,6 @@ class FinalPage extends Component{
         this.setState({
             confirmationCode: event.target.value
         })
-    };
-
-    handleAspireEmailChoice = (event) => {
-        if (this.state.aspire_email_consent ===  false) {
-            this.setState({
-                aspire_email_consent: true,
-            })
-        } else {
-            this.setState({
-                aspire_email_consent: false,
-            })
-        }
     };
 
     handleStripeClose = (event) => {
@@ -475,34 +433,18 @@ class FinalPage extends Component{
                                     }
                                 />
                             </Grid>
-                            <MailchimpSubscribe
-                                url={this.state.url}
-                                render={({ subscribe, status, message }) => (
-                                    <CustomForm
-                                        status={status}
-                                        message={message}
-                                        onValidated={formData => subscribe(formData)}
-                                        classes={classes}
-                                        email={this.state.email}
-                                    />
-                                )}
-                            />
-                            {/*<Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.aspire_email_consent}
-                                            onChange={this.handleAspireEmailChoice}
-                                            name="checkedD"
-                                        />}
-                                    label={
-                                        <Tooltip title={
-                                            <p>TODO: tooltip text</p>}>
-                                            <b>I would like to signup for MAX Aspire related emails</b>
-                                        </Tooltip>
-                                    }
+                            <Grid item xs={12}>
+                                <Tooltip title={
+                                    <p>Senior Executive means the chief executive officer,
+                                        chief operating officer, chief financial officer, or
+                                        anyone in charge of a principal business unit or function.
+                                    </p>}>
+                                    <b>If you would like to be added to the MAX Aspire mailing service, please confirm your email!</b>
+                                </Tooltip>
+                                <MailchimpSubscribe
+                                    url={this.state.url}
                                 />
-                            </Grid>*/}
+                            </Grid>
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={
