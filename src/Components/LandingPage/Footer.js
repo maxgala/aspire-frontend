@@ -126,16 +126,16 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
         alignItems="center"
         justify="flex-start"
       >
-        {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
+        {status === "sending" && <div style={{ color: "blue", fontSize: '12px' }}>sending...</div>}
         {status === "error" && (
           <div
-            style={{ color: "red" }}
+            style={{ color: "red", fontSize: '12px' }}
             dangerouslySetInnerHTML={{ __html: message }}
           />
         )}
         {status === "success" && (
           <div
-            style={{ color: "green" }}
+            style={{ color: "green", fontSize: '12px' }}
             dangerouslySetInnerHTML={{ __html: message }}
           />
         )}
