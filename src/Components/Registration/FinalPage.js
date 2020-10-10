@@ -435,10 +435,7 @@ class FinalPage extends Component{
                             </Grid>
                             <Grid item xs={12}>
                                 <Tooltip title={
-                                    <p>Senior Executive means the chief executive officer,
-                                        chief operating officer, chief financial officer, or
-                                        anyone in charge of a principal business unit or function.
-                                    </p>}>
+                                    <p>MAX Aspire will only reach out to you for important updates including (but not limited to) subscription expiration, new features, security concerns, and other important updates. We may also reach out to inform you about big events MAX is hosting and other major updates in the Muslim Community.</p>}>
                                     <b>If you would like to be added to the MAX Aspire mailing service, please confirm your email!</b>
                                 </Tooltip>
                                 <MailchimpSubscribe
