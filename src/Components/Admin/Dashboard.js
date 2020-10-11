@@ -171,9 +171,6 @@ class Dashboard extends Component {
   render(){
     const classes = this.props.classes;
     return (
-
-
-
             <div >
               <Toolbar className={classes.toolbar}>
                 <div className={classes.navLogo} onClick={this.handleClick}>
