@@ -81,18 +81,22 @@ class Home extends Component {
   fetchChats = async () => {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
     const chatsData = await httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("idToken"));
-    this.setState({
-      coffee_chats: chatsData.data.chats.length > 4 ? chatsData.data.chats.slice(0, 4) : chatsData.data.chats
-    });
+    if(chatsData.data.chats !== undefined) {
+      this.setState({
+        coffee_chats: chatsData.data.chats.length > 4 ? chatsData.data.chats.slice(0, 4) : chatsData.data.chats
+      });
+    }
   }
 
   fetchPostings = async () => {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
     const jobsData = await httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken"));
     const cutOff = this.props.isSeniorExec ? 2 : 1
-    this.setState({
-      job_postings: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
-    });
+    if(jobsData.data.jobs !== undefined) {
+      this.setState({
+        job_postings: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
+      });
+    }
   }
 
   componentDidMount() {
