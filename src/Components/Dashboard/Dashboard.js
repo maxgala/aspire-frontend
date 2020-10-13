@@ -23,6 +23,8 @@ import home from "../Images/navbar/home_web.svg";
 import community from "../Images/navbar/community_web.svg";
 import jobs from "../Images/navbar/jobs_web.svg";
 import chats from "../Images/navbar/chats_web.svg";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const drawerWidth = 300;
 
@@ -189,7 +191,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       currentScreen: [],
-      open: true
+      open: true,
+      anchorEl: null
     }
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -201,6 +204,15 @@ class Dashboard extends Component {
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
   }
+
+  handleClick = (event) => {
+    this.setState({ anchorEl: event.currentTarget });
+    console.log(event.currentTarget);
+  };
+
+  handleSelect = () => {
+    this.setState({ anchorEl: null });
+  };
 
   setOpen(toggleValue) {
     this.setState({open: toggleValue})
@@ -221,30 +233,35 @@ class Dashboard extends Component {
   }
 
   changeToResumeBank() {
+    this.handleSelect();
     this.setState({
       currentScreen: <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToCommunity() {
+    this.handleSelect();
     this.setState({
       currentScreen: <Community appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToCoffeeChats() {
+    this.handleSelect();
     this.setState({
       currentScreen: <CoffeeChats appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToJobs() {
+    this.handleSelect();
     this.setState({
       currentScreen: <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToDashboard() {
+    this.handleSelect();
     this.setState({
       currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
@@ -275,13 +292,6 @@ class Dashboard extends Component {
             <div className={classes.navLogo} onClick={this.handleClick}>
               <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
             </div>
-            {/*<Button
-              variant="outlined"
-              className={classes.coffee_chat_text}
-              onClick={this.changeToResumeBank}
-            >
-              <img style={{width: '80px', height: '60px', padding: '0px'}} src={home} alt={"Jobs Tab"}/>
-            </Button>*/}
             <Button
               variant="outlined"
               className={classes.dashboard}
@@ -292,10 +302,21 @@ class Dashboard extends Component {
             <Button
               variant="outlined"
               className={classes.community}
-              onClick={this.changeToCommunity}
+              onClick={this.handleClick}
             >
               <img style={{width: '80px', height: '60px', padding: '0px'}} src={community} alt={"Community Tab"}/>
             </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={this.state.anchorEl}
+              keepMounted
+              open={Boolean(this.state.anchorEl)}
+              onClose={() => {this.setState({anchorEl: null})}}
+              style={{ marginTop: '45px'}}
+            >
+              <MenuItem key={"community"} onClick={() => this.changeToCommunity}>Show Members</MenuItem>
+              <MenuItem key={"resume_bank"} onClick={() => this.changeToResumeBank}>Resume Bank</MenuItem>
+            </Menu>
             <Button
               variant="outlined"
               className={classes.jobs}
@@ -303,6 +324,17 @@ class Dashboard extends Component {
             >
               <img style={{width: '80px', height: '60px', padding: '0px'}} src={jobs} alt={"Jobs Tab"}/>
             </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={this.state.anchorEl}
+              keepMounted
+              open={Boolean(this.state.anchorEl)}
+              onClose={() => {this.setState({anchorEl: null})}}
+              style={{ marginTop: '45px'}}
+            >
+              <MenuItem key={"postings"} onClick={() => this.changeToJobs}>Postings</MenuItem>
+              <MenuItem key={"view_submissions"} onClick={() => this.changeToJobs}>View Submissions</MenuItem>
+            </Menu>
             <Button
               variant="outlined"
               className={classes.coffee_chats}
