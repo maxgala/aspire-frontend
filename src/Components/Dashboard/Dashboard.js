@@ -41,6 +41,22 @@ const useStyles = makeStyles(theme => ({
     width: '150px',
     cursor: 'pointer'
   },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
+  },
   profile_container: {
     '@media (max-width: 963px)': {
       width: '0px',
@@ -158,22 +174,6 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
 }));
 
 function withMyHook(Component) {
@@ -275,40 +275,40 @@ class Dashboard extends Component {
             <div className={classes.navLogo} onClick={this.handleClick}>
               <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
             </div>
-            <Button
+            {/*<Button
               variant="outlined"
               className={classes.coffee_chat_text}
               onClick={this.changeToResumeBank}
             >
-              <b>Resume Bank</b>
-            </Button>
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={home} alt={"Jobs Tab"}/>
+            </Button>*/}
             <Button
               variant="outlined"
-              className={classes.jobs_text}
-              onClick={this.changeToCommunity}
-            >
-              <b>Community</b>
-            </Button>
-            <Button
-              variant="outlined"
-              className={classes.jobs_text}
-              onClick={this.changeToCoffeeChats}
-            >
-              <b>Coffee Chats</b>
-            </Button>
-            <Button
-              variant="outlined"
-              className={classes.jobs_text}
-              onClick={this.changeToJobs}
-            >
-              <b>Jobs</b>
-            </Button>
-            <Button
-              variant="outlined"
-              className={classes.dashboard_text}
+              className={classes.dashboard}
               onClick={this.changeToDashboard}
             >
-              <b>Dashboard</b>
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={home} alt={"Home Tab"}/>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.community}
+              onClick={this.changeToCommunity}
+            >
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={community} alt={"Community Tab"}/>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.jobs}
+              onClick={this.changeToJobs}
+            >
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={jobs} alt={"Jobs Tab"}/>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.coffee_chats}
+              onClick={this.changeToCoffeeChats}
+            >
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={chats} alt={"Coffee Chats Tab"}/>
             </Button>
             <Button
               variant="outlined"
