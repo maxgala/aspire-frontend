@@ -48,8 +48,8 @@ class Features extends Component{
         >  
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
-            spacing={1}
+            item xs={12} sm={9} md={6} lg={true}
+            spacing={2}
             alignItems="center"
             justify="center"
           >
@@ -61,8 +61,8 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
-            spacing={1}
+            item xs={12} sm={9} md={6} lg={true}
+            spacing={2}
             alignItems="center"
             justify="center"
           >
@@ -74,8 +74,8 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
-            spacing={1}
+            item xs={12} sm={9} md={6} lg={true}
+            spacing={2}
             alignItems="center"
             justify="center"
           >
@@ -87,8 +87,8 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
-            spacing={1}
+            item xs={12} sm={9} md={6} lg={true}
+            spacing={2}
             alignItems="center"
             justify="center"
           >
@@ -100,8 +100,8 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
-            spacing={1}
+            item xs={12} sm={9} md={6} lg={true}
+            spacing={2}
             alignItems="center"
             justify="center"
           >
@@ -113,8 +113,8 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
-            spacing={1}
+            item xs={12} sm={9} md={6} lg={true}
+            spacing={2}
             alignItems="center"
             justify="center"
           >
