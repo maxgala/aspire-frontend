@@ -4,8 +4,12 @@ import Grid from "@material-ui/core/Grid";
 import Filter from "./Cards/FilterCard";
 import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CommunityCard from "./Cards/CommunityCard";
-import TestData from "./CoffeeChatsTestData";
+//import TestData from "./CoffeeChatsTestData";
+import { config } from "../../config";
+import "amazon-cognito-identity-js";
 
+//cognito 
+var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 
 const useStyles = makeStyles(() => ({
 
@@ -74,14 +78,42 @@ function withMyHook(Component) {
   }
 }
 
+export const authenticate = () => {
+  
+  var poolData = {
+    UserPoolId: config.REACT_APP_USER_POOL_ID,
+    ClientId: config.REACT_APP_CLIENT_ID
+  };
+  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  var userData = {
+    Username: 'ahmed.r.hamodi@gmail.com',
+    Pool: userPool
+  };
+  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+  return new Promise((resolve, reject) => {
+
+    cognitoUser.getUserData(function(err, userData) {
+      if (err) {
+          alert(err.message || JSON.stringify(err));
+          return;
+      }
+      console.log('User data for user ' + userData);
+  });
+  }
+    
+  )
+}
+
+
 class JobBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // temporary - just wanted more test data to fill the page
-      community_data: [...TestData, ...TestData, ...TestData],
+      // community_data: [...TestData, ...TestData, ...TestData],
     }
-  }
+  };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -90,7 +122,7 @@ class JobBoard extends Component {
         <PerfectScrollbar>
           <div className={classes.mainPage}>
           <div className={classes.padding}>
-              <h1 className={classes.JobBoard}>Job Board</h1>
+              <h1 className={classes.JobBoard}></h1>
             </div>
           <Grid
               container
