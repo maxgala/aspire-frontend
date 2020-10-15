@@ -4,7 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Newsletter from "../Images/newsletter.png";
 import Grid from "@material-ui/core/Grid";
 import TextField from '@material-ui/core/TextField';
-import { faFacebookF, faInstagram, faLinkedin, faReact } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF, faInstagram, faLinkedin, faReact , faTwitter} from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 
@@ -126,16 +126,16 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
         alignItems="center"
         justify="flex-start"
       >
-        {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
+        {status === "sending" && <div style={{ color: "blue", fontSize: '12px' }}>sending...</div>}
         {status === "error" && (
           <div
-            style={{ color: "red" }}
+            style={{ color: "red", fontSize: '12px' }}
             dangerouslySetInnerHTML={{ __html: message }}
           />
         )}
         {status === "success" && (
           <div
-            style={{ color: "green" }}
+            style={{ color: "green", fontSize: '12px' }}
             dangerouslySetInnerHTML={{ __html: message }}
           />
         )}
@@ -154,7 +154,7 @@ const CustomForm = ({ status, message, onValidated, classes }) => {
         alignItems="center"
         justify="flex-start"
       >
-        <Button onClick={submit} className={classes.subscribeButton} variant="contained">Sign Up</Button>
+        <Button onClick={submit} className={classes.subscribeButton} variant="contained">Subscribe</Button>
       </Grid>
     </Grid>
   );
@@ -190,6 +190,7 @@ class Footer extends Component {
         </div>
         <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black'}}>
           <a href="https://www.facebook.com/muslimawardsXgala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faFacebookF} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://twitter.com/max_gala" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faTwitter} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
           <a href="https://www.instagram.com/max.gala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faInstagram} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
           <a href="https://www.linkedin.com/company/max-muslim-awards/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faLinkedin} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
           <a href="http://maxgala.com/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faReact} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>

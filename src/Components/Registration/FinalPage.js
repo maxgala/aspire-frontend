@@ -22,6 +22,8 @@ import Landing from "../LandingPage/Landing";
 import { Auth } from 'aws-amplify';
 import TextField from '@material-ui/core/TextField';
 import { Document, Page, pdfjs } from "react-pdf";
+import MailchimpSubscribe from "react-mailchimp-subscribe";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const useStyles = makeStyles((theme) => ({
@@ -179,7 +181,6 @@ class FinalPage extends Component{
             resumeURL: this.props.prev ? this.props.prev.resumeURL : '',
             profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
-            general_email_consent: this.props.prev ? this.props.prev.general_email_consent : false,
             aspire_email_consent: this.props.prev ? this.props.prev.aspire_email_consent : false,
             aspire_free: true,
             aspire_premium: false,
@@ -191,7 +192,8 @@ class FinalPage extends Component{
             confirmationCode: '',
             openStripe: false,
             tocNumPages: null,
-            privacyNumPages: null
+            privacyNumPages: null,
+            url: process.env.REACT_APP_MAILCHIMP_URL
         }
     }
 
@@ -287,30 +289,6 @@ class FinalPage extends Component{
         })
     };
 
-    handleGeneralEmailChoice = (event) => {
-        if (this.state.general_email_consent ===  false) {
-            this.setState({
-                general_email_consent: true,
-            })
-        } else {
-            this.setState({
-                general_email_consent: false,
-            })
-        }
-    };
-
-    handleAspireEmailChoice = (event) => {
-        if (this.state.aspire_email_consent ===  false) {
-            this.setState({
-                aspire_email_consent: true,
-            })
-        } else {
-            this.setState({
-                aspire_email_consent: false,
-            })
-        }
-    };
-
     handleStripeClose = (event) => {
         this.setState({
             openStripe: false
@@ -401,14 +379,14 @@ class FinalPage extends Component{
                                     />
                                 </Grid>
                                 <Button
-                                        disabled={!this.state.checked}
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                        className={classes.submit}
-                                        onClick={this.handleSubmit}
-                                    >
-                                        <b>Submit</b>
+                                    disabled={!this.state.checked}
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                    onClick={this.handleSubmit}
+                                >
+                                    <b>Submit</b>
                                 </Button>
                             </div>
                         </Grid>
@@ -456,35 +434,12 @@ class FinalPage extends Component{
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.general_email_consent}
-                                            onChange={this.handleGeneralEmailChoice}
-                                            name="checkedD"
-                                        />}
-                                    label={
-                                        <Tooltip title={
-                                            <p>TODO: tooltip text</p>}>
-                                            <b>I would like to signup for general MAX related emails</b>
-                                        </Tooltip>
-                                    }
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.aspire_email_consent}
-                                            onChange={this.handleAspireEmailChoice}
-                                            name="checkedD"
-                                        />}
-                                    label={
-                                        <Tooltip title={
-                                            <p>TODO: tooltip text</p>}>
-                                            <b>I would like to signup for MAX Aspire related emails</b>
-                                        </Tooltip>
-                                    }
+                                <Tooltip title={
+                                    <p>MAX Aspire will only reach out to you for important updates including (but not limited to) subscription expiration, new features, security concerns, and other important updates. We may also reach out to inform you about big events MAX is hosting and other major updates in the Muslim Community.</p>}>
+                                    <b>If you would like to be added to the MAX Aspire mailing service, please confirm your email!</b>
+                                </Tooltip>
+                                <MailchimpSubscribe
+                                    url={this.state.url}
                                 />
                             </Grid>
                             <Grid item xs={12}>

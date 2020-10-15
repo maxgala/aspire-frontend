@@ -122,19 +122,19 @@ class AboutContent extends Component{
       <div className={classes.h1style}>
         <h1 className={classes.f1}><b>About MAX Aspire</b></h1>
         <p className={classes.f2}>
-          MAX Aspire is an online platform to connect accomplished, high performing Senior Professionals who have made a commitment to meeting and advising Aspiring Professionals in the MAX network.
+          MAX Aspire is an online platform to connect accomplished, high performing Senior Executives who have made a commitment to meeting and advising Aspiring Professionals in the MAX network.
         </p>
         <p className={classes.f2}>
-          These noteworthy Senior Professionals have excelled in their respective fields and have a large network.
+          These noteworthy Senior Executives have excelled in their respective fields and have a large network.
         </p>
         <p className={classes.tab} style={{marginTop: '60px'}}> <img src={icon2} alt="access"/>
-          <span className={classes.f3}><b>Privileged Access to Senior Level Professionals, including curated meetings</b></span>
+          <span className={classes.f3}><b>Privileged access to Senior Level Professionals, including curated meetings</b></span>
         </p>
         <p className={classes.tab}> <img src={icon1} alt="career"/>
-          <span className={classes.f3}><b>Professional Career and Board Opportunities</b></span>
+          <span className={classes.f3}><b>Professional career and board opportunities</b></span>
         </p>
         <p className={classes.tab}> <img src={icon3} alt="exec board"/>
-          <span className={classes.f3}><b>Ability to Apply and Hire From Exclusive Job Board</b></span>
+          <span className={classes.f3}><b>Ability to apply to and hire from exclusive Job Board</b></span>
         </p>
       </div>
     )

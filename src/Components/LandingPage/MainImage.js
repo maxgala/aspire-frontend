@@ -173,7 +173,7 @@ class MainImage extends Component {
             className={classes.button}
             variant="contained"
           >
-            Membership
+            Memberships
           </Button>
        
           <Button
