@@ -234,7 +234,6 @@ class JobPostingCard extends Component {
     })
   };
 
-  onSubmit
 
   render() {
     const classes = this.props.classes;
