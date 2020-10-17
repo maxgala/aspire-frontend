@@ -113,8 +113,10 @@ function withMyHook(Component) {
 
 class JobApplicationCard extends Component {
 
+  
 
   render() {
+
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
@@ -135,7 +137,7 @@ class JobApplicationCard extends Component {
               justify="center"
             > 
               <img className={classes.image} src={image} alt={"Community Chat Card"}/>
-              <h1 className={classes.name}>{this.props.data.name}</h1>
+              <h1 className={classes.name}>{this.props.data.username}</h1>
               <p className={classes.title}>{this.props.data.title}</p> 
               <p className={classes.subtitle}>Toronto, ON</p>
               <span className={classes.subtitle}><span><FontAwesomeIcon icon={faBuilding} className={classes.company_icon}/></span>{this.props.data.company}</span>

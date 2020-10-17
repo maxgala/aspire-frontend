@@ -7,9 +7,8 @@ import CommunityCard from "./Cards/CommunityCard";
 //import TestData from "./CoffeeChatsTestData";
 import { config } from "../../config";
 import "amazon-cognito-identity-js";
+import { httpGet } from "../../lib/dataAccess";
 
-//cognito 
-var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 
 const useStyles = makeStyles(() => ({
 
@@ -78,42 +77,30 @@ function withMyHook(Component) {
   }
 }
 
-export const authenticate = () => {
-  
-  var poolData = {
-    UserPoolId: config.REACT_APP_USER_POOL_ID,
-    ClientId: config.REACT_APP_CLIENT_ID
-  };
-  var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-  var userData = {
-    Username: 'ahmed.r.hamodi@gmail.com',
-    Pool: userPool
-  };
-  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  return new Promise((resolve, reject) => {
-
-    cognitoUser.getUserData(function(err, userData) {
-      if (err) {
-          alert(err.message || JSON.stringify(err));
-          return;
-      }
-      console.log('User data for user ' + userData);
-  });
-  }
-    
-  )
-}
-
 
 class JobBoard extends Component {
   constructor(props) {
+    this.userTest = this.props.data.users;
     super(props);
     this.state = {
+      users: []
       // temporary - just wanted more test data to fill the page
       // community_data: [...TestData, ...TestData, ...TestData],
     }
-  };
+  }
 
+ 
+  
+  fetchUsers = async () => {
+    const existingUsersData = await httpGet("users", localStorage.getItem("idToken"));
+    this.setState({
+      users: []
+    })
+  }
+
+  componentDidMount() {
+    this.fetchUsers();
+  }
   render() {
     const classes = this.props.classes;
     return (
@@ -236,7 +223,7 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              {this.state.community_data.map((chat, key) => (
+              {this.state.community_data.map((userData, key) => (
                 <Grid
                   key={key}
                   container
@@ -245,7 +232,7 @@ class JobBoard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <CommunityCard data={chat} />
+                  <CommunityCard data={userData} />
                 </Grid>
               ))}
             </Grid>
