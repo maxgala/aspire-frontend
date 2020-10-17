@@ -9,35 +9,6 @@ import Quotes from "./Quotes.js";
 import { Swipeable } from 'react-swipeable';
 
 const useStyles = makeStyles(theme => ({
-  // TODO: find way to do this with makeStyles
-  // navigation: {
-  //   display: 'flex',
-  //    justifyContent: 'center',
-  //    span: {
-  //      height: '20px',
-  //      width: '20px',
-  //      margin: '0 3px',
-  //      display: 'flex',
-  //      alignItems: 'center',
-  //      justifyContent: 'center',
-  //      cursor: 'pointer',
-  //    }
-  //    span::before: {
-  //      content:"";
-  //      height:6px;
-  //      width:6px;
-  //      background-color:#d4d4d4;
-  //      border-radius:50%;
-  //      transition:background-color 0.3s ease;
-
-  //    }
-  //    span:hover::before{
-  //      background-color:#45454d
-  //    }
-  //    span[data-image="${this.state.active}"]::before{
-  //     background-color:#45454d
-  //    }
-  // },
   rightArrow: {
     cursor: 'pointer',
     position: 'absolute',
@@ -121,6 +92,10 @@ class Quote extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   HandleRightArrowClick = (event) => {
