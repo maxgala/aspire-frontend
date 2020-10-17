@@ -69,19 +69,23 @@ class Home extends Component {
     const data = jobsData.data.length > cutOff ? jobsData.data.slice(0, cutOff) : jobsData.data
 
     const jobAppData = []
-    data.forEach(async job => {
-      const jobData = await httpGet("jobs/" + job.job_id, localStorage.getItem("idToken"));
-      jobAppData.push(jobData.data)
-    })
-    this.setState({
-      job_applications: jobAppData
-    });
+    // data should never return an empty string, but it is currently
+    // backend team should fix this so it returns either undefined or [], [] being more preferred
+    if (data !== undefined && data !== "") {
+      data.forEach(async job => {
+        const jobData = await httpGet("jobs/" + job.job_id, localStorage.getItem("idToken"));
+        jobAppData.push(jobData.data)
+      })
+      this.setState({
+        job_applications: jobAppData
+      });
+    }
   }
 
   fetchChats = async () => {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
     const chatsData = await httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("idToken"));
-    if(chatsData.data.chats !== undefined) {
+    if (chatsData.data.chats !== undefined) {
       this.setState({
         coffee_chats: chatsData.data.chats.length > 4 ? chatsData.data.chats.slice(0, 4) : chatsData.data.chats
       });
@@ -92,7 +96,7 @@ class Home extends Component {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
     const jobsData = await httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken"));
     const cutOff = this.props.isSeniorExec ? 2 : 1
-    if(jobsData.data.jobs !== undefined) {
+    if (jobsData.data.jobs !== undefined) {
       this.setState({
         job_postings: jobsData.data.jobs.length > cutOff ? jobsData.data.jobs.slice(0, cutOff) : jobsData.data.jobs
       });
