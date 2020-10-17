@@ -192,7 +192,8 @@ class Dashboard extends Component {
     this.state = {
       currentScreen: [],
       open: true,
-      anchorEl: null
+      jobsAnchorEl: null,
+      communityAnchorEl: null
     }
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -205,13 +206,17 @@ class Dashboard extends Component {
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
   }
 
-  handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget });
-    console.log(event.currentTarget);
+  handleJobsClick = (event) => {
+    this.setState({ jobsAnchorEl: event.currentTarget });
+  };
+
+  handleCommunityClick = (event) => {
+    this.setState({ communityAnchorEl: event.currentTarget });
   };
 
   handleSelect = () => {
-    this.setState({ anchorEl: null });
+    this.setState({ jobsAnchorEl: null });
+    this.setState({ communityAnchorEl: null });
   };
 
   setOpen(toggleValue) {
@@ -302,38 +307,38 @@ class Dashboard extends Component {
             <Button
               variant="outlined"
               className={classes.community}
-              onClick={this.handleClick}
+              onClick={this.handleCommunityClick}
             >
               <img style={{width: '80px', height: '60px', padding: '0px'}} src={community} alt={"Community Tab"}/>
             </Button>
             <Menu
-              id="simple-menu"
-              anchorEl={this.state.anchorEl}
+              id="simple-menu1"
+              anchorEl={this.state.communityAnchorEl}
               keepMounted
-              open={Boolean(this.state.anchorEl)}
-              onClose={() => {this.setState({anchorEl: null})}}
+              open={Boolean(this.state.communityAnchorEl)}
+              onClose={() => {this.setState({communityAnchorEl: null})}}
               style={{ marginTop: '45px'}}
             >
-              <MenuItem key={"community"} onClick={() => this.changeToCommunity}>Show Members</MenuItem>
-              <MenuItem key={"resume_bank"} onClick={() => this.changeToResumeBank}>Resume Bank</MenuItem>
+              <MenuItem key={"community"} onClick={this.changeToCommunity}>Show Members</MenuItem>
+              <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>Resume Bank</MenuItem>
             </Menu>
             <Button
               variant="outlined"
               className={classes.jobs}
-              onClick={this.changeToJobs}
+              onClick={this.handleJobsClick}
             >
               <img style={{width: '80px', height: '60px', padding: '0px'}} src={jobs} alt={"Jobs Tab"}/>
             </Button>
             <Menu
-              id="simple-menu"
-              anchorEl={this.state.anchorEl}
+              id="simple-menu2"
+              anchorEl={this.state.jobsAnchorEl}
               keepMounted
-              open={Boolean(this.state.anchorEl)}
-              onClose={() => {this.setState({anchorEl: null})}}
+              open={Boolean(this.state.jobsAnchorEl)}
+              onClose={() => {this.setState({jobsAnchorEl: null})}}
               style={{ marginTop: '45px'}}
             >
-              <MenuItem key={"postings"} onClick={() => this.changeToJobs}>Postings</MenuItem>
-              <MenuItem key={"view_submissions"} onClick={() => this.changeToJobs}>View Submissions</MenuItem>
+              <MenuItem key={"postings"} onClick={this.changeToJobs}>Postings</MenuItem>
+              <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>View Submissions</MenuItem>
             </Menu>
             <Button
               variant="outlined"
