@@ -306,22 +306,11 @@ class Dashboard extends Component {
             </Button>
             <Button
               variant="outlined"
-              className={classes.community}
-              onClick={this.handleCommunityClick}
+              className={classes.coffee_chats}
+              onClick={this.changeToCoffeeChats}
             >
-              <img style={{width: '80px', height: '60px', padding: '0px'}} src={community} alt={"Community Tab"}/>
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={chats} alt={"Coffee Chats Tab"}/>
             </Button>
-            <Menu
-              id="simple-menu1"
-              anchorEl={this.state.communityAnchorEl}
-              keepMounted
-              open={Boolean(this.state.communityAnchorEl)}
-              onClose={() => {this.setState({communityAnchorEl: null})}}
-              style={{ marginTop: '45px'}}
-            >
-              <MenuItem key={"community"} onClick={this.changeToCommunity}>Show Members</MenuItem>
-              <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>Resume Bank</MenuItem>
-            </Menu>
             <Button
               variant="outlined"
               className={classes.jobs}
@@ -342,11 +331,22 @@ class Dashboard extends Component {
             </Menu>
             <Button
               variant="outlined"
-              className={classes.coffee_chats}
-              onClick={this.changeToCoffeeChats}
+              className={classes.community}
+              onClick={this.handleCommunityClick}
             >
-              <img style={{width: '80px', height: '60px', padding: '0px'}} src={chats} alt={"Coffee Chats Tab"}/>
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={community} alt={"Community Tab"}/>
             </Button>
+            <Menu
+              id="simple-menu1"
+              anchorEl={this.state.communityAnchorEl}
+              keepMounted
+              open={Boolean(this.state.communityAnchorEl)}
+              onClose={() => {this.setState({communityAnchorEl: null})}}
+              style={{ marginTop: '45px'}}
+            >
+              <MenuItem key={"community"} onClick={this.changeToCommunity}>Show Members</MenuItem>
+              <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>Resume Bank</MenuItem>
+            </Menu>
             <Button
               variant="outlined"
               className={classes.user_profile}
