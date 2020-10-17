@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
   // this is used so that we can align the image to the right
   imageLogo: {
     display: "flex",
-    width: "80vw",
     justifyContent: "start",
   },
   // this css element describes the size of the image
@@ -87,14 +86,17 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: "#F1F1F1",
       color: "#484848",
-       }
-    }, 
-    circleProgress: {
-        marginTop: "2%"
-    }
-}
-));
-
+    },
+  }, 
+  circleProgress: {
+    marginTop: "2%"
+  },
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    height: '10vh'
+  }
+}));
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
