@@ -22,16 +22,17 @@ import Nine from "../Images/senior/Hameed_Amir.jpg";
 import Ten from "../Images/senior/Hanafi_Pouneh.jpeg";
 import Eleven from "../Images/senior/Hamidani_Farhan.jpeg";
 import Twelve from "../Images/senior/El Masri_Ghaleb.png";
+import { Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   background_lg: {
     backgroundColor: "white",
-    "@media (max-width: 1000px)": { display: "None" },
+    
   },
   background_md: {
     backgroundColor: "white",
-    "@media (max-width: 550px)": { display: "None" },
-    "@media (min-width: 1000px)": { display: "None" },
+    "@media (max-width: 1000px)": { display: "None" },
+    "@media (min-width: 550px)": { display: "None" },
   },
   background_sm: {
     backgroundColor: "white",
@@ -125,14 +126,14 @@ class SeniorExecGrid extends Component {
             className={classes.grid}
             id="seniors"
           >
-            <Grid
+            {/* <Grid
               container
               item
               xs={8}
               spacing={0}
               alignItems="center"
               justify="center"
-            >
+            > */}
               <Grid
                 container
                 item
@@ -143,8 +144,7 @@ class SeniorExecGrid extends Component {
               >
                 <Grid
                   container
-                  item
-                  xs={6}
+                  item xs={12} sm={9} md={6} lg={4}
                   alignItems="center"
                   justify="center"
                 >
@@ -155,10 +155,11 @@ class SeniorExecGrid extends Component {
                     hover_image={this.state.displayImages[0].photo}
                   />
                 </Grid>
+
+                <Hidden smDown>
                 <Grid
                   container
-                  item
-                  xs={6}
+                  item xs={12} sm={9} md={6} lg={4}
                   alignItems="center"
                   justify="center"
                 >
@@ -170,10 +171,30 @@ class SeniorExecGrid extends Component {
                     hover_image={this.state.displayImages[1].photo}
                   />
                 </Grid>
+                </Hidden>
+                
+                <Hidden mdDown> 
+                <Grid
+                  container
+                  item xs={12} sm={9} md={6} lg={4}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <SeniorExec
+                    name_text="Latafat Faran"
+                    extra_text="Executive Vice President at Core Development Group"
+                    id="theimage"
+                    image={this.state.displayImages[2].photo}
+                    hover_image={this.state.displayImages[2].photo}
+                  />
+                </Grid>
+                </Hidden>
+                
+
                 <SeniorExecText appContext={this.props.appContext} />
               </Grid>
-            </Grid>
-            <Grid
+            {/* </Grid> */}
+            {/* <Grid
               container
               item
               xs={4}
@@ -194,11 +215,11 @@ class SeniorExecGrid extends Component {
                 image={this.state.displayImages[3].photo}
                 hover_image={this.state.displayImages[3].photo}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </div>
 
-        <div className={classes.background_md}>
+        {/* <div className={classes.background_md}>
           <Grid
             container
             item
@@ -264,7 +285,7 @@ class SeniorExecGrid extends Component {
             </Grid>
             <SeniorExecText appContext={this.props.appContext} />
           </Grid>
-        </div>
+        </div> */}
       </div>
     );
   }
