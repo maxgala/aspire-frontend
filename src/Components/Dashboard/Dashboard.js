@@ -19,6 +19,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import home from "../Images/navbar/home_web.svg";
+import community from "../Images/navbar/community_web.svg";
+import jobs from "../Images/navbar/jobs_web.svg";
+import chats from "../Images/navbar/chats_web.svg";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const drawerWidth = 300;
 
@@ -36,6 +42,22 @@ const useStyles = makeStyles(theme => ({
     '@media (max-width: 480px)': {width: '125px'},
     width: '150px',
     cursor: 'pointer'
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: -drawerWidth,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginLeft: 0,
   },
   profile_container: {
     '@media (max-width: 963px)': {
@@ -68,35 +90,41 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  coffee_chat_text: {
+  coffee_chats: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    padding: '0px',
+    '&:hover': {
+      backgroundColor: "#A9A9A9"
+    }
+  },
+  jobs: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    padding: '0px',
+    '&:hover': {
+      backgroundColor: "#A9A9A9"
+    }
+  },
+  community: {
+    fontFamily: "Nunito",
+    textTransform: "capitalize",
+    fontSize: '18px',
+    padding: '0px',
+    '&:hover': {
+      backgroundColor: "#A9A9A9"
+    }
+  },
+  dashboard: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
     marginLeft: 'auto',
+    padding: '0px',
     fontSize: '18px',
-    color: "#F1F1F1",
     '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
-    }
-  },
-  jobs_text: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
-    fontSize: '18px',
-    color: "#F1F1F1",
-    '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
-    }
-  },
-  dashboard_text: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
-    fontSize: '18px',
-    color: "#F1F1F1",
-    '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
+      backgroundColor: "#A9A9A9"
     }
   },
   user_profile: {
@@ -105,11 +133,12 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     color: "#F1F1F1",
     borderRadius: '100%',
+    padding: '0px',
     width: '60px',
     height: '60px',
+    marginLeft: '20px',
     '&:hover': {
-      backgroundColor: "#F1F1F1",
-      color: '#484848'
+      backgroundColor: "#A9A9A9"
     }
   },
   appBar: {
@@ -147,22 +176,6 @@ const useStyles = makeStyles(theme => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: -drawerWidth,
-  },
-  contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
-  },
 }));
 
 function withMyHook(Component) {
@@ -178,7 +191,9 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       currentScreen: [],
-      open: true
+      open: true,
+      jobsAnchorEl: null,
+      communityAnchorEl: null
     }
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -190,6 +205,19 @@ class Dashboard extends Component {
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
   }
+
+  handleJobsClick = (event) => {
+    this.setState({ jobsAnchorEl: event.currentTarget });
+  };
+
+  handleCommunityClick = (event) => {
+    this.setState({ communityAnchorEl: event.currentTarget });
+  };
+
+  handleSelect = () => {
+    this.setState({ jobsAnchorEl: null });
+    this.setState({ communityAnchorEl: null });
+  };
 
   setOpen(toggleValue) {
     this.setState({open: toggleValue})
@@ -210,30 +238,35 @@ class Dashboard extends Component {
   }
 
   changeToResumeBank() {
+    this.handleSelect();
     this.setState({
       currentScreen: <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToCommunity() {
+    this.handleSelect();
     this.setState({
       currentScreen: <Community appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToCoffeeChats() {
+    this.handleSelect();
     this.setState({
       currentScreen: <CoffeeChats appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToJobs() {
+    this.handleSelect();
     this.setState({
       currentScreen: <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
   changeToDashboard() {
+    this.handleSelect();
     this.setState({
       currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
@@ -266,39 +299,54 @@ class Dashboard extends Component {
             </div>
             <Button
               variant="outlined"
-              className={classes.coffee_chat_text}
-              onClick={this.changeToResumeBank}
-            >
-              <b>Resume Bank</b>
-            </Button>
-            <Button
-              variant="outlined"
-              className={classes.jobs_text}
-              onClick={this.changeToCommunity}
-            >
-              <b>Community</b>
-            </Button>
-            <Button
-              variant="outlined"
-              className={classes.jobs_text}
-              onClick={this.changeToCoffeeChats}
-            >
-              <b>Coffee Chats</b>
-            </Button>
-            <Button
-              variant="outlined"
-              className={classes.jobs_text}
-              onClick={this.changeToJobs}
-            >
-              <b>Jobs</b>
-            </Button>
-            <Button
-              variant="outlined"
-              className={classes.dashboard_text}
+              className={classes.dashboard}
               onClick={this.changeToDashboard}
             >
-              <b>Dashboard</b>
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={home} alt={"Home Tab"}/>
             </Button>
+            <Button
+              variant="outlined"
+              className={classes.coffee_chats}
+              onClick={this.changeToCoffeeChats}
+            >
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={chats} alt={"Coffee Chats Tab"}/>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.jobs}
+              onClick={this.handleJobsClick}
+            >
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={jobs} alt={"Jobs Tab"}/>
+            </Button>
+            <Menu
+              id="simple-menu2"
+              anchorEl={this.state.jobsAnchorEl}
+              keepMounted
+              open={Boolean(this.state.jobsAnchorEl)}
+              onClose={() => {this.setState({jobsAnchorEl: null})}}
+              style={{ marginTop: '45px'}}
+            >
+              <MenuItem key={"postings"} onClick={this.changeToJobs}>Postings</MenuItem>
+              <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>View Submissions</MenuItem>
+            </Menu>
+            <Button
+              variant="outlined"
+              className={classes.community}
+              onClick={this.handleCommunityClick}
+            >
+              <img style={{width: '80px', height: '60px', padding: '0px'}} src={community} alt={"Community Tab"}/>
+            </Button>
+            <Menu
+              id="simple-menu1"
+              anchorEl={this.state.communityAnchorEl}
+              keepMounted
+              open={Boolean(this.state.communityAnchorEl)}
+              onClose={() => {this.setState({communityAnchorEl: null})}}
+              style={{ marginTop: '45px'}}
+            >
+              <MenuItem key={"community"} onClick={this.changeToCommunity}>Show Members</MenuItem>
+              <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>Resume Bank</MenuItem>
+            </Menu>
             <Button
               variant="outlined"
               className={classes.user_profile}

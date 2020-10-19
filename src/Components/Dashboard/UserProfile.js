@@ -346,12 +346,12 @@ class Landing extends Component {
     const userInfo = jwtDecode(localStorage.getItem("accessToken"));
     httpGet("jobs?user_id=" + userInfo.username, localStorage.getItem("idToken")).then((jobs) => {
       this.setState({
-        numJobs: jobs.data.count
+        numJobs: jobs.data.count ? jobs.data.count : 0
       })
     });
     httpGet("chats?user_id=" + userInfo.username, localStorage.getItem("idToken")).then((chats) => {
       this.setState({
-        numChats: chats.data.count
+        numChats: chats.data.count ? chats.data.count : 0
       })
     });
   }

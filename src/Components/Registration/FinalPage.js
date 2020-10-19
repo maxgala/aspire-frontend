@@ -434,15 +434,6 @@ class FinalPage extends Component{
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Tooltip title={
-                                    <p>MAX Aspire will only reach out to you for important updates including (but not limited to) subscription expiration, new features, security concerns, and other important updates. We may also reach out to inform you about big events MAX is hosting and other major updates in the Muslim Community.</p>}>
-                                    <b>If you would like to be added to the MAX Aspire mailing service, please confirm your email!</b>
-                                </Tooltip>
-                                <MailchimpSubscribe
-                                    url={this.state.url}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
                                 <FormControlLabel
                                     control={
                                         <Checkbox
@@ -453,6 +444,15 @@ class FinalPage extends Component{
                                     label={<b>I agree to the <Tooltip title={"Click to read the Terms and Conditions"}>
                                         <u onClick={this.readConditions} style = {{color: 'red'}}> terms and conditions </u>
                                     </Tooltip> </b>}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Tooltip title={
+                                    <p>MAX Aspire will only reach out to you for important updates including (but not limited to) subscription expiration, new features, security concerns, and other important updates. We may also reach out to inform you about big events MAX is hosting and other major updates in the Muslim Community.</p>}>
+                                    <b>If you would like to be added to the MAX Aspire mailing service, please confirm your email!</b>
+                                </Tooltip>
+                                <MailchimpSubscribe
+                                    url={this.state.url}
                                 />
                             </Grid>
                         </Grid>
