@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
   h1style: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
-    "@media (max-width: 800px)": { fontSize: "55px" },
+    "@media (max-width: 800px)": { fontSize: "45px" },
+    "@media (max-width: 480px)": {fontSize: "30px"},
     fontSize: "72px",
     color: "white",
     textAlign: "center",
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   subheading: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
-    "@media (max-width: 800px)": { fontSize: "18px" },
+    '@media (max-width: 800px)': { fontSize: "18px" },
     fontSize: "24px",
     color: "white",
     paddingLeft: "30px",
@@ -40,7 +41,9 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontFamily: "Montserrat",
     fontWeight: "Bold",
-    "@media (max-width: 800px)": { fontSize: "18px" },
+    '@media (max-width: 800px)': { 
+      fontSize: "15px"
+    },
     fontSize: "20px",
     textTransform: "none",
     paddingLeft: "20px",
@@ -70,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     paddingTop: "20vh",
+    "@media (max-width: 480px)": {paddingTop: "15vh"},
     width: "350px",
     paddingLeft: "20px",
     paddingRight: "20px",
