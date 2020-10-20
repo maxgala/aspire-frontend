@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import tint from "../Images/features/tint2.png";
 import { makeStyles } from "@material-ui/core/styles";
-import { relative } from "path";
+
 
 const useStyles = makeStyles((theme) => ({
   overallposition: {

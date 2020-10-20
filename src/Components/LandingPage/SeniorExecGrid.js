@@ -3,12 +3,12 @@ import Grid from "@material-ui/core/Grid";
 import SeniorExec from "./SeniorExec.js";
 import { makeStyles } from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
-import SmallSeniorExec from "./SmallSeniorExec";
+// import SmallSeniorExec from "./SmallSeniorExec";
 
 // import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
 import SmallSeniorExecImg from "../Images/senior/Jalaluddin_Uzma.jpg";
 import SmallSeniorExecImg2 from "../Images/senior/Diop_Cheikh.jpeg";
-import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
+// import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
 import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
 import One from "../Images/senior/Ali_Ammar.jpg";
 import Two from "../Images/senior/Abdul Gaffor_ Thouheed.jpeg"; 
