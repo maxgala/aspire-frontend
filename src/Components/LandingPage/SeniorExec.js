@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
+
 const useStyles = makeStyles((theme) => ({
   overallposition: {
     position: "relative",
@@ -9,18 +10,23 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     fontSize: "18px",
     fontWeight: "100",
+    marginTop: "85%",
     textAlign: "center",
     position: "absolute",
-    marginTop: "85%",
+    
     width: "100%",
   },
   hovertext: {
     color: "white",
     fontSize: "24px",
-    marginTop: "50%",
+    marginTop: "60%",
     textAlign: "center",
     position: "absolute",
     width: "100%",
+  },
+
+  tintImage:{
+    position: "relative",
   },
 }));
 
@@ -74,6 +80,23 @@ class SeniorExec extends Component {
         className={classes.overallposition}
         style={{ backgroundColor: this.state.color }}
       >
+        
+        <div
+          style={{
+            backgroundColor: '#b5a165',
+            marginTop: "0vh",
+            display: this.state.display2,
+            borderRadius: "60px",
+            width: '290px',
+            height: '420px',
+            opacity: '0.8',
+            position: 'absolute',
+            }}
+          onMouseLeave={this.handleExit}
+          >
+          </div>
+
+
         <h3
           className={classes.hovertext}
           style={{
@@ -98,12 +121,12 @@ class SeniorExec extends Component {
         >
           {this.props.extra_text}
         </h3>
+        
         <img
           style={{
             marginTop: "0vh",
             display: this.state.display1,
-            borderTopLeftRadius: "5vw",
-            borderBottomRightRadius: "12vw",
+            borderRadius: "60px",
             width: '290px',
             height: '420px',
             objectFit: 'cover'
@@ -112,20 +135,25 @@ class SeniorExec extends Component {
           src={this.props.image}
           alt="Senior Exec"
         />
-        <img
+        
+          
+
+          <img
           style={{
             marginTop: "0vh",
             display: this.state.display2,
-            borderTopLeftRadius: "5vw",
-            borderBottomRightRadius: "12vw",
+            borderRadius: "60px",
             width: '290px',
             height: '420px',
-            objectFit: 'cover'
-          }}
+            objectFit: 'cover',
+            opacity: '1',
+            }}
           onMouseLeave={this.handleExit}
           src={this.props.hover_image}
           alt="Senior Exec"
-        />
+        />  
+
+        
       </div>
     );
   }

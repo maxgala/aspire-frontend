@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   newsletterText: {
     color: 'white',
     fontFamily: 'Arial',
-    fontSize: '40px',
+    fontSize: '36px',
     textAlign: 'left',
     margin: '0',
     marginLeft: '20px',
@@ -39,9 +39,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: '36px',
     fontWeight: 'bold',
     position: 'absolute',
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.6  )',
     width: '100%',
-    bottom: '0',
     '@media (max-width: 1280px)': {
       paddingBottom: '140px',
       '@media (max-width: 599px)': {paddingBottom: '110px'},
@@ -61,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     paddingRight: '5vw',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '100px'
+    marginTop: '5%',
   },
   image: {
     width: '100%',
@@ -188,7 +187,7 @@ class Footer extends Component {
             />
           </div>
         </div>
-        <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black'}}>
+        <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black', position: 'relative'}}>
           <a href="https://www.facebook.com/muslimawardsXgala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faFacebookF} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
           <a href="https://twitter.com/max_gala" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faTwitter} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
           <a href="https://www.instagram.com/max.gala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faInstagram} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>

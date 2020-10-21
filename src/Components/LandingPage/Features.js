@@ -7,7 +7,10 @@ const useStyles = makeStyles(() => ({
   background: { 
     backgroundColor: '#F1F1F1',
     paddingTop:'1%',
-    paddingBottom:'5%',
+    paddingBottom:'10%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+  
   },
   features_title: { 
     fontFamily: "Nunito Sans",
@@ -17,11 +20,11 @@ const useStyles = makeStyles(() => ({
     color: 'black',
   },
   grid: { 
-    paddingLeft: '10%',
-    paddingRight: '10%',
+    paddingLeft: '0%',
+    paddingRight: '0%',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: '30px',
+    
   },
 }));
 
@@ -40,7 +43,8 @@ class Features extends Component{
         <h1 className={classes.features_title}>Features</h1>
         <Grid
           container
-          spacing={1}
+          spacing={2}
+          direction='row'
           alignItems="center"
           justify="center"
           className={classes.grid}
