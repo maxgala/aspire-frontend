@@ -222,13 +222,13 @@ class FinalPage extends Component {
     let address = {};
     if (this.state.country === "CA") {
       address = {
-        city: this.state.city,
+        locality: this.state.city,
         region: this.state.province,
         country: this.state.country,
       };
     } else if (this.state.country === "USA") {
       address = {
-        city: this.state.city,
+        locality: this.state.city,
         region: this.state.states,
         country: this.state.country,
       };
