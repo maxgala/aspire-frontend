@@ -223,32 +223,12 @@ class ThirdPage extends Component {
     });
   };
 
-  checkPhotoAndResume() {
-    //   if the photo and resume vars are not null, then call changeToFinalPage
-    if (
-      this.state.imageFiles.length === 0 ||
-      this.state.resumeFiles.length === 0
-    ) {
-      console.log("Must upload a valid image & resume file");
-      return false;
-    } else {
-      console.log("Photo is Valid & Resume is Valid");
-      return true;
-    }
-  }
   handleDialog = (event) => {
     this.setState({
       dialogueOpen: !this.state.dialogueOpen,
     });
   };
   changeToFinalPage = (event) => {
-    // if (!this.checkPhotoAndResume()) {
-    //   console.log(
-    //     "Must have a valid Profile Pic and Resume before proceeding."
-    //   );
-    //   return null;
-    // }
-
     if (
       this.state.imageFiles.length === 0 ||
       this.state.resumeFiles.length === 0
@@ -258,7 +238,7 @@ class ThirdPage extends Component {
       });
       return;
     }
-    // Need to check if profile pic/resume have been uploaded. If not then hold on this page.
+    // Need to check if profile pic/resume have been uploaded. If not then display error
     this.props.appContext.setState({
       registrationScreen: (
         <FinalPage appContext={this.props.appContext} prev={this.state} />
