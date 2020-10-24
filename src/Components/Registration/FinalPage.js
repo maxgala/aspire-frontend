@@ -376,7 +376,7 @@ class FinalPage extends Component {
         <Container component="main" maxWidth="sm">
           <CssBaseline />
           <div className={classes.paper}>
-            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+            {/* <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} /> */}
             <Typography component="h1" variant="h5">
               Registration
             </Typography>
