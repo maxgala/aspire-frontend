@@ -376,7 +376,7 @@ class ThirdPage extends Component {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="alert-dialog-slide-title">
-            {"Required fields are not filled in properly"}
+            {"Required fields are missing"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
