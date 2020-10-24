@@ -22,6 +22,7 @@ import FinalPage from "./FinalPage";
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
+    paddingTop: "5%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100px",
     height: "100px",
     padding: "1vw",
+    paddingTop: "60px",
   },
   form: {
     width: "100%", // Fix IE 11 issue.

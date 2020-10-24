@@ -29,6 +29,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
+    paddingTop: "5%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -147,7 +148,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "Bold",
     fontSize: "48px",
     margin: "0px",
-    paddingTop: "30px",
+    paddingTop: "60px",
     paddingBottom: "30px",
     color: "black",
   },
@@ -422,7 +423,7 @@ class FinalPage extends Component {
         <Container component="main" maxWidth="lg">
           <CssBaseline />
           <div className={classes.paper}>
-            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+            {/* <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} /> */}
             <Typography component="h1" variant="h5">
               Registration
             </Typography>
