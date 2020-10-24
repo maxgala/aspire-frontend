@@ -224,7 +224,11 @@ class SecondPage extends Component {
       this.state.education === "" ||
       this.state.education === undefined ||
       this.state.country === "" ||
-      this.state.country === undefined
+      this.state.country === undefined ||
+      this.state.city === "" ||
+      undefined
+      //   ||
+      //   (this.state.province === "" && this.state.states === "") Bug when clicking Other for country
     ) {
       this.setState({
         dialogueOpen: true,
