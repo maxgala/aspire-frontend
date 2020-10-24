@@ -380,10 +380,7 @@ class ThirdPage extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              <b>
-                {" "}
-                Please fill out all the required fields with proper values{" "}
-              </b>
+              <b> Please upload a Profile Picture and Resume </b>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
