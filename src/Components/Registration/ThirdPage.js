@@ -8,6 +8,12 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
 import { DropzoneDialog } from "material-ui-dropzone";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
 import SecondPage from "./SecondPage";
 import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from "react-s3";
@@ -89,6 +95,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
@@ -123,6 +133,7 @@ class ThirdPage extends Component {
       profilePicURL: "",
       open: false,
       fileDialogOpen: false,
+      dialogueOpen: false,
       imageFiles: [],
       resumeFiles: [],
       profilePicPreviewText: "Upload your Photo *",
@@ -225,13 +236,27 @@ class ThirdPage extends Component {
       return true;
     }
   }
-
+  handleDialog = (event) => {
+    this.setState({
+      dialogueOpen: !this.state.dialogueOpen,
+    });
+  };
   changeToFinalPage = (event) => {
-    if (!this.checkPhotoAndResume()) {
-      console.log(
-        "Must have a valid Profile Pic and Resume before proceeding."
-      );
-      return null;
+    // if (!this.checkPhotoAndResume()) {
+    //   console.log(
+    //     "Must have a valid Profile Pic and Resume before proceeding."
+    //   );
+    //   return null;
+    // }
+
+    if (
+      this.state.imageFiles.length === 0 ||
+      this.state.resumeFiles.length === 0
+    ) {
+      this.setState({
+        dialogueOpen: true,
+      });
+      return;
     }
     // Need to check if profile pic/resume have been uploaded. If not then hold on this page.
     this.props.appContext.setState({
@@ -362,6 +387,31 @@ class ThirdPage extends Component {
             </Button>
           </div>
         </div>
+        <Dialog
+          open={this.state.dialogueOpen}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={this.handleDialog}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {"Required fields are not filled in properly"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              <b>
+                {" "}
+                Please fill out all the required fields with proper values{" "}
+              </b>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleDialog} color="primary">
+              <b>Close</b>
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     );
   }
