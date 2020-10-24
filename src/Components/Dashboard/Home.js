@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
   home_page: { 
     paddingLeft: '5%',
     paddingRight: '5%',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     height: '90vh',
     marginLeft:"20px",
@@ -128,16 +128,9 @@ class Home extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
+
                 <p className={classes.section_title}>Registered Coffee Chats</p>
-              </Grid>
-              {this.state.coffee_chats && this.state.coffee_chats.length > 0 ?
+                {this.state.coffee_chats && this.state.coffee_chats.length > 0 ?
                 this.state.coffee_chats.map((chat, key) => (
                   <Grid
                     key={key}
@@ -145,7 +138,7 @@ class Home extends Component {
                     item xs={12} sm={12} md={12} lg={6}
                     spacing={1}
                     alignItems="center"
-                    justify="center"
+                    justify="flex-start"
                   >
                     <CoffeeChatCard data={chat}/>
                   </Grid>
@@ -156,11 +149,12 @@ class Home extends Component {
                   item xs={12} sm={12} md={12} lg={6} xl={4}
                   spacing={1}
                   alignItems="center"
-                  justify="center"
+                  justify="flex-start"
                 >
                   <EmptyCard type={CardTypes.coffeeChat}/>
                 </Grid>
               }
+              
             </Grid>
 
             {this.props.isSeniorExec ?

@@ -68,6 +68,14 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '-10px',
     objectFit: 'cover',
   },
+
+  socialIcons:{
+    width: '30px',
+    height: '30px',
+    margin: '10px', 
+    padding: '0px'
+  },
+
   input: {
     color: 'white',
     border: '1px solid #8e8e8e',
@@ -82,6 +90,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '20px',
     width: '100%'
   }
+
+  
+
+
 }));
 
 function withMyHook(Component) {
@@ -188,11 +200,11 @@ class Footer extends Component {
           </div>
         </div>
         <div style={{width: '100%', height: '80px', margin: '0px', backgroundColor: 'black', position: 'relative'}}>
-          <a href="https://www.facebook.com/muslimawardsXgala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faFacebookF} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
-          <a href="https://twitter.com/max_gala" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faTwitter} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
-          <a href="https://www.instagram.com/max.gala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faInstagram} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
-          <a href="https://www.linkedin.com/company/max-muslim-awards/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faLinkedin} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
-          <a href="http://maxgala.com/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '10px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faReact} style={{width: '30px', height: '30px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://www.facebook.com/muslimawardsXgala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '5px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faFacebookF} style={{width: '25px', height: '25px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://twitter.com/max_gala" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '5px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faTwitter} style={{width: '25px', height: '25px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://www.instagram.com/max.gala/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '5px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faInstagram} style={{width: '25px', height: '25px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="https://www.linkedin.com/company/max-muslim-awards/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '5px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon icon={faLinkedin} style={{width: '25px', height: '25px', margin: '10px', padding: '0px'}}/></Button></a>
+          <a href="http://maxgala.com/" target="_blank" rel="noopener noreferrer"><Button style={{bottom: '0', color: '#d3d3d3', marginTop: '5px', marginBottom: '10px', paddingTop: '10px', paddingBottom: '0px', float: 'left'}}><FontAwesomeIcon  icon={faReact} style={{width: '25px', height: '25px', margin: '10px', padding: '0px'}}/></Button></a>
         </div>
       </div>
     );
