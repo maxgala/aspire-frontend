@@ -97,6 +97,13 @@ class FirstPage extends Component {
     }
 
     changeToPage2 = (event) => {
+
+        this.setState({
+          dialogueOpen:false,
+          showEmailError:false,
+          errorDisplay:'None'
+        })
+
         if (!(this.state.email).includes('@')){
             this.setState({
                 dialogueOpen: true,
@@ -125,21 +132,23 @@ class FirstPage extends Component {
 
         console.log(user)
 
+
+
         axios.get('http://localhost:8080/users/docexists', {params:
           {email:this.state.email}
         })
         .then(res => {
-          if(res.data === true){
-            // this.setState({
-            //   dialogueOpen:true,
-            //   showEmailError:true,
-            //   errorDisplay:'Email In Use!'
-            // })
-            alert('Email In Use!')
-          }else{
+          if(res.data === false){
             axios.post('http://localhost:8080/users/add', user)
             this.props.appContext.setState({
               registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
+          })
+            // alert('Email In Use!')
+          }else{
+          this.setState({
+            dialogueOpen:true,
+            showEmailError:true,
+            errorDisplay:'Email In Use!'
           })
         }
       })
@@ -210,7 +219,7 @@ class FirstPage extends Component {
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>
-                    <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
+                    {/* <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/> */}
                     <Typography component="h1" variant="h5">
                         Registration
                     </Typography>
@@ -348,7 +357,7 @@ class FirstPage extends Component {
                     <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <b>Please fill out all the required fields properly</b>
+                            <b>Please Fill Out All Required Fields Properly.</b>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
