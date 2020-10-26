@@ -1,5 +1,5 @@
 /**
- * This is a development server to proxy requests to the backend url to 
+ * This is a development server to proxy requests to the backend url to
  * avoid hitting CORS. It will not be used in production but only in local testing.
  */
 
@@ -8,9 +8,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const mongoose = require('mongoose');
+const cors = require('cors')
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors())
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname)));
@@ -108,6 +111,20 @@ function httpPut(endPoint, headers, data) {
       });
   });
 }
+
+// Mongo connection
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
+);
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully");
+})
+
+const usersRouter = require('../routes/users');
+app.use('/users', usersRouter);
+
+
 
 // Choose the port and start the server
 const PORT = process.env.PORT || 8080

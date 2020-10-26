@@ -19,6 +19,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import MuiPhoneNumber from "material-ui-phone-number";
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -87,7 +88,7 @@ class FirstPage extends Component {
             country: this.props.prev ? this.props.prev.country : '',
             states: this.props.prev ? this.props.prev.states : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
-            showEmailError: false, 
+            showEmailError: false,
             progress: 25,
             errorDisplay: 'None',
             dialogueOpen: false,
@@ -98,7 +99,7 @@ class FirstPage extends Component {
     changeToPage2 = (event) => {
         if (!(this.state.email).includes('@')){
             this.setState({
-                dialogueOpen: true, 
+                dialogueOpen: true,
                 showEmailError: true
             })
             return;
@@ -115,9 +116,33 @@ class FirstPage extends Component {
             });
             return;
         }
-        this.props.appContext.setState({
-            registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
+
+        const user = {
+          email:this.state.email,
+          firstName:this.state.firstName,
+          lastName:this.state.lastName
+        }
+
+        console.log(user)
+
+        axios.get('http://localhost:8080/users/docexists', {params:
+          {email:this.state.email}
         })
+        .then(res => {
+          if(res.data === true){
+            // this.setState({
+            //   dialogueOpen:true,
+            //   showEmailError:true,
+            //   errorDisplay:'Email In Use!'
+            // })
+            alert('Email In Use!')
+          }else{
+            axios.post('http://localhost:8080/users/add', user)
+            this.props.appContext.setState({
+              registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
+          })
+        }
+      })
     };
 
     handlePasswordChange = (event) => {
@@ -138,7 +163,7 @@ class FirstPage extends Component {
 
     handleEmailChange = (event) => {
         this.setState({
-            showEmailError: false, 
+            showEmailError: false,
             email: event.target.value
         })
     };
@@ -172,7 +197,7 @@ class FirstPage extends Component {
             currentScreen: <SignIn appContext={this.props.appContext}/>
         });
     };
-    
+
     handlePhoneChange(value) {
         this.setState({
            phone: value
@@ -232,7 +257,7 @@ class FirstPage extends Component {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <MuiPhoneNumber 
+                                <MuiPhoneNumber
                                     variant="outlined"
                                     required
                                     fullWidth
