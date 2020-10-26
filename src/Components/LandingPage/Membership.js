@@ -168,7 +168,7 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_free}>
               <MembershipCard
-                  number="$10"
+                  number="$0"
                   payment={{background:'#6EA0B5'}}
                   membership_type_text="Free"
                   front_text={"Aspiring Professionals"}
@@ -210,7 +210,7 @@ class Membership extends Component {
           >
             <div style={this.state.aspire_platinum}>
               <MembershipCard
-                  number="$0"
+                  number="$10"
                   payment={{color: 'black'}}
                   membership_type_text="Platinum"
                   front_text="Senior Professionals"
