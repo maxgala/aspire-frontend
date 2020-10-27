@@ -439,7 +439,8 @@ class EscalationsCard extends Component {
                     }}
                   >
                     <MenuItem aria-label="None" value="" />
-                    <MenuItem value={"abuse"}>Abuse</MenuItem>
+                    <MenuItem value={"coffechat"}>Coffee Chat</MenuItem>
+                    <MenuItem value={"resume"}>Resume  </MenuItem>
                     <MenuItem value={"payment"}>Payment</MenuItem>
                     <MenuItem value={"query"}>Query</MenuItem>
                     <MenuItem value={"other"}>Other</MenuItem>
