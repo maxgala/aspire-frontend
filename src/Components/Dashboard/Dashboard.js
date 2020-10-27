@@ -25,6 +25,7 @@ import jobs from "../Images/navbar/jobs_web.svg";
 import chats from "../Images/navbar/chats_web.svg";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Hidden } from '@material-ui/core';
 
 const drawerWidth = 300;
 
@@ -121,12 +122,31 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Nunito",
     textTransform: "capitalize",
     marginLeft: 'auto',
+    '@media (max-width: 480px)': {
+      marginLeft: '0px'
+    },
     padding: '0px',
     fontSize: '18px',
     '&:hover': {
       backgroundColor: "#A9A9A9"
     }
   },
+
+  navbar_icons:{
+    width: '80px',
+    height: '50px',
+    padding: '0px',
+    '@media (max-width: 480px)': {
+      width: '60px',
+      height: '40px',
+    },
+    // '@media (max-width: 350px)': {
+    //   width: 'auto',
+    //   height: 'auto',
+    // },
+
+  },
+
   user_profile: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
@@ -139,7 +159,12 @@ const useStyles = makeStyles(theme => ({
     marginLeft: '20px',
     '&:hover': {
       backgroundColor: "#A9A9A9"
-    }
+    },
+    '@media (max-width: 480px)': {
+      marginLeft: '0px',
+      width: '45px',
+      height: '45px'
+    },
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -157,6 +182,7 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    '@media (max-width: 480px)': {marginRight: '0px'},
   },
   hide: {
     display: 'none',
@@ -294,29 +320,31 @@ class Dashboard extends Component {
             >
               <MenuIcon />
             </IconButton>
+            <Hidden xsDown>
             <div className={classes.navLogo} onClick={this.handleClick}>
               <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
             </div>
+            </Hidden>
             <Button
               variant="outlined"
               className={classes.dashboard}
               onClick={this.changeToDashboard}
             >
-              <img style={{width: '80px', height: '60px', padding: '0px'}} src={home} alt={"Home Tab"}/>
+              <img className={classes.navbar_icons} src={home} alt={"Home Tab"}/>
             </Button>
             <Button
               variant="outlined"
               className={classes.coffee_chats}
               onClick={this.changeToCoffeeChats}
             >
-              <img style={{width: '80px', height: '60px', padding: '0px'}} src={chats} alt={"Coffee Chats Tab"}/>
+              <img className={classes.navbar_icons} src={chats} alt={"Coffee Chats Tab"}/>
             </Button>
             <Button
               variant="outlined"
               className={classes.jobs}
               onClick={this.handleJobsClick}
             >
-              <img style={{width: '80px', height: '60px', padding: '0px'}} src={jobs} alt={"Jobs Tab"}/>
+              <img className={classes.navbar_icons} src={jobs} alt={"Jobs Tab"}/>
             </Button>
             <Menu
               id="simple-menu2"
@@ -334,7 +362,7 @@ class Dashboard extends Component {
               className={classes.community}
               onClick={this.handleCommunityClick}
             >
-              <img style={{width: '80px', height: '60px', padding: '0px'}} src={community} alt={"Community Tab"}/>
+              <img className={classes.navbar_icons} src={community} alt={"Community Tab"}/>
             </Button>
             <Menu
               id="simple-menu1"
@@ -352,7 +380,7 @@ class Dashboard extends Component {
               className={classes.user_profile}
               onClick={this.openUserProfile}
             >
-              <FontAwesomeIcon icon={faReact} style={{width: '40px', height: '40px'}}/>
+              <FontAwesomeIcon icon={faReact} style={{width: '35px', height: '35px'}}/>
             </Button>
           </Toolbar>
         </AppBar>
