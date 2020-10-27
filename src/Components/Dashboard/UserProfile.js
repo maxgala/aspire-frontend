@@ -18,6 +18,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { httpGet } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
+import EscalationsCard from './Cards/EscalationsCard';
 
 const useStyles = makeStyles(theme => ({
   root1: {
@@ -449,6 +450,7 @@ class Landing extends Component {
 
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
           <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button>
+          <EscalationsCard/>
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
           <p className={classes.faq} onClick={this.openFaq}>FAQ</p>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
-import CreateEscalationsCard from "./Cards/CreateEscalationsCard";
 import EmptyCard from "./Cards/EmptyCard";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
@@ -84,13 +83,22 @@ class Home extends Component {
         : jobsData.data;
 
     const jobAppData = [];
-    data.forEach(async (job) => {
-      const jobData = await httpGet(
-        "jobs/" + job.job_id,
-        localStorage.getItem("idToken")
-      );
-      jobAppData.push(jobData.data);
-    });
+    console.log(data);
+
+    // Check if data is valid JSON
+    var isDataValid = (data) => data instanceof Array || data instanceof Object ? true : false;
+
+    let dataValid = isDataValid(data);
+    console.log(dataValid);
+    if(dataValid){
+      data.forEach(async (job) => {
+        const jobData = await httpGet(
+          "jobs/" + job.job_id,
+          localStorage.getItem("idToken")
+        );
+        jobAppData.push(jobData.data);
+      });
+    }
     this.setState({
       job_applications: jobAppData,
     });
@@ -380,32 +388,7 @@ class Home extends Component {
                 </Grid>
               )}
             </Grid>
-            <h1 className={classes.escalation_submit}>Submit an Escalation</h1>
-            <Grid container alignItems="flex-start" justify="flex-start">
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={6}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <CreateEscalationsCard />
-                </Grid>
-              </Grid>
-            </Grid>
-          </div>
+            </div>
         </PerfectScrollbar>
       </div>
     );
