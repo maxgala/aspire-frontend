@@ -11,14 +11,15 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import AWS from "aws-sdk";
 
 AWS.config.update(
     {
-        accessKeyId : process.env.REACT_APP_ACCESS_KEY_ID,
-        secretAccessKey : process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+        accessKeyId : process.env.REACT_APP_SES_ACCESS_KEY_ID,
+        secretAccessKey : process.env.REACT_APP_AWS_SES_SECRET_ACCESS_KEY,
         region : process.env.REACT_APP_SES_REGION
       }
 );
@@ -259,10 +260,9 @@ async function sendEmail(data) {
   // Create the promise and SES service object
   var emailSendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
-  // Handle email send status success / failure
+  // Handle email send status success / failure for handling in createEscalation
   emailSendPromise.then(
     function(data) {
-      console.log(data.MessageId);
     }).catch(
       function(err) {
       console.error(err, err.stack);
@@ -279,6 +279,8 @@ class EscalationsCard extends Component {
       type: "",
       description: "",
       title: "",
+      snackBarOpen : false,
+      snackBarText: ""
     };
   }
 
@@ -320,12 +322,16 @@ class EscalationsCard extends Component {
   const self = this;
 
   sendEmail(emailData).then( function(emailSendSuccess) {
-    console.log(emailSendSuccess);
     // If we sent the email successfully, hide the modal.
     if(emailSendSuccess){
       self.handleClose();
+      self.setSnackBarMessage("Escalation sent successfully.");
+      self.openSnackBar();
       } else {
-    // Otherwise display an error maybe?
+      self.handleClose();
+      self.setSnackBarMessage("Failed to create Escalation.");
+      self.openSnackBar();
+
     }
   });
 }
@@ -335,12 +341,32 @@ class EscalationsCard extends Component {
     });
   };
 
+  openSnackBar = (event) => {
+    this.setState({
+      snackBarOpen: true,
+    });
+  };
   handleClose = (event) => {
     this.setState({
       open: false,
+      // Reset fields 
+      description: "",
+      title: "",
+      type: ""
     });
   };
 
+  handleSnackBarClose = (event) => {
+    this.setState({
+      snackBarOpen: false
+    })
+  }
+
+  setSnackBarMessage = (message) => {
+    this.setState({
+      snackBarText : message
+    })
+  }
   handleChange = (event) => {
     const value = event.target.value;
     this.setState({
@@ -494,6 +520,14 @@ class EscalationsCard extends Component {
             </DialogContentText>
           </DialogContent>
         </Dialog>
+        <Snackbar
+        anchorOrigin={{ vertical : 'bottom', horizontal : 'right'}}
+        open={this.state.snackBarOpen}
+        onClose={this.handleSnackBarClose}
+        message={this.state.snackBarText}
+        autoHideDuration={6000}
+      />
+
       </div>
     );
   }
