@@ -7,22 +7,24 @@ import CardTypes from '../CardTypes';
 const useStyles = makeStyles(() => ({
   cardCoffee: {
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '350px',
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
     backgroundColor: '#B5A165',
     color: 'white',
+    overflow: 'hidden'
   },
   cardApp: {
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '350px',
     height: '180px',
     borderStyle: 'solid',
     borderRadius: '20px',
     backgroundColor: '#6EA0B5',
     color: 'white',
     borderColor: '#6EA0B5',
+    overflow: 'hidden'
   },
   cardPosting: {
     width: '100%',
@@ -30,6 +32,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor:'#58595B',
+    overflow: 'hidden'
   },
   title: {
     fontFamily: 'myriad-pro, sans-serif',
@@ -37,10 +40,13 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     paddingTop: '5px',
     fontSize: '20px',
+    '@media (max-width: 480px)': {
+      fontSize: '15px'
+    },
     color: 'white',
     margin: '0px',
-    marginLeft: '5px',
-    marginTop: '5px'
+    marginTop: '5px',
+    
   },
   subtitle: {
     fontFamily: 'myriad-pro, sans-serif',
@@ -48,9 +54,13 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     color: 'white',
     margin: '0px',
-    marginLeft: '5px',
+    '@media (max-width: 480px)': {
+      fontSize: '10px'
+    },
+    fontSize: '15px',
     marginTop: '5px',
     marginBottom: '20px',
+    
   },
   button_container: {
     alignItems: 'flex-end',
@@ -70,7 +80,8 @@ const useStyles = makeStyles(() => ({
   container: {
     width: '95%',
     display: 'inline-block',
-    alignItems: 'center'
+    alignItems: 'center',
+    overflow: 'hidden'
   }
 }));
 
