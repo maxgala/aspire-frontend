@@ -26,11 +26,6 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
     marginTop: '40px',
   },
-
-  padding:{
-    marginLeft:'20px',
-  },
-
   grid: {
     justifyContent: 'center',
     alignItems: 'center',
