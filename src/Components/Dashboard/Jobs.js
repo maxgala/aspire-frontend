@@ -96,79 +96,16 @@ class JobBoard extends Component {
 
   render() {
     const classes = this.props.classes;
-    return (
 
-    <div>
-      <PerfectScrollbar>
-        <div className={classes.mainPage}>
-          <h1 className={classes.JobBoard}>Job Board</h1>
-          <Grid
-            container
-            item xs={12}
-            spacing={1}
-            alignItems="flex-start"
-              justify="flex-start"
-          >
-            <Grid
-              container
-              item xs={12} sm={6} md={6} lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Title</p>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter/>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={6} md={6} lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Location</p>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter/>
-              </Grid>
-            </Grid>
+    const location = this.props.location;
 
-            <Grid
-              container
-              item xs={12} sm={6} md={6} lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
+    // Render based on what is selected
+    if(location === "view_submissions"){
+      return (
+        <div>
+          <PerfectScrollbar>
+            <div className={classes.mainPage}>
+              <h1 className={classes.JobBoard}>Job Board</h1>
               <Grid
                 container
                 item xs={12}
@@ -176,76 +113,122 @@ class JobBoard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <p className={classes.section_title}>Job Type</p>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter/>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              item xs={12} sm={6} md={6} lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Additional Filters</p>
-              </Grid>
-              <Grid
-                container
-                item xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter/>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <div className={classes.sort}>
-            <p className={classes.date}> Sort date posted by:
-            <select className={classes.select}>
-              <option  value="Ascending">Ascending</option>
-              <option  value="descending">Descending</option>
-            </select>
-            </p>
-          </div>
-
-          <Grid
-            container
-            item xs={12}
-            spacing={1}
-            alignItems="center"
-            justify="center"
-          >
-            {this.state.jobs && this.state.jobs.length > 0 ?
-              this.state.jobs.map((jobData, key) => (
                 <Grid
-                  key={jobData.job_id}
-                  container 
-                  item xs={12} sm={6} md={6} lg={4}
+                  container
+                  item xs={12} sm={6} md={6} lg={3}
                   spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
+                  alignItems="center"
+                  justify="center"
                 >
-                  <JobApplicationCard data={jobData}/>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <p className={classes.section_title}>Job Title</p>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <Filter/>
+                  </Grid>
                 </Grid>
-              ))
-            :
+                <Grid
+                  container
+                  item xs={12} sm={6} md={6} lg={3}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <p className={classes.section_title}>Location</p>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <Filter/>
+                  </Grid>
+                </Grid>
+    
+                <Grid
+                  container
+                  item xs={12} sm={6} md={6} lg={3}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <p className={classes.section_title}>Job Type</p>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <Filter/>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item xs={12} sm={6} md={6} lg={3}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <p className={classes.section_title}>Additional Filters</p>
+                  </Grid>
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <Filter/>
+                  </Grid>
+                </Grid>
+              </Grid>
+    
+              <div className={classes.sort}>
+                <p className={classes.date}> Sort date posted by:
+                <select className={classes.select}>
+                  <option  value="Ascending">Ascending</option>
+                  <option  value="descending">Descending</option>
+                </select>
+                </p>
+              </div>
+    
               <Grid
                 container
                 item xs={12}
@@ -253,14 +236,58 @@ class JobBoard extends Component {
                 alignItems="center"
                 justify="center"
               >
-                <EmptyCard type={CardTypes.jobApplication}/>
+                {this.state.jobs && this.state.jobs.length > 0 ?
+                  this.state.jobs.map((jobData, key) => (
+                    <Grid
+                      key={jobData.job_id}
+                      container 
+                      item xs={12} sm={6} md={6} lg={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <JobApplicationCard data={jobData}/>
+                    </Grid>
+                  ))
+                :
+                  <Grid
+                    container
+                    item xs={12}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <EmptyCard type={CardTypes.jobApplication}/>
+                  </Grid>
+               }
               </Grid>
-           }
-          </Grid>
+            </div>
+          </PerfectScrollbar>
         </div>
-      </PerfectScrollbar>
-    </div>
-    )
+        )
+    } else if (location === "view_postings"){
+      return ( 
+        <div>
+          <PerfectScrollbar>
+            <div className={classes.mainPage}>
+              <h1 className={classes.JobBoard}>
+                Job Postings
+              </h1>
+              <Grid
+               container
+               item xs={12}
+               spacing={1}
+               alignItems="flex-start"
+               justify="flex-start"
+               >
+                 
+               </Grid>
+
+            </div>
+          </PerfectScrollbar>
+        </div>
+      )
+    }
   }
 }
 

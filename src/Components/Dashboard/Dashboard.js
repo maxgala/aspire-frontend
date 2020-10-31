@@ -197,7 +197,6 @@ class Dashboard extends Component {
     }
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
-    this.changeToJobs = this.changeToJobs.bind(this);
     this.changeToDashboard = this.changeToDashboard.bind(this);
     this.changeToCommunity=this.changeToCommunity.bind(this);
     this.changeToResumeBank=this.changeToResumeBank.bind(this);
@@ -258,10 +257,10 @@ class Dashboard extends Component {
     }) 
   }
 
-  changeToJobs() {
+  changeToJobs(location) {
     this.handleSelect();
     this.setState({
-      currentScreen: <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec}/>
+      currentScreen: <Jobs location={location} appContext={this} isSeniorExec={this.props.isSeniorExec}/>
     }) 
   }
 
@@ -326,8 +325,8 @@ class Dashboard extends Component {
               onClose={() => {this.setState({jobsAnchorEl: null})}}
               style={{ marginTop: '45px'}}
             >
-              <MenuItem key={"postings"} onClick={this.changeToJobs}>Postings</MenuItem>
-              <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>View Submissions</MenuItem>
+              <MenuItem key={"view_postings"} onClick={ () => this.changeToJobs('view_postings')}>View Postings</MenuItem>
+              <MenuItem key={"view_submissions"} onClick={ () => this.changeToJobs('view_submissions')}>View Submissions</MenuItem>
             </Menu>
             <Button
               variant="outlined"
