@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   table : {
     minWidth: 700,
   },  JobTable: {
-    padding: '20px'
+    padding: '8px'
   },
 
 }));
@@ -89,7 +89,7 @@ function createData(name, salary, location, state, country) {
 const rows = [
   createData('Senior Waste Collector', 50, 'Surrey', 'BC', 'Canada'),
   createData('Ice Cream Product Manager', 40, 'Surrey', 'BC', 'Canada'),
-  createData('Fried Chicken Architect', 200, 'Brampton', 'OT', 'Canada'),
+  createData('Chicken Biryani Architect', 200, 'Brampton', 'OT', 'Canada'),
   createData('Orange Wasteman', 400, "Washington", 'DC', 'USA'),
 ];
 
@@ -121,7 +121,7 @@ class JobPosts extends Component{
             <StyledTableCell>Title</StyledTableCell>
             <StyledTableCell align="right">Hourly Salary</StyledTableCell>
             <StyledTableCell align="right">City</StyledTableCell>
-            <StyledTableCell align="right">State/Province</StyledTableCell>
+            <StyledTableCell align="right">State / Province</StyledTableCell>
             <StyledTableCell align="right">Country</StyledTableCell>
           </TableRow>
         </TableHead>
