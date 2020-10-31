@@ -149,8 +149,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '15px',
     fontWeight: 'bold',
     fontFamily: 'myriad-pro, sans-serif',
-    paddingLeft: '75px',
-    paddingRight: '75px'
+    paddingLeft: '50px',
+    paddingRight: '50px'
   },
   bar: {
     width: "90%",
