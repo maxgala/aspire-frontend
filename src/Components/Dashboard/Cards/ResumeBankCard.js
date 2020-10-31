@@ -5,6 +5,11 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Document, Page } from "react-pdf";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -114,6 +119,26 @@ function withMyHook(Component) {
 }
 
 class JobApplicationCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resume_popup: false,
+      num_pages: 0,
+    };
+  }
+
+  renderResume = () => {
+    this.setState({ resume_popup: true });
+  };
+
+  handleClose = () => {
+    this.setState({ resume_popup: false });
+  };
+
+  onResumeLoad = ({ numPages }) => {
+    this.setState({ num_pages: numPages });
+  };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -163,12 +188,53 @@ class JobApplicationCard extends Component {
                   className={classes.button}
                   variant="contained"
                   color="primary"
+                  onClick={() => this.renderResume()}
                 >
                   View Resume
                 </Button>
               </span>
             </Grid>
           </Grid>
+          <Dialog
+            open={this.state.resume_popup}
+            onClose={this.handleClose}
+            scroll={"paper"}
+            fullWidth={true}
+            maxWidth={"md"}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+          >
+            <DialogTitle id="scroll-dialog-title">
+              <div>
+                <h2>{this.props.data.name}'s Resume</h2>
+              </div>
+            </DialogTitle>
+            <DialogContent style={{ overflowX: "hidden" }}>
+              <DialogContentText
+                id="scroll-dialog-description"
+                tabIndex={-1}
+                component={"span"}
+              >
+                <div style={{ margin: "auto", height: "100%" }}>
+                  <Document
+                    file="./Files/test_resume.pdf"
+                    onLoadSuccess={this.onResumeLoad}
+                  >
+                    {Array.from(
+                      new Array(this.state.num_pages),
+                      (el, index) => (
+                        <Page
+                          key={`page_${index + 1}`}
+                          pageNumber={index + 1}
+                          width={Math.min(900, window.innerWidth - 100)}
+                        />
+                      )
+                    )}
+                  </Document>
+                </div>
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     );
