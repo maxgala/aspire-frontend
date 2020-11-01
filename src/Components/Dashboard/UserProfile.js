@@ -377,11 +377,11 @@ class Landing extends Component {
     });
   }
 
-  handleChange = (event) => {
+  handleJobTypeChange = (event) => {
     this.setState({ value: event.target.value });
   };
 
-  handleChange2 = (name) => (event) => {
+  handleContactMeChange = (name) => (event) => {
     this.setState({ [name]: event.target.checked });
   };
 
@@ -665,7 +665,7 @@ class Landing extends Component {
                         value="Full-Time"
                         control={<Radio color="primary" />}
                         label="Full-Time"
-                        onChange={this.handleChange}
+                        onChange={this.handleJobTypeChange}
                       />
                     </div>
                   </Grid>
@@ -683,7 +683,7 @@ class Landing extends Component {
                         value="Contract"
                         control={<Radio color="primary" />}
                         label="Contract"
-                        onChange={this.handleChange}
+                        onChange={this.handleJobTypeChange}
                       />
                     </div>
                   </Grid>
@@ -710,7 +710,7 @@ class Landing extends Component {
                         value="Part-Time"
                         control={<Radio color="primary" />}
                         label="Part-Time"
-                        onChange={this.handleChange}
+                        onChange={this.handleJobTypeChange}
                       />
                     </div>
                   </Grid>
@@ -728,7 +728,7 @@ class Landing extends Component {
                         value="Internship"
                         control={<Radio color="primary" />}
                         label="Internship"
-                        onChange={this.handleChange}
+                        onChange={this.handleJobTypeChange}
                       />
                     </div>
                   </Grid>
@@ -833,7 +833,7 @@ class Landing extends Component {
                       control={
                         <Checkbox
                           checked={this.state.checkedBox}
-                          onChange={this.handleChange2("checkedBox")}
+                          onChange={this.handleContactMeChange("checkedBox")}
                           value="checkedBox"
                           classes={{
                             root: classes.checkbox,
