@@ -5,6 +5,7 @@ import close from "../Images/close.png";
 import { Button } from '@material-ui/core';
 import { faMapMarker, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import EscalationsCard from './Cards/EscalationsCard';
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -449,6 +450,7 @@ class Landing extends Component {
 
           <Button className={classes.button} variant="contained" onClick={this.changeToSignUp}>Purchase Credits</Button>
           <Button className={classes.button1} variant="contained" onClick={this.postJob}>Post a Job</Button>
+          <EscalationsCard/>
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
           <p className={classes.faq} onClick={this.openFaq}>FAQ</p>
