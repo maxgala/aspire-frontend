@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
   },
   cardPosting: {
     width: '100%',
+    maxWidth: '350px',
     height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',

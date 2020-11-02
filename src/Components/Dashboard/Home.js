@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
   booking_history: {
     fontFamily: 'PT Sans',
-    fontSize: '25px',
+    fontSize: '30px',
     textAlign: 'left',
     color: '#58595b',
     fontWeight: 'bold',
@@ -156,18 +156,21 @@ class Home extends Component {
               }
               
             </Grid>
+            </Grid>
 
             {this.props.isSeniorExec ?
               <Grid
                 container
-                item xs={12}
-                spacing={1}
+                // item xs={12}
+                // spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
+                direction="column"
               >
+              
                 <Grid
                   container
-                  item xs={8} 
+                  item xs={12} 
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -200,7 +203,7 @@ class Home extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={8}
+                  item xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -211,7 +214,7 @@ class Home extends Component {
                       <Grid
                         key={key}
                         container
-                        item xs={6}
+                        item xs={12}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
@@ -232,14 +235,18 @@ class Home extends Component {
                   }
                 </Grid>
               </Grid>
+              
             :
               <Grid
                 container
-                item xs={12}
-                spacing={1}
+                // item xs={12}
+                // spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
+                direction="column"
+
               >
+              
                 <Grid
                   container
                   item xs={12} sm={12} md={12} lg={8}
@@ -286,7 +293,7 @@ class Home extends Component {
                       <Grid
                         key={posting.job_id}
                         container
-                        item xs={12}
+                        item xs={12} 
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
@@ -307,9 +314,10 @@ class Home extends Component {
                   }
                 </Grid>
               </Grid>
+              
           
             }
-          </Grid>
+          {/* </Grid> */}
       </div>
       </PerfectScrollbar>
     </div>
