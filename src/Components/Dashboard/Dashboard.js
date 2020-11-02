@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     padding: '0px',
     '&:hover': {
-      backgroundColor: "#A9A9A9"
+      backgroundColor: "#B5A165"
     }
   },
   jobs: {
@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     padding: '0px',
     '&:hover': {
-      backgroundColor: "#A9A9A9"
+      backgroundColor: "#B5A165"
     }
   },
   community: {
@@ -115,7 +115,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '18px',
     padding: '0px',
     '&:hover': {
-      backgroundColor: "#A9A9A9"
+      backgroundColor: "#B5A165"
     }
   },
   dashboard: {
@@ -128,7 +128,7 @@ const useStyles = makeStyles(theme => ({
     padding: '0px',
     fontSize: '18px',
     '&:hover': {
-      backgroundColor: "#A9A9A9"
+      backgroundColor: "#B5A165"
     }
   },
 
@@ -140,11 +140,7 @@ const useStyles = makeStyles(theme => ({
       width: '60px',
       height: '40px',
     },
-    // '@media (max-width: 350px)': {
-    //   width: 'auto',
-    //   height: 'auto',
-    // },
-
+   
   },
 
   user_profile: {
