@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 
   JobBoard: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '25px',
     textAlign: 'left',
     color: '#58595B',
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
 
   section_title: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
     marginBottom: '10px',
@@ -61,7 +61,7 @@ const useStyles = makeStyles(() => ({
   },
 
   date:{
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     fontWeight: 'bold',
   }
