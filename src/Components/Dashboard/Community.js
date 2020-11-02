@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 
   JobBoard: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '25px',
     textAlign: 'left',
     color: '#58595B',
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   },
 
   section_title: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
     marginBottom: '10px',
@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
   },
 
   date: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     fontWeight: 'bold',
   }
@@ -90,7 +90,7 @@ class JobBoard extends Component {
         <PerfectScrollbar>
           <div className={classes.mainPage}>
           <div className={classes.padding}>
-              <h1 className={classes.JobBoard}>Job Board</h1>
+              <h1 className={classes.JobBoard}>Members</h1>
             </div>
           <Grid
               container
