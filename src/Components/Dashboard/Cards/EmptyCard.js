@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden'
   },
   title: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontWeight: 'bolder',
     width: '100%',
     paddingTop: '5px',
@@ -50,7 +50,7 @@ const useStyles = makeStyles(() => ({
     
   },
   subtitle: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontWeight: 'bold',
     width: '100%',
     color: 'white',

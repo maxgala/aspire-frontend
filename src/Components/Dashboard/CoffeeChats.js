@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 
   coffeeChat: {
     fontFamily: 'PT Sans',
-    fontSize: '25px',
+    fontSize: '30px',
     textAlign: 'left',
     color: '#58595B',
     fontWeight: 'bold',
