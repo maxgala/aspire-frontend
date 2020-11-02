@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 
   JobBoard: {
     fontFamily: 'PT Sans',
-    fontSize: '25px',
+    fontSize: '30px',
     textAlign: 'left',
     color: '#58595B',
     fontWeight: 'bold',
@@ -153,33 +153,7 @@ class JobBoard extends Component {
 
               <Grid
                 container
-                item xs={12} sm={6} md={6} lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Type</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
-              </Grid>
-              <Grid
-                container
-                item xs={12} sm={6} md={6} lg={3}
+                item xs={12} sm={6} md={6} 
                 spacing={1}
                 alignItems="center"
                 justify="center"
