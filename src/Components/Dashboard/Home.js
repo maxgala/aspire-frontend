@@ -22,12 +22,12 @@ const useStyles = makeStyles(() => ({
   },
   booking_history: {
     fontFamily: 'PT Sans',
-    fontSize: '20px',
+    fontSize: '25px',
     textAlign: 'left',
     color: '#58595b',
     fontWeight: 'bold',
     marginTop: '20px',
-    marginBottom: '0px'
+    marginBottom: '20px'
   },
   section_title: {
     width: '100%',
@@ -115,7 +115,7 @@ class Home extends Component {
       <div>
         <PerfectScrollbar>
         <div className={classes.home_page}>
-          <h1 className={classes.booking_history}>Your Booking History</h1>
+          <h1 className={classes.booking_history}>Dashboard</h1>
           <Grid
             container
             alignItems="flex-start"
@@ -245,7 +245,7 @@ class Home extends Component {
                   item xs={12} sm={12} md={12} lg={8}
                   spacing={1}
                   alignItems="center"
-                  justify="center"
+                  justify="flex-start"
                 >
                   <p className={classes.section_title}>Your Job Application</p>
                   {this.state.job_applications && this.state.job_applications.length > 0 ?
