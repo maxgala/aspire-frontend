@@ -69,6 +69,9 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     fontSize: '8px',
+    '@media (max-width: 320px)': {
+      fontSize: '6px'
+    },
     fontWeight: '400',
     borderRadius: 50,
     backgroundColor :'white',
@@ -82,6 +85,8 @@ const useStyles = makeStyles(() => ({
     width: '95%',
     display: 'inline-block',
     alignItems: 'center',
+    paddingLeft: '5%',
+    paddingRight: '5%',
     overflow: 'hidden'
   }
 }));

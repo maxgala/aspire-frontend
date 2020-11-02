@@ -14,7 +14,7 @@ import close from "../../Images/close.png";
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '90%',
+    width: '100%',
     maxWidth: '350px',
     height: '180px',
     borderStyle: 'solid',
