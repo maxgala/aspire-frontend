@@ -11,7 +11,6 @@ const useStyles = makeStyles(() => ({
   mainPage: {
     paddingLeft: '8%',
     paddingRight: '8%',
-    paddingTop:'8%',
     paddingBottom:'8%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -19,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
 
   JobBoard: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '25px',
     textAlign: 'left',
     color: '#58595B',
@@ -32,8 +31,11 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
 
+  padding: {
+  },
+
   section_title: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
     marginBottom: '10px',
@@ -57,7 +59,7 @@ const useStyles = makeStyles(() => ({
   },
 
   date: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     fontWeight: 'bold',
   }
@@ -86,7 +88,9 @@ class JobBoard extends Component {
       <div>
         <PerfectScrollbar>
           <div className={classes.mainPage}>
-
+          
+              <h1 className={classes.JobBoard}>Resume Bank</h1>
+            
             <Grid
               container
               item xs={12}
