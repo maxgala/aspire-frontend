@@ -104,7 +104,7 @@ class EmptyCard extends Component {
     return (
       <Grid
         container
-        item xs={8}
+        item xs={12}
         spacing={0}
         alignItems="center"
         justify="center"
