@@ -342,7 +342,7 @@ class JobApplicationCard extends Component {
             </Grid>
             <Grid
               container
-              item xs={12}
+              item xs={12} sm={10}
               spacing={0}
               alignItems="flex-start"
               justify="flex-start"
