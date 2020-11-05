@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: '90vh',
-    marginLeft:"20px",
+    marginLeft:"10px",
     
   },
   booking_history: {

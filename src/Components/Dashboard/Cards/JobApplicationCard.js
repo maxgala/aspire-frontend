@@ -27,6 +27,9 @@ const useStyles = makeStyles(() => ({
     fontFamily: 'Arial', 
     marginBottom: '5%',
     marginRight: '5%',
+    '@media (max-width: 480px)': {
+      marginRight: '0px'
+    },
     boxShadow: "0px 6px 6px #00000029",
     overflow: 'hidden'
   },
