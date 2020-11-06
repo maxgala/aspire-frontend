@@ -41,7 +41,6 @@ const useStyles = makeStyles(() => ({
   cardInterview: {
     width: '95%',
     maxWidth: '500px',
-    margin: 'auto',
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
@@ -53,7 +52,6 @@ const useStyles = makeStyles(() => ({
   cardBooked: {
     width: '95%',
     maxWidth: '500px',
-    margin: 'auto',
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
