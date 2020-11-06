@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
     // marginTop: '30px',
     textAlign: 'left',
     '@media (max-width: 480px)': {
-      // marginTop: '20px',
+      marginTop: '20px',
     },
   },
 
