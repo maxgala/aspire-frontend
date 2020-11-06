@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Filter from "./Cards/FilterCard";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import ResumeBankCard from "./Cards/ResumeBankCard";
 import TestData from "./CoffeeChatsTestData";
 

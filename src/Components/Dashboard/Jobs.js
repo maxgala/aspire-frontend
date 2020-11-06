@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import JobApplicationCard from "./Cards/JobApplicationCard";
 import Filter from "./Cards/FilterCard";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
 import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";

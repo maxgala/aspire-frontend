@@ -6,7 +6,7 @@ import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
 import CardTypes from "./CardTypes";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import { httpGet } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
 
