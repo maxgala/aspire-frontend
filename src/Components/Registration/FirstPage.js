@@ -19,6 +19,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import MuiPhoneNumber from "material-ui-phone-number";
+import EmailField from "./EmailField";
+import PasswordField from "./PasswordField";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -98,14 +100,21 @@ class FirstPage extends Component {
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
   }
 
+  fieldStateChanged = (field) => (state) =>
+    this.setState({ [field]: state.errors.length === 0 });
+
+  emailChanged = this.fieldStateChanged("email");
+  passwordChanged = this.fieldStateChanged("password");
+
   changeToPage2 = (event) => {
-    if (!this.state.email.includes("@")) {
-      this.setState({
-        dialogueOpen: true,
-        showEmailError: true,
-      });
-      return;
-    }
+    //   Can exclude this because we're doing the checks in EmailField.js
+    // if (!this.state.email.includes("@")) {
+    //   this.setState({
+    //     dialogueOpen: true,
+    //     showEmailError: true,
+    //   });
+    //   return;
+    // }
     if (
       this.state.firstName === "" ||
       this.state.firstName === undefined ||
@@ -133,9 +142,9 @@ class FirstPage extends Component {
     });
   };
 
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
-  };
+  //   handlePasswordChange = (event) => {
+  //     this.setState({ password: event.target.value });
+  //   };
 
   handleFirstNameChange = (event) => {
     this.setState({
@@ -149,12 +158,12 @@ class FirstPage extends Component {
     });
   };
 
-  handleEmailChange = (event) => {
-    this.setState({
-      showEmailError: false,
-      email: event.target.value,
-    });
-  };
+  //   handleEmailChange = (event) => {
+  //     this.setState({
+  //       showEmailError: false,
+  //       email: event.target.value,
+  //     });
+  //   };
 
   handleDialog = (event) => {
     this.setState({
@@ -163,6 +172,8 @@ class FirstPage extends Component {
   };
 
   handleConfirmCheck = (event) => {
+    console.log("event.target.value =====>", event.target.value);
+    console.log("this.state.password =====>", this.state.password);
     if (event.target.value === this.state.password) {
       this.setState({
         errorDisplay: "None",
@@ -187,6 +198,8 @@ class FirstPage extends Component {
   };
 
   handlePhoneChange(value) {
+    console.log("this.state.password =====>", this.state.password);
+
     this.setState({
       phone: value,
     });
@@ -194,6 +207,10 @@ class FirstPage extends Component {
 
   render() {
     const classes = this.props.classes;
+    const { email, password } = this.state;
+    // Use formValidated to make the next button appear {formValidated && ...button}
+    const formValidated = email && password;
+
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -230,20 +247,22 @@ class FirstPage extends Component {
                   onChange={this.handleLastNameChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              {/* ****This is the OLD email field***** */}
+              {/* <Grid item xs={12}>
                 <TextField
                   variant="outlined"
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
+                  placeholder="Enter Email Address"
                   name="email"
                   autoComplete="email"
                   error={this.state.showEmailError}
                   value={this.state.email}
-                  onChange={this.handleEmailChange}
+                  onChange={this.emailChanged}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <MuiPhoneNumber
                   variant="outlined"
@@ -264,6 +283,7 @@ class FirstPage extends Component {
                   id="date"
                   label="Birthday"
                   type="date"
+                  format="MM/dd/yyyy"
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -274,6 +294,8 @@ class FirstPage extends Component {
                   onChange={this.handleYearChange}
                 />
               </Grid>
+              {/*
+              *****This is the OLD password field****
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -285,16 +307,62 @@ class FirstPage extends Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  onChange={this.handlePasswordChange}
+                  onChange={this.passwordChanged}
                 />
-              </Grid>
-              <Grid item xs={12}>
+              </Grid> */}
+              {/* <Grid item xs={12}>
                 <TextField
                   variant="outlined"
                   required
                   fullWidth
                   name="confirm password"
                   label="Confirm Password"
+                  type="password"
+                  id="password-confirm"
+                  autoComplete="current-password"
+                  onChange={this.handleConfirmCheck}
+                /> */}
+
+              {/* <FormHelperText
+                  style={{
+                    display: this.state.errorDisplay,
+                    color: "red",
+                  }}
+                  id="component-error-text"
+                >
+                  {" "}
+                  <b>Error! Passwords don't match </b>
+                </FormHelperText>
+              </Grid> */}
+
+              <Grid item xs={12}>
+                <EmailField
+                  fieldId="email"
+                  label="Email"
+                  placeholder="Enter Email Address"
+                  onStateChanged={this.emailChanged}
+                  required
+                />
+              </Grid>
+
+              {/** Render the password field component using thresholdLength of 7 and minStrength of 3 **/}
+              <Grid item xs={12}>
+                <PasswordField
+                  fieldId="password"
+                  label="Password"
+                  placeholder="Enter Password"
+                  onStateChanged={this.passwordChanged}
+                  thresholdLength={7}
+                  minStrength={3}
+                  required
+                />
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="confirm password"
+                  label="Confirm Password"
+                  placeholder="Enter Password"
                   type="password"
                   id="password-confirm"
                   autoComplete="current-password"
@@ -313,6 +381,7 @@ class FirstPage extends Component {
               </Grid>
             </Grid>
             <LinearWithValueLabel progress={this.state.progress} />
+            {/* {formValidated && ( */}
             <Button
               type="submit"
               variant="contained"
@@ -322,6 +391,7 @@ class FirstPage extends Component {
             >
               <b>Next</b>
             </Button>
+            {/* )} */}
             <Grid container justify="center">
               <Grid item>
                 <Link href="#" variant="body1" onClick={this.changeToSignIn}>
