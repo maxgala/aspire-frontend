@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import aboutMax from "../Images/aboutMax.jpg";
+import aboutMax from "../Images/aboutMax-min.jpg";
 import icon1 from "../Images/icon_1.png";
 import icon2 from "../Images/icon_2.png";
 import icon3 from "../Images/icon_3.png";
