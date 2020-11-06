@@ -27,12 +27,19 @@ const useStyles = makeStyles(theme => ({
   picture: {
     width: '200px',
     height: '200px',
+    "@media (max-width: 480px)": { 
+      width: '150px',
+      height: '150px',
+    },
     justify: 'left',
     borderRadius: '50%',
   },
   header: {
     fontFamily: 'Nunito Sans',
     fontSize: '48px',
+    "@media (max-width: 480px)": { 
+      fontSize: '25px'
+    },
     fontWeight: 'bolder',
     textAlign: 'center',
     paddingLeft: '30px',
@@ -48,6 +55,9 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto',
     fontFamily:'Nunito',
     fontSize: '20px',
+    "@media (max-width: 480px)": { 
+      fontSize: '15px'
+    },
     paddingLeft: '40px', 
     paddingRight: '40px',
     fontStyle:'italic',
@@ -55,6 +65,11 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontSize: '22px',
+    "@media (max-width: 480px)": { 
+      fontSize: '18px',
+      paddingLeft: '20px', 
+      paddingRight: '20px',
+    },
     fontFamily: 'Nunito',
     fontWeight: 'bold',
     color: '#484848'
