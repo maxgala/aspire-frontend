@@ -13,6 +13,10 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     fontFamily: 'Arial',
     fontSize: '36px',
+    '@media (max-width: 480px)': {
+      fontSize: '25px',
+      marginTop: '5%'
+    },
     textAlign: 'left',
     margin: '0',
     marginLeft: '20px',
@@ -41,10 +45,12 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     backgroundColor: 'rgba(0,0,0,0.6  )',
     width: '100%',
+    
     '@media (max-width: 1280px)': {
       paddingBottom: '140px',
       '@media (max-width: 599px)': {paddingBottom: '110px'},
     },
+    
     paddingBottom: '185px',
     textAlign: 'left',
     display: 'inline-block',
@@ -52,8 +58,7 @@ const useStyles = makeStyles(theme => ({
   toolbar: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-end'
-
+    justifyContent: 'flex-end',
   },
   grid: { 
     paddingLeft: '5vw',
