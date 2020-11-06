@@ -87,7 +87,7 @@ class JobBoard extends Component {
     return (
 
       <div>
-        <PerfectScrollbar>
+        {/* <PerfectScrollbar> */}
           <div className={classes.mainPage}>
           <div className={classes.padding}>
               <h1 className={classes.JobBoard}>Members</h1>
@@ -218,7 +218,7 @@ class JobBoard extends Component {
               ))}
             </Grid>
           </div>
-        </PerfectScrollbar>
+        {/* </PerfectScrollbar> */}
       </div>
 
 

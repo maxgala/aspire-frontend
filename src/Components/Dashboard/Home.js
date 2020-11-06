@@ -113,7 +113,7 @@ class Home extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        <PerfectScrollbar>
+        {/* <PerfectScrollbar> */}
         <div className={classes.home_page}>
           <h1 className={classes.booking_history}>Dashboard</h1>
           <Grid
@@ -319,7 +319,7 @@ class Home extends Component {
             }
           {/* </Grid> */}
       </div>
-      </PerfectScrollbar>
+      {/* </PerfectScrollbar> */}
     </div>
     )
   }
