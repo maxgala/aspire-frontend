@@ -95,7 +95,7 @@ class CoffeeChats extends Component {
     return (
 
       <div>
-        <PerfectScrollbar>
+        {/* <PerfectScrollbar> */}
           <div className={classes.mainPage}>
             <h1 className={classes.coffeeChat}>Coffee Chats</h1>
             <Grid
@@ -229,7 +229,7 @@ class CoffeeChats extends Component {
               }
             </Grid>
           </div>
-        </PerfectScrollbar>
+        {/* </PerfectScrollbar> */}
       </div>
     )
   }
