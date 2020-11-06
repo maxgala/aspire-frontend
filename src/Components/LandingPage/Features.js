@@ -18,6 +18,8 @@ const useStyles = makeStyles(() => ({
     fontSize: "48px",
     paddingTop: '30px',
     color: 'black',
+    '@media (max-width: 480px)': {fontSize: '30px'},
+
   },
   grid: { 
     paddingLeft: '0%',
