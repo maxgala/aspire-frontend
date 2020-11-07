@@ -1,11 +1,15 @@
-import React, {Component} from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import image from "../../Images/faceShot/pic1.png";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { faBuilding } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Document, Page } from "react-pdf";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -122,12 +126,12 @@ const useStyles = makeStyles(() => ({
     },
     fontWeight: '400',
     borderRadius: 75,
-    backgroundColor :'#455E6A',
-    color: '##FFFFFF',
-    '&:hover': {
+    backgroundColor: "#455E6A",
+    color: "##FFFFFF",
+    "&:hover": {
       backgroundColor: "#455E6A1",
-      color: '##FFFFFF'
-    }
+      color: "##FFFFFF",
+    },
   },
   container: {
     width: 'calc(95% - 5px)',
@@ -136,23 +140,43 @@ const useStyles = makeStyles(() => ({
     // transform: 'translate(45%, -65%)'
   },
   company_icon: {
-    width: '18px',
-    height: '18px',
-    marginRight: '15px'
+    width: "18px",
+    height: "18px",
+    marginRight: "15px",
   },
   outer_grid: {
-    height: '180px'
-  }
+    height: "180px",
+  },
 }));
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
-    return <Component {...props} classes={classes}/>
-  }
+    return <Component {...props} classes={classes} />;
+  };
 }
 
 class JobApplicationCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resume_popup: false,
+      num_pages: 0,
+    };
+  }
+
+  renderResume = () => {
+    this.setState({ resume_popup: true });
+  };
+
+  handleClose = () => {
+    this.setState({ resume_popup: false });
+  };
+
+  onResumeLoad = ({ numPages }) => {
+    this.setState({ num_pages: numPages });
+  };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -169,7 +193,8 @@ class JobApplicationCard extends Component {
           >
             <Grid
               container
-              item xs={12}
+              item
+              xs={12}
               spacing={0}
               alignItems="center"
               justify="center"
@@ -201,21 +226,69 @@ class JobApplicationCard extends Component {
                 
               </Grid> 
             </Grid>   
-
-
             <Grid
               container
-              item xs={12}
+              item
+              xs={12}
               spacing={0}
               alignItems="center"
               justify="center"
             >
-              <span className={classes.button_container}><Button className={classes.button} variant="contained" color="primary" >View Resume</Button></span>
+              <span className={classes.button_container}>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => this.renderResume()}
+                >
+                  View Resume
+                </Button>
+              </span>
             </Grid>
           </Grid>
-        {/* </div> */}
+          <Dialog
+            open={this.state.resume_popup}
+            onClose={this.handleClose}
+            scroll={"paper"}
+            fullWidth={true}
+            maxWidth={"md"}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+          >
+            <DialogTitle id="scroll-dialog-title">
+              <div>
+                <h2>{this.props.data.name}'s Resume</h2>
+              </div>
+            </DialogTitle>
+            <DialogContent style={{ overflowX: "hidden" }}>
+              <DialogContentText
+                id="scroll-dialog-description"
+                tabIndex={-1}
+                component={"span"}
+              >
+                <div style={{ margin: "auto", height: "100%" }}>
+                  <Document
+                    file="./Files/test_resume.pdf"
+                    onLoadSuccess={this.onResumeLoad}
+                  >
+                    {Array.from(
+                      new Array(this.state.num_pages),
+                      (el, index) => (
+                        <Page
+                          key={`page_${index + 1}`}
+                          pageNumber={index + 1}
+                          width={Math.min(900, window.innerWidth - 100)}
+                        />
+                      )
+                    )}
+                  </Document>
+                </div>
+              </DialogContentText>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
-    )
+    );
   }
 }
 

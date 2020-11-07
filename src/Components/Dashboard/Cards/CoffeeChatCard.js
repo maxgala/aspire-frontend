@@ -44,6 +44,7 @@ const useStyles = makeStyles(() => ({
     marginLeft:"5px",
 
     // margin: 'auto',
+
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',

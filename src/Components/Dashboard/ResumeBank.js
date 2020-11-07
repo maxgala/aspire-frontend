@@ -7,7 +7,6 @@ import ResumeBankCard from "./Cards/ResumeBankCard";
 import TestData from "./CoffeeChatsTestData";
 
 const useStyles = makeStyles(() => ({
-
   mainPage: {
     paddingLeft: '8%',
     paddingRight: '8%',
@@ -27,8 +26,8 @@ const useStyles = makeStyles(() => ({
   },
 
   grid: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   
@@ -44,32 +43,32 @@ const useStyles = makeStyles(() => ({
   },
 
   select: {
-    background: '#EAEAEA',
-    borderColor: '#EAEAEA',
-    outline: 'none',
-    color: '#6EA0B5',
-    fontWeight: '800',
+    background: "#EAEAEA",
+    borderColor: "#EAEAEA",
+    outline: "none",
+    color: "#6EA0B5",
+    fontWeight: "800",
   },
 
   sort: {
-    alignItems: 'flex-start',
-    textAlign: 'left',
-    marginBottom: '40px',
+    alignItems: "flex-start",
+    textAlign: "left",
+    marginBottom: "40px",
   },
 
   date: {
     fontFamily: 'PT Sans',
     fontSize: '15px',
     fontWeight: 'bold',
-  }
+  },
 
 }));
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
-    return <Component {...props} classes={classes} />
-  }
+    return <Component {...props} classes={classes} />;
+  };
 }
 
 class JobBoard extends Component {
@@ -78,35 +77,40 @@ class JobBoard extends Component {
     this.state = {
       // temporary - just wanted more test data to fill the page
       job_board_data: [...TestData, ...TestData, ...TestData],
-    }
+    };
   }
   render() {
     const classes = this.props.classes;
     return (
-
       <div>
         {/* <PerfectScrollbar> */}
           <div className={classes.mainPage}>
           
               <h1 className={classes.JobBoard}>Resume Bank</h1>
-            
+
             <Grid
               container
-              item xs={12}
+              item
+              xs={12}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
             >
               <Grid
                 container
-                item xs={12} sm={6} md={6} lg={3}
+                item
+                xs={12}
+                sm={6}
+                md={6}
+                lg={3}
                 spacing={1}
                 alignItems="center"
                 justify="center"
               >
                 <Grid
                   container
-                  item xs={12}
+                  item
+                  xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -115,7 +119,8 @@ class JobBoard extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={12}
+                  item
+                  xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -125,14 +130,19 @@ class JobBoard extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12} sm={6} md={6} lg={3}
+                item
+                xs={12}
+                sm={6}
+                md={6}
+                lg={3}
                 spacing={1}
                 alignItems="center"
                 justify="center"
               >
                 <Grid
                   container
-                  item xs={12}
+                  item
+                  xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -141,7 +151,8 @@ class JobBoard extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={12}
+                  item
+                  xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -159,7 +170,8 @@ class JobBoard extends Component {
               >
                 <Grid
                   container
-                  item xs={12}
+                  item
+                  xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -168,7 +180,8 @@ class JobBoard extends Component {
                 </Grid>
                 <Grid
                   container
-                  item xs={12}
+                  item
+                  xs={12}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -179,7 +192,9 @@ class JobBoard extends Component {
             </Grid>
 
             <div className={classes.sort}>
-              <p className={classes.date}> Sort date posted by:
+              <p className={classes.date}>
+                {" "}
+                Sort date posted by:
                 <select className={classes.select}>
                   <option value="Ascending">Ascending</option>
                   <option value="descending">Descending</option>
@@ -189,7 +204,8 @@ class JobBoard extends Component {
 
             <Grid
               container
-              item xs={12}
+              item
+              xs={12}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -210,9 +226,7 @@ class JobBoard extends Component {
           </div>
         {/* </PerfectScrollbar> */}
       </div>
-
-
-    )
+    );
   }
 }
 
