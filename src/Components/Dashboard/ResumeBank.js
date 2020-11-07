@@ -31,8 +31,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
   },
 
-  padding: {
-  },
+  
 
   section_title: {
     fontFamily: 'PT Sans',
