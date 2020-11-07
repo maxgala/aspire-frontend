@@ -16,15 +16,23 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     marginLeft: '10px',
     marginRight: '10px',
-    marginBottom: '10px',
+    marginBottom: '20px',
     height: '370px',
-    width: '370px'
+    width: '370px',
+    '@media (max-width: 480px)': {
+      height: '320px',
+      width: '320px',
+    },
+    '@media (max-width: 320px)': {
+      height: '300px',
+      width: '300px',
+    },
   },
   front_text: { 
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "30px",
-    '@media (max-width: 500px)': {fontSize: '24px'},
+    '@media (max-width: 480px)': {fontSize: '22px'},
     position: 'absolute',
     marginTop: '40%',
     width: '100%',
@@ -35,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   back_text: { 
     fontFamily: "Montserrat",
     fontSize: '20px',
-    '@media (max-width: 500px)': {fontSize: '16px'},
+    '@media (max-width: 480px)': {fontSize: '16px'},
     width: '100%',
     marginTop: '30%',
     paddingLeft: '20px',
@@ -84,7 +92,7 @@ class FeatureCard extends Component{
         </div>
  
         <div className={classes.image} onClick={this.handleClick} onMouseLeave={this.handleClick}>
-          <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on front of feature card"/>
+          <img style={{width: '100%', height: '100%', opacity: '1', marginBottom: '-101%'}} src={tint} alt="Tint on back of feature card"/>
           <img style={{width: '100%', height: '100%', opacity: '0.2', objectFit: 'cover'}} src={this.state.images[this.props.card_number - 1]} alt="Back of feature card"/>
           <div className={classes.centered}>
             <p className={classes.back_text}>{this.props.back_text}</p>

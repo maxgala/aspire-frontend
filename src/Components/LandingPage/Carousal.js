@@ -9,35 +9,6 @@ import Quotes from "./Quotes.js";
 import { Swipeable } from 'react-swipeable';
 
 const useStyles = makeStyles(theme => ({
-  // TODO: find way to do this with makeStyles
-  // navigation: {
-  //   display: 'flex',
-  //    justifyContent: 'center',
-  //    span: {
-  //      height: '20px',
-  //      width: '20px',
-  //      margin: '0 3px',
-  //      display: 'flex',
-  //      alignItems: 'center',
-  //      justifyContent: 'center',
-  //      cursor: 'pointer',
-  //    }
-  //    span::before: {
-  //      content:"";
-  //      height:6px;
-  //      width:6px;
-  //      background-color:#d4d4d4;
-  //      border-radius:50%;
-  //      transition:background-color 0.3s ease;
-
-  //    }
-  //    span:hover::before{
-  //      background-color:#45454d
-  //    }
-  //    span[data-image="${this.state.active}"]::before{
-  //     background-color:#45454d
-  //    }
-  // },
   rightArrow: {
     cursor: 'pointer',
     position: 'absolute',
@@ -56,12 +27,19 @@ const useStyles = makeStyles(theme => ({
   picture: {
     width: '200px',
     height: '200px',
+    "@media (max-width: 480px)": { 
+      width: '150px',
+      height: '150px',
+    },
     justify: 'left',
     borderRadius: '50%',
   },
   header: {
     fontFamily: 'Nunito Sans',
     fontSize: '48px',
+    "@media (max-width: 480px)": { 
+      fontSize: '25px'
+    },
     fontWeight: 'bolder',
     textAlign: 'center',
     paddingLeft: '30px',
@@ -77,6 +55,9 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto',
     fontFamily:'Nunito',
     fontSize: '20px',
+    "@media (max-width: 480px)": { 
+      fontSize: '15px'
+    },
     paddingLeft: '40px', 
     paddingRight: '40px',
     fontStyle:'italic',
@@ -84,6 +65,11 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontSize: '22px',
+    "@media (max-width: 480px)": { 
+      fontSize: '18px',
+      paddingLeft: '20px', 
+      paddingRight: '20px',
+    },
     fontFamily: 'Nunito',
     fontWeight: 'bold',
     color: '#484848'
@@ -121,6 +107,10 @@ class Quote extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   HandleRightArrowClick = (event) => {

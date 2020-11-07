@@ -3,12 +3,11 @@ import Grid from "@material-ui/core/Grid";
 import SeniorExec from "./SeniorExec.js";
 import { makeStyles } from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
-import SmallSeniorExec from "./SmallSeniorExec";
+
 
 // import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
 import SmallSeniorExecImg from "../Images/senior/Jalaluddin_Uzma.jpg";
 import SmallSeniorExecImg2 from "../Images/senior/Diop_Cheikh.jpeg";
-import SmallSeniorExecBottom from "./SeniorExecSmallBottom";
 import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
 import One from "../Images/senior/Ali_Ammar.jpg";
 import Two from "../Images/senior/Abdul Gaffor_ Thouheed.jpeg"; 
@@ -22,16 +21,17 @@ import Nine from "../Images/senior/Hameed_Amir.jpg";
 import Ten from "../Images/senior/Hanafi_Pouneh.jpeg";
 import Eleven from "../Images/senior/Hamidani_Farhan.jpeg";
 import Twelve from "../Images/senior/El Masri_Ghaleb.png";
+import { Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   background_lg: {
     backgroundColor: "white",
-    "@media (max-width: 1000px)": { display: "None" },
+    
   },
   background_md: {
     backgroundColor: "white",
-    "@media (max-width: 550px)": { display: "None" },
-    "@media (min-width: 1000px)": { display: "None" },
+    "@media (max-width: 1000px)": { display: "None" },
+    "@media (min-width: 550px)": { display: "None" },
   },
   background_sm: {
     backgroundColor: "white",
@@ -125,14 +125,7 @@ class SeniorExecGrid extends Component {
             className={classes.grid}
             id="seniors"
           >
-            <Grid
-              container
-              item
-              xs={8}
-              spacing={0}
-              alignItems="center"
-              justify="center"
-            >
+            
               <Grid
                 container
                 item
@@ -143,8 +136,7 @@ class SeniorExecGrid extends Component {
               >
                 <Grid
                   container
-                  item
-                  xs={6}
+                  item xs={12} sm={9} md={6} lg={4}
                   alignItems="center"
                   justify="center"
                 >
@@ -155,10 +147,11 @@ class SeniorExecGrid extends Component {
                     hover_image={this.state.displayImages[0].photo}
                   />
                 </Grid>
+
+                <Hidden smDown>
                 <Grid
                   container
-                  item
-                  xs={6}
+                  item xs={12} sm={9} md={6} lg={4}
                   alignItems="center"
                   justify="center"
                 >
@@ -170,101 +163,32 @@ class SeniorExecGrid extends Component {
                     hover_image={this.state.displayImages[1].photo}
                   />
                 </Grid>
+                </Hidden>
+                
+                <Hidden mdDown> 
+                <Grid
+                  container
+                  item xs={12} sm={9} md={6} lg={4}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <SeniorExec
+                    name_text="Latafat Faran"
+                    extra_text="Executive Vice President at Core Development Group"
+                    id="theimage"
+                    image={this.state.displayImages[2].photo}
+                    hover_image={this.state.displayImages[2].photo}
+                  />
+                </Grid>
+                </Hidden>
+                
+
                 <SeniorExecText appContext={this.props.appContext} />
               </Grid>
-            </Grid>
-            <Grid
-              container
-              item
-              xs={4}
-              alignItems="flex-end"
-              justify="flex-end"
-            >
-              <SmallSeniorExec
-                name_text="Latafat Faran"
-                extra_text="Executive Vice President at Core Development Group"
-                id="theimage"
-                image={this.state.displayImages[2].photo}
-                hover_image={this.state.displayImages[2].photo}
-              />
-              <SmallSeniorExecBottom
-                name_text="Latafat Faran"
-                extra_text="Executive Vice President at Core Development Group"
-                id="theimage"
-                image={this.state.displayImages[3].photo}
-                hover_image={this.state.displayImages[3].photo}
-              />
-            </Grid>
+            
           </Grid>
         </div>
 
-        <div className={classes.background_md}>
-          <Grid
-            container
-            item
-            xs={12}
-            spacing={0}
-            alignItems="center"
-            justify="center"
-            className={classes.grid}
-          >
-            <Grid
-              container
-              item
-              xs={6}
-              alignItems="flex-end"
-              justify="flex-end"
-            >
-              <SmallSeniorExec
-                name_text="Latafat Faran"
-                extra_text="Executive Vice President at Core Development Group"
-                id="theimage"
-              />
-            </Grid>
-            <Grid
-              container
-              item
-              xs={6}
-              spacing={0}
-              alignItems="center"
-              justify="center"
-            >
-              <SmallSeniorExecBottom
-                name_text="Latafat Faran"
-                extra_text="Executive Vice President at Core Development Group"
-                id="theimage"
-              />
-            </Grid>
-            <SeniorExecText appContext={this.props.appContext} />
-          </Grid>
-        </div>
-
-        <div className={classes.background_sm}>
-          <Grid
-            container
-            item
-            xs={12}
-            spacing={0}
-            alignItems="center"
-            justify="center"
-            className={classes.grid}
-          >
-            <Grid
-              container
-              item
-              xs={12}
-              alignItems="flex-end"
-              justify="flex-end"
-            >
-              <SmallSeniorExec
-                name_text="Latafat Faran"
-                extra_text="Executive Vice President at Core Development Group"
-                id="theimage"
-              />
-            </Grid>
-            <SeniorExecText appContext={this.props.appContext} />
-          </Grid>
-        </div>
       </div>
     );
   }

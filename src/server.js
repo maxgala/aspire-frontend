@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname)));
 app.get('/api/*', async (req, res) => {
   const headers = {
     "authorization": req.headers.authorization,
-    "content-type": req.headers["content-type"]
+    "content-type": req.headers["content-type"] ? req.headers["content-type"] : "application/json"
   }
   res.send(await httpGet(req.method, req.path, headers).catch(err => {
     if (err) {
@@ -30,7 +30,7 @@ app.get('/api/*', async (req, res) => {
 app.post('/api/*', async (req, res) => {
   const headers = {
     "authorization": req.headers.authorization,
-    "content-type": req.headers["content-type"]
+    "content-type": req.headers["content-type"] ? req.headers["content-type"] : "application/json"
   }
   res.send(await httpPost(req.path, headers, req.body)
     .catch(err => {
@@ -43,7 +43,7 @@ app.post('/api/*', async (req, res) => {
 app.put('/api/*', async (req, res) => {
   const headers = {
     "authorization": req.headers.authorization,
-    "content-type": req.headers["content-type"]
+    "content-type": req.headers["content-type"] ? req.headers["content-type"] : "application/json"
   }
   res.send(await httpPut(req.path, headers, req.body)
     .catch(err => {

@@ -7,7 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '95%',
+    width: '100%',
     minHeight: '130px',
     maxWidth: '350px',
     height: '180px',

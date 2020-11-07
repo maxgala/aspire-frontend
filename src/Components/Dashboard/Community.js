@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Filter from "./Cards/FilterCard";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CommunityCard from "./Cards/CommunityCard";
 import TestData from "./CoffeeChatsTestData";
 
@@ -19,8 +19,8 @@ const useStyles = makeStyles(() => ({
   },
 
   JobBoard: {
-    fontFamily: 'myriad-pro, sans-serif',
-    fontSize: '25px',
+    fontFamily: 'PT Sans',
+    fontSize: '30px',
     textAlign: 'left',
     color: '#58595B',
     fontWeight: 'bold',
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
   },
 
   section_title: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
     marginBottom: '10px',
@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
   },
 
   date: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     fontWeight: 'bold',
   }
@@ -87,10 +87,10 @@ class JobBoard extends Component {
     return (
 
       <div>
-        <PerfectScrollbar>
+        {/* <PerfectScrollbar> */}
           <div className={classes.mainPage}>
           <div className={classes.padding}>
-              <h1 className={classes.JobBoard}>Job Board</h1>
+              <h1 className={classes.JobBoard}>Members</h1>
             </div>
           <Grid
               container
@@ -218,7 +218,7 @@ class JobBoard extends Component {
               ))}
             </Grid>
           </div>
-        </PerfectScrollbar>
+        {/* </PerfectScrollbar> */}
       </div>
 
 

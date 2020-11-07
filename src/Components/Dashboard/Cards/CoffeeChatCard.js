@@ -15,7 +15,7 @@ import close from "../../Images/close.png";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
-    width: '95%',
+    width: '100%',
     maxWidth: '500px',
     marginLeft:"5px",
     height: '180px',
@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: "0px 6px 6px #00000029",
   },
   cardFour: {
-    width: '95%',
+    width: '100%',
     maxWidth: '500px',
     marginLeft:"5px",
     height: '180px',
@@ -39,21 +39,25 @@ const useStyles = makeStyles(() => ({
     boxShadow: "0px 6px 6px #00000029",
   },
   cardInterview: {
-    width: '95%',
+    width: '100%',
     maxWidth: '500px',
-    margin: 'auto',
+    marginLeft:"5px",
+
+    // margin: 'auto',
+
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
     textAlign: 'left',
     // need designs for mock interview card
-    backgroundColor: 'red',
+    backgroundColor: '#600000',
     color: 'white',
   },
   cardBooked: {
-    width: '95%',
+    width: '100%',
     maxWidth: '500px',
-    margin: 'auto',
+    marginLeft:"5px",
+    // margin: 'auto',
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
@@ -64,9 +68,21 @@ const useStyles = makeStyles(() => ({
   image:{
     width: '120px',
     height: '120px',
+    '@media (max-width: 520px)': {
+      width: '80px',
+      height: '80px',
+      marginRight: '5px',
+      marginTop: '5px'
+    },
+    '@media (max-width: 380px)': {
+      width: '50px',
+      height: '50px',
+      marginRight: '0px',
+      marginTop: '5px'
+    },
     borderRadius: '50%',
     margin: 'auto',
-    marginTop: '30px',
+    marginTop: '15px',
     marginLeft: '10px',
     marginRight: '20px',
     display: 'inline-block'
@@ -88,6 +104,9 @@ const useStyles = makeStyles(() => ({
     textAlign: 'left',
     paddingTop: '5px',
     fontSize: '20px',
+    '@media (max-width: 520px)': {
+      fontSize: '16px',
+    },
     color: 'white',
     margin: '0px',
     marginLeft: '5px',
@@ -107,6 +126,13 @@ const useStyles = makeStyles(() => ({
   subtitle: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
+    '@media (max-width: 520px)': {
+      fontSize: '12px',
+    },
+    '@media (max-width: 320px)': {
+      fontSize: '10px',
+      marginTop: '3px'
+    },
     width: '100%',
     textAlign: 'left',
     color: 'white',
@@ -133,6 +159,9 @@ const useStyles = makeStyles(() => ({
   company: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
+    '@media (max-width: 520px)': {
+      fontSize: '10px',
+    },
     width: '100%',
     textAlign: 'left',
     margin: '5px',
@@ -141,6 +170,10 @@ const useStyles = makeStyles(() => ({
   date: {
     fontFamily: 'myriad-pro, sans-serif',
     fontWeight: 'bold',
+    '@media (max-width: 520px)': {
+      fontSize: '10px',
+      marginBottom: '5px'
+    },
     width: '100%',
     textAlign: 'left',
     fontSize: '15px',
@@ -173,6 +206,9 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
     textAlign: 'right',
     margin: '5px',
+    '@media (max-width: 320px)': {
+      display: 'none'
+    },
     paddingTop: '5px',
     fontSize: '8px',
     color: 'white',
@@ -235,9 +271,7 @@ const useStyles = makeStyles(() => ({
     paddingBottom:'0'
   },
   container: {
-    width: 'calc(95% - 140px)',
-    display: 'inline-block',
-    transform: 'translate(0%, -65%)'
+    paddingTop: '20px'
   },
   company_icon: {
     width: '18px',
@@ -312,23 +346,42 @@ class CoffeeChatCard extends Component {
     return (
       <div className={this.props.data.chat_status === "ChatStatus.RESERVED" ? classes.cardBooked : this.props.data.chat_type === ChatTypes.oneOnOne ? classes.cardOne : this.props.data.chat_type === ChatTypes.fourOnOne ? classes.cardFour : classes.cardInterview}>
         {/* need to get image from s3 bucket --  */}
-        <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
+        
         <div className={classes.container}>
           <Grid
             container
             item xs={12}
             spacing={0}
-            alignItems="center"
+            alignItems="flex-start"
             justify="flex-start"
+            direction="row"
             className={classes.outer_grid}
           >
             <Grid
+              container
+              item xs={4}
+              spacing={0}
+              alignItems="center"
+              justify="flex-start"
+            >
+              <img className={classes.image} src={image} alt={"Coffee Chat Card"}/>
+            </Grid>
+
+
+            <Grid
+              container
+              item xs={8}
+              spacing={0}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <Grid
               container
               item xs={12}
               spacing={0}
               alignItems="flex-start"
               justify="flex-start"
-            >
+              >
               <h1 className={classes.title}>
                 {this.props.data.chat_type === ChatTypes.oneOnOne ? "One-on-One" : this.props.data.chat_type === ChatTypes.fourOnOne ? "Four-on-One" : "Mock Interview"}
                 {this.props.data.chat_status === "ChatStatus.PENDING" ? <span className={classes.booked}> booked </span> : ''}
@@ -339,26 +392,41 @@ class CoffeeChatCard extends Component {
               {this.props.data && this.props.data.chat_tags && this.props.data.chat_tags.map((tag, key) => (
                 <span key={key}  className={classes.tag_container}><span className={classes.tag}>{tag}</span></span>
               ))}
-            </Grid>
-            <Grid
+              </Grid>
+
+              <Grid
               container
-              item xs={8}
+              item xs={12}
               spacing={0}
               alignItems="flex-start"
               justify="flex-start"
-            >
+              >
+
+              <Grid
+              container
+              item xs={12} sm={8}
+              spacing={0}
+              alignItems="flex-start"
+              justify="flex-start"
+              >
               <hr className={classes.bar}></hr>
               <span className={classes.date}>Available: {this.props.data.date}</span>
-            </Grid>
-            <Grid
+              </Grid>
+              <Grid
               container
-              item xs={4}
+              item xs={12} sm={4}
               spacing={0}
               alignItems="flex-start"
               justify="flex-start"
-            >
+              >
               <span className={classes.button_container}><Button  onClick={this.openCoffeeChat} className={classes.button} variant="contained" color="primary">View Booking</Button></span>
+              </Grid>
+
+
             </Grid>
+            </Grid>
+
+           
           </Grid>
         </div>
 

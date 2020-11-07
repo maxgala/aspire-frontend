@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     float: 'left',
     align: 'left',
     '@media (max-width: 480px)': {width: '125px'},
+    '@media (max-width: 320px)': {width: '90px'},
     width: '175px',
     '&:hover': {
       cursor: 'pointer',
@@ -65,9 +66,9 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
     '@media (max-width: 480px)': {
       marginLeft: 'auto',
-      width: '100px',
+      width: '90px',
       height: '30px',
-      fontSize: '15px',
+      fontSize: '12px',
       margin: '0'
     },
     width: '125px',
@@ -89,9 +90,9 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '1',
     textTransform: "capitalize",
     '@media (max-width: 480px)': {
-      width: '100px',
+      width: '90px',
       height: '30px',
-      fontSize: '15px',
+      fontSize: '12px',
       margin: '0'
     },
     width: '125px',

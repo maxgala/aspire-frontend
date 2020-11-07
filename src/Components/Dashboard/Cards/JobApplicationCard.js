@@ -14,7 +14,7 @@ import close from "../../Images/close.png";
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '90%',
+    width: '100%',
     maxWidth: '350px',
     height: '180px',
     borderStyle: 'solid',
@@ -26,15 +26,27 @@ const useStyles = makeStyles(() => ({
     fontWeight: '100',
     fontFamily: 'Arial', 
     marginBottom: '5%',
+    marginRight: '5%',
+    '@media (max-width: 480px)': {
+      marginRight: '0px'
+    },
     boxShadow: "0px 6px 6px #00000029",
+    overflow: 'hidden'
   },
   jobTitle:{
     fontSize: '19px',
+    '@media (max-width: 350px)': {
+      fontSize: '16px',
+      marginBottom: '0px'
+    },
     fontWeight: '100',
     marginBottom: '1%',
   },
   text2:{
     fontSize: '12px',
+    '@media (max-width: 350px)': {
+      fontSize: '10px',
+    },
     marginLeft: '2%',
     marginTop:'10px',
     fontWeight: '100',
@@ -42,6 +54,10 @@ const useStyles = makeStyles(() => ({
   text3:{
     fontSize: '12px',
     marginLeft: '7%',
+    '@media (max-width: 350px)': {
+      fontSize: '10px',
+      marginLeft: '4%',
+    },
     marginTop:'10px',
     fontWeight: '100',
     flexDirection:'row'
@@ -54,6 +70,12 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     fontSize: '10px',
+    '@media (max-width: 350px)': {
+      fontSize: '8px',
+      marginTop: '10px',
+      paddingLeft: '10px',
+      paddingRight: '10px',
+    },
     position: 'absolute',
     fontWeight: '400',
     borderRadius: 50,
@@ -172,8 +194,12 @@ const useStyles = makeStyles(() => ({
     height:"20px"
   },
   card1:{
-    marginLeft:"30px",
+    marginLeft:"20px",
     marginTop:"15px",
+    '@media (max-width: 350px)': {
+      marginTop: '10px'
+    },
+    
   },
   toolbar: {
     height: '8vh',
@@ -261,7 +287,7 @@ class JobApplicationCard extends Component {
               </Grid>
               <Grid
                 container
-                item xs={10}
+                item xs={11}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -292,7 +318,7 @@ class JobApplicationCard extends Component {
             <Grid
               container
               item xs={12}
-              spacing={1}
+              spacing={2}
               alignItems="flex-start"
               justify="flex-start"
             >
@@ -319,8 +345,8 @@ class JobApplicationCard extends Component {
             </Grid>
             <Grid
               container
-              item xs={12}
-              spacing={1}
+              item xs={12} sm={10}
+              spacing={0}
               alignItems="flex-start"
               justify="flex-start"
             >
@@ -328,7 +354,7 @@ class JobApplicationCard extends Component {
               <Grid
                 key={key}
                 container
-                item xs={3}
+                item xs={4} sm={4} md={3}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"

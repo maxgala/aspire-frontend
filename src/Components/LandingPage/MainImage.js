@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
   h1style: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
-    "@media (max-width: 800px)": { fontSize: "55px" },
+    "@media (max-width: 800px)": { fontSize: "45px" },
+    "@media (max-width: 480px)": {fontSize: "25px"},
     fontSize: "72px",
     color: "white",
     textAlign: "center",
@@ -26,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
   subheading: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
-    "@media (max-width: 800px)": { fontSize: "18px" },
+    '@media (max-width: 800px)': { fontSize: "18px" },
+    "@media (max-width: 480px)": {fontSize: "12px"},
     fontSize: "24px",
     color: "white",
     paddingLeft: "30px",
@@ -40,7 +42,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontFamily: "Montserrat",
     fontWeight: "Bold",
-    "@media (max-width: 800px)": { fontSize: "18px" },
+    '@media (max-width: 800px)': { 
+      fontSize: "15px"
+    },
+    "@media (max-width: 480px)": {
+      fontSize: "10px",
+      width: "180px",
+      marginTop: "1%"
+    },
     fontSize: "20px",
     textTransform: "none",
     paddingLeft: "20px",
@@ -70,16 +79,34 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     paddingTop: "20vh",
+    "@media (max-width: 600px)": {
+      paddingTop: "15vh",
+      width: "300px",
+    },
     width: "350px",
     paddingLeft: "20px",
     paddingRight: "20px",
   },
+
   mainBack: {
     width: "100%",
     height: "75vh",
     marginTop: "10vh",
     objectFit: "cover",
   },
+
+  buttonContainer: { 
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    "@media (max-width: 480px)": {
+      paddingLeft: "15%",
+      paddingRight: "15%"
+    },
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+
 }));
 
 function withMyHook(Component) {
@@ -147,6 +174,9 @@ class MainImage extends Component {
             Any successful career starts with a{" "}
             <span className={classes.networkstyle}>good network</span>
           </h3>
+
+          <div className={classes.buttonContainer}>
+
           <Button
             onClick={this.handleClick4}
             className={classes.button}
@@ -154,6 +184,7 @@ class MainImage extends Component {
           >
             Features
           </Button>
+
           <Button
             onClick={this.handleClick2}
             className={classes.button}
@@ -161,6 +192,8 @@ class MainImage extends Component {
           >
             Senior Executives
           </Button>
+
+
           <Button
             onClick={this.handleClick1}
             className={classes.button}
@@ -168,6 +201,8 @@ class MainImage extends Component {
           >
             Jobs
           </Button>
+
+
           <Button
             onClick={this.handleClick3}
             className={classes.button}
@@ -175,7 +210,7 @@ class MainImage extends Component {
           >
             Memberships
           </Button>
-       
+
           <Button
             onClick={this.handleClick}
             className={classes.button}
@@ -183,6 +218,9 @@ class MainImage extends Component {
           >
             About Us
           </Button>
+
+          </div>
+          
         </div>
       </div>
     );

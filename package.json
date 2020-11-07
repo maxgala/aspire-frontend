@@ -20,6 +20,7 @@
     "@testing-library/user-event": "^7.1.2",
     "aws-amplify": "^3.0.23",
     "aws-amplify-react": "^4.1.22",
+    "aws-sdk": "^2.780.0",
     "axios": "^0.19.2",
     "emotion": "^10.0.27",
     "isemail": "^3.2.0",
