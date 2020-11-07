@@ -101,7 +101,7 @@ class FirstPage extends Component {
   }
 
   fieldStateChanged = (field) => (state) =>
-    this.setState({ [field]: state.errors.length === 0 });
+    this.setState({ [field]: state.value });
 
   emailChanged = this.fieldStateChanged("email");
   passwordChanged = this.fieldStateChanged("password");

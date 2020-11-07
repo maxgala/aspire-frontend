@@ -95,11 +95,11 @@ class PasswordField extends Component {
             onStateChanged={this.stateChanged}
             {...restProps}
           >
-            <span className="d-block form-hint">
+            {/* <span className="d-block form-hint">
               To conform with our Strong Password policy, you are required to
               use a sufficiently strong password. Password must be more than 7
               characters.
-            </span>
+            </span> */}
             {children}
             {/** Render the password strength meter **/}
             <div className={strengthClass}>
