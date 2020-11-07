@@ -5,7 +5,7 @@ import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import Filter from "./Cards/FilterCard";
 import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
 const useStyles = makeStyles(() => ({
 
@@ -18,8 +18,8 @@ const useStyles = makeStyles(() => ({
   },
 
   coffeeChat: {
-    fontFamily: 'myriad-pro, sans-serif',
-    fontSize: '25px',
+    fontFamily: 'PT Sans',
+    fontSize: '30px',
     textAlign: 'left',
     color: '#58595B',
     fontWeight: 'bold',
@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 
   section_title: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     margin: '5px',
     marginBottom: '10px',
@@ -56,7 +56,7 @@ const useStyles = makeStyles(() => ({
   },
 
   date: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontSize: '15px',
     fontWeight: 'bold',
   }
@@ -95,7 +95,7 @@ class CoffeeChats extends Component {
     return (
 
       <div>
-        <PerfectScrollbar>
+        {/* <PerfectScrollbar> */}
           <div className={classes.mainPage}>
             <h1 className={classes.coffeeChat}>Coffee Chats</h1>
             <Grid
@@ -229,7 +229,7 @@ class CoffeeChats extends Component {
               }
             </Grid>
           </div>
-        </PerfectScrollbar>
+        {/* </PerfectScrollbar> */}
       </div>
     )
   }

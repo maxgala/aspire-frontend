@@ -9,25 +9,74 @@ const useStyles = makeStyles((theme) => ({
   extratext: {
     color: "white",
     fontSize: "18px",
+    "@media (max-width: 480px)": { 
+      fontSize: "15px"
+    },
     fontWeight: "100",
     marginTop: "85%",
     textAlign: "center",
     position: "absolute",
-    
+    paddingLeft: "30px",
+    paddingRight: "30px",
     width: "100%",
   },
   hovertext: {
     color: "white",
     fontSize: "24px",
+    "@media (max-width: 480px)": { 
+      fontSize: "20px"
+    },
     marginTop: "60%",
     textAlign: "center",
     position: "absolute",
     width: "100%",
+    paddingLeft: "30px",
+    paddingRight: "30px",
   },
 
   tintImage:{
     position: "relative",
   },
+
+  hoverImage:{
+    marginTop: "0vh",
+    borderRadius: "60px",
+    "@media (max-width: 480px)": { 
+      width: '250px',
+      height: '350px'
+    },
+    width: '290px',
+    height: '420px',
+    objectFit: 'cover',
+    opacity: '1',
+  },
+
+  hoverTint:{
+    backgroundColor: '#b5a165',
+    marginTop: "0vh",
+    borderRadius: "60px",
+    "@media (max-width: 480px)": { 
+      width: '250px',
+      height: '350px'
+    },
+    width: '290px',
+    height: '420px',
+    opacity: '0.8',
+    position: 'absolute',
+  },
+
+  image:{
+    marginTop: "0vh",
+    borderRadius: "60px",
+    "@media (max-width: 480px)": { 
+      width: '250px',
+      height: '350px'
+    },
+    width: '290px',
+    height: '420px',
+    objectFit: 'cover'
+  },
+
 }));
 
 function withMyHook(Component) {
@@ -83,15 +132,9 @@ class SeniorExec extends Component {
         
         <div
           style={{
-            backgroundColor: '#b5a165',
-            marginTop: "0vh",
             display: this.state.display2,
-            borderRadius: "60px",
-            width: '290px',
-            height: '420px',
-            opacity: '0.8',
-            position: 'absolute',
             }}
+          className={classes.hoverTint}
           onMouseLeave={this.handleExit}
           >
           </div>
@@ -101,8 +144,6 @@ class SeniorExec extends Component {
           className={classes.hovertext}
           style={{
             display: this.state.text,
-            paddingLeft: "30px",
-            paddingRight: "30px",
           }}
           onMouseEnter={this.handleEnter}
           onMouseLeave={this.handleExit}
@@ -113,8 +154,6 @@ class SeniorExec extends Component {
           className={classes.extratext}
           style={{
             display: this.state.text,
-            paddingLeft: "30px",
-            paddingRight: "30px",
           }}
           onMouseEnter={this.handleEnter}
           onMouseLeave={this.handleExit}
@@ -124,13 +163,9 @@ class SeniorExec extends Component {
         
         <img
           style={{
-            marginTop: "0vh",
             display: this.state.display1,
-            borderRadius: "60px",
-            width: '290px',
-            height: '420px',
-            objectFit: 'cover'
           }}
+          className={classes.image}
           onMouseEnter={this.handleEnter}
           src={this.props.image}
           alt="Senior Exec"
@@ -140,14 +175,9 @@ class SeniorExec extends Component {
 
           <img
           style={{
-            marginTop: "0vh",
             display: this.state.display2,
-            borderRadius: "60px",
-            width: '290px',
-            height: '420px',
-            objectFit: 'cover',
-            opacity: '1',
             }}
+          className={classes.hoverImage}
           onMouseLeave={this.handleExit}
           src={this.props.hover_image}
           alt="Senior Exec"

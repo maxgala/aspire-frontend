@@ -2,28 +2,27 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Filter from "./Cards/FilterCard";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import ResumeBankCard from "./Cards/ResumeBankCard";
 import TestData from "./CoffeeChatsTestData";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
-    paddingLeft: "8%",
-    paddingRight: "8%",
-    paddingTop: "8%",
-    paddingBottom: "8%",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "90vh",
+    paddingLeft: '8%',
+    paddingRight: '8%',
+    paddingBottom:'8%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '90vh',
   },
 
   JobBoard: {
-    fontFamily: "myriad-pro, sans-serif",
-    fontSize: "25px",
-    textAlign: "left",
-    color: "#58595B",
-    fontWeight: "bold",
-    marginTop: "40px",
+    fontFamily: 'PT Sans',
+    fontSize: '30px',
+    textAlign: 'left',
+    color: '#58595B',
+    fontWeight: 'bold',
+    marginTop: '40px',
   },
 
   grid: {
@@ -31,14 +30,16 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
 
+  
+
   section_title: {
-    fontFamily: "myriad-pro, sans-serif",
-    fontSize: "15px",
-    margin: "5px",
-    marginBottom: "10px",
-    textAlign: "left",
-    color: "black",
-    fontWeight: "bold",
+    fontFamily: 'PT Sans',
+    fontSize: '15px',
+    margin: '5px',
+    marginBottom: '10px',
+    textAlign: 'left',
+    color: 'black',
+    fontWeight: 'bold',
   },
 
   select: {
@@ -56,10 +57,11 @@ const useStyles = makeStyles(() => ({
   },
 
   date: {
-    fontFamily: "myriad-pro, sans-serif",
-    fontSize: "15px",
-    fontWeight: "bold",
+    fontFamily: 'PT Sans',
+    fontSize: '15px',
+    fontWeight: 'bold',
   },
+
 }));
 
 function withMyHook(Component) {
@@ -81,8 +83,11 @@ class JobBoard extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        <PerfectScrollbar>
+        {/* <PerfectScrollbar> */}
           <div className={classes.mainPage}>
+          
+              <h1 className={classes.JobBoard}>Resume Bank</h1>
+
             <Grid
               container
               item
@@ -158,43 +163,7 @@ class JobBoard extends Component {
 
               <Grid
                 container
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Type</p>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                lg={3}
+                item xs={12} sm={6} md={6} 
                 spacing={1}
                 alignItems="center"
                 justify="center"
@@ -245,12 +214,7 @@ class JobBoard extends Component {
                 <Grid
                   key={key}
                   container
-                  item
-                  xs={12}
-                  sm={6}
-                  md={6}
-                  lg={4}
-                  xl={3}
+                  item xs={12} sm={12} md={6} lg={4} xl={3}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -260,7 +224,7 @@ class JobBoard extends Component {
               ))}
             </Grid>
           </div>
-        </PerfectScrollbar>
+        {/* </PerfectScrollbar> */}
       </div>
     );
   }

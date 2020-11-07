@@ -6,27 +6,28 @@ import JobApplicationCard from "./Cards/JobApplicationCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
 import CardTypes from "./CardTypes";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import { httpGet } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
-  home_page: {
-    paddingLeft: "5%",
-    paddingRight: "5%",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    height: "90vh",
-    marginLeft: "20px",
+  home_page: { 
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: '90vh',
+    marginLeft:"10px",
+    
   },
   booking_history: {
-    fontFamily: "PT Sans",
-    fontSize: "20px",
-    textAlign: "left",
-    color: "#58595b",
-    fontWeight: "bold",
-    marginTop: "20px",
-    marginBottom: "0px",
+    fontFamily: 'PT Sans',
+    fontSize: '30px',
+    textAlign: 'left',
+    color: '#58595b',
+    fontWeight: 'bold',
+    marginTop: '20px',
+    marginBottom: '20px'
   },
   section_title: {
     width: "100%",
@@ -135,18 +136,22 @@ class Home extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        <PerfectScrollbar>
-          <div className={classes.home_page}>
-            <h1 className={classes.booking_history}>Your Booking History</h1>
-            <Grid container alignItems="flex-start" justify="flex-start">
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
+        {/* <PerfectScrollbar> */}
+        <div className={classes.home_page}>
+          <h1 className={classes.booking_history}>Dashboard</h1>
+          <Grid
+            container
+            alignItems="flex-start"
+            justify="flex-start"
+          >  
+            <Grid
+              container
+              item xs={12}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+
                 <p className={classes.section_title}>Registered Coffee Chats</p>
                 {this.state.coffee_chats &&
                 this.state.coffee_chats.length > 0 ? (
@@ -182,13 +187,21 @@ class Home extends Component {
                     <EmptyCard type={CardTypes.coffeeChat} />
                   </Grid>
                 )}
-              </Grid>
+              
+            </Grid>
+            </Grid>
 
-              {this.props.isSeniorExec ? (
+            {this.props.isSeniorExec ?
+              <Grid
+                container
+                alignItems="flex-start"
+                justify="flex-start"
+                direction="column"
+              >
+              
                 <Grid
                   container
-                  item
-                  xs={12}
+                  item xs={12} 
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -231,20 +244,18 @@ class Home extends Component {
                         <EmptyCard type={CardTypes.jobApplication} />
                       </Grid>
                     )}
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={8}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <p className={classes.section_title}>Job Postings</p>
-                    {this.state.job_postings &&
-                    this.state.job_postings.length > 0 ? (
-                      this.state.job_postings.map((posting, key) => (
-                        <Grid
+                </Grid>
+                <Grid
+                  container
+                  item xs={12}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <p className={classes.section_title}>Job Postings</p>
+                  {this.state.job_postings && this.state.job_postings.length > 0 ?
+                    this.state.job_postings.map((posting, key) => (
+                      <Grid
                           key={key}
                           container
                           item
@@ -256,11 +267,10 @@ class Home extends Component {
                           <JobPostingCard data={posting} />
                         </Grid>
                       ))
-                    ) : (
+                     : (
                       <Grid
                         container
-                        item
-                        xs={12}
+                        item xs={12}
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
@@ -270,13 +280,22 @@ class Home extends Component {
                     )}
                   </Grid>
                 </Grid>
-              ) : (
+              </Grid>
+              
+            :
+              <Grid
+                container
+                alignItems="flex-start"
+                justify="flex-start"
+                direction="column"
+
+              >
                 <Grid
                   container
                   item
                   xs={12}
                   spacing={1}
-                  alignItems="flex-start"
+                  alignItems="center"
                   justify="flex-start"
                 >
                   <Grid
@@ -352,8 +371,7 @@ class Home extends Component {
                     ) : (
                       <Grid
                         container
-                        item
-                        xs={12}
+                        item xs={12} 
                         spacing={1}
                         alignItems="flex-start"
                         justify="flex-start"
@@ -363,12 +381,14 @@ class Home extends Component {
                     )}
                   </Grid>
                 </Grid>
-              )}
-            </Grid>
-          </div>
-        </PerfectScrollbar>
+              </Grid>
+              
+          
+            }
       </div>
-    );
+      {/* </PerfectScrollbar> */}
+    </div>
+    )
   }
 }
 

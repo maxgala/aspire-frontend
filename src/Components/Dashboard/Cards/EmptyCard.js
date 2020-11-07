@@ -7,50 +7,61 @@ import CardTypes from '../CardTypes';
 const useStyles = makeStyles(() => ({
   cardCoffee: {
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '350px',
     height: '180px',
     marginBottom: '10px',
     borderRadius: '20px',
     backgroundColor: '#B5A165',
     color: 'white',
+    overflow: 'hidden'
   },
   cardApp: {
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '350px',
     height: '180px',
     borderStyle: 'solid',
     borderRadius: '20px',
     backgroundColor: '#6EA0B5',
     color: 'white',
     borderColor: '#6EA0B5',
+    overflow: 'hidden'
   },
   cardPosting: {
     width: '100%',
+    maxWidth: '350px',
     height: '180px',
     marginBottom: '20px',
     borderRadius: '20px',
     backgroundColor:'#58595B',
+    overflow: 'hidden'
   },
   title: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontWeight: 'bolder',
     width: '100%',
     paddingTop: '5px',
     fontSize: '20px',
+    '@media (max-width: 480px)': {
+      fontSize: '15px'
+    },
     color: 'white',
     margin: '0px',
-    marginLeft: '5px',
-    marginTop: '5px'
+    marginTop: '5px',
+    
   },
   subtitle: {
-    fontFamily: 'myriad-pro, sans-serif',
+    fontFamily: 'PT Sans',
     fontWeight: 'bold',
     width: '100%',
     color: 'white',
     margin: '0px',
-    marginLeft: '5px',
+    '@media (max-width: 480px)': {
+      fontSize: '10px'
+    },
+    fontSize: '15px',
     marginTop: '5px',
     marginBottom: '20px',
+    
   },
   button_container: {
     alignItems: 'flex-end',
@@ -58,6 +69,9 @@ const useStyles = makeStyles(() => ({
   },
   button: {
     fontSize: '8px',
+    '@media (max-width: 320px)': {
+      fontSize: '6px'
+    },
     fontWeight: '400',
     borderRadius: 50,
     backgroundColor :'white',
@@ -70,7 +84,10 @@ const useStyles = makeStyles(() => ({
   container: {
     width: '95%',
     display: 'inline-block',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    overflow: 'hidden'
   }
 }));
 
@@ -87,7 +104,7 @@ class EmptyCard extends Component {
     return (
       <Grid
         container
-        item xs={8}
+        item xs={12}
         spacing={0}
         alignItems="center"
         justify="center"

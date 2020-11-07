@@ -18,13 +18,21 @@ const useStyles = makeStyles(theme => ({
     marginRight: '10px',
     marginBottom: '20px',
     height: '370px',
-    width: '370px'
+    width: '370px',
+    '@media (max-width: 480px)': {
+      height: '320px',
+      width: '320px',
+    },
+    '@media (max-width: 320px)': {
+      height: '300px',
+      width: '300px',
+    },
   },
   front_text: { 
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "30px",
-    '@media (max-width: 500px)': {fontSize: '24px'},
+    '@media (max-width: 480px)': {fontSize: '22px'},
     position: 'absolute',
     marginTop: '40%',
     width: '100%',
@@ -35,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   back_text: { 
     fontFamily: "Montserrat",
     fontSize: '20px',
-    '@media (max-width: 500px)': {fontSize: '16px'},
+    '@media (max-width: 480px)': {fontSize: '16px'},
     width: '100%',
     marginTop: '30%',
     paddingLeft: '20px',
