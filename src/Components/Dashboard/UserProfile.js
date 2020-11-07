@@ -393,7 +393,6 @@ class Landing extends Component {
   };
 
   submitJob = () => {
-    console.log("post job");
     httpPost("jobs", localStorage.getItem("idToken"), this.state.jobsData);
   };
 

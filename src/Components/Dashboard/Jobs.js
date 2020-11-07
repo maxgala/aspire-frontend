@@ -86,7 +86,6 @@ class JobBoard extends Component {
       "jobs",
       localStorage.getItem("idToken")
     );
-    console.log(existingJobsData);
     if (existingJobsData.data.jobs !== undefined) {
       this.setState({
         jobs: existingJobsData.data.jobs,
