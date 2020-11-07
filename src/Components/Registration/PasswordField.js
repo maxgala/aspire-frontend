@@ -39,6 +39,7 @@ class PasswordField extends Component {
       },
       () => this.props.onStateChanged(state)
     );
+    // console.log(state.value);
   };
 
   validatePasswordStrong = (value) => {
