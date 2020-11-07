@@ -170,6 +170,8 @@ class FinalPage extends Component {
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
       password: this.props.prev ? this.props.prev.password : "",
+      passwordValue: this.props.prev ? this.props.prev.passwordValue : "",
+
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
       industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
@@ -224,6 +226,7 @@ class FinalPage extends Component {
     if (this.state.country === "CA") {
       address = {
         locality: this.state.city,
+
         region: this.state.province,
         country: this.state.country,
       };
@@ -346,251 +349,122 @@ class FinalPage extends Component {
     });
   };
 
-    render() {
-        const classes = this.props.classes;
-        if (this.state.verified){
-            return( 
-                <Container component="main" maxWidth="sm">
-                    <CssBaseline />
-                    <div className={classes.paper}>
-                        <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
-                        <Typography component="h1" variant="h5">
-                            Registration
-                        </Typography>
-                    </div>
-                    <div className={classes.form}>
-                        <Grid container spacing={2}>
-                            <div style = {{alignContent: "center"}}>
-                                <Typography component="h1" variant="body1">
-                                    An email has been sent to <b>{this.state.email}</b>. Please enter the verification code below:
-                                </Typography>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        fullWidth
-                                        required
-                                        id="confirmationCode"
-                                        label="Confirmation Code"
-                                        name="confirmationCode"
-                                        autoFocus
-                                        value={this.state.confirmationCode}
-                                        onChange={this.handleConfirmationCodeChange}
-                                    />
-                                </Grid>
-                                <Button
-                                    disabled={!this.state.checked}
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    onClick={this.handleSubmit}
-                                >
-                                    <b>Submit</b>
-                                </Button>
-                            </div>
-                        </Grid>
-                    </div>
-                </Container> 
-            );
-        }else{
-            return(
-                <Container component="main" maxWidth="lg">
-                    <CssBaseline />
-                    <div className={classes.paper}>
-                        <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
-                        <Typography component="h1" variant="h5">
-                            Registration
-                        </Typography>
-                    </div>
-                    <div className={classes.form}>
-                        <Grid container spacing={2}>
-                            <Membership appContext={this.props.appContext}
-                                        landing={false}
-                                        freeButtonText={"Try for Free"}
-                                        premiumButtonText={"Sign Up for Premium"}
-                                        platinumButtonText={"Sign Up for Platinum"}
-                                        freeFunction={this.handleAspireFreeClick}
-                                        premiumFunction={this.handleAspirePremiumClick}
-                                        platinumFunction={this.handleAspirePlatimumClick}
-                            />
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.senior_executive}
-                                            onChange={this.handleUserChoice}
-                                            name="checkedD"
-                                        />}
-                                    label={
-                                        <Tooltip title={
-                                            <p>Senior Executive means the chief executive officer,
-                                                chief operating officer, chief financial officer, or
-                                                anyone in charge of a principal business unit or function.
-                                            </p>}>
-                                            <b>I would like to be considered as a Senior Executive</b>
-                                        </Tooltip>
-                                    }
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.checked}
-                                            onChange={event => {this.setState({checked: !this.state.checked})}}
-                                            name="checkedD"
-                                        />}
-                                    label={<b>I agree to the <Tooltip title={"Click to read the Terms and Conditions"}>
-                                        <u onClick={this.readConditions} style = {{color: 'red'}}> terms and conditions </u>
-                                    </Tooltip> </b>}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Tooltip title={
-                                    <p>MAX Aspire will only reach out to you for important updates including (but not limited to) subscription expiration, new features, security concerns, and other important updates. We may also reach out to inform you about big events MAX is hosting and other major updates in the Muslim Community.</p>}>
-                                    <b>If you would like to be added to the MAX Aspire mailing service, please confirm your email!</b>
-                                </Tooltip>
-                                <MailchimpSubscribe
-                                    url={this.state.url}
-                                />
-                            </Grid>
-                        </Grid>
-                        <LinearWithValueLabel progress={this.state.progress}/>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit_back}
-                            onClick={this.changeToPage3}
-                        >
-                            <b>Previous</b>
-                        </Button>
-                        <Button
-                            disabled={!this.state.checked}
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={this.handleSubmit}
-                        >
-                            <b>Submit</b>
-                        </Button>
-                    </div>
-                    <Dialog
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        scroll={"paper"}
-                        fullWidth={true}
-                        maxWidth={'md'}
-                        aria-labelledby="scroll-dialog-title"
-                        aria-describedby="scroll-dialog-description"
-                    >
-                        <DialogTitle id="scroll-dialog-title">
-                            <div>
-                                <h2>Terms and Conditions</h2>
-                            </div>
-                        </DialogTitle>
-                        <DialogContent style={{overflowX: 'hidden'}}>
-                            <DialogContentText
-                                id="scroll-dialog-description"
-                                tabIndex={-1}
-                                component={'span'}
-                            >
-                                <div style={{margin: 'auto'}}>
-                                <p>Terms and Conditions File</p>
-                                <Document
-                                    file="./Files/terms_and_conditions.pdf"
-                                    onLoadSuccess={this.onTocDocumentLoad}
-                                >
-                                    {
-                                        Array.from(
-                                            new Array(this.state.tocNumPages),
-                                            (el, index) => (
-                                                <Page
-                                                    key={`page_${index + 1}`}
-                                                    pageNumber={index + 1}
-                                                    width={Math.min(900, (window.innerWidth - 100))}
-                                                />
-                                            ),
-                                        )
-                                    }
-                                </Document>
-                                </div>
-                                <p>Privacy Policy File</p>
-                                <Document
-                                    file="./Files/privacy_policy_no_cookie_policy.pdf"
-                                    onLoadSuccess={this.onPrivacyDocumentLoad}
-                                >
-                                    {
-                                        Array.from(
-                                            new Array(this.state.privacyNumPages),
-                                            (el, index) => (
-                                                <Page
-                                                    key={`page_${index + 1}`}
-                                                    pageNumber={index + 1}
-                                                    width={Math.min(900, (window.innerWidth - 100))}
-                                                />
-                                            ),
-                                        )
-                                    }
-                                </Document>
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button
-                                onClick={this.handleClose}
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                className={classes.disagree}
-                            >
-                                <b>Disagree</b>
-                            </Button>
-                            <Button
-                                onClick={this.handleAccept}
-                                variant="contained"
-                                type="submit"
-                                color="primary"
-                                className={classes.agree}
-                            >
-                                <b>Agree</b>
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                    <Dialog
-                        maxWidth={"md"}
-                        fullWidth={true}
-                        disableEscapeKeyDown
-                        disableBackdropClick
-                        onClose={this.handleStripeClose}
-                        aria-labelledby="stripe-dialog"
-                        open={this.state.openStripe}
+  handleAspireFreeClick = (event) => {
+    this.setState({
+      aspire_free: true,
+      aspire_premium: false,
+      aspire_platinum: false,
+    });
+  };
+
+  handleAspirePremiumClick = (event) => {
+    this.setState({
+      aspire_premium: true,
+      aspire_free: false,
+      aspire_platinum: false,
+    });
+  };
+
+  handleAspirePlatimumClick = (event) => {
+    this.setState({
+      aspire_platinum: true,
+      aspire_premium: false,
+      aspire_free: false,
+    });
+  };
+
+  render() {
+    const classes = this.props.classes;
+    if (this.state.verified) {
+      return (
+        <Container component="main" maxWidth="sm">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Registration
+            </Typography>
+          </div>
+          <div className={classes.form}>
+            <Grid container spacing={2}>
+              <div style={{ alignContent: "center" }}>
+                <Typography component="h1" variant="body1">
+                  An email has been sent to <b>{this.state.email}</b>. Please
+                  enter the verification code below:
+                </Typography>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    required
+                    id="confirmationCode"
+                    label="Confirmation Code"
+                    name="confirmationCode"
+                    autoFocus
+                    value={this.state.confirmationCode}
+                    onChange={this.handleConfirmationCodeChange}
+                  />
+                </Grid>
+                <Button
+                  disabled={!this.state.checked}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={this.handleSubmit}
+                >
+                  <b>Submit</b>
+                </Button>
+              </div>
+            </Grid>
+          </div>
+        </Container>
+      );
+    } else {
+      return (
+        <Container component="main" maxWidth="lg">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Typography component="h1" variant="h5">
+              Registration
+            </Typography>
+          </div>
+          <div className={classes.form}>
+            <Grid container spacing={2}>
+              <Membership
+                appContext={this.props.appContext}
+                landing={false}
+                freeButtonText={"Try for Free"}
+                premiumButtonText={"Sign Up for Premium"}
+                platinumButtonText={"Sign Up for Platinum"}
+                freeFunction={this.handleAspireFreeClick}
+                premiumFunction={this.handleAspirePremiumClick}
+                platinumFunction={this.handleAspirePlatimumClick}
+              />
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.senior_executive}
+                      onChange={this.handleUserChoice}
+                      name="checkedD"
+                    />
+                  }
+                  label={
+                    <Tooltip
+                      title={
+                        <p>
+                          Senior Executive means the chief executive officer,
+                          chief operating officer, chief financial officer, or
+                          anyone in charge of a principal business unit or
+                          function.
+                        </p>
+                      }
                     >
                       <b>I would like to be considered as a Senior Executive</b>
                     </Tooltip>
                   }
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <Tooltip
-                  title={
-                    <p>
-                      MAX Aspire will only reach out to you for important
-                      updates including (but not limited to) subscription
-                      expiration, new features, security concerns, and other
-                      important updates. We may also reach out to inform you
-                      about big events MAX is hosting and other major updates in
-                      the Muslim Community.
-                    </p>
-                  }
-                >
-                  <b>
-                    If you would like to be added to the MAX Aspire mailing
-                    service, please confirm your email!
-                  </b>
-                </Tooltip>
-                <MailchimpSubscribe url={this.state.url} />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -618,6 +492,26 @@ class FinalPage extends Component {
                     </b>
                   }
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <Tooltip
+                  title={
+                    <p>
+                      MAX Aspire will only reach out to you for important
+                      updates including (but not limited to) subscription
+                      expiration, new features, security concerns, and other
+                      important updates. We may also reach out to inform you
+                      about big events MAX is hosting and other major updates in
+                      the Muslim Community.
+                    </p>
+                  }
+                >
+                  <b>
+                    If you would like to be added to the MAX Aspire mailing
+                    service, please confirm your email!
+                  </b>
+                </Tooltip>
+                <MailchimpSubscribe url={this.state.url} />
               </Grid>
             </Grid>
             <LinearWithValueLabel progress={this.state.progress} />
