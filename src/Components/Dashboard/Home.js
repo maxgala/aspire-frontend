@@ -186,18 +186,7 @@ class Home extends Component {
                   >
                     <EmptyCard type={CardTypes.coffeeChat} />
                   </Grid>
-                ))
-              :
-                <Grid
-                  container
-                  item xs={12} sm={12} md={12} lg={6} xl={4}
-                  spacing={1}
-                  alignItems="center"
-                  justify="flex-start"
-                >
-                  <EmptyCard type={CardTypes.coffeeChat}/>
-                </Grid>
-              }
+                )}
               
             </Grid>
             </Grid>
@@ -254,18 +243,7 @@ class Home extends Component {
                       >
                         <EmptyCard type={CardTypes.jobApplication} />
                       </Grid>
-                    ))
-                  :
-                    <Grid
-                      container
-                      item xs={12}
-                      spacing={1}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <EmptyCard type={CardTypes.jobApplication}/>
-                    </Grid>
-                  }
+                    )}
                 </Grid>
                 <Grid
                   container
@@ -277,6 +255,19 @@ class Home extends Component {
                   <p className={classes.section_title}>Job Postings</p>
                   {this.state.job_postings && this.state.job_postings.length > 0 ?
                     this.state.job_postings.map((posting, key) => (
+                      <Grid
+                          key={key}
+                          container
+                          item
+                          xs={6}
+                          spacing={1}
+                          alignItems="flex-start"
+                          justify="flex-start"
+                        >
+                          <JobPostingCard data={posting} />
+                        </Grid>
+                      ))
+                     : (
                       <Grid
                         container
                         item xs={12}

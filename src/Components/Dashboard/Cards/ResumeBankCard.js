@@ -246,6 +246,7 @@ class JobApplicationCard extends Component {
               </span>
             </Grid>
           </Grid>
+          
           <Dialog
             open={this.state.resume_popup}
             onClose={this.handleClose}
@@ -287,7 +288,6 @@ class JobApplicationCard extends Component {
             </DialogContent>
           </Dialog>
         </div>
-      </div>
     );
   }
 }
