@@ -161,8 +161,6 @@ class Home extends Component {
             {this.props.isSeniorExec ?
               <Grid
                 container
-                // item xs={12}
-                // spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
                 direction="column"
@@ -239,8 +237,6 @@ class Home extends Component {
             :
               <Grid
                 container
-                // item xs={12}
-                // spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
                 direction="column"
@@ -317,7 +313,6 @@ class Home extends Component {
               
           
             }
-          {/* </Grid> */}
       </div>
       {/* </PerfectScrollbar> */}
     </div>
