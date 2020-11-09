@@ -6,11 +6,12 @@ import MaxLogo from "../Images/max_logo.png";
 import "../Videos/Video.css";
 
 const useStyles = makeStyles((theme) => ({
-  sectionstyle: {
-    width: "100vw",
-    height: "100vh",
+  sectionStyle: {
+    // width: "100vw",
+    // height: "100vh",
     marginRight: "0",
     marginLeft: "0",
+    marginBottom: "20px"
   },
   h1style: {
     fontFamily: "Nunito Sans",
@@ -76,6 +77,8 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: "rgba(0,0,0,0.8)",
     width: "110%",
     height: "85vh",
+    // overflow: "scroll"
+
   },
   img: {
     paddingTop: "20vh",
@@ -93,6 +96,10 @@ const useStyles = makeStyles((theme) => ({
     height: "75vh",
     marginTop: "10vh",
     objectFit: "cover",
+  },
+
+  mainBackContainer:{
+    position: "relative"
   },
 
   buttonContainer: { 
@@ -156,7 +163,7 @@ class MainImage extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.sectionStyle}>
-        <div className="video-container">
+        <div className={classes.mainBackContainer}>
           <video
             id="main-video"
             className={classes.Mainback}
