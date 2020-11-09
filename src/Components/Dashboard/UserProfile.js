@@ -349,6 +349,7 @@ class Landing extends Component {
         posted_by: "ahmed.r.hamodi@gmail.com", // email
         poster_family_name: "Hamodi",
         poster_given_name: "Ahmed",
+        people_contacted: 0,
         job_type: "REGULAR_JOB", // BOARD_POSITION or REGULAR_JOB
         job_tags: ["SOFTWARE"],
         salary: 30,

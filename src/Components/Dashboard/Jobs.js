@@ -87,9 +87,11 @@ class JobBoard extends Component {
       "jobs",
       localStorage.getItem("idToken")
     );
-    this.setState({
-      jobs: existingJobsData.data.jobs,
-    });
+    if (existingJobsData.data.jobs !== undefined) {
+      this.setState({
+        jobs: existingJobsData.data.jobs,
+      });
+    }
   };
 
   componentDidMount() {
@@ -106,21 +108,27 @@ class JobBoard extends Component {
           {/* TODO: Hiding filters until they get implemented
           <Grid
             container
-            item xs={12}
+            item
+            xs={12}
             spacing={1}
             alignItems="flex-start"
-              justify="flex-start"
+            justify="flex-start"
           >
             <Grid
               container
-              item xs={12} sm={6} md={6} lg={3}
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              lg={3}
               spacing={1}
               alignItems="center"
               justify="center"
             >
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -129,24 +137,30 @@ class JobBoard extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Filter/>
+                <Filter />
               </Grid>
             </Grid>
             <Grid
               container
-              item xs={12} sm={6} md={6} lg={3}
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              lg={3}
               spacing={1}
               alignItems="center"
               justify="center"
             >
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -155,25 +169,31 @@ class JobBoard extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Filter/>
+                <Filter />
               </Grid>
             </Grid>
 
             <Grid
               container
-              item xs={12} sm={6} md={6} lg={3}
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              lg={3}
               spacing={1}
               alignItems="center"
               justify="center"
             >
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -182,24 +202,30 @@ class JobBoard extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Filter/>
+                <Filter />
               </Grid>
             </Grid>
             <Grid
               container
-              item xs={12} sm={6} md={6} lg={3}
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              lg={3}
               spacing={1}
               alignItems="center"
               justify="center"
             >
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
@@ -208,22 +234,25 @@ class JobBoard extends Component {
               </Grid>
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <Filter/>
+                <Filter />
               </Grid>
             </Grid>
           </Grid>
 
           <div className={classes.sort}>
-            <p className={classes.date}> Sort date posted by:
-            <select className={classes.select}>
-              <option  value="Ascending">Ascending</option>
-              <option  value="descending">Descending</option>
-            </select>
+            <p className={classes.date}>
+              {" "}
+              Sort date posted by:
+              <select className={classes.select}>
+                <option value="Ascending">Ascending</option>
+                <option value="descending">Descending</option>
+              </select>
             </p>
           </div>
           */}
