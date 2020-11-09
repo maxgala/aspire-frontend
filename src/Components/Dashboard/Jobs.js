@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import JobApplicationCard from "./Cards/JobApplicationCard";
-import Filter from "./Cards/FilterCard";
+// TODO: Hiding filters until they get implemented
+// import Filter from "./Cards/FilterCard";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
 import CardTypes from "./CardTypes";
@@ -101,9 +102,10 @@ class JobBoard extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        {/*<PerfectScrollbar>*/}
+        {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
           <h1 className={classes.JobBoard}>Job Board</h1>
+          {/* TODO: Hiding filters until they get implemented
           <Grid
             container
             item
@@ -253,6 +255,7 @@ class JobBoard extends Component {
               </select>
             </p>
           </div>
+          */}
 
           <Grid
             container
@@ -293,7 +296,7 @@ class JobBoard extends Component {
             )}
           </Grid>
         </div>
-        {/*</PerfectScrollbar>*/}
+        {/* </PerfectScrollbar> */}
       </div>
     );
   }
