@@ -2,88 +2,91 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
-import Filter from "./Cards/FilterCard";
+// TODO: Hiding filters until they get implemented
+// import Filter from "./Cards/FilterCard";
 import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
-const useStyles = makeStyles(() => ({
 
+const useStyles = makeStyles(() => ({
   mainPage: {
-    paddingLeft: '8%',
-    paddingRight: '8%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '90vh',
+    paddingLeft: "8%",
+    paddingRight: "8%",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "90vh",
   },
 
   coffeeChat: {
-    fontFamily: 'PT Sans',
-    fontSize: '30px',
-    textAlign: 'left',
-    color: '#58595B',
-    fontWeight: 'bold',
-    marginTop: '40px',
+    fontFamily: "PT Sans",
+    fontSize: "30px",
+    textAlign: "left",
+    color: "#58595B",
+    fontWeight: "bold",
+    marginTop: "40px",
   },
 
   grid: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   section_title: {
-    fontFamily: 'PT Sans',
-    fontSize: '15px',
-    margin: '5px',
-    marginBottom: '10px',
-    textAlign: 'left',
-    color: 'black',
-    fontWeight: 'bold',
+    fontFamily: "PT Sans",
+    fontSize: "15px",
+    margin: "5px",
+    marginBottom: "10px",
+    textAlign: "left",
+    color: "black",
+    fontWeight: "bold",
   },
 
   select: {
-    background: '#EAEAEA',
-    borderColor: '#EAEAEA',
-    outline: 'none',
-    color: '#6EA0B5',
-    fontWeight: '800',
+    background: "#EAEAEA",
+    borderColor: "#EAEAEA",
+    outline: "none",
+    color: "#6EA0B5",
+    fontWeight: "800",
   },
 
   sort: {
-    alignItems: 'flex-start',
-    textAlign: 'left',
-    marginBottom: '40px'
+    alignItems: "flex-start",
+    textAlign: "left",
+    marginBottom: "40px",
   },
 
   date: {
-    fontFamily: 'PT Sans',
-    fontSize: '15px',
-    fontWeight: 'bold',
-  }
-
+    fontFamily: "PT Sans",
+    fontSize: "15px",
+    fontWeight: "bold",
+  },
 }));
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
-    return <Component {...props} classes={classes} />
-  }
+    return <Component {...props} classes={classes} />;
+  };
 }
 
 class CoffeeChats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chats: []
-    }
+      chats: [],
+    };
   }
 
   fetchChats = async () => {
-    const existingChatsData = await httpGet("chats", localStorage.getItem("idToken"));
+    const existingChatsData = await httpGet(
+      "chats",
+      localStorage.getItem("idToken")
+    );
     this.setState({
-      chats: existingChatsData.data.chats
-    })
-  }
+      chats: existingChatsData.data.chats,
+    });
+  };
 
   componentDidMount() {
     this.fetchChats();
@@ -93,11 +96,11 @@ class CoffeeChats extends Component {
     const classes = this.props.classes;
     //const userProfile = this.getUserProfile();
     return (
-
       <div>
         {/* <PerfectScrollbar> */}
-          <div className={classes.mainPage}>
-            <h1 className={classes.coffeeChat}>Coffee Chats</h1>
+        <div className={classes.mainPage}>
+          <h1 className={classes.coffeeChat}>Coffee Chats</h1>
+          {/* TODO: Hiding filters until they get implemented
             <Grid
               container
               item xs={12}
@@ -195,20 +198,26 @@ class CoffeeChats extends Component {
                 </select>
               </p>
             </div>
+            */}
 
-            <Grid
-              container
-              item xs={12}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-               {this.state.chats && this.state.chats.length > 0 ?
+          <Grid
+            container
+            item
+            xs={12}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            {this.state.chats && this.state.chats.length > 0 ? (
               this.state.chats.map((chatData, key) => (
                 <Grid
                   key={chatData.chat_id}
                   container
-                  item xs={12} sm={12} md={12} lg={6} 
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  lg={6}
                   spacing={1}
                   alignItems="center"
                   justify="center"
@@ -216,22 +225,23 @@ class CoffeeChats extends Component {
                   <CoffeeChatCard data={chatData} />
                 </Grid>
               ))
-              :
+            ) : (
               <Grid
                 container
-                item xs={12}
+                item
+                xs={12}
                 spacing={1}
                 alignItems="center"
                 justify="center"
               >
-                <EmptyCard type={CardTypes.coffeeChat}/>
+                <EmptyCard type={CardTypes.coffeeChat} />
               </Grid>
-              }
-            </Grid>
-          </div>
+            )}
+          </Grid>
+        </div>
         {/* </PerfectScrollbar> */}
       </div>
-    )
+    );
   }
 }
 
