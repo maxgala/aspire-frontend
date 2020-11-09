@@ -62,6 +62,11 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
   },
 
+  filterSection:{
+    display: 'none'
+  },
+
+
 }));
 
 function withMyHook(Component) {
@@ -95,6 +100,7 @@ class JobBoard extends Component {
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
+              className={classes.filterSection}
             >
               <Grid
                 container

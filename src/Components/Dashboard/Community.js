@@ -63,7 +63,11 @@ const useStyles = makeStyles(() => ({
     fontFamily: 'PT Sans',
     fontSize: '15px',
     fontWeight: 'bold',
-  }
+  },
+
+  filterSection:{
+    display: 'none'
+  },
 
 }));
 
@@ -98,6 +102,7 @@ class JobBoard extends Component {
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
+              className={classes.filterSection}
             >
               <Grid
                 container
