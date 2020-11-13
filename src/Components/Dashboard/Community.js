@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Filter from "./Cards/FilterCard";
+// TODO: Hiding filters until they get implemented
+// import Filter from "./Cards/FilterCard";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CommunityCard from "./Cards/CommunityCard";
 import TestData from "./CoffeeChatsTestData";
@@ -87,6 +88,8 @@ class JobBoard extends Component {
           <div className={classes.padding}>
             <h1 className={classes.JobBoard}>Members</h1>
           </div>
+
+          {/* TODO: Hiding filters until they get implemented
           <Grid
             container
             item
@@ -158,49 +161,15 @@ class JobBoard extends Component {
               </Grid>
             </Grid>
 
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Additional Filters</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <div className={classes.sort}>
-            <p className={classes.date}>
-              {" "}
-              Sort date posted by:
-              <select className={classes.select}>
-                <option value="Ascending">Ascending</option>
-                <option value="descending">Descending</option>
-              </select>
-            </p>
-          </div>
+            <div className={classes.sort}>
+              <p className={classes.date}> Sort date posted by:
+                <select className={classes.select}>
+                  <option value="Ascending">Ascending</option>
+                  <option value="descending">Descending</option>
+                </select>
+              </p>
+            </div>
+          */}
 
           <Grid
             container

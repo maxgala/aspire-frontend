@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Filter from "./Cards/FilterCard";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import ResumeBankCard from "./Cards/ResumeBankCard";
 import TestData from "./CoffeeChatsTestData";
+// TODO: Hiding filters until they get implemented
+// import Filter from "./Cards/FilterCard";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -84,6 +85,8 @@ class JobBoard extends Component {
         <div className={classes.mainPage}>
           <h1 className={classes.JobBoard}>Resume Bank</h1>
 
+
+          {/* TODO: Hiding filters until they get implemented
           <Grid
             container
             item
@@ -200,6 +203,7 @@ class JobBoard extends Component {
               </select>
             </p>
           </div>
+          */}
 
           <Grid
             container

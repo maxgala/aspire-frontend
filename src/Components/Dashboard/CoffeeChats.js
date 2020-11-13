@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
-import Filter from "./Cards/FilterCard";
+// TODO: Hiding filters until they get implemented
+// import Filter from "./Cards/FilterCard";
 import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
+
 const useStyles = makeStyles(() => ({
   mainPage: {
     paddingLeft: "8%",
@@ -98,14 +100,7 @@ class CoffeeChats extends Component {
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
           <h1 className={classes.coffeeChat}>Coffee Chats</h1>
-          <Grid
-            container
-            item
-            xs={12}
-            spacing={1}
-            alignItems="flex-start"
-            justify="flex-start"
-          >
+          {/* TODO: Hiding filters until they get implemented
             <Grid
               container
               item
@@ -202,17 +197,15 @@ class CoffeeChats extends Component {
               </Grid>
             </Grid>
           </Grid>
-
-          <div className={classes.sort}>
-            <p className={classes.date}>
-              {" "}
-              Sort date posted by:
-              <select className={classes.select}>
-                <option value="Ascending">Ascending</option>
-                <option value="descending">Descending</option>
-              </select>
-            </p>
-          </div>
+           <div className={classes.sort}>
+              <p className={classes.date}> Sort date posted by:
+            <select className={classes.select}>
+                  <option value="Ascending">Ascending</option>
+                  <option value="descending">Descending</option>
+                </select>
+              </p>
+            </div>
+            */}
 
           <Grid
             container

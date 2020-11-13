@@ -42,9 +42,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     maxWidth: "500px",
     marginLeft: "5px",
-
     // margin: 'auto',
-
     height: "180px",
     marginBottom: "10px",
     borderRadius: "20px",
@@ -133,7 +131,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: "5px",
     color: "#7D7D7D",
     margin: "0px",
-    // marginLeft: "5px",
+    // marginLeft: "5px"
     marginTop: "15px",
   },
   subtitle: {
@@ -667,6 +665,7 @@ class CoffeeChatCard extends Component {
                 justify="center"
               >
                 <DialogActions>
+
                   <Button
                     className={classes.button2}
                     variant="contained"
