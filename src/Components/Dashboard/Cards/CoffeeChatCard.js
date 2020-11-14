@@ -42,6 +42,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     maxWidth: "500px",
     marginLeft: "5px",
+    // margin: 'auto',
     height: "180px",
     marginBottom: "10px",
     borderRadius: "20px",
@@ -54,6 +55,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     maxWidth: "500px",
     marginLeft: "5px",
+    // margin: 'auto',
     height: "180px",
     marginBottom: "10px",
     borderRadius: "20px",
@@ -84,8 +86,12 @@ const useStyles = makeStyles(() => ({
     display: "inline-block",
   },
   image2: {
-    width: "225px",
-    height: "225px",
+    width: "20vw",
+    height: "20vw",
+    "@media (min-width: 1125px)": {
+      width: "225px",
+      height: "225px",
+    },
     borderRadius: "50%",
     margin: "auto",
     marginTop: "30px",
@@ -110,13 +116,22 @@ const useStyles = makeStyles(() => ({
   },
   title2: {
     fontFamily: "myriad-pro, sans-serif",
-    fontSize: "30px",
+    fontSize: "3vw",
+    "@media (min-width: 1125px)": {
+      fontSize: "30px",
+    },
+    "@media (max-width: 640px)": {
+      fontSize: "18px",
+    },
+    "@media (max-width: 320px)": {
+      fontSize: "15px",
+    },
     width: "100%",
     textAlign: "left",
     paddingTop: "5px",
     color: "#7D7D7D",
     margin: "0px",
-    marginLeft: "5px",
+    // marginLeft: "5px"
     marginTop: "15px",
   },
   subtitle: {
@@ -137,6 +152,11 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   subtitle2: {
+    fontSize: "16px",
+    "@media (max-width: 480px)": {
+      fontSize: "14px",
+      marginLeft: "0px",
+    },
     fontFamily: "myriad-pro, sans-serif",
     fontWeight: "bold",
     width: "100%",
@@ -192,6 +212,9 @@ const useStyles = makeStyles(() => ({
     fontWeight: "bold",
     width: "100%",
     fontSize: "22px",
+    "@media (max-width: 480px)": {
+      fontSize: "16px",
+    },
     textAlign: "left",
     color: "#B6A165",
     margin: "0px",
@@ -287,6 +310,18 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     right: "5%",
   },
+
+  dialogLabel: {
+    fontSize: "21px",
+    "@media (max-width: 480px)": {
+      fontSize: "16px",
+      marginTop: "5px",
+    },
+    margin: "0px",
+    marginTop: "10px",
+    color: "white",
+  },
+
   button2: {
     textTransform: "none",
     backgroundColor: "#000000",
@@ -493,7 +528,7 @@ class CoffeeChatCard extends Component {
         >
           <Toolbar className={classes.toolbar}>
             <div>
-              <h2 style={{ margin: "0px", marginTop: "10px", color: "white" }}>
+              <h2 className={classes.dialogLabel}>
                 Register for a Coffee Chat
               </h2>
             </div>
@@ -522,10 +557,11 @@ class CoffeeChatCard extends Component {
                 <Grid
                   container
                   item
-                  xs={4}
+                  xs={12}
+                  sm={4}
                   spacing={0}
                   alignItems="flex-start"
-                  justify="flex-start"
+                  justify="center"
                 >
                   <img
                     className={classes.image2}
@@ -537,7 +573,8 @@ class CoffeeChatCard extends Component {
                 <Grid
                   container
                   item
-                  xs={8}
+                  xs={12}
+                  sm={8}
                   spacing={0}
                   alignItems="center"
                   justify="flex-start"
@@ -624,10 +661,11 @@ class CoffeeChatCard extends Component {
                 item
                 xs={12}
                 spacing={0}
-                alignItems="flex-end"
-                justify="flex-end"
+                alignItems="center"
+                justify="center"
               >
-                <DialogActions style={{ marginRight: "5%" }}>
+                <DialogActions>
+
                   <Button
                     className={classes.button2}
                     variant="contained"

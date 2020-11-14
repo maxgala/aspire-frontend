@@ -293,6 +293,10 @@ const useStyles = makeStyles((theme) => ({
   radioButton: {
     color: "#58595B",
     margin: "5px 20px 0px 30px",
+    "@media (max-width: 600px)": {
+      margin: "0px",
+      fontSize: "5px",
+    },
     fontSize: "16px",
   },
 
@@ -552,7 +556,8 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={6}
+                  xs={12}
+                  sm={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -585,7 +590,8 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={6}
+                  xs={12}
+                  sm={6}
                   spacing={1}
                   alignItems="flex-end"
                   justify="flex-end"
@@ -616,7 +622,8 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={6}
+                  xs={12}
+                  sm={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -647,7 +654,8 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={3}
+                  xs={6}
+                  sm={3}
                   spacing={1}
                   alignItems="flex-end"
                   justify="flex-end"
@@ -692,7 +700,8 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={3}
+                  xs={6}
+                  sm={3}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"

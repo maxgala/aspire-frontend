@@ -88,92 +88,76 @@ class JobBoard extends Component {
           <div className={classes.padding}>
             <h1 className={classes.JobBoard}>Members</h1>
           </div>
+
           {/* TODO: Hiding filters until they get implemented
           <Grid
+            container
+            item
+            xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            <Grid
               container
-              item xs={12}
+              item
+              xs={12}
+              sm={6}
+              md={3}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
               <Grid
                 container
-                item xs={12} sm={6} md={3}
+                item
+                xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Title</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
+                <p className={classes.section_title}>Job Title</p>
               </Grid>
               <Grid
                 container
-                item xs={12} sm={6} md={3}
+                item
+                xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Location</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
+                <Filter />
               </Grid>
-
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
               <Grid
                 container
-                item xs={12} sm={12} md={6}
+                item
+                xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Additional Filters</p>
-                </Grid>
-                <Grid
-                  container
-                  item xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
+                <p className={classes.section_title}>Location</p>
+              </Grid>
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Filter />
               </Grid>
             </Grid>
 

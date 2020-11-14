@@ -85,6 +85,7 @@ class JobBoard extends Component {
         <div className={classes.mainPage}>
           <h1 className={classes.JobBoard}>Resume Bank</h1>
 
+
           {/* TODO: Hiding filters until they get implemented
           <Grid
             container
