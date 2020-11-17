@@ -1021,7 +1021,7 @@ class Landing extends Component {
                 <p>
                   <b>How many credits does it take to book a Mock Interview?</b>
                 </p>
-                <p>5 credits is required.</p>
+                <p>5 credits are required.</p>
                 <br />
                 <h3 style={{ color: "#B5A165" }}>1 on 1:</h3>
                 <p>
@@ -1055,7 +1055,7 @@ class Landing extends Component {
                 <p>
                   <b>How many credits does it take to book a 1 on 1?</b>
                 </p>
-                <p>5 credits is required.</p>
+                <p>5 credits are required.</p>
                 <p>
                   <b>What is the process for scheduling a 1 on 1?</b>
                 </p>
@@ -1077,7 +1077,7 @@ class Landing extends Component {
                 <p>
                   <b>How many credits does it take to book a 4 on 1?</b>
                 </p>
-                <p>3 credits is required.</p>
+                <p>3 credits are required.</p>
                 <p>
                   <b>What is the process for scheduling a 4 on 1?</b>
                 </p>
