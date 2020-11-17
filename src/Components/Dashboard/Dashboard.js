@@ -4,6 +4,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 import MaxLogo from "../Images/max_logo.png";
 import UserProfile from "./UserProfile";
 import { faReact } from "@fortawesome/free-brands-svg-icons";
@@ -15,7 +16,6 @@ import Community from "./Community";
 import ResumeBank from "./ResumeBank";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
@@ -212,7 +212,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       currentScreen: [],
-      open: true,
+      open: false,
       jobsAnchorEl: null,
       communityAnchorEl: null,
     };
@@ -318,18 +318,20 @@ class Dashboard extends Component {
           })}
         >
           <Toolbar className={classes.toolbar}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              edge="start"
-              className={clsx(
-                classes.menuButton,
-                this.state.open && classes.hide
-              )}
-            >
-              <MenuIcon />
-            </IconButton>
+            <Tooltip title="User Profile">
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerOpen}
+                edge="start"
+                className={clsx(
+                  classes.menuButton,
+                  this.state.open && classes.hide
+                )}
+              >
+                <ChevronRightIcon />
+              </IconButton>
+            </Tooltip>
             <Hidden xsDown>
               <div className={classes.navLogo} onClick={this.handleClick}>
                 <img
