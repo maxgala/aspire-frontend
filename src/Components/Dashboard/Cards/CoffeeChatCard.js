@@ -100,7 +100,7 @@ const useStyles = makeStyles(() => ({
     display: "inline-block",
   },
   title: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bolder",
     width: "100%",
     textAlign: "left",
@@ -115,7 +115,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   title2: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontSize: "3vw",
     "@media (min-width: 1125px)": {
       fontSize: "30px",
@@ -135,7 +135,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "15px",
   },
   subtitle: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "12px",
@@ -157,7 +157,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "14px",
       marginLeft: "0px",
     },
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     width: "100%",
     textAlign: "left",
@@ -173,7 +173,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   company: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "10px",
@@ -184,7 +184,7 @@ const useStyles = makeStyles(() => ({
     color: "white",
   },
   date: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "10px",
