@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "minion-pro, serif",
     fontWeight: "bolder",
     fontSize: "30px",
+    "@media (max-width: 480px)": {
+      fontSize: "25px",
+    },
     margin: "2% 20px 10px 20px",
     textAlign: "center",
     display: "block",
@@ -109,6 +112,9 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: "60%",
     height: "auto",
+    "@media (max-width: 480px)": {
+      width: "120px",
+    },
     padding: "1vh",
     left: "10%",
     borderRadius: "50%",
