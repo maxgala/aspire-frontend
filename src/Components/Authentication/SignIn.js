@@ -317,9 +317,9 @@ class SignIn extends Component {
                             <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
                             <Typography component="h1" variant="body1">
                                 <b style={{ color: "Red" }}>{this.state.username}</b> has not
-                been verifed. <br />
-                Please enter the verification code below:
-              </Typography>
+                                been verifed. <br />
+                                Please enter the verification code below:
+                            </Typography>
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -343,7 +343,7 @@ class SignIn extends Component {
                                 onClick={this.handleVerify}
                             >
                                 Verify User
-              </Button>
+                            </Button>
                             <br />
                             <Grid container>
                                 <Grid item xs={12}>
