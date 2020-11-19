@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "20px",
     textAlign: "left",
     // need designs for mock interview card
-    backgroundColor: "#600000",
+    backgroundColor: "#944848",
     color: "white",
   },
   cardBooked: {
@@ -379,10 +379,10 @@ class CoffeeChatCard extends Component {
           this.props.data.chat_status === "ChatStatus.RESERVED"
             ? classes.cardBooked
             : this.props.data.chat_type === ChatTypes.oneOnOne
-            ? classes.cardOne
-            : this.props.data.chat_type === ChatTypes.fourOnOne
-            ? classes.cardFour
-            : classes.cardInterview
+              ? classes.cardOne
+              : this.props.data.chat_type === ChatTypes.fourOnOne
+                ? classes.cardFour
+                : classes.cardInterview
         }
       >
         {/* need to get image from s3 bucket --  */}
@@ -433,13 +433,13 @@ class CoffeeChatCard extends Component {
                   {this.props.data.chat_type === ChatTypes.oneOnOne
                     ? "One-on-One"
                     : this.props.data.chat_type === ChatTypes.fourOnOne
-                    ? "Four-on-One"
-                    : "Mock Interview"}
+                      ? "Four-on-One"
+                      : "Mock Interview"}
                   {this.props.data.chat_status === "ChatStatus.PENDING" ? (
                     <span className={classes.booked}> booked </span>
                   ) : (
-                    ""
-                  )}
+                      ""
+                    )}
                 </h1>
                 <p className={classes.subtitle}>
                   <span className={classes.name}>
@@ -592,13 +592,13 @@ class CoffeeChatCard extends Component {
                       {this.props.data.chat_type === ChatTypes.oneOnOne
                         ? "One-on-One"
                         : this.props.data.chat_type === ChatTypes.fourOnOne
-                        ? "Four-on-One"
-                        : "Mock Interview"}
+                          ? "Four-on-One"
+                          : "Mock Interview"}
                       {this.props.data.booked ? (
                         <span className={classes.booked}>booked</span>
                       ) : (
-                        ""
-                      )}{" "}
+                          ""
+                        )}{" "}
                       with&nbsp;
                       <span className={classes.name2}>
                         {this.props.data.senior_executive}
