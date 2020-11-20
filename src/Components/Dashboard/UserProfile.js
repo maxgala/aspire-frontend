@@ -796,39 +796,50 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={10}
-                  sm={5}
-                  spacing={0}
-                  alignItems="center"
-                  justify="center"
+                  xs={12}
+                  sm={6}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
-                  <Autocomplete
-                    multiple
-                    id="tags-filled"
-                    fullWidth
-                    options={IndustryTags.map((option) => option.name)}
-                    defaultValue={[]}
-                    freeSolo
-                    onChange={this.onTagsChange}
-                    renderTags={(value, getTagProps) =>
-                      value.map((option, index) => (
-                        <Chip
-                          variant="outlined"
-                          label={option}
-                          {...getTagProps({ index })}
-                        />
-                      ))
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Select Tags (Up to 3)"
-                        error={this.state.showError}
-                        helperText={this.state.errorText}
-                        className={classes.textbox}
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <div className={classes.radioMarginFirst}>
+                      <Autocomplete
+                        multiple
+                        id="tags-filled"
+                        fullWidth
+                        options={IndustryTags.map((option) => option.name)}
+                        defaultValue={[]}
+                        freeSolo
+                        onChange={this.onTagsChange}
+                        renderTags={(value, getTagProps) =>
+                          value.map((option, index) => (
+                            <Chip
+                              variant="outlined"
+                              label={option}
+                              {...getTagProps({ index })}
+                            />
+                          ))
+                        }
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Select Tags (Up to 3)"
+                            error={this.state.showError}
+                            helperText={this.state.errorText}
+                            className={classes.textbox}
+                          />
+                        )}
                       />
-                    )}
-                  />
+                    </div>
+                  </Grid>
                 </Grid>
                 <Grid
                   container
