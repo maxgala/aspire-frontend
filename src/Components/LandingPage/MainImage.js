@@ -6,17 +6,18 @@ import MaxLogo from "../Images/max_logo.png";
 import "../Videos/Video.css";
 
 const useStyles = makeStyles((theme) => ({
-  sectionstyle: {
-    width: "100vw",
-    height: "100vh",
+  sectionStyle: {
+    // width: "100vw",
+    // height: "100vh",
     marginRight: "0",
     marginLeft: "0",
+    marginBottom: "20px",
   },
   h1style: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     "@media (max-width: 800px)": { fontSize: "45px" },
-    "@media (max-width: 480px)": {fontSize: "25px"},
+    "@media (max-width: 500px)": { fontSize: "25px" },
     fontSize: "72px",
     color: "white",
     textAlign: "center",
@@ -27,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
   subheading: {
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
-    '@media (max-width: 800px)': { fontSize: "18px" },
-    "@media (max-width: 480px)": {fontSize: "12px"},
+    "@media (max-width: 800px)": { fontSize: "18px" },
+    "@media (max-width: 480px)": { fontSize: "12px" },
     fontSize: "24px",
     color: "white",
     paddingLeft: "30px",
@@ -42,24 +43,24 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontFamily: "Montserrat",
     fontWeight: "Bold",
-    '@media (max-width: 800px)': { 
-      fontSize: "15px"
+    "@media (max-width: 800px)": {
+      fontSize: "15px",
     },
     "@media (max-width: 480px)": {
       fontSize: "10px",
       width: "180px",
-      marginTop: "1%"
+      marginTop: "1%",
     },
     fontSize: "20px",
     textTransform: "none",
     paddingLeft: "20px",
     paddingRight: "20px",
     backgroundColor: "Transparent",
-    border: '1px solid white',
-    width: '230px',
-    margin: '10px',
+    border: "1px solid white",
+    width: "230px",
+    margin: "10px",
     marginTop: "2%",
-    marginBottom: '10px',
+    marginBottom: "10px",
     borderRadius: 50,
     color: "white",
     "&:hover": {
@@ -76,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
     // backgroundColor: "rgba(0,0,0,0.8)",
     width: "110%",
     height: "85vh",
+    // overflow: "scroll"
   },
   img: {
     paddingTop: "20vh",
@@ -95,18 +97,20 @@ const useStyles = makeStyles((theme) => ({
     objectFit: "cover",
   },
 
-  buttonContainer: { 
-    paddingLeft: '5%',
-    paddingRight: '5%',
-    "@media (max-width: 480px)": {
-      paddingLeft: "15%",
-      paddingRight: "15%"
-    },
-    justifyContent: 'center',
-    alignItems: 'center',
-    
+  mainBackContainer: {
+    position: "relative",
   },
 
+  buttonContainer: {
+    paddingLeft: "5%",
+    paddingRight: "5%",
+    "@media (max-width: 480px)": {
+      paddingLeft: "15%",
+      paddingRight: "15%",
+    },
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));
 
 function withMyHook(Component) {
@@ -138,7 +142,6 @@ class MainImage extends Component {
     });
   }
 
-
   handleClick3(e) {
     e.preventDefault();
     document.getElementById("membership").scrollIntoView({
@@ -156,7 +159,7 @@ class MainImage extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.sectionStyle}>
-        <div className="video-container">
+        <div className={classes.mainBackContainer}>
           <video
             id="main-video"
             className={classes.Mainback}
@@ -176,51 +179,46 @@ class MainImage extends Component {
           </h3>
 
           <div className={classes.buttonContainer}>
+            <Button
+              onClick={this.handleClick4}
+              className={classes.button}
+              variant="contained"
+            >
+              Features
+            </Button>
 
-          <Button
-            onClick={this.handleClick4}
-            className={classes.button}
-            variant="contained"
-          >
-            Features
-          </Button>
+            <Button
+              onClick={this.handleClick2}
+              className={classes.button}
+              variant="contained"
+            >
+              Senior Executives
+            </Button>
 
-          <Button
-            onClick={this.handleClick2}
-            className={classes.button}
-            variant="contained"
-          >
-            Senior Executives
-          </Button>
+            <Button
+              onClick={this.handleClick1}
+              className={classes.button}
+              variant="contained"
+            >
+              Jobs
+            </Button>
 
+            <Button
+              onClick={this.handleClick3}
+              className={classes.button}
+              variant="contained"
+            >
+              Memberships
+            </Button>
 
-          <Button
-            onClick={this.handleClick1}
-            className={classes.button}
-            variant="contained"
-          >
-            Jobs
-          </Button>
-
-
-          <Button
-            onClick={this.handleClick3}
-            className={classes.button}
-            variant="contained"
-          >
-            Memberships
-          </Button>
-
-          <Button
-            onClick={this.handleClick}
-            className={classes.button}
-            variant="contained"
-          >
-            About Us
-          </Button>
-
+            <Button
+              onClick={this.handleClick}
+              className={classes.button}
+              variant="contained"
+            >
+              About Us
+            </Button>
           </div>
-          
         </div>
       </div>
     );

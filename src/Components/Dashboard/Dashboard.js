@@ -1,169 +1,168 @@
-import React, {Component} from 'react';
-import clsx from 'clsx';
-import {makeStyles, useTheme } from "@material-ui/core/styles";
+import React, { Component } from "react";
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 import MaxLogo from "../Images/max_logo.png";
 import UserProfile from "./UserProfile";
-import { faReact } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faReact } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Home from "./Home";
 import CoffeeChats from "./CoffeeChats";
 import Jobs from "./Jobs";
 import Community from "./Community";
 import ResumeBank from "./ResumeBank";
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Drawer from '@material-ui/core/Drawer';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import AppBar from "@material-ui/core/AppBar";
+import IconButton from "@material-ui/core/IconButton";
+import Drawer from "@material-ui/core/Drawer";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import home from "../Images/navbar/home_web.svg";
 import community from "../Images/navbar/community_web.svg";
 import jobs from "../Images/navbar/jobs_web.svg";
 import chats from "../Images/navbar/chats_web.svg";
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { Hidden } from '@material-ui/core';
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { Hidden } from "@material-ui/core";
 
 const drawerWidth = 300;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
-  navLogo:{
-    display: 'flex',
-    justifyContent: 'start'
+  navLogo: {
+    display: "flex",
+    justifyContent: "start",
   },
   img: {
-    float: 'left',
-    align: 'left',
-    '@media (max-width: 480px)': {width: '125px'},
-    width: '150px',
-    cursor: 'pointer'
+    float: "left",
+    align: "left",
+    "@media (max-width: 480px)": { width: "125px" },
+    width: "150px",
+    cursor: "pointer",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: -drawerWidth,
+    //marginLeft: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
   },
   profile_container: {
-    '@media (max-width: 963px)': {
-      width: '0px',
-      display: 'None'
+    "@media (max-width: 963px)": {
+      width: "0px",
+      display: "None",
     },
-    width: '300px',
+    width: "300px",
     paddingTop: theme.spacing(0),
-    paddingLeft: '0px',
-    paddingRight: '0px',
-    position: 'relative'
+    paddingLeft: "0px",
+    paddingRight: "0px",
+    position: "relative",
   },
   dashboard_container: {
-    '@media (max-width: 963px)': {maxWidth: '100%'},
-    maxWidth: 'calc(100vw - 299px)',
+    "@media (max-width: 963px)": { maxWidth: "100%" },
+    maxWidth: "calc(100vw - 299px)",
     paddingTop: theme.spacing(0),
-    paddingLeft: '0px',
-    paddingRight: '0px',
-    position: 'relative'
+    paddingLeft: "0px",
+    paddingRight: "0px",
+    position: "relative",
   },
   toolbar: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    height: '10px',
-    backgroundColor: 'black',
-    boxShadow: 'none',
-    width: '100%',
+    display: "flex",
+    justifyContent: "flex-start",
+    height: "10px",
+    backgroundColor: "black",
+    boxShadow: "none",
+    width: "100%",
   },
   grid: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   coffee_chats: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
-    fontSize: '18px',
-    padding: '0px',
-    '&:hover': {
-      backgroundColor: "#B5A165"
-    }
+    fontSize: "18px",
+    padding: "0px",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
   },
   jobs: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
-    fontSize: '18px',
-    padding: '0px',
-    '&:hover': {
-      backgroundColor: "#B5A165"
-    }
+    fontSize: "18px",
+    padding: "0px",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
   },
   community: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
-    fontSize: '18px',
-    padding: '0px',
-    '&:hover': {
-      backgroundColor: "#B5A165"
-    }
+    fontSize: "18px",
+    padding: "0px",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
   },
   dashboard: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
-    marginLeft: 'auto',
-    '@media (max-width: 480px)': {
-      marginLeft: '0px'
+    marginLeft: "auto",
+    "@media (max-width: 480px)": {
+      marginLeft: "0px",
     },
-    padding: '0px',
-    fontSize: '18px',
-    '&:hover': {
-      backgroundColor: "#B5A165"
-    }
+    padding: "0px",
+    fontSize: "18px",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
   },
 
-  navbar_icons:{
-    width: '80px',
-    height: '50px',
-    padding: '0px',
-    '@media (max-width: 480px)': {
-      width: '60px',
-      height: '40px',
+  navbar_icons: {
+    width: "80px",
+    height: "50px",
+    padding: "0px",
+    "@media (max-width: 480px)": {
+      width: "60px",
+      height: "40px",
     },
-   
   },
 
   user_profile: {
     fontFamily: "Nunito",
     textTransform: "capitalize",
-    fontSize: '18px',
+    fontSize: "18px",
     color: "#F1F1F1",
-    borderRadius: '100%',
-    padding: '0px',
-    width: '60px',
-    height: '60px',
-    marginLeft: '20px',
-    '&:hover': {
-      backgroundColor: "#A9A9A9"
+    borderRadius: "100%",
+    padding: "0px",
+    width: "60px",
+    height: "60px",
+    marginLeft: "20px",
+    "&:hover": {
+      backgroundColor: "#A9A9A9",
     },
-    '@media (max-width: 480px)': {
-      marginLeft: '0px',
-      width: '45px',
-      height: '45px'
+    "@media (max-width: 480px)": {
+      marginLeft: "0px",
+      width: "45px",
+      height: "45px",
     },
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -171,17 +170,17 @@ const useStyles = makeStyles(theme => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    '@media (max-width: 480px)': {marginRight: '0px'},
+    "@media (max-width: 480px)": { marginRight: "0px" },
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -191,38 +190,38 @@ const useStyles = makeStyles(theme => ({
     width: drawerWidth,
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
 }));
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
-    const theme= useTheme();
-    return <Component {...props} classes={classes} theme={theme}/>
-  }
+    const theme = useTheme();
+    return <Component {...props} classes={classes} theme={theme} />;
+  };
 }
 
 class Dashboard extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       currentScreen: [],
-      open: true,
+      open: false,
       jobsAnchorEl: null,
-      communityAnchorEl: null
-    }
+      communityAnchorEl: null,
+    };
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
     this.changeToJobs = this.changeToJobs.bind(this);
     this.changeToDashboard = this.changeToDashboard.bind(this);
-    this.changeToCommunity=this.changeToCommunity.bind(this);
-    this.changeToResumeBank=this.changeToResumeBank.bind(this);
+    this.changeToCommunity = this.changeToCommunity.bind(this);
+    this.changeToResumeBank = this.changeToResumeBank.bind(this);
     this.setOpen = this.setOpen.bind(this);
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
@@ -242,7 +241,7 @@ class Dashboard extends Component {
   };
 
   setOpen(toggleValue) {
-    this.setState({open: toggleValue})
+    this.setState({ open: toggleValue });
   }
 
   handleDrawerOpen = () => {
@@ -255,46 +254,58 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.setState({
-      currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    })
+      currentScreen: (
+        <Home appContext={this} isSeniorExec={this.props.isSeniorExec} />
+      ),
+    });
   }
 
   changeToResumeBank() {
     this.handleSelect();
     this.setState({
-      currentScreen: <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: (
+        <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec} />
+      ),
+    });
   }
 
   changeToCommunity() {
     this.handleSelect();
     this.setState({
-      currentScreen: <Community appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: (
+        <Community appContext={this} isSeniorExec={this.props.isSeniorExec} />
+      ),
+    });
   }
 
   changeToCoffeeChats() {
     this.handleSelect();
     this.setState({
-      currentScreen: <CoffeeChats appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: (
+        <CoffeeChats appContext={this} isSeniorExec={this.props.isSeniorExec} />
+      ),
+    });
   }
 
   changeToJobs() {
     this.handleSelect();
     this.setState({
-      currentScreen: <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: (
+        <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec} />
+      ),
+    });
   }
 
   changeToDashboard() {
     this.handleSelect();
     this.setState({
-      currentScreen: <Home appContext={this} isSeniorExec={this.props.isSeniorExec}/>
-    }) 
+      currentScreen: (
+        <Home appContext={this} isSeniorExec={this.props.isSeniorExec} />
+      ),
+    });
   }
 
-  render(){
+  render() {
     const classes = this.props.classes;
     const theme = this.props.theme;
     return (
@@ -307,83 +318,124 @@ class Dashboard extends Component {
           })}
         >
           <Toolbar className={classes.toolbar}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              edge="start"
-              className={clsx(classes.menuButton, this.state.open && classes.hide)}
-            >
-              <MenuIcon />
-            </IconButton>
+            <Tooltip title="User Profile">
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerOpen}
+                edge="start"
+                className={clsx(
+                  classes.menuButton,
+                  this.state.open && classes.hide
+                )}
+              >
+                <ChevronRightIcon />
+              </IconButton>
+            </Tooltip>
             <Hidden xsDown>
-            <div className={classes.navLogo} onClick={this.handleClick}>
-              <img src={MaxLogo} alt="MAX_logo" className={classes.img} onClick={this.changeToDashboard}/>
-            </div>
+              <div className={classes.navLogo} onClick={this.handleClick}>
+                <img
+                  src={MaxLogo}
+                  alt="MAX_logo"
+                  className={classes.img}
+                  onClick={this.changeToDashboard}
+                />
+              </div>
             </Hidden>
             <Button
               variant="outlined"
               className={classes.dashboard}
               onClick={this.changeToDashboard}
             >
-              <img className={classes.navbar_icons} src={home} alt={"Home Tab"}/>
+              <img
+                className={classes.navbar_icons}
+                src={home}
+                alt={"Home Tab"}
+              />
             </Button>
             <Button
               variant="outlined"
               className={classes.coffee_chats}
               onClick={this.changeToCoffeeChats}
             >
-              <img className={classes.navbar_icons} src={chats} alt={"Coffee Chats Tab"}/>
+              <img
+                className={classes.navbar_icons}
+                src={chats}
+                alt={"Coffee Chats Tab"}
+              />
             </Button>
             <Button
               variant="outlined"
               className={classes.jobs}
               onClick={this.handleJobsClick}
             >
-              <img className={classes.navbar_icons} src={jobs} alt={"Jobs Tab"}/>
+              <img
+                className={classes.navbar_icons}
+                src={jobs}
+                alt={"Jobs Tab"}
+              />
             </Button>
             <Menu
               id="simple-menu2"
               anchorEl={this.state.jobsAnchorEl}
               keepMounted
               open={Boolean(this.state.jobsAnchorEl)}
-              onClose={() => {this.setState({jobsAnchorEl: null})}}
-              style={{ marginTop: '45px'}}
+              onClose={() => {
+                this.setState({ jobsAnchorEl: null });
+              }}
+              style={{ marginTop: "45px" }}
             >
-              <MenuItem key={"postings"} onClick={this.changeToJobs}>Postings</MenuItem>
-              <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>View Submissions</MenuItem>
+              <MenuItem key={"postings"} onClick={this.changeToJobs}>
+                Postings
+              </MenuItem>
+              <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>
+                View Submissions
+              </MenuItem>
             </Menu>
             <Button
               variant="outlined"
               className={classes.community}
               onClick={this.handleCommunityClick}
             >
-              <img className={classes.navbar_icons} src={community} alt={"Community Tab"}/>
+              <img
+                className={classes.navbar_icons}
+                src={community}
+                alt={"Community Tab"}
+              />
             </Button>
             <Menu
               id="simple-menu1"
               anchorEl={this.state.communityAnchorEl}
               keepMounted
               open={Boolean(this.state.communityAnchorEl)}
-              onClose={() => {this.setState({communityAnchorEl: null})}}
-              style={{ marginTop: '45px'}}
+              onClose={() => {
+                this.setState({ communityAnchorEl: null });
+              }}
+              style={{ marginTop: "45px" }}
             >
-              <MenuItem key={"community"} onClick={this.changeToCommunity}>Show Members</MenuItem>
-              <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>Resume Bank</MenuItem>
+              <MenuItem key={"community"} onClick={this.changeToCommunity}>
+                Show Members
+              </MenuItem>
+              <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>
+                Resume Bank
+              </MenuItem>
             </Menu>
             <Button
               variant="outlined"
               className={classes.user_profile}
               onClick={this.openUserProfile}
             >
-              <FontAwesomeIcon icon={faReact} style={{width: '35px', height: '35px'}}/>
+              <FontAwesomeIcon
+                icon={faReact}
+                style={{ width: "35px", height: "35px" }}
+              />
             </Button>
           </Toolbar>
         </AppBar>
 
         <Drawer
           className={classes.drawer}
-          variant="persistent"
+          variant="temporary"
           anchor="left"
           open={this.state.open}
           classes={{
@@ -392,10 +444,14 @@ class Dashboard extends Component {
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon />
+              ) : (
+                <ChevronRightIcon />
+              )}
             </IconButton>
           </div>
-          <UserProfile/>
+          <UserProfile />
         </Drawer>
         <main
           className={clsx(classes.content, {
