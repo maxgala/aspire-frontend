@@ -80,7 +80,7 @@ const useStyles = makeStyles(() => ({
     },
     borderRadius: "50%",
     margin: "auto",
-    marginTop: "15px",
+    marginTop: "10px",
     marginLeft: "10px",
     marginRight: "20px",
     display: "inline-block",
@@ -250,6 +250,10 @@ const useStyles = makeStyles(() => ({
   button: {
     fontSize: "8px",
     fontWeight: "400",
+    marginLeft: "8px",
+    "@media (max-width: 480px)": {
+      marginLeft: "0px"
+    },
     borderRadius: 50,
     backgroundColor: "white",
     color: "#58595B",
@@ -478,7 +482,7 @@ class CoffeeChatCard extends Component {
                   container
                   item
                   xs={12}
-                  sm={8}
+                  sm={7}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -492,7 +496,7 @@ class CoffeeChatCard extends Component {
                   container
                   item
                   xs={12}
-                  sm={4}
+                  sm={5}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
