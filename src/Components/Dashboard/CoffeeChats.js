@@ -267,7 +267,7 @@ class CoffeeChats extends Component {
           </Grid>
         </div>
         {/* </PerfectScrollbar> */}
-      </div >
+      </div>
     );
   }
 }
