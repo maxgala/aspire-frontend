@@ -8,6 +8,7 @@ import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -16,6 +17,19 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     alignItems: "center",
     height: "90vh",
+  },
+
+  cardCoffeeLoader: {
+    width: "100%",
+    maxWidth: "500px",
+    marginLeft: "5px",
+    height: "180px",
+    marginBottom: "10px",
+    borderRadius: "20px",
+    textAlign: "left",
+    backgroundColor: "#B5A165",
+    color: "white",
+    boxShadow: "0px 6px 6px #00000029",
   },
 
   coffeeChat: {
@@ -75,6 +89,7 @@ class CoffeeChats extends Component {
     super(props);
     this.state = {
       chats: [],
+      isChatsLoaded: false
     };
   }
 
@@ -84,6 +99,7 @@ class CoffeeChats extends Component {
       localStorage.getItem("idToken")
     );
     this.setState({
+      isChatsLoaded: true,
       chats: existingChatsData.data.chats,
     });
   };
@@ -215,35 +231,39 @@ class CoffeeChats extends Component {
             alignItems="center"
             justify="center"
           >
-            {this.state.chats && this.state.chats.length > 0 ? (
-              this.state.chats.map((chatData, key) => (
-                <Grid
-                  key={chatData.chat_id}
-                  container
-                  item
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={6}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <CoffeeChatCard data={chatData} />
-                </Grid>
-              ))
+            {this.state.isChatsLoaded ? (
+              this.state.chats && this.state.chats.length > 0 ? (
+                this.state.chats.map((chat, key) => (
+                  <Grid
+                    key={chat.chat_id}
+                    container
+                    item
+                    xs={12}
+                    sm={12}
+                    md={12}
+                    lg={6}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <CoffeeChatCard data={chat} />
+                  </Grid>
+                ))
+              ) : (
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <EmptyCard type={CardTypes.coffeeChat} />
+                  </Grid>
+                )
             ) : (
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <EmptyCard type={CardTypes.coffeeChat} />
-              </Grid>
-            )}
+                <Skeleton variant="rect" className={classes.cardCoffeeLoader} />
+              )}
           </Grid>
         </div>
         {/* </PerfectScrollbar> */}
