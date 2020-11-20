@@ -34,6 +34,7 @@ const useStyles = makeStyles(() => ({
     overflow: "hidden",
   },
   jobTitle: {
+    fontFamily: 'PT Sans',
     fontSize: "19px",
     "@media (max-width: 350px)": {
       fontSize: "16px",
@@ -43,6 +44,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: "1%",
   },
   text2: {
+    fontFamily: 'PT Sans',
     fontSize: "12px",
     "@media (max-width: 350px)": {
       fontSize: "10px",
@@ -52,6 +54,7 @@ const useStyles = makeStyles(() => ({
     fontWeight: "100",
   },
   text3: {
+    fontFamily: 'PT Sans',
     fontSize: "12px",
     marginLeft: "7%",
     "@media (max-width: 350px)": {
@@ -63,6 +66,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: "row",
   },
   text4: {
+    fontFamily: 'PT Sans',
     marginTop: "10%",
     fontSize: "10px",
     fontWeight: "100",
@@ -134,15 +138,22 @@ const useStyles = makeStyles(() => ({
   descrip: {
     textAlign: "left",
     marginLeft: "20px",
-    marginRight: "50px",
+    marginRight: "0px",
     fontWeight: "100",
     fontSize: "15px",
+    "@media (max-width: 480px)": {
+      fontSize: "12px",
+      marginLeft: "0px",
+    },
   },
   header: {
     textAlign: "left",
     marginLeft: "20px",
     fontWeight: "100",
     fontSize: "18px",
+    "@media (max-width: 480px)": {
+      marginLeft: "0px",
+    },
   },
   writeup: {
     textAlign: "left",
@@ -515,7 +526,7 @@ class JobApplicationCard extends Component {
                 <Grid
                   container
                   item
-                  xs={10}
+                  xs={12}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -528,7 +539,7 @@ class JobApplicationCard extends Component {
                 <Grid
                   container
                   item
-                  xs={10}
+                  xs={12}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
