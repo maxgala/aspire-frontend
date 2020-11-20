@@ -19,6 +19,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { httpGet, httpPost } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
+import IndustryTags from "../Registration/industry_tags";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import Chip from "@material-ui/core/Chip";
 
 const useStyles = makeStyles((theme) => ({
   root1: {
@@ -616,18 +619,69 @@ class Landing extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <div className={classes.radioMarginFirst}>
-                      <TextField
-                        label="Location"
-                        fullWidth
-                        className={classes.textbox}
-                        InputProps={{
-                          classes: {
-                            input: classes.input,
-                          },
-                        }}
-                      />
-                    </div>
+                    <Grid
+                      container
+                      item
+                      xs={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <div className={classes.radioMarginFirst}>
+                        <TextField
+                          label="Country"
+                          fullWidth
+                          className={classes.textbox}
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            },
+                          }}
+                        />
+                      </div>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xs={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <div className={classes.radioMarginFirst}>
+                        <TextField
+                          label="Region"
+                          fullWidth
+                          className={classes.textbox}
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            },
+                          }}
+                        />
+                      </div>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xs={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <div className={classes.radioMarginFirst}>
+                        <TextField
+                          label="City"
+                          fullWidth
+                          className={classes.textbox}
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            },
+                          }}
+                        />
+                      </div>
+                    </Grid>
                   </Grid>
                 </Grid>
 
@@ -662,58 +716,11 @@ class Landing extends Component {
                     </div>
                   </Grid>
                 </Grid>
-
                 <Grid
                   container
                   item
-                  xs={6}
-                  sm={3}
-                  spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
-                >
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={1}
-                    alignItems="center"
-                    justify="center"
-                  >
-                    <div className={classes.radioButton}>
-                      <FormControlLabel
-                        checked={this.state.value === "Full-Time"}
-                        value="Full-Time"
-                        control={<Radio color="primary" />}
-                        label="Full-Time"
-                        onChange={this.handleJobTypeChange}
-                      />
-                    </div>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={0}
-                    alignItems="center"
-                    justify="center"
-                  >
-                    <div className={classes.radioButton}>
-                      <FormControlLabel
-                        checked={this.state.value === "Contract"}
-                        value="Contract"
-                        control={<Radio color="primary" />}
-                        label="Contract"
-                        onChange={this.handleJobTypeChange}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={6}
-                  sm={3}
+                  xs={12}
+                  sm={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -726,12 +733,43 @@ class Landing extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
+                    <div className={classes.radioMarginSecond}>
+                      <TextField
+                        label="Salary (optional)"
+                        fullWidth
+                        className={classes.textbox}
+                        InputProps={{
+                          classes: {
+                            input: classes.input,
+                          },
+                        }}
+                      />
+                    </div>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  sm={6}
+                  spacing={1}
+                  alignItems="flex-end"
+                  justify="flex-end"
+                >
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
                     <div className={classes.radioButton}>
                       <FormControlLabel
-                        checked={this.state.value === "Part-Time"}
-                        value="Part-Time"
+                        checked={this.state.value === "REGULAR_JOB"}
+                        value="REGULAR_JOB"
                         control={<Radio color="primary" />}
-                        label="Part-Time"
+                        label="Regular Job"
                         onChange={this.handleJobTypeChange}
                       />
                     </div>
@@ -739,23 +777,59 @@ class Landing extends Component {
                   <Grid
                     container
                     item
-                    xs={12}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
+                    xs={6}
+                    spacing={0}
+                    alignItems="center"
+                    justify="center"
                   >
                     <div className={classes.radioButton}>
                       <FormControlLabel
-                        checked={this.state.value === "Internship"}
-                        value="Internship"
+                        checked={this.state.value === "BOARD_POSITION"}
+                        value="BOARD_POSITION"
                         control={<Radio color="primary" />}
-                        label="Internship"
+                        label="Board Position"
                         onChange={this.handleJobTypeChange}
                       />
                     </div>
                   </Grid>
                 </Grid>
-
+                <Grid
+                  container
+                  item
+                  xs={10}
+                  sm={5}
+                  spacing={0}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Autocomplete
+                    multiple
+                    id="tags-filled"
+                    fullWidth
+                    options={IndustryTags.map((option) => option.name)}
+                    defaultValue={[]}
+                    freeSolo
+                    onChange={this.onTagsChange}
+                    renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip
+                          variant="outlined"
+                          label={option}
+                          {...getTagProps({ index })}
+                        />
+                      ))
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Select Tags (Up to 3)"
+                        error={this.state.showError}
+                        helperText={this.state.errorText}
+                        className={classes.textbox}
+                      />
+                    )}
+                  />
+                </Grid>
                 <Grid
                   container
                   item
