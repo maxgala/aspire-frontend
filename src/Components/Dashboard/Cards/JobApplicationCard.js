@@ -138,15 +138,22 @@ const useStyles = makeStyles(() => ({
   descrip: {
     textAlign: "left",
     marginLeft: "20px",
-    marginRight: "50px",
+    marginRight: "0px",
     fontWeight: "100",
     fontSize: "15px",
+    "@media (max-width: 480px)": {
+      fontSize: "12px",
+      marginLeft: "0px",
+    },
   },
   header: {
     textAlign: "left",
     marginLeft: "20px",
     fontWeight: "100",
     fontSize: "18px",
+    "@media (max-width: 480px)": {
+      marginLeft: "0px",
+    },
   },
   writeup: {
     textAlign: "left",
@@ -519,7 +526,7 @@ class JobApplicationCard extends Component {
                 <Grid
                   container
                   item
-                  xs={10}
+                  xs={12}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -532,7 +539,7 @@ class JobApplicationCard extends Component {
                 <Grid
                   container
                   item
-                  xs={10}
+                  xs={12}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
