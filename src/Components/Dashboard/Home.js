@@ -115,11 +115,12 @@ class Home extends Component {
   }
 
   fetchJobs = async () => {
-    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
     const jobsData = await httpGet(
-      "job-applications?userId=" + userInfo.username,
+      "job-applications?userId=" + idTokeninfo.email,
       localStorage.getItem("idToken")
     );
+
     const cutOff = this.props.isSeniorExec ? 1 : 2;
     const data =
       jobsData.data.length > cutOff

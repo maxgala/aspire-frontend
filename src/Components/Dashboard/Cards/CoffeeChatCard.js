@@ -435,19 +435,14 @@ class CoffeeChatCard extends Component {
               >
                 <h1 className={classes.title}>
                   {this.props.data.chat_type === ChatTypes.oneOnOne
-                    ? "One-on-One"
+                    ? "One on One"
                     : this.props.data.chat_type === ChatTypes.fourOnOne
-                      ? "Four-on-One"
+                      ? "Four on One"
                       : "Mock Interview"}
-                  {this.props.data.chat_status === "ChatStatus.PENDING" ? (
-                    <span className={classes.booked}> booked </span>
-                  ) : (
-                      ""
-                    )}
                 </h1>
                 <p className={classes.subtitle}>
                   <span className={classes.name}>
-                    {this.props.data.senior_executive}
+                    {this.props.data.given_name} {this.props.data.family_name}
                   </span>{" "}
                   {this.props.data.title}
                 </p>
@@ -458,7 +453,7 @@ class CoffeeChatCard extends Component {
                       className={classes.company_icon}
                     />
                   </span>{" "}
-                  Random Company
+                  {this.props.data["custom:company"]}
                 </span>
 
                 {this.props.data &&
@@ -501,15 +496,20 @@ class CoffeeChatCard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
+
                   <span className={classes.button_container}>
-                    <Button
-                      onClick={this.openCoffeeChat}
-                      className={classes.button}
-                      variant="contained"
-                      color="primary"
-                    >
-                      View Booking
-                    </Button>
+                    {this.props.data.chat_status === "ACTIVE" ? (
+                      <Button
+                        onClick={this.openCoffeeChat}
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        View Booking
+                      </Button>
+                    ) : (
+                      ""
+                    )}
                   </span>
                 </Grid>
               </Grid>
@@ -594,9 +594,9 @@ class CoffeeChatCard extends Component {
                   >
                     <h1 className={classes.title2}>
                       {this.props.data.chat_type === ChatTypes.oneOnOne
-                        ? "One-on-One"
+                        ? "One on One"
                         : this.props.data.chat_type === ChatTypes.fourOnOne
-                          ? "Four-on-One"
+                          ? "Four on One"
                           : "Mock Interview"}
                       {this.props.data.booked ? (
                         <span className={classes.booked}>booked</span>
@@ -605,7 +605,7 @@ class CoffeeChatCard extends Component {
                         )}{" "}
                       with&nbsp;
                       <span className={classes.name2}>
-                        {this.props.data.senior_executive}
+                        {this.props.data.given_name} {this.props.data.family_name}
                       </span>
                     </h1>
                   </Grid>
@@ -619,7 +619,7 @@ class CoffeeChatCard extends Component {
                   >
                     <span className={classes.subtitle2}>
                       <span>{this.props.data.senior_executive} @ </span>
-                      {this.props.data.company} Random Company
+                      {this.props.data["custom:company"]}
                     </span>
                   </Grid>
                   <Grid
