@@ -215,7 +215,7 @@ class Home extends Component {
                         xs={12}
                         sm={12}
                         md={6}
-                        lg={6}
+                        lg={4}
                         spacing={1}
                         alignItems="center"
                         justify="flex-start"
