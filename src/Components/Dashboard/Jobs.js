@@ -263,7 +263,7 @@ class JobBoard extends Component {
             xs={12}
             spacing={1}
             alignItems="center"
-            justify="center"
+            justify="flex-start"
           >
             {this.state.jobs && this.state.jobs.length > 0 ? (
               this.state.jobs.map((jobData, key) => (
@@ -283,17 +283,17 @@ class JobBoard extends Component {
                 </Grid>
               ))
             ) : (
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <EmptyCard type={CardTypes.jobApplication} />
-              </Grid>
-            )}
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <EmptyCard type={CardTypes.jobApplication} />
+                </Grid>
+              )}
           </Grid>
         </div>
         {/* </PerfectScrollbar> */}

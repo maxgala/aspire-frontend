@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "20px",
     textAlign: "left",
     // need designs for mock interview card
-    backgroundColor: "#600000",
+    backgroundColor: "#944848",
     color: "white",
   },
   cardBooked: {
@@ -80,7 +80,7 @@ const useStyles = makeStyles(() => ({
     },
     borderRadius: "50%",
     margin: "auto",
-    marginTop: "15px",
+    marginTop: "10px",
     marginLeft: "10px",
     marginRight: "20px",
     display: "inline-block",
@@ -100,7 +100,7 @@ const useStyles = makeStyles(() => ({
     display: "inline-block",
   },
   title: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bolder",
     width: "100%",
     textAlign: "left",
@@ -115,7 +115,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   title2: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontSize: "3vw",
     "@media (min-width: 1125px)": {
       fontSize: "30px",
@@ -135,7 +135,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "15px",
   },
   subtitle: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "12px",
@@ -157,7 +157,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "14px",
       marginLeft: "0px",
     },
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     width: "100%",
     textAlign: "left",
@@ -173,7 +173,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   company: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "10px",
@@ -184,7 +184,7 @@ const useStyles = makeStyles(() => ({
     color: "white",
   },
   date: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: 'PT Sans',
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "10px",
@@ -250,6 +250,10 @@ const useStyles = makeStyles(() => ({
   button: {
     fontSize: "8px",
     fontWeight: "400",
+    marginLeft: "8px",
+    "@media (max-width: 480px)": {
+      marginLeft: "0px"
+    },
     borderRadius: 50,
     backgroundColor: "white",
     color: "#58595B",
@@ -473,7 +477,7 @@ class CoffeeChatCard extends Component {
                   container
                   item
                   xs={12}
-                  sm={8}
+                  sm={7}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -487,7 +491,7 @@ class CoffeeChatCard extends Component {
                   container
                   item
                   xs={12}
-                  sm={4}
+                  sm={5}
                   spacing={0}
                   alignItems="flex-start"
                   justify="flex-start"

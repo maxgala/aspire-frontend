@@ -13,7 +13,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 const useStyles = makeStyles(() => ({
   mainPage: {
     paddingLeft: "8%",
-    paddingRight: "8%",
+    paddingRight: "2%",
     justifyContent: "center",
     alignItems: "center",
     height: "90vh",
@@ -229,7 +229,7 @@ class CoffeeChats extends Component {
             xs={12}
             spacing={1}
             alignItems="center"
-            justify="center"
+            justify="flex-start"
           >
             {this.state.isChatsLoaded ? (
               this.state.chats && this.state.chats.length > 0 ? (
@@ -240,11 +240,11 @@ class CoffeeChats extends Component {
                     item
                     xs={12}
                     sm={12}
-                    md={12}
-                    lg={6}
+                    md={6}
+                    lg={4}
                     spacing={1}
                     alignItems="center"
-                    justify="center"
+                    justify="flex-start"
                   >
                     <CoffeeChatCard data={chat} />
                   </Grid>
@@ -256,7 +256,7 @@ class CoffeeChats extends Component {
                     xs={12}
                     spacing={1}
                     alignItems="center"
-                    justify="center"
+                    justify="flex-start"
                   >
                     <EmptyCard type={CardTypes.coffeeChat} />
                   </Grid>
