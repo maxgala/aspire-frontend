@@ -12,13 +12,10 @@ const path = require('path');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-console.log(__dirname);
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname)));
 
 app.get('/api/*', async (req, res) => {
-  console.log(__dirname);
-  console.log(req.originalUrl)
   const headers = {
     "authorization": req.headers.authorization,
     "content-type": req.headers["content-type"] ? req.headers["content-type"] : "application/json"
