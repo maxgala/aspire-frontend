@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let baseURL = "";
-if (process.env.REACT_APP_ENV.toLowerCase() === "prod") {
+if (process.env.REACT_APP_ENV && process.env.REACT_APP_ENV.toLowerCase() === "prod") {
   baseURL = process.env.REACT_APP_BACKEND_URL + "/";
 }
 
