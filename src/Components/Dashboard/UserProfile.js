@@ -309,11 +309,17 @@ const useStyles = makeStyles((theme) => ({
   radioMarginFirst: {
     margin: "15px 20px 5px 30px",
     width: "85%",
+    "@media (max-width: 600px)": {
+      marginLeft: "0px",
+    },
   },
 
   radioMarginSecond: {
     margin: "15px 20px 0px 30px",
     width: "85%",
+    "@media (max-width: 600px)": {
+      marginLeft: "0px",
+    },
   },
 
   contactBox: {
@@ -599,16 +605,16 @@ class Landing extends Component {
                   xs={12}
                   sm={6}
                   spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
                   <Grid
                     container
                     item
                     xs={12}
                     spacing={1}
-                    alignItems="flex-end"
-                    justify="flex-end"
+                    alignItems="flex-start"
+                    justify="flex-start"
                   >
                     <div className={classes.radioMarginFirst}>
                       <TextField
