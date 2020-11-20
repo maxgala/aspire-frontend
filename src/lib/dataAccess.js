@@ -7,7 +7,6 @@ if (process.env.REACT_APP_ENV && process.env.REACT_APP_ENV.toLowerCase() === "pr
 
 export const httpGet = (endPoint, accessToken) => {
   let url = baseURL + "api/" + endPoint;
-  console.log(url);
 
   return axios
     .get(
