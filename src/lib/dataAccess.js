@@ -1,7 +1,13 @@
 import axios from "axios";
 
+let baseURL = "";
+if (process.env.REACT_APP_ENV.toLowerCase() === "prod") {
+  baseURL = process.env.REACT_APP_BACKEND_URL + "/";
+}
+
 export const httpGet = (endPoint, accessToken) => {
-  let url = "api/" + endPoint;
+  let url = baseURL + "api/" + endPoint;
+  console.log(url);
 
   return axios
     .get(
@@ -20,7 +26,7 @@ export const httpGet = (endPoint, accessToken) => {
 }
 
 export const httpPost = (endPoint, accessToken, body) => {
-  let url = "api/" + endPoint;
+  let url = baseURL + "api/" + endPoint;
 
   return new Promise(async (resolve, reject) => {
     axios
@@ -45,7 +51,7 @@ export const httpPost = (endPoint, accessToken, body) => {
 }
 
 export const httpPut = (endPoint, accessToken, body) => {
-  let url = "api/" + endPoint;
+  let url = baseURL + "api/" + endPoint;
 
   return new Promise(async (resolve, reject) => {
     axios
