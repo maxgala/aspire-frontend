@@ -356,16 +356,16 @@ class Landing extends Component {
       numChats: 0,
       showError: false,
       jobsData: {
-        title: "Software Engineer",
-        company: "MAX Aspire",
-        country: "Canada",
-        region: "Ontario",
-        city: "Toronto",
-        description: "Description 123...",
-        requirements: "Requirements 123...",
+        title: "",
+        company: "",
+        country: "",
+        region: "",
+        city: "",
+        description: "",
+        requirements: "",
         job_type: "REGULAR_JOB", // BOARD_POSITION or REGULAR_JOB
-        job_tags: ["SOFTWARE"],
-        salary: 30,
+        job_tags: [],
+        salary: 0,
         deadline: 0,
       },
     };
@@ -429,11 +429,41 @@ class Landing extends Component {
   };
 
   submitJob = () => {
+    // check that all the required fields are set / properly set
+    if (this.state.jobsData.job_tags.length > 3) {
+      alert("There are more than 3 job tags selected.");
+      return;
+    }
+    if (
+      this.state.jobsData.title === "" ||
+      this.state.jobsData.title === undefined ||
+      this.state.jobsData.company === "" ||
+      this.state.jobsData.company === undefined ||
+      this.state.jobsData.country === "" ||
+      this.state.jobsData.country === undefined ||
+      this.state.jobsData.region === "" ||
+      this.state.jobsData.region === undefined ||
+      this.state.jobsData.city === "" ||
+      this.state.jobsData.city === undefined ||
+      this.state.jobsData.description === "" ||
+      this.state.jobsData.description === undefined ||
+      this.state.jobsData.requirements === "" ||
+      this.state.jobsData.requirements === undefined
+    ) {
+      alert(
+        "One of the required fields is not set (title, company, country, region, city, description or requirements)."
+      );
+      return;
+    }
+
+    // get user info and update jobs data
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
     var jobsDataObj = { ...this.state.jobsData };
     jobsDataObj.posted_by = userProfile.email;
     jobsDataObj.poster_family_name = userProfile.family_name;
     jobsDataObj.poster_given_name = userProfile.given_name;
+
+    // post job and close popup
     httpPost("jobs", localStorage.getItem("idToken"), jobsDataObj);
     this.setState({
       openPostJob: false,
