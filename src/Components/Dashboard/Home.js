@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   home_page: {
     paddingLeft: "5%",
-    paddingRight: "5%",
+    paddingRight: "0%",
     justifyContent: "flex-start",
     alignItems: "center",
     height: "90vh",
@@ -115,11 +115,12 @@ class Home extends Component {
   }
 
   fetchJobs = async () => {
-    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
     const jobsData = await httpGet(
-      "job-applications?userId=" + userInfo.username,
+      "job-applications?userId=" + idTokeninfo.email,
       localStorage.getItem("idToken")
     );
+
     const cutOff = this.props.isSeniorExec ? 1 : 2;
     const data =
       jobsData.data.length > cutOff
@@ -215,7 +216,7 @@ class Home extends Component {
                         xs={12}
                         sm={12}
                         md={6}
-                        lg={6}
+                        lg={4}
                         spacing={1}
                         alignItems="center"
                         justify="flex-start"
@@ -273,6 +274,8 @@ class Home extends Component {
                 spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
+                direction="column"
+
               >
                 <Grid
                   container
@@ -398,6 +401,7 @@ class Home extends Component {
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
+                  direction="column"
                 >
                   <Grid
                     container

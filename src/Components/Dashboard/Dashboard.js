@@ -19,10 +19,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import home from "../Images/navbar/home_web.svg";
-import community from "../Images/navbar/community_web.svg";
-import jobs from "../Images/navbar/jobs_web.svg";
-import chats from "../Images/navbar/chats_web.svg";
+import home from "../Images/navbar/home.svg";
+import community from "../Images/navbar/community.svg";
+import jobs from "../Images/navbar/jobs.svg";
+import chats from "../Images/navbar/chats.svg";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Hidden } from "@material-ui/core";
@@ -92,53 +92,57 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   coffee_chats: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
-    fontSize: "18px",
+    height: "80%",
     padding: "0px",
     "&:hover": {
       backgroundColor: "#B5A165",
+    },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
     },
   },
   jobs: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
-    fontSize: "18px",
+    height: "80%",
     padding: "0px",
     "&:hover": {
       backgroundColor: "#B5A165",
+    },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
     },
   },
   community: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
-    fontSize: "18px",
+    height: "80%",
     padding: "0px",
     "&:hover": {
       backgroundColor: "#B5A165",
     },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
+    },
   },
   dashboard: {
-    fontFamily: "Nunito",
-    textTransform: "capitalize",
+    height: "80%",
     marginLeft: "auto",
     "@media (max-width: 480px)": {
       marginLeft: "0px",
     },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
+    },
     padding: "0px",
-    fontSize: "18px",
     "&:hover": {
       backgroundColor: "#B5A165",
     },
   },
 
   navbar_icons: {
-    width: "80px",
-    height: "50px",
+    width: "30px",
+    height: "30px",
     padding: "0px",
     "@media (max-width: 480px)": {
-      width: "60px",
-      height: "40px",
+      width: "20px",
+      height: "20px",
     },
   },
 
@@ -447,8 +451,8 @@ class Dashboard extends Component {
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />
               ) : (
-                <ChevronRightIcon />
-              )}
+                  <ChevronRightIcon />
+                )}
             </IconButton>
           </div>
           <UserProfile />

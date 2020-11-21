@@ -89,17 +89,65 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#F1F1F1",
       color: "#484848",
     },
-  },
-  textAlignment: {
-    marginLeft: "10%",
-    margin: theme.spacing(1, 0, 1),
-    textAlign: "left",
+    uploadText: {
+      margin: theme.spacing(2, 0, 1),
+      "@media (max-width: 480px)": { width: "180px" },
+      width: "200px",
+    },
+    uploadImage: {
+      marginLeft: theme.spacing(1, 0, 1),
+      backgroundColor: "#6EA0B5",
+      height: 50,
+      color: "white",
+      "&:hover": {
+        backgroundColor: "#F1F1F1",
+        color: "#484848",
+      },
+    },
+    submit_back: {
+      margin: theme.spacing(3, 0, 2),
+      marginTop: "5%",
+      marginRight: "5%",
+      height: 50,
+      width: "30%",
+      borderRadius: 50,
+      backgroundColor: "#1A1A1A",
+      borderStyle: "solid",
+      color: "#F1F1F1",
+      borderColor: "#484848",
+      "&:hover": {
+        backgroundColor: "#F1F1F1",
+        color: "#484848",
+      },
+    },
+    profilePic: {
+      margin: theme.spacing(3, 0, 2),
+      width: "120px",
+      height: "auto",
+      borderRadius: "50%",
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+      marginTop: "5%",
+      height: 50,
+      width: "30%",
+      borderStyle: "solid",
+      borderRadius: 50,
+      backgroundColor: "#b5a165",
+      color: "white",
+      borderColor: "#484848",
+      "&:hover": {
+        backgroundColor: "#F1F1F1",
+        color: "#484848",
+      },
+    },
+    textAlignment: {
+      marginLeft: "10%",
+      margin: theme.spacing(1, 0, 1),
+      textAlign: "left",
+    },
   },
 }));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -107,6 +155,10 @@ function withMyHook(Component) {
     return <Component {...props} classes={classes} />;
   };
 }
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 class ThirdPage extends Component {
   constructor(props) {
@@ -136,32 +188,40 @@ class ThirdPage extends Component {
       profilePicURL: "",
       open: false,
       fileDialogOpen: false,
-      dialogueOpen: false,
       imageFiles: [],
       resumeFiles: [],
-      profilePicPreviewText: "Upload your Photo *",
+      profilePicPreviewText: "Upload your Profile Photo *",
       profilePicButtonText: "Upload",
       resumeUploadText: "Upload your Resume *",
       resumeButtonText: "Upload",
       progress: 75,
       filePreview: [],
+      dialogueOpen: false,
     };
   }
+
+  handleDialog = (event) => {
+    this.setState({
+      dialogueOpen: !this.state.dialogueOpen,
+    });
+  };
 
   handleClose() {
     this.setState({
       open: false,
     });
   }
+  handleOpen() {
+    this.setState({
+      open: true,
+    });
+  }
 
-  uploadToS3(file, resume = true) {
+  uploadToS3(file, folder, resume = true) {
     let config = {
-      bucketName: "aspire-frontend-files-test",
-      dirName:
-        this.state.firstName +
-        "-" +
-        this.state.lastName /* will change based on users */,
-      region: "ca-central-1",
+      bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
+      dirName: this.state.email + "/" + folder /* will change based on users */,
+      region: "us-east-1",
       accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
       secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
     };
@@ -188,7 +248,7 @@ class ThirdPage extends Component {
       fileDialogOpen: false,
       resumeFiles: resume,
     });
-    this.uploadToS3(resume[0], true);
+    this.uploadToS3(resume[0], "resumes", true);
   }
 
   handleSave(files) {
@@ -205,17 +265,21 @@ class ThirdPage extends Component {
         imageFiles: [document],
         open: false,
       });
-      page.uploadToS3(files[0], false);
+      page.uploadToS3(files[0], "pictures", false);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
     };
   }
 
-  handleOpen() {
+  handleResumeSave(resume) {
     this.setState({
-      open: true,
+      resumeUploadText: resume[0]["name"],
+      resumeButtonText: "Upload Again",
+      fileDialogOpen: false,
+      resumeFiles: resume,
     });
+    this.uploadToS3(resume[0], true);
   }
 
   changeToPage2 = (event) => {
@@ -225,28 +289,18 @@ class ThirdPage extends Component {
       ),
     });
   };
-
-  handleDialog = (event) => {
-    this.setState({
-      dialogueOpen: !this.state.dialogueOpen,
-    });
-  };
   changeToFinalPage = (event) => {
-    if (
-      this.state.imageFiles.length === 0 ||
-      this.state.resumeFiles.length === 0
-    ) {
+    if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
       this.setState({
         dialogueOpen: true,
       });
-      return;
+    } else {
+      this.props.appContext.setState({
+        registrationScreen: (
+          <FinalPage appContext={this.props.appContext} prev={this.state} />
+        ),
+      });
     }
-    // Need to check if profile pic/resume have been uploaded. If not then display error
-    this.props.appContext.setState({
-      registrationScreen: (
-        <FinalPage appContext={this.props.appContext} prev={this.state} />
-      ),
-    });
   };
 
   render() {
@@ -340,6 +394,11 @@ class ThirdPage extends Component {
                 <DropzoneDialog
                   open={this.state.fileDialogOpen}
                   onSave={this.handleResumeSave.bind(this)}
+                  acceptedFiles={[
+                    "application/pdf",
+                    "application/msword",
+                    "application/vnd.openxmlformats-officedocument.wordprocessing",
+                  ]}
                   maxFileSize={5000000}
                   onClose={(event) => {
                     this.setState({ fileDialogOpen: false });
@@ -379,11 +438,11 @@ class ThirdPage extends Component {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="alert-dialog-slide-title">
-            {"Required fields are missing"}
+            {"Resume and Profile picture are required!"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              <b> Please upload a Profile Picture and Resume </b>
+              <b>Please provide a Resume and a Profile picture to proceed</b>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
