@@ -148,9 +148,9 @@ class Home extends Component {
   };
 
   fetchChats = async () => {
-    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
     const chatsData = await httpGet(
-      "chats?user_id=" + userInfo.username,
+      "chats?user_id=" + idTokeninfo.email,
       localStorage.getItem("idToken")
     );
     if (chatsData.data.chats !== undefined) {
