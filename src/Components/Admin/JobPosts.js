@@ -113,8 +113,6 @@ class JobPosts extends Component {
     this.setState({
       jobs: existingJobsData.data.jobs
     })
-
-    console.log(existingJobsData);
   }
 
   removeJob = async (jobID) => {
@@ -124,13 +122,10 @@ class JobPosts extends Component {
     };
     const removedJobsData = await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), removedJob);
     
-    console.log(removedJobsData);
-    // The job is already removed from state, so we just send the PUT request to remove it
   }
 
   componentDidMount() {
     this.fetchJobs();
-    console.log(this.state);
   }
 
   render() {
@@ -145,7 +140,9 @@ class JobPosts extends Component {
         paging:true,
         pageSize:15,
         emptyRowsWhenPaging:true,
-        pageSizeOptions:[5,10,15,30,50]
+        pageSizeOptions:[5,10,15,30,50],
+        exportTrue: true,
+        exportAllData: true
       }}
       editable={{
         onRowDelete: oldData => 
