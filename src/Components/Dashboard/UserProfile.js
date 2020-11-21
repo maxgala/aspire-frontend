@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "minion-pro, serif",
     fontWeight: "bolder",
     fontSize: "30px",
+    "@media (max-width: 480px)": {
+      fontSize: "25px",
+    },
     margin: "2% 20px 10px 20px",
     textAlign: "center",
     display: "block",
@@ -109,6 +112,9 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: "60%",
     height: "auto",
+    "@media (max-width: 480px)": {
+      width: "120px",
+    },
     padding: "1vh",
     left: "10%",
     borderRadius: "50%",
@@ -303,11 +309,17 @@ const useStyles = makeStyles((theme) => ({
   radioMarginFirst: {
     margin: "15px 20px 5px 30px",
     width: "85%",
+    "@media (max-width: 600px)": {
+      marginLeft: "0px",
+    },
   },
 
   radioMarginSecond: {
     margin: "15px 20px 0px 30px",
     width: "85%",
+    "@media (max-width: 600px)": {
+      marginLeft: "0px",
+    },
   },
 
   contactBox: {
@@ -593,16 +605,16 @@ class Landing extends Component {
                   xs={12}
                   sm={6}
                   spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
                   <Grid
                     container
                     item
                     xs={12}
                     spacing={1}
-                    alignItems="flex-end"
-                    justify="flex-end"
+                    alignItems="flex-start"
+                    justify="flex-start"
                   >
                     <div className={classes.radioMarginFirst}>
                       <TextField
