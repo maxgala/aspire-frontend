@@ -350,28 +350,22 @@ class Landing extends Component {
       openPostJob: false,
       openFaq: false,
       active: 0,
-      value: "Full-Time",
-      description: "",
-      requirement: "",
       max_characters: 2000,
       checkedBox: false,
       numJobs: 0,
       numChats: 0,
       showError: false,
       jobsData: {
-        title: "Software Engineer",
-        company: "MAX Aspire",
-        country: "Canada",
-        region: "Ontario",
-        city: "Toronto",
-        description: "Description 123...",
-        requirements: "Requirements 123...",
-        posted_by: "ahmed.r.hamodi@gmail.com", // email
-        poster_family_name: "Hamodi",
-        poster_given_name: "Ahmed",
+        title: "",
+        company: "",
+        country: "",
+        region: "",
+        city: "",
+        description: "",
+        requirements: "",
         job_type: "REGULAR_JOB", // BOARD_POSITION or REGULAR_JOB
-        job_tags: ["SOFTWARE"],
-        salary: 30,
+        job_tags: [],
+        salary: 0,
         deadline: 0,
       },
     };
@@ -416,8 +410,12 @@ class Landing extends Component {
     }
   };
 
-  handleJobTypeChange = (event) => {
-    this.setState({ value: event.target.value });
+  handleJobTypeChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.job_type = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
   };
 
   handleContactMeChange = (name) => (event) => {
@@ -431,7 +429,45 @@ class Landing extends Component {
   };
 
   submitJob = () => {
-    httpPost("jobs", localStorage.getItem("idToken"), this.state.jobsData);
+    // check that all the required fields are set / properly set
+    if (this.state.jobsData.job_tags.length > 3) {
+      alert("There are more than 3 job tags selected.");
+      return;
+    }
+    if (
+      this.state.jobsData.title === "" ||
+      this.state.jobsData.title === undefined ||
+      this.state.jobsData.company === "" ||
+      this.state.jobsData.company === undefined ||
+      this.state.jobsData.country === "" ||
+      this.state.jobsData.country === undefined ||
+      this.state.jobsData.region === "" ||
+      this.state.jobsData.region === undefined ||
+      this.state.jobsData.city === "" ||
+      this.state.jobsData.city === undefined ||
+      this.state.jobsData.description === "" ||
+      this.state.jobsData.description === undefined ||
+      this.state.jobsData.requirements === "" ||
+      this.state.jobsData.requirements === undefined
+    ) {
+      alert(
+        "One of the required fields is not set (title, company, country, region, city, description or requirements)."
+      );
+      return;
+    }
+
+    // get user info and update jobs data
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.posted_by = userProfile.email;
+    jobsDataObj.poster_family_name = userProfile.family_name;
+    jobsDataObj.poster_given_name = userProfile.given_name;
+
+    // post job and close popup
+    httpPost("jobs", localStorage.getItem("idToken"), jobsDataObj);
+    this.setState({
+      openPostJob: false,
+    });
   };
 
   purchaseCredits = (event) => {
@@ -458,19 +494,71 @@ class Landing extends Component {
     });
   };
 
-  handleDescriptionChange = (name) => (event) => {
+  handleTitleChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.title = event.target.value;
     this.setState({
-      description: event.target.value
-        .toString()
-        .slice(0, this.state.max_characters),
+      jobsData: jobsDataObj,
     });
   };
 
-  handleRequirementChange = (name) => (event) => {
+  handleCompanyChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.company = event.target.value;
     this.setState({
-      requirement: event.target.value
-        .toString()
-        .slice(0, this.state.max_characters),
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleCountryChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.country = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleRegionChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.region = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleCityChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.city = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleSalaryChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.salary = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleDescriptionChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.description = event.target.value
+      .toString()
+      .slice(0, this.state.max_characters);
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleRequirementChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.requirements = event.target.value
+      .toString()
+      .slice(0, this.state.max_characters);
+    this.setState({
+      jobsData: jobsDataObj,
     });
   };
 
@@ -626,6 +714,7 @@ class Landing extends Component {
                             input: classes.input,
                           },
                         }}
+                        onChange={this.handleTitleChange()}
                       />
                     </div>
                   </Grid>
@@ -666,6 +755,7 @@ class Landing extends Component {
                               input: classes.input,
                             },
                           }}
+                          onChange={this.handleCountryChange()}
                         />
                       </div>
                     </Grid>
@@ -687,6 +777,7 @@ class Landing extends Component {
                               input: classes.input,
                             },
                           }}
+                          onChange={this.handleRegionChange()}
                         />
                       </div>
                     </Grid>
@@ -708,6 +799,7 @@ class Landing extends Component {
                               input: classes.input,
                             },
                           }}
+                          onChange={this.handleCityChange()}
                         />
                       </div>
                     </Grid>
@@ -741,6 +833,7 @@ class Landing extends Component {
                             input: classes.input,
                           },
                         }}
+                        onChange={this.handleCompanyChange()}
                       />
                     </div>
                   </Grid>
@@ -772,6 +865,7 @@ class Landing extends Component {
                             input: classes.input,
                           },
                         }}
+                        onChange={this.handleSalaryChange()}
                       />
                     </div>
                   </Grid>
@@ -795,11 +889,11 @@ class Landing extends Component {
                   >
                     <div className={classes.radioButton}>
                       <FormControlLabel
-                        checked={this.state.value === "REGULAR_JOB"}
+                        checked={this.state.jobsData.job_type === "REGULAR_JOB"}
                         value="REGULAR_JOB"
                         control={<Radio color="primary" />}
                         label="Regular Job"
-                        onChange={this.handleJobTypeChange}
+                        onChange={this.handleJobTypeChange()}
                       />
                     </div>
                   </Grid>
@@ -813,11 +907,13 @@ class Landing extends Component {
                   >
                     <div className={classes.radioButton}>
                       <FormControlLabel
-                        checked={this.state.value === "BOARD_POSITION"}
+                        checked={
+                          this.state.jobsData.job_type === "BOARD_POSITION"
+                        }
                         value="BOARD_POSITION"
                         control={<Radio color="primary" />}
                         label="Board Position"
-                        onChange={this.handleJobTypeChange}
+                        onChange={this.handleJobTypeChange()}
                       />
                     </div>
                   </Grid>
@@ -901,9 +997,9 @@ class Landing extends Component {
                         },
                       }}
                       value={this.state.description}
-                      helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
+                      helperText={`${this.state.jobsData.description.length}/${this.state.max_characters} Characters`}
                       className={classes.textField}
-                      onChange={this.handleDescriptionChange("name")}
+                      onChange={this.handleDescriptionChange()}
                     />
                   </Grid>
                 </Grid>
@@ -939,9 +1035,9 @@ class Landing extends Component {
                         },
                       }}
                       value={this.state.requirement}
-                      helperText={`${this.state.requirement.length}/${this.state.max_characters} Characters`}
+                      helperText={`${this.state.jobsData.requirements.length}/${this.state.max_characters} Characters`}
                       className={classes.textField}
-                      onChange={this.handleRequirementChange("name")}
+                      onChange={this.handleRequirementChange()}
                     />
                   </Grid>
                 </Grid>
