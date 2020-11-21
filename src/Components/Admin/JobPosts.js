@@ -142,7 +142,7 @@ class JobPosts extends Component {
         emptyRowsWhenPaging:true,
         pageSizeOptions:[5,10,15,30,50],
         exportButton: true,
-        exportAllData: true
+        exportTrue: true
       }}
       editable={{
         onRowDelete: oldData => 
