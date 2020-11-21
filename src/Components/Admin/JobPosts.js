@@ -124,7 +124,6 @@ class JobPosts extends Component {
 
       currentJob.applicantCount = currentJob.job_applications.length; 
     })
-    console.log(existingJobsData.data.jobs);
 
     this.setState({
       jobs: existingJobsData.data.jobs
