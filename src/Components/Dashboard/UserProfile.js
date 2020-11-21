@@ -357,6 +357,7 @@ class Landing extends Component {
       checkedBox: false,
       numJobs: 0,
       numChats: 0,
+      showError: false,
       jobsData: {
         title: "Test Title NEW SUBMISSION",
         company: "Test Company",
