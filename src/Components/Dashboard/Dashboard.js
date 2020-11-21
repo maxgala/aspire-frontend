@@ -310,7 +310,6 @@ class Dashboard extends Component {
 
   render() {
     const classes = this.props.classes;
-    const theme = this.props.theme;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -447,11 +446,7 @@ class Dashboard extends Component {
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === "ltr" ? (
                 <MenuOpenIcon />
-              ) : (
-                <MenuOpenIcon />
-              )}
             </IconButton>
           </div>
           <UserProfile />
