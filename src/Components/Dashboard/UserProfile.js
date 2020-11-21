@@ -359,17 +359,16 @@ class Landing extends Component {
       numChats: 0,
       showError: false,
       jobsData: {
-        title: "Test Title NEW SUBMISSION",
-        company: "Test Company",
-        country: "Random Country",
-        region: "Random Region",
-        city: "Random City",
+        title: "Software Engineer",
+        company: "MAX Aspire",
+        country: "Canada",
+        region: "Ontario",
+        city: "Toronto",
         description: "Description 123...",
         requirements: "Requirements 123...",
         posted_by: "ahmed.r.hamodi@gmail.com", // email
         poster_family_name: "Hamodi",
         poster_given_name: "Ahmed",
-        people_contacted: 0,
         job_type: "REGULAR_JOB", // BOARD_POSITION or REGULAR_JOB
         job_tags: ["SOFTWARE"],
         salary: 30,
