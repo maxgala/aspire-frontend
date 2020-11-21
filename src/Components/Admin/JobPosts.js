@@ -20,6 +20,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
+import Moment from "react-moment";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -101,15 +102,34 @@ class JobPosts extends Component {
       jobs: [],
       columns: [
         { title: 'Title', field: 'title' },
+        { title: "Status", field: 'job_status'},
         { title: 'Company', field: 'company' },
         { title: 'Region', field: 'region'},
-        { title: 'City', field: "city"}  
+        { title: 'City', field: "city"},
+        { title: "Created", field: "created_on", render: rowData => {
+          return <Moment unix>{rowData.created_on}</Moment>
+        }},
+        { title: "Applications", field: "applicantCount"}
       ]
     }
   }
 
   fetchJobs = async () => {
-    const existingJobsData = await httpGet("jobs?status=ACTIVE,UNDER_REVIEW", localStorage.getItem("idToken"));
+    const existingJobsData = await httpGet("jobs", localStorage.getItem("idToken"));
+    
+    console.log(existingJobsData);
+
+    // const jobsData = Object.keys(existingJobsData.jobs);
+    // console.log(jobsData);
+    // Add the number of applicants for each job property and save their date.
+    Object.keys(existingJobsData.data.jobs).forEach(function(jobID){
+      let currentJob = existingJobsData.data.jobs[jobID];
+
+      currentJob.applicantCount = currentJob.job_applications.length; 
+      // console.log(currentJob.job_applicants);
+    })
+    console.log(existingJobsData.data.jobs);
+
     this.setState({
       jobs: existingJobsData.data.jobs
     })
@@ -121,7 +141,16 @@ class JobPosts extends Component {
       "job_status" : "REJECTED",
     };
     await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), removedJob);
-    
+    this.fetchJobs();
+  }
+
+  approveJob = async (jobID) => {
+
+    let removedJob = {
+      "job_status" : "APPROVED",
+    };
+    await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), removedJob);
+    this.fetchJobs();
   }
 
   componentDidMount() {
@@ -129,10 +158,42 @@ class JobPosts extends Component {
   }
 
   render() {
+    Moment.globalFormat = "MMM DD, YYYY";
 
+    const actions = [
+      {
+        icon: () => <Check/>,
+        tooltip: "Approve Job Posting",
+        onClick: (event,rowData) => {
+          console.log(rowData);
+        }
+      },
+      {
+        icon: () => <DeleteOutline/>,
+        tooltip: "Remove Job Posting",
+        onClick: (event, rowData) => {
+          new Promise((resolve, reject) => {
+
+
+            // Make a copy of the jobs in state prior to removing the deleted job
+            const dataDelete = [...this.state.jobs];
+            const index = rowData.tableData.id;
+
+            dataDelete.splice(index, 1);
+            // this.setState({
+            //   jobs: [...dataDelete]
+            // });
+            // Set the job status to REJECTED in the DB.
+            this.removeJob(rowData.job_id);
+    
+            resolve();
+          })        }
+      }
+    ]
   return (
     <MaterialTable
       title="Global Job Postings"
+      actions={actions}
       columns={this.state.columns}
       icons={tableIcons}
       data={this.state.jobs}
@@ -154,14 +215,30 @@ class JobPosts extends Component {
             const index = oldData.tableData.id;
 
             dataDelete.splice(index, 1);
-            this.setState({
-              jobs: [...dataDelete]
-            });
+            // this.setState({
+            //   jobs: [...dataDelete]
+            // });
             // Set the job status to REJECTED in the DB.
             this.removeJob(oldData.job_id);
     
             resolve();
-          })
+          }),
+        onRowUpdate: (newData, oldData) =>
+          new Promise((resolve, reject) => {
+            // Make a copy of the jobs in state prior to removing the deleted job
+            const dataUpdate = [...this.state.jobs];
+            const index = oldData.tableData.id;
+
+            dataUpdate.splice(index, 1);
+            // this.setState({
+            //   jobs: [...dataDelete]
+            // });
+            // Set the job status to REJECTED in the DB.
+            this.approveJob(oldData.job_id);
+    
+            resolve();
+          }),
+        
       }}
     />
   );
