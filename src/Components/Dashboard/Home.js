@@ -165,9 +165,9 @@ class Home extends Component {
   };
 
   fetchPostings = async () => {
-    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
     const jobsData = await httpGet(
-      "jobs?user_id=" + userInfo.username,
+      "jobs?user_id=" + idTokeninfo.email,
       localStorage.getItem("idToken")
     );
     const cutOff = this.props.isSeniorExec ? 2 : 1;
