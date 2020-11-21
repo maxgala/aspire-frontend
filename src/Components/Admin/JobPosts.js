@@ -106,7 +106,7 @@ class JobPosts extends Component {
         { title: 'Company', field: 'company' },
         { title: 'Region', field: 'region'},
         { title: 'City', field: "city"},
-        { title: "Created", field: "created_on", render: rowData => {
+        { title: "Created", field: "created_on", defaultSort: "desc", render: rowData => {
           // Format unix Timestamp to date time
           return <Moment unix>{rowData.created_on}</Moment>
         }},
