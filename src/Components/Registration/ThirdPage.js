@@ -117,6 +117,7 @@ class ThirdPage extends Component {
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
       password: this.props.prev ? this.props.prev.password : "",
+      passwordValue: this.props.prev ? this.props.prev.passwordValue : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
       industry_tags: this.props.prev ? this.props.prev.industry_tags : [],

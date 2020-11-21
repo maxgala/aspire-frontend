@@ -248,9 +248,11 @@ class FinalPage extends Component {
     phone_val = phone_val.replace("(", "");
     phone_val = phone_val.replace(")", "");
 
+    console.log(this.state.passwordValue);
+
     Auth.signUp({
       username: this.state.email,
-      password: this.state.password,
+      password: this.state.passwordValue,
       attributes: {
         given_name: this.state.firstName,
         family_name: this.state.lastName,

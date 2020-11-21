@@ -162,8 +162,6 @@ class FirstPage extends Component {
   };
 
   handleConfirmCheck = (event) => {
-    // console.log("event.target.value =====>", event.target.value);
-    // console.log("this.state.password =====>", this.state.passwordValue);
     if (event.target.value === this.state.passwordValue) {
       this.setState({
         errorDisplay: "None",
