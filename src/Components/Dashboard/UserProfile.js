@@ -358,7 +358,7 @@ class Landing extends Component {
       numJobs: 0,
       numChats: 0,
       jobsData: {
-        title: "Test Title",
+        title: "Test Title NEW SUBMISSION",
         company: "Test Company",
         country: "Random Country",
         region: "Random Region",
@@ -396,6 +396,25 @@ class Landing extends Component {
       });
     });
   }
+
+  onTagsChange = (event, values) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.job_tags = values;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+    if (values.length > 3) {
+      this.setState({
+        showError: true,
+        errorText: "Please pick up to 3 tags",
+      });
+    } else {
+      this.setState({
+        showError: false,
+        errorText: "",
+      });
+    }
+  };
 
   handleJobTypeChange = (event) => {
     this.setState({ value: event.target.value });
@@ -441,13 +460,17 @@ class Landing extends Component {
 
   handleDescriptionChange = (name) => (event) => {
     this.setState({
-      description: event.target.value,
+      description: event.target.value
+        .toString()
+        .slice(0, this.state.max_characters),
     });
   };
 
   handleRequirementChange = (name) => (event) => {
     this.setState({
-      requirement: event.target.value,
+      requirement: event.target.value
+        .toString()
+        .slice(0, this.state.max_characters),
     });
   };
 
