@@ -23,6 +23,12 @@ import { Auth } from 'aws-amplify';
 import TextField from '@material-ui/core/TextField';
 import { Document, Page, pdfjs } from "react-pdf";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
+import SE from '../SeniorExec/SE';
+import MenuItem from "@material-ui/core/MenuItem";
+import Slide from "@material-ui/core/Slide";
+import SeniorExec from '../SeniorExec/SeniorExec';
+
+
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -160,6 +166,10 @@ function withMyHook(Component){
     }
 }
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 class FinalPage extends Component{
     constructor(props) {
         super(props);
@@ -180,6 +190,9 @@ class FinalPage extends Component{
             states: this.props.prev ? this.props.prev.states : '',
             resumeURL: this.props.prev ? this.props.prev.resumeURL : '',
             profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
+            user_type: this.props.prev ? this.props.prev.user_type : '',
+            quarterly_meeting: this.props.prev ? this.props.prev.quarterly_meeting : '',
+            meetings_frequency: this.props.prev ? this.props.prev.meetings_frequency : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
             aspire_email_consent: this.props.prev ? this.props.prev.aspire_email_consent : false,
             aspire_free: true,
@@ -193,6 +206,7 @@ class FinalPage extends Component{
             openStripe: false,
             tocNumPages: null,
             privacyNumPages: null,
+            dialogueOpen: false,
             url: process.env.REACT_APP_MAILCHIMP_URL
         }
     }
@@ -240,7 +254,10 @@ class FinalPage extends Component{
                 "custom:company": this.state.company, 
                 "custom:education_level": this.state.education,
                 "custom:user_type": user_type, 
-                "custom:credits": credits.toString()
+                "custom:credits": credits.toString(),
+                "custom:quarterly_meeting": this.state.quarterly_meeting,
+                "custom:meetings_frequency": this.state.meetings_frequency 
+
             }
         })
         .then(() => {
@@ -282,6 +299,18 @@ class FinalPage extends Component{
             })
         }
     };
+
+    handleMeetingChange = (event) => {
+        this.setState({
+            quarterly_meeting: event.target.value
+        })
+    };
+
+    handleQuarterlyMeetingChange = (event) => {
+        this.setState({
+            meetings_frequency: event.target.value
+        })
+    };
     
     handleConfirmationCodeChange = (event) => {
         this.setState({
@@ -295,7 +324,17 @@ class FinalPage extends Component{
         })
     };
 
+
     handleSubmit = (event) => {
+        // if (this.state.senior_executive === true 
+        //     && (this.state.quarterly_meeting === ''
+        //     || this.state.meetings_frequency === '')){
+        //     this.setState({
+        //         dialogueOpen: true
+        //     });
+        //     return;
+        // }
+
         if (this.state.verified){
             this.confirmSignUp();
             this.props.appContext.props.appContext.setState({
@@ -313,6 +352,12 @@ class FinalPage extends Component{
                 });   
             }
         }   
+    };
+
+    handleDialog = (event) => {
+        this.setState({
+            dialogueOpen: !(this.state.dialogueOpen)
+        })
     };
 
     readConditions = (event) => {
@@ -405,15 +450,6 @@ class FinalPage extends Component{
                     </div>
                     <div className={classes.form}>
                         <Grid container spacing={2}>
-                            <Membership appContext={this.props.appContext}
-                                        landing={false}
-                                        freeButtonText={"Try for Free"}
-                                        premiumButtonText={"Sign Up for Premium"}
-                                        platinumButtonText={"Sign Up for Platinum"}
-                                        freeFunction={this.handleAspireFreeClick}
-                                        premiumFunction={this.handleAspirePremiumClick}
-                                        platinumFunction={this.handleAspirePlatimumClick}
-                            />
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={
@@ -433,6 +469,21 @@ class FinalPage extends Component{
                                     }
                                 />
                             </Grid>
+                            
+                            {this.state.senior_executive===true &&
+                                <SeniorExec />
+                                
+                            }
+                            <Membership appContext={this.props.appContext}
+                            landing={false}
+                            freeButtonText={"Try for Free"}
+                            premiumButtonText={"Sign Up for Premium"}
+                            platinumButtonText={"Sign Up for Platinum"}
+                            freeFunction={this.handleAspireFreeClick}
+                            premiumFunction={this.handleAspirePremiumClick}
+                            platinumFunction={this.handleAspirePlatimumClick}
+                            /> 
+                            
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={
@@ -477,6 +528,26 @@ class FinalPage extends Component{
                             <b>Submit</b>
                         </Button>
                     </div>
+                    <Dialog
+                        open={this.state.dialogueOpen}
+                        TransitionComponent={Transition}
+                        keepMounted
+                        onClose={this.handleDialog}
+                        aria-labelledby="alert-dialog-slide-title"
+                        aria-describedby="alert-dialog-slide-description"
+                    >
+                        <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                                <b> Please fill out all the required fields with proper values </b>
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleDialog} color="primary">
+                                <b>Close</b>
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
                     <Dialog
                         open={this.state.open}
                         onClose={this.handleClose}

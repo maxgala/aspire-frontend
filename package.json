@@ -31,6 +31,8 @@
     "node": "^14.8.0",
     "react": "^16.13.1",
     "react-card-flip": "^1.0.10",
+    "react-date-picker": "^8.0.3",
+    "react-datepicker": "^3.3.0",
     "react-dom": "^16.13.1",
     "react-file-base64": "^1.0.3",
     "react-image-filter": "^0.1.2",
