@@ -120,7 +120,7 @@ class JobPosts extends Component {
     let removedJob = {
       "job_status" : "REJECTED",
     };
-    const removedJobsData = await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), removedJob);
+    await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), removedJob);
     
   }
 
