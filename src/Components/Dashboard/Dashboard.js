@@ -17,8 +17,7 @@ import ResumeBank from "./ResumeBank";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import Drawer from "@material-ui/core/Drawer";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import home from "../Images/navbar/home.svg";
 import community from "../Images/navbar/community.svg";
 import jobs from "../Images/navbar/jobs.svg";
@@ -216,7 +215,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       currentScreen: [],
-      open: false,
+      open: true,
       jobsAnchorEl: null,
       communityAnchorEl: null,
     };
@@ -311,7 +310,6 @@ class Dashboard extends Component {
 
   render() {
     const classes = this.props.classes;
-    const theme = this.props.theme;
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -333,7 +331,7 @@ class Dashboard extends Component {
                   this.state.open && classes.hide
                 )}
               >
-                <ChevronRightIcon />
+                <MenuOpenIcon />
               </IconButton>
             </Tooltip>
             <Hidden xsDown>
@@ -448,11 +446,7 @@ class Dashboard extends Component {
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                  <ChevronRightIcon />
-                )}
+                <MenuOpenIcon />
             </IconButton>
           </div>
           <UserProfile />
