@@ -12,6 +12,12 @@ import SecondPage from "./SecondPage";
 import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from 'react-s3';
 import FinalPage from "./FinalPage";
+import Slide from '@material-ui/core/Slide';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -96,6 +102,10 @@ function withMyHook(Component){
     }
 }
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
 class ThirdPage extends Component{
     constructor(props) {
         super(props);
@@ -122,12 +132,13 @@ class ThirdPage extends Component{
             fileDialogOpen: false,
             imageFiles: [],
             resumeFiles: [],
-            profilePicPreviewText: 'Upload your Photo',
+            profilePicPreviewText: 'Upload your Profile Photo *',
             profilePicButtonText: 'Upload',
-            resumeUploadText: 'Upload your Resume',
+            resumeUploadText: 'Upload your Resume *',
             resumeButtonText: 'Upload',
             progress: 75,
-            filePreview: []
+            filePreview: [],
+            dialogueOpen: false,
         };
     }
 
@@ -137,11 +148,17 @@ class ThirdPage extends Component{
         });
     }
 
-    uploadToS3(file, resume=true){
+    handleDialog = (event) => {
+        this.setState({
+            dialogueOpen: !this.state.dialogueOpen
+        })
+    };
+
+    uploadToS3(file, folder, resume=true){
         let config = {
-            bucketName: 'aspire-frontend-files-test',
-            dirName: this.state.firstName+'-'+this.state.lastName, /* will change based on users */
-            region: 'ca-central-1',
+            bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
+            dirName: this.state.email + '/' + folder, /* will change based on users */
+            region: 'us-east-1',
             accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
             secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
         };
@@ -169,7 +186,7 @@ class ThirdPage extends Component{
             fileDialogOpen: false,
             resumeFiles: resume
         });
-        this.uploadToS3(resume[0], true);
+        this.uploadToS3(resume[0], 'resumes', true);
     }
 
     handleSave(files) {
@@ -186,7 +203,7 @@ class ThirdPage extends Component{
                 imageFiles: [document],
                 open: false
             });
-            page.uploadToS3(files[0], false);
+            page.uploadToS3(files[0], 'pictures', false);
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
@@ -205,9 +222,15 @@ class ThirdPage extends Component{
         })
     };
     changeToFinalPage = (event) =>  {
-        this.props.appContext.setState({
-            registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state}/>
-        });
+        if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
+            this.setState({
+                dialogueOpen: true
+            });
+        } else {
+            this.props.appContext.setState({
+                registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state}/>
+            });
+        }
     };
 
     render() {
@@ -274,6 +297,7 @@ class ThirdPage extends Component{
                                 <DropzoneDialog
                                     open={this.state.fileDialogOpen}
                                     onSave={this.handleResumeSave.bind(this)}
+                                    acceptedFiles={['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessing']}
                                     maxFileSize={5000000}
                                     onClose={event=>{this.setState({fileDialogOpen: false})}}
                                     filesLimit={1}
@@ -302,6 +326,26 @@ class ThirdPage extends Component{
                         </Button>
                     </div>
                 </div>
+                <Dialog
+                    open={this.state.dialogueOpen}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Resume and Profile picture are required!"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            <b>Please provide a Resume and a Profile picture to proceed</b>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleDialog} color="primary">
+                            <b>Close</b>
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Container>
         );
     }
