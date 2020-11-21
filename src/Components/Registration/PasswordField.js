@@ -110,16 +110,16 @@ class PasswordField extends Component {
               ></div>
             </div>
           </FormField>
-          <div className="position-absolute password-count mx-3">
-            {/** Render the password length counter indicator **/}
-            <span className={counterClass}>
+          {/* <div className="position-absolute password-count mx-3"> */}
+          {/** Render the password length counter indicator **/}
+          {/* <span className={counterClass}>
               {passwordLength
                 ? passwordLong
                   ? `${this.thresholdLength}+`
                   : passwordLength
                 : ""}
             </span>
-          </div>
+          </div> */}
         </div>
       </Fragment>
     );
