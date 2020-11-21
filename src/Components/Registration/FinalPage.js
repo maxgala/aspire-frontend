@@ -240,7 +240,8 @@ class FinalPage extends Component{
                 "custom:company": this.state.company, 
                 "custom:education_level": this.state.education,
                 "custom:user_type": user_type, 
-                "custom:credits": credits.toString()
+                "custom:credits": credits.toString(),
+                "custom:linkedin": this.state.profilePicURL
             }
         })
         .then(() => {

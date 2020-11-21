@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import pic0 from "../Images/faceShot/pic0.png";
+import blankProfile from "../Images/faceShot/blank_profile.png";
 import close from "../Images/close.png";
 import { Button } from "@material-ui/core";
 import { faMapMarker, faBuilding } from "@fortawesome/free-solid-svg-icons";
@@ -458,6 +458,11 @@ class Landing extends Component {
       }
     }
 
+    let profilePicture = blankProfile;
+    if (userProfile["custom:linkedin"]) {
+      profilePicture = userProfile["custom:linkedin"]
+    }
+
     return {
       name: userProfile.given_name + " " + userProfile.family_name,
       occupation: userProfile["custom:position"],
@@ -466,6 +471,7 @@ class Landing extends Component {
       numCoffeeChats: this.state.numChats,
       numJobApplications: this.state.numJobs,
       numCredits: userProfile["custom:credits"],
+      profilePicture: profilePicture,
     };
   };
 
@@ -475,7 +481,7 @@ class Landing extends Component {
     return (
       <div className={classes.root1}>
         <div style={{ margin: "auto" }}>
-          <img className={classes.image} src={pic0} alt={"User Profile"} />
+          <img className={classes.image} src={userProfile.profilePicture} alt={"User Profile"} />
           <span>
             <p className={classes.name}>{userProfile.name}</p>
             <p className={classes.occupation}>{userProfile.occupation}</p>
