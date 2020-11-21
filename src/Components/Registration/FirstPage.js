@@ -21,6 +21,7 @@ import Slide from "@material-ui/core/Slide";
 import MuiPhoneNumber from "material-ui-phone-number";
 import EmailField from "./EmailField";
 import PasswordField from "./PasswordField";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -293,6 +294,20 @@ class FirstPage extends Component {
                   minStrength={3}
                   required
                 />
+                <Tooltip
+                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long. Recommended:
+                    Contain a combination of at least 1 lowercase, uppercase, number, special
+                    characters`}
+                >
+                  <Typography
+                    variant="caption"
+                    style={{ color: "grey", cursor: "pointer" }}
+                    display="block"
+                    gutterBottom
+                  >
+                    Hover here for Password Requirements
+                  </Typography>
+                </Tooltip>
                 <TextField
                   variant="outlined"
                   required
