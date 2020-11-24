@@ -225,6 +225,9 @@ class FirstPage extends Component {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   value={this.state.firstName}
                   onChange={this.handleFirstNameChange}
                 />
@@ -237,6 +240,9 @@ class FirstPage extends Component {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   autoComplete="lastName"
                   value={this.state.lastName}
                   onChange={this.handleLastNameChange}
