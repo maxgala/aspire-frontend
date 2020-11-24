@@ -21,6 +21,7 @@ import Slide from "@material-ui/core/Slide";
 import MuiPhoneNumber from "material-ui-phone-number";
 import EmailField from "./EmailField";
 import PasswordField from "./PasswordField";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -78,8 +79,9 @@ class FirstPage extends Component {
       lastName: this.props.prev ? this.props.prev.lastName : "",
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
+      emailStrength: this.props.prev ? this.props.prev.emailStrength : "",
       password: this.props.prev ? this.props.prev.password : "",
-      passwordValue: this.props.prev ? this.props.prev.passwordValue : "",
+      passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
       industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
@@ -102,25 +104,33 @@ class FirstPage extends Component {
   }
 
   fieldStateChanged = (field) => (state) => {
-    if (field !== "password") {
+    if (field !== "passwordStrength") {
       this.setState({ [field]: state.errors.length === 0 });
     } else {
       this.setState({
-        ["password"]: state.errors.length === 0,
-        ["passwordValue"]: state.value,
+        ["passwordStrength"]: state.errors.length === 0,
+        ["password"]: state.value,
+      });
+    }
+    if (field !== "emailStrength") {
+      this.setState({ [field]: state.errors.length === 0 });
+    } else {
+      this.setState({
+        ["emailStrength"]: state.errors.length === 0,
+        ["email"]: state.value,
       });
     }
   };
 
-  emailChanged = this.fieldStateChanged("email");
-  passwordChanged = this.fieldStateChanged("password");
+  emailChanged = this.fieldStateChanged("emailStrength");
+  passwordChanged = this.fieldStateChanged("passwordStrength");
 
   changeToPage2 = (event) => {
     if (
       this.state.firstName === "" ||
       this.state.firstName === undefined ||
-      this.state.passwordValue === "" ||
-      this.state.passwordValue === undefined ||
+      this.state.password === "" ||
+      this.state.password === undefined ||
       this.state.lastName === "" ||
       this.state.lastName === undefined ||
       this.state.email === "" ||
@@ -162,9 +172,7 @@ class FirstPage extends Component {
   };
 
   handleConfirmCheck = (event) => {
-    // console.log("event.target.value =====>", event.target.value);
-    // console.log("this.state.password =====>", this.state.passwordValue);
-    if (event.target.value === this.state.passwordValue) {
+    if (event.target.value === this.state.password) {
       this.setState({
         errorDisplay: "None",
       });
@@ -195,9 +203,9 @@ class FirstPage extends Component {
 
   render() {
     const classes = this.props.classes;
-    const { email, password } = this.state;
+    const { email, passwordStrength } = this.state;
     // Use formValidated to make the next button appear {formValidated && ...button}
-    const formValidated = email && password;
+    const formValidated = email && passwordStrength;
 
     return (
       <Container component="main" maxWidth="xs">
@@ -286,6 +294,20 @@ class FirstPage extends Component {
                   minStrength={3}
                   required
                 />
+                <Tooltip
+                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long. Recommended:
+                    Contain a combination of at least 1 lowercase, uppercase, number, special
+                    characters`}
+                >
+                  <Typography
+                    variant="caption"
+                    style={{ color: "grey", cursor: "pointer" }}
+                    display="block"
+                    gutterBottom
+                  >
+                    Hover here for Password Requirements
+                  </Typography>
+                </Tooltip>
                 <TextField
                   variant="outlined"
                   required

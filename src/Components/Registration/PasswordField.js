@@ -26,7 +26,7 @@ class PasswordField extends Component {
       typeof thresholdLength === "number" ? Math.max(thresholdLength, 7) : 7;
 
     // initialize internal component state
-    this.state = { password: "", strength: 0 };
+    this.state = { passwordStrength: "", strength: 0 };
   }
 
   stateChanged = (state) => {
@@ -34,7 +34,7 @@ class PasswordField extends Component {
 
     this.setState(
       {
-        password: state.value,
+        passwordStrength: state.value,
         strength: zxcvbn(state.value).score,
       },
       () => this.props.onStateChanged(state)
@@ -60,9 +60,9 @@ class PasswordField extends Component {
       children,
       ...restProps
     } = this.props;
-    const { password, strength } = this.state;
+    const { passwordStrength, strength } = this.state;
 
-    const passwordLength = password.length;
+    const passwordLength = passwordStrength.length;
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
@@ -110,16 +110,16 @@ class PasswordField extends Component {
               ></div>
             </div>
           </FormField>
-          <div className="position-absolute password-count mx-3">
-            {/** Render the password length counter indicator **/}
-            <span className={counterClass}>
+          {/* <div className="position-absolute password-count mx-3"> */}
+          {/** Render the password length counter indicator **/}
+          {/* <span className={counterClass}>
               {passwordLength
                 ? passwordLong
                   ? `${this.thresholdLength}+`
                   : passwordLength
                 : ""}
             </span>
-          </div>
+          </div> */}
         </div>
       </Fragment>
     );

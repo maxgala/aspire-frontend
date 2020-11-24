@@ -170,8 +170,7 @@ class FinalPage extends Component {
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
       password: this.props.prev ? this.props.prev.password : "",
-      passwordValue: this.props.prev ? this.props.prev.passwordValue : "",
-
+      passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
       industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
@@ -247,6 +246,22 @@ class FinalPage extends Component {
       .replace("-", "");
     phone_val = phone_val.replace("(", "");
     phone_val = phone_val.replace(")", "");
+
+    // console.log(
+    //   this.state.email,
+    //   this.state.password,
+    //   this.state.firstName,
+    //   this.state.lastName,
+    //   phone_val,
+    //   address,
+    //   this.state.industry,
+    //   this.state.industry_tags.toString(),
+    //   this.state.title,
+    //   this.state.company,
+    //   this.state.education,
+    //   user_type,
+    //   credits.toString()
+    // );
 
     Auth.signUp({
       username: this.state.email,
