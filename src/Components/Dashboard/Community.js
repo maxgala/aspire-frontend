@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CommunityCard from "./Cards/CommunityCard";
 import TestData from "./CoffeeChatsTestData";
+import { withRouter } from 'react-router';
+
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -211,5 +213,6 @@ class JobBoard extends Component {
   }
 }
 
+JobBoard = withRouter(JobBoard);
 JobBoard = withMyHook(JobBoard);
 export default JobBoard;

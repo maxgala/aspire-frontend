@@ -12,6 +12,9 @@ import Professionals from "./AspiringProfessionals";
 import Jobs from "./JobPosts";
 import AdminCoffeeChats from "./AdminCoffeeChats";
 import Escalations from "./Escalations";
+import { withRouter } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { Routes } from '../../entry/routes/Routes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -123,9 +126,6 @@ function withMyHook(Component) {
 class Dashboard extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      currentScreen: []
-    }
     this.changeToProfessionals = this.changeToProfessionals.bind(this);
     this.changeToJobs = this.changeToJobs.bind(this);
     this.changeToSeniorExecs = this.changeToSeniorExecs.bind(this);
@@ -133,39 +133,30 @@ class Dashboard extends Component {
     this.changeToEscalations=this.changeToEscalations.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      currentScreen: <Home appContext={this}/>
-    })
-  }
+
   changeToEscalations() {
-    this.setState({
-      currentScreen: <Escalations appContext={this}/>
-    })
+    this.props.history.push(`${Routes.AdminDashboard}/escalation`)
+
   }
 
   changeToAdminCoffeeChats() {
-    this.setState({
-      currentScreen: <AdminCoffeeChats appContext={this} />
-    })
+    this.props.history.push(`${Routes.AdminDashboard}/coffee`)
+
   }
 
   changeToProfessionals() {
-    this.setState({
-      currentScreen: <Professionals appContext={this} />
-    })
+    this.props.history.push(`${Routes.AdminDashboard}/professional`)
+
   }
 
   changeToJobs() {
-    this.setState({
-      currentScreen: <Jobs appContext={this}/>
-    })
+    this.props.history.push(`${Routes.AdminDashboard}/jobs`)
+
   }
 
   changeToSeniorExecs() {
-    this.setState({
-      currentScreen: <Home appContext={this}/>
-    })
+    this.props.history.push(`${Routes.AdminDashboard}`);
+
   }
 
   render(){
@@ -223,16 +214,33 @@ class Dashboard extends Component {
                   <FontAwesomeIcon icon={faReact} style={{width: '40px', height: '40px'}}/>
                 </Button>
               </Toolbar>
+              <Switch>
               <div className="Dashboard">
-                {this.state.currentScreen}
-              </div>
+                  <Route path={`${Routes.AdminDashboard}/escalation`}>
+                    <Escalations appContext={this}/>
+                  </Route>
+                  <Route path={`${Routes.AdminDashboard}/coffee`}>
+                    <AdminCoffeeChats appContext={this}/>
+                  </Route>
+                  <Route path={`${Routes.AdminDashboard}/professional`}>
+                    <Professionals appContext={this}/>
+                  </Route>
+                  <Route path={`${Routes.AdminDashboard}/jobs`}>
+                    <Jobs appContext={this}/>
+                  </Route>
+                  <Route exact path={`${Routes.AdminDashboard}`}>
+                    <Home appContext={this} />
+                  </Route>
+                  <Redirect to={`${Routes.AdminDashboard}`} />
+
+                </div>
+              </Switch>
             </div>
-
-
-
+          
     );
   }
 }
 
 Dashboard = withMyHook(Dashboard);
+Dashboard = withRouter(Dashboard);
 export default Dashboard;

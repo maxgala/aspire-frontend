@@ -25,6 +25,9 @@ import Province from "./Provinces";
 import ThirdPage from "./ThirdPage";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { withRouter } from 'react-router-dom';
+import { Routes } from '../../entry/routes/Routes';
+
 
 const IndustryLabels = [];
 for (let i=0; i < Industries.length; ++i){
@@ -193,9 +196,7 @@ class SecondPage extends Component {
     };
 
     changeToPage1 = (event) => {
-        this.props.appContext.setState({
-            registrationScreen: <FirstPage appContext={this.props.appContext} prev={this.state}/>
-        })
+        this.props.history.push(`${Routes.Register}`)
     };
 
     changeToPage3 = (event) => {
@@ -215,9 +216,8 @@ class SecondPage extends Component {
             });
             return;
         }
-        this.props.appContext.setState({
-            registrationScreen: <ThirdPage appContext={this.props.appContext} prev={this.state}/>
-        })
+        this.props.setPrev(this.state);
+        this.props.history.push(`${Routes.Register}/3`)
     };
     
     onTagsChange = (event, values) => {
@@ -458,4 +458,5 @@ class SecondPage extends Component {
 }
 
 SecondPage = withMyHook(SecondPage);
+SecondPage = withRouter(SecondPage);
 export default SecondPage;

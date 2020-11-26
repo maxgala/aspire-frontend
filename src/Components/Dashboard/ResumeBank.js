@@ -6,6 +6,7 @@ import ResumeBankCard from "./Cards/ResumeBankCard";
 import TestData from "./CoffeeChatsTestData";
 // TODO: Hiding filters until they get implemented
 // import Filter from "./Cards/FilterCard";
+import { withRouter } from 'react-router';
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -239,4 +240,5 @@ class JobBoard extends Component {
 }
 
 JobBoard = withMyHook(JobBoard);
+JobBoard = withRouter(JobBoard);
 export default JobBoard;

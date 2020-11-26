@@ -17,7 +17,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import { withRouter } from 'react-router-dom';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { Routes } from "../../entry/routes/Routes";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -217,9 +219,7 @@ class ThirdPage extends Component {
     }
 
     changeToPage2 = (event) => {
-        this.props.appContext.setState({
-            registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state} />
-        })
+        this.props.history.push(`${Routes.Register}/2`)
     };
     changeToFinalPage = (event) => {
         if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
@@ -227,9 +227,8 @@ class ThirdPage extends Component {
                 dialogueOpen: true
             });
         } else {
-            this.props.appContext.setState({
-                registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state} />
-            });
+            this.props.setPrev(this.state);
+            this.props.history.push(`${Routes.Register}/4`)
         }
     };
 
@@ -352,4 +351,5 @@ class ThirdPage extends Component {
 }
 
 ThirdPage = withMyHook(ThirdPage);
+ThirdPage = withRouter(ThirdPage);
 export default ThirdPage;

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Button } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import Registration from '../Registration/Registration';
+import {withRouter} from 'react-router-dom';
+import { Routes } from '../../entry/routes/Routes';
 
 const useStyles = makeStyles(theme => ({
     senior_prof_title: {
@@ -56,9 +58,7 @@ function withMyHook(Component) {
 
 class SeniorExecText extends Component {
     changeToSignUp = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <Registration appContext={this.props.appContext}/>
-        })
+        this.props.history.push(Routes.Register);
     };
 
     render() {
@@ -75,4 +75,5 @@ class SeniorExecText extends Component {
 }
 
 SeniorExecText = withMyHook(SeniorExecText);
+SeniorExecText = withRouter(SeniorExecText);
 export default SeniorExecText;

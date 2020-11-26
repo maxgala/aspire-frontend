@@ -7,6 +7,7 @@ import JobApplicationCard from "./Cards/JobApplicationCard";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
 import CardTypes from "./CardTypes";
+import { withRouter } from 'react-router';
 import { httpGet } from "../../lib/dataAccess";
 
 const useStyles = makeStyles(() => ({
@@ -303,4 +304,5 @@ class JobBoard extends Component {
 }
 
 JobBoard = withMyHook(JobBoard);
+JobBoard = withRouter(JobBoard);
 export default JobBoard;

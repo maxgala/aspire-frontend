@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Globe from "../Images/globe.png";
 import { Button } from '@material-ui/core';
 import Registration from '../Registration/Registration';
+import {withRouter} from 'react-router-dom';
+import { Routes } from "../../entry/routes/Routes";
 
 const useStyles = makeStyles(theme => ({
     box: {
@@ -113,9 +115,7 @@ function withMyHook(Component){
 
 class JobSection extends Component{
     changeToSignUp = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <Registration appContext={this.props.appContext}/>
-        })
+        this.props.history.push(Routes.Register);
     };
 
     render() {
@@ -177,4 +177,5 @@ class JobSection extends Component{
 }
 
 JobSection = withMyHook(JobSection);
+JobSection = withRouter(JobSection);
 export default JobSection;

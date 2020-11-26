@@ -3,10 +3,17 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
+import { Route, Switch } from 'react-router-dom';
+
 import Grid from "@material-ui/core/Grid";
 import {makeStyles} from "@material-ui/core/styles";
 import FirstPage from "./FirstPage";
 import Landing from "../LandingPage/Landing";
+import { Routes } from "../../entry/routes/Routes";
+import { withRouter } from 'react-router-dom';
+import SecondPage from "./SecondPage";
+import ThirdPage from "./ThirdPage";
+import FinalPage from "./FinalPage";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,24 +65,18 @@ class Registration extends Component{
     constructor(props) {
         super(props);
         this.state={
-            registrationScreen: []
+            registrationScreen: [],
+            prev: {},
         }
     }
 
-    changeToLanding = event => {
-        this.props.appContext.setState({
-            currentScreen: <Landing appContext={this.props.appContext}/>
-        })
+    changeToLanding = () => {
+        this.props.history.push(Routes.Landing);
     };
-
-    componentDidMount() {
-        this.setState({
-            registrationScreen: <FirstPage appContext={this}/>
-        })
-    }
 
     render() {
         const classes = this.props.classes;
+        console.log(this.props.location)
         return(
             <Grid container component="main" className={classes.root}>
                 <CssBaseline />
@@ -86,11 +87,25 @@ class Registration extends Component{
                         </div>
                     </Toolbar>
                 </AppBar>
-                {this.state.registrationScreen}
+                <Switch>
+                    <Route exact={true} path={`${Routes.Register}/2`}>
+                        <SecondPage appContext={this} prev={this.state.prev} setPrev={prev => this.setState({ prev })}/>
+                    </Route>
+                    <Route exact={true} path={`${Routes.Register}/3`}>
+                        <ThirdPage appContext={this} prev={this.state.prev} setPrev={prev => this.setState({ prev })}/>
+                    </Route>
+                    <Route exact={true} path={`${Routes.Register}/4`}>
+                        <FinalPage appContext={this} prev={this.state.prev} setPrev={prev => this.setState({ prev })} />
+                    </Route>                
+                    <Route exact={true} path={Routes.Register} >
+                        <FirstPage appContext={this} prev={this.state.prev} setPrev={prev => this.setState({ prev })}/>
+                    </Route>
+                </Switch>
             </Grid>
         )
     }
 }
 
 Registration = withMyHook(Registration);
+Registration = withRouter(Registration);
 export default Registration;

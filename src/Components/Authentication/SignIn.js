@@ -19,6 +19,9 @@ import { Auth } from "aws-amplify";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import AdminDashboard from "../Admin/Dashboard";
 import jwtDecode from "jwt-decode";
+import { withRouter } from 'react-router';
+import { Routes } from "../../entry/routes/Routes";
+import { UserStore } from "../../stores/UserStore";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -124,15 +127,11 @@ class SignIn extends Component {
     }
 
     changeToLanding = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <Landing appContext={this.props.appContext} />,
-        });
+        this.props.history.push(Routes.Landpage);
     };
 
     changeToSignUp = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <Registration appContext={this.props.appContext} />,
-        });
+        this.props.history.push(Routes.Register);
     };
 
     handleVerififedCodeChange = (event) => {
@@ -211,20 +210,10 @@ class SignIn extends Component {
             .then(() => {
                 this.setState({ signedIn: true });
                 if (this.state.isAdmin === true) {
-                    this.props.appContext.setState({
-                        currentScreen: (
-                            <AdminDashboard appContext={this.props.appContext} />
-                        ),
-                    });
+                    this.props.history.push(Routes.AdminDashboard);
                 } else {
-                    this.props.appContext.setState({
-                        currentScreen: (
-                            <Dashboard
-                                appContext={this.props.appContext}
-                                isSeniorExec={this.state.isSeniorExec}
-                            />
-                        ),
-                    });
+                    this.props.history.push(Routes.Dashboard);
+                    UserStore.isSeniorExec = this.state.isSeniorExec;
                 }
             })
             .catch((err) => {
@@ -262,20 +251,10 @@ class SignIn extends Component {
                 }
                 this.setState({ signedIn: true });
                 if (this.state.isAdmin === true) {
-                    this.props.appContext.setState({
-                        currentScreen: (
-                            <AdminDashboard appContext={this.props.appContext} />
-                        ),
-                    });
+                    this.props.history.push(Routes.AdminDashboard);
                 } else {
-                    this.props.appContext.setState({
-                        currentScreen: (
-                            <Dashboard
-                                appContext={this.props.appContext}
-                                isSeniorExec={this.state.isSeniorExec}
-                            />
-                        ),
-                    });
+                    UserStore.isSeniorExec = this.state.isSeniorExec;
+                    this.props.history.push(Routes.Dashboard);
                 }
             });
         } catch (err) {
@@ -467,4 +446,5 @@ class SignIn extends Component {
 }
 
 SignIn = withMyHook(SignIn);
+SignIn = withRouter(SignIn);
 export default SignIn;

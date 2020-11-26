@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import Landing from "./Components/LandingPage/Landing";
+import Landing from "../Components/LandingPage/Landing";
 import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AppRoutes } from './routes/AppRoutes';
 import Amplify from 'aws-amplify';
+
 
 Amplify.configure({
   Auth: {
@@ -21,22 +24,15 @@ Amplify.configure({
 class App extends Component{
   constructor(props){
     super(props);
-    this.state = {
-      currentScreen: []
-    }
-  }
-
-  componentDidMount() {
-    this.setState({
-      currentScreen: <Landing appContext={this}/>
-    })
   }
 
   render(){
     return (
+      <Router>
         <div className="App">
-          {this.state.currentScreen}
+          <AppRoutes />
         </div>
+      </Router>
     );
   }
 }

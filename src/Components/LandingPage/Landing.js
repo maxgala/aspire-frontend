@@ -16,7 +16,9 @@ import SignIn from "../Authentication/SignIn";
 import Carousal from "./Carousal.js";
 import Registration from "../Registration/Registration";
 import SeniorExecGrid from './SeniorExecGrid';
+import { withRouter } from 'react-router-dom';
 import JobSection from "./JobSection.js";
+import { Routes } from '../../entry/routes/Routes';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -144,15 +146,11 @@ class Landing extends Component{
     }
 
     changeToSignIn = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <SignIn appContext={this.props.appContext}/>
-        })
+      this.props.history.push(Routes.Login);
     };
 
     changeToSignUp = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <Registration appContext={this.props.appContext}/>
-        })
+      this.props.history.push(Routes.Register);
     };
 
     render(){
@@ -209,4 +207,5 @@ class Landing extends Component{
 }
 
 Landing = withMyHook(Landing);
+Landing = withRouter(Landing);
 export default Landing;
