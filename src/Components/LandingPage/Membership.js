@@ -31,14 +31,13 @@ const useStyles = makeStyles(() => ({
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "48px",
-    '@media (max-width: 480px)': {
-      fontSize: '30px'
+    "@media (max-width: 480px)": {
+      fontSize: "30px",
     },
-    margin: '0px',
-    paddingTop: '30px',
-    paddingBottom: '30px',
-    color: 'black',
-
+    margin: "0px",
+    paddingTop: "30px",
+    paddingBottom: "30px",
+    color: "black",
   },
   more_info: {
     fontSize: "15px",

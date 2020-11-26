@@ -1,4 +1,4 @@
-export const ApplicationPrefix = '/app';
+export const ApplicationPrefix = "/app";
 
 export const Routes = {
   AdminDashboard: `${ApplicationPrefix}/admindashboard`,
@@ -8,7 +8,7 @@ export const Routes = {
   Submissions: `${ApplicationPrefix}/dashboard/submissions`,
   Members: `${ApplicationPrefix}/dashboard/members`,
   ResumeBank: `${ApplicationPrefix}/dashboard/resumebank`,
-  Landpage: '/',
-  Login: '/signup',
-  Register: '/register',
+  Landpage: "/",
+  Login: "/signup",
+  Register: "/register",
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { Routes } from './Routes';
+import React from "react";
+import { Redirect, Route } from "react-router-dom";
+import { Routes } from "./Routes";
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
   // change Me!

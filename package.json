@@ -2,6 +2,11 @@
   "name": "aspire-frontend",
   "version": "0.1.0",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "proxy": "http://localhost:8080",
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.14",
@@ -23,6 +28,7 @@
     "aws-sdk": "^2.780.0",
     "axios": "^0.19.2",
     "emotion": "^10.0.27",
+    "husky": "^4.3.0",
     "jwt-decode": "^2.2.0",
     "material-table": "^1.69.2",
     "material-ui-colors": "^1.0.0",
@@ -30,6 +36,8 @@
     "material-ui-phone-number": "^2.2.6",
     "moment": "^2.27.0",
     "node": "^14.8.0",
+    "prettier": "^2.2.0",
+    "pretty-quick": "^3.1.0",
     "react": "^16.13.1",
     "react-card-flip": "^1.0.10",
     "react-dom": "^16.13.1",
@@ -50,6 +58,7 @@
     "build": "react-scripts build && cp src/server.js build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "format": "prettier --write 'src/**/*.js?(x)'",
     "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {

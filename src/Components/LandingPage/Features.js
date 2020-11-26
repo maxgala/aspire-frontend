@@ -1,60 +1,61 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import FeatureCard from "./FeatureCard.js"
-import {makeStyles} from "@material-ui/core/styles";
+import FeatureCard from "./FeatureCard.js";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
-  background: { 
-    backgroundColor: '#F1F1F1',
-    paddingTop:'1%',
-    paddingBottom:'10%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
-  
+  background: {
+    backgroundColor: "#F1F1F1",
+    paddingTop: "1%",
+    paddingBottom: "10%",
+    paddingLeft: "5%",
+    paddingRight: "5%",
   },
-  features_title: { 
+  features_title: {
     fontFamily: "Nunito Sans",
     fontWeight: "bold",
     fontSize: "48px",
-    paddingTop: '30px',
-    color: 'black',
-    '@media (max-width: 480px)': {fontSize: '30px'},
-
+    paddingTop: "30px",
+    color: "black",
+    "@media (max-width: 480px)": { fontSize: "30px" },
   },
-  grid: { 
-    paddingLeft: '0%',
-    paddingRight: '0%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    
+  grid: {
+    paddingLeft: "0%",
+    paddingRight: "0%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));
 
-function withMyHook(Component){
-    return function WrappedComponent(props){
-        const classes = useStyles();
-        return <Component {...props} classes={classes}/>
-    }
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
+    const classes = useStyles();
+    return <Component {...props} classes={classes} />;
+  };
 }
 
-class Features extends Component{
+class Features extends Component {
   render() {
     const classes = this.props.classes;
-    return(
+    return (
       <div className={classes.background}>
         <h1 className={classes.features_title}>Features</h1>
         <Grid
           container
           spacing={2}
-          direction='row'
+          direction="row"
           alignItems="center"
           justify="center"
           className={classes.grid}
           id="features"
-        >  
+        >
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item
+            xs={12}
+            sm={9}
+            md={6}
+            lg={4}
             spacing={1}
             alignItems="center"
             justify="center"
@@ -67,7 +68,11 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item
+            xs={12}
+            sm={9}
+            md={6}
+            lg={4}
             spacing={1}
             alignItems="center"
             justify="center"
@@ -80,7 +85,11 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item
+            xs={12}
+            sm={9}
+            md={6}
+            lg={4}
             spacing={1}
             alignItems="center"
             justify="center"
@@ -93,7 +102,11 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item
+            xs={12}
+            sm={9}
+            md={6}
+            lg={4}
             spacing={1}
             alignItems="center"
             justify="center"
@@ -106,7 +119,11 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item
+            xs={12}
+            sm={9}
+            md={6}
+            lg={4}
             spacing={1}
             alignItems="center"
             justify="center"
@@ -119,7 +136,11 @@ class Features extends Component{
           </Grid>
           <Grid
             container
-            item xs={12} sm={9} md={6} lg={4}
+            item
+            xs={12}
+            sm={9}
+            md={6}
+            lg={4}
             spacing={1}
             alignItems="center"
             justify="center"

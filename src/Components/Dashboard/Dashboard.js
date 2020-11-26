@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Home from "./Home";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import home from "../Images/navbar/home.svg";
@@ -25,10 +25,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Hidden } from "@material-ui/core";
 
-import CoffeeChats from './CoffeeChats';
-import JobBoard from './Jobs';
-import ResumeBank from './ResumeBank';
-import Community from './Community';
+import CoffeeChats from "./CoffeeChats";
+import JobBoard from "./Jobs";
+import ResumeBank from "./ResumeBank";
+import Community from "./Community";
 import { Routes } from "../../entry/routes/Routes";
 
 const drawerWidth = 300;
@@ -422,7 +422,7 @@ class Dashboard extends Component {
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
-                <MenuOpenIcon />
+              <MenuOpenIcon />
             </IconButton>
           </div>
           <UserProfile />
@@ -436,19 +436,19 @@ class Dashboard extends Component {
           <div className="Dashboard">
             <Switch>
               <Route exact={true} path={Routes.Coffee}>
-                <CoffeeChats appContext={this}/>
+                <CoffeeChats appContext={this} />
               </Route>
               <Route exact={true} path={Routes.Jobs}>
-                <JobBoard appContext={this}/>
+                <JobBoard appContext={this} />
               </Route>
               {/* <Route exact={true} path={Routes.Submissions}>
                 < appContext={this}/>
               </Route> */}
               <Route exact={true} path={Routes.Members}>
-                <Community appContext={this}/>
+                <Community appContext={this} />
               </Route>
               <Route exact={true} path={Routes.ResumeBank}>
-                <ResumeBank appContext={this}/>
+                <ResumeBank appContext={this} />
               </Route>
               <Route exact={true} path={Routes.Dashboard}>
                 <Home />

@@ -6,7 +6,7 @@ import ResumeBankCard from "./Cards/ResumeBankCard";
 import TestData from "./CoffeeChatsTestData";
 // TODO: Hiding filters until they get implemented
 // import Filter from "./Cards/FilterCard";
-import { withRouter } from 'react-router';
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -85,7 +85,6 @@ class JobBoard extends Component {
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
           <h1 className={classes.JobBoard}>Resume Bank</h1>
-
 
           {/* TODO: Hiding filters until they get implemented
           <Grid
