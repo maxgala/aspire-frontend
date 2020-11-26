@@ -1,24 +1,20 @@
-import React, {Component} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) => ({}));
 
-const useStyles = makeStyles(theme => ({
-
-}));
-
-
-function withMyHook(Component){
-  return function WrappedComponent(props){
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
     const classes = useStyles();
-    return <Component {...props} classes={classes}/>
-  }
+    return <Component {...props} classes={classes} />;
+  };
 }
 
-class AdminCoffeeChats extends Component{
+class AdminCoffeeChats extends Component {
   render() {
     return (
       <div>
-          <p>Coffee Chats</p>
+        <p>Coffee Chats</p>
       </div>
     );
   }

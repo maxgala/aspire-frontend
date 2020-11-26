@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles((theme) => ({
   overallposition: {
     position: "relative",
@@ -9,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
   extratext: {
     color: "white",
     fontSize: "18px",
-    "@media (max-width: 480px)": { 
-      fontSize: "15px"
+    "@media (max-width: 480px)": {
+      fontSize: "15px",
     },
     fontWeight: "100",
     marginTop: "85%",
@@ -23,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
   hovertext: {
     color: "white",
     fontSize: "24px",
-    "@media (max-width: 480px)": { 
-      fontSize: "20px"
+    "@media (max-width: 480px)": {
+      fontSize: "20px",
     },
     marginTop: "60%",
     textAlign: "center",
@@ -34,49 +33,48 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "30px",
   },
 
-  tintImage:{
+  tintImage: {
     position: "relative",
   },
 
-  hoverImage:{
+  hoverImage: {
     marginTop: "0vh",
     borderRadius: "60px",
-    "@media (max-width: 480px)": { 
-      width: '250px',
-      height: '350px'
+    "@media (max-width: 480px)": {
+      width: "250px",
+      height: "350px",
     },
-    width: '290px',
-    height: '420px',
-    objectFit: 'cover',
-    opacity: '1',
+    width: "290px",
+    height: "420px",
+    objectFit: "cover",
+    opacity: "1",
   },
 
-  hoverTint:{
-    backgroundColor: '#b5a165',
+  hoverTint: {
+    backgroundColor: "#b5a165",
     marginTop: "0vh",
     borderRadius: "60px",
-    "@media (max-width: 480px)": { 
-      width: '250px',
-      height: '350px'
+    "@media (max-width: 480px)": {
+      width: "250px",
+      height: "350px",
     },
-    width: '290px',
-    height: '420px',
-    opacity: '0.8',
-    position: 'absolute',
+    width: "290px",
+    height: "420px",
+    opacity: "0.8",
+    position: "absolute",
   },
 
-  image:{
+  image: {
     marginTop: "0vh",
     borderRadius: "60px",
-    "@media (max-width: 480px)": { 
-      width: '250px',
-      height: '350px'
+    "@media (max-width: 480px)": {
+      width: "250px",
+      height: "350px",
     },
-    width: '290px',
-    height: '420px',
-    objectFit: 'cover'
+    width: "290px",
+    height: "420px",
+    objectFit: "cover",
   },
-
 }));
 
 function withMyHook(Component) {
@@ -129,16 +127,13 @@ class SeniorExec extends Component {
         className={classes.overallposition}
         style={{ backgroundColor: this.state.color }}
       >
-        
         <div
           style={{
             display: this.state.display2,
-            }}
+          }}
           className={classes.hoverTint}
           onMouseLeave={this.handleExit}
-          >
-          </div>
-
+        ></div>
 
         <h3
           className={classes.hovertext}
@@ -160,7 +155,7 @@ class SeniorExec extends Component {
         >
           {this.props.extra_text}
         </h3>
-        
+
         <img
           style={{
             display: this.state.display1,
@@ -170,20 +165,16 @@ class SeniorExec extends Component {
           src={this.props.image}
           alt="Senior Exec"
         />
-        
-          
 
-          <img
+        <img
           style={{
             display: this.state.display2,
-            }}
+          }}
           className={classes.hoverImage}
           onMouseLeave={this.handleExit}
           src={this.props.hover_image}
           alt="Senior Exec"
-        />  
-
-        
+        />
       </div>
     );
   }

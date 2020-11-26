@@ -1,23 +1,23 @@
-import React, {Component} from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: '95%',
-    height: '40px',
-    borderStyle: 'solid',
-    marginBottom: '20px',
-    borderRadius: '12px',
-    borderColor:'#707070',
-    borderWidth:'thin',
-  }
+    width: "95%",
+    height: "40px",
+    borderStyle: "solid",
+    marginBottom: "20px",
+    borderRadius: "12px",
+    borderColor: "#707070",
+    borderWidth: "thin",
+  },
 }));
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
     const classes = useStyles();
-    return <Component {...props} classes={classes}/>
-  }
+    return <Component {...props} classes={classes} />;
+  };
 }
 
 class FilterCard extends Component {
@@ -27,7 +27,7 @@ class FilterCard extends Component {
       <div className={classes.card}>
         <p> </p>
       </div>
-    )
+    );
   }
 }
 
