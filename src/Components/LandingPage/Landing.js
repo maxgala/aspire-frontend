@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     float: 'left',
     align: 'left',
     '@media (max-width: 480px)': {width: '125px'},
+    '@media (max-width: 320px)': {width: '90px'},
     width: '175px',
     '&:hover': {
       cursor: 'pointer',

@@ -7,6 +7,9 @@ const useStyles = makeStyles(theme => ({
     senior_prof_title: {
         fontWeight: '500',
         fontSize: '35px',
+        "@media (max-width: 480px)": { 
+            fontSize: '25px'
+          },
         color: 'black',
         padding: '0',
         textAlign : 'left',
@@ -18,6 +21,9 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: '1%',
         textAlign: 'left',
         fontSize: '22px',
+        "@media (max-width: 480px)": { 
+            fontSize: '16px'
+          },
         fontWeight: '100',
         margin: '0'
     },
@@ -27,6 +33,10 @@ const useStyles = makeStyles(theme => ({
         width: '30%',
         display: 'flex',
         marginRight: 'auto',
+        "@media (max-width: 480px)": { 
+            marginRight: '0px',
+            width: '50%'
+          },
         marginTop:"2%",
         borderRadius: 50,
         color: "white",

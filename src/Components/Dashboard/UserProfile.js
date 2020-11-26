@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import pic0 from "../Images/faceShot/pic0.png";
+import blankProfile from "../Images/faceShot/blank_profile.png";
 import close from "../Images/close.png";
 import { Button } from "@material-ui/core";
 import { faMapMarker, faBuilding } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +19,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { httpGet, httpPost } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
+import IndustryTags from "../Registration/industry_tags";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import Chip from "@material-ui/core/Chip";
 
 const useStyles = makeStyles((theme) => ({
   root1: {
@@ -37,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "minion-pro, serif",
     fontWeight: "bolder",
     fontSize: "30px",
+    "@media (max-width: 480px)": {
+      fontSize: "25px",
+    },
     margin: "2% 20px 10px 20px",
     textAlign: "center",
     display: "block",
@@ -109,6 +115,9 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: "60%",
     height: "auto",
+    "@media (max-width: 480px)": {
+      width: "120px",
+    },
     padding: "1vh",
     left: "10%",
     borderRadius: "50%",
@@ -293,17 +302,27 @@ const useStyles = makeStyles((theme) => ({
   radioButton: {
     color: "#58595B",
     margin: "5px 20px 0px 30px",
+    "@media (max-width: 600px)": {
+      margin: "0px",
+      fontSize: "5px",
+    },
     fontSize: "16px",
   },
 
   radioMarginFirst: {
     margin: "15px 20px 5px 30px",
     width: "85%",
+    "@media (max-width: 600px)": {
+      marginLeft: "0px",
+    },
   },
 
   radioMarginSecond: {
     margin: "15px 20px 0px 30px",
     width: "85%",
+    "@media (max-width: 600px)": {
+      marginLeft: "0px",
+    },
   },
 
   contactBox: {
@@ -331,27 +350,22 @@ class Landing extends Component {
       openPostJob: false,
       openFaq: false,
       active: 0,
-      value: "Full-Time",
-      description: "",
-      requirement: "",
       max_characters: 2000,
       checkedBox: false,
       numJobs: 0,
       numChats: 0,
+      showError: false,
       jobsData: {
-        title: "Test Title",
-        company: "Test Company",
-        country: "Random Country",
-        region: "Random Region",
-        city: "Random City",
-        description: "Description 123...",
-        requirements: "Requirements 123...",
-        posted_by: "ahmed.r.hamodi@gmail.com", // email
-        poster_family_name: "Hamodi",
-        poster_given_name: "Ahmed",
+        title: "",
+        company: "",
+        country: "",
+        region: "",
+        city: "",
+        description: "",
+        requirements: "",
         job_type: "REGULAR_JOB", // BOARD_POSITION or REGULAR_JOB
-        job_tags: ["SOFTWARE"],
-        salary: 30,
+        job_tags: [],
+        salary: 0,
         deadline: 0,
       },
     };
@@ -377,8 +391,31 @@ class Landing extends Component {
     });
   }
 
-  handleJobTypeChange = (event) => {
-    this.setState({ value: event.target.value });
+  onTagsChange = (event, values) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.job_tags = values;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+    if (values.length > 3) {
+      this.setState({
+        showError: true,
+        errorText: "Please pick up to 3 tags",
+      });
+    } else {
+      this.setState({
+        showError: false,
+        errorText: "",
+      });
+    }
+  };
+
+  handleJobTypeChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.job_type = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
   };
 
   handleContactMeChange = (name) => (event) => {
@@ -392,7 +429,45 @@ class Landing extends Component {
   };
 
   submitJob = () => {
-    httpPost("jobs", localStorage.getItem("idToken"), this.state.jobsData);
+    // check that all the required fields are set / properly set
+    if (this.state.jobsData.job_tags.length > 3) {
+      alert("There are more than 3 job tags selected.");
+      return;
+    }
+    if (
+      this.state.jobsData.title === "" ||
+      this.state.jobsData.title === undefined ||
+      this.state.jobsData.company === "" ||
+      this.state.jobsData.company === undefined ||
+      this.state.jobsData.country === "" ||
+      this.state.jobsData.country === undefined ||
+      this.state.jobsData.region === "" ||
+      this.state.jobsData.region === undefined ||
+      this.state.jobsData.city === "" ||
+      this.state.jobsData.city === undefined ||
+      this.state.jobsData.description === "" ||
+      this.state.jobsData.description === undefined ||
+      this.state.jobsData.requirements === "" ||
+      this.state.jobsData.requirements === undefined
+    ) {
+      alert(
+        "One of the required fields is not set (title, company, country, region, city, description or requirements)."
+      );
+      return;
+    }
+
+    // get user info and update jobs data
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.posted_by = userProfile.email;
+    jobsDataObj.poster_family_name = userProfile.family_name;
+    jobsDataObj.poster_given_name = userProfile.given_name;
+
+    // post job and close popup
+    httpPost("jobs", localStorage.getItem("idToken"), jobsDataObj);
+    this.setState({
+      openPostJob: false,
+    });
   };
 
   purchaseCredits = (event) => {
@@ -419,15 +494,71 @@ class Landing extends Component {
     });
   };
 
-  handleDescriptionChange = (name) => (event) => {
+  handleTitleChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.title = event.target.value;
     this.setState({
-      description: event.target.value,
+      jobsData: jobsDataObj,
     });
   };
 
-  handleRequirementChange = (name) => (event) => {
+  handleCompanyChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.company = event.target.value;
     this.setState({
-      requirement: event.target.value,
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleCountryChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.country = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleRegionChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.region = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleCityChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.city = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleSalaryChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.salary = event.target.value;
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleDescriptionChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.description = event.target.value
+      .toString()
+      .slice(0, this.state.max_characters);
+    this.setState({
+      jobsData: jobsDataObj,
+    });
+  };
+
+  handleRequirementChange = () => (event) => {
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.requirements = event.target.value
+      .toString()
+      .slice(0, this.state.max_characters);
+    this.setState({
+      jobsData: jobsDataObj,
     });
   };
 
@@ -441,6 +572,11 @@ class Landing extends Component {
       }
     }
 
+    let profilePicture = blankProfile;
+    if (userProfile["custom:linkedin"]) {
+      profilePicture = userProfile["custom:linkedin"]
+    }
+
     return {
       name: userProfile.given_name + " " + userProfile.family_name,
       occupation: userProfile["custom:position"],
@@ -449,6 +585,7 @@ class Landing extends Component {
       numCoffeeChats: this.state.numChats,
       numJobApplications: this.state.numJobs,
       numCredits: userProfile["custom:credits"],
+      profilePicture: profilePicture,
     };
   };
 
@@ -458,7 +595,7 @@ class Landing extends Component {
     return (
       <div className={classes.root1}>
         <div style={{ margin: "auto" }}>
-          <img className={classes.image} src={pic0} alt={"User Profile"} />
+          <img className={classes.image} src={userProfile.profilePicture} alt={"User Profile"} />
           <span>
             <p className={classes.name}>{userProfile.name}</p>
             <p className={classes.occupation}>{userProfile.occupation}</p>
@@ -551,7 +688,8 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={6}
+                  xs={12}
+                  sm={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -576,6 +714,7 @@ class Landing extends Component {
                             input: classes.input,
                           },
                         }}
+                        onChange={this.handleTitleChange()}
                       />
                     </div>
                   </Grid>
@@ -584,38 +723,94 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={6}
+                  xs={12}
+                  sm={6}
                   spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
                   <Grid
                     container
                     item
                     xs={12}
                     spacing={1}
-                    alignItems="flex-end"
-                    justify="flex-end"
+                    alignItems="flex-start"
+                    justify="flex-start"
                   >
-                    <div className={classes.radioMarginFirst}>
-                      <TextField
-                        label="Location"
-                        fullWidth
-                        className={classes.textbox}
-                        InputProps={{
-                          classes: {
-                            input: classes.input,
-                          },
-                        }}
-                      />
-                    </div>
+                    <Grid
+                      container
+                      item
+                      xs={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <div className={classes.radioMarginFirst}>
+                        <TextField
+                          label="Country"
+                          fullWidth
+                          className={classes.textbox}
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            },
+                          }}
+                          onChange={this.handleCountryChange()}
+                        />
+                      </div>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xs={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <div className={classes.radioMarginFirst}>
+                        <TextField
+                          label="Region"
+                          fullWidth
+                          className={classes.textbox}
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            },
+                          }}
+                          onChange={this.handleRegionChange()}
+                        />
+                      </div>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xs={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <div className={classes.radioMarginFirst}>
+                        <TextField
+                          label="City"
+                          fullWidth
+                          className={classes.textbox}
+                          InputProps={{
+                            classes: {
+                              input: classes.input,
+                            },
+                          }}
+                          onChange={this.handleCityChange()}
+                        />
+                      </div>
+                    </Grid>
                   </Grid>
                 </Grid>
 
                 <Grid
                   container
                   item
-                  xs={6}
+                  xs={12}
+                  sm={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -638,52 +833,7 @@ class Landing extends Component {
                             input: classes.input,
                           },
                         }}
-                      />
-                    </div>
-                  </Grid>
-                </Grid>
-
-                <Grid
-                  container
-                  item
-                  xs={3}
-                  spacing={1}
-                  alignItems="flex-end"
-                  justify="flex-end"
-                >
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={1}
-                    alignItems="center"
-                    justify="center"
-                  >
-                    <div className={classes.radioButton}>
-                      <FormControlLabel
-                        checked={this.state.value === "Full-Time"}
-                        value="Full-Time"
-                        control={<Radio color="primary" />}
-                        label="Full-Time"
-                        onChange={this.handleJobTypeChange}
-                      />
-                    </div>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={0}
-                    alignItems="center"
-                    justify="center"
-                  >
-                    <div className={classes.radioButton}>
-                      <FormControlLabel
-                        checked={this.state.value === "Contract"}
-                        value="Contract"
-                        control={<Radio color="primary" />}
-                        label="Contract"
-                        onChange={this.handleJobTypeChange}
+                        onChange={this.handleCompanyChange()}
                       />
                     </div>
                   </Grid>
@@ -691,7 +841,8 @@ class Landing extends Component {
                 <Grid
                   container
                   item
-                  xs={3}
+                  xs={12}
+                  sm={6}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -704,16 +855,78 @@ class Landing extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <div className={classes.radioButton}>
-                      <FormControlLabel
-                        checked={this.state.value === "Part-Time"}
-                        value="Part-Time"
-                        control={<Radio color="primary" />}
-                        label="Part-Time"
-                        onChange={this.handleJobTypeChange}
+                    <div className={classes.radioMarginSecond}>
+                      <TextField
+                        label="Salary (optional)"
+                        fullWidth
+                        className={classes.textbox}
+                        InputProps={{
+                          classes: {
+                            input: classes.input,
+                          },
+                        }}
+                        onChange={this.handleSalaryChange()}
                       />
                     </div>
                   </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  sm={6}
+                  spacing={1}
+                  alignItems="flex-end"
+                  justify="flex-end"
+                >
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={1}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <div className={classes.radioButton}>
+                      <FormControlLabel
+                        checked={this.state.jobsData.job_type === "REGULAR_JOB"}
+                        value="REGULAR_JOB"
+                        control={<Radio color="primary" />}
+                        label="Regular Job"
+                        onChange={this.handleJobTypeChange()}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <div className={classes.radioButton}>
+                      <FormControlLabel
+                        checked={
+                          this.state.jobsData.job_type === "BOARD_POSITION"
+                        }
+                        value="BOARD_POSITION"
+                        control={<Radio color="primary" />}
+                        label="Board Position"
+                        onChange={this.handleJobTypeChange()}
+                      />
+                    </div>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  sm={6}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
                   <Grid
                     container
                     item
@@ -722,18 +935,37 @@ class Landing extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <div className={classes.radioButton}>
-                      <FormControlLabel
-                        checked={this.state.value === "Internship"}
-                        value="Internship"
-                        control={<Radio color="primary" />}
-                        label="Internship"
-                        onChange={this.handleJobTypeChange}
+                    <div className={classes.radioMarginFirst}>
+                      <Autocomplete
+                        multiple
+                        id="tags-filled"
+                        fullWidth
+                        options={IndustryTags.map((option) => option.name)}
+                        defaultValue={[]}
+                        freeSolo
+                        onChange={this.onTagsChange}
+                        renderTags={(value, getTagProps) =>
+                          value.map((option, index) => (
+                            <Chip
+                              variant="outlined"
+                              label={option}
+                              {...getTagProps({ index })}
+                            />
+                          ))
+                        }
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Select Tags (Up to 3)"
+                            error={this.state.showError}
+                            helperText={this.state.errorText}
+                            className={classes.textbox}
+                          />
+                        )}
                       />
                     </div>
                   </Grid>
                 </Grid>
-
                 <Grid
                   container
                   item
@@ -765,9 +997,9 @@ class Landing extends Component {
                         },
                       }}
                       value={this.state.description}
-                      helperText={`${this.state.description.length}/${this.state.max_characters} Characters`}
+                      helperText={`${this.state.jobsData.description.length}/${this.state.max_characters} Characters`}
                       className={classes.textField}
-                      onChange={this.handleDescriptionChange("name")}
+                      onChange={this.handleDescriptionChange()}
                     />
                   </Grid>
                 </Grid>
@@ -803,9 +1035,9 @@ class Landing extends Component {
                         },
                       }}
                       value={this.state.requirement}
-                      helperText={`${this.state.requirement.length}/${this.state.max_characters} Characters`}
+                      helperText={`${this.state.jobsData.requirements.length}/${this.state.max_characters} Characters`}
                       className={classes.textField}
-                      onChange={this.handleRequirementChange("name")}
+                      onChange={this.handleRequirementChange()}
                     />
                   </Grid>
                 </Grid>
@@ -884,7 +1116,221 @@ class Landing extends Component {
                 tabIndex={-1}
                 component={"span"}
               >
-                <p>TODO: Frequently asked questions section</p>
+                <h3 style={{ color: "#B5A165" }}>Professional Career:</h3>
+                <p>
+                  <b>What kind of jobs are posted on MAX Aspire?</b>
+                </p>
+                <p>
+                  Employers are eager to hire talented individuals from the MAX
+                  Network. Jobs are posted from different kind of employers in
+                  many sectors and industries. Apply to job opportunities posted
+                  directly from a MAX Aspire member.
+                </p>
+                <p>
+                  <b>How do I access the application portal?</b>
+                </p>
+                <p>
+                  After you create an account, you can start accessing the
+                  application portal by signing in and navigating through roles.
+                </p>
+                <p>
+                  <b>What makes applying for jobs on MAX portal different?</b>
+                </p>
+                <p>
+                  Jobs on the platform are posted directly from a MAX Aspire
+                  member, giving you the ability to directly reach out to job
+                  posters and increasing your chances of landing the job.
+                </p>
+                <p>
+                  <b>Who posts the roles for the MAX Aspire platform?</b>
+                </p>
+                <p>
+                  All jobs are posted by MAX Aspire members that include HR
+                  professionals, and our carefully selected Senior executives.
+                </p>
+                <p>
+                  <b>
+                    Is there a limit on how many jobs I can post on the
+                    platform?
+                  </b>
+                </p>
+                <p>There is no limit to how many jobs you can post.</p>
+                <p>
+                  <b>Can I apply to multiple roles with the same employer?</b>
+                </p>
+                <p>
+                  Yes, you can apply to multiple roles with the same employer.
+                </p>
+                <p>
+                  <b>How many credits does it take to apply for roles?</b>
+                </p>
+                <p>
+                  Applying for roles for premium members requires no credit.
+                  However to directly contact the job poster requires 5 credits.
+                </p>
+                <br />
+                <h3 style={{ color: "#B5A165" }}>Mock Interview:</h3>
+                <p>
+                  <b>What is a Mock Interview?</b>
+                </p>
+                <p>
+                  A mock interview is a practice interview that aims to simulate
+                  as closely as possible that actual interview environment with
+                  the goal of preparing you and giving you the best chances to
+                  land your dream job.
+                </p>
+                <p>
+                  <b>What are the advantages of a Mock Interview?</b>
+                </p>
+                <ul>
+                  <li>
+                    Reduce all the stress and anxiety by being prepared and
+                    ready
+                  </li>
+                  <li>
+                    Provide you with the opportunity for feedback in a
+                    low-stress environment
+                  </li>
+                  <li>Increase your confidence</li>
+                  <li>
+                    Learn from the tough questions and walk in your interview
+                    prepared for all kinds of questions
+                  </li>
+                </ul>
+                <p>
+                  <b>How long should I prepare for a Mock interview?</b>
+                </p>
+                <ul>
+                  <li>
+                    Try your best to simulate the interview environment as much
+                    as you can
+                  </li>
+                  <li>Dress for success</li>
+                  <li>Bring your up to date resume</li>
+                  <li>Research the company you are applying for</li>
+                </ul>
+                <p>
+                  <b>Who will be conducting my Mock Interview?</b>
+                </p>
+                <p>
+                  A member from the carefully selected Senior executives will be
+                  conducting your mock interview.
+                </p>
+                <p>
+                  <b>Where can I sign up for a Mock Interview?</b>
+                </p>
+                <p>
+                  Once you create a premium account and sign in you will have
+                  access to get started for Mock interviews through the Coffee
+                  Chats dashboard. Alternatively, you can create a Free
+                  membership then you can get started through pay per use
+                  service.
+                </p>
+                <p>
+                  <b>Can I sign up for multiple Mock Interviews?</b>
+                </p>
+                <p>Yes, as long as you have enough credits.</p>
+                <p>
+                  <b>
+                    What are some of the tips for a successful Mock Interview?
+                  </b>
+                </p>
+                <p>
+                  Practice practice practice! Try to simulate the interview
+                  setting and treat the interview like the actual interview by
+                  doing all the preparation work and research before you start.
+                </p>
+                <p>
+                  <b>How many credits does it take to book a Mock Interview?</b>
+                </p>
+                <p>5 credits are required.</p>
+                <br />
+                <h3 style={{ color: "#B5A165" }}>1 on 1:</h3>
+                <p>
+                  <b>Who are the Senior Executives?</b>
+                </p>
+                <p>
+                  Our Senior Executives are high performing, accomplished Senior
+                  Executive in their respective fields with 15+ years of
+                  experience to help guide, mentor, and assist in shaping your
+                  career.
+                </p>
+                <p>
+                  <b>What are the advantages of a 1 on 1 session?</b>
+                </p>
+                <ul>
+                  <li>
+                    Connect and network with some of the highest achieving
+                    Senior executives and get mentored by them
+                  </li>
+                  <li>Improve your communication and personal skills</li>
+                  <li>Know the skills needed to land your dream job</li>
+                </ul>
+                <p>
+                  <b>How should I prepare for a 1 on 1 session?</b>
+                </p>
+                <p>
+                  Be prepared by doing research on the Senior executives in your
+                  session and preparing a list of questions or set of Goals you
+                  are looking to achieve from the session.
+                </p>
+                <p>
+                  <b>How many credits does it take to book a 1 on 1?</b>
+                </p>
+                <p>5 credits are required.</p>
+                <p>
+                  <b>What is the process for scheduling a 1 on 1?</b>
+                </p>
+                <p>
+                  Once you create a premium account and sign in, you will have
+                  access to get started with 1 on 1 chats. Alternatively, you
+                  can create a Free account and then use the pay per use model
+                  to book coffee chats.
+                </p>
+                <br />
+                <h3 style={{ color: "#B5A165" }}>4 on 1:</h3>
+                <p>
+                  <b>How should I prepare for a 4 on 1 session?</b>
+                </p>
+                <p>
+                  Set clear goals of what you are looking to achieve in this
+                  session.
+                </p>
+                <p>
+                  <b>How many credits does it take to book a 4 on 1?</b>
+                </p>
+                <p>3 credits are required.</p>
+                <p>
+                  <b>What is the process for scheduling a 4 on 1?</b>
+                </p>
+                <p>
+                  Once you create a premium account and sign in, you will have
+                  access to get started with 4 on 1 chats. Alternatively, you
+                  can create a Free account and then use the pay per use model
+                  to book coffee chats.
+                </p>
+                <br />
+                <h3 style={{ color: "#B5A165" }}>Board of Directors:</h3>
+                <p>
+                  <b>Who can apply for a board role?</b>
+                </p>
+                <p>
+                  Please refer to the job postings. if you meet all the
+                  requirements and eligibility criteria then click on the “Apply
+                  Now” tab and follow the steps.
+                </p>
+                <p>
+                  <b>
+                    I submitted my application online but I did not receive a
+                    confirmation email.
+                  </b>
+                </p>
+                <p>
+                  Please allow between 24-48hrs before reaching out to the
+                  support team. Confirmation email is automatically generated.
+                  Check your spam folder before reaching out to the support
+                  team.
+                </p>
               </DialogContentText>
             </DialogContent>
             <DialogActions>

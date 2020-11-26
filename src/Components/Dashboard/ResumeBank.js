@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Filter from "./Cards/FilterCard";
-import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
+// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import ResumeBankCard from "./Cards/ResumeBankCard";
 import TestData from "./CoffeeChatsTestData";
+// TODO: Hiding filters until they get implemented
+// import Filter from "./Cards/FilterCard";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
     paddingLeft: "8%",
     paddingRight: "8%",
-    paddingTop: "8%",
     paddingBottom: "8%",
     justifyContent: "center",
     alignItems: "center",
@@ -18,8 +18,8 @@ const useStyles = makeStyles(() => ({
   },
 
   JobBoard: {
-    fontFamily: "myriad-pro, sans-serif",
-    fontSize: "25px",
+    fontFamily: "PT Sans",
+    fontSize: "30px",
     textAlign: "left",
     color: "#58595B",
     fontWeight: "bold",
@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 
   section_title: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: "PT Sans",
     fontSize: "15px",
     margin: "5px",
     marginBottom: "10px",
@@ -56,7 +56,7 @@ const useStyles = makeStyles(() => ({
   },
 
   date: {
-    fontFamily: "myriad-pro, sans-serif",
+    fontFamily: "PT Sans",
     fontSize: "15px",
     fontWeight: "bold",
   },
@@ -81,186 +81,158 @@ class JobBoard extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        <PerfectScrollbar>
-          <div className={classes.mainPage}>
+        {/* <PerfectScrollbar> */}
+        <div className={classes.mainPage}>
+          <h1 className={classes.JobBoard}>Resume Bank</h1>
+
+
+          {/* TODO: Hiding filters until they get implemented
+          <Grid
+            container
+            item
+            xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
             <Grid
               container
               item
               xs={12}
+              sm={6}
+              md={6}
+              lg={3}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
               <Grid
                 container
                 item
                 xs={12}
-                sm={6}
-                md={6}
-                lg={3}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Title</p>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
+                <p className={classes.section_title}>Job Title</p>
               </Grid>
               <Grid
                 container
                 item
                 xs={12}
-                sm={6}
-                md={6}
-                lg={3}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Location</p>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
-              </Grid>
-
-              <Grid
-                container
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Type</p>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                lg={3}
-                spacing={1}
-                alignItems="center"
-                justify="center"
-              >
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Additional Filters</p>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <Filter />
-                </Grid>
+                <Filter />
               </Grid>
             </Grid>
-
-            <div className={classes.sort}>
-              <p className={classes.date}>
-                {" "}
-                Sort date posted by:
-                <select className={classes.select}>
-                  <option value="Ascending">Ascending</option>
-                  <option value="descending">Descending</option>
-                </select>
-              </p>
-            </div>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              lg={3}
+              spacing={1}
+              alignItems="center"
+              justify="center"
+            >
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <p className={classes.section_title}>Location</p>
+              </Grid>
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Filter />
+              </Grid>
+            </Grid>
 
             <Grid
               container
               item
               xs={12}
+              sm={6}
+              md={6}
               spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
+              alignItems="center"
+              justify="center"
             >
-              {this.state.job_board_data.map((chat, key) => (
-                <Grid
-                  key={key}
-                  container
-                  item
-                  xs={12}
-                  sm={6}
-                  md={6}
-                  lg={4}
-                  xl={3}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <ResumeBankCard data={chat} />
-                </Grid>
-              ))}
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <p className={classes.section_title}>Additional Filters</p>
+              </Grid>
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Filter />
+              </Grid>
             </Grid>
+          </Grid>
+
+          <div className={classes.sort}>
+            <p className={classes.date}>
+              {" "}
+              Sort date posted by:
+              <select className={classes.select}>
+                <option value="Ascending">Ascending</option>
+                <option value="descending">Descending</option>
+              </select>
+            </p>
           </div>
-        </PerfectScrollbar>
+          */}
+
+          <Grid
+            container
+            item
+            xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            {this.state.job_board_data.map((chat, key) => (
+              <Grid
+                key={key}
+                container
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <ResumeBankCard data={chat} />
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+        {/* </PerfectScrollbar> */}
       </div>
     );
   }

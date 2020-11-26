@@ -1,17 +1,23 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Container from "@material-ui/core/Container";
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
-import {DropzoneDialog} from 'material-ui-dropzone';
+import { DropzoneDialog } from 'material-ui-dropzone';
 import SecondPage from "./SecondPage";
 import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from 'react-s3';
 import FinalPage from "./FinalPage";
+import Slide from '@material-ui/core/Slide';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,11 +38,11 @@ const useStyles = makeStyles((theme) => ({
     },
     uploadText: {
         margin: theme.spacing(2, 0, 1),
-        '@media (max-width: 480px)': {width: '180px'},
+        '@media (max-width: 480px)': { width: '180px' },
         width: '200px',
     },
-    uploadImage:{
-        marginLeft: theme.spacing(1,0,1),
+    uploadImage: {
+        marginLeft: theme.spacing(1, 0, 1),
         backgroundColor: "#6EA0B5",
         height: 50,
         color: "white",
@@ -47,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit_back: {
         margin: theme.spacing(3, 0, 2),
-        marginTop:"5%",
+        marginTop: "5%",
         marginRight: '5%',
         height: 50,
         width: '30%',
@@ -61,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
-    profilePic:{
+    profilePic: {
         margin: theme.spacing(3, 0, 2),
         width: '120px',
         height: 'auto',
@@ -69,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        marginTop:"5%",
+        marginTop: "5%",
         height: 50,
         width: '30%',
         borderStyle: 'solid',
@@ -84,22 +90,26 @@ const useStyles = makeStyles((theme) => ({
     },
     textAlignment: {
         marginLeft: '10%',
-        margin: theme.spacing(1,0,1),
+        margin: theme.spacing(1, 0, 1),
         textAlign: 'left'
     }
 }));
 
-function withMyHook(Component){
-    return function WrappedComponent(props){
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
         const classes = useStyles();
-        return <Component {...props} classes={classes}/>
+        return <Component {...props} classes={classes} />
     }
 }
 
-class ThirdPage extends Component{
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+class ThirdPage extends Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             firstName: this.props.prev ? this.props.prev.firstName : '',
             lastName: this.props.prev ? this.props.prev.lastName : '',
             phone: this.props.prev ? this.props.prev.phone : '',
@@ -125,12 +135,13 @@ class ThirdPage extends Component{
             fileDialogOpen: false,
             imageFiles: [],
             resumeFiles: [],
-            profilePicPreviewText: 'Upload your Photo',
+            profilePicPreviewText: 'Upload your Profile Photo *',
             profilePicButtonText: 'Upload',
-            resumeUploadText: 'Upload your Resume',
+            resumeUploadText: 'Upload your Resume *',
             resumeButtonText: 'Upload',
             progress: 75,
-            filePreview: []
+            filePreview: [],
+            dialogueOpen: false,
         };
     }
 
@@ -140,11 +151,17 @@ class ThirdPage extends Component{
         });
     }
 
-    uploadToS3(file, resume=true){
+    handleDialog = (event) => {
+        this.setState({
+            dialogueOpen: !this.state.dialogueOpen
+        })
+    };
+
+    uploadToS3(file, folder, resume = true) {
         let config = {
-            bucketName: 'aspire-frontend-files-test',
-            dirName: this.state.firstName+'-'+this.state.lastName, /* will change based on users */
-            region: 'ca-central-1',
+            bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
+            dirName: this.state.email + '/' + folder, /* will change based on users */
+            region: 'us-east-1',
             accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
             secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
         };
@@ -152,11 +169,11 @@ class ThirdPage extends Component{
         S3FileUpload
             .uploadFile(file, config)
             .then(data => {
-                if (!resume){
+                if (!resume) {
                     page.setState({
                         profilePicURL: data.location
                     })
-                }else{
+                } else {
                     page.setState({
                         resumeURL: data.location
                     })
@@ -165,14 +182,14 @@ class ThirdPage extends Component{
             .catch(err => console.error(err))
     };
 
-    handleResumeSave(resume){
+    handleResumeSave(resume) {
         this.setState({
             resumeUploadText: resume[0]['name'],
             resumeButtonText: 'Upload Again',
             fileDialogOpen: false,
             resumeFiles: resume
         });
-        this.uploadToS3(resume[0], true);
+        this.uploadToS3(resume[0], 'resumes', true);
     }
 
     handleSave(files) {
@@ -189,7 +206,7 @@ class ThirdPage extends Component{
                 imageFiles: [document],
                 open: false
             });
-            page.uploadToS3(files[0], false);
+            page.uploadToS3(files[0], 'pictures', false);
         };
         reader.onerror = function (error) {
             console.log('Error: ', error);
@@ -204,38 +221,44 @@ class ThirdPage extends Component{
 
     changeToPage2 = (event) => {
         this.props.appContext.setState({
-            registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state}/>
+            registrationScreen: <SecondPage appContext={this.props.appContext} prev={this.state} />
         })
     };
-    changeToFinalPage = (event) =>  {
-        this.props.appContext.setState({
-            registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state}/>
-        });
+    changeToFinalPage = (event) => {
+        if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
+            this.setState({
+                dialogueOpen: true
+            });
+        } else {
+            this.props.appContext.setState({
+                registrationScreen: <FinalPage appContext={this.props.appContext} prev={this.state} />
+            });
+        }
     };
 
     render() {
         const classes = this.props.classes;
-        return(
+        return (
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <div className={classes.paper}>
-                    <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
+                    <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
                     <Typography component="h1" variant="h5">
                         Registration
                     </Typography>
                     <div className={classes.form}>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                { this.state.imageFiles.map((file,i) => {
-                                    return <img key={i} src={file} alt={"profile-pic"} className={classes.profilePic}/>
-                                }) }
+                                {this.state.imageFiles.map((file, i) => {
+                                    return <img key={i} src={file} alt={"profile-pic"} className={classes.profilePic} />
+                                })}
                             </Grid>
                             <Grid item xs={12} className={classes.textAlignment}>
-                                <div style={{display: 'inline-flex'}}>
+                                <div style={{ display: 'inline-flex' }}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.profilePicPreviewText}</b>
                                         <Tooltip title={"For various reasons"}>
-                                            <Typography variant="caption" style={{color: 'grey', cursor: 'pointer'}} display="block" gutterBottom>
+                                            <Typography variant="caption" style={{ color: 'grey', cursor: 'pointer' }} display="block" gutterBottom>
                                                 Why am I being asked about this?
                                             </Typography>
                                         </Tooltip>
@@ -259,16 +282,16 @@ class ThirdPage extends Component{
                             </Grid>
 
                             <Grid item xs={12} className={classes.textAlignment}>
-                                <div style={{display: 'inline-flex'}}>
+                                <div style={{ display: 'inline-flex' }}>
                                     <Typography className={classes.uploadText} component="h6" variant="subtitle2">
                                         <b>{this.state.resumeUploadText}</b>
                                         <Tooltip title={"For various reasons"}>
-                                            <Typography variant="caption" style={{color: 'grey', cursor: 'pointer'}} display="block" gutterBottom>
+                                            <Typography variant="caption" style={{ color: 'grey', cursor: 'pointer' }} display="block" gutterBottom>
                                                 Why am I being asked about this?
                                             </Typography>
                                         </Tooltip>
                                     </Typography>
-                                    <Button className={classes.uploadImage} onClick={event => this.setState({fileDialogOpen: true})}>
+                                    <Button className={classes.uploadImage} onClick={event => this.setState({ fileDialogOpen: true })}>
                                         <b>
                                             {this.state.resumeButtonText}
                                         </b>
@@ -277,14 +300,15 @@ class ThirdPage extends Component{
                                 <DropzoneDialog
                                     open={this.state.fileDialogOpen}
                                     onSave={this.handleResumeSave.bind(this)}
+                                    acceptedFiles={['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessing']}
                                     maxFileSize={5000000}
-                                    onClose={event=>{this.setState({fileDialogOpen: false})}}
+                                    onClose={event => { this.setState({ fileDialogOpen: false }) }}
                                     filesLimit={1}
                                     fileObjects={this.state.resumeFiles}
                                 />
                             </Grid>
                         </Grid>
-                        <LinearWithValueLabel progress={this.state.progress}/>
+                        <LinearWithValueLabel progress={this.state.progress} />
                         <Button
                             type="submit"
                             variant="contained"
@@ -305,6 +329,26 @@ class ThirdPage extends Component{
                         </Button>
                     </div>
                 </div>
+                <Dialog
+                    open={this.state.dialogueOpen}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Resume and Profile picture are required!"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            <b>Please provide a Resume and a Profile picture to proceed</b>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleDialog} color="primary">
+                            <b>Close</b>
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Container>
         );
     }

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import aboutMax from "../Images/aboutMax.jpg";
+import aboutMax from "../Images/aboutMax-min.jpg";
 import icon1 from "../Images/icon_1.png";
 import icon2 from "../Images/icon_2.png";
 import icon3 from "../Images/icon_3.png";
@@ -21,6 +21,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "Bold",
     fontSize: "36px",
     textAlign: 'center',
+    '@media (max-width: 480px)': {
+      fontSize: '30px'
+    },
+    '@media (max-width: 320px)': {
+      fontSize: '25px'
+    },
+
   },
   f2:{
     fontFamily: "Montserrat",
@@ -28,6 +35,9 @@ const useStyles = makeStyles(theme => ({
     maxWidth: '800px',
     textAlign: 'left',
     '@media (max-width: 1280px)': {paddingLeft: '10px'},
+    '@media (max-width: 480px)': {
+      fontSize: '15px'
+    },
     paddingLeft: '60px',
     paddingRight: '10px'
   },
@@ -35,6 +45,9 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Nunito Sans",
     fontWeight: "Bold",
     fontSize: "24px",
+    '@media (max-width: 480px)': {
+      fontSize: '15px'
+    },
     marginLeft: "1em",
     maxWidth: '550px',
     textAlign: 'left',
@@ -127,7 +140,7 @@ class AboutContent extends Component{
         <p className={classes.f2}>
           These noteworthy Senior Executives have excelled in their respective fields and have a large network.
         </p>
-        <p className={classes.tab} style={{marginTop: '60px'}}> <img src={icon2} alt="access"/>
+        <p className={classes.tab} style={{marginTop: '50px'}}> <img src={icon2} alt="access"/>
           <span className={classes.f3}><b>Privileged access to Senior Level Professionals, including curated meetings</b></span>
         </p>
         <p className={classes.tab}> <img src={icon1} alt="career"/>

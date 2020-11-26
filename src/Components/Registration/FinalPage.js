@@ -255,9 +255,13 @@ class FinalPage extends Component{
                 "custom:education_level": this.state.education,
                 "custom:user_type": user_type, 
                 "custom:credits": credits.toString(),
+<<<<<<< HEAD
                 "custom:quarterly_meeting": this.state.quarterly_meeting,
                 "custom:meetings_frequency": this.state.meetings_frequency 
 
+=======
+                "custom:linkedin": this.state.profilePicURL
+>>>>>>> 97e28a28dca0245d47bdee5179a9eed5356c6bfd
             }
         })
         .then(() => {
