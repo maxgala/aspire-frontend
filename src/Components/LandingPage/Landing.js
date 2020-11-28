@@ -37,9 +37,10 @@ const useStyles = makeStyles((theme) => ({
   img: {
     float: "left",
     align: "left",
-    "@media (max-width: 480px)": { width: "125px" },
-    "@media (max-width: 320px)": { width: "90px" },
+    "@media (max-width: 480px)": { width: "125px", height: "42px" },
+    "@media (max-width: 320px)": { width: "90px", height: "30px" },
     width: "175px",
+    height: "58.58px", //Size based on what height adjusted to when no height was given
     "&:hover": {
       cursor: "pointer",
       filter: "sepia(60%)",

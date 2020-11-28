@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: "10px",
     borderRadius: "20px",
     textAlign: "left",
-    backgroundColor: "#455E6A",
+    backgroundColor: "#455e6a",
     color: "white",
     boxShadow: "0px 6px 6px #00000029",
   },
@@ -47,8 +47,8 @@ const useStyles = makeStyles(() => ({
     marginBottom: "10px",
     borderRadius: "20px",
     textAlign: "left",
-    // need designs for mock interview card
-    backgroundColor: "#944848",
+    // need designs for mock interview card  "#944848"
+    backgroundColor: "#558B72",
     color: "white",
   },
   cardBooked: {
