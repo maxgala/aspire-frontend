@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
   // this css element is for the div containing the image
   // this is used so that we can align the image to the right
-  navLogo:{
+  navLogo: {
     display: 'flex',
     justifyContent: 'start'
   },
@@ -37,9 +37,10 @@ const useStyles = makeStyles(theme => ({
   img: {
     float: 'left',
     align: 'left',
-    '@media (max-width: 480px)': {width: '125px'},
-    '@media (max-width: 320px)': {width: '90px'},
+    '@media (max-width: 480px)': { width: '125px', height: '42px' },
+    '@media (max-width: 320px)': { width: '90px', height: '30px' },
     width: '175px',
+    height: '58.58px', //Size based on what height adjusted to when no height was given
     '&:hover': {
       cursor: 'pointer',
       filter: 'sepia(60%)'
@@ -118,94 +119,94 @@ const useStyles = makeStyles(theme => ({
 
 // writing a hook just to incorporate the CSS defined outside under classes
 // feel free to use this function in any other function
-function withMyHook(Component){
-    return function WrappedComponent(props){
-        const classes = useStyles();
-        return <Component {...props} classes={classes}/>
-    }
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
+    const classes = useStyles();
+    return <Component {...props} classes={classes} />
+  }
 }
 
-class Landing extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
+class Landing extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
 
-        };
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(e) {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      });
-    }
-
-    changeToSignIn = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <SignIn appContext={this.props.appContext}/>
-        })
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-    changeToSignUp = (event) => {
-        this.props.appContext.setState({
-            currentScreen: <Registration appContext={this.props.appContext}/>
-        })
-    };
+  handleClick(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 
-    render(){
-        const classes = this.props.classes;
-        return (
-            <div className={classes.root}>
-                <CssBaseline />
-                <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar className={classes.toolbar}>
-                        <div className={classes.navLogo} onClick={this.handleClick}>
-                            <img src={MaxLogo} alt="MAX_logo" className={classes.img}/>
-                        </div>
-                        <Button
-                            variant="outlined"
-                            className={classes.sign_in}
-                            onClick={this.changeToSignIn}
-                        >
-                            <b>Sign in</b>
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            className={classes.register}
-                            onClick={this.changeToSignUp}
-                        >
-                            <b>Register</b>
-                        </Button>
-                    </Toolbar>
-                </AppBar>
-                <main className={classes.content}>
-                    <Container className={classes.container}>
-                        <MainImage/>
-                        <Features/>
-                        <SeniorExecGrid appContext={this.props.appContext}/>
-                        <JobSection appContext={this.props.appContext}/>
-                        <Membership appContext={this.props.appContext}
-                                    landing={true}
-                                    freeButtonText={"Select"}
-                                    premiumButtonText={"Select"}
-                                    platinumButtonText={"Select"}
-                                    freeFunction={this.changeToSignUp}
-                                    premiumFunction={this.changeToSignUp}
-                                    platinumFunction={this.changeToSignUp}
-                        />
-                        <Carousal/>
-                        <AboutMax/>
-                        {/* Scroll to top and footer components at bottom */}
-                        <Footer/>
-                        <ScrollToTop/>
-                    </Container>
-                </main>
+  changeToSignIn = (event) => {
+    this.props.appContext.setState({
+      currentScreen: <SignIn appContext={this.props.appContext} />
+    })
+  };
+
+  changeToSignUp = (event) => {
+    this.props.appContext.setState({
+      currentScreen: <Registration appContext={this.props.appContext} />
+    })
+  };
+
+  render() {
+    const classes = this.props.classes;
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar className={classes.toolbar}>
+            <div className={classes.navLogo} onClick={this.handleClick}>
+              <img src={MaxLogo} alt="MAX_logo" className={classes.img} />
             </div>
-        );
-    }
+            <Button
+              variant="outlined"
+              className={classes.sign_in}
+              onClick={this.changeToSignIn}
+            >
+              <b>Sign in</b>
+            </Button>
+            <Button
+              variant="outlined"
+              className={classes.register}
+              onClick={this.changeToSignUp}
+            >
+              <b>Register</b>
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <main className={classes.content}>
+          <Container className={classes.container}>
+            <MainImage />
+            <Features />
+            <SeniorExecGrid appContext={this.props.appContext} />
+            <JobSection appContext={this.props.appContext} />
+            <Membership appContext={this.props.appContext}
+              landing={true}
+              freeButtonText={"Select"}
+              premiumButtonText={"Select"}
+              platinumButtonText={"Select"}
+              freeFunction={this.changeToSignUp}
+              premiumFunction={this.changeToSignUp}
+              platinumFunction={this.changeToSignUp}
+            />
+            <Carousal />
+            <AboutMax />
+            {/* Scroll to top and footer components at bottom */}
+            <Footer />
+            <ScrollToTop />
+          </Container>
+        </main>
+      </div>
+    );
+  }
 }
 
 Landing = withMyHook(Landing);

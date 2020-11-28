@@ -20,6 +20,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
+import Moment from "react-moment";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -101,27 +102,58 @@ class JobPosts extends Component {
       jobs: [],
       columns: [
         { title: 'Title', field: 'title' },
+        { title: "Status", field: 'job_status'},
         { title: 'Company', field: 'company' },
         { title: 'Region', field: 'region'},
-        { title: 'City', field: "city"}  
+        { title: 'City', field: "city"},
+        { title: "Created", field: "created_on", defaultSort: "desc", render: rowData => {
+          // Format unix Timestamp to date time
+          return <Moment unix>{rowData.created_on}</Moment>
+        }},
+        { title: "Applications", field: "applicantCount"}
       ]
     }
   }
 
   fetchJobs = async () => {
-    const existingJobsData = await httpGet("jobs?status=ACTIVE,UNDER_REVIEW", localStorage.getItem("idToken"));
+    const existingJobsData = await httpGet("jobs", localStorage.getItem("idToken"));
+    
+    // Go through every job and derive the # of applicants to fill in table
+    Object.keys(existingJobsData.data.jobs).forEach(function(jobID){
+      let currentJob = existingJobsData.data.jobs[jobID];
+
+      currentJob.applicantCount = currentJob.job_applications.length; 
+    })
+
     this.setState({
       jobs: existingJobsData.data.jobs
     })
   }
 
+  /**
+   * This function will set the status of a job to rejected
+   * @param {int} jobID the ID of the job to have it's status set to rejected
+   */
   removeJob = async (jobID) => {
 
     let removedJob = {
       "job_status" : "REJECTED",
     };
     await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), removedJob);
-    
+    this.fetchJobs();
+  }
+
+  /**
+   * This function will set the status of a job to active
+   * @param {int} jobID the ID of the job to have it's status set to active
+   */
+  approveJob = async (jobID) => {
+
+    let approvedJob = {
+      "job_status" : "ACTIVE",
+    };
+    await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), approvedJob);
+    this.fetchJobs();
   }
 
   componentDidMount() {
@@ -130,9 +162,42 @@ class JobPosts extends Component {
 
   render() {
 
+    // Use Moment library to format timestamp returned from API.
+    Moment.globalFormat = "MMM DD, YYYY";
+
+    // These are the actions on the left of every column in the table.
+    const actions = [
+      {
+        icon: () => <Check/>,
+        tooltip: "Approve Job Posting",
+        onClick: (event,rowData) => {
+          new Promise((resolve, reject) => {
+  
+            // Send PUT request to set JOB status to Active.
+            this.approveJob(rowData.job_id);
+  
+            resolve();
+          })        
+        }
+      },
+      {
+        icon: () => <DeleteOutline/>,
+        tooltip: "Remove Job Posting",
+        onClick: (event, rowData) => {
+          new Promise((resolve, reject) => {
+
+            // Send PUT request to set JOB status to Rejected.
+            this.removeJob(rowData.job_id);
+    
+            resolve();
+          })        
+        }
+      }
+    ]
   return (
     <MaterialTable
       title="Global Job Postings"
+      actions={actions}
       columns={this.state.columns}
       icons={tableIcons}
       data={this.state.jobs}
@@ -143,25 +208,6 @@ class JobPosts extends Component {
         pageSizeOptions:[5,10,15,30,50],
         exportButton: true,
         exportTrue: true
-      }}
-      editable={{
-        onRowDelete: oldData => 
-          new Promise((resolve, reject) => {
-
-
-            // Make a copy of the jobs in state prior to removing the deleted job
-            const dataDelete = [...this.state.jobs];
-            const index = oldData.tableData.id;
-
-            dataDelete.splice(index, 1);
-            this.setState({
-              jobs: [...dataDelete]
-            });
-            // Set the job status to REJECTED in the DB.
-            this.removeJob(oldData.job_id);
-    
-            resolve();
-          })
       }}
     />
   );

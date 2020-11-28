@@ -76,13 +76,13 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%, 0%)",
     // backgroundColor: "rgba(0,0,0,0.8)",
     width: "110%",
-    height: "85vh",
+    height: "75vh",
     // overflow: "scroll"
   },
   img: {
-    paddingTop: "20vh",
+    paddingTop: "15vh",
     "@media (max-width: 600px)": {
-      paddingTop: "15vh",
+      paddingTop: "10vh",
       width: "300px",
     },
     width: "350px",

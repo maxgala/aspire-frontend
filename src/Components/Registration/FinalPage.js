@@ -247,22 +247,6 @@ class FinalPage extends Component {
     phone_val = phone_val.replace("(", "");
     phone_val = phone_val.replace(")", "");
 
-    // console.log(
-    //   this.state.email,
-    //   this.state.password,
-    //   this.state.firstName,
-    //   this.state.lastName,
-    //   phone_val,
-    //   address,
-    //   this.state.industry,
-    //   this.state.industry_tags.toString(),
-    //   this.state.title,
-    //   this.state.company,
-    //   this.state.education,
-    //   user_type,
-    //   credits.toString()
-    // );
-
     Auth.signUp({
       username: this.state.email,
       password: this.state.password,
@@ -279,6 +263,7 @@ class FinalPage extends Component {
         "custom:education_level": this.state.education,
         "custom:user_type": user_type,
         "custom:credits": credits.toString(),
+        "custom:linkedin": this.state.profilePicURL,
       },
     })
       .then(() => {
