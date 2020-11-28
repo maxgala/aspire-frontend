@@ -19,9 +19,13 @@ import IconButton from "@material-ui/core/IconButton";
 import Drawer from "@material-ui/core/Drawer";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import home from "../Images/navbar/home.svg";
+import homeLabel from "../Images/navbar/home_web.svg";
 import community from "../Images/navbar/community.svg";
+import communityLabel from "../Images/navbar/community_web.svg";
 import jobs from "../Images/navbar/jobs.svg";
+import jobsLabel from "../Images/navbar/jobs_web.svg";
 import chats from "../Images/navbar/chats.svg";
+import chatsLabel from "../Images/navbar/chats_web.svg";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Hidden } from "@material-ui/core";
@@ -123,6 +127,8 @@ const useStyles = makeStyles((theme) => ({
   dashboard: {
     height: "80%",
     marginLeft: "auto",
+    display: 'inline-flex',
+    alignItems: 'center',
     "@media (max-width: 480px)": {
       marginLeft: "0px",
     },
@@ -136,12 +142,20 @@ const useStyles = makeStyles((theme) => ({
   },
 
   navbar_icons: {
-    width: "30px",
-    height: "30px",
+    width: "20px",
+    height: "20px",
+    padding: "0px",
+    "@media (min-width: 480px)": {
+      display: 'none'
+    },
+  },
+
+  navbar_icons_with_Label: {
+    width: "80px",
+    height: "80px",
     padding: "0px",
     "@media (max-width: 480px)": {
-      width: "20px",
-      height: "20px",
+      display: 'none'
     },
   },
 
@@ -349,11 +363,20 @@ class Dashboard extends Component {
               className={classes.dashboard}
               onClick={this.changeToDashboard}
             >
+              {/*Icons without labels appear only when screen width <= 480px */}
               <img
                 className={classes.navbar_icons}
                 src={home}
                 alt={"Home Tab"}
               />
+
+              {/*Icons with labels appear only when screen width > 480px */}
+              <img
+                className={classes.navbar_icons_with_Label}
+                src={homeLabel}
+                alt={"Home Tab"}
+              />
+
             </Button>
             <Button
               variant="outlined"
@@ -365,6 +388,13 @@ class Dashboard extends Component {
                 src={chats}
                 alt={"Coffee Chats Tab"}
               />
+
+              <img
+                className={classes.navbar_icons_with_Label}
+                src={chatsLabel}
+                alt={"Coffee Chats Tab"}
+              />
+
             </Button>
             <Button
               variant="outlined"
@@ -376,6 +406,13 @@ class Dashboard extends Component {
                 src={jobs}
                 alt={"Jobs Tab"}
               />
+
+              <img
+                className={classes.navbar_icons_with_Label}
+                src={jobsLabel}
+                alt={"Jobs Tab"}
+              />
+
             </Button>
             <Menu
               id="simple-menu2"
@@ -404,6 +441,13 @@ class Dashboard extends Component {
                 src={community}
                 alt={"Community Tab"}
               />
+
+              <img
+                className={classes.navbar_icons_with_Label}
+                src={communityLabel}
+                alt={"Community Tab"}
+              />
+
             </Button>
             <Menu
               id="simple-menu1"
@@ -446,7 +490,7 @@ class Dashboard extends Component {
         >
           <div className={classes.drawerHeader}>
             <IconButton onClick={this.handleDrawerClose}>
-                <MenuOpenIcon />
+              <MenuOpenIcon />
             </IconButton>
           </div>
           <UserProfile />
