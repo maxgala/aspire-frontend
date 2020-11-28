@@ -100,6 +100,10 @@ class SeniorExecs extends Component {
     super(props);
     this.state = {
       seniorExecs: [],
+      // show a lot more information 
+      // usecase status LinkedIn URL vets 
+      // cognito date of birth
+      // to do 
       columns: [
         { title: 'Name', field: 'name' },
         { title: "Age", field: 'age'},
