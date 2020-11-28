@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname)));
 
-app.get("/api/*", async (req, res) => {
+app.get("/app/*", async (req, res) => {
   const headers = {
     authorization: req.headers.authorization,
     "content-type": req.headers["content-type"]
@@ -32,7 +32,7 @@ app.get("/api/*", async (req, res) => {
   );
 });
 
-app.post("/api/*", async (req, res) => {
+app.post("/app/*", async (req, res) => {
   const headers = {
     authorization: req.headers.authorization,
     "content-type": req.headers["content-type"]
@@ -48,7 +48,7 @@ app.post("/api/*", async (req, res) => {
   );
 });
 
-app.put("/api/*", async (req, res) => {
+app.put("/app/*", async (req, res) => {
   const headers = {
     authorization: req.headers.authorization,
     "content-type": req.headers["content-type"]
@@ -74,11 +74,9 @@ if (process.env.NODE_ENV && process.env.NODE_ENV !== "development") {
 }
 
 function httpGet(method, path, headers, params) {
-  console.log(path);
-  let localDevPath = path.substring(path.indexOf("/api"), path.length - 1);
+  let localDevPath = path.substring(path.indexOf("/api"), path.length);
   let url =
     "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
-  console.log(url);
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](url, {
       headers: headers,
@@ -94,14 +92,12 @@ function httpGet(method, path, headers, params) {
 }
 
 function httpPost(endPoint, headers, data) {
-  console.log(endPoint);
   let localDevPath = endPoint.substring(
     endPoint.indexOf("/api"),
     endPoint.length - 1
   );
   let url =
     "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
-  console.log(url);
   return new Promise((resolve, reject) => {
     return axios
       .post(url, data, {
@@ -117,14 +113,12 @@ function httpPost(endPoint, headers, data) {
 }
 
 function httpPut(endPoint, headers, data) {
-  console.log(endPoint);
   let localDevPath = endPoint.substring(
     endPoint.indexOf("/api"),
     endPoint.length - 1
   );
   let url =
     "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
-  console.log(url);
   return new Promise((resolve, reject) => {
     return axios
       .put(url, data, {
