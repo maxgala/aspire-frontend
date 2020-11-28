@@ -64,7 +64,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV !== 'development') {
 }
 
 function httpGet(method, path, headers, params) {
-  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com' + path)
+  let url = ('https://30jb0z13zk.execute-api.us-east-1.amazonaws.com' + path)
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](url, {
         headers: headers,
@@ -80,7 +80,7 @@ function httpGet(method, path, headers, params) {
 }
 
 function httpPost(endPoint, headers, data) {
-  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com' + endPoint)
+  let url = ('https://30jb0z13zk.execute-api.us-east-1.amazonaws.com' + endPoint)
   return new Promise((resolve, reject) => {
     return axios
       .post(url, data, {
@@ -96,7 +96,7 @@ function httpPost(endPoint, headers, data) {
 }
 
 function httpPut(endPoint, headers, data) {
-  let url = ('https://nv4pftutrf.execute-api.us-east-1.amazonaws.com' + endPoint)
+  let url = ('https://30jb0z13zk.execute-api.us-east-1.amazonaws.com' + endPoint)
   return new Promise((resolve, reject) => {
     return axios
       .put(url, data, {
