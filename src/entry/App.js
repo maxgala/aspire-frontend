@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Landing from "../Components/LandingPage/Landing";
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppRoutes } from "./routes/AppRoutes";
@@ -19,10 +18,6 @@ Amplify.configure({
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Router>

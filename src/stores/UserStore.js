@@ -1,5 +1,3 @@
-const { faSleigh } = require("@fortawesome/free-solid-svg-icons");
-
 class UserStore {
   isSeniorExec = false;
 }

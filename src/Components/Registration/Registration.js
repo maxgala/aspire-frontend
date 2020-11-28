@@ -8,7 +8,6 @@ import { Route, Switch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import FirstPage from "./FirstPage";
-import Landing from "../LandingPage/Landing";
 import { Routes } from "../../entry/routes/Routes";
 import { withRouter } from "react-router-dom";
 import SecondPage from "./SecondPage";

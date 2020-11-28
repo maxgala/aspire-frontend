@@ -8,8 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import MaxBrand from "../Images/max_brand_logo.png";
-import SignIn from "../Authentication/SignIn";
-import SecondPage from "./SecondPage";
 import LinearWithValueLabel from "./linearprogress";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Dialog from "@material-ui/core/Dialog";
