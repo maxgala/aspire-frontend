@@ -61,8 +61,8 @@ class PasswordField extends Component {
     const { passwordStrength, strength } = this.state;
 
     const passwordLength = passwordStrength.length;
-    const passwordStrong = strength >= this.minStrength;
-    const passwordLong = passwordLength > this.thresholdLength;
+    // const passwordStrong = strength >= this.minStrength;
+    // const passwordLong = passwordLength > this.thresholdLength;
 
     // dynamically set the password length counter class
     // Leaving in case we bring the counter back in the future.

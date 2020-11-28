@@ -107,16 +107,16 @@ class FirstPage extends Component {
       this.setState({ [field]: state.errors.length === 0 });
     } else {
       this.setState({
-        ["passwordStrength"]: state.errors.length === 0,
-        ["password"]: state.value,
+        PasswordStrength: state.errors.length === 0,
+        password: state.value,
       });
     }
     if (field !== "emailStrength") {
       this.setState({ [field]: state.errors.length === 0 });
     } else {
       this.setState({
-        ["emailStrength"]: state.errors.length === 0,
-        ["email"]: state.value,
+        emailStrength: state.errors.length === 0,
+        email: state.value,
       });
     }
   };
