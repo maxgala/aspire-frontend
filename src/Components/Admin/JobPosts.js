@@ -117,7 +117,9 @@ class JobPosts extends Component {
 
   fetchJobs = async () => {
     const existingJobsData = await httpGet("jobs", localStorage.getItem("idToken"));
-    
+
+    // Added sanity check incase API returns broken response
+    if(existingJobsData.data.jobs !== undefined){
     // Go through every job and derive the # of applicants to fill in table
     Object.keys(existingJobsData.data.jobs).forEach(function(jobID){
       let currentJob = existingJobsData.data.jobs[jobID];
@@ -128,6 +130,8 @@ class JobPosts extends Component {
     this.setState({
       jobs: existingJobsData.data.jobs
     })
+
+    }
   }
 
   /**
