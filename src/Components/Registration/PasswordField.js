@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import zxcvbn from "zxcvbn";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 
 import FormField from "./FormField";
 
@@ -67,16 +65,17 @@ class PasswordField extends Component {
     const passwordLong = passwordLength > this.thresholdLength;
 
     // dynamically set the password length counter class
-    const counterClass = [
-      "badge badge-pill",
-      passwordLong
-        ? passwordStrong
-          ? "badge-success"
-          : "badge-warning"
-        : "badge-danger",
-    ]
-      .join(" ")
-      .trim();
+    // Leaving in case we bring the counter back in the future.
+    // const counterClass = [
+    //   "badge badge-pill",
+    //   passwordLong
+    //     ? passwordStrong
+    //       ? "badge-success"
+    //       : "badge-warning"
+    //     : "badge-danger",
+    // ]
+    //   .join(" ")
+    //   .trim();
 
     // password strength meter is only visible when password is not empty
     const strengthClass = [

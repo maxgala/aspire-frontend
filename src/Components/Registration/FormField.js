@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 
 class FormField extends Component {
   // initialize state

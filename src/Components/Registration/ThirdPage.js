@@ -3,7 +3,6 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
@@ -270,16 +269,6 @@ class ThirdPage extends Component {
     reader.onerror = function (error) {
       console.log("Error: ", error);
     };
-  }
-
-  handleResumeSave(resume) {
-    this.setState({
-      resumeUploadText: resume[0]["name"],
-      resumeButtonText: "Upload Again",
-      fileDialogOpen: false,
-      resumeFiles: resume,
-    });
-    this.uploadToS3(resume[0], true);
   }
 
   changeToPage2 = (event) => {
