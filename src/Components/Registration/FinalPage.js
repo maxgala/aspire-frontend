@@ -27,6 +27,8 @@ import SE from '../SeniorExec/SE';
 import MenuItem from "@material-ui/core/MenuItem";
 import Slide from "@material-ui/core/Slide";
 import SeniorExec from '../SeniorExec/SeniorExec';
+import MembershipSE from '../LandingPage/MembershipSE'
+import MembershipNonSE from '../LandingPage/MembershipNonSE'
 
 
 
@@ -194,6 +196,17 @@ class FinalPage extends Component{
             quarterly_meeting: this.props.prev ? this.props.prev.quarterly_meeting : '',
             meetings_frequency: this.props.prev ? this.props.prev.meetings_frequency : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
+            oneOnOne: this.props.prev ? this.props.prev.oneOnOne : true,
+            fourOnOne: this.props.prev ? this.props.prev.oneOnOne : false,
+            mockInterview: this.props.prev ? this.props.prev.oneOnOne : false,
+            date: this.props.prev ? this.props.prev.oneOnOne : '',
+            oneOnOneFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
+            fourOnOneFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
+            mockInterviewFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
+            oneOnOneDates: this.props.prev ? this.props.prev.oneOnOne : [],
+            fourOnOneDates: this.props.prev ? this.props.prev.oneOnOne : [],
+            mockInterviewDates: this.props.prev ? this.props.prev.oneOnOne : [],
+            meetingDates: this.props.prev ? this.props.prev.oneOnOne : {},
             aspire_email_consent: this.props.prev ? this.props.prev.aspire_email_consent : false,
             aspire_free: true,
             aspire_premium: false,
@@ -255,13 +268,10 @@ class FinalPage extends Component{
                 "custom:education_level": this.state.education,
                 "custom:user_type": user_type, 
                 "custom:credits": credits.toString(),
-<<<<<<< HEAD
                 "custom:quarterly_meeting": this.state.quarterly_meeting,
-                "custom:meetings_frequency": this.state.meetings_frequency 
+                "custom:meetings_frequency": this.state.meetings_frequency,
 
-=======
                 "custom:linkedin": this.state.profilePicURL
->>>>>>> 97e28a28dca0245d47bdee5179a9eed5356c6bfd
             }
         })
         .then(() => {
@@ -478,15 +488,23 @@ class FinalPage extends Component{
                                 <SeniorExec />
                                 
                             }
-                            <Membership appContext={this.props.appContext}
-                            landing={false}
-                            freeButtonText={"Try for Free"}
-                            premiumButtonText={"Sign Up for Premium"}
-                            platinumButtonText={"Sign Up for Platinum"}
-                            freeFunction={this.handleAspireFreeClick}
-                            premiumFunction={this.handleAspirePremiumClick}
-                            platinumFunction={this.handleAspirePlatimumClick}
-                            /> 
+                            {this.state.senior_executive &&
+                                <MembershipSE appContext={this.props.appContext}
+                                    landing={false}
+                                    platinumButtonText={"Sign Up for Platinum"}
+                                    platinumFunction={this.handleAspirePlatimumClick}
+                                /> 
+                            }
+                            {!this.state.senior_executive &&
+                                <MembershipNonSE appContext={this.props.appContext}
+                                    landing={false}
+                                    freeButtonText={"Try for Free"}
+                                    premiumButtonText={"Sign Up for Premium"}
+                                    freeFunction={this.handleAspireFreeClick}
+                                    premiumFunction={this.handleAspirePremiumClick}
+                                /> 
+                            }
+                            
                             
                             <Grid item xs={12}>
                                 <FormControlLabel

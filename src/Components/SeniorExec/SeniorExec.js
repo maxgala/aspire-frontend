@@ -177,17 +177,17 @@ class SeniorExec extends Component{
 
         this.state = {
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
-            oneOnOne:true,
-            fourOnOne:false,
-            mockInterview:false,
-            date:new Date(),
-            oneOnOneFrequency:0,
-            fourOnOneFrequency:0,
-            mockInterviewFrequency:0,
-            oneOnOneDates:[],
-            fourOnOneDates:[],
-            mockInterviewDates:[],
-            meetingDates:{},
+            oneOnOne: this.props.prev ? this.props.prev.oneOnOne : true,
+            fourOnOne: this.props.prev ? this.props.prev.oneOnOne : false,
+            mockInterview: this.props.prev ? this.props.prev.oneOnOne : false,
+            date: this.props.prev ? this.props.prev.oneOnOne : '',
+            oneOnOneFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
+            fourOnOneFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
+            mockInterviewFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
+            oneOnOneDates: this.props.prev ? this.props.prev.oneOnOne : [],
+            fourOnOneDates: this.props.prev ? this.props.prev.oneOnOne : [],
+            mockInterviewDates: this.props.prev ? this.props.prev.oneOnOne : [],
+            meetingDates: this.props.prev ? this.props.prev.oneOnOne : {},
         }
     }
 
@@ -217,56 +217,157 @@ class SeniorExec extends Component{
 
     handleOneOnOneChange = (event) => {
         this.setState({
-            oneOnOneFrequency: event.target.value,
-            oneOnOneDates:[],
-            date:new Date(),
+            oneOnOneFrequency: event.target.value
+        }, () => {
+            this.setState({
+                meetingDates:{...this.state.meetingDates, 'ONE_ON_ONE_FQY':this.state.oneOnOneFrequency}
+            })
         })
     }
 
     handleFourOnOneChange = (event) => {
         this.setState({
             fourOnOneFrequency: event.target.value
+        }, () => {
+            this.setState({
+                meetingDates:{...this.state.meetingDates, 'FOUR_ON_ONE_FQY':this.state.fourOnOneFrequency}
+            })
         })
     }
 
     handleMockInterviewChange = (event) => {
         this.setState({
             mockInterviewFrequency: event.target.value
+        }, () => {
+            this.setState({
+                meetingDates:{...this.state.meetingDates, 'MOCK_INTERVIEW_FQY':this.state.mockInterviewFrequency}
+            })
         })
     }
 
-    handleOneMeetingDatesChange = (event) => {
+    handleConfirmOneMeetingDatesChange = (event) => {
+        event.persist();
         const value = event.target.value;
         
+        function findDate(array, attr, val){
+            for(let i=0;i<array.length;i++){
+                if(array[i][attr] === val){
+                    return i
+                }
+            }
+        }
+
+        if(this.state.oneOnOneDates.some(date => date.id === event.target.id)){
+            console.log('exists')
+            let dates = [...this.state.oneOnOneDates]
+            let index = findDate(dates, 'id', event.target.id)
+            console.log(index)
+            dates.splice(index,1)
+
             this.setState({
-                oneOnOneDates: [...this.state.oneOnOneDates, {[event.target.id]:value}],
-                meetingDates:this.state.oneOnOneDates
-            }, () => {console.log(this.state.meetingDates)})
+                oneOnOneDates:dates,
+            }, () => {
+                this.setState({
+                    oneOnOneDates: [...this.state.oneOnOneDates, {'id':event.target.id, 'date':value}]
+                    }, () => {
+                        this.setState({
+                            meetingDates: {...this.state.meetingDates, 'ONE_ON_ONE':this.state.oneOnOneDates}
+                        }, () => {console.log(this.state.meetingDates)})
+                    })
+            })
+        }else {
+            this.setState({
+                oneOnOneDates: [...this.state.oneOnOneDates, {'id':event.target.id, 'date':value}]
+                }, () => {
+                    this.setState({
+                        meetingDates: {...this.state.meetingDates, 'ONE_ON_ONE':this.state.oneOnOneDates}
+                    }, () => {console.log(this.state.meetingDates)})
+                })
+        }
     }
 
     handleFourMeetingDatesChange = (event) => {
+        event.persist();
         const value = event.target.value;
         
+        function findDate(array, attr, val){
+            for(let i=0;i<array.length;i++){
+                if(array[i][attr] === val){
+                    return i
+                }
+            }
+        }
+
+        if(this.state.fourOnOneDates.some(date => date.id === event.target.id)){
+            console.log('exists')
+            let dates = [...this.state.fourOnOneDates]
+            let index = findDate(dates, 'id', event.target.id)
+            console.log(index)
+            dates.splice(index,1)
+
             this.setState({
-                fourOnOneDates: [...this.state.fourOnOneDates, {[event.target.id]:value}],
-                meetingDates:this.state.fourOnOneDates
-            }, () => {console.log(this.state.meetingDates)})
+                fourOnOneDates:dates,
+            }, () => {
+                this.setState({
+                    fourOnOneDates: [...this.state.fourOnOneDates, {'id':event.target.id, 'date':value}]
+                    }, () => {
+                        this.setState({
+                            meetingDates: {...this.state.meetingDates, 'FOUR_ON_ONE':this.state.fourOnOneDates}
+                        }, () => {console.log(this.state.meetingDates)})
+                    })
+            })
+        }else {
+            this.setState({
+                fourOnOneDates: [...this.state.fourOnOneDates, {'id':event.target.id, 'date':value}]
+                }, () => {
+                    this.setState({
+                        meetingDates: {...this.state.meetingDates, 'FOUR_ON_ONE':this.state.fourOnOneDates}
+                    }, () => {console.log(this.state.meetingDates)})
+                })
+        }
     }
 
     handleMockMeetingDatesChange = (event) => {
+        event.persist();
         const value = event.target.value;
         
+        function findDate(array, attr, val){
+            for(let i=0;i<array.length;i++){
+                if(array[i][attr] === val){
+                    return i
+                }
+            }
+        }
+
+        if(this.state.mockInterviewDates.some(date => date.id === event.target.id)){
+            console.log('exists')
+            let dates = [...this.state.mockInterviewDates]
+            let index = findDate(dates, 'id', event.target.id)
+            console.log(index)
+            dates.splice(index,1)
+
             this.setState({
-                mockInterviewDates: [...this.state.mockInterviewDates, {[event.target.id]:value}],
-                meetingDates:this.state.mockInterviewDates
-            }, () => {console.log(this.state.meetingDates)})
+                mockInterviewDates:dates,
+            }, () => {
+                this.setState({
+                    mockInterviewDates: [...this.state.mockInterviewDates, {'id':event.target.id, 'date':value}]
+                    }, () => {
+                        this.setState({
+                            meetingDates: {...this.state.meetingDates, 'MOCK_INTERVIEW':this.state.mockInterviewDates}
+                        }, () => {console.log(this.state.meetingDates)})
+                    })
+            })
+        }else {
+            this.setState({
+                mockInterviewDates: [...this.state.mockInterviewDates, {'id':event.target.id, 'date':value}]
+                }, () => {
+                    this.setState({
+                        meetingDates: {...this.state.meetingDates, 'MOCK_INTERVIEW':this.state.mockInterviewDates}
+                    }, () => {console.log(this.state.meetingDates)})
+                })
+        }
     }
 
-    // handleDateChange = (event) => {
-    //     this.setState({
-    //         date:event.target.(new Date())
-    //     })
-    // }
 
     render(){
         const classes = this.props.classes;
@@ -353,25 +454,9 @@ class SeniorExec extends Component{
                                 <input
                                     type="date"
                                     id={`${index}`}
-                                    min={this.state.date}
-                                    onChange={this.handleOneMeetingDatesChange}
+                                    onChange={this.handleConfirmOneMeetingDatesChange}
                                 />
                                 <br />
-                                {/* <Grid item xs={12} id={`${index}`}>
-                                    <TextField
-                                        id={`${index}`}
-                                        label={`Date ${index + 1}`}
-                                        type="date"
-                                        InputLabelProps={{
-                                        shrink: true,
-                                        }}
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        value={this.state.oneOnOneDates}
-                                        onChange={this.handleMeetingDatesChange}
-                                    />
-                            </Grid> */}
                             <br />
                             </div> 
                             ) 
@@ -409,27 +494,12 @@ class SeniorExec extends Component{
                                             onChange={this.handleFourMeetingDatesChange}
                                         />
                                     <br />
-                                        {/* <Grid item xs={12} id={`${index}`}>
-                                            <TextField
-                                                id={`${index}`}
-                                                label={`Date ${index + 1}`}
-                                                type="date"
-                                                InputLabelProps={{
-                                                shrink: true,
-                                                }}
-                                                variant="outlined"
-                                                required
-                                                fullWidth
-                                                value={this.state.oneOnOneDates}
-                                                onChange={this.handleMeetingDatesChange}
-                                            />
-                                    </Grid> */}
                                     <br />
                                     </div> 
                                     ))}
-                                <br />
                             </div>
                         }
+                        <br />
                         {this.state.mockInterview &&
                             <div>
                                 <Grid item xs={12}>
@@ -461,27 +531,11 @@ class SeniorExec extends Component{
                                             onChange={this.handleMockMeetingDatesChange}
                                         />
                                     <br />
-                                        {/* <Grid item xs={12} id={`${index}`}>
-                                            <TextField
-                                                id={`${index}`}
-                                                label={`Date ${index + 1}`}
-                                                type="date"
-                                                InputLabelProps={{
-                                                shrink: true,
-                                                }}
-                                                variant="outlined"
-                                                required
-                                                fullWidth
-                                                value={this.state.oneOnOneDates}
-                                                onChange={this.handleMeetingDatesChange}
-                                            />
-                                    </Grid> */}
                                     <br />
                                     </div> 
                                     ) 
                                 )
                                 }
-                                <br />
                             </div>
                         }
                     </div>
