@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
+import CreateCoffeeChat from "./../Dashboard/Cards/CreateCoffeeChatCard";
 
 
 const useStyles = makeStyles(theme => ({
@@ -19,6 +20,7 @@ class AdminCoffeeChats extends Component{
     return (
       <div>
           <p>Coffee Chats</p>
+          <CreateCoffeeChat/>
       </div>
     );
   }

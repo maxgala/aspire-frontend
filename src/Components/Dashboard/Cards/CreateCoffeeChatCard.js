@@ -15,6 +15,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import AWS from "aws-sdk";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
 
 AWS.config.update(
     {
@@ -281,7 +283,8 @@ class CreateCoffeeChatCard extends Component {
       title: "",
       tags: [],
       seniorExecEmail: "",
-      fixedDate: 0,
+      dateTimeStamp: 0,
+      dateFormatted: "",
       snackBarOpen : false,
       snackBarText: ""
     };
@@ -349,6 +352,13 @@ class CreateCoffeeChatCard extends Component {
       snackBarOpen: true,
     });
   };
+
+  handleCoffeeChatTypeChange = () => (event) => {
+    this.setState({
+      type : event.target.value
+    });
+  };
+
   handleClose = (event) => {
     this.setState({
         open: false,
@@ -362,6 +372,13 @@ class CreateCoffeeChatCard extends Component {
         snackBarText: ""  
     });
   };
+
+  handleDateChange = (event) => {
+    this.setState({
+        dateFormatted: event.target.value
+    })
+};
+
 
   handleSnackBarClose = (event) => {
     this.setState({
@@ -428,104 +445,181 @@ class CreateCoffeeChatCard extends Component {
               id="scroll-dialog-description"
               component={"span"}
             >
-              <Grid
-                container
-                item
-                xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                style={{ marginBottom: "15px", marginTop: "10px" }}
-              >
-                <TextField
-                  id="titleTextField"
-                  variant="outlined"
-                  label="Title"
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                  inputProps={{
-                    name: "title",
-                    id: "titleTextField",
-                  }}
-                />
-              </Grid>
-              <Grid
-                container
-                item
-                xs={3}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                style={{ marginBottom: "15px", marginTop: "10px" }}
-              >
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <InputLabel id="typeLabel">Type</InputLabel>
-                  <Select
-                    labelId="typeLabel"
-                    label="Type"
-                    value={this.state.type}
+          <div className={classes.grid}>
+            <Grid container item xs={12} spacing={1}>
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    style={{ marginBottom: "15px", marginTop: "10px" }}
+                >
+                    <TextField
+                    id="titleTextField"
+                    variant="outlined"
+                    label="Title"
+                    value={this.state.title}
                     onChange={this.handleChange}
-                    id="typeSelect"
                     inputProps={{
-                      name: "type",
-                      id: "typeLabel",
+                        name: "title",
+                        id: "titleTextField",
                     }}
-                  >
-                    <MenuItem aria-label="None" value="" />
-                    <MenuItem value={"coffechat"}>Coffee Chat</MenuItem>
-                    <MenuItem value={"resume"}>Resume  </MenuItem>
-                    <MenuItem value={"payment"}>Payment</MenuItem>
-                    <MenuItem value={"query"}>Query</MenuItem>
-                    <MenuItem value={"other"}>Other</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
+                    />
+                </Grid>
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={6}
+                    spacing={1}
+                    alignItems="flex-end"
+                    justify="flex-end"
+                    >
+                    <Grid
+                        container
+                        item
+                        xs={4}
+                        spacing={0}
+                        alignItems="center"
+                        justify="center"
+                    >
+                        <div className={classes.radioButton}>
+                        <FormControlLabel
+                            checked={this.state.type === "ONE_ON_ONE"}
+                            value="ONE_ON_ONE"
+                            control={<Radio color="primary" />}
+                            label="One on One"
+                            onChange={this.handleCoffeeChatTypeChange()}
+                        />
+                        </div>
+                    </Grid>
+                    <Grid
+                        container
+                        item
+                        xs={4}
+                        spacing={0}
+                        alignItems="center"
+                        justify="center"
+                    >
+                        <div className={classes.radioButton}>
+                        <FormControlLabel
+                            checked={
+                            this.state.type === "ONE_ON_FOUR"
+                            }
+                            value="ONE_ON_FOUR"
+                            control={<Radio color="primary" />}
+                            label="One On Four"
+                            onChange={this.handleCoffeeChatTypeChange()}
+                        />
+                        </div>
+                    </Grid>
+                    <Grid
+                        container
+                        item
+                        xs={4}
+                        spacing={0}
+                        alignItems="center"
+                        justify="center"
+                    >
+                        <div className={classes.radioButton}>
+                        <FormControlLabel
+                            checked={
+                            this.state.type === "MOCK_INTERVIEW"
+                            }
+                            value="MOCK_INTERVIEW"
+                            control={<Radio color="primary" />}
+                            label="Mock Interview"
+                            onChange={this.handleCoffeeChatTypeChange()}
+                        />
+                        </div>
+                    </Grid>
+                </Grid>
 
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={0}
-                alignItems="flex-start"
-                justify="flex-start"
-                style={{ marginBottom: "15px", marginTop: "10px" }}
-              >
-                <TextField
-                  fullWidth={true}
-                  multiline
-                  id="descriptionTextField"
-                  variant="outlined"
-                  label="Description"
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                  inputProps={{
-                    maxLength: 500,
-                    style: { height: 200 },
-                    name: "description",
-                    id: "titleTdescriptionTextFieldextField",
-                  }}
-                />
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={0}
-                alignItems="flex-end"
-                justify="flex-end"
-              >
-                <DialogActions style={{ marginRight: "5%" }}>
-                  <Button
-                    className={classes.button2}
-                    variant="contained"
-                    onClick={this.handleEscalation}
-                  >
-                    Create
-                  </Button>
-                </DialogActions>
-              </Grid>
-            </DialogContentText>
-          </DialogContent>
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={6}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    >
+                    <Grid
+                        container
+                        item
+                        xs={12}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                    >
+                    <TextField
+                        id="date"
+                        label="Date"
+                        type="date"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        variant="outlined"
+                        required
+                        fullWidth
+                        value={this.state.dateFormatted}
+                        onChange={this.handleDateChange}
+                    />
+                    </Grid>
+                    </Grid>
+
+
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    style={{ marginBottom: "15px", marginTop: "10px" }}
+                >
+                    <TextField
+                    fullWidth={true}
+                    multiline
+                    id="descriptionTextField"
+                    variant="outlined"
+                    label="Description"
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                    inputProps={{
+                        maxLength: 500,
+                        style: { height: 200 },
+                        name: "description",
+                        id: "titleTdescriptionTextFieldextField",
+                    }}
+                    />
+                </Grid>
+                <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-end"
+                    justify="flex-end"
+                >
+                    <DialogActions style={{ marginRight: "5%" }}>
+                    <Button
+                        className={classes.button2}
+                        variant="contained"
+                        onClick={this.handleEscalation}
+                    >
+                        Create
+                    </Button>
+                    </DialogActions>
+                </Grid>
+                </Grid>
+            </div>
+
+                </DialogContentText>
+            </DialogContent>
+        
         </Dialog>
         <Snackbar
         anchorOrigin={{ vertical : 'bottom', horizontal : 'right'}}
