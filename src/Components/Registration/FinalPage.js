@@ -258,7 +258,6 @@ class FinalPage extends Component {
         window.alert("Successfully signed up");
       })
       .catch((err) => {
-        console.log(err);
         window.alert(`Error signing up: ${err.message.toString()}`);
       });
   }
