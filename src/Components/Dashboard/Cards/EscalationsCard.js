@@ -11,18 +11,16 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from "@material-ui/core/Snackbar";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import AWS from "aws-sdk";
 
-AWS.config.update(
-    {
-        accessKeyId : process.env.REACT_APP_SES_ACCESS_KEY_ID,
-        secretAccessKey : process.env.REACT_APP_AWS_SES_SECRET_ACCESS_KEY,
-        region : process.env.REACT_APP_SES_REGION
-      }
-);
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_SES_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_SES_SECRET_ACCESS_KEY,
+  region: process.env.REACT_APP_SES_REGION,
+});
 
 const useStyles = makeStyles((theme) => ({
   cardEscalation: {
@@ -132,25 +130,25 @@ const useStyles = makeStyles((theme) => ({
     justify: "flex-end",
   },
   button: {
-    textTransform: 'none',
+    textTransform: "none",
     backgroundColor: "#A9A9A9",
-    marginBottom:"1vh",
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop:'1.5vh',
+    marginBottom: "1vh",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "1.5vh",
     borderRadius: 50,
     color: "#white",
-    position: 'relative',
-    display: 'block',
-    '&:hover': {
+    position: "relative",
+    display: "block",
+    "&:hover": {
       backgroundColor: "#F1F1F1",
-      color: '#484848'
+      color: "#484848",
     },
-    fontSize: '15px',
-    fontWeight: 'bold',
-    fontFamily: 'myriad-pro, sans-serif',
-    paddingLeft: '50px',
-    paddingRight: '50px'
+    fontSize: "15px",
+    fontWeight: "bold",
+    fontFamily: "myriad-pro, sans-serif",
+    paddingLeft: "50px",
+    paddingRight: "50px",
   },
   bar: {
     width: "90%",
@@ -225,18 +223,14 @@ function withMyHook(Component) {
 /**
  * This function will send an email using AWS's Simple Email Service
  * @param {object} data an object holding email information to be sent
- * @return {boolean} true or false depending on if sending the email was successful 
+ * @return {boolean} true or false depending on if sending the email was successful
  */
 async function sendEmail(data) {
   // Create sendEmail params
   var params = {
     Destination: {
-      CcAddresses: [
-        data.ccAddress,
-      ],
-      ToAddresses: [
-        data.toAddress,
-      ],
+      CcAddresses: [data.ccAddress],
+      ToAddresses: [data.toAddress],
     },
     Message: {
       Body: {
@@ -258,17 +252,18 @@ async function sendEmail(data) {
   };
 
   // Create the promise and SES service object
-  var emailSendPromise = new AWS.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+  var emailSendPromise = new AWS.SES({ apiVersion: "2010-12-01" })
+    .sendEmail(params)
+    .promise();
 
   // Handle email send status success / failure for handling in createEscalation
-  emailSendPromise.then(
-    function(data) {
-    }).catch(
-      function(err) {
+  emailSendPromise
+    .then(function (data) {})
+    .catch(function (err) {
       console.error(err, err.stack);
       return false;
     });
-    return true;
+  return true;
 }
 
 class EscalationsCard extends Component {
@@ -279,62 +274,61 @@ class EscalationsCard extends Component {
       type: "",
       description: "",
       title: "",
-      snackBarOpen : false,
-      snackBarText: ""
+      snackBarOpen: false,
+      snackBarText: "",
     };
   }
 
-/**
- * This function will handle the create escalation event.
- * @return void
- */
- handleEscalation = (event) => {
-  // Build the email information object from state.
-  let emailData = {};
-  if(this.state.title !== null) {
-    emailData.subject = "[ESCALATIONS] " + this.state.title; 
-  } else {
-    emailData.subject = "[ESCALATIONS] TITLE N/A"
-  }
-
-  if(this.state.type !== null){
-    emailData.body = "Type:" + this.state.type;
-  }
-
-  if(this.state.description != null){
-    emailData.body += "<br>Description<br>" + this.state.description;
-  }
-
-  // For now we're just going to hard code the address to mine, otherwise it is the support email.
-  emailData.ccAddress = 'ammarhaq13@gmail.com';
-  emailData.toAddress = 'ammarhaq13@gmail.com';
-  emailData.source = 'ammarhaq13@gmail.com';
-
-  // Get and store data from where the escalation is being created.
-  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-  let emailFrom = `${userProfile.given_name} ${userProfile.family_name} ${userProfile.email}`;
-  
-  if(emailFrom !== null){
-    emailData.body += "<br><br>From:" + emailFrom;
-  }
-
-  // Keep track of current context of this for nested function to be able to access state
-  const self = this;
-
-  sendEmail(emailData).then( function(emailSendSuccess) {
-    // If we sent the email successfully, hide the modal.
-    if(emailSendSuccess){
-      self.handleClose();
-      self.setSnackBarMessage("Escalation sent successfully.");
-      self.openSnackBar();
-      } else {
-      self.handleClose();
-      self.setSnackBarMessage("Failed to create Escalation.");
-      self.openSnackBar();
-
+  /**
+   * This function will handle the create escalation event.
+   * @return void
+   */
+  handleEscalation = (event) => {
+    // Build the email information object from state.
+    let emailData = {};
+    if (this.state.title !== null) {
+      emailData.subject = "[ESCALATIONS] " + this.state.title;
+    } else {
+      emailData.subject = "[ESCALATIONS] TITLE N/A";
     }
-  });
-}
+
+    if (this.state.type !== null) {
+      emailData.body = "Type:" + this.state.type;
+    }
+
+    if (this.state.description != null) {
+      emailData.body += "<br>Description<br>" + this.state.description;
+    }
+
+    // For now we're just going to hard code the address to mine, otherwise it is the support email.
+    emailData.ccAddress = "ammarhaq13@gmail.com";
+    emailData.toAddress = "ammarhaq13@gmail.com";
+    emailData.source = "ammarhaq13@gmail.com";
+
+    // Get and store data from where the escalation is being created.
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    let emailFrom = `${userProfile.given_name} ${userProfile.family_name} ${userProfile.email}`;
+
+    if (emailFrom !== null) {
+      emailData.body += "<br><br>From:" + emailFrom;
+    }
+
+    // Keep track of current context of this for nested function to be able to access state
+    const self = this;
+
+    sendEmail(emailData).then(function (emailSendSuccess) {
+      // If we sent the email successfully, hide the modal.
+      if (emailSendSuccess) {
+        self.handleClose();
+        self.setSnackBarMessage("Escalation sent successfully.");
+        self.openSnackBar();
+      } else {
+        self.handleClose();
+        self.setSnackBarMessage("Failed to create Escalation.");
+        self.openSnackBar();
+      }
+    });
+  };
   openEscalation = (event) => {
     this.setState({
       open: true,
@@ -349,24 +343,24 @@ class EscalationsCard extends Component {
   handleClose = (event) => {
     this.setState({
       open: false,
-      // Reset fields 
+      // Reset fields
       description: "",
       title: "",
-      type: ""
+      type: "",
     });
   };
 
   handleSnackBarClose = (event) => {
     this.setState({
-      snackBarOpen: false
-    })
-  }
+      snackBarOpen: false,
+    });
+  };
 
   setSnackBarMessage = (message) => {
     this.setState({
-      snackBarText : message
-    })
-  }
+      snackBarText: message,
+    });
+  };
   handleChange = (event) => {
     const value = event.target.value;
     this.setState({
@@ -466,7 +460,7 @@ class EscalationsCard extends Component {
                   >
                     <MenuItem aria-label="None" value="" />
                     <MenuItem value={"coffechat"}>Coffee Chat</MenuItem>
-                    <MenuItem value={"resume"}>Resume  </MenuItem>
+                    <MenuItem value={"resume"}>Resume </MenuItem>
                     <MenuItem value={"payment"}>Payment</MenuItem>
                     <MenuItem value={"query"}>Query</MenuItem>
                     <MenuItem value={"other"}>Other</MenuItem>
@@ -521,13 +515,12 @@ class EscalationsCard extends Component {
           </DialogContent>
         </Dialog>
         <Snackbar
-        anchorOrigin={{ vertical : 'bottom', horizontal : 'right'}}
-        open={this.state.snackBarOpen}
-        onClose={this.handleSnackBarClose}
-        message={this.state.snackBarText}
-        autoHideDuration={6000}
-      />
-
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          open={this.state.snackBarOpen}
+          onClose={this.handleSnackBarClose}
+          message={this.state.snackBarText}
+          autoHideDuration={6000}
+        />
       </div>
     );
   }

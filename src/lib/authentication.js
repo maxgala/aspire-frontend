@@ -1,20 +1,22 @@
 import { config } from "../config";
-var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+var AmazonCognitoIdentity = require("amazon-cognito-identity-js");
 
 export const authenticate = (username, password) => {
   var authenticationData = {
     Username: username,
     Password: password,
   };
-  var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+  var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
+    authenticationData
+  );
   var poolData = {
     UserPoolId: config.REACT_APP_USER_POOL_ID,
-    ClientId: config.REACT_APP_CLIENT_ID
+    ClientId: config.REACT_APP_CLIENT_ID,
   };
   var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   var userData = {
     Username: username,
-    Pool: userPool
+    Pool: userPool,
   };
   var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
   return new Promise((resolve, reject) => {
@@ -30,5 +32,5 @@ export const authenticate = (username, password) => {
         reject(err);
       },
     });
-  })
-}
+  });
+};

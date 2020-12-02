@@ -574,7 +574,7 @@ class Landing extends Component {
 
     let profilePicture = blankProfile;
     if (userProfile["custom:linkedin"]) {
-      profilePicture = userProfile["custom:linkedin"]
+      profilePicture = userProfile["custom:linkedin"];
     }
 
     return {
@@ -595,7 +595,11 @@ class Landing extends Component {
     return (
       <div className={classes.root1}>
         <div style={{ margin: "auto" }}>
-          <img className={classes.image} src={userProfile.profilePicture} alt={"User Profile"} />
+          <img
+            className={classes.image}
+            src={userProfile.profilePicture}
+            alt={"User Profile"}
+          />
           <span>
             <p className={classes.name}>{userProfile.name}</p>
             <p className={classes.occupation}>{userProfile.occupation}</p>
