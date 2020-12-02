@@ -1,31 +1,15 @@
 import React , {Component} from 'react';
-// import Button from '@material-ui/core/Button';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField';
-// import Link from '@material-ui/core/Link';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-// import MaxBrand from "../Images/max_brand_logo.png";
-// import SignIn from "../Authentication/SignIn";
-// import SecondPage from "./SecondPage";
-// import LinearWithValueLabel from "./linearprogress";
-// import FormHelperText from "@material-ui/core/FormHelperText";
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
-// import MuiPhoneNumber from "material-ui-phone-number";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Tooltip from "@material-ui/core/Tooltip";
 import Checkbox from "@material-ui/core/Checkbox";
 import SeniorExecOptions from "./SE";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from '@material-ui/core/TextField';
-// import DatePicker from 'react-date-picker';
 
 
 
@@ -170,6 +154,14 @@ function withMyHook(Component){
     }
 }
 
+function findDate(array, attr, val){
+    for(let i=0;i<array.length;i++){
+        if(array[i][attr] === val){
+            return i
+        }
+    }
+}
+
 
 class SeniorExec extends Component{
     constructor(props){
@@ -216,11 +208,21 @@ class SeniorExec extends Component{
     };
 
     handleOneOnOneChange = (event) => {
+        event.persist();
         this.setState({
             oneOnOneFrequency: event.target.value
         }, () => {
             this.setState({
                 meetingDates:{...this.state.meetingDates, 'ONE_ON_ONE_FQY':this.state.oneOnOneFrequency}
+            }, () => {
+                if (this.state.oneOnOneFrequency < this.state.oneOnOneDates.length){
+                    let dates = [...this.state.oneOnOneDates]
+                    let diff = this.state.oneOnOneDates.length - this.state.oneOnOneFrequency
+                    dates.splice(this.state.oneOnOneFrequency, diff)
+                    this.setState({
+                        oneOnOneDates:dates
+                    }, () => {console.log(this.state.meetingDates)})
+                }
             })
         })
     }
@@ -231,6 +233,15 @@ class SeniorExec extends Component{
         }, () => {
             this.setState({
                 meetingDates:{...this.state.meetingDates, 'FOUR_ON_ONE_FQY':this.state.fourOnOneFrequency}
+            }, () => {
+                if (this.state.fourOnOneFrequency < this.state.fourOnOneDates.length){
+                    let dates = [...this.state.fourOnOneDates]
+                    let diff = this.state.fourOnOneDates.length - this.state.fourOnOneFrequency
+                    dates.splice(this.state.fourOnOneFrequency, diff)
+                    this.setState({
+                        fourOnOneDates:dates
+                    }, () => {console.log(this.state.meetingDates)})
+                }
             })
         })
     }
@@ -241,6 +252,15 @@ class SeniorExec extends Component{
         }, () => {
             this.setState({
                 meetingDates:{...this.state.meetingDates, 'MOCK_INTERVIEW_FQY':this.state.mockInterviewFrequency}
+            }, () => {
+                if (this.state.mockInterviewFrequency < this.state.mockInterviewDates.length){
+                    let dates = [...this.state.mockInterviewDates]
+                    let diff = this.state.mockInterviewDates.length - this.state.mockInterviewFrequency
+                    dates.splice(this.state.mockInterviewFrequency, diff)
+                    this.setState({
+                        mockInterviewDates:dates
+                    }, () => {console.log(this.state.meetingDates)})
+                }
             })
         })
     }
@@ -249,19 +269,17 @@ class SeniorExec extends Component{
         event.persist();
         const value = event.target.value;
         
-        function findDate(array, attr, val){
-            for(let i=0;i<array.length;i++){
-                if(array[i][attr] === val){
-                    return i
-                }
-            }
-        }
-
+        // function findDate(array, attr, val){
+        //     for(let i=0;i<array.length;i++){
+        //         if(array[i][attr] === val){
+        //             return i
+        //         }
+        //     }
+        // }
+        
         if(this.state.oneOnOneDates.some(date => date.id === event.target.id)){
-            console.log('exists')
             let dates = [...this.state.oneOnOneDates]
             let index = findDate(dates, 'id', event.target.id)
-            console.log(index)
             dates.splice(index,1)
 
             this.setState({
@@ -290,19 +308,17 @@ class SeniorExec extends Component{
         event.persist();
         const value = event.target.value;
         
-        function findDate(array, attr, val){
-            for(let i=0;i<array.length;i++){
-                if(array[i][attr] === val){
-                    return i
-                }
-            }
-        }
+        // function findDate(array, attr, val){
+        //     for(let i=0;i<array.length;i++){
+        //         if(array[i][attr] === val){
+        //             return i
+        //         }
+        //     }
+        // }
 
         if(this.state.fourOnOneDates.some(date => date.id === event.target.id)){
-            console.log('exists')
             let dates = [...this.state.fourOnOneDates]
             let index = findDate(dates, 'id', event.target.id)
-            console.log(index)
             dates.splice(index,1)
 
             this.setState({
@@ -331,19 +347,17 @@ class SeniorExec extends Component{
         event.persist();
         const value = event.target.value;
         
-        function findDate(array, attr, val){
-            for(let i=0;i<array.length;i++){
-                if(array[i][attr] === val){
-                    return i
-                }
-            }
-        }
+        // function findDate(array, attr, val){
+        //     for(let i=0;i<array.length;i++){
+        //         if(array[i][attr] === val){
+        //             return i
+        //         }
+        //     }
+        // }
 
         if(this.state.mockInterviewDates.some(date => date.id === event.target.id)){
-            console.log('exists')
             let dates = [...this.state.mockInterviewDates]
             let index = findDate(dates, 'id', event.target.id)
-            console.log(index)
             dates.splice(index,1)
 
             this.setState({
@@ -373,6 +387,7 @@ class SeniorExec extends Component{
         const classes = this.props.classes;
         return(
             <Container component="main" maxWidth="lg">
+                <CssBaseline />
                 <Grid container spacing={2}>
                     <div className={classes.form}>
                         <Tooltip>
