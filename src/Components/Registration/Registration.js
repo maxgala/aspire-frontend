@@ -72,12 +72,11 @@ class Registration extends Component {
   }
 
   changeToLanding = () => {
-    this.props.history.push(Routes.Landing);
+    this.props.history.push(Routes.Landpage);
   };
 
   render() {
     const classes = this.props.classes;
-    console.log(this.props.location);
     return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
