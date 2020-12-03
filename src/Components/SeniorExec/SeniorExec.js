@@ -122,6 +122,13 @@ const useStyles = makeStyles((theme) => ({
         width: '25%'
     },
 
+    chatTypeText: {
+        fontSize: "18px"
+    },
+    chatFreqQuestion: {
+        marginTop: "10px"
+    },
+
     dateInput: {
         marginTop: '10px',
         paddingTop: '3px',
@@ -381,10 +388,15 @@ class SeniorExec extends Component {
         const classes = this.props.classes;
         return (
             <Container component="main" maxWidth="lg">
-                <Grid container spacing={2}>
+                <Grid
+                    container
+                    spacing={2}
+                    alignItems="center"
+                    justify="center">
+
                     <div className={classes.form}>
                         <Tooltip>
-                            <b>Please Select the types of meeting you will be available for:</b>
+                            <b className={classes.chatTypeText}>Please Select the types of meeting you will be available for:</b>
                         </Tooltip>
                         <Grid item xs={12}>
                             <FormControlLabel
@@ -439,22 +451,30 @@ class SeniorExec extends Component {
                             />
 
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                id="outlined-select-education"
-                                fullWidth
-                                select
-                                label="How often are you available for one on one meetings per year?"
-                                value={this.state.oneOnOneFrequency}
-                                onChange={this.handleOneOnOneChange}
-                                variant="outlined"
-                            >
-                                {SeniorExecOptions.Frequency.map((option) => (
-                                    <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                        <Grid
+                            container
+                            item xs={12}
+                            alignItems="center"
+                            justify="center">
+
+                            <Grid item xs={12} sm={3}>
+                                <TextField
+                                    id="outlined-select-education"
+                                    className={classes.chatFreqQuestion}
+                                    fullWidth
+                                    select
+                                    label="Number of 1-on-1 Chats per year"
+                                    value={this.state.oneOnOneFrequency}
+                                    onChange={this.handleOneOnOneChange}
+                                    variant="outlined"
+                                >
+                                    {SeniorExecOptions.Frequency.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
                         </Grid>
                         <br />
                         <Grid
@@ -495,23 +515,30 @@ class SeniorExec extends Component {
                         <br />
                         {this.state.fourOnOne === true &&
                             <div>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        id="outlined-select-education"
-                                        fullWidth
-                                        select
-                                        label="How often are you available for four on one meetings per year?"
-                                        value={this.state.fourOnOneFrequency}
-                                        onChange={this.handleFourOnOneChange}
-                                        variant="outlined"
-                                    >
-                                        {SeniorExecOptions.Frequency.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
+                                <Grid
+                                    container
+                                    item xs={12}
+                                    alignItems="center"
+                                    justify="center">
+                                    <Grid item xs={12} sm={3}>
+                                        <TextField
+                                            required
+                                            id="outlined-select-education"
+                                            className={classes.chatFreqQuestion}
+                                            fullWidth
+                                            select
+                                            label="Number of 4-on-1 Chats per year"
+                                            value={this.state.fourOnOneFrequency}
+                                            onChange={this.handleFourOnOneChange}
+                                            variant="outlined"
+                                        >
+                                            {SeniorExecOptions.Frequency.map((option) => (
+                                                <MenuItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </MenuItem>
+                                            ))}
+                                        </TextField>
+                                    </Grid>
                                 </Grid>
                                 <br />
                                 <Grid
@@ -554,23 +581,30 @@ class SeniorExec extends Component {
                         <br />
                         {this.state.mockInterview &&
                             <div>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        id="outlined-select-education"
-                                        fullWidth
-                                        select
-                                        label="How often are you available for mock interviews per year?"
-                                        value={this.state.mockInterviewFrequency}
-                                        onChange={this.handleMockInterviewChange}
-                                        variant="outlined"
-                                    >
-                                        {SeniorExecOptions.Frequency.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
+                                <Grid
+                                    container
+                                    item xs={12}
+                                    alignItems="center"
+                                    justify="center">
+                                    <Grid item xs={12} sm={3}>
+                                        <TextField
+                                            required
+                                            id="outlined-select-education"
+                                            className={classes.chatFreqQuestion}
+                                            fullWidth
+                                            select
+                                            label="Number of Mock Interviews per year"
+                                            value={this.state.mockInterviewFrequency}
+                                            onChange={this.handleMockInterviewChange}
+                                            variant="outlined"
+                                        >
+                                            {SeniorExecOptions.Frequency.map((option) => (
+                                                <MenuItem key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </MenuItem>
+                                            ))}
+                                        </TextField>
+                                    </Grid>
                                 </Grid>
                                 <br />
                                 <Grid
