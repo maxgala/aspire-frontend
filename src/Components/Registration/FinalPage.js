@@ -16,7 +16,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
 import Membership from "../LandingPage/Membership";
 import Stripe from "../Payment/Stripe";
-import Landing from "../LandingPage/Landing";
 import { Auth } from "aws-amplify";
 import TextField from "@material-ui/core/TextField";
 import { Document, Page, pdfjs } from "react-pdf";
