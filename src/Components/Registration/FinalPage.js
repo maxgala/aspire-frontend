@@ -196,17 +196,17 @@ class FinalPage extends Component{
             quarterly_meeting: this.props.prev ? this.props.prev.quarterly_meeting : '',
             meetings_frequency: this.props.prev ? this.props.prev.meetings_frequency : '',
             senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
-            oneOnOne: this.props.prev ? this.props.prev.oneOnOne : true,
-            fourOnOne: this.props.prev ? this.props.prev.oneOnOne : false,
-            mockInterview: this.props.prev ? this.props.prev.oneOnOne : false,
+            oneOnOne: true,
+            fourOnOne: false,
+            mockInterview: false,
             date: this.props.prev ? this.props.prev.oneOnOne : '',
-            oneOnOneFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
-            fourOnOneFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
-            mockInterviewFrequency: this.props.prev ? this.props.prev.oneOnOne : 0,
-            oneOnOneDates: this.props.prev ? this.props.prev.oneOnOne : [],
-            fourOnOneDates: this.props.prev ? this.props.prev.oneOnOne : [],
-            mockInterviewDates: this.props.prev ? this.props.prev.oneOnOne : [],
-            meetingDates: this.props.prev ? this.props.prev.oneOnOne : {},
+            oneOnOneFrequency: 0,
+            fourOnOneFrequency: 0,
+            mockInterviewFrequency: 0,
+            oneOnOneDates: [],
+            fourOnOneDates: [],
+            mockInterviewDates: [],
+            meetingDates: {},
             aspire_email_consent: this.props.prev ? this.props.prev.aspire_email_consent : false,
             aspire_free: true,
             aspire_premium: false,
@@ -305,7 +305,11 @@ class FinalPage extends Component{
     handleUserChoice = (event) => {
         if (this.state.senior_executive ===  false){
             this.setState({
-                senior_executive: true,
+                senior_executive: true,    
+                aspire_platinum: true,
+                aspire_premium: false,
+                aspire_free: false
+                
             })
         }else{
             this.setState({
@@ -355,7 +359,17 @@ class FinalPage extends Component{
                 currentScreen: <Landing appContext={this.props.appContext}/>
             });
         }else{
-            if (this.state.aspire_premium === true || this.state.aspire_platinum === true){
+            if((this.state.senior_executive === true && parseInt(this.state.oneOnOneFrequency) > 0 && this.state.oneOnOneDates === undefined) ||
+                (this.state.senior_executive === true && this.state.mockInterview === true && parseInt(this.state.mockInterviewFrequency) > 0 && this.state.mockInterviewDates === undefined) ||
+                (this.state.senior_executive === true && this.state.fourOnOne === true && this.state.fourOnOneFrequency >= 0 && this.state.fourOnOneDates.length === 0) ||
+                (this.state.oneOnOneFrequency > this.state.oneOnOneDates.length) ||
+                (this.state.fourOnOneFrequency > this.state.fourOnOneDates.length) ||
+                (this.state.mockInterviewFrequency > this.state.mockInterviewDates.length)){
+                this.setState({
+                    dialogueOpen:true
+                })
+
+            }else if(this.state.aspire_premium === true || this.state.aspire_platinum === true){
                 this.setState({
                     openStripe: true
                 })
@@ -404,6 +418,59 @@ class FinalPage extends Component{
         })
     };
 
+    handleOneFqy = fqy => {
+        this.setState({
+            oneOnOneFrequency:fqy
+        })
+    }
+
+    handleOneDates = dates => {
+        this.setState({
+            oneOnOneDates:dates
+        })
+    }
+
+    handleMockInt = choice => {
+        this.setState({
+            mockInterview:choice
+        })
+    }
+
+    handleMockFqy = fqy => {
+        this.setState({
+            mockInterviewFrequency:fqy
+        })
+    }
+
+    handleMockDates = dates => {
+        this.setState({
+            mockInterviewDates:dates
+        })
+    }
+
+    handleFour = choice => {
+        this.setState({
+            fourOnOne:choice
+        })
+    }
+
+    handleFourFqy = fqy => {
+        this.setState({
+            fourOnOneFrequency:fqy
+        })
+    }
+
+    handleFourDates = dates => {
+        this.setState({
+            fourOnOneDates:dates
+        })
+    }
+
+    handleAllDates = info => {
+        this.setState({
+            meetingDates:info
+        })
+    }
 
     render() {
         const classes = this.props.classes;
@@ -485,8 +552,16 @@ class FinalPage extends Component{
                             </Grid>
                             
                             {this.state.senior_executive===true &&
-                                <SeniorExec />
-                                
+                                <SeniorExec
+                                    onOneFqy={this.handleOneFqy}
+                                    onOneDates={this.handleOneDates}
+                                    onMockInt={this.handleMockInt}
+                                    onMockFqy={this.handleMockFqy}
+                                    onMockDates={this.handleMockDates}
+                                    onFour={this.handleFour}
+                                    onFourFqy={this.handleFourFqy}
+                                    onFourDates={this.handleFourDates}
+                                    onAllDates={this.handleAllDates} />
                             }
                             {this.state.senior_executive &&
                                 <MembershipSE appContext={this.props.appContext}

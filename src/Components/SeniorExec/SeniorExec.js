@@ -10,6 +10,13 @@ import Checkbox from "@material-ui/core/Checkbox";
 import SeniorExecOptions from "./SE";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+
 
 
 
@@ -40,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit_back: {
         margin: theme.spacing(3, 0, 2),
-        marginTop:"5%",
+        marginTop: "5%",
         marginRight: '5%',
         height: 50,
         width: '30%',
@@ -56,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        marginTop:"5%",
+        marginTop: "5%",
         height: 50,
         width: '30%',
         borderStyle: 'solid',
@@ -102,11 +109,19 @@ const useStyles = makeStyles((theme) => ({
             color: '#484848'
         }
     },
-    choice:{
+    choice: {
         width: '25%'
-    }, 
+    },
+
+    dateInput: {
+        marginTop: '10px',
+        paddingTop: '3px',
+        paddingLeft: '3px',
+        paddingRight: '3px',
+    },
+
     term: {
-        color: 'black', 
+        color: 'black',
         '&:hover': {
             color: 'red'
         }
@@ -147,10 +162,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function withMyHook(Component){
-    return function WrappedComponent(props){
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
         const classes = useStyles();
-        return <Component {...props} classes={classes}/>
+        return <Component {...props} classes={classes} />
     }
 }
 
@@ -163,8 +178,8 @@ function findDate(array, attr, val){
 }
 
 
-class SeniorExec extends Component{
-    constructor(props){
+class SeniorExec extends Component {
+    constructor(props) {
         super(props)
 
         this.state = {
@@ -180,102 +195,178 @@ class SeniorExec extends Component{
             fourOnOneDates: this.props.prev ? this.props.prev.oneOnOne : [],
             mockInterviewDates: this.props.prev ? this.props.prev.oneOnOne : [],
             meetingDates: this.props.prev ? this.props.prev.oneOnOne : {},
+            dialogueOpen: false,
         }
     }
 
+    handleDialog = (event) => {
+        this.setState({
+            dialogueOpen: !(this.state.dialogueOpen)
+        })
+    };
+
     handleFourOnOneChoice = (event) => {
-        if (this.state.fourOnOne ===  false){
+        if (this.state.fourOnOne === false) {
             this.setState({
                 fourOnOne: true,
+            }, () => {
+                this.props.onFour(this.state.fourOnOne)
             })
-        }else{
+        } else {
             this.setState({
                 fourOnOne: false,
+            }, () => {
+                this.props.onFour(this.state.fourOnOne)
             })
         }
     };
 
     handleMockInterviewChoice = (event) => {
-        if (this.state.mockInterview ===  false){
+        if (this.state.mockInterview === false) {
             this.setState({
                 mockInterview: true,
+            }, () => {
+                this.props.onMockInt(this.state.mockInterview)
             })
-        }else{
+        } else {
             this.setState({
                 mockInterview: false,
+            }, () => {
+                this.props.onMockInt(this.state.mockInterview)
             })
         }
     };
 
     handleOneOnOneChange = (event) => {
         event.persist();
-        this.setState({
-            oneOnOneFrequency: event.target.value
-        }, () => {
+
+        if (event.target.value < this.state.oneOnOneDates.length){
+            let dates = [...this.state.oneOnOneDates]
+            let diff = this.state.oneOnOneDates.length - event.target.value
+            dates.splice(event.target.value, diff)
+            console.log(dates)
             this.setState({
-                meetingDates:{...this.state.meetingDates, 'ONE_ON_ONE_FQY':this.state.oneOnOneFrequency}
+                oneOnOneDates:dates
             }, () => {
-                if (this.state.oneOnOneFrequency < this.state.oneOnOneDates.length){
-                    let dates = [...this.state.oneOnOneDates]
-                    let diff = this.state.oneOnOneDates.length - this.state.oneOnOneFrequency
-                    dates.splice(this.state.oneOnOneFrequency, diff)
+                this.setState({
+                    oneOnOneFrequency:event.target.value
+                }, () => {
                     this.setState({
-                        oneOnOneDates:dates
-                    }, () => {console.log(this.state.meetingDates)})
-                }
+                        meetingDates: {...this.state.meetingDates, 'ONE_ON_ONE_FQY':this.state.oneOnOneFrequency}
+                    }, () => {
+                        this.setState({
+                            meetingDates: { ...this.state.meetingDates, 'ONE_ON_ONE': this.state.oneOnOneDates }
+                        }, () => {
+                            this.props.onOneFqy(this.state.oneOnOneFrequency)
+                            this.props.onOneDates(this.state.oneOnOneDates)
+                            this.props.onAllDates(this.state.meetingDates)
+                        }, () => {
+                            console.log(this.state.meetingDates)
+                        })
+                    })
+                })
             })
-        })
+        } else {
+            this.setState({
+                oneOnOneFrequency:event.target.value
+            }, () => {
+                this.setState({
+                    meetingDates: {...this.state.meetingDates, 'ONE_ON_ONE_FQY':this.state.oneOnOneFrequency}
+                }, () => {
+                    this.props.onOneFqy(this.state.oneOnOneFrequency)
+                    this.props.onAllDates(this.state.meetingDates)
+                })
+            })
+        }
     }
 
     handleFourOnOneChange = (event) => {
-        this.setState({
-            fourOnOneFrequency: event.target.value
-        }, () => {
+        event.persist();
+
+        if (event.target.value < this.state.fourOnOneDates.length){
+            let dates = [...this.state.fourOnOneDates]
+            let diff = this.state.fourOnOneDates.length - event.target.value
+            dates.splice(event.target.value, diff)
+            console.log(dates)
             this.setState({
-                meetingDates:{...this.state.meetingDates, 'FOUR_ON_ONE_FQY':this.state.fourOnOneFrequency}
+                fourOnOneDates:dates
             }, () => {
-                if (this.state.fourOnOneFrequency < this.state.fourOnOneDates.length){
-                    let dates = [...this.state.fourOnOneDates]
-                    let diff = this.state.fourOnOneDates.length - this.state.fourOnOneFrequency
-                    dates.splice(this.state.fourOnOneFrequency, diff)
+                this.setState({
+                    fourOnOneFrequency:event.target.value
+                }, () => {
                     this.setState({
-                        fourOnOneDates:dates
-                    }, () => {console.log(this.state.meetingDates)})
-                }
+                        meetingDates: {...this.state.meetingDates, 'FOUR_ON_ONE_FQY':this.state.fourOnOneFrequency}
+                    }, () => {
+                        this.setState({
+                            meetingDates: { ...this.state.meetingDates, 'FOUR_ON_ONE': this.state.fourOnOneDates }
+                        }, () => {
+                            this.props.onFourFqy(this.state.fourOnOneFrequency)
+                            this.props.onFourDates(this.state.fourOnOneDates)
+                            this.props.onAllDates(this.state.meetingDates)
+                            console.log(this.state.meetingDates)
+                        })
+                    })
+                })
             })
-        })
+        } else {
+            this.setState({
+                fourOnOneFrequency:event.target.value
+            }, () => {
+                this.setState({
+                    meetingDates: {...this.state.meetingDates, 'FOUR_ON_ONE_FQY':this.state.fourOnOneFrequency}
+                }, () => {
+                    this.props.onAllDates(this.state.meetingDates)
+                    this.props.onFourFqy(this.state.fourOnOneFrequency)
+                })
+            })
+        }
     }
 
     handleMockInterviewChange = (event) => {
-        this.setState({
-            mockInterviewFrequency: event.target.value
-        }, () => {
+        event.persist();
+
+        if (event.target.value < this.state.mockInterviewDates.length){
+            let dates = [...this.state.mockInterviewDates]
+            let diff = this.state.mockInterviewDates.length - event.target.value
+            dates.splice(event.target.value, diff)
+            console.log(dates)
             this.setState({
-                meetingDates:{...this.state.meetingDates, 'MOCK_INTERVIEW_FQY':this.state.mockInterviewFrequency}
+                mockInterviewDates:dates
             }, () => {
-                if (this.state.mockInterviewFrequency < this.state.mockInterviewDates.length){
-                    let dates = [...this.state.mockInterviewDates]
-                    let diff = this.state.mockInterviewDates.length - this.state.mockInterviewFrequency
-                    dates.splice(this.state.mockInterviewFrequency, diff)
+                this.setState({
+                    mockInterviewFrequency:event.target.value
+                }, () => {
                     this.setState({
-                        mockInterviewDates:dates
-                    }, () => {console.log(this.state.meetingDates)})
-                }
+                        meetingDates: {...this.state.meetingDates, 'MOCK_INTERVIEW_FQY':this.state.mockInterviewFrequency}
+                    }, () => {
+                        this.setState({
+                            meetingDates: { ...this.state.meetingDates, 'MOCK_INTERVIEW': this.state.mockInterviewDates }
+                        }, () => {
+                            this.props.onMockFqy(this.state.mockInterviewFrequency)
+                            this.props.onMockDates(this.state.mockInterviewDates)
+                            this.props.onAllDates(this.state.meetingDates)
+                            console.log(this.state.meetingDates)
+                        })
+                    })
+                })
             })
-        })
+        } else {
+            this.setState({
+                mockInterviewFrequency:event.target.value
+            }, () => {
+                this.setState({
+                    meetingDates: {...this.state.meetingDates, 'MOCK_INTERVIEW_FQY':this.state.mockInterviewFrequency}
+                }, () => {
+                    this.props.onAllDates(this.state.meetingDates)
+                    this.props.onMockFqy(this.state.mockInterviewFrequency)
+                })
+            })
+        }
     }
 
-    handleConfirmOneMeetingDatesChange = (event) => {
+    handleOneMeetingDatesChange = (event) => {
         event.persist();
         const value = event.target.value;
-        
-        // function findDate(array, attr, val){
-        //     for(let i=0;i<array.length;i++){
-        //         if(array[i][attr] === val){
-        //             return i
-        //         }
-        //     }
-        // }
         
         if(this.state.oneOnOneDates.some(date => date.id === event.target.id)){
             let dates = [...this.state.oneOnOneDates]
@@ -283,38 +374,38 @@ class SeniorExec extends Component{
             dates.splice(index,1)
 
             this.setState({
-                oneOnOneDates:dates,
+                oneOnOneDates: dates,
             }, () => {
                 this.setState({
-                    oneOnOneDates: [...this.state.oneOnOneDates, {'id':event.target.id, 'date':value}]
-                    }, () => {
-                        this.setState({
-                            meetingDates: {...this.state.meetingDates, 'ONE_ON_ONE':this.state.oneOnOneDates}
-                        }, () => {console.log(this.state.meetingDates)})
-                    })
-            })
-        }else {
-            this.setState({
-                oneOnOneDates: [...this.state.oneOnOneDates, {'id':event.target.id, 'date':value}]
+                    oneOnOneDates: [...this.state.oneOnOneDates, { 'id': event.target.id, 'date': value }]
                 }, () => {
                     this.setState({
-                        meetingDates: {...this.state.meetingDates, 'ONE_ON_ONE':this.state.oneOnOneDates}
-                    }, () => {console.log(this.state.meetingDates)})
+                        meetingDates: { ...this.state.meetingDates, 'ONE_ON_ONE': this.state.oneOnOneDates }
+                    }, () => {
+                        this.props.onAllDates(this.state.meetingDates)
+                        this.props.onOneDates(this.state.oneOnOneDates)
+                        console.log(this.state.meetingDates)
+                    })
                 })
+            })
+        } else {
+            this.setState({
+                oneOnOneDates: [...this.state.oneOnOneDates, { 'id': event.target.id, 'date': value }]
+            }, () => {
+                this.setState({
+                    meetingDates: { ...this.state.meetingDates, 'ONE_ON_ONE': this.state.oneOnOneDates }
+                }, () => { 
+                    this.props.onOneDates(this.state.oneOnOneDates)
+                    this.props.onAllDates(this.state.meetingDates)
+                    console.log(this.state.meetingDates) 
+                })
+            })
         }
     }
 
     handleFourMeetingDatesChange = (event) => {
         event.persist();
         const value = event.target.value;
-        
-        // function findDate(array, attr, val){
-        //     for(let i=0;i<array.length;i++){
-        //         if(array[i][attr] === val){
-        //             return i
-        //         }
-        //     }
-        // }
 
         if(this.state.fourOnOneDates.some(date => date.id === event.target.id)){
             let dates = [...this.state.fourOnOneDates]
@@ -322,38 +413,38 @@ class SeniorExec extends Component{
             dates.splice(index,1)
 
             this.setState({
-                fourOnOneDates:dates,
+                fourOnOneDates: dates,
             }, () => {
                 this.setState({
-                    fourOnOneDates: [...this.state.fourOnOneDates, {'id':event.target.id, 'date':value}]
-                    }, () => {
-                        this.setState({
-                            meetingDates: {...this.state.meetingDates, 'FOUR_ON_ONE':this.state.fourOnOneDates}
-                        }, () => {console.log(this.state.meetingDates)})
-                    })
-            })
-        }else {
-            this.setState({
-                fourOnOneDates: [...this.state.fourOnOneDates, {'id':event.target.id, 'date':value}]
+                    fourOnOneDates: [...this.state.fourOnOneDates, { 'id': event.target.id, 'date': value }]
                 }, () => {
                     this.setState({
-                        meetingDates: {...this.state.meetingDates, 'FOUR_ON_ONE':this.state.fourOnOneDates}
-                    }, () => {console.log(this.state.meetingDates)})
+                        meetingDates: { ...this.state.meetingDates, 'FOUR_ON_ONE': this.state.fourOnOneDates }
+                    }, () => { 
+                        this.props.onAllDates(this.state.meetingDates)
+                        this.props.onFourDates(this.state.fourOnOneDates)
+                        console.log(this.state.meetingDates) 
+                    })
                 })
+            })
+        } else {
+            this.setState({
+                fourOnOneDates: [...this.state.fourOnOneDates, { 'id': event.target.id, 'date': value }]
+            }, () => {
+                this.setState({
+                    meetingDates: { ...this.state.meetingDates, 'FOUR_ON_ONE': this.state.fourOnOneDates }
+                }, () => { 
+                    this.props.onFourDates(this.state.fourOnOneDates)
+                    this.props.onAllDates(this.state.meetingDates)
+                    console.log(this.state.meetingDates) 
+                })
+            })
         }
     }
 
     handleMockMeetingDatesChange = (event) => {
         event.persist();
         const value = event.target.value;
-        
-        // function findDate(array, attr, val){
-        //     for(let i=0;i<array.length;i++){
-        //         if(array[i][attr] === val){
-        //             return i
-        //         }
-        //     }
-        // }
 
         if(this.state.mockInterviewDates.some(date => date.id === event.target.id)){
             let dates = [...this.state.mockInterviewDates]
@@ -361,31 +452,39 @@ class SeniorExec extends Component{
             dates.splice(index,1)
 
             this.setState({
-                mockInterviewDates:dates,
+                mockInterviewDates: dates,
             }, () => {
                 this.setState({
-                    mockInterviewDates: [...this.state.mockInterviewDates, {'id':event.target.id, 'date':value}]
-                    }, () => {
-                        this.setState({
-                            meetingDates: {...this.state.meetingDates, 'MOCK_INTERVIEW':this.state.mockInterviewDates}
-                        }, () => {console.log(this.state.meetingDates)})
-                    })
-            })
-        }else {
-            this.setState({
-                mockInterviewDates: [...this.state.mockInterviewDates, {'id':event.target.id, 'date':value}]
+                    mockInterviewDates: [...this.state.mockInterviewDates, { 'id': event.target.id, 'date': value }]
                 }, () => {
                     this.setState({
-                        meetingDates: {...this.state.meetingDates, 'MOCK_INTERVIEW':this.state.mockInterviewDates}
-                    }, () => {console.log(this.state.meetingDates)})
+                        meetingDates: { ...this.state.meetingDates, 'MOCK_INTERVIEW': this.state.mockInterviewDates }
+                    }, () => { 
+                        this.props.onAllDates(this.state.meetingDates)
+                        this.props.onMockDates(this.state.mockInterviewDates)
+                        console.log(this.state.meetingDates) 
+                    })
                 })
+            })
+        } else {
+            this.setState({
+                mockInterviewDates: [...this.state.mockInterviewDates, { 'id': event.target.id, 'date': value }]
+            }, () => {
+                this.setState({
+                    meetingDates: { ...this.state.meetingDates, 'MOCK_INTERVIEW': this.state.mockInterviewDates }
+                }, () => { 
+                    this.props.onMockDates(this.state.mockInterviewDates)
+                    this.props.onAllDates(this.state.meetingDates)
+                    console.log(this.state.meetingDates) 
+                })
+            })
         }
     }
 
 
-    render(){
+    render() {
         const classes = this.props.classes;
-        return(
+        return (
             <Container component="main" maxWidth="lg">
                 <CssBaseline />
                 <Grid container spacing={2}>
@@ -403,8 +502,8 @@ class SeniorExec extends Component{
                                 label={
                                     <Tooltip title={
                                         <p>Senior Executive means the chief executive officer,
-                                            chief operating officer, chief financial officer, or
-                                            anyone in charge of a principal business unit or function.
+                                        chief operating officer, chief financial officer, or
+                                        anyone in charge of a principal business unit or function.
                                         </p>}>
                                         <b>1 On 1</b>
                                     </Tooltip>
@@ -420,8 +519,8 @@ class SeniorExec extends Component{
                                 label={
                                     <Tooltip title={
                                         <p>Senior Executive means the chief executive officer,
-                                            chief operating officer, chief financial officer, or
-                                            anyone in charge of a principal business unit or function.
+                                        chief operating officer, chief financial officer, or
+                                        anyone in charge of a principal business unit or function.
                                         </p>}>
                                         <b>4 On 1</b>
                                     </Tooltip>
@@ -437,14 +536,14 @@ class SeniorExec extends Component{
                                 label={
                                     <Tooltip title={
                                         <p>Senior Executive means the chief executive officer,
-                                            chief operating officer, chief financial officer, or
-                                            anyone in charge of a principal business unit or function.
+                                        chief operating officer, chief financial officer, or
+                                        anyone in charge of a principal business unit or function.
                                         </p>}>
                                         <b>Mock Interviews</b>
                                     </Tooltip>
                                 }
                             />
-                            
+
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
@@ -464,19 +563,42 @@ class SeniorExec extends Component{
                             </TextField>
                         </Grid>
                         <br />
-                        {[...Array(this.state.oneOnOneFrequency)].map((elementInArray, index) => ( 
-                            <div className="" key={index}>
-                                <input
-                                    type="date"
-                                    id={`${index}`}
-                                    onChange={this.handleConfirmOneMeetingDatesChange}
-                                />
-                                <br />
-                            <br />
-                            </div> 
-                            ) 
-                        )
-                        }
+                        <Grid
+                            container
+                            item
+                            xs={12}
+                            direction="row"
+                            alignItems="center"
+                            justify="center"
+                        >
+
+                            {[...Array(this.state.oneOnOneFrequency)].map((elementInArray, index) => (
+
+                                <Grid
+                                    item
+                                    xs={6} sm={4} md={3} lg={2}
+                                    alignItems="center"
+                                    justify="center"
+                                >
+                                    <div className={classes.dateInput} key={index}>
+                                        <TextField
+                                            required
+                                            label={`Date ${index + 1}`}
+                                            variant="outlined"
+                                            fullWidth
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            type="date"
+                                            id={`${index}`}
+                                            onChange={this.handleOneMeetingDatesChange}
+                                        />
+                                    </div>
+                                </Grid>
+                            )
+                            )
+                            }
+                        </Grid>
                         <br />
                         {this.state.fourOnOne === true &&
                             <div>
@@ -499,27 +621,48 @@ class SeniorExec extends Component{
                                     </TextField>
                                 </Grid>
                                 <br />
-                                {[...Array(this.state.fourOnOneFrequency)].map((elementInArray, index) => ( 
-                                    <div className="" key={index}> 
-                                        <input
-                                            required
-                                            type="date"
-                                            id={`${index}`}
-                                            min={this.state.date}
-                                            onChange={this.handleFourMeetingDatesChange}
-                                        />
-                                    <br />
-                                    <br />
-                                    </div> 
+                                <Grid
+                                    container
+                                    item
+                                    xs={12}
+                                    direction="row"
+                                    alignItems="center"
+                                    justify="center"
+                                >
+                                    {[...Array(this.state.fourOnOneFrequency)].map((elementInArray, index) => (
+                                        <Grid
+                                            item
+                                            xs={6} sm={4} md={3} lg={2}
+                                            alignItems="center"
+                                            justify="center"
+                                        >
+                                            <div className={classes.dateInput} key={index}>
+                                                <TextField
+                                                    label={`Date ${index + 1}`}
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    required
+                                                    type="date"
+                                                    id={`${index}`}
+                                                    min={this.state.date}
+                                                    onChange={this.handleFourMeetingDatesChange}
+                                                />
+                                            </div>
+                                        </Grid>
                                     ))}
+
+                                </Grid>
                             </div>
+
                         }
                         <br />
                         {this.state.mockInterview &&
                             <div>
                                 <Grid item xs={12}>
                                     <TextField
-                                        required
                                         id="outlined-select-education"
                                         fullWidth
                                         select
@@ -536,25 +679,67 @@ class SeniorExec extends Component{
                                     </TextField>
                                 </Grid>
                                 <br />
-                                {[...Array(this.state.mockInterviewFrequency)].map((elementInArray, index) => ( 
-                                    <div className="" key={index}> 
-                                        <input
-                                            required
-                                            type="date"
-                                            id={`${index}`}
-                                            min={this.state.date}
-                                            onChange={this.handleMockMeetingDatesChange}
-                                        />
-                                    <br />
-                                    <br />
-                                    </div> 
-                                    ) 
-                                )
-                                }
+                                <Grid
+                                    container
+                                    item
+                                    xs={12}
+                                    direction="row"
+                                    alignItems="center"
+                                    justify="center"
+                                >
+                                    {[...Array(this.state.mockInterviewFrequency)].map((elementInArray, index) => (
+
+                                        <Grid
+                                            item
+                                            xs={6} sm={4} md={3} lg={2}
+                                            alignItems="center"
+                                            justify="center"
+                                        >
+                                            <div className={classes.dateInput} key={index}>
+                                                <TextField
+                                                    label={`Date ${index + 1}`}
+                                                    variant="outlined"
+                                                    fullWidth
+                                                    InputLabelProps={{
+                                                        shrink: true,
+                                                    }}
+                                                    required
+                                                    type="date"
+                                                    id={`${index}`}
+                                                    min={this.state.date}
+                                                    onChange={this.handleMockMeetingDatesChange}
+                                                />
+
+                                            </div>
+                                        </Grid>
+                                    )
+                                    )
+                                    }
+                                </Grid>
                             </div>
                         }
                     </div>
                 </Grid>
+                <Dialog
+                    open={this.state.dialogueOpen}
+                    TransitionComponent={Transition}
+                    keepMounted
+                    onClose={this.handleDialog}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description"
+                >
+                    <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-slide-description">
+                            <b>Please fill out all the required fields properly</b>
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleDialog} color="primary">
+                            <b>Close</b>
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Container>
         )
     }
