@@ -20,6 +20,9 @@ import Slide from "@material-ui/core/Slide";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { Routes } from "../../entry/routes/Routes";
 import { withRouter } from "react-router-dom";
+import EmailField from "./EmailField";
+import PasswordField from "./PasswordField";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
