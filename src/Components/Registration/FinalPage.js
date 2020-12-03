@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {makeStyles} from "@material-ui/core/styles";
+import React, { Component } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
@@ -7,7 +7,6 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
 import Button from "@material-ui/core/Button";
-import ThirdPage from "./ThirdPage";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Dialog from "@material-ui/core/Dialog";
@@ -18,730 +17,807 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
 import Membership from "../LandingPage/Membership";
 import Stripe from "../Payment/Stripe";
-import Landing from "../LandingPage/Landing";
-import { Auth } from 'aws-amplify';
-import TextField from '@material-ui/core/TextField';
+import { Auth } from "aws-amplify";
+import TextField from "@material-ui/core/TextField";
 import { Document, Page, pdfjs } from "react-pdf";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
-import SE from '../SeniorExec/SE';
+import SE from "../SeniorExec/SE";
 import MenuItem from "@material-ui/core/MenuItem";
 import Slide from "@material-ui/core/Slide";
-import SeniorExec from '../SeniorExec/SeniorExec';
-import MembershipSE from '../LandingPage/MembershipSE'
-import MembershipNonSE from '../LandingPage/MembershipNonSE'
+import SeniorExec from "../SeniorExec/SeniorExec";
+import MembershipSE from "../LandingPage/MembershipSE";
+import MembershipNonSE from "../LandingPage/MembershipNonSE";
 
-
+import { withRouter } from "react-router-dom";
+import { Routes } from "../../entry/routes/Routes";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  titlePaper: {
+    margin: theme.spacing(0, 0, 3),
+  },
+  avatar: {
+    marginTop: "3vh",
+    width: "100px",
+    height: "100px",
+    padding: "1vw",
+  },
+  choiceText: {
+    margin: theme.spacing(2, 0, 1),
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit_back: {
+    margin: theme.spacing(3, 0, 2),
+    marginTop: "5%",
+    marginRight: "5%",
+    height: 50,
+    width: "30%",
+    borderRadius: 50,
+    backgroundColor: "#1A1A1A",
+    borderStyle: "solid",
+    color: "#F1F1F1",
+    borderColor: "#484848",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
     },
-    titlePaper: {
-        margin: theme.spacing(0, 0, 3)
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    marginTop: "5%",
+    height: 50,
+    width: "30%",
+    borderStyle: "solid",
+    borderRadius: 50,
+    backgroundColor: "#b5a165",
+    color: "white",
+    borderColor: "#484848",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
     },
-    avatar: {
-        marginTop: '3vh',
-        width: '100px',
-        height: '100px',
-        padding: '1vw',
+  },
+  disagree: {
+    margin: theme.spacing(3, 0, 2),
+    width: "30%",
+    backgroundColor: "#1A1A1A",
+    borderStyle: "solid",
+    color: "#F1F1F1",
+    borderColor: "#484848",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
     },
-    choiceText: {
-        margin: theme.spacing(2, 0, 1)
+  },
+  agree: {
+    margin: theme.spacing(3, 0, 2),
+    width: "30%",
+    backgroundColor: "#b5a165",
+    color: "white",
+    borderColor: "#484848",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
     },
-    form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
+  },
+  payButton: {
+    borderRadius: 50,
+    backgroundColor: "#6EA0B5",
+    borderStyle: "solid",
+    color: "#F1F1F1",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
     },
-    submit_back: {
-        margin: theme.spacing(3, 0, 2),
-        marginTop:"5%",
-        marginRight: '5%',
-        height: 50,
-        width: '30%',
-        borderRadius: 50,
-        backgroundColor: "#1A1A1A",
-        borderStyle: "solid",
-        color: "#F1F1F1",
-        borderColor: "#484848",
-        '&:hover': {
-            backgroundColor: "#F1F1F1",
-            color: '#484848'
-        }
+  },
+  choice: {
+    width: "25%",
+  },
+  term: {
+    color: "black",
+    "&:hover": {
+      color: "red",
     },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-        marginTop:"5%",
-        height: 50,
-        width: '30%',
-        borderStyle: 'solid',
-        borderRadius: 50,
-        backgroundColor: "#b5a165",
-        color: "white",
-        borderColor: '#484848',
-        '&:hover': {
-            backgroundColor: "#F1F1F1",
-            color: '#484848'
-        }
+  },
+  cardRoot: {
+    margin: theme.spacing(0, 2, 1),
+    maxWidth: 300,
+  },
+  media: {
+    height: 140,
+  },
+  membership_options: {
+    "@media (min-width: 480px)": {
+      display: "inline-flex",
     },
-    disagree: {
-        margin: theme.spacing(3, 0, 2),
-        width: '30%',
-        backgroundColor: "#1A1A1A",
-        borderStyle: "solid",
-        color: "#F1F1F1",
-        borderColor: "#484848",
-        '&:hover': {
-            backgroundColor: "#F1F1F1",
-            color: '#484848'
-        }
-    },
-    agree: {
-        margin: theme.spacing(3, 0, 2),
-        width: '30%',
-        backgroundColor: "#b5a165",
-        color: "white",
-        borderColor: '#484848',
-        '&:hover': {
-            backgroundColor: "#F1F1F1",
-            color: '#484848'
-        }
-    },
-    payButton: {
-        borderRadius: 50,
-        backgroundColor: "#6EA0B5",
-        borderStyle: "solid",
-        color: "#F1F1F1",
-        '&:hover': {
-            backgroundColor: "#F1F1F1",
-            color: '#484848'
-        }
-    },
-    choice:{
-        width: '25%'
-    }, 
-    term: {
-        color: 'black', 
-        '&:hover': {
-            color: 'red'
-        }
-    },
-    cardRoot: {
-        margin: theme.spacing(0, 2, 1),
-        maxWidth: 300
-    },
-    media: {
-        height: 140,
-    },
-    membership_options: {
-        '@media (min-width: 480px)': {
-            display: 'inline-flex',
-        },
-        margin: 'auto',
-    },
-    grid: {
-        paddingLeft: '10%',
-        paddingRight: '10%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingBottom: '30px',
-    },
-    features_title: {
-        fontFamily: "Nunito Sans",
-        fontWeight: "Bold",
-        fontSize: "48px",
-        margin: '0px',
-        paddingTop: '30px',
-        paddingBottom: '30px',
-        color: 'black',
-    },
+    margin: "auto",
+  },
+  grid: {
+    paddingLeft: "10%",
+    paddingRight: "10%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingBottom: "30px",
+  },
+  features_title: {
+    fontFamily: "Nunito Sans",
+    fontWeight: "Bold",
+    fontSize: "48px",
+    margin: "0px",
+    paddingTop: "30px",
+    paddingBottom: "30px",
+    color: "black",
+  },
 }));
 
-function withMyHook(Component){
-    return function WrappedComponent(props){
-        const classes = useStyles();
-        return <Component {...props} classes={classes}/>
-    }
+function withMyHook(Component) {
+  return function WrappedComponent(props) {
+    const classes = useStyles();
+    return <Component {...props} classes={classes} />;
+  };
 }
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
-class FinalPage extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: this.props.prev ? this.props.prev.firstName : '',
-            lastName: this.props.prev ? this.props.prev.lastName : '',
-            phone: this.props.prev ? this.props.prev.phone : '',
-            email: this.props.prev ? this.props.prev.email : '',
-            password: this.props.prev ? this.props.prev.password : '',
-            year_of_birth: this.props.prev ? this.props.prev.year_of_birth : '',
-            industry: this.props.prev ? this.props.prev.industry : '',
-            industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
-            title: this.props.prev ? this.props.prev.title : '',
-            company: this.props.prev ? this.props.prev.company : '',
-            education: this.props.prev ? this.props.prev.education : '',
-            province: this.props.prev ? this.props.prev.province : '',
-            country: this.props.prev ? this.props.prev.country : '',
-            states: this.props.prev ? this.props.prev.states : '',
-            resumeURL: this.props.prev ? this.props.prev.resumeURL : '',
-            profilePicURL: this.props.prev ? this.props.prev.profilePicURL : '',
-            user_type: this.props.prev ? this.props.prev.user_type : '',
-            quarterly_meeting: this.props.prev ? this.props.prev.quarterly_meeting : '',
-            meetings_frequency: this.props.prev ? this.props.prev.meetings_frequency : '',
-            senior_executive: this.props.prev ? this.props.prev.senior_executive : false,
-            oneOnOne: true,
-            fourOnOne: false,
-            mockInterview: false,
-            date: this.props.prev ? this.props.prev.oneOnOne : '',
-            oneOnOneFrequency: 0,
-            fourOnOneFrequency: 0,
-            mockInterviewFrequency: 0,
-            oneOnOneDates: [],
-            fourOnOneDates: [],
-            mockInterviewDates: [],
-            meetingDates: {},
-            aspire_email_consent: this.props.prev ? this.props.prev.aspire_email_consent : false,
-            aspire_free: true,
-            aspire_premium: false,
-            aspire_platinum: false,
-            progress: 100,
-            checked: false,
-            open: false,
-            verified: false, 
-            confirmationCode: '',
-            openStripe: false,
-            tocNumPages: null,
-            privacyNumPages: null,
-            dialogueOpen: false,
-            url: process.env.REACT_APP_MAILCHIMP_URL
-        }
-    }
-
-    onTocDocumentLoad = ({ numPages }) => {
-        this.setState({ tocNumPages: numPages });
-    }
-
-    onPrivacyDocumentLoad = ({ numPages }) => {
-        this.setState({ privacyNumPages: numPages });
-    }
-
-    changeToPage3 = (event) => {
-        this.props.appContext.setState({
-            registrationScreen: <ThirdPage appContext={this.props.appContext} prev={this.state}/>
-        })
+class FinalPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: this.props.prev ? this.props.prev.firstName : "",
+      lastName: this.props.prev ? this.props.prev.lastName : "",
+      phone: this.props.prev ? this.props.prev.phone : "",
+      email: this.props.prev ? this.props.prev.email : "",
+      password: this.props.prev ? this.props.prev.password : "",
+      year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
+      industry: this.props.prev ? this.props.prev.industry : "",
+      industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+      title: this.props.prev ? this.props.prev.title : "",
+      company: this.props.prev ? this.props.prev.company : "",
+      education: this.props.prev ? this.props.prev.education : "",
+      province: this.props.prev ? this.props.prev.province : "",
+      country: this.props.prev ? this.props.prev.country : "",
+      states: this.props.prev ? this.props.prev.states : "",
+      resumeURL: this.props.prev ? this.props.prev.resumeURL : "",
+      profilePicURL: this.props.prev ? this.props.prev.profilePicURL : "",
+      user_type: this.props.prev ? this.props.prev.user_type : "",
+      senior_executive: this.props.prev
+        ? this.props.prev.senior_executive
+        : false,
+      oneOnOne: true,
+      fourOnOne: false,
+      mockInterview: false,
+      date: this.props.prev ? this.props.prev.oneOnOne : "",
+      oneOnOneFrequency: 0,
+      fourOnOneFrequency: 0,
+      mockInterviewFrequency: 0,
+      oneOnOneDates: [],
+      fourOnOneDates: [],
+      mockInterviewDates: [],
+      meetingDates: {},
+      aspire_email_consent: this.props.prev
+        ? this.props.prev.aspire_email_consent
+        : false,
+      aspire_free: true,
+      aspire_premium: false,
+      aspire_platinum: false,
+      progress: 100,
+      checked: false,
+      open: false,
+      verified: false,
+      confirmationCode: "",
+      openStripe: false,
+      tocNumPages: null,
+      privacyNumPages: null,
+      dialogueOpen: false,
+      url: process.env.REACT_APP_MAILCHIMP_URL,
     };
-    
-    signUp(credits, user_type) {
-        let address = {}
-        if (this.state.country === 'CA'){
-            address = {region: this.state.province, country: this.state.country}
-        }else if (this.state.country === 'USA'){
-            address = {region: this.state.states, country: this.state.country}
-        }else{
-            address = {region: 'Other', country: 'Other'}
-        }
-        address = JSON.stringify(address)
-        let phone_val = this.state.phone.replace(/\s/g, '').replace('(','').replace(')','').replace('-','')
-        phone_val = phone_val.replace('(', '')
-        phone_val = phone_val.replace(')', '')
-        
-        Auth.signUp({
-            username: this.state.email,
-            password: this.state.password,
-            attributes: {
-                given_name: this.state.firstName, 
-                family_name: this.state.lastName, 
-                phone_number: phone_val, 
-                birthdate: this.state.year_of_birth, 
-                address: address, 
-                "custom:industry": this.state.industry, 
-                "custom:industry_tags": (this.state.industry_tags).toString(), 
-                "custom:position": this.state.title, 
-                "custom:company": this.state.company, 
-                "custom:education_level": this.state.education,
-                "custom:user_type": user_type, 
-                "custom:credits": credits.toString(),
-                "custom:quarterly_meeting": this.state.quarterly_meeting,
-                "custom:meetings_frequency": this.state.meetings_frequency,
+  }
 
-                "custom:linkedin": this.state.profilePicURL
-            }
-        })
-        .then(() => {
-            window.alert('Successfully signed up');
-        })
-        .catch((err) => window.alert(`Error signing up: ${ err.toString() }`))
+  onTocDocumentLoad = ({ numPages }) => {
+    this.setState({ tocNumPages: numPages });
+  };
+
+  onPrivacyDocumentLoad = ({ numPages }) => {
+    this.setState({ privacyNumPages: numPages });
+  };
+
+  changeToPage3 = (event) => {
+    this.props.history.push(`${Routes.Register}/3`);
+  };
+
+  signUp(credits, user_type) {
+    let address = {};
+    if (this.state.country === "CA") {
+      address = { region: this.state.province, country: this.state.country };
+    } else if (this.state.country === "USA") {
+      address = { region: this.state.states, country: this.state.country };
+    } else {
+      address = { region: "Other", country: "Other" };
     }
-    
-    confirmSignUp() {
-        Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
-        .then(() => {
-            window.alert('Successfully confirmed signed up')
-        })
-        .catch((err) => window.alert(`Error confirming sign up - ${ err.toString() }`))
+    address = JSON.stringify(address);
+    let phone_val = this.state.phone
+      .replace(/\s/g, "")
+      .replace("(", "")
+      .replace(")", "")
+      .replace("-", "");
+    phone_val = phone_val.replace("(", "");
+    phone_val = phone_val.replace(")", "");
+
+    Auth.signUp({
+      username: this.state.email,
+      password: this.state.password,
+      attributes: {
+        given_name: this.state.firstName,
+        family_name: this.state.lastName,
+        phone_number: phone_val,
+        birthdate: this.state.year_of_birth,
+        address: address,
+        "custom:industry": this.state.industry,
+        "custom:industry_tags": this.state.industry_tags.toString(),
+        "custom:position": this.state.title,
+        "custom:company": this.state.company,
+        "custom:education_level": this.state.education,
+        "custom:user_type": user_type,
+        "custom:credits": credits.toString(),
+        "custom:linkedin": this.state.profilePicURL,
+      },
+    })
+      .then(() => {
+        window.alert("Successfully signed up");
+      })
+      .catch((err) => window.alert(`Error signing up: ${err.toString()}`));
+  }
+
+  handleUserChoice = (event) => {
+    if (this.state.senior_executive === false) {
+      this.setState({
+        senior_executive: true,
+        aspire_platinum: true,
+        aspire_premium: false,
+        aspire_free: false,
+      });
+    } else {
+      this.setState({
+        senior_executive: false,
+      });
     }
-    
-    handleClose = event =>{
+  };
+
+  handleConfirmationCodeChange = (event) => {
+    this.setState({
+      confirmationCode: event.target.value,
+    });
+  };
+  confirmSignUp() {
+    Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
+      .then(() => {
+        window.alert("Successfully confirmed signed up");
+      })
+      .catch((err) =>
+        window.alert(`Error confirming sign up - ${err.toString()}`)
+      );
+  }
+
+  handleClose = (event) => {
+    this.setState({
+      open: false,
+      checked: false,
+    });
+  };
+
+  handleSubmit = (event) => {
+    if (this.state.verified) {
+      this.confirmSignUp();
+      this.props.history.push(`${Routes.Login}`);
+    } else {
+      if (
+        (this.state.senior_executive === true &&
+          parseInt(this.state.oneOnOneFrequency) > 0 &&
+          this.state.oneOnOneDates === undefined) ||
+        (this.state.senior_executive === true &&
+          this.state.mockInterview === true &&
+          parseInt(this.state.mockInterviewFrequency) > 0 &&
+          this.state.mockInterviewDates === undefined) ||
+        (this.state.senior_executive === true &&
+          this.state.fourOnOne === true &&
+          this.state.fourOnOneFrequency >= 0 &&
+          this.state.fourOnOneDates.length === 0) ||
+        this.state.oneOnOneFrequency > this.state.oneOnOneDates.length ||
+        this.state.fourOnOneFrequency > this.state.fourOnOneDates.length ||
+        this.state.mockInterviewFrequency > this.state.mockInterviewDates.length
+      ) {
         this.setState({
-            open: false,
-            checked: false
-        })
-    };
-
-    handleAccept = event => {
+          dialogueOpen: true,
+        });
+      } else if (
+        this.state.aspire_premium === true ||
+        this.state.aspire_platinum === true
+      ) {
         this.setState({
-            open: false,
-            checked: true
-        })
-    };
-
-    handleUserChoice = (event) => {
-        if (this.state.senior_executive ===  false){
-            this.setState({
-                senior_executive: true,    
-                aspire_platinum: true,
-                aspire_premium: false,
-                aspire_free: false
-                
-            })
-        }else{
-            this.setState({
-                senior_executive: false,
-            })
-        }
-    };
-
-    handleMeetingChange = (event) => {
+          openStripe: true,
+        });
+      } else {
+        this.signUp(0, "FREE");
         this.setState({
-            quarterly_meeting: event.target.value
-        })
-    };
-
-    handleQuarterlyMeetingChange = (event) => {
-        this.setState({
-            meetings_frequency: event.target.value
-        })
-    };
-    
-    handleConfirmationCodeChange = (event) => {
-        this.setState({
-            confirmationCode: event.target.value
-        })
-    };
-
-    handleStripeClose = (event) => {
-        this.setState({
-            openStripe: false
-        })
-    };
-
-
-    handleSubmit = (event) => {
-        // if (this.state.senior_executive === true 
-        //     && (this.state.quarterly_meeting === ''
-        //     || this.state.meetings_frequency === '')){
-        //     this.setState({
-        //         dialogueOpen: true
-        //     });
-        //     return;
-        // }
-
-        if (this.state.verified){
-            this.confirmSignUp();
-            this.props.appContext.props.appContext.setState({
-                currentScreen: <Landing appContext={this.props.appContext}/>
-            });
-        }else{
-            if((this.state.senior_executive === true && parseInt(this.state.oneOnOneFrequency) > 0 && this.state.oneOnOneDates === undefined) ||
-                (this.state.senior_executive === true && this.state.mockInterview === true && parseInt(this.state.mockInterviewFrequency) > 0 && this.state.mockInterviewDates === undefined) ||
-                (this.state.senior_executive === true && this.state.fourOnOne === true && this.state.fourOnOneFrequency >= 0 && this.state.fourOnOneDates.length === 0) ||
-                (this.state.oneOnOneFrequency > this.state.oneOnOneDates.length) ||
-                (this.state.fourOnOneFrequency > this.state.fourOnOneDates.length) ||
-                (this.state.mockInterviewFrequency > this.state.mockInterviewDates.length)){
-                this.setState({
-                    dialogueOpen:true
-                })
-
-            }else if(this.state.aspire_premium === true || this.state.aspire_platinum === true){
-                this.setState({
-                    openStripe: true
-                })
-            }else{
-                this.signUp(0, "FREE");
-                this.setState({
-                    verified: true
-                });   
-            }
-        }   
-    };
-
-    handleDialog = (event) => {
-        this.setState({
-            dialogueOpen: !(this.state.dialogueOpen)
-        })
-    };
-
-    readConditions = (event) => {
-        this.setState({
-            open: true
-        })
-    };
-
-    handleAspireFreeClick = event => {
-        this.setState({
-            aspire_free: true,
-            aspire_premium: false,
-            aspire_platinum: false
-        })
-    };
-
-    handleAspirePremiumClick = event => {
-        this.setState({
-            aspire_premium: true,
-            aspire_free: false,
-            aspire_platinum: false
-        })
-    };
-
-    handleAspirePlatimumClick = event => {
-        this.setState({
-            aspire_platinum: true,
-            aspire_premium: false,
-            aspire_free: false
-        })
-    };
-
-    handleOneFqy = fqy => {
-        this.setState({
-            oneOnOneFrequency:fqy
-        })
+          verified: true,
+        });
+      }
     }
+  };
 
-    handleOneDates = dates => {
+  handleDialog = (event) => {
+    this.setState({
+      dialogueOpen: !this.state.dialogueOpen,
+    });
+  };
+
+  readConditions = (event) => {
+    this.setState({
+      open: true,
+    });
+  };
+
+  handleAccept = (event) => {
+    this.setState({
+      open: false,
+      checked: true,
+    });
+  };
+
+  handleConfirmationCodeChange = (event) => {
+    this.setState({
+      confirmationCode: event.target.value,
+    });
+  };
+
+  handleStripeClose = (event) => {
+    this.setState({
+      openStripe: false,
+    });
+  };
+
+  handleSubmit = (event) => {
+    if (this.state.verified) {
+      this.confirmSignUp();
+      this.props.history.push(`${Routes.Login}`);
+    } else {
+      if (
+        (this.state.senior_executive === true &&
+          parseInt(this.state.oneOnOneFrequency) > 0 &&
+          this.state.oneOnOneDates === undefined) ||
+        (this.state.senior_executive === true &&
+          this.state.mockInterview === true &&
+          parseInt(this.state.mockInterviewFrequency) > 0 &&
+          this.state.mockInterviewDates === undefined) ||
+        (this.state.senior_executive === true &&
+          this.state.fourOnOne === true &&
+          this.state.fourOnOneFrequency >= 0 &&
+          this.state.fourOnOneDates.length === 0) ||
+        this.state.oneOnOneFrequency > this.state.oneOnOneDates.length ||
+        this.state.fourOnOneFrequency > this.state.fourOnOneDates.length ||
+        this.state.mockInterviewFrequency > this.state.mockInterviewDates.length
+      ) {
         this.setState({
-            oneOnOneDates:dates
-        })
-    }
-
-    handleMockInt = choice => {
+          dialogueOpen: true,
+        });
+      } else if (
+        this.state.aspire_premium === true ||
+        this.state.aspire_platinum === true
+      ) {
         this.setState({
-            mockInterview:choice
-        })
-    }
-
-    handleMockFqy = fqy => {
+          openStripe: true,
+        });
+      } else {
+        this.signUp(0, "FREE");
         this.setState({
-            mockInterviewFrequency:fqy
-        })
+          verified: true,
+        });
+      }
     }
+  };
 
-    handleMockDates = dates => {
-        this.setState({
-            mockInterviewDates:dates
-        })
-    }
+  handleOneFqy = (fqy) => {
+    this.setState({
+      oneOnOneFrequency: fqy,
+    });
+  };
 
-    handleFour = choice => {
-        this.setState({
-            fourOnOne:choice
-        })
-    }
+  handleOneDates = (dates) => {
+    this.setState({
+      oneOnOneDates: dates,
+    });
+  };
 
-    handleFourFqy = fqy => {
-        this.setState({
-            fourOnOneFrequency:fqy
-        })
-    }
+  handleMockInt = (choice) => {
+    this.setState({
+      mockInterview: choice,
+    });
+  };
 
-    handleFourDates = dates => {
-        this.setState({
-            fourOnOneDates:dates
-        })
-    }
+  handleMockFqy = (fqy) => {
+    this.setState({
+      mockInterviewFrequency: fqy,
+    });
+  };
 
-    handleAllDates = info => {
-        this.setState({
-            meetingDates:info
-        })
-    }
+  handleMockDates = (dates) => {
+    this.setState({
+      mockInterviewDates: dates,
+    });
+  };
 
-    render() {
-        const classes = this.props.classes;
-        if (this.state.verified){
-            return( 
-                <Container component="main" maxWidth="sm">
-                    <CssBaseline />
-                    <div className={classes.paper}>
-                        <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
-                        <Typography component="h1" variant="h5">
-                            Registration
-                        </Typography>
-                    </div>
-                    <div className={classes.form}>
-                        <Grid container spacing={2}>
-                            <div style = {{alignContent: "center"}}>
-                                <Typography component="h1" variant="body1">
-                                    An email has been sent to <b>{this.state.email}</b>. Please enter the verification code below:
-                                </Typography>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        margin="normal"
-                                        fullWidth
-                                        required
-                                        id="confirmationCode"
-                                        label="Confirmation Code"
-                                        name="confirmationCode"
-                                        autoFocus
-                                        value={this.state.confirmationCode}
-                                        onChange={this.handleConfirmationCodeChange}
-                                    />
-                                </Grid>
-                                <Button
-                                    disabled={!this.state.checked}
-                                    type="submit"
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    onClick={this.handleSubmit}
-                                >
-                                    <b>Submit</b>
-                                </Button>
-                            </div>
-                        </Grid>
-                    </div>
-                </Container> 
-            );
-        }else{
-            return(
-                <Container component="main" maxWidth="lg">
-                    <CssBaseline />
-                    <div className={classes.paper}>
-                        <img src={MaxBrand} alt="MAX_brand" className={classes.avatar}/>
-                        <Typography component="h1" variant="h5">
-                            Registration
-                        </Typography>
-                    </div>
-                    <div className={classes.form}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.senior_executive}
-                                            onChange={this.handleUserChoice}
-                                            name="checkedD"
-                                        />}
-                                    label={
-                                        <Tooltip title={
-                                            <p>Senior Executive means the chief executive officer,
-                                                chief operating officer, chief financial officer, or
-                                                anyone in charge of a principal business unit or function.
-                                            </p>}>
-                                            <b>I would like to be considered as a Senior Executive</b>
-                                        </Tooltip>
-                                    }
-                                />
-                            </Grid>
-                            
-                            {this.state.senior_executive===true &&
-                                <SeniorExec
-                                    onOneFqy={this.handleOneFqy}
-                                    onOneDates={this.handleOneDates}
-                                    onMockInt={this.handleMockInt}
-                                    onMockFqy={this.handleMockFqy}
-                                    onMockDates={this.handleMockDates}
-                                    onFour={this.handleFour}
-                                    onFourFqy={this.handleFourFqy}
-                                    onFourDates={this.handleFourDates}
-                                    onAllDates={this.handleAllDates} />
-                            }
-                            {this.state.senior_executive &&
-                                <MembershipSE appContext={this.props.appContext}
-                                    landing={false}
-                                    platinumButtonText={"Sign Up for Platinum"}
-                                    platinumFunction={this.handleAspirePlatimumClick}
-                                /> 
-                            }
-                            {!this.state.senior_executive &&
-                                <MembershipNonSE appContext={this.props.appContext}
-                                    landing={false}
-                                    freeButtonText={"Try for Free"}
-                                    premiumButtonText={"Sign Up for Premium"}
-                                    freeFunction={this.handleAspireFreeClick}
-                                    premiumFunction={this.handleAspirePremiumClick}
-                                /> 
-                            }
-                            
-                            
-                            <Grid item xs={12}>
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.checked}
-                                            onChange={event => {this.setState({checked: !this.state.checked})}}
-                                            name="checkedD"
-                                        />}
-                                    label={<b>I agree to the <Tooltip title={"Click to read the Terms and Conditions"}>
-                                        <u onClick={this.readConditions} style = {{color: 'red'}}> terms and conditions </u>
-                                    </Tooltip> </b>}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Tooltip title={
-                                    <p>MAX Aspire will only reach out to you for important updates including (but not limited to) subscription expiration, new features, security concerns, and other important updates. We may also reach out to inform you about big events MAX is hosting and other major updates in the Muslim Community.</p>}>
-                                    <b>If you would like to be added to the MAX Aspire mailing service, please confirm your email!</b>
-                                </Tooltip>
-                                <MailchimpSubscribe
-                                    url={this.state.url}
-                                />
-                            </Grid>
-                        </Grid>
-                        <LinearWithValueLabel progress={this.state.progress}/>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit_back}
-                            onClick={this.changeToPage3}
+  handleFour = (choice) => {
+    this.setState({
+      fourOnOne: choice,
+    });
+  };
+
+  handleFourFqy = (fqy) => {
+    this.setState({
+      fourOnOneFrequency: fqy,
+    });
+  };
+
+  handleFourDates = (dates) => {
+    this.setState({
+      fourOnOneDates: dates,
+    });
+  };
+
+  handleAllDates = (info) => {
+    this.setState({
+      meetingDates: info,
+    });
+  };
+
+  readConditions = (event) => {
+    this.setState({
+      open: true,
+    });
+  };
+
+  handleAspireFreeClick = (event) => {
+    this.setState({
+      aspire_free: true,
+      aspire_premium: false,
+      aspire_platinum: false,
+    });
+  };
+
+  handleAspirePremiumClick = (event) => {
+    this.setState({
+      aspire_premium: true,
+      aspire_free: false,
+      aspire_platinum: false,
+    });
+  };
+
+  handleAspirePlatimumClick = (event) => {
+    this.setState({
+      aspire_platinum: true,
+      aspire_premium: false,
+      aspire_free: false,
+    });
+  };
+
+  render() {
+    const classes = this.props.classes;
+    if (this.state.verified) {
+      return (
+        <Container component="main" maxWidth="sm">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+            <Typography component="h1" variant="h5">
+              Registration
+            </Typography>
+          </div>
+          <div className={classes.form}>
+            <Grid container spacing={2}>
+              <div style={{ alignContent: "center" }}>
+                <Typography component="h1" variant="body1">
+                  An email has been sent to <b>{this.state.email}</b>. Please
+                  enter the verification code below:
+                </Typography>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    required
+                    id="confirmationCode"
+                    label="Confirmation Code"
+                    name="confirmationCode"
+                    autoFocus
+                    value={this.state.confirmationCode}
+                    onChange={this.handleConfirmationCodeChange}
+                  />
+                </Grid>
+                <Button
+                  disabled={!this.state.checked}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={this.handleSubmit}
+                >
+                  <b>Submit</b>
+                </Button>
+              </div>
+            </Grid>
+          </div>
+        </Container>
+      );
+    } else {
+      return (
+        <Container component="main" maxWidth="lg">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+            <Typography component="h1" variant="h5">
+              Registration
+            </Typography>
+          </div>
+          <div className={classes.form}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.senior_executive}
+                      onChange={this.handleUserChoice}
+                      name="checkedD"
+                    />
+                  }
+                  label={
+                    <Tooltip
+                      title={
+                        <p>
+                          Senior Executive means the chief executive officer,
+                          chief operating officer, chief financial officer, or
+                          anyone in charge of a principal business unit or
+                          function.
+                        </p>
+                      }
+                    >
+                      <b>I would like to be considered as a Senior Executive</b>
+                    </Tooltip>
+                  }
+                />
+              </Grid>
+
+              {this.state.senior_executive === true && (
+                <SeniorExec
+                  onOneFqy={this.handleOneFqy}
+                  onOneDates={this.handleOneDates}
+                  onMockInt={this.handleMockInt}
+                  onMockFqy={this.handleMockFqy}
+                  onMockDates={this.handleMockDates}
+                  onFour={this.handleFour}
+                  onFourFqy={this.handleFourFqy}
+                  onFourDates={this.handleFourDates}
+                  onAllDates={this.handleAllDates}
+                />
+              )}
+              {this.state.senior_executive && (
+                <MembershipSE
+                  appContext={this.props.appContext}
+                  landing={false}
+                  platinumButtonText={"Sign Up for Platinum"}
+                  platinumFunction={this.handleAspirePlatimumClick}
+                />
+              )}
+              {!this.state.senior_executive && (
+                <MembershipNonSE
+                  appContext={this.props.appContext}
+                  landing={false}
+                  freeButtonText={"Try for Free"}
+                  premiumButtonText={"Sign Up for Premium"}
+                  freeFunction={this.handleAspireFreeClick}
+                  premiumFunction={this.handleAspirePremiumClick}
+                />
+              )}
+
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.checked}
+                      onChange={(event) => {
+                        this.setState({ checked: !this.state.checked });
+                      }}
+                      name="checkedD"
+                    />
+                  }
+                  label={
+                    <b>
+                      I agree to the{" "}
+                      <Tooltip title={"Click to read the Terms and Conditions"}>
+                        <u
+                          onClick={this.readConditions}
+                          style={{ color: "red" }}
                         >
-                            <b>Previous</b>
-                        </Button>
-                        <Button
-                            disabled={!this.state.checked}
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={this.handleSubmit}
-                        >
-                            <b>Submit</b>
-                        </Button>
-                    </div>
-                    <Dialog
-                        open={this.state.dialogueOpen}
-                        TransitionComponent={Transition}
-                        keepMounted
-                        onClose={this.handleDialog}
-                        aria-labelledby="alert-dialog-slide-title"
-                        aria-describedby="alert-dialog-slide-description"
-                    >
-                        <DialogTitle id="alert-dialog-slide-title">{"Required fields are not filled in properly"}</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-slide-description">
-                                <b> Please fill out all the required fields with proper values </b>
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.handleDialog} color="primary">
-                                <b>Close</b>
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                    <Dialog
-                        open={this.state.open}
-                        onClose={this.handleClose}
-                        scroll={"paper"}
-                        fullWidth={true}
-                        maxWidth={'md'}
-                        aria-labelledby="scroll-dialog-title"
-                        aria-describedby="scroll-dialog-description"
-                    >
-                        <DialogTitle id="scroll-dialog-title">
-                            <div>
-                                <h2>Terms and Conditions</h2>
-                            </div>
-                        </DialogTitle>
-                        <DialogContent style={{overflowX: 'hidden'}}>
-                            <DialogContentText
-                                id="scroll-dialog-description"
-                                tabIndex={-1}
-                                component={'span'}
-                            >
-                                <div style={{margin: 'auto'}}>
-                                <p>Terms and Conditions File</p>
-                                <Document
-                                    file="./Files/terms_and_conditions.pdf"
-                                    onLoadSuccess={this.onTocDocumentLoad}
-                                >
-                                    {
-                                        Array.from(
-                                            new Array(this.state.tocNumPages),
-                                            (el, index) => (
-                                                <Page
-                                                    key={`page_${index + 1}`}
-                                                    pageNumber={index + 1}
-                                                    width={Math.min(900, (window.innerWidth - 100))}
-                                                />
-                                            ),
-                                        )
-                                    }
-                                </Document>
-                                </div>
-                                <p>Privacy Policy File</p>
-                                <Document
-                                    file="./Files/privacy_policy_no_cookie_policy.pdf"
-                                    onLoadSuccess={this.onPrivacyDocumentLoad}
-                                >
-                                    {
-                                        Array.from(
-                                            new Array(this.state.privacyNumPages),
-                                            (el, index) => (
-                                                <Page
-                                                    key={`page_${index + 1}`}
-                                                    pageNumber={index + 1}
-                                                    width={Math.min(900, (window.innerWidth - 100))}
-                                                />
-                                            ),
-                                        )
-                                    }
-                                </Document>
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button
-                                onClick={this.handleClose}
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                className={classes.disagree}
-                            >
-                                <b>Disagree</b>
-                            </Button>
-                            <Button
-                                onClick={this.handleAccept}
-                                variant="contained"
-                                type="submit"
-                                color="primary"
-                                className={classes.agree}
-                            >
-                                <b>Agree</b>
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                    <Dialog
-                        maxWidth={"md"}
-                        fullWidth={true}
-                        disableEscapeKeyDown
-                        disableBackdropClick
-                        onClose={this.handleStripeClose}
-                        aria-labelledby="stripe-dialog"
-                        open={this.state.openStripe}
-                    >
-                        <Stripe appContext={this.props.appContext} finalPage={this}/>
-                    </Dialog>
-                </Container>
-            );   
-        }
+                          {" "}
+                          terms and conditions{" "}
+                        </u>
+                      </Tooltip>{" "}
+                    </b>
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Tooltip
+                  title={
+                    <p>
+                      MAX Aspire will only reach out to you for important
+                      updates including (but not limited to) subscription
+                      expiration, new features, security concerns, and other
+                      important updates. We may also reach out to inform you
+                      about big events MAX is hosting and other major updates in
+                      the Muslim Community.
+                    </p>
+                  }
+                >
+                  <b>
+                    If you would like to be added to the MAX Aspire mailing
+                    service, please confirm your email!
+                  </b>
+                </Tooltip>
+                <MailchimpSubscribe url={this.state.url} />
+              </Grid>
+            </Grid>
+            <LinearWithValueLabel progress={this.state.progress} />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit_back}
+              onClick={this.changeToPage3}
+            >
+              <b>Previous</b>
+            </Button>
+            <Button
+              disabled={!this.state.checked}
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={this.handleSubmit}
+            >
+              <b>Submit</b>
+            </Button>
+          </div>
+          <Dialog
+            open={this.state.dialogueOpen}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={this.handleDialog}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle id="alert-dialog-slide-title">
+              {"Required fields are not filled in properly"}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                <b>
+                  {" "}
+                  Please fill out all the required fields with proper values{" "}
+                </b>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleDialog} color="primary">
+                <b>Close</b>
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            scroll={"paper"}
+            fullWidth={true}
+            maxWidth={"md"}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+          >
+            <DialogTitle id="scroll-dialog-title">
+              <div>
+                <h2>Terms and Conditions</h2>
+              </div>
+            </DialogTitle>
+            <DialogContent style={{ overflowX: "hidden" }}>
+              <DialogContentText
+                id="scroll-dialog-description"
+                tabIndex={-1}
+                component={"span"}
+              >
+                <div style={{ margin: "auto" }}>
+                  <p>Terms and Conditions File</p>
+                  <Document
+                    file="./Files/terms_and_conditions.pdf"
+                    onLoadSuccess={this.onTocDocumentLoad}
+                  >
+                    {Array.from(
+                      new Array(this.state.tocNumPages),
+                      (el, index) => (
+                        <Page
+                          key={`page_${index + 1}`}
+                          pageNumber={index + 1}
+                          width={Math.min(900, window.innerWidth - 100)}
+                        />
+                      )
+                    )}
+                  </Document>
+                </div>
+                <p>Privacy Policy File</p>
+                <Document
+                  file="./Files/privacy_policy_no_cookie_policy.pdf"
+                  onLoadSuccess={this.onPrivacyDocumentLoad}
+                >
+                  {Array.from(
+                    new Array(this.state.privacyNumPages),
+                    (el, index) => (
+                      <Page
+                        key={`page_${index + 1}`}
+                        pageNumber={index + 1}
+                        width={Math.min(900, window.innerWidth - 100)}
+                      />
+                    )
+                  )}
+                </Document>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={this.handleClose}
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.disagree}
+              >
+                <b>Disagree</b>
+              </Button>
+              <Button
+                onClick={this.handleAccept}
+                variant="contained"
+                type="submit"
+                color="primary"
+                className={classes.agree}
+              >
+                <b>Agree</b>
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            maxWidth={"md"}
+            fullWidth={true}
+            disableEscapeKeyDown
+            disableBackdropClick
+            onClose={this.handleStripeClose}
+            aria-labelledby="stripe-dialog"
+            open={this.state.openStripe}
+          >
+            <Stripe appContext={this.props.appContext} finalPage={this} />
+          </Dialog>
+        </Container>
+      );
     }
+  }
 }
 
 FinalPage = withMyHook(FinalPage);
+FinalPage = withRouter(FinalPage);
 export default FinalPage;

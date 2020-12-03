@@ -8,7 +8,8 @@ import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from "@material-ui/lab/Skeleton";
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -89,7 +90,7 @@ class CoffeeChats extends Component {
     super(props);
     this.state = {
       chats: [],
-      isChatsLoaded: false
+      isChatsLoaded: false,
     };
   }
 
@@ -250,20 +251,20 @@ class CoffeeChats extends Component {
                   </Grid>
                 ))
               ) : (
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={1}
-                    alignItems="center"
-                    justify="flex-start"
-                  >
-                    <EmptyCard type={CardTypes.coffeeChat} />
-                  </Grid>
-                )
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={1}
+                  alignItems="center"
+                  justify="flex-start"
+                >
+                  <EmptyCard type={CardTypes.coffeeChat} />
+                </Grid>
+              )
             ) : (
-                <Skeleton variant="rect" className={classes.cardCoffeeLoader} />
-              )}
+              <Skeleton variant="rect" className={classes.cardCoffeeLoader} />
+            )}
           </Grid>
         </div>
         {/* </PerfectScrollbar> */}
@@ -273,4 +274,5 @@ class CoffeeChats extends Component {
 }
 
 CoffeeChats = withMyHook(CoffeeChats);
+CoffeeChats = withRouter(CoffeeChats);
 export default CoffeeChats;
