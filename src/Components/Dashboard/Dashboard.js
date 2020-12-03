@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
+import { Route, Switch, Redirect } from "react-router-dom";
+
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import MaxLogo from "../Images/max_logo.png";
@@ -10,12 +12,9 @@ import UserProfile from "./UserProfile";
 import { faReact } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Home from "./Home";
-import CoffeeChats from "./CoffeeChats";
-import Jobs from "./Jobs";
-import Community from "./Community";
-import ResumeBank from "./ResumeBank";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
+import { withRouter } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
 import home from "../Images/navbar/home.svg";
@@ -29,6 +28,12 @@ import chatsLabel from "../Images/navbar/chats_web.svg";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Hidden } from "@material-ui/core";
+
+import CoffeeChats from "./CoffeeChats";
+import JobBoard from "./Jobs";
+import ResumeBank from "./ResumeBank";
+import Community from "./Community";
+import { Routes } from "../../entry/routes/Routes";
 
 const drawerWidth = 300;
 
@@ -127,8 +132,8 @@ const useStyles = makeStyles((theme) => ({
   dashboard: {
     height: "80%",
     marginLeft: "auto",
-    display: 'inline-flex',
-    alignItems: 'center',
+    display: "inline-flex",
+    alignItems: "center",
     "@media (max-width: 480px)": {
       marginLeft: "0px",
     },
@@ -146,7 +151,7 @@ const useStyles = makeStyles((theme) => ({
     height: "20px",
     padding: "0px",
     "@media (min-width: 480px)": {
-      display: 'none'
+      display: "none",
     },
   },
 
@@ -155,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
     height: "80px",
     padding: "0px",
     "@media (max-width: 480px)": {
-      display: 'none'
+      display: "none",
     },
   },
 
@@ -228,7 +233,6 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentScreen: [],
       open: true,
       jobsAnchorEl: null,
       communityAnchorEl: null,
@@ -269,57 +273,29 @@ class Dashboard extends Component {
     this.setOpen(false);
   };
 
-  componentDidMount() {
-    this.setState({
-      currentScreen: (
-        <Home appContext={this} isSeniorExec={this.props.isSeniorExec} />
-      ),
-    });
-  }
-
   changeToResumeBank() {
     this.handleSelect();
-    this.setState({
-      currentScreen: (
-        <ResumeBank appContext={this} isSeniorExec={this.props.isSeniorExec} />
-      ),
-    });
+    this.props.history.push(Routes.ResumeBank);
   }
 
   changeToCommunity() {
     this.handleSelect();
-    this.setState({
-      currentScreen: (
-        <Community appContext={this} isSeniorExec={this.props.isSeniorExec} />
-      ),
-    });
+    this.props.history.push(Routes.Members);
   }
 
   changeToCoffeeChats() {
     this.handleSelect();
-    this.setState({
-      currentScreen: (
-        <CoffeeChats appContext={this} isSeniorExec={this.props.isSeniorExec} />
-      ),
-    });
+    this.props.history.push(Routes.Coffee);
   }
 
   changeToJobs() {
     this.handleSelect();
-    this.setState({
-      currentScreen: (
-        <Jobs appContext={this} isSeniorExec={this.props.isSeniorExec} />
-      ),
-    });
+    this.props.history.push(Routes.Jobs);
   }
 
   changeToDashboard() {
     this.handleSelect();
-    this.setState({
-      currentScreen: (
-        <Home appContext={this} isSeniorExec={this.props.isSeniorExec} />
-      ),
-    });
+    this.props.history.push(Routes.Dashboard);
   }
 
   render() {
@@ -376,7 +352,6 @@ class Dashboard extends Component {
                 src={homeLabel}
                 alt={"Home Tab"}
               />
-
             </Button>
             <Button
               variant="outlined"
@@ -394,7 +369,6 @@ class Dashboard extends Component {
                 src={chatsLabel}
                 alt={"Coffee Chats Tab"}
               />
-
             </Button>
             <Button
               variant="outlined"
@@ -412,7 +386,6 @@ class Dashboard extends Component {
                 src={jobsLabel}
                 alt={"Jobs Tab"}
               />
-
             </Button>
             <Menu
               id="simple-menu2"
@@ -447,7 +420,6 @@ class Dashboard extends Component {
                 src={communityLabel}
                 alt={"Community Tab"}
               />
-
             </Button>
             <Menu
               id="simple-menu1"
@@ -501,7 +473,29 @@ class Dashboard extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <div className="Dashboard">{this.state.currentScreen}</div>
+          <div className="Dashboard">
+            <Switch>
+              <Route exact={true} path={Routes.Coffee}>
+                <CoffeeChats appContext={this} />
+              </Route>
+              <Route exact={true} path={Routes.Jobs}>
+                <JobBoard appContext={this} />
+              </Route>
+              {/* <Route exact={true} path={Routes.Submissions}>
+                < appContext={this}/>
+              </Route> */}
+              <Route exact={true} path={Routes.Members}>
+                <Community appContext={this} />
+              </Route>
+              <Route exact={true} path={Routes.ResumeBank}>
+                <ResumeBank appContext={this} />
+              </Route>
+              <Route exact={true} path={Routes.Dashboard}>
+                <Home />
+              </Route>
+              <Redirect to={Routes.Dashboard} />
+            </Switch>
+          </div>
         </main>
       </div>
     );
@@ -509,4 +503,6 @@ class Dashboard extends Component {
 }
 
 Dashboard = withMyHook(Dashboard);
+Dashboard = withRouter(Dashboard);
+
 export default Dashboard;

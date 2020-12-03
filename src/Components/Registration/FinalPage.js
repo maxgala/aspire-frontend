@@ -6,7 +6,6 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
 import Button from "@material-ui/core/Button";
-import ThirdPage from "./ThirdPage";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Dialog from "@material-ui/core/Dialog";
@@ -22,6 +21,8 @@ import { Auth } from "aws-amplify";
 import TextField from "@material-ui/core/TextField";
 import { Document, Page, pdfjs } from "react-pdf";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
+import { withRouter } from "react-router-dom";
+import { Routes } from "../../entry/routes/Routes";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -212,11 +213,7 @@ class FinalPage extends Component {
   };
 
   changeToPage3 = (event) => {
-    this.props.appContext.setState({
-      registrationScreen: (
-        <ThirdPage appContext={this.props.appContext} prev={this.state} />
-      ),
-    });
+    this.props.history.push(`${Routes.Register}/3`);
   };
 
   signUp(credits, user_type) {
@@ -322,9 +319,7 @@ class FinalPage extends Component {
   handleSubmit = (event) => {
     if (this.state.verified) {
       this.confirmSignUp();
-      this.props.appContext.props.appContext.setState({
-        currentScreen: <Landing appContext={this.props.appContext} />,
-      });
+      this.props.history.push(`${Routes.Login}`);
     } else {
       if (
         this.state.aspire_premium === true ||
@@ -629,4 +624,5 @@ class FinalPage extends Component {
 }
 
 FinalPage = withMyHook(FinalPage);
+FinalPage = withRouter(FinalPage);
 export default FinalPage;

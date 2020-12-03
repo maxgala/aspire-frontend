@@ -100,7 +100,7 @@ const useStyles = makeStyles(() => ({
     display: "inline-block",
   },
   title: {
-    fontFamily: 'PT Sans',
+    fontFamily: "PT Sans",
     fontWeight: "bolder",
     width: "100%",
     textAlign: "left",
@@ -115,7 +115,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   title2: {
-    fontFamily: 'PT Sans',
+    fontFamily: "PT Sans",
     fontSize: "3vw",
     "@media (min-width: 1125px)": {
       fontSize: "30px",
@@ -135,7 +135,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "15px",
   },
   subtitle: {
-    fontFamily: 'PT Sans',
+    fontFamily: "PT Sans",
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "12px",
@@ -157,7 +157,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "14px",
       marginLeft: "0px",
     },
-    fontFamily: 'PT Sans',
+    fontFamily: "PT Sans",
     fontWeight: "bold",
     width: "100%",
     textAlign: "left",
@@ -173,7 +173,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   company: {
-    fontFamily: 'PT Sans',
+    fontFamily: "PT Sans",
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "10px",
@@ -184,7 +184,7 @@ const useStyles = makeStyles(() => ({
     color: "white",
   },
   date: {
-    fontFamily: 'PT Sans',
+    fontFamily: "PT Sans",
     fontWeight: "bold",
     "@media (max-width: 520px)": {
       fontSize: "10px",
@@ -252,7 +252,7 @@ const useStyles = makeStyles(() => ({
     fontWeight: "400",
     marginLeft: "8px",
     "@media (max-width: 480px)": {
-      marginLeft: "0px"
+      marginLeft: "0px",
     },
     borderRadius: 50,
     backgroundColor: "white",
@@ -383,10 +383,10 @@ class CoffeeChatCard extends Component {
           this.props.data.chat_status === "ChatStatus.RESERVED"
             ? classes.cardBooked
             : this.props.data.chat_type === ChatTypes.oneOnOne
-              ? classes.cardOne
-              : this.props.data.chat_type === ChatTypes.fourOnOne
-                ? classes.cardFour
-                : classes.cardInterview
+            ? classes.cardOne
+            : this.props.data.chat_type === ChatTypes.fourOnOne
+            ? classes.cardFour
+            : classes.cardInterview
         }
       >
         {/* need to get image from s3 bucket --  */}
@@ -437,8 +437,8 @@ class CoffeeChatCard extends Component {
                   {this.props.data.chat_type === ChatTypes.oneOnOne
                     ? "One on One"
                     : this.props.data.chat_type === ChatTypes.fourOnOne
-                      ? "Four on One"
-                      : "Mock Interview"}
+                    ? "Four on One"
+                    : "Mock Interview"}
                 </h1>
                 <p className={classes.subtitle}>
                   <span className={classes.name}>
@@ -496,7 +496,6 @@ class CoffeeChatCard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-
                   <span className={classes.button_container}>
                     {this.props.data.chat_status === "ACTIVE" ? (
                       <Button
@@ -508,8 +507,8 @@ class CoffeeChatCard extends Component {
                         View Booking
                       </Button>
                     ) : (
-                        ""
-                      )}
+                      ""
+                    )}
                   </span>
                 </Grid>
               </Grid>
@@ -596,16 +595,17 @@ class CoffeeChatCard extends Component {
                       {this.props.data.chat_type === ChatTypes.oneOnOne
                         ? "One on One"
                         : this.props.data.chat_type === ChatTypes.fourOnOne
-                          ? "Four on One"
-                          : "Mock Interview"}
+                        ? "Four on One"
+                        : "Mock Interview"}
                       {this.props.data.booked ? (
                         <span className={classes.booked}>booked</span>
                       ) : (
-                          ""
-                        )}{" "}
+                        ""
+                      )}{" "}
                       with&nbsp;
                       <span className={classes.name2}>
-                        {this.props.data.given_name} {this.props.data.family_name}
+                        {this.props.data.given_name}{" "}
+                        {this.props.data.family_name}
                       </span>
                     </h1>
                   </Grid>
@@ -669,7 +669,6 @@ class CoffeeChatCard extends Component {
                 justify="center"
               >
                 <DialogActions>
-
                   <Button
                     className={classes.button2}
                     variant="contained"

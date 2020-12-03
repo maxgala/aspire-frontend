@@ -18,9 +18,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import MuiPhoneNumber from "material-ui-phone-number";
-import EmailField from "./EmailField";
-import PasswordField from "./PasswordField";
-import Tooltip from "@material-ui/core/Tooltip";
+import { Routes } from "../../entry/routes/Routes";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -189,9 +188,7 @@ class FirstPage extends Component {
   };
 
   changeToSignIn = (event) => {
-    this.props.appContext.props.appContext.setState({
-      currentScreen: <SignIn appContext={this.props.appContext} />,
-    });
+    this.props.history.push(Routes.SignIn);
   };
 
   handlePhoneChange(value) {
@@ -386,4 +383,5 @@ class FirstPage extends Component {
 }
 
 FirstPage = withMyHook(FirstPage);
+FirstPage = withRouter(FirstPage);
 export default FirstPage;

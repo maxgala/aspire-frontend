@@ -7,21 +7,22 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
 import { DropzoneDialog } from "material-ui-dropzone";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import Dialog from "@material-ui/core/Dialog";
-import Slide from "@material-ui/core/Slide";
-import SecondPage from "./SecondPage";
 import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from "react-s3";
+import Slide from "@material-ui/core/Slide";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import { withRouter } from "react-router-dom";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { Routes } from "../../entry/routes/Routes";
+import SecondPage from "./SecondPage";
 import FinalPage from "./FinalPage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    paddingTop: "5%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -31,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100px",
     height: "100px",
     padding: "1vw",
-    paddingTop: "60px",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -199,22 +199,17 @@ class ThirdPage extends Component {
     };
   }
 
-  handleDialog = (event) => {
-    this.setState({
-      dialogueOpen: !this.state.dialogueOpen,
-    });
-  };
-
   handleClose() {
     this.setState({
       open: false,
     });
   }
-  handleOpen() {
+
+  handleDialog = (event) => {
     this.setState({
-      open: true,
+      dialogueOpen: !this.state.dialogueOpen,
     });
-  }
+  };
 
   uploadToS3(file, folder, resume = true) {
     let config = {
@@ -271,12 +266,14 @@ class ThirdPage extends Component {
     };
   }
 
-  changeToPage2 = (event) => {
-    this.props.appContext.setState({
-      registrationScreen: (
-        <SecondPage appContext={this.props.appContext} prev={this.state} />
-      ),
+  handleOpen() {
+    this.setState({
+      open: true,
     });
+  }
+
+  changeToPage2 = (event) => {
+    this.props.history.push(`${Routes.Register}/2`);
   };
   changeToFinalPage = (event) => {
     if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
@@ -284,11 +281,8 @@ class ThirdPage extends Component {
         dialogueOpen: true,
       });
     } else {
-      this.props.appContext.setState({
-        registrationScreen: (
-          <FinalPage appContext={this.props.appContext} prev={this.state} />
-        ),
-      });
+      this.props.setPrev(this.state);
+      this.props.history.push(`${Routes.Register}/4`);
     }
   };
 
@@ -446,4 +440,5 @@ class ThirdPage extends Component {
 }
 
 ThirdPage = withMyHook(ThirdPage);
+ThirdPage = withRouter(ThirdPage);
 export default ThirdPage;
