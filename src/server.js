@@ -94,7 +94,7 @@ function httpGet(method, path, headers, params) {
 function httpPost(endPoint, headers, data) {
   let localDevPath = endPoint.substring(
     endPoint.indexOf("/api"),
-    endPoint.length - 1
+    endPoint.length
   );
   let url =
     "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
@@ -115,7 +115,7 @@ function httpPost(endPoint, headers, data) {
 function httpPut(endPoint, headers, data) {
   let localDevPath = endPoint.substring(
     endPoint.indexOf("/api"),
-    endPoint.length - 1
+    endPoint.length
   );
   let url =
     "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
