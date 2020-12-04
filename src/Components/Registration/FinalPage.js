@@ -15,14 +15,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
-import Membership from "../LandingPage/Membership";
 import Stripe from "../Payment/Stripe";
 import { Auth } from "aws-amplify";
 import TextField from "@material-ui/core/TextField";
 import { Document, Page, pdfjs } from "react-pdf";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
-import SE from "../SeniorExec/SE";
-import MenuItem from "@material-ui/core/MenuItem";
 import Slide from "@material-ui/core/Slide";
 import SeniorExec from "../SeniorExec/SeniorExec";
 import MembershipSE from "../LandingPage/MembershipSE";
@@ -192,9 +189,7 @@ class FinalPage extends Component {
       resumeURL: this.props.prev ? this.props.prev.resumeURL : "",
       profilePicURL: this.props.prev ? this.props.prev.profilePicURL : "",
       user_type: this.props.prev ? this.props.prev.user_type : "",
-      senior_executive: this.props.prev
-        ? this.props.prev.senior_executive
-        : false,
+      senior_executive: false,
       oneOnOne: true,
       fourOnOne: false,
       mockInterview: false,
@@ -388,45 +383,45 @@ class FinalPage extends Component {
     });
   };
 
-  handleSubmit = (event) => {
-    if (this.state.verified) {
-      this.confirmSignUp();
-      this.props.history.push(`${Routes.Login}`);
-    } else {
-      if (
-        (this.state.senior_executive === true &&
-          parseInt(this.state.oneOnOneFrequency) > 0 &&
-          this.state.oneOnOneDates === undefined) ||
-        (this.state.senior_executive === true &&
-          this.state.mockInterview === true &&
-          parseInt(this.state.mockInterviewFrequency) > 0 &&
-          this.state.mockInterviewDates === undefined) ||
-        (this.state.senior_executive === true &&
-          this.state.fourOnOne === true &&
-          this.state.fourOnOneFrequency >= 0 &&
-          this.state.fourOnOneDates.length === 0) ||
-        this.state.oneOnOneFrequency > this.state.oneOnOneDates.length ||
-        this.state.fourOnOneFrequency > this.state.fourOnOneDates.length ||
-        this.state.mockInterviewFrequency > this.state.mockInterviewDates.length
-      ) {
-        this.setState({
-          dialogueOpen: true,
-        });
-      } else if (
-        this.state.aspire_premium === true ||
-        this.state.aspire_platinum === true
-      ) {
-        this.setState({
-          openStripe: true,
-        });
-      } else {
-        this.signUp(0, "FREE");
-        this.setState({
-          verified: true,
-        });
-      }
-    }
-  };
+  //   handleSubmit = (event) => {
+  //     if (this.state.verified) {
+  //       this.confirmSignUp();
+  //       this.props.history.push(`${Routes.Login}`);
+  //     } else {
+  //       if (
+  //         (this.state.senior_executive === true &&
+  //           parseInt(this.state.oneOnOneFrequency) > 0 &&
+  //           this.state.oneOnOneDates === undefined) ||
+  //         (this.state.senior_executive === true &&
+  //           this.state.mockInterview === true &&
+  //           parseInt(this.state.mockInterviewFrequency) > 0 &&
+  //           this.state.mockInterviewDates === undefined) ||
+  //         (this.state.senior_executive === true &&
+  //           this.state.fourOnOne === true &&
+  //           this.state.fourOnOneFrequency >= 0 &&
+  //           this.state.fourOnOneDates.length === 0) ||
+  //         this.state.oneOnOneFrequency > this.state.oneOnOneDates.length ||
+  //         this.state.fourOnOneFrequency > this.state.fourOnOneDates.length ||
+  //         this.state.mockInterviewFrequency > this.state.mockInterviewDates.length
+  //       ) {
+  //         this.setState({
+  //           dialogueOpen: true,
+  //         });
+  //       } else if (
+  //         this.state.aspire_premium === true ||
+  //         this.state.aspire_platinum === true
+  //       ) {
+  //         this.setState({
+  //           openStripe: true,
+  //         });
+  //       } else {
+  //         this.signUp(0, "FREE");
+  //         this.setState({
+  //           verified: true,
+  //         });
+  //       }
+  //     }
+  //   };
 
   handleOneFqy = (fqy) => {
     this.setState({
