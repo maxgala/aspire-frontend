@@ -573,8 +573,8 @@ class Landing extends Component {
     }
 
     let profilePicture = blankProfile;
-    if (userProfile["custom:linkedin"]) {
-      profilePicture = userProfile["custom:linkedin"];
+    if (userProfile["picture"]) {
+      profilePicture = userProfile["picture"];
     }
 
     return {

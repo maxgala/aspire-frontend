@@ -240,6 +240,8 @@ class FinalPage extends Component {
       .replace("-", "");
     phone_val = phone_val.replace("(", "");
     phone_val = phone_val.replace(")", "");
+    const start_date = Math.trunc(Date.now() / 1000);
+    const end_date = start_date + 31536000;
 
     Auth.signUp({
       username: this.state.email,
@@ -257,13 +259,17 @@ class FinalPage extends Component {
         "custom:education_level": this.state.education,
         "custom:user_type": user_type,
         "custom:credits": credits.toString(),
-        "custom:linkedin": this.state.profilePicURL,
+        picture: this.state.profilePicURL,
+        "custom:start_date": start_date.toString(),
+        "custom:end_date": end_date.toString(),
       },
     })
       .then(() => {
         window.alert("Successfully signed up");
       })
-      .catch((err) => window.alert(`Error signing up: ${err.toString()}`));
+      .catch((err) => {
+        window.alert(`Error signing up: ${err.message.toString()}`);
+      });
   }
 
   confirmSignUp() {
