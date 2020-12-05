@@ -378,7 +378,6 @@ class CoffeeChatCard extends Component {
   };
 
   registerForChat = () => {
-    console.log(this.props.data);
     httpPut(
       "chats/" + this.props.data.chat_id + "/reserve",
       localStorage.getItem("idToken")
