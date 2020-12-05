@@ -268,7 +268,7 @@ class FinalPage extends Component {
         window.alert("Successfully confirmed signed up");
       })
       .catch((err) =>
-        window.alert(`Error confirming sign up - ${err.toString()}`)
+        window.alert(`Error confirming sign up - ${err.message.toString()}`)
       );
   }
 

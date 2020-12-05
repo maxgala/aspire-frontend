@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import image from "../../Images/faceShot/pic1.png";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +11,8 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
+import { httpPut } from "../../../lib/dataAccess";
+import Moment from "react-moment";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -360,6 +361,7 @@ class CoffeeChatCard extends Component {
     super(props);
     this.state = {
       open: false,
+      chat_status: this.props.data.chat_status,
     };
   }
 
@@ -373,6 +375,23 @@ class CoffeeChatCard extends Component {
     this.setState({
       open: true,
     });
+  };
+
+  registerForChat = () => {
+    httpPut(
+      "chats/" + this.props.data.chat_id + "/reserve",
+      localStorage.getItem("idToken")
+    )
+      .then(() => {
+        window.alert("Successfully registered for chat");
+        this.setState({
+          open: false,
+          chat_status: "RESERVED",
+        });
+      })
+      .catch((err) =>
+        window.alert(`Error registering for chat - ${err.toString()}`)
+      );
   };
 
   render() {
@@ -412,7 +431,7 @@ class CoffeeChatCard extends Component {
             >
               <img
                 className={classes.image}
-                src={image}
+                src={this.props.data.picture}
                 alt={"Coffee Chat Card"}
               />
             </Grid>
@@ -483,9 +502,13 @@ class CoffeeChatCard extends Component {
                   justify="flex-start"
                 >
                   <hr className={classes.bar}></hr>
-                  <span className={classes.date}>
-                    Available: {this.props.data.date}
-                  </span>
+                  {this.props.data.fixed_date ? (
+                    <span className={classes.date}>
+                      Date: <Moment unix>{this.props.data.fixed_date}</Moment>
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </Grid>
                 <Grid
                   container
@@ -497,7 +520,7 @@ class CoffeeChatCard extends Component {
                   justify="flex-start"
                 >
                   <span className={classes.button_container}>
-                    {this.props.data.chat_status === "ACTIVE" ? (
+                    {this.state.chat_status === "ACTIVE" ? (
                       <Button
                         onClick={this.openCoffeeChat}
                         className={classes.button}
@@ -507,7 +530,7 @@ class CoffeeChatCard extends Component {
                         View Booking
                       </Button>
                     ) : (
-                      ""
+                      <h3>{this.state.chat_status}</h3>
                     )}
                   </span>
                 </Grid>
@@ -568,7 +591,7 @@ class CoffeeChatCard extends Component {
                 >
                   <img
                     className={classes.image2}
-                    src={image}
+                    src={this.props.data.picture}
                     alt={"Coffee Chat Card"}
                   />
                 </Grid>
@@ -618,8 +641,7 @@ class CoffeeChatCard extends Component {
                     justify="flex-start"
                   >
                     <span className={classes.subtitle2}>
-                      <span>{this.props.data.senior_executive} @ </span>
-                      {this.props.data["custom:company"]}
+                      Company: {this.props.data["custom:company"]}
                     </span>
                   </Grid>
                   <Grid
@@ -630,10 +652,33 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    <span className={classes.subtitle2}>
-                      {this.props.data.available}
-                    </span>
+                    {this.props.data.fixed_date ? (
+                      <span className={classes.subtitle2}>
+                        Date: <Moment unix>{this.props.data.fixed_date}</Moment>
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </Grid>
+
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    {this.props.data.chat_type === ChatTypes.fourOnOne ? (
+                      <span className={classes.subtitle2}>
+                        Available spots:{" "}
+                        {4 - this.props.data.aspiring_professionals.length}
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </Grid>
+
                   <Grid
                     container
                     item
@@ -644,18 +689,6 @@ class CoffeeChatCard extends Component {
                   >
                     <span className={classes.date2}>
                       {this.props.data.description}
-                    </span>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={5}
-                    spacing={0}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <span className={classes.credits}>
-                      {this.props.data.credits} Credits
                     </span>
                   </Grid>
                 </Grid>
@@ -672,7 +705,7 @@ class CoffeeChatCard extends Component {
                   <Button
                     className={classes.button2}
                     variant="contained"
-                    onClick={this.applyJob}
+                    onClick={this.registerForChat}
                   >
                     Register
                   </Button>
