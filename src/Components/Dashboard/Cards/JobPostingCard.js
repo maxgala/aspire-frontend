@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import view from "../../Images/view.png";
-import edit from "../../Images/edit.png";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import EditIcon from "@material-ui/icons/Edit";
 import Tooltip from "@material-ui/core/Tooltip";
 import Moment from "react-moment";
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   card: {
     width: "100%",
     minHeight: "130px",
-    maxWidth: "350px",
+    maxWidth: "400px",
     height: "180px",
     marginBottom: "20px",
     borderRadius: "20px",
@@ -206,10 +206,9 @@ class JobPostingCard extends Component {
                 justify="flex-end"
               >
                 <Tooltip title="Edit" arrow>
-                  <img
-                    className={classes.image1}
-                    src={edit}
-                    alt="Edit Job Posting"
+                  <EditIcon
+                    style={{ color: "white", cursor: "pointer" }}
+                    fontSize="large"
                   />
                 </Tooltip>
               </Grid>
@@ -232,10 +231,9 @@ class JobPostingCard extends Component {
                 justify="flex-start"
               >
                 <Tooltip title="View" arrow>
-                  <img
-                    className={classes.image2}
-                    src={view}
-                    alt="View Job Posting"
+                  <VisibilityIcon
+                    style={{ color: "white", cursor: "pointer" }}
+                    fontSize="large"
                   />
                 </Tooltip>
               </Grid>
