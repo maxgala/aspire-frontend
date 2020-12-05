@@ -107,10 +107,10 @@ class SeniorExecs extends Component {
       columns: [
         { title: 'Name', field: 'name' },
         { title: "Age", field: 'age'},
+        { title: "Email", field: 'email'},
         { title: 'Company', field: 'company' },
-        { title: 'Region', field: 'region'},
         {title : "Industry", field : 'industry'},
-        { title: 'Region', field: "Region"},
+        { title: 'Region', field: 'region'},
         { title: 'Country', field: 'country'},
         { title: "Applied Date", field: "created_on", defaultSort: "desc", render: rowData => {
           // Format unix Timestamp to date time
@@ -120,65 +120,85 @@ class SeniorExecs extends Component {
     }
   }
 
+  /**
+   * This function takes in a string date of birth and return the age 
+   * @param {string} dob the date of birth to calculate the age from 
+   */
+  calculate_age(dob) { 
+
+    dob = new Date(dob);
+    var diff_ms = Date.now() - dob.getTime();
+    var age_dt = new Date(diff_ms); 
+  
+    return Math.abs(age_dt.getUTCFullYear() - 1970);
+  }
+
   fetchSeniorExecs = async () => {
     const existingSeniorExecsData = await httpGet("users/?type=MENTOR&status=DISABLED", localStorage.getItem("idToken"));
 
     const seniorExecData = [];
-    console.log(existingSeniorExecsData);
+    // console.log(existingSeniorExecsData);
     // Added sanity check incase API returns broken response
     if(existingSeniorExecsData.data.users !== undefined){
 
-      console.log("hi");
+      let tempThis = this;
+      // console.log("hi");
       // Go through every senior executive data and derive the # of applicants to fill in table
       Object.keys(existingSeniorExecsData.data.users).forEach(function(seniorExecID){
 
-        console.log(existingSeniorExecsData.data.users[seniorExecID]);
+        // console.log(existingSeniorExecsData.data.users[seniorExecID]);
         let currentExecObject = existingSeniorExecsData.data.users[seniorExecID].attributes;
         let seniorExec = {};
         seniorExec.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
 
-        // Get Senior Exec age from their birthdate
-        let age = +new Date(currentExecObject.birthdate);
-        seniorExec.age =  (currentExecObject.birthdate !== undefined) ? ~~((Date.now() - age) / (31557600000)) : "N/A";
+        // console.log(currentExecObject);
+        seniorExec.age =  tempThis.calculate_age(currentExecObject.birthdate);
       
-        seniorExec.company = (currentExecObject.custom.company !== undefined ?currentExecObject.custom.company : "N/A" );
-        seniorExec.industry =  (currentExecObject.custom.industry !== undefined ?currentExecObject.custom.industry : "N/A" );
-        seniorExec.region =  (currentExecObject.address.region !== undefined ?currentExecObject.address.region : "N/A" );
-        seniorExec.country =  (currentExecObject.address.country !== undefined ?currentExecObject.address.country : "N/A" );
+        seniorExec.company = (currentExecObject['custom:company'] !== undefined ?currentExecObject['custom:company'] : "N/A" );
+        seniorExec.industry =  (currentExecObject['custom:industry'] !== undefined ?currentExecObject['custom:industry'] : "N/A" );
+        seniorExec.region =  (JSON.parse(currentExecObject['address']).region !== undefined ?JSON.parse(currentExecObject['address']).region : "N/A" );
+        seniorExec.country =  (JSON.parse(currentExecObject['address']).country !== undefined ?JSON.parse(currentExecObject['address']).country : "N/A" );
 
-        seniorExec.created_on = currentExecObject.custom.start_date;
+        seniorExec.email = (currentExecObject['email'] !== undefined ?currentExecObject['email'] : "N/A" );
+
+        seniorExec.created_on = currentExecObject['custom:start_date'];
+
+        seniorExecData.push(seniorExec);
+
+
       });
 
+      // console.log(seniorExecData);
       this.setState({
-        SeniorExecs: seniorExecData
+        seniorExecs: seniorExecData
       })
 
     }
   }
 
   /**
-   * This function will set the status of a senior executive to rejected
-   * @param {int} seniorExecID the ID of the senior executive to have it's status set to rejected
+   * This function will reject a senior execs application 
+   * @param {string} seniorExecEmail the email of the senior executive to reject
    */
-  removedSeniorExec = async (seniorExecID) => {
+  rejectSeniorExec = async (seniorExecEmail) => {
 
-    let removedSeniorExec = {
-      "job_status" : "REJECTED",
+    let disableSeniorExec = {
+      "email" : `${seniorExecEmail}`,
     };
-    await httpPut(`seniorExecs/${seniorExecID}`, localStorage.getItem("idToken"), removedSeniorExec);
+    await httpPut("users/disable", localStorage.getItem("idToken"), disableSeniorExec);
     this.fetchSeniorExecs();
   }
 
   /**
-   * This function will set the status of a senior executive to active
-   * @param {int} jobID the ID of the senior executive to have it's status set to active
+   * This function will approve a senior execs application 
+   * @param {string} seniorExecEmail the email of the senior executive to approve
    */
-  approveseniorExec = async (jobID) => {
+  approveSeniorExec = async (seniorExecEmail) => {
 
-    let approvedseniorExec = {
-      "job_status" : "ACTIVE",
+    let disableSeniorExec = {
+      "email" : `${seniorExecEmail}`,
     };
-    await httpPut(`SeniorExecs/${jobID}`, localStorage.getItem("idToken"), approvedseniorExec);
+    await httpPut("users/disable", localStorage.getItem("idToken"), disableSeniorExec);
     this.fetchSeniorExecs();
   }
 
@@ -195,12 +215,14 @@ class SeniorExecs extends Component {
     const actions = [
       {
         icon: () => <Check/>,
-        tooltip: "Approve Senior executive posting",
+        tooltip: "Approve Senior Executive posting",
         onClick: (event,rowData) => {
           new Promise((resolve, reject) => {
   
-            // Send PUT request to set senior executive status to Active.
-            this.approveSeniorExec(rowData.seniorExecID);
+            console.log(rowData);
+
+            // Send PUT request to approve senior exec.
+            this.approveSeniorExec(rowData.email);
   
             resolve();
           })        
@@ -208,12 +230,13 @@ class SeniorExecs extends Component {
       },
       {
         icon: () => <DeleteOutline/>,
-        tooltip: "Remove senior executive Posting",
+        tooltip: "Reject Senior Executive Posting",
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
 
-            // Send PUT request to set senior executive status to Rejected.
-            this.removeSeniorExec(rowData.seniorExecID);
+            console.log(rowData);
+            // Send PUT request to reject senior exec
+            this.rejectSeniorExec(rowData.email);
     
             resolve();
           })        
