@@ -39,6 +39,17 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     boxShadow: "0px 6px 6px #00000029",
   },
+  cssOutlinedInput: {
+    "&$cssFocused $notchedOutline": {
+      borderColor: `#B6A165 `,
+    },
+  },
+  cssFocused: {},
+  notchedOutline: {
+    borderWidth: "2px",
+    borderColor: "#B6A165 ",
+  },
+
   image: {
     width: "120px",
     height: "120px",
@@ -273,6 +284,8 @@ async function sendEmail(data) {
     return true;
 }
 
+
+
 class CreateCoffeeChatCard extends Component {
   constructor(props) {
     super(props);
@@ -286,7 +299,8 @@ class CreateCoffeeChatCard extends Component {
       dateTimeStamp: 0,
       dateFormatted: "",
       snackBarOpen : false,
-      snackBarText: ""
+      snackBarText: "",
+      maxCharacters : 150,
     };
   }
 
@@ -341,6 +355,13 @@ class CreateCoffeeChatCard extends Component {
     }
   });
 }
+
+
+  handleTagsChange = (event) => {
+      this.setState({
+          tags : event.target.value.split('')
+      })
+  }
   openEscalation = (event) => {
     this.setState({
       open: true,
@@ -363,6 +384,7 @@ class CreateCoffeeChatCard extends Component {
     this.setState({
         open: false,
         type: "",
+        dateFormatted : "",
         description: "",
         title: "",
         tags: [],
@@ -373,18 +395,57 @@ class CreateCoffeeChatCard extends Component {
     });
   };
 
-  handleDateChange = (event) => {
-    this.setState({
-        dateFormatted: event.target.value
-    })
-};
+  submitCoffeeChat = () => {
+      // Validate to make sure data is valid
+
+      console.log(this.state);
+    //   if (
+    //     this.state.title === "" ||
+    //     this.state.title === undefined ||
+    //     this.state.type === "" ||
+    //     this.state.type === undefined ||
+    //     this.state.seniorExecEmail === "" ||
+    //     this.state.seniorExecEmail === undefined ||
+    //     this.state.description === "" ||
+    //     this.state.description === undefined ||
+    //     this.state.dateFormatted === "" ||
+    //     this.state.dateFormatted === undefined
+    //   ) {
+    //     alert(
+    //       "One of the required fields is not set (title, type, senior exec email, date)."
+    //     );
+    //     return;
+    //   }
 
 
-  handleSnackBarClose = (event) => {
-    this.setState({
-      snackBarOpen: false
-    })
-  }
+
+    }
+
+    handleDateChange = (event) => {
+        this.setState({
+            dateFormatted: event.target.value
+            })  
+    }
+
+    handleSeniorExecChange = (event) => {
+        this.setState({
+            seniorExecEmail: event.target.value
+            })  
+        }
+
+    handleTagsChange = (event) => {
+        let tags = event.target.value.split(',');
+        this.setState({
+            tags: tags
+            })  
+        }
+    
+    
+    handleSnackBarClose = (event) => {
+        this.setState({
+        snackBarOpen: false
+        })
+    }
 
   setSnackBarMessage = (message) => {
     this.setState({
@@ -446,27 +507,101 @@ class CreateCoffeeChatCard extends Component {
               component={"span"}
             >
           <div className={classes.grid}>
-            <Grid container item xs={12} spacing={1}>
+            <Grid container item xs={12} spacing={3}>
                 <Grid
                     container
                     item
                     xs={12}
-                    spacing={0}
+                    spacing={1}
                     alignItems="flex-start"
                     justify="flex-start"
-                    style={{ marginBottom: "15px", marginTop: "10px" }}
+                    style={{ marginTop: "10px" }}
                 >
+                    <Grid
+                        container
+                        item
+                        xs={12}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                    >
+                        <TextField
+                        id="titleTextField"
+                        variant="outlined"
+                        label="Coffee Chat Title"
+                        value={this.state.title}
+                        onChange={this.handleChange}
+                        inputProps={{
+                            name: "title",
+                            id: "titleTextField",
+                        }}
+                        />
+                    </Grid>
+                </Grid>
+                {/* Grid for Senior Exec */}
+                <Grid
+                    container
+                    item
+                    xs ={12}
+                    sm={6}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                >
+
+                    <Grid
+                        container
+                        item
+                        xs={12}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                    >
+
                     <TextField
-                    id="titleTextField"
-                    variant="outlined"
-                    label="Title"
-                    value={this.state.title}
-                    onChange={this.handleChange}
-                    inputProps={{
-                        name: "title",
-                        id: "titleTextField",
-                    }}
+                        id="titleTextField"
+                        variant="outlined"
+                        label="Senior Exec Email"
+                        value={this.state.seniorExecEmail}
+                        onChange={this.handleSeniorExecChange}
+                        inputProps={{
+                            name: "title",
+                            id: "titleTextField",
+                        }}
                     />
+
+                    </Grid>
+                </Grid>
+                {/* Grid for Tags */}
+                <Grid
+                    container
+                    item
+                    xs ={12}
+                    sm={6}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                >
+                    <Grid       
+                        container
+                        item
+                        xs={12}
+                        spacing={1}
+                        alignItems="flex-start"
+                        justify="flex-start"
+                    >
+                    <TextField
+                        id="titleTextField"
+                        variant="outlined"
+                        label="Tags ( separate by comma)"
+                        value={this.state.tags.join()}
+                        onChange={this.handleTagsChange}
+                        inputProps={{
+                            name: "title",
+                            id: "titleTextField",
+                        }}
+                    />
+                    </Grid>        
                 </Grid>
                 <Grid
                     container
@@ -536,7 +671,6 @@ class CreateCoffeeChatCard extends Component {
                         </div>
                     </Grid>
                 </Grid>
-
                 <Grid
                     container
                     item
@@ -569,30 +703,35 @@ class CreateCoffeeChatCard extends Component {
                     />
                     </Grid>
                     </Grid>
-
-
                 <Grid
                     container
                     item
                     xs={12}
-                    spacing={0}
+                    spacing={1}
                     alignItems="flex-start"
                     justify="flex-start"
                     style={{ marginBottom: "15px", marginTop: "10px" }}
                 >
                     <TextField
                     fullWidth={true}
-                    multiline
+                    rows={4}
                     id="descriptionTextField"
                     variant="outlined"
                     label="Description"
+                    multiline={true}
                     value={this.state.description}
                     onChange={this.handleChange}
+                    helperText={`${this.state.description.length}/${this.state.maxCharacters} Characters`}
                     inputProps={{
-                        maxLength: 500,
-                        style: { height: 200 },
+                        maxLength: this.state.maxCharacters,
+                        style: { height: 100 },
                         name: "description",
                         id: "titleTdescriptionTextFieldextField",
+                        classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          },  
                     }}
                     />
                 </Grid>
