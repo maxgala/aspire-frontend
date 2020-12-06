@@ -469,8 +469,6 @@ class Landing extends Component {
     jobsDataObj.poster_family_name = userProfile.family_name;
     jobsDataObj.poster_given_name = userProfile.given_name;
 
-    console.log(jobsDataObj);
-
     // post job and close popup
     httpPost("jobs", localStorage.getItem("idToken"), jobsDataObj);
     this.setState({

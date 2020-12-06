@@ -116,7 +116,7 @@ class CoffeeChats extends Component {
       <div>
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
-          <h1 className={classes.coffeeChat}>Coffee Chats</h1>
+          <h1 className={classes.coffeeChat}>Available Coffee Chats</h1>
           {/* TODO: Hiding filters until they get implemented
             <Grid
               container
