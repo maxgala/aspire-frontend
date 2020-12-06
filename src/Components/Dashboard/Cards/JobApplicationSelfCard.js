@@ -257,28 +257,22 @@ class JobApplicationSelfCard extends Component {
   };
 
   applyJob = async () => {
-    console.log(this.props.data);
-    console.log(this.getResumeURL());
-
     let jobAppObj = {
       job_id: this.props.data.job_id.toString(),
       resumes: this.getResumeURL(),
       cover_letters: "coverletters2",
     };
-    console.log(jobAppObj);
     const appResponse = await httpPost(
       "job-applications",
       localStorage.getItem("idToken"),
       jobAppObj
     );
-    console.log(appResponse);
     if (appResponse.status === 200) {
       window.alert("Successfully applied for this job");
       this.setState({
         open: false,
       });
     } else {
-      console.log(appResponse);
       window.alert("Failed to apply for this job!");
     }
   };
