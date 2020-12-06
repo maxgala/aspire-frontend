@@ -121,7 +121,7 @@ class EmptyCard extends Component {
               ? "No booked coffee chats"
               : this.props.type === CardTypes.jobApplication
               ? "No submitted job applications"
-              : "No job postings created"}
+              : "No jobs posted"}
           </h1>
           <p className={classes.subtitle}>
             {this.props.type === CardTypes.coffeeChat
