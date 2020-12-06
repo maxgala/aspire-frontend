@@ -96,7 +96,7 @@ class CoffeeChats extends Component {
 
   fetchChats = async () => {
     const existingChatsData = await httpGet(
-      "chats",
+      "chats?status=ACTIVE",
       localStorage.getItem("idToken")
     );
     this.setState({

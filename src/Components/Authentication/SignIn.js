@@ -158,7 +158,7 @@ class SignIn extends Component {
           let userProfile = jwtDecode(localStorage.getItem("idToken"));
           localStorage.setItem("userProfile", JSON.stringify(userProfile));
 
-          let userGroups = res.getIdToken().payload["cognito:groups"];
+          let userGroups = res.getIdToken().payload["custom:user_type"];
           if (userGroups.includes("ADMIN")) {
             this.setState({
               isAdmin: true,
