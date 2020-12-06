@@ -367,6 +367,7 @@ class Landing extends Component {
         job_tags: [],
         salary: 0,
         deadline: 0,
+        can_contact: false,
       },
     };
   }
@@ -419,7 +420,12 @@ class Landing extends Component {
   };
 
   handleContactMeChange = (name) => (event) => {
-    this.setState({ [name]: event.target.checked });
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.can_contact = !this.state.jobsData.can_contact;
+    this.setState({
+      [name]: event.target.checked,
+      jobsData: jobsDataObj,
+    });
   };
 
   postJob = (event) => {
