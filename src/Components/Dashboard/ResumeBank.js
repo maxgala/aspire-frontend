@@ -102,7 +102,6 @@ class JobBoard extends Component {
     });
 
     const full = paidUsers.data.users.concat(freeUsers.data.users);
-    console.log(full);
     this.setState({
       job_board_data: full,
     });

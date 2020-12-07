@@ -288,7 +288,6 @@ class JobApplicationCard extends Component {
               component={"span"}
             >
               <div style={{ margin: "auto", height: "100%" }}>
-                {console.log(this.props.data.attributes["custom:resume"])}
                 <Document
                   file={this.props.data.attributes["custom:resume"]}
                   onLoadSuccess={this.onResumeLoad}

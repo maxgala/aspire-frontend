@@ -119,7 +119,6 @@ class JobApplicationCard extends Component {
 
   checkUserType = () => {
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-    console.log(userProfile["custom:user_type"]);
     if (userProfile["custom:user_type"] === "MENTOR") {
       this.setState({
         showConnect: true,
