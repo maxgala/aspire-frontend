@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
     maxWidth: "400px",
     height: "180px",
     marginBottom: "20px",
+    marginRight: "10px",
     borderRadius: "20px",
     backgroundColor: "#58595B",
     boxShadow: "0px 6px 6px #00000029",
