@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import image from "../../Images/faceShot/pic1.png";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { blankProfile } from "../../Images/faceShot/blank_profile.png";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -110,6 +110,27 @@ function withMyHook(Component) {
 }
 
 class JobApplicationCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showConnect: false,
+    };
+  }
+
+  checkUserType = () => {
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    console.log(userProfile["custom:user_type"]);
+    if (userProfile["custom:user_type"] === "MENTOR") {
+      this.setState({
+        showConnect: true,
+      });
+    }
+  };
+
+  componentDidMount() {
+    this.checkUserType();
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -134,12 +155,18 @@ class JobApplicationCard extends Component {
             >
               <img
                 className={classes.image}
-                src={image}
+                src={this.props.data.attributes["picture"]}
                 alt={"Community Chat Card"}
               />
-              <h1 className={classes.name}>{this.props.data.name}</h1>
-              <p className={classes.title}>{this.props.data.title}</p>
-              <p className={classes.subtitle}>Toronto, ON</p>
+              <h1 className={classes.name}>
+                {this.props.data.attributes["prefix"]}
+                {this.props.data.attributes["given_name"]}{" "}
+                {this.props.data.attributes["family_name"]}
+              </h1>
+              <p className={classes.title}>
+                {this.props.data.attributes["custom:position"]}
+              </p>
+              {/* <p className={classes.subtitle}>{this.props.data.attributes["custom:industry"]}</p> */}
               <span className={classes.subtitle}>
                 <span>
                   <FontAwesomeIcon
@@ -147,7 +174,7 @@ class JobApplicationCard extends Component {
                     className={classes.company_icon}
                   />
                 </span>
-                {this.props.data.company}
+                {this.props.data.attributes["custom:company"]}
               </span>
             </Grid>
             <Grid
@@ -158,15 +185,20 @@ class JobApplicationCard extends Component {
               alignItems="center"
               justify="center"
             >
-              <span className={classes.button_container}>
-                <Button
-                  className={classes.button}
-                  variant="contained"
-                  color="primary"
-                >
-                  Connect
-                </Button>
-              </span>
+              {this.state.showConnect === false ? (
+                ""
+              ) : (
+                <span className={classes.button_container}>
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                    disabled={!this.state.showConnect}
+                  >
+                    Connect
+                  </Button>
+                </span>
+              )}
             </Grid>
           </Grid>
         </div>

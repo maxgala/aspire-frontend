@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CoffeeChatCard from "./Cards/CoffeeChatCard";
+import CoffeeChatSelfCard from "./Cards/CoffeeChatSelfCard";
 import EmptyCard from "./Cards/EmptyCard";
 import JobApplicationSelfCard from "./Cards/JobApplicationSelfCard";
 import JobPostingCard from "./Cards/JobPostingCard";
@@ -10,6 +10,7 @@ import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { withSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -108,6 +109,7 @@ class Home extends Component {
       coffee_chats: [],
       isChatsLoaded: false,
       job_applications: [],
+      job_app_temp: [],
       isJobappsLoaded: false,
       job_postings: [],
       isJobpostsLoaded: false,
@@ -131,15 +133,15 @@ class Home extends Component {
     // data should never return an empty string, but it is currently
     // backend team should fix this so it returns either undefined or [], [] being more preferred
     if (data !== undefined && data !== "") {
-      data.forEach(async (job) => {
+      for (let i = 0; i < data.length; i++) {
         const jobData = await httpGet(
-          "jobs/" + job.job_id,
+          "jobs/" + data[i].job_id,
           localStorage.getItem("idToken")
         );
         if (jobData.data) {
           jobAppData.push(jobData.data);
         }
-      });
+      }
       this.setState({
         isJobappsLoaded: true,
         job_applications: jobAppData,
@@ -221,7 +223,7 @@ class Home extends Component {
                       alignItems="center"
                       justify="flex-start"
                     >
-                      <CoffeeChatCard data={chat} />
+                      <CoffeeChatSelfCard data={chat} />
                     </Grid>
                   ))
                 ) : (
@@ -526,4 +528,4 @@ class Home extends Component {
 }
 
 Home = withMyHook(Home);
-export default Home;
+export default withSnackbar(Home);

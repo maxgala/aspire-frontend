@@ -208,7 +208,7 @@ class JobApplicationCard extends Component {
             >
               <img
                 className={classes.image}
-                src={image}
+                src={this.props.data.attributes["picture"]}
                 alt={"Coffee Chat Card"}
               />
             </Grid>
@@ -223,9 +223,14 @@ class JobApplicationCard extends Component {
               justify="center"
             >
               <div className={classes.cardInfo}>
-                <h1 className={classes.name}>{this.props.data.name}</h1>
-                <p className={classes.title}>Youth Counselor</p>
-                <p className={classes.subtitle}>Calgary, AB</p>
+                <h1 className={classes.name}>
+                  {this.props.data.attributes["given_name"]}{" "}
+                  {this.props.data.attributes["family_name"]}
+                </h1>
+                <p className={classes.title}>
+                  {this.props.data.attributes["custom:position"]}
+                </p>
+                {/* <p className={classes.subtitle}>Calgary, AB</p> */}
                 <span className={classes.subtitle}>
                   <span>
                     <FontAwesomeIcon
@@ -233,7 +238,7 @@ class JobApplicationCard extends Component {
                       className={classes.company_icon}
                     />
                   </span>
-                  {this.props.data.company}
+                  {this.props.data.attributes["custom:company"]}
                 </span>
               </div>
             </Grid>
@@ -270,7 +275,10 @@ class JobApplicationCard extends Component {
         >
           <DialogTitle id="scroll-dialog-title">
             <div>
-              <h2>{this.props.data.name}'s Resume</h2>
+              <h2>
+                {this.props.data.attributes["given_name"]}{" "}
+                {this.props.data.attributes["family_name"]}'s Resume
+              </h2>
             </div>
           </DialogTitle>
           <DialogContent style={{ overflowX: "hidden" }}>
@@ -280,8 +288,9 @@ class JobApplicationCard extends Component {
               component={"span"}
             >
               <div style={{ margin: "auto", height: "100%" }}>
+                {console.log(this.props.data.attributes["custom:resume"])}
                 <Document
-                  file="./Files/test_resume.pdf"
+                  file={this.props.data.attributes["custom:resume"]}
                   onLoadSuccess={this.onResumeLoad}
                 >
                   {Array.from(new Array(this.state.num_pages), (el, index) => (

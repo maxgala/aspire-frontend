@@ -95,13 +95,20 @@ class CoffeeChats extends Component {
   }
 
   fetchChats = async () => {
-    const existingChatsData = await httpGet(
+    const existingActiveChatsData = await httpGet(
       "chats?status=ACTIVE",
       localStorage.getItem("idToken")
     );
+    const existingPartialChatsData = await httpGet(
+      "chats?status=RESERVED_PARTIAL",
+      localStorage.getItem("idToken")
+    );
+    let full = existingActiveChatsData.data.chats.concat(
+      existingPartialChatsData.data.chats
+    );
     this.setState({
       isChatsLoaded: true,
-      chats: existingChatsData.data.chats,
+      chats: full,
     });
   };
 

@@ -13,6 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import { httpPost, httpGet } from "../../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
+import { withSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -269,7 +270,9 @@ class JobApplicationCard extends Component {
 
     for (let i = 0; i < jobsData.data.length; i++) {
       if (jobsData.data[i].job_id === jobId) {
-        window.alert("You have already applied for this job");
+        this.props.enqueueSnackbar("Already applied to this job!", {
+          variant: "warning",
+        });
         alreadyApplied = true;
         break;
       }
@@ -281,17 +284,21 @@ class JobApplicationCard extends Component {
         resumes: this.getResumeURL(),
         cover_letters: "coverletters2",
       };
-      const appResponse = await httpPost(
+      await httpPost(
         "job-applications",
         localStorage.getItem("idToken"),
         jobAppObj
-      );
-      console.log(appResponse);
-      if (appResponse.status === 200) {
-        window.alert("Successfully applied for this job");
-      } else {
-        window.alert("Failed to apply for this job!");
-      }
+      )
+        .then((res) => {
+          this.props.enqueueSnackbar("Successfully applied for this job", {
+            variant: "success",
+          });
+        })
+        .catch((err) => {
+          this.props.enqueueSnackbar("Failed to apply for this job!: " + err, {
+            variant: "error",
+          });
+        });
     }
     this.setState({
       open: false,
@@ -469,7 +476,7 @@ class JobApplicationCard extends Component {
                     justify="flex-start"
                   >
                     <div className={classes.divStyle}>
-                      <span className={classes.tag1}>Marketing</span>
+                      <span className={classes.tag1}>{tag}</span>
                     </div>
                   </Grid>
                 ))}
@@ -567,7 +574,11 @@ class JobApplicationCard extends Component {
                     justify="flex-start"
                   >
                     <span className={classes.textpopup2}>
-                      {this.props.data && this.props.data.job_type}
+                      {this.props.data &&
+                      this.props.data.job_type &&
+                      this.props.data.job_type === "REGULAR_JOB"
+                        ? "Regular Job"
+                        : "Board Position"}
                     </span>
                   </Grid>
                 </Grid>
@@ -651,4 +662,4 @@ class JobApplicationCard extends Component {
 }
 
 JobApplicationCard = withMyHook(JobApplicationCard);
-export default JobApplicationCard;
+export default withSnackbar(JobApplicationCard);

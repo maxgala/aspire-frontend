@@ -12,6 +12,7 @@ import Moment from "react-moment";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import { httpPost } from "../../../lib/dataAccess";
+import { withSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -448,7 +449,7 @@ class JobApplicationSelfCard extends Component {
                     justify="flex-start"
                   >
                     <div className={classes.divStyle}>
-                      <span className={classes.tag1}>Marketing</span>
+                      <span className={classes.tag1}>{tag}</span>
                     </div>
                   </Grid>
                 ))}
@@ -546,7 +547,11 @@ class JobApplicationSelfCard extends Component {
                     justify="flex-start"
                   >
                     <span className={classes.textpopup2}>
-                      {this.props.data && this.props.data.job_type}
+                      {this.props.data &&
+                      this.props.data.job_type &&
+                      this.props.data.job_type === "REGULAR_JOB"
+                        ? "Regular Job"
+                        : "Board Position"}
                     </span>
                   </Grid>
                 </Grid>
@@ -620,4 +625,4 @@ class JobApplicationSelfCard extends Component {
 }
 
 JobApplicationSelfCard = withMyHook(JobApplicationSelfCard);
-export default JobApplicationSelfCard;
+export default withSnackbar(JobApplicationSelfCard);

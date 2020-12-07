@@ -358,7 +358,7 @@ function withMyHook(Component) {
   };
 }
 
-class CoffeeChatCard extends Component {
+class CoffeeChatSelfCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -401,10 +401,10 @@ class CoffeeChatCard extends Component {
         this.props.enqueueSnackbar("Failed:" + err, {
           variant: "error",
         });
-        this.setState({
-          barDisplay: false,
-        });
       });
+    this.setState({
+      barDisplay: false,
+    });
   };
 
   render() {
@@ -534,24 +534,7 @@ class CoffeeChatCard extends Component {
                   justify="flex-start"
                 >
                   <span className={classes.button_container}>
-                    {this.state.chat_status === "ACTIVE" ||
-                    this.state.chat_status === "RESERVED_PARTIAL" ? (
-                      <Button
-                        onClick={this.openCoffeeChat}
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                      >
-                        View Booking
-                      </Button>
-                    ) : (
-                      <h3>
-                        {this.state.chat_status === "RESERVED" ||
-                        this.state.chat_status === "RESERVED_CONFIRMED"
-                          ? "RESERVED"
-                          : this.state.chat_status}
-                      </h3>
-                    )}
+                    <h3>RESERVED</h3>
                   </span>
                 </Grid>
               </Grid>
@@ -689,11 +672,10 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    {this.props.data.chat_type === ChatTypes.fourOnOne &&
-                    this.props.data.aspiring_professionals !== null ? (
+                    {this.props.data.chat_type === ChatTypes.fourOnOne ? (
                       <span className={classes.subtitle2}>
                         Available spots:{" "}
-                        {4 - this.props.data.aspiring_professionals.length}
+                        {/* {4 - this.props.data.aspiring_professionals.length} */}
                       </span>
                     ) : (
                       ""
@@ -744,5 +726,5 @@ class CoffeeChatCard extends Component {
   }
 }
 
-CoffeeChatCard = withMyHook(CoffeeChatCard);
-export default withSnackbar(CoffeeChatCard);
+CoffeeChatSelfCard = withMyHook(CoffeeChatSelfCard);
+export default withSnackbar(CoffeeChatSelfCard);
