@@ -402,8 +402,8 @@ class Home extends Component {
                   xs={12}
                   spacing={1}
                   direction="row"
-                  alignItems="center"
-                  justify="center"
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
                   <p className={classes.section_title}>Your Job Application</p>
                   {this.state.isJobappsLoaded ? (
