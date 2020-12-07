@@ -139,19 +139,31 @@ const useStyles = makeStyles(() => ({
     fontFamily: "PT Sans",
     fontWeight: "bold",
     "@media (max-width: 520px)": {
+      width: "80%",
       fontSize: "12px",
     },
     "@media (max-width: 320px)": {
       fontSize: "10px",
       marginTop: "3px",
     },
-    width: "100%",
+    width: "50%",
     textAlign: "left",
+    display: "flex",
     color: "white",
     margin: "0px",
     marginLeft: "5px",
     marginTop: "5px",
   },
+
+  //to be applied to span elements to avoid overflow
+  overflowText: {
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  },
+
+
   subtitle2: {
     fontSize: "16px",
     "@media (max-width: 480px)": {
@@ -402,10 +414,10 @@ class CoffeeChatCard extends Component {
           this.props.data.chat_status === "ChatStatus.RESERVED"
             ? classes.cardBooked
             : this.props.data.chat_type === ChatTypes.oneOnOne
-            ? classes.cardOne
-            : this.props.data.chat_type === ChatTypes.fourOnOne
-            ? classes.cardFour
-            : classes.cardInterview
+              ? classes.cardOne
+              : this.props.data.chat_type === ChatTypes.fourOnOne
+                ? classes.cardFour
+                : classes.cardInterview
         }
       >
         {/* need to get image from s3 bucket --  */}
@@ -456,10 +468,10 @@ class CoffeeChatCard extends Component {
                   {this.props.data.chat_type === ChatTypes.oneOnOne
                     ? "One on One"
                     : this.props.data.chat_type === ChatTypes.fourOnOne
-                    ? "Four on One"
-                    : "Mock Interview"}
+                      ? "Four on One"
+                      : "Mock Interview"}
                 </h1>
-                <p className={classes.subtitle}>
+                <p style={{ width: "80%" }} className={classes.subtitle}>
                   <span className={classes.name}>
                     {this.props.data.given_name} {this.props.data.family_name}
                   </span>{" "}
@@ -472,7 +484,7 @@ class CoffeeChatCard extends Component {
                       className={classes.company_icon}
                     />
                   </span>{" "}
-                  {this.props.data["custom:company"]}
+                  <span className={classes.overflowText}>{this.props.data["custom:company"]}</span>
                 </span>
 
                 {this.props.data &&
@@ -507,8 +519,8 @@ class CoffeeChatCard extends Component {
                       Date: <Moment unix>{this.props.data.fixed_date}</Moment>
                     </span>
                   ) : (
-                    ""
-                  )}
+                      ""
+                    )}
                 </Grid>
                 <Grid
                   container
@@ -530,8 +542,8 @@ class CoffeeChatCard extends Component {
                         View Booking
                       </Button>
                     ) : (
-                      <h3>{this.state.chat_status}</h3>
-                    )}
+                        <h3>{this.state.chat_status}</h3>
+                      )}
                   </span>
                 </Grid>
               </Grid>
@@ -618,13 +630,13 @@ class CoffeeChatCard extends Component {
                       {this.props.data.chat_type === ChatTypes.oneOnOne
                         ? "One on One"
                         : this.props.data.chat_type === ChatTypes.fourOnOne
-                        ? "Four on One"
-                        : "Mock Interview"}
+                          ? "Four on One"
+                          : "Mock Interview"}
                       {this.props.data.booked ? (
                         <span className={classes.booked}>booked</span>
                       ) : (
-                        ""
-                      )}{" "}
+                          ""
+                        )}{" "}
                       with&nbsp;
                       <span className={classes.name2}>
                         {this.props.data.given_name}{" "}
@@ -657,8 +669,8 @@ class CoffeeChatCard extends Component {
                         Date: <Moment unix>{this.props.data.fixed_date}</Moment>
                       </span>
                     ) : (
-                      ""
-                    )}
+                        ""
+                      )}
                   </Grid>
 
                   <Grid
@@ -675,8 +687,8 @@ class CoffeeChatCard extends Component {
                         {/* {4 - this.props.data.aspiring_professionals.length} */}
                       </span>
                     ) : (
-                      ""
-                    )}
+                        ""
+                      )}
                   </Grid>
 
                   <Grid
