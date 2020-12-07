@@ -367,14 +367,15 @@ class Landing extends Component {
         job_tags: [],
         salary: 0,
         deadline: 0,
+        can_contact: false,
       },
     };
   }
 
   componentDidMount() {
-    const userInfo = jwtDecode(localStorage.getItem("accessToken"));
+    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
     httpGet(
-      "jobs?user_id=" + userInfo.username,
+      "jobs?user_id=" + idTokeninfo.email,
       localStorage.getItem("idToken")
     ).then((jobs) => {
       this.setState({
@@ -382,7 +383,7 @@ class Landing extends Component {
       });
     });
     httpGet(
-      "chats?user_id=" + userInfo.username,
+      "chats?email=" + idTokeninfo.email,
       localStorage.getItem("idToken")
     ).then((chats) => {
       this.setState({
@@ -419,7 +420,12 @@ class Landing extends Component {
   };
 
   handleContactMeChange = (name) => (event) => {
-    this.setState({ [name]: event.target.checked });
+    var jobsDataObj = { ...this.state.jobsData };
+    jobsDataObj.can_contact = !this.state.jobsData.can_contact;
+    this.setState({
+      [name]: event.target.checked,
+      jobsData: jobsDataObj,
+    });
   };
 
   postJob = (event) => {

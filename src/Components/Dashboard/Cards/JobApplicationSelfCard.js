@@ -11,8 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Moment from "react-moment";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
-import { httpPost, httpGet } from "../../../lib/dataAccess";
-import jwtDecode from "jwt-decode";
+import { httpPost } from "../../../lib/dataAccess";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -232,7 +231,7 @@ function withMyHook(Component) {
   };
 }
 
-class JobApplicationCard extends Component {
+class JobApplicationSelfCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -258,44 +257,24 @@ class JobApplicationCard extends Component {
   };
 
   applyJob = async () => {
-    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
-    const jobsData = await httpGet(
-      "job-applications?userId=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
+    let jobAppObj = {
+      job_id: this.props.data.job_id.toString(),
+      resumes: this.getResumeURL(),
+      cover_letters: "coverletters2",
+    };
+    const appResponse = await httpPost(
+      "job-applications",
+      localStorage.getItem("idToken"),
+      jobAppObj
     );
-
-    const jobId = this.props.data.job_id;
-    let alreadyApplied = false;
-
-    for (let i = 0; i < jobsData.data.length; i++) {
-      if (jobsData.data[i].job_id === jobId) {
-        window.alert("You have already applied for this job");
-        alreadyApplied = true;
-        break;
-      }
+    if (appResponse.status === 200) {
+      window.alert("Successfully applied for this job");
+      this.setState({
+        open: false,
+      });
+    } else {
+      window.alert("Failed to apply for this job!");
     }
-
-    if (!alreadyApplied) {
-      let jobAppObj = {
-        job_id: this.props.data.job_id.toString(),
-        resumes: this.getResumeURL(),
-        cover_letters: "coverletters2",
-      };
-      const appResponse = await httpPost(
-        "job-applications",
-        localStorage.getItem("idToken"),
-        jobAppObj
-      );
-      console.log(appResponse);
-      if (appResponse.status === 200) {
-        window.alert("Successfully applied for this job");
-      } else {
-        window.alert("Failed to apply for this job!");
-      }
-    }
-    this.setState({
-      open: false,
-    });
   };
 
   render() {
@@ -494,7 +473,7 @@ class JobApplicationCard extends Component {
                 <h2
                   style={{ margin: "0px", marginTop: "10px", color: "white" }}
                 >
-                  {this.props.data.title}
+                  Job Title
                 </h2>
               </div>
               <img
@@ -628,17 +607,7 @@ class JobApplicationCard extends Component {
                     spacing={0}
                     alignItems="flex-end"
                     justify="flex-end"
-                  >
-                    <DialogActions>
-                      <Button
-                        className={classes.button1}
-                        variant="contained"
-                        onClick={this.applyJob}
-                      >
-                        Apply
-                      </Button>
-                    </DialogActions>
-                  </Grid>
+                  ></Grid>
                 </Grid>
               </DialogContentText>
             </DialogContent>
@@ -650,5 +619,5 @@ class JobApplicationCard extends Component {
   }
 }
 
-JobApplicationCard = withMyHook(JobApplicationCard);
-export default JobApplicationCard;
+JobApplicationSelfCard = withMyHook(JobApplicationSelfCard);
+export default JobApplicationSelfCard;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
 import EmptyCard from "./Cards/EmptyCard";
-import JobApplicationCard from "./Cards/JobApplicationCard";
+import JobApplicationSelfCard from "./Cards/JobApplicationSelfCard";
 import JobPostingCard from "./Cards/JobPostingCard";
 import Grid from "@material-ui/core/Grid";
 import CardTypes from "./CardTypes";
@@ -121,7 +121,7 @@ class Home extends Component {
       localStorage.getItem("idToken")
     );
 
-    const cutOff = this.props.isSeniorExec ? 1 : 2;
+    const cutOff = this.props.isSeniorExec ? 2 : 5;
     const data =
       jobsData.data.length > cutOff
         ? jobsData.data.slice(0, cutOff)
@@ -170,7 +170,7 @@ class Home extends Component {
       "jobs?user_id=" + idTokeninfo.email,
       localStorage.getItem("idToken")
     );
-    const cutOff = this.props.isSeniorExec ? 2 : 1;
+    const cutOff = this.props.isSeniorExec ? 5 : 3;
     if (jobsData.data.jobs !== undefined) {
       this.setState({
         isJobpostsLoaded: true,
@@ -300,7 +300,7 @@ class Home extends Component {
                           alignItems="flex-start"
                           justify="flex-start"
                         >
-                          <JobApplicationCard data={jobData} />
+                          <JobApplicationSelfCard data={jobData} />
                         </Grid>
                       ))
                     ) : (
@@ -428,7 +428,7 @@ class Home extends Component {
                           alignItems="flex-start"
                           justify="flex-start"
                         >
-                          <JobApplicationCard data={jobData} />
+                          <JobApplicationSelfCard data={jobData} />
                         </Grid>
                       ))
                     ) : (

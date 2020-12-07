@@ -672,7 +672,7 @@ class CoffeeChatCard extends Component {
                     {this.props.data.chat_type === ChatTypes.fourOnOne ? (
                       <span className={classes.subtitle2}>
                         Available spots:{" "}
-                        {4 - this.props.data.aspiring_professionals.length}
+                        {/* {4 - this.props.data.aspiring_professionals.length} */}
                       </span>
                     ) : (
                       ""

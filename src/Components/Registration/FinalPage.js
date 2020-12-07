@@ -252,6 +252,7 @@ class FinalPage extends Component {
         picture: this.state.profilePicURL,
         "custom:start_date": start_date.toString(),
         "custom:end_date": end_date.toString(),
+        "custom:resume": this.state.resumeURL,
       },
     })
       .then(() => {
