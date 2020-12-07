@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import CardTypes from "../CardTypes";
 
 const useStyles = makeStyles(() => ({
@@ -125,13 +124,13 @@ class EmptyCard extends Component {
           </h1>
           <p className={classes.subtitle}>
             {this.props.type === CardTypes.coffeeChat
-              ? "To book one, click the button below."
+              ? "To book one, click the Coffee Chats tab above."
               : this.props.type === CardTypes.jobApplication
-              ? "To view job applications, click the button below."
-              : "To post one, click the button below."}
+              ? "To view job applications, click the Jobs tab above."
+              : "To post one, open the left nav and click the Post a Job button."}
           </p>
           <span className={classes.button_container}>
-            <Button
+            {/* <Button
               className={classes.button}
               variant="contained"
               color="primary"
@@ -141,7 +140,7 @@ class EmptyCard extends Component {
                 : this.props.type === CardTypes.jobApplication
                 ? "View job applications"
                 : "Create job posting"}
-            </Button>
+            </Button> */}
           </span>
         </div>
       </Grid>

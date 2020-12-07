@@ -142,19 +142,30 @@ const useStyles = makeStyles(() => ({
     fontFamily: "PT Sans",
     fontWeight: "bold",
     "@media (max-width: 520px)": {
+      width: "80%",
       fontSize: "12px",
     },
     "@media (max-width: 320px)": {
       fontSize: "10px",
       marginTop: "3px",
     },
-    width: "100%",
+    width: "50%",
     textAlign: "left",
+    display: "flex",
     color: "white",
     margin: "0px",
     marginLeft: "5px",
     marginTop: "5px",
   },
+
+  //to be applied to span elements to avoid overflow
+  overflowText: {
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+
   subtitle2: {
     fontSize: "16px",
     "@media (max-width: 480px)": {
@@ -350,6 +361,14 @@ const useStyles = makeStyles(() => ({
     paddingLeft: "50px",
     paddingRight: "50px",
   },
+
+  reservedText: {
+    fontFamily: "PT Sans",
+    fontSize: "15px",
+    "@media (max-width: 480px)": {
+      fontSize: "12px",
+    },
+  },
 }));
 
 function withMyHook(Component) {
@@ -441,7 +460,7 @@ class CoffeeChatCard extends Component {
               xs={4}
               spacing={0}
               alignItems="center"
-              justify="flex-start"
+              justify="center"
             >
               <img
                 className={classes.image}
@@ -467,7 +486,12 @@ class CoffeeChatCard extends Component {
                 justify="flex-start"
               >
                 <h1 className={classes.title}>
-                  {this.props.data.given_name} {this.props.data.family_name}
+                  <p style={{ width: "80%" }} className={classes.subtitle}>
+                    <span className={classes.name}>
+                      {this.props.data.given_name} {this.props.data.family_name}
+                    </span>{" "}
+                    {this.props.data.title}
+                  </p>
                 </h1>
                 <p className={classes.subtitle}>
                   <span>
@@ -476,7 +500,9 @@ class CoffeeChatCard extends Component {
                       className={classes.company_icon}
                     />
                   </span>{" "}
-                  {this.props.data["custom:company"]}
+                  <span className={classes.overflowText}>
+                    {this.props.data["custom:company"]}
+                  </span>
                   {this.props.data.title}
                 </p>
                 <span className={classes.subtitle}>
@@ -546,7 +572,7 @@ class CoffeeChatCard extends Component {
                         View Booking
                       </Button>
                     ) : (
-                      <h3>
+                      <h3 className={classes.reservedText}>
                         {this.state.chat_status === "RESERVED" ||
                         this.state.chat_status === "RESERVED_CONFIRMED"
                           ? "RESERVED"
