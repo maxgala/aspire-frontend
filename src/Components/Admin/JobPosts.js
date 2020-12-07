@@ -21,6 +21,7 @@ import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 
 import Moment from "react-moment";
+import { Auth } from "aws-amplify";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -124,7 +125,7 @@ class JobPosts extends Component {
   fetchJobs = async () => {
     const existingJobsData = await httpGet(
       "jobs",
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
 
     // Go through every job and derive the # of applicants to fill in table
@@ -147,7 +148,11 @@ class JobPosts extends Component {
     let removedJob = {
       job_status: "REJECTED",
     };
-    await httpPut(`jobs/${jobID}`, localStorage.getItem("idToken"), removedJob);
+    await httpPut(
+      `jobs/${jobID}`,
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
+      removedJob
+    );
     this.fetchJobs();
   };
 
@@ -161,7 +166,7 @@ class JobPosts extends Component {
     };
     await httpPut(
       `jobs/${jobID}`,
-      localStorage.getItem("idToken"),
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
       approvedJob
     );
     this.fetchJobs();

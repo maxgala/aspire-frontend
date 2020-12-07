@@ -10,6 +10,7 @@ import { httpGet } from "../../lib/dataAccess";
 import EmptyCard from "./Cards/EmptyCard";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { withRouter } from "react-router";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -95,13 +96,20 @@ class CoffeeChats extends Component {
   }
 
   fetchChats = async () => {
-    const existingChatsData = await httpGet(
+    const existingActiveChatsData = await httpGet(
       "chats?status=ACTIVE",
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
+    const existingPartialChatsData = await httpGet(
+      "chats?status=RESERVED_PARTIAL",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
+    let full = existingActiveChatsData.data.chats.concat(
+      existingPartialChatsData.data.chats
     );
     this.setState({
       isChatsLoaded: true,
-      chats: existingChatsData.data.chats,
+      chats: full,
     });
   };
 

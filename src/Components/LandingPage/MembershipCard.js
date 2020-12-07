@@ -104,7 +104,7 @@ class MembershipCard extends Component {
             <div className={classes.payment} style={this.props.payment}>
               <div className={classes.number}>
                 {this.props.number}
-                <span className={classes.month}> /m</span>
+                <span className={classes.month}> /y</span>
               </div>
             </div>
           </div>

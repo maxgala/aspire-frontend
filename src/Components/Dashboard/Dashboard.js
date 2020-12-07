@@ -233,7 +233,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+      open: false,
       jobsAnchorEl: null,
       communityAnchorEl: null,
       signoutAnchorEl: null,
@@ -414,9 +414,9 @@ class Dashboard extends Component {
               <MenuItem key={"postings"} onClick={this.changeToJobs}>
                 Postings
               </MenuItem>
-              <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>
+              {/* <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>
                 View Submissions
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
             <Button
               variant="outlined"
