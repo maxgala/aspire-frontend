@@ -275,6 +275,7 @@ class Home extends Component {
                 item
                 xs={8}
                 spacing={1}
+                direction="row"
                 alignItems="flex-start"
                 justify="flex-start"
               >
