@@ -359,6 +359,15 @@ const useStyles = makeStyles(() => ({
     paddingLeft: "50px",
     paddingRight: "50px",
   },
+
+  reservedText: {
+    fontFamily: "PT Sans",
+    fontSize: "15px",
+    "@media (max-width: 480px)": {
+      fontSize: "12px",
+    },
+  },
+
 }));
 
 function withMyHook(Component) {
@@ -542,7 +551,7 @@ class CoffeeChatCard extends Component {
                         View Booking
                       </Button>
                     ) : (
-                        <h3>{this.state.chat_status}</h3>
+                        <h3 className={classes.reservedText}>{this.state.chat_status}</h3>
                       )}
                   </span>
                 </Grid>
