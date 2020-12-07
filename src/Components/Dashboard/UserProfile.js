@@ -374,20 +374,18 @@ class Landing extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
-    httpGet(
-      "jobs?user_id=" + idTokeninfo.email,
-      Auth.currentSession().getIdToken().getJwtToken()
-    ).then((jobs) => {
+    let idToken = (await Auth.currentSession())
+      .getIdToken()
+      .getJwtToken()
+      .toString();
+    await httpGet("jobs?user_id=" + idTokeninfo.email, idToken).then((jobs) => {
       this.setState({
         numJobs: jobs.data.count ? jobs.data.count : 0,
       });
     });
-    httpGet(
-      "chats?email=" + idTokeninfo.email,
-      Auth.currentSession().getIdToken().getJwtToken()
-    ).then((chats) => {
+    await httpGet("chats?email=" + idTokeninfo.email, idToken).then((chats) => {
       this.setState({
         numChats: chats.data.count ? chats.data.count : 0,
       });
