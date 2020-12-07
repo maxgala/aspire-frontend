@@ -439,7 +439,7 @@ class CoffeeChatCard extends Component {
               xs={4}
               spacing={0}
               alignItems="center"
-              justify="flex-start"
+              justify="center"
             >
               <img
                 className={classes.image}
