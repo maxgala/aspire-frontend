@@ -117,7 +117,6 @@ class JobBoard extends Component {
       freeUsers.data.users,
       mentorUsers.data.users
     );
-    console.log(full);
     this.setState({
       community_data: full,
     });
