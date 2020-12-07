@@ -11,6 +11,7 @@ import { httpGet } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -117,10 +118,12 @@ class Home extends Component {
   }
 
   fetchJobs = async () => {
-    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
+    const idTokeninfo = jwtDecode(
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
     const jobsData = await httpGet(
       "job-applications?userId=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
 
     const cutOff = this.props.isSeniorExec ? 2 : 5;
@@ -136,7 +139,7 @@ class Home extends Component {
       for (let i = 0; i < data.length; i++) {
         const jobData = await httpGet(
           "jobs/" + data[i].job_id,
-          localStorage.getItem("idToken")
+          (await Auth.currentSession()).getIdToken().getJwtToken()
         );
         if (jobData.data) {
           jobAppData.push(jobData.data);
@@ -150,10 +153,12 @@ class Home extends Component {
   };
 
   fetchChats = async () => {
-    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
+    const idTokeninfo = jwtDecode(
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
     const chatsData = await httpGet(
       "chats?email=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
     if (chatsData.data.chats !== undefined) {
       this.setState({
@@ -167,10 +172,12 @@ class Home extends Component {
   };
 
   fetchPostings = async () => {
-    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
+    const idTokeninfo = jwtDecode(
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
     const jobsData = await httpGet(
       "jobs?user_id=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
     const cutOff = this.props.isSeniorExec ? 5 : 3;
     if (jobsData.data.jobs !== undefined) {

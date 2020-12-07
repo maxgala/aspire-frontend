@@ -23,6 +23,7 @@ import jwtDecode from "jwt-decode";
 // import Autocomplete from "@material-ui/lab/Autocomplete";
 // import Chip from "@material-ui/core/Chip";
 import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles((theme) => ({
   root1: {
@@ -377,7 +378,7 @@ class Landing extends Component {
     const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
     httpGet(
       "jobs?user_id=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
+      Auth.currentSession().getIdToken().getJwtToken()
     ).then((jobs) => {
       this.setState({
         numJobs: jobs.data.count ? jobs.data.count : 0,
@@ -385,7 +386,7 @@ class Landing extends Component {
     });
     httpGet(
       "chats?email=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
+      Auth.currentSession().getIdToken().getJwtToken()
     ).then((chats) => {
       this.setState({
         numChats: chats.data.count ? chats.data.count : 0,
@@ -474,7 +475,11 @@ class Landing extends Component {
     jobsDataObj.poster_given_name = userProfile.given_name;
 
     // post job and close popup
-    httpPost("jobs", localStorage.getItem("idToken"), jobsDataObj)
+    httpPost(
+      "jobs",
+      Auth.currentSession().getIdToken().getJwtToken(),
+      jobsDataObj
+    )
       .then((res) => {
         this.props.enqueueSnackbar("Successfully submitted a job posting:", {
           variant: "success",

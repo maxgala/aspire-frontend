@@ -15,6 +15,7 @@ import { httpPut } from "../../../lib/dataAccess";
 import Moment from "react-moment";
 import { withSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -386,7 +387,7 @@ class CoffeeChatSelfCard extends Component {
     });
     httpPut(
       "chats/" + this.props.data.chat_id + "/reserve",
-      localStorage.getItem("idToken")
+      Auth.currentSession().getIdToken().getJwtToken()
     )
       .then(() => {
         this.props.enqueueSnackbar("Successfully registered for coffee chat", {

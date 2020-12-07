@@ -13,6 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import { httpPost } from "../../../lib/dataAccess";
 import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -265,7 +266,7 @@ class JobApplicationSelfCard extends Component {
     };
     const appResponse = await httpPost(
       "job-applications",
-      localStorage.getItem("idToken"),
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
       jobAppObj
     );
     if (appResponse.status === 200) {

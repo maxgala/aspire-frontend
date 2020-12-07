@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import image from "../../Images/faceShot/pic1.png";
+// import image from "../../Images/faceShot/pic1.png";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";

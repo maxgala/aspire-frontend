@@ -14,6 +14,7 @@ import close from "../../Images/close.png";
 import { httpPost, httpGet } from "../../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
 import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -259,10 +260,12 @@ class JobApplicationCard extends Component {
   };
 
   applyJob = async () => {
-    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
+    const idTokeninfo = jwtDecode(
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
     const jobsData = await httpGet(
       "job-applications?userId=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
 
     const jobId = this.props.data.job_id;
@@ -286,7 +289,7 @@ class JobApplicationCard extends Component {
       };
       await httpPost(
         "job-applications",
-        localStorage.getItem("idToken"),
+        (await Auth.currentSession()).getIdToken().getJwtToken(),
         jobAppObj
       )
         .then((res) => {

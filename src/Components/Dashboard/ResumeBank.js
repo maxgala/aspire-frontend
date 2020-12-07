@@ -8,6 +8,7 @@ import ResumeBankCard from "./Cards/ResumeBankCard";
 import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -83,7 +84,7 @@ class JobBoard extends Component {
   fetchUsers = async () => {
     const paidUsers = await httpGet(
       "users?type=PAID",
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     ).catch((err) => {
       console.log(err);
       this.props.enqueueSnackbar("Failed to fetch users: " + err, {
@@ -93,7 +94,7 @@ class JobBoard extends Component {
 
     const freeUsers = await httpGet(
       "users?type=FREE",
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     ).catch((err) => {
       console.log(err);
       this.props.enqueueSnackbar("Failed to fetch users: " + err, {
