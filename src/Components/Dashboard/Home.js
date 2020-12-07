@@ -207,24 +207,40 @@ class Home extends Component {
               <p className={classes.section_title}>Registered Coffee Chats</p>
               {this.state.isChatsLoaded ? (
                 this.state.coffee_chats &&
-                this.state.coffee_chats.length > 0 ? (
-                  this.state.coffee_chats.map((chat, key) => (
+                  this.state.coffee_chats.length > 0 ? (
+                    this.state.coffee_chats.map((chat, key) => (
+                      <Grid
+                        key={key}
+                        container
+                        item
+                        xs={12}
+                        sm={12}
+                        md={6}
+                        lg={4}
+                        spacing={1}
+                        alignItems="center"
+                        justify="flex-start"
+                      >
+                        <CoffeeChatCard data={chat} />
+                      </Grid>
+                    ))
+                  ) : (
                     <Grid
-                      key={key}
                       container
                       item
                       xs={12}
                       sm={12}
-                      md={6}
-                      lg={4}
+                      md={12}
+                      lg={6}
+                      xl={4}
                       spacing={1}
                       alignItems="center"
                       justify="flex-start"
                     >
-                      <CoffeeChatCard data={chat} />
+                      <EmptyCard type={CardTypes.coffeeChat} />
                     </Grid>
-                  ))
-                ) : (
+                  )
+              ) : (
                   <Grid
                     container
                     item
@@ -237,28 +253,12 @@ class Home extends Component {
                     alignItems="center"
                     justify="flex-start"
                   >
-                    <EmptyCard type={CardTypes.coffeeChat} />
+                    <Skeleton
+                      variant="rect"
+                      className={classes.cardCoffeeLoader}
+                    />
                   </Grid>
-                )
-              ) : (
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  sm={12}
-                  md={12}
-                  lg={6}
-                  xl={4}
-                  spacing={1}
-                  alignItems="center"
-                  justify="flex-start"
-                >
-                  <Skeleton
-                    variant="rect"
-                    className={classes.cardCoffeeLoader}
-                  />
-                </Grid>
-              )}
+                )}
             </Grid>
           </Grid>
 
@@ -269,26 +269,19 @@ class Home extends Component {
               justify="flex-start"
               direction="column"
             >
+
               <Grid
                 container
                 item
-                xs={12}
+                xs={8}
                 spacing={1}
+                direction="row"
                 alignItems="flex-start"
                 justify="flex-start"
-                direction="column"
               >
-                <Grid
-                  container
-                  item
-                  xs={8}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Your Job Applications</p>
-                  {this.state.isJobappsLoaded ? (
-                    this.state.job_applications &&
+                <p className={classes.section_title}>Your Job Applications</p>
+                {this.state.isJobappsLoaded ? (
+                  this.state.job_applications &&
                     this.state.job_applications.length > 0 ? (
                       this.state.job_applications.map((jobData, key) => (
                         <Grid
@@ -315,7 +308,7 @@ class Home extends Component {
                         <EmptyCard type={CardTypes.jobApplication} />
                       </Grid>
                     )
-                  ) : (
+                ) : (
                     <Grid
                       container
                       item
@@ -330,26 +323,26 @@ class Home extends Component {
                       />
                     </Grid>
                   )}
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <p className={classes.section_title}>Job Postings</p>
+              </Grid>
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <p className={classes.section_title}>Job Postings</p>
 
-                  {this.state.isJobpostsLoaded ? (
-                    this.state.job_postings &&
+                {this.state.isJobpostsLoaded ? (
+                  this.state.job_postings &&
                     this.state.job_postings.length > 0 ? (
                       this.state.job_postings.map((posting, key) => (
                         <Grid
                           key={key}
                           container
                           item
-                          xs={6}
+                          xs={12} sm={6} md={4}
                           spacing={1}
                           alignItems="flex-start"
                           justify="flex-start"
@@ -369,7 +362,7 @@ class Home extends Component {
                         <EmptyCard type={CardTypes.jobPosting} />
                       </Grid>
                     )
-                  ) : (
+                ) : (
                     <Grid
                       container
                       item
@@ -384,25 +377,16 @@ class Home extends Component {
                       />
                     </Grid>
                   )}
-                </Grid>
               </Grid>
             </Grid>
           ) : (
-            <Grid
-              container
-              alignItems="flex-start"
-              justify="flex-start"
-              direction="column"
-            >
               <Grid
                 container
-                item
-                xs={12}
-                spacing={1}
                 alignItems="flex-start"
                 justify="flex-start"
                 direction="column"
               >
+
                 <Grid
                   container
                   item
@@ -411,16 +395,29 @@ class Home extends Component {
                   md={12}
                   lg={8}
                   spacing={1}
+                  direction="row"
                   alignItems="center"
                   justify="center"
                 >
                   <p className={classes.section_title}>Your Job Application</p>
                   {this.state.isJobappsLoaded ? (
                     this.state.job_applications &&
-                    this.state.job_applications.length > 0 ? (
-                      this.state.job_applications.map((jobData, key) => (
+                      this.state.job_applications.length > 0 ? (
+                        this.state.job_applications.map((jobData, key) => (
+                          <Grid
+                            key={jobData.job_id}
+                            container
+                            item
+                            xs={12}
+                            spacing={1}
+                            alignItems="flex-start"
+                            justify="flex-start"
+                          >
+                            <JobApplicationSelfCard data={jobData} />
+                          </Grid>
+                        ))
+                      ) : (
                         <Grid
-                          key={jobData.job_id}
                           container
                           item
                           xs={12}
@@ -428,10 +425,10 @@ class Home extends Component {
                           alignItems="flex-start"
                           justify="flex-start"
                         >
-                          <JobApplicationSelfCard data={jobData} />
+                          <EmptyCard type={CardTypes.jobApplication} />
                         </Grid>
-                      ))
-                    ) : (
+                      )
+                  ) : (
                       <Grid
                         container
                         item
@@ -440,32 +437,17 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <EmptyCard type={CardTypes.jobApplication} />
+                        <Skeleton
+                          variant="rect"
+                          className={classes.cardAppLoader}
+                        />
                       </Grid>
-                    )
-                  ) : (
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      spacing={1}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <Skeleton
-                        variant="rect"
-                        className={classes.cardAppLoader}
-                      />
-                    </Grid>
-                  )}
+                    )}
                 </Grid>
                 <Grid
                   container
                   item
                   xs={12}
-                  sm={8}
-                  md={6}
-                  lg={4}
                   spacing={1}
                   alignItems="flex-start"
                   justify="flex-start"
@@ -473,21 +455,33 @@ class Home extends Component {
                   <p className={classes.section_title}>Job Postings</p>
                   {this.state.isJobpostsLoaded ? (
                     this.state.job_postings &&
-                    this.state.job_postings.length > 0 ? (
-                      this.state.job_postings.map((posting, key) => (
+                      this.state.job_postings.length > 0 ? (
+                        this.state.job_postings.map((posting, key) => (
+                          <Grid
+                            key={key}
+                            container
+                            item
+                            xs={12} sm={6} md={4}
+                            spacing={1}
+                            alignItems="flex-start"
+                            justify="flex-start"
+                          >
+                            <JobPostingCard data={posting} />
+                          </Grid>
+                        ))
+                      ) : (
                         <Grid
-                          key={key}
                           container
                           item
-                          xs={6}
+                          xs={12}
                           spacing={1}
                           alignItems="flex-start"
                           justify="flex-start"
                         >
-                          <JobPostingCard data={posting} />
+                          <EmptyCard type={CardTypes.jobPosting} />
                         </Grid>
-                      ))
-                    ) : (
+                      )
+                  ) : (
                       <Grid
                         container
                         item
@@ -496,28 +490,15 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <EmptyCard type={CardTypes.jobPosting} />
+                        <Skeleton
+                          variant="rect"
+                          className={classes.cardPostLoader}
+                        />
                       </Grid>
-                    )
-                  ) : (
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      spacing={1}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <Skeleton
-                        variant="rect"
-                        className={classes.cardPostLoader}
-                      />
-                    </Grid>
-                  )}
+                    )}
                 </Grid>
               </Grid>
-            </Grid>
-          )}
+            )}
         </div>
         {/* </PerfectScrollbar> */}
       </div>
