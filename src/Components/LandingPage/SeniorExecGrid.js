@@ -5,21 +5,21 @@ import { makeStyles } from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
 
 // import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
-import SmallSeniorExecImg from "../Images/senior/Jalaluddin_Uzma.jpg";
-import SmallSeniorExecImg2 from "../Images/senior/Diop_Cheikh.jpeg";
-import SeniorExecImg from "../Images/senior/Salman_Zahid (1).jpg";
-import One from "../Images/senior/Ali_Ammar.jpg";
-import Two from "../Images/senior/Abdul Gaffor_ Thouheed.jpeg";
+import uzma_picture from "../Images/senior/Jalaluddin_Uzma.jpg";
+import cheick_picture from "../Images/senior/Diop_Cheikh.jpeg";
+import salman_picture from "../Images/senior/Salman_Zahid (1).jpg";
+import ali_picture from "../Images/senior/Ali_Ammar.jpg";
+// import abdulgaffor_picture from "../Images/senior/Abdul Gaffor_ Thouheed.jpeg";
 // import Three from "../Images/senior/Hadibhai_Aly.jpg";
-import Four from "../Images/senior/Chahdi_Mohammed.jpg";
-import Five from "../Images/senior/Emes_Aaron.png";
-import Six from "../Images/senior/Al-Abadleh_Dr. Hind (1).jpg";
-import Seven from "../Images/senior/Ahmad_Farah.jpeg";
-import Eight from "../Images/senior/Hali.jpg";
-import Nine from "../Images/senior/Hameed_Amir.jpg";
-import Ten from "../Images/senior/Hanafi_Pouneh.jpeg";
-import Eleven from "../Images/senior/Hamidani_Farhan.jpeg";
-import Twelve from "../Images/senior/El Masri_Ghaleb.png";
+import mohammed_picture from "../Images/senior/Chahdi_Mohammed.jpg";
+import aaron_picture from "../Images/senior/Emes_Aaron.png";
+import drhind_picture from "../Images/senior/Al-Abadleh_Dr. Hind (1).jpg";
+import farah_picture from "../Images/senior/Ahmad_Farah.jpeg";
+import hali_picture from "../Images/senior/Hali.jpg";
+import amir_picture from "../Images/senior/Hameed_Amir.jpg";
+import pouneh_picture from "../Images/senior/Hanafi_Pouneh.jpeg";
+import farhan_picture from "../Images/senior/Hamidani_Farhan.jpeg";
+import ghaleb_picture from "../Images/senior/El Masri_Ghaleb.png";
 import { Hidden } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -49,21 +49,74 @@ const useStyles = makeStyles(() => ({
 }));
 
 let images = [
-  { photo: Two },
-  { photo: SmallSeniorExecImg },
-  { photo: SmallSeniorExecImg2 },
-  { photo: SeniorExecImg },
-  { photo: One },
+  {
+    photo: uzma_picture,
+    name: "Uzma Jalaluddin",
+    title: "Author af Ayesha at Last and Columnist at Toronto Star",
+  },
+  {
+    photo: cheick_picture,
+    name: "Diop Cheikh",
+    title: "VP Corporate Client Group at RBC",
+  },
+  {
+    photo: salman_picture,
+    name: "Salman Zahid",
+    title: "President & CEO at Green Shield Canada",
+  },
+  {
+    photo: ali_picture,
+    name: "Ali Ammar",
+    title: "Partner at Van Berkom and Associates",
+  },
+  // { photo: abdulgaffor_picture },
   // { photo: Three },
-  { photo: Four },
-  { photo: Five },
-  { photo: Six },
-  { photo: Seven },
-  { photo: Eight },
-  { photo: Nine },
-  { photo: Ten },
-  { photo: Eleven },
-  { photo: Twelve },
+  {
+    photo: mohammed_picture,
+    name: "Mohammed Chahdi",
+    title: "Director and Head of Americas HR Operations at Dell Technologies",
+  },
+  {
+    photo: aaron_picture,
+    name: "Emes Aaron",
+    title: "Senior Partner & Head of Opinions and Research at Torys",
+  },
+  {
+    photo: drhind_picture,
+    name: "Dr.Hind Al Abadleh",
+    title:
+      "Professor in Department of Chemistry and Biochemistry at Wilfrid Laurier University",
+  },
+  {
+    photo: farah_picture,
+    name: "Farah Ahmad",
+    title: "Chief Commercial Officer at Clinical Maestro by Strategikon",
+  },
+  {
+    photo: hali_picture,
+    name: "Hali Farah",
+    title: "Senior HR Consultant at City of Toronto",
+  },
+  {
+    photo: amir_picture,
+    name: "Amir Hameed",
+    title: "VP Global Solutions Engineering at RingCentral",
+  },
+  {
+    photo: pouneh_picture,
+    name: "Pouneh Hanafi",
+    title: "VP Marketing at Tulip Retail",
+  },
+  {
+    photo: farhan_picture,
+    name: "Farhan Hamidani",
+    title: "Co-CEO at TF Global Inc.",
+  },
+  {
+    photo: ghaleb_picture,
+    name: "Ghaled El Masri",
+    title: "Managing Director at Adaptovate",
+  },
 ];
 
 function shuffledImages() {
@@ -142,8 +195,8 @@ class SeniorExecGrid extends Component {
                 justify="center"
               >
                 <SeniorExec
-                  name_text="Salman Zahid"
-                  extra_text="President & CEO of Green Shield Canada"
+                  name_text={this.state.displayImages[0].name}
+                  extra_text={this.state.displayImages[0].title}
                   image={this.state.displayImages[0].photo}
                   hover_image={this.state.displayImages[0].photo}
                 />
@@ -161,8 +214,8 @@ class SeniorExecGrid extends Component {
                   justify="center"
                 >
                   <SeniorExec
-                    name_text="Salman Zahid"
-                    extra_text="President & CEO of Green Shield Canada"
+                    name_text={this.state.displayImages[1].name}
+                    extra_text={this.state.displayImages[1].title}
                     id="theimage"
                     image={this.state.displayImages[1].photo}
                     hover_image={this.state.displayImages[1].photo}
@@ -182,8 +235,8 @@ class SeniorExecGrid extends Component {
                   justify="center"
                 >
                   <SeniorExec
-                    name_text="Latafat Faran"
-                    extra_text="Executive Vice President at Core Development Group"
+                    name_text={this.state.displayImages[2].name}
+                    extra_text={this.state.displayImages[2].title}
                     id="theimage"
                     image={this.state.displayImages[2].photo}
                     hover_image={this.state.displayImages[2].photo}
