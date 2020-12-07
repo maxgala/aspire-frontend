@@ -238,9 +238,11 @@ function withMyHook(Component) {
 
 class CreateCoffeeChatCard extends Component {
   constructor(props) {
+
     super(props);
+    console.log(this.props);
     this.state = {
-      open: false,
+      open: this.props.open,
       type: "",
       description: "",
       title: "",
@@ -414,18 +416,18 @@ class CreateCoffeeChatCard extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Button
+        {/* <Button
           onClick={this.openEscalation}
           className={classes.button}
           variant="contained"
           color="primary"
         >
           Create Coffee Chat
-        </Button>
+        </Button> */}
 
         <Dialog
           className={classes.translate}
-          open={this.state.open}
+          open={this.open}
           onClose={this.handleClose}
           scroll={"paper"}
           aria-labelledby="scroll-dialog-title"
