@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
   card: {
     width: "100%",
     minHeight: "130px",
-    maxWidth: "400px",
+    maxWidth: "350px",
     height: "180px",
     marginBottom: "20px",
     marginRight: "10px",
