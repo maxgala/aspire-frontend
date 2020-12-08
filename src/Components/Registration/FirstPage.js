@@ -145,11 +145,8 @@ class FirstPage extends Component {
       });
       return;
     }
-    this.props.appContext.setState({
-      registrationScreen: (
-        <SecondPage appContext={this.props.appContext} prev={this.state} />
-      ),
-    });
+    this.props.setPrev(this.state);
+    this.props.history.push(`${Routes.Register}/2`);
   };
 
   handleFirstNameChange = (event) => {
