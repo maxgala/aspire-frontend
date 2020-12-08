@@ -22,6 +22,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 import { withRouter } from "react-router-dom";
 import { Routes } from "../../entry/routes/Routes";
+import { withSnackbar } from "notistack";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -262,24 +263,39 @@ class FinalPage extends Component {
         picture: this.state.profilePicURL,
         "custom:start_date": start_date.toString(),
         "custom:end_date": end_date.toString(),
+        "custom:resume": this.state.resumeURL,
       },
     })
       .then(() => {
-        window.alert("Successfully signed up");
+        this.props.enqueueSnackbar("Successfully signed up", {
+          variant: "success",
+        });
       })
       .catch((err) => {
-        window.alert(`Error signing up: ${err.message.toString()}`);
+        this.props.enqueueSnackbar(
+          `Error signing up: ${err.message.toString()}`,
+          {
+            variant: "error",
+          }
+        );
       });
   }
 
   confirmSignUp() {
     Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
       .then(() => {
-        window.alert("Successfully confirmed signed up");
+        this.props.enqueueSnackbar("Successfully confirmed signed up", {
+          variant: "success",
+        });
       })
-      .catch((err) =>
-        window.alert(`Error confirming sign up - ${err.toString()}`)
-      );
+      .catch((err) => {
+        this.props.enqueueSnackbar(
+          `Error signing up: ${err.message.toString()}`,
+          {
+            variant: "error",
+          }
+        );
+      });
   }
 
   handleClose = (event) => {
@@ -629,4 +645,4 @@ class FinalPage extends Component {
 
 FinalPage = withMyHook(FinalPage);
 FinalPage = withRouter(FinalPage);
-export default FinalPage;
+export default withSnackbar(FinalPage);

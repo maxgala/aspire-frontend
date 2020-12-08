@@ -9,14 +9,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import MaxLogo from "../Images/max_logo.png";
 import UserProfile from "./UserProfile";
-import { faReact } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Home from "./Home";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import { withRouter } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 import MenuOpenIcon from "@material-ui/icons/MenuOpen";
+import MenuIcon from "@material-ui/icons/Menu";
 import home from "../Images/navbar/home.svg";
 import homeLabel from "../Images/navbar/home_web.svg";
 import community from "../Images/navbar/community.svg";
@@ -28,6 +27,7 @@ import chatsLabel from "../Images/navbar/chats_web.svg";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Hidden } from "@material-ui/core";
+import { Auth } from "aws-amplify";
 
 import CoffeeChats from "./CoffeeChats";
 import JobBoard from "./Jobs";
@@ -233,9 +233,10 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+      open: false,
       jobsAnchorEl: null,
       communityAnchorEl: null,
+      signoutAnchorEl: null,
     };
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -254,6 +255,10 @@ class Dashboard extends Component {
 
   handleCommunityClick = (event) => {
     this.setState({ communityAnchorEl: event.currentTarget });
+  };
+
+  handleSignoutClick = (event) => {
+    this.setState({ signoutAnchorEl: event.currentTarget });
   };
 
   handleSelect = () => {
@@ -297,6 +302,15 @@ class Dashboard extends Component {
     this.handleSelect();
     this.props.history.push(Routes.Dashboard);
   }
+
+  signout = async () => {
+    try {
+      await Auth.signOut();
+      this.props.history.push(Routes.Landpage);
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  };
 
   render() {
     const classes = this.props.classes;
@@ -400,9 +414,9 @@ class Dashboard extends Component {
               <MenuItem key={"postings"} onClick={this.changeToJobs}>
                 Postings
               </MenuItem>
-              <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>
+              {/* <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>
                 View Submissions
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
             <Button
               variant="outlined"
@@ -441,13 +455,27 @@ class Dashboard extends Component {
             <Button
               variant="outlined"
               className={classes.user_profile}
-              onClick={this.openUserProfile}
+              onClick={this.handleSignoutClick}
             >
-              <FontAwesomeIcon
-                icon={faReact}
-                style={{ width: "35px", height: "35px" }}
-              />
+              <MenuIcon />
             </Button>
+            <Menu
+              id="simple-menu3"
+              anchorEl={this.state.signoutAnchorEl}
+              keepMounted
+              open={Boolean(this.state.signoutAnchorEl)}
+              onClose={() => {
+                this.setState({ signoutAnchorEl: null });
+              }}
+              style={{ marginTop: "45px" }}
+            >
+              <MenuItem key={"userprofile"} onClick={this.userprofile}>
+                User Profile
+              </MenuItem>
+              <MenuItem key={"signout"} onClick={this.signout}>
+                Sign Out
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
 

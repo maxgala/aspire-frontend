@@ -142,30 +142,19 @@ const useStyles = makeStyles(() => ({
     fontFamily: "PT Sans",
     fontWeight: "bold",
     "@media (max-width: 520px)": {
-      width: "80%",
       fontSize: "12px",
     },
     "@media (max-width: 320px)": {
       fontSize: "10px",
       marginTop: "3px",
     },
-    width: "50%",
+    width: "100%",
     textAlign: "left",
-    display: "flex",
     color: "white",
     margin: "0px",
     marginLeft: "5px",
     marginTop: "5px",
   },
-
-  //to be applied to span elements to avoid overflow
-  overflowText: {
-    display: "inline-block",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-
   subtitle2: {
     fontSize: "16px",
     "@media (max-width: 480px)": {
@@ -361,14 +350,6 @@ const useStyles = makeStyles(() => ({
     paddingLeft: "50px",
     paddingRight: "50px",
   },
-
-  reservedText: {
-    fontFamily: "PT Sans",
-    fontSize: "15px",
-    "@media (max-width: 480px)": {
-      fontSize: "12px",
-    },
-  },
 }));
 
 function withMyHook(Component) {
@@ -378,7 +359,7 @@ function withMyHook(Component) {
   };
 }
 
-class CoffeeChatCard extends Component {
+class CoffeeChatSelfCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -400,13 +381,13 @@ class CoffeeChatCard extends Component {
     });
   };
 
-  registerForChat = async () => {
+  registerForChat = () => {
     this.setState({
       barDisplay: true,
     });
     httpPut(
       "chats/" + this.props.data.chat_id + "/reserve",
-      (await Auth.currentSession()).getIdToken().getJwtToken()
+      Auth.currentSession().getIdToken().getJwtToken()
     )
       .then(() => {
         this.props.enqueueSnackbar("Successfully registered for coffee chat", {
@@ -421,10 +402,10 @@ class CoffeeChatCard extends Component {
         this.props.enqueueSnackbar("Failed:" + err, {
           variant: "error",
         });
-        this.setState({
-          barDisplay: false,
-        });
       });
+    this.setState({
+      barDisplay: false,
+    });
   };
 
   render() {
@@ -460,7 +441,7 @@ class CoffeeChatCard extends Component {
               xs={4}
               spacing={0}
               alignItems="center"
-              justify="center"
+              justify="flex-start"
             >
               <img
                 className={classes.image}
@@ -486,12 +467,7 @@ class CoffeeChatCard extends Component {
                 justify="flex-start"
               >
                 <h1 className={classes.title}>
-                  <p style={{ width: "80%" }} className={classes.subtitle}>
-                    <span className={classes.name}>
-                      {this.props.data.given_name} {this.props.data.family_name}
-                    </span>{" "}
-                    {this.props.data.title}
-                  </p>
+                  {this.props.data.given_name} {this.props.data.family_name}
                 </h1>
                 <p className={classes.subtitle}>
                   <span>
@@ -500,9 +476,7 @@ class CoffeeChatCard extends Component {
                       className={classes.company_icon}
                     />
                   </span>{" "}
-                  <span className={classes.overflowText}>
-                    {this.props.data["custom:company"]}
-                  </span>
+                  {this.props.data["custom:company"]}
                   {this.props.data.title}
                 </p>
                 <span className={classes.subtitle}>
@@ -561,24 +535,7 @@ class CoffeeChatCard extends Component {
                   justify="flex-start"
                 >
                   <span className={classes.button_container}>
-                    {this.state.chat_status === "ACTIVE" ||
-                    this.state.chat_status === "RESERVED_PARTIAL" ? (
-                      <Button
-                        onClick={this.openCoffeeChat}
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                      >
-                        View Booking
-                      </Button>
-                    ) : (
-                      <h3 className={classes.reservedText}>
-                        {this.state.chat_status === "RESERVED" ||
-                        this.state.chat_status === "RESERVED_CONFIRMED"
-                          ? "RESERVED"
-                          : this.state.chat_status}
-                      </h3>
-                    )}
+                    <h3>RESERVED</h3>
                   </span>
                 </Grid>
               </Grid>
@@ -716,11 +673,10 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    {this.props.data.chat_type === ChatTypes.fourOnOne &&
-                    this.props.data.aspiring_professionals !== null ? (
+                    {this.props.data.chat_type === ChatTypes.fourOnOne ? (
                       <span className={classes.subtitle2}>
                         Available spots:{" "}
-                        {4 - this.props.data.aspiring_professionals.length}
+                        {/* {4 - this.props.data.aspiring_professionals.length} */}
                       </span>
                     ) : (
                       ""
@@ -771,5 +727,5 @@ class CoffeeChatCard extends Component {
   }
 }
 
-CoffeeChatCard = withMyHook(CoffeeChatCard);
-export default withSnackbar(CoffeeChatCard);
+CoffeeChatSelfCard = withMyHook(CoffeeChatSelfCard);
+export default withSnackbar(CoffeeChatSelfCard);

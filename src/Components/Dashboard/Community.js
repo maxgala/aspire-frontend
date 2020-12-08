@@ -5,8 +5,10 @@ import Grid from "@material-ui/core/Grid";
 // import Filter from "./Cards/FilterCard";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CommunityCard from "./Cards/CommunityCard";
-import TestData from "./CoffeeChatsTestData";
 import { withRouter } from "react-router";
+import { httpGet } from "../../lib/dataAccess";
+import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -77,9 +79,54 @@ class JobBoard extends Component {
     super(props);
     this.state = {
       // temporary - just wanted more test data to fill the page
-      community_data: [...TestData, ...TestData, ...TestData],
+      community_data: [],
     };
   }
+
+  fetchUsers = async () => {
+    const paidUsers = await httpGet(
+      "users?type=PAID",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    ).catch((err) => {
+      console.log(err);
+      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
+        variant: "err",
+      });
+    });
+
+    const freeUsers = await httpGet(
+      "users?type=FREE",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    ).catch((err) => {
+      console.log(err);
+      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
+        variant: "err",
+      });
+    });
+
+    const mentorUsers = await httpGet(
+      "users?type=MENTORS",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    ).catch((err) => {
+      console.log(err);
+      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
+        variant: "err",
+      });
+    });
+
+    const full = paidUsers.data.users.concat(
+      freeUsers.data.users,
+      mentorUsers.data.users
+    );
+    this.setState({
+      community_data: full,
+    });
+  };
+
+  componentDidMount() {
+    this.fetchUsers();
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -214,4 +261,4 @@ class JobBoard extends Component {
 
 JobBoard = withRouter(JobBoard);
 JobBoard = withMyHook(JobBoard);
-export default JobBoard;
+export default withSnackbar(JobBoard);

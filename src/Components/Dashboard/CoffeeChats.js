@@ -10,6 +10,7 @@ import { httpGet } from "../../lib/dataAccess";
 import EmptyCard from "./Cards/EmptyCard";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { withRouter } from "react-router";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -95,13 +96,20 @@ class CoffeeChats extends Component {
   }
 
   fetchChats = async () => {
-    const existingChatsData = await httpGet(
-      "chats",
-      localStorage.getItem("idToken")
+    const existingActiveChatsData = await httpGet(
+      "chats?status=ACTIVE",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
+    const existingPartialChatsData = await httpGet(
+      "chats?status=RESERVED_PARTIAL",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
+    let full = existingActiveChatsData.data.chats.concat(
+      existingPartialChatsData.data.chats
     );
     this.setState({
       isChatsLoaded: true,
-      chats: existingChatsData.data.chats,
+      chats: full,
     });
   };
 
@@ -116,7 +124,7 @@ class CoffeeChats extends Component {
       <div>
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
-          <h1 className={classes.coffeeChat}>Coffee Chats</h1>
+          <h1 className={classes.coffeeChat}>Available Coffee Chats</h1>
           {/* TODO: Hiding filters until they get implemented
             <Grid
               container

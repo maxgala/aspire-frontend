@@ -160,7 +160,7 @@ class CheckoutForm extends React.Component {
         <input
           id="name"
           required
-          placeholder="Mohaimen Khan"
+          placeholder="Full Name"
           value={name}
           onChange={(event) => {
             this.setState({ name: event.target.value });

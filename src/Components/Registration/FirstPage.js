@@ -189,7 +189,7 @@ class FirstPage extends Component {
   };
 
   changeToSignIn = (event) => {
-    this.props.history.push(Routes.SignIn);
+    this.props.history.push(Routes.Login);
   };
 
   handlePhoneChange(value) {
@@ -262,8 +262,11 @@ class FirstPage extends Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  InputProps={{
+                    inputProps: { min: "1900-01-01", max: "3000-12-30" },
+                  }}
                   id="date"
-                  label="Birthday"
+                  label="Date of birth"
                   type="date"
                   format="MM/dd/yyyy"
                   InputLabelProps={{
@@ -349,7 +352,7 @@ class FirstPage extends Component {
             )}
             <Grid container justify="center">
               <Grid item>
-                <Link href="#" variant="body1" onClick={this.changeToSignIn}>
+                <Link variant="body1" onClick={this.changeToSignIn}>
                   <b>Already have an account? Sign in</b>
                 </Link>
               </Grid>

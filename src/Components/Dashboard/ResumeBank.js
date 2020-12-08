@@ -3,10 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import ResumeBankCard from "./Cards/ResumeBankCard";
-import TestData from "./CoffeeChatsTestData";
 // TODO: Hiding filters until they get implemented
 // import Filter from "./Cards/FilterCard";
 import { withRouter } from "react-router";
+import { httpGet } from "../../lib/dataAccess";
+import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -75,9 +77,41 @@ class JobBoard extends Component {
     super(props);
     this.state = {
       // temporary - just wanted more test data to fill the page
-      job_board_data: [...TestData, ...TestData, ...TestData],
+      job_board_data: [],
     };
   }
+
+  fetchUsers = async () => {
+    const paidUsers = await httpGet(
+      "users?type=PAID",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    ).catch((err) => {
+      console.log(err);
+      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
+        variant: "err",
+      });
+    });
+
+    const freeUsers = await httpGet(
+      "users?type=FREE",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    ).catch((err) => {
+      console.log(err);
+      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
+        variant: "err",
+      });
+    });
+
+    const full = paidUsers.data.users.concat(freeUsers.data.users);
+    this.setState({
+      job_board_data: full,
+    });
+  };
+
+  componentDidMount() {
+    this.fetchUsers();
+  }
+
   render() {
     const classes = this.props.classes;
     return (
@@ -240,4 +274,4 @@ class JobBoard extends Component {
 
 JobBoard = withMyHook(JobBoard);
 JobBoard = withRouter(JobBoard);
-export default JobBoard;
+export default withSnackbar(JobBoard);
