@@ -277,10 +277,10 @@ class ThirdPage extends Component {
     this.props.history.push(`${Routes.Register}/2`);
   };
   changeToFinalPage = (event) => {
-    if (
-      this.state.resumeFiles.length === 0 ||
-      this.state.imageFiles.length === 0
-    ) {
+    // TODO Bug-fix: Add a loader for UI so they know to wait for their files to upload
+    // Currently if the file does not upload, and the user attempts to click next they will be
+    // met with the pop-up error
+    if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
       this.setState({
         dialogueOpen: true,
       });
