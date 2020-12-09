@@ -17,7 +17,6 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { withRouter } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Routes } from "../../entry/routes/Routes";
-import FinalPage from "./FinalPage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -170,7 +169,10 @@ class ThirdPage extends Component {
       passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
-      industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+      industry_tags:
+        this.props.prev.industry_tags !== undefined
+          ? this.props.prev.industry_tags
+          : [],
       title: this.props.prev ? this.props.prev.title : "",
       company: this.props.prev ? this.props.prev.company : "",
       education: this.props.prev ? this.props.prev.education : "",

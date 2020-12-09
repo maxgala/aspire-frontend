@@ -24,7 +24,6 @@ import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { withRouter } from "react-router-dom";
 import { Routes } from "../../entry/routes/Routes";
-import ThirdPage from "./ThirdPage";
 
 const IndustryLabels = [];
 for (let i = 0; i < Industries.length; ++i) {
@@ -130,7 +129,10 @@ class SecondPage extends Component {
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       progress: 50,
       industry: this.props.prev ? this.props.prev.industry : "",
-      industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+      industry_tags:
+        this.props.prev.industry_tags !== undefined
+          ? this.props.prev.industry_tags
+          : [],
       title: this.props.prev ? this.props.prev.title : "",
       company: this.props.prev ? this.props.prev.company : "",
       education: this.props.prev ? this.props.prev.education : "",

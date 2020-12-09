@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import SecondPage from "./SecondPage";
 import LinearWithValueLabel from "./linearprogress";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Dialog from "@material-ui/core/Dialog";
@@ -83,7 +82,10 @@ class FirstPage extends Component {
       passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
-      industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+      industry_tags:
+        this.props.prev.industry_tags !== undefined
+          ? this.props.prev.industry_tags
+          : [],
       title: this.props.prev ? this.props.prev.title : "",
       company: this.props.prev ? this.props.prev.company : "",
       education: this.props.prev ? this.props.prev.education : "",
@@ -206,7 +208,6 @@ class FirstPage extends Component {
 
   render() {
     const classes = this.props.classes;
-    const { email, passwordStrength } = this.state;
     // Use formValidated to make the next button appear {formValidated && ...button}
     // const formValidated = email && passwordStrength;
 
