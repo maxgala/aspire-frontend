@@ -17,6 +17,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { withRouter } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Routes } from "../../entry/routes/Routes";
+import FinalPage from "./FinalPage";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -274,13 +275,22 @@ class ThirdPage extends Component {
     this.props.history.push(`${Routes.Register}/2`);
   };
   changeToFinalPage = (event) => {
+    console.log(this.state);
     if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
       this.setState({
         dialogueOpen: true,
       });
     } else {
+      // this.setState(this.state);
+
       this.props.setPrev(this.state);
       this.props.history.push(`${Routes.Register}/4`);
+
+      // this.props.appContext.setState({
+      //   registrationScreen: (
+      //     <FinalPage appContext={this.props.appContext} prev={this.state} />
+      //   ),
+      // });
     }
   };
 

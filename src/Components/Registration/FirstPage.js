@@ -125,6 +125,7 @@ class FirstPage extends Component {
   passwordChanged = this.fieldStateChanged("passwordStrength");
 
   changeToPage2 = (event) => {
+    console.log(this.state);
     if (
       this.state.firstName === "" ||
       this.state.firstName === undefined ||
@@ -145,8 +146,16 @@ class FirstPage extends Component {
       });
       return;
     }
+    // this.setState(this.state);
+
     this.props.setPrev(this.state);
     this.props.history.push(`${Routes.Register}/2`);
+
+    // this.props.appContext.setState({
+    //   registrationScreen: (
+    //     <SecondPage appContext={this.props.appContext} prev={this.state} />
+    //   ),
+    // });
   };
 
   handleFirstNameChange = (event) => {

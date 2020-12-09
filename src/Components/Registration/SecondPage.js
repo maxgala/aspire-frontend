@@ -24,6 +24,7 @@ import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { withRouter } from "react-router-dom";
 import { Routes } from "../../entry/routes/Routes";
+import ThirdPage from "./ThirdPage";
 
 const IndustryLabels = [];
 for (let i = 0; i < Industries.length; ++i) {
@@ -204,6 +205,7 @@ class SecondPage extends Component {
   };
 
   changeToPage3 = (event) => {
+    console.log(this.state);
     if (this.state.industry_tags.length > 3) {
       this.setState({
         dialogueOpen: true,
@@ -231,8 +233,16 @@ class SecondPage extends Component {
       });
       return;
     }
+    // this.setState(this.state);
+
     this.props.setPrev(this.state);
     this.props.history.push(`${Routes.Register}/3`);
+
+    // this.props.appContext.setState({
+    //   registrationScreen: (
+    //     <ThirdPage appContext={this.props.appContext} prev={this.state} />
+    //   ),
+    // });
   };
 
   onTagsChange = (event, values) => {
