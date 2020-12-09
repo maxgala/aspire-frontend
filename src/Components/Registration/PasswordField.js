@@ -61,6 +61,11 @@ class PasswordField extends Component {
     const { passwordStrength, strength } = this.state;
 
     const passwordLength = passwordStrength.length;
+
+    // TODO: Commented code was an attempt to have password field look like https://codesandbox.io/embed/8kkrpy7260?fontsize=14&view=preview
+    // Currently, CSS attributes are not applied properly so we have commented the functionality out for
+    // a password counter and a password field color change.
+
     // const passwordStrong = strength >= this.minStrength;
     // const passwordLong = passwordLength > this.thresholdLength;
 
@@ -95,11 +100,6 @@ class PasswordField extends Component {
             onStateChanged={this.stateChanged}
             {...restProps}
           >
-            {/* <span className="d-block form-hint">
-              To conform with our Strong Password policy, you are required to
-              use a sufficiently strong password. Password must be more than 7
-              characters.
-            </span> */}
             {children}
             {/** Render the password strength meter **/}
             <div className={strengthClass}>
