@@ -98,7 +98,7 @@ class FirstPage extends Component {
         : false,
       showEmailError: false,
       progress: 25,
-      errorDisplay: "None",
+      errorDisplay: "",
       dialogueOpen: false,
     };
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
@@ -107,15 +107,15 @@ class FirstPage extends Component {
   fieldStateChanged = (field) => (state) => {
     if (field !== "passwordStrength") {
       this.setState({ [field]: state.errors.length === 0 });
-    } else {
+    } else if (field === "passwordStrength") {
       this.setState({
-        PasswordStrength: state.errors.length === 0,
+        passwordStrength: state.errors.length === 0,
         password: state.value,
       });
     }
     if (field !== "emailStrength") {
       this.setState({ [field]: state.errors.length === 0 });
-    } else {
+    } else if (field === "emailStrength") {
       this.setState({
         emailStrength: state.errors.length === 0,
         email: state.value,
@@ -127,37 +127,44 @@ class FirstPage extends Component {
   passwordChanged = this.fieldStateChanged("passwordStrength");
 
   changeToPage2 = (event) => {
-    console.log(this.state);
+    const {
+      emailStrength,
+      passwordStrength,
+      email,
+      firstName,
+      password,
+      lastName,
+      phone,
+      year_of_birth,
+      errorDisplay,
+    } = this.state;
+
+    const formValidated = emailStrength && passwordStrength;
+
     if (
-      this.state.firstName === "" ||
-      this.state.firstName === undefined ||
-      this.state.password === "" ||
-      this.state.password === undefined ||
-      this.state.lastName === "" ||
-      this.state.lastName === undefined ||
-      this.state.email === "" ||
-      this.state.email === undefined ||
-      this.state.phone === "" ||
-      this.state.phone === undefined ||
-      this.state.year_of_birth === "" ||
-      this.state.year_of_birth === undefined ||
-      this.state.errorDisplay !== "None"
+      firstName === "" ||
+      firstName === undefined ||
+      password === "" ||
+      password === undefined ||
+      lastName === "" ||
+      lastName === undefined ||
+      email === "" ||
+      email === undefined ||
+      phone === "" ||
+      phone === undefined ||
+      year_of_birth === "" ||
+      year_of_birth === undefined ||
+      errorDisplay !== "None" ||
+      errorDisplay === undefined ||
+      !formValidated
     ) {
       this.setState({
         dialogueOpen: true,
       });
       return;
     }
-    // this.setState(this.state);
-
     this.props.setPrev(this.state);
     this.props.history.push(`${Routes.Register}/2`);
-
-    // this.props.appContext.setState({
-    //   registrationScreen: (
-    //     <SecondPage appContext={this.props.appContext} prev={this.state} />
-    //   ),
-    // });
   };
 
   handleFirstNameChange = (event) => {
@@ -208,8 +215,6 @@ class FirstPage extends Component {
 
   render() {
     const classes = this.props.classes;
-    // Use formValidated to make the next button appear {formValidated && ...button}
-    // const formValidated = email && passwordStrength;
 
     return (
       <Container component="main" maxWidth="xs">
@@ -296,7 +301,6 @@ class FirstPage extends Component {
                 />
               </Grid>
 
-              {/** Render the password field component using thresholdLength of 7 and minStrength of 3 **/}
               <Grid item xs={12}>
                 <PasswordField
                   fieldId="password"
@@ -346,7 +350,6 @@ class FirstPage extends Component {
               </Grid>
             </Grid>
             <LinearWithValueLabel progress={this.state.progress} />
-            {/* {formValidated && ( */}
             <Button
               type="submit"
               variant="contained"
@@ -356,7 +359,6 @@ class FirstPage extends Component {
             >
               <b>Next</b>
             </Button>
-            {/* )} */}
             <Grid container justify="center">
               <Grid item>
                 <Link variant="body1" onClick={this.changeToSignIn}>
