@@ -88,6 +88,8 @@ const useStyles = makeStyles(() => ({
     marginLeft: "10px",
     marginRight: "20px",
     display: "inline-block",
+    objectFit: "cover",
+
   },
   image2: {
     width: "20vw",
@@ -102,6 +104,8 @@ const useStyles = makeStyles(() => ({
     marginLeft: "20px",
     marginRight: "20px",
     display: "inline-block",
+    objectFit: "cover",
+
   },
   title: {
     fontFamily: "PT Sans",
@@ -435,10 +439,10 @@ class CoffeeChatCard extends Component {
           this.props.data.chat_status === "ChatStatus.RESERVED"
             ? classes.cardBooked
             : this.props.data.chat_type === ChatTypes.oneOnOne
-            ? classes.cardOne
-            : this.props.data.chat_type === ChatTypes.fourOnOne
-            ? classes.cardFour
-            : classes.cardInterview
+              ? classes.cardOne
+              : this.props.data.chat_type === ChatTypes.fourOnOne
+                ? classes.cardFour
+                : classes.cardInterview
         }
       >
         {/* need to get image from s3 bucket --  */}
@@ -509,8 +513,8 @@ class CoffeeChatCard extends Component {
                   {this.props.data.chat_type === ChatTypes.oneOnOne
                     ? "One on One"
                     : this.props.data.chat_type === ChatTypes.fourOnOne
-                    ? "Four on One"
-                    : "Mock Interview"}
+                      ? "Four on One"
+                      : "Mock Interview"}
                 </span>
 
                 {this.props.data &&
@@ -548,8 +552,8 @@ class CoffeeChatCard extends Component {
                       </Moment>
                     </span>
                   ) : (
-                    ""
-                  )}
+                      ""
+                    )}
                 </Grid>
                 <Grid
                   container
@@ -562,23 +566,23 @@ class CoffeeChatCard extends Component {
                 >
                   <span className={classes.button_container}>
                     {this.state.chat_status === "ACTIVE" ||
-                    this.state.chat_status === "RESERVED_PARTIAL" ? (
-                      <Button
-                        onClick={this.openCoffeeChat}
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                      >
-                        View Booking
-                      </Button>
-                    ) : (
-                      <h3 className={classes.reservedText}>
-                        {this.state.chat_status === "RESERVED" ||
-                        this.state.chat_status === "RESERVED_CONFIRMED"
-                          ? "RESERVED"
-                          : this.state.chat_status}
-                      </h3>
-                    )}
+                      this.state.chat_status === "RESERVED_PARTIAL" ? (
+                        <Button
+                          onClick={this.openCoffeeChat}
+                          className={classes.button}
+                          variant="contained"
+                          color="primary"
+                        >
+                          View Booking
+                        </Button>
+                      ) : (
+                        <h3 className={classes.reservedText}>
+                          {this.state.chat_status === "RESERVED" ||
+                            this.state.chat_status === "RESERVED_CONFIRMED"
+                            ? "RESERVED"
+                            : this.state.chat_status}
+                        </h3>
+                      )}
                   </span>
                 </Grid>
               </Grid>
@@ -665,13 +669,13 @@ class CoffeeChatCard extends Component {
                       {this.props.data.chat_type === ChatTypes.oneOnOne
                         ? "One on One"
                         : this.props.data.chat_type === ChatTypes.fourOnOne
-                        ? "Four on One"
-                        : "Mock Interview"}
+                          ? "Four on One"
+                          : "Mock Interview"}
                       {this.props.data.booked ? (
                         <span className={classes.booked}>booked</span>
                       ) : (
-                        ""
-                      )}{" "}
+                          ""
+                        )}{" "}
                       with&nbsp;
                       <span className={classes.name2}>
                         {this.props.data.given_name}{" "}
@@ -704,8 +708,8 @@ class CoffeeChatCard extends Component {
                         Date: <Moment unix>{this.props.data.fixed_date}</Moment>
                       </span>
                     ) : (
-                      ""
-                    )}
+                        ""
+                      )}
                   </Grid>
 
                   <Grid
@@ -717,14 +721,14 @@ class CoffeeChatCard extends Component {
                     justify="flex-start"
                   >
                     {this.props.data.chat_type === ChatTypes.fourOnOne &&
-                    this.props.data.aspiring_professionals !== null ? (
-                      <span className={classes.subtitle2}>
-                        Available spots:{" "}
-                        {4 - this.props.data.aspiring_professionals.length}
-                      </span>
-                    ) : (
-                      ""
-                    )}
+                      this.props.data.aspiring_professionals !== null ? (
+                        <span className={classes.subtitle2}>
+                          Available spots:{" "}
+                          {4 - this.props.data.aspiring_professionals.length}
+                        </span>
+                      ) : (
+                        ""
+                      )}
                   </Grid>
 
                   <Grid
@@ -759,8 +763,8 @@ class CoffeeChatCard extends Component {
                       Register
                     </Button>
                   ) : (
-                    <CircularProgress className={classes.circleProgress} />
-                  )}
+                      <CircularProgress className={classes.circleProgress} />
+                    )}
                 </DialogActions>
               </Grid>
             </DialogContentText>

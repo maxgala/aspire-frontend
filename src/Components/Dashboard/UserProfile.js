@@ -127,6 +127,8 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     display: "block",
+    objectFit: "cover",
+
   },
 
   button: {

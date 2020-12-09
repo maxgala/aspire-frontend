@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
     marginLeft: "10px",
     marginRight: "10px",
     display: "block",
+    objectFit: "cover",
   },
   name: {
     fontFamily: "myriad-pro, sans-serif",
@@ -187,17 +188,17 @@ class JobApplicationCard extends Component {
               {this.state.showConnect === false ? (
                 ""
               ) : (
-                <span className={classes.button_container}>
-                  <Button
-                    className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    disabled={!this.state.showConnect}
-                  >
-                    Connect
+                  <span className={classes.button_container}>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                      disabled={!this.state.showConnect}
+                    >
+                      Connect
                   </Button>
-                </span>
-              )}
+                  </span>
+                )}
             </Grid>
           </Grid>
         </div>

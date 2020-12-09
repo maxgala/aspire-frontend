@@ -48,6 +48,8 @@ const useStyles = makeStyles(() => ({
     marginLeft: "20px",
     marginRight: "20px",
     display: "inline-block",
+    objectFit: "cover",
+
   },
 
   cardInfo: {
