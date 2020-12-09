@@ -204,12 +204,7 @@ class SecondPage extends Component {
   };
 
   changeToPage3 = (event) => {
-    if (this.state.industry_tags.length > 3) {
-      this.setState({
-        dialogueOpen: true,
-      });
-      return;
-    }
+    console.log(this.state);
     if (
       this.state.industry === "" ||
       this.state.industry === undefined ||
@@ -222,9 +217,12 @@ class SecondPage extends Component {
       this.state.country === "" ||
       this.state.country === undefined ||
       this.state.city === "" ||
-      undefined
-      //   ||
-      //   (this.state.province === "" && this.state.states === "") Bug when clicking Other for country
+      undefined ||
+      this.state.industry_tags.length > 3
+      // Bug with this, showing up as undefined now!
+      // ||
+      // (this.state.province === "" && this.state.states === "")
+      // Bug when clicking Other for country
     ) {
       this.setState({
         dialogueOpen: true,

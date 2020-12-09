@@ -22,6 +22,8 @@ import { withRouter } from "react-router-dom";
 import EmailField from "./EmailField";
 import PasswordField from "./PasswordField";
 import Tooltip from "@material-ui/core/Tooltip";
+import { Routes } from "../../entry/routes/Routes";
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -199,7 +201,7 @@ class FirstPage extends Component {
     const classes = this.props.classes;
     const { email, passwordStrength } = this.state;
     // Use formValidated to make the next button appear {formValidated && ...button}
-    const formValidated = email && passwordStrength;
+    // const formValidated = email && passwordStrength;
 
     return (
       <Container component="main" maxWidth="xs">
@@ -336,17 +338,17 @@ class FirstPage extends Component {
               </Grid>
             </Grid>
             <LinearWithValueLabel progress={this.state.progress} />
-            {formValidated && (
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={this.changeToPage2}
-              >
-                <b>Next</b>
-              </Button>
-            )}
+            {/* {formValidated && ( */}
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={this.changeToPage2}
+            >
+              <b>Next</b>
+            </Button>
+            {/* )} */}
             <Grid container justify="center">
               <Grid item>
                 <Link variant="body1" onClick={this.changeToSignIn}>

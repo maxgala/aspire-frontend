@@ -235,21 +235,21 @@ class Home extends Component {
                     ))
                   ) : (
                     <Grid
+                      key={key}
                       container
                       item
                       xs={12}
                       sm={12}
-                      md={12}
-                      lg={6}
-                      xl={4}
+                      md={6}
+                      lg={4}
                       spacing={1}
                       alignItems="center"
                       justify="flex-start"
                     >
-                      <EmptyCard type={CardTypes.coffeeChat} />
+                      <CoffeeChatCard data={chat} />
                     </Grid>
-                  )
-              ) : (
+                  ))
+                ) : (
                   <Grid
                     container
                     item
@@ -424,6 +424,7 @@ class Home extends Component {
                         ))
                       ) : (
                         <Grid
+                          key={jobData.job_id}
                           container
                           item
                           xs={12}
@@ -431,10 +432,10 @@ class Home extends Component {
                           alignItems="flex-start"
                           justify="flex-start"
                         >
-                          <EmptyCard type={CardTypes.jobApplication} />
+                          <JobApplicationCard data={jobData} />
                         </Grid>
-                      )
-                  ) : (
+                      ))
+                    ) : (
                       <Grid
                         container
                         item
@@ -443,12 +444,24 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <Skeleton
-                          variant="rect"
-                          className={classes.cardAppLoader}
-                        />
+                        <EmptyCard type={CardTypes.jobApplication} />
                       </Grid>
-                    )}
+                    )
+                  ) : (
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <Skeleton
+                        variant="rect"
+                        className={classes.cardAppLoader}
+                      />
+                    </Grid>
+                  )}
                 </Grid>
                 <Grid
                   container
@@ -479,17 +492,18 @@ class Home extends Component {
                         ))
                       ) : (
                         <Grid
+                          key={key}
                           container
                           item
-                          xs={12}
+                          xs={6}
                           spacing={1}
                           alignItems="flex-start"
                           justify="flex-start"
                         >
-                          <EmptyCard type={CardTypes.jobPosting} />
+                          <JobPostingCard data={posting} />
                         </Grid>
-                      )
-                  ) : (
+                      ))
+                    ) : (
                       <Grid
                         container
                         item
@@ -498,10 +512,7 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <Skeleton
-                          variant="rect"
-                          className={classes.cardPostLoader}
-                        />
+                        <EmptyCard type={CardTypes.jobPosting} />
                       </Grid>
                     )}
                 </Grid>

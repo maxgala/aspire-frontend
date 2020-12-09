@@ -1,14 +1,14 @@
 {
-  "name": "aspire-frontend",
-  "version": "0.1.0",
-  "private": true,
-  "husky": {
+    "name": "aspire-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+    "pre-commit": "pretty-quick --staged"
     }
-  },
-  "proxy": "http://localhost:8080",
-  "dependencies": {
+    },
+    "proxy": "http://localhost:8080",
+    "dependencies": {
     "@aws-amplify/ui-react": "^0.2.14",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
@@ -55,8 +55,8 @@
     "react-swipeable": "^5.5.1",
     "serve": "^11.3.2",
     "zxcvbn": "^4.4.2"
-  },
-  "scripts": {
+    },
+    "scripts": {
     "dev": "concurrently \"node src/server.js\" \"react-scripts start\"",
     "start": "cd build && node server.js",
     "build": "react-scripts build && cp src/server.js build",
@@ -64,26 +64,26 @@
     "eject": "react-scripts eject",
     "format": "prettier --write 'src/**/*.js?(x)'",
     "heroku-postbuild": "npm run build"
-  },
-  "eslintConfig": {
+    },
+    "eslintConfig": {
     "extends": "react-app"
-  },
-  "browserslist": {
+    },
+    "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
     ]
-  },
-  "devDependencies": {
+    },
+    "devDependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
     "express": "^4.17.1",
     "prop-types": "^15.7.2"
-  }
-}
+    }
+    }

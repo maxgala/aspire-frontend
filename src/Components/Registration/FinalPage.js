@@ -220,7 +220,6 @@ class FinalPage extends Component {
     if (this.state.country === "CA") {
       address = {
         locality: this.state.city,
-
         region: this.state.province,
         country: this.state.country,
       };

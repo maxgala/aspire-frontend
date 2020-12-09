@@ -35,6 +35,12 @@ import ResumeBank from "./ResumeBank";
 import Community from "./Community";
 import { Routes } from "../../entry/routes/Routes";
 
+import CoffeeChats from "./CoffeeChats";
+import JobBoard from "./Jobs";
+import ResumeBank from "./ResumeBank";
+import Community from "./Community";
+import { Routes } from "../../entry/routes/Routes";
+
 const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
