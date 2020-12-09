@@ -207,7 +207,6 @@ class SecondPage extends Component {
   };
 
   changeToPage3 = (event) => {
-    console.log(this.state);
     if (this.state.industry_tags.length > 3) {
       this.setState({
         dialogueOpen: true,
@@ -226,25 +225,19 @@ class SecondPage extends Component {
       this.state.country === "" ||
       this.state.country === undefined ||
       this.state.city === "" ||
-      undefined
-      //   ||
-      //   (this.state.province === "" && this.state.states === "") Bug when clicking Other for country
+      this.state.city === undefined ||
+      this.state.province === "" ||
+      this.state.province === undefined ||
+      (this.state.country === "Other" && this.state.city === "") ||
+      (this.state.country === "Other" && this.state.city === undefined)
     ) {
       this.setState({
         dialogueOpen: true,
       });
       return;
     }
-    // this.setState(this.state);
-
     this.props.setPrev(this.state);
     this.props.history.push(`${Routes.Register}/3`);
-
-    // this.props.appContext.setState({
-    //   registrationScreen: (
-    //     <ThirdPage appContext={this.props.appContext} prev={this.state} />
-    //   ),
-    // });
   };
 
   onTagsChange = (event, values) => {
