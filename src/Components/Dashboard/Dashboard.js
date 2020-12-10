@@ -4,11 +4,11 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import { Route, Switch, Redirect } from "react-router-dom";
-
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import MaxLogo from "../Images/max_logo.png";
 import UserProfile from "./UserProfile";
+import EditProfile from "./EditProfile";
 import Home from "./Home";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
@@ -28,7 +28,6 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Hidden } from "@material-ui/core";
 import { Auth } from "aws-amplify";
-
 import CoffeeChats from "./CoffeeChats";
 import JobBoard from "./Jobs";
 import ResumeBank from "./ResumeBank";
@@ -303,6 +302,10 @@ class Dashboard extends Component {
     this.props.history.push(Routes.Dashboard);
   }
 
+  userprofile = () => {
+    this.props.history.push(Routes.EditProfile);
+  };
+
   signout = async () => {
     try {
       await Auth.signOut();
@@ -520,6 +523,9 @@ class Dashboard extends Component {
               </Route>
               <Route exact={true} path={Routes.Dashboard}>
                 <Home />
+              </Route>
+              <Route exact={true} path={Routes.EditProfile}>
+                <EditProfile />
               </Route>
               <Redirect to={Routes.Dashboard} />
             </Switch>
