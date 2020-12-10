@@ -425,26 +425,24 @@ class Landing extends Component {
     }
   };
 
-  handleJobTypeChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.job_type = event.target.value;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
-
-  handleContactMeChange = (name) => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.can_contact = !this.state.jobsData.can_contact;
-    this.setState({
-      [name]: event.target.checked,
-      jobsData: jobsDataObj,
-    });
-  };
-
   postJob = (event) => {
     this.setState({
       openPostJob: true,
+      jobsData: {
+        title: "",
+        company: "",
+        country: "",
+        region: "",
+        city: "",
+        description: "",
+        requirements: "",
+        job_type: "REGULAR_JOB", // BOARD_POSITION or REGULAR_JOB
+        job_tags: [],
+        salary: 0,
+        deadline: 0,
+        can_contact: false,
+      },
+      checkedBox: false,
     });
   };
 
@@ -544,69 +542,38 @@ class Landing extends Component {
     });
   };
 
-  handleTitleChange = () => (event) => {
+  handleFormDataChange = (id) => (event) => {
     var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.title = event.target.value;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
 
-  handleCompanyChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.company = event.target.value;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
+    if (id === "requirements") {
+      jobsDataObj.requirements = event.target.value
+        .toString()
+        .slice(0, this.state.max_characters);
+    } else if (id === "description") {
+      jobsDataObj.description = event.target.value
+        .toString()
+        .slice(0, this.state.max_characters);
+    } else if (id === "salary") {
+      jobsDataObj.salary = event.target.value;
+    } else if (id === "city") {
+      jobsDataObj.city = event.target.value;
+    } else if (id === "region") {
+      jobsDataObj.region = event.target.value;
+    } else if (id === "country") {
+      jobsDataObj.country = event.target.value;
+    } else if (id === "company") {
+      jobsDataObj.company = event.target.value;
+    } else if (id === "title") {
+      jobsDataObj.title = event.target.value;
+    } else if (id === "job_type") {
+      jobsDataObj.job_type = event.target.value;
+    } else if (id === "contact_me") {
+      jobsDataObj.can_contact = !this.state.jobsData.can_contact;
+      this.setState({
+        checkedBox: event.target.checked,
+      });
+    }
 
-  handleCountryChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.country = event.target.value;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
-
-  handleRegionChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.region = event.target.value;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
-
-  handleCityChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.city = event.target.value;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
-
-  handleSalaryChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.salary = event.target.value;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
-
-  handleDescriptionChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.description = event.target.value
-      .toString()
-      .slice(0, this.state.max_characters);
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-  };
-
-  handleRequirementChange = () => (event) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.requirements = event.target.value
-      .toString()
-      .slice(0, this.state.max_characters);
     this.setState({
       jobsData: jobsDataObj,
     });
@@ -736,16 +703,7 @@ class Landing extends Component {
             openPostJob={this.state.openPostJob}
             submitJob={this.submitJob}
             handlePostJobClose={this.handlePostJobClose}
-            handleTitleChange={this.handleTitleChange}
-            handleCountryChange={this.handleCountryChange}
-            handleRegionChange={this.handleRegionChange}
-            handleCityChange={this.handleCityChange}
-            handleCompanyChange={this.handleCompanyChange}
-            handleSalaryChange={this.handleSalaryChange}
-            handleJobTypeChange={this.handleJobTypeChange}
-            handleDescriptionChange={this.handleDescriptionChange}
-            handleRequirementChange={this.handleRequirementChange}
-            handleContactMeChange={this.handleContactMeChange}
+            handleFormDataChange={this.handleFormDataChange}
             onTagsChange={this.onTagsChange}
             showError={this.state.showError}
             errorText={this.state.errorText}

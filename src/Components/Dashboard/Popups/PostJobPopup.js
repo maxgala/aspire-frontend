@@ -9,28 +9,21 @@ import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+/* TODO: add back when industry tags is working
 import IndustryTags from "../../Registration/industry_tags";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import Chip from "@material-ui/core/Chip";
+import Chip from "@material-ui/core/Chip";*/
 
 function PostJobPopup({
   jobsData,
   openPostJob,
   submitJob,
   handlePostJobClose,
-  handleTitleChange,
-  handleCountryChange,
-  handleRegionChange,
-  handleCityChange,
-  handleCompanyChange,
-  handleSalaryChange,
-  handleJobTypeChange,
-  handleDescriptionChange,
-  handleRequirementChange,
-  handleContactMeChange,
+  handleFormDataChange,
+  /* TODO: add back when industry tags is working
   onTagsChange,
   showError,
-  errorText,
+  errorText,*/
   checkedBox,
   classes,
 }) {
@@ -94,7 +87,7 @@ function PostJobPopup({
                       input: classes.input,
                     },
                   }}
-                  onChange={handleTitleChange}
+                  onChange={handleFormDataChange("title")}
                 />
               </div>
             </Grid>
@@ -135,7 +128,7 @@ function PostJobPopup({
                         input: classes.input,
                       },
                     }}
-                    onChange={handleCountryChange}
+                    onChange={handleFormDataChange("country")}
                   />
                 </div>
               </Grid>
@@ -157,7 +150,7 @@ function PostJobPopup({
                         input: classes.input,
                       },
                     }}
-                    onChange={handleRegionChange}
+                    onChange={handleFormDataChange("region")}
                   />
                 </div>
               </Grid>
@@ -179,7 +172,7 @@ function PostJobPopup({
                         input: classes.input,
                       },
                     }}
-                    onChange={handleCityChange}
+                    onChange={handleFormDataChange("city")}
                   />
                 </div>
               </Grid>
@@ -213,7 +206,7 @@ function PostJobPopup({
                       input: classes.input,
                     },
                   }}
-                  onChange={handleCompanyChange}
+                  onChange={handleFormDataChange("company")}
                 />
               </div>
             </Grid>
@@ -245,7 +238,7 @@ function PostJobPopup({
                       input: classes.input,
                     },
                   }}
-                  onChange={handleSalaryChange}
+                  onChange={handleFormDataChange("salary")}
                 />
               </div>
             </Grid>
@@ -273,7 +266,7 @@ function PostJobPopup({
                   value="REGULAR_JOB"
                   control={<Radio color="primary" />}
                   label="Regular Job"
-                  onChange={handleJobTypeChange}
+                  onChange={handleFormDataChange("job_type")}
                 />
               </div>
             </Grid>
@@ -291,12 +284,12 @@ function PostJobPopup({
                   value="BOARD_POSITION"
                   control={<Radio color="primary" />}
                   label="Board Position"
-                  onChange={handleJobTypeChange}
+                  onChange={handleFormDataChange("job_type")}
                 />
               </div>
             </Grid>
           </Grid>
-          <Grid
+          {/*<Grid
             container
             item
             xs={12}
@@ -343,7 +336,7 @@ function PostJobPopup({
                 />
               </div>
             </Grid>
-          </Grid>
+          </Grid>*/}
           <Grid
             container
             item
@@ -367,7 +360,7 @@ function PostJobPopup({
                 variant="outlined"
                 fullWidth
                 InputProps={{
-                  maxLength: maxCharacters,
+                  maxLength: 2000,
                   classes: {
                     root: classes.cssOutlinedInput,
                     focused: classes.cssFocused,
@@ -377,7 +370,7 @@ function PostJobPopup({
                 value={jobsData.description}
                 helperText={`${jobsData.description.length}/${maxCharacters} Characters`}
                 className={classes.textField}
-                onChange={handleDescriptionChange}
+                onChange={handleFormDataChange("description")}
               />
             </Grid>
           </Grid>
@@ -415,7 +408,7 @@ function PostJobPopup({
                 value={jobsData.requirement}
                 helperText={`${jobsData.requirements.length}/${maxCharacters} Characters`}
                 className={classes.textField}
-                onChange={handleRequirementChange}
+                onChange={handleFormDataChange("requirements")}
               />
             </Grid>
           </Grid>
@@ -443,7 +436,7 @@ function PostJobPopup({
                 control={
                   <Checkbox
                     checked={checkedBox}
-                    onChange={handleContactMeChange}
+                    onChange={handleFormDataChange("contact_me")}
                     value="checkedBox"
                     classes={{
                       root: classes.checkbox,
