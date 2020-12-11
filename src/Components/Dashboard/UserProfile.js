@@ -377,15 +377,19 @@ class Landing extends Component {
 
   async componentDidMount() {
     const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
+    console.log(idTokeninfo);
     let idToken = (await Auth.currentSession())
       .getIdToken()
       .getJwtToken()
       .toString();
+    console.log(await Auth.currentSession());
+
     await httpGet("jobs?user_id=" + idTokeninfo.email, idToken).then((jobs) => {
       this.setState({
         numJobs: jobs.data.count ? jobs.data.count : 0,
       });
     });
+
     await httpGet("chats?email=" + idTokeninfo.email, idToken).then((chats) => {
       this.setState({
         numChats: chats.data.count ? chats.data.count : 0,
@@ -671,13 +675,16 @@ class Landing extends Component {
           >
             Purchase Credits
           </Button>
-          <Button
-            className={classes.button1}
-            variant="contained"
-            onClick={this.postJob}
-          >
-            Post a Job
-          </Button>
+          {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
+          "FREE" ? (
+            <Button
+              className={classes.button1}
+              variant="contained"
+              onClick={this.postJob}
+            >
+              Post a Job
+            </Button>
+          ) : null}
           <EscalationsCard />
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
