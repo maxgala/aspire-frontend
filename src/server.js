@@ -76,8 +76,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV !== "development") {
 
 function httpGet(method, path, headers, params) {
   let localDevPath = path.substring(path.indexOf("/api"), path.length);
-  let url =
-    "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
+  let url = "https://services-d.aspire.maxgala.com" + localDevPath;
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](url, {
       headers: headers,
@@ -97,8 +96,7 @@ function httpPost(endPoint, headers, data) {
     endPoint.indexOf("/api"),
     endPoint.length
   );
-  let url =
-    "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
+  let url = "https://services-d.aspire.maxgala.com" + localDevPath;
   return new Promise((resolve, reject) => {
     return axios
       .post(url, data, {
@@ -118,8 +116,7 @@ function httpPut(endPoint, headers, data) {
     endPoint.indexOf("/api"),
     endPoint.length
   );
-  let url =
-    "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
+  let url = "https://services-d.aspire.maxgala.com" + localDevPath;
   return new Promise((resolve, reject) => {
     return axios
       .put(url, data, {
