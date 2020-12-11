@@ -479,7 +479,7 @@ class Landing extends Component {
     jobsDataObj.poster_given_name = userProfile.given_name;
 
     // post job and close popup
-    httpPost("jobs", idToken, jobsDataObj)
+    await httpPost("jobs", idToken, jobsDataObj)
       .then((res) => {
         this.props.enqueueSnackbar("Successfully submitted a job posting:", {
           variant: "success",
