@@ -6,14 +6,20 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { withRouter } from "react-router-dom";
-import EmailField from "../Registration/EmailField";
-import PasswordField from "../Registration/PasswordField";
-import Tooltip from "@material-ui/core/Tooltip";
 import { Routes } from "../../entry/routes/Routes";
 import { withSnackbar } from "notistack";
+import MenuItem from "@material-ui/core/MenuItem";
+import Industries from "../Registration/industry";
+import IndustryTags from "../Registration/industry_tags";
+import Country from "../Registration/Country";
+import States from "../Registration/States";
+import Education from "../Registration/Education";
+import Province from "../Registration/Provinces";
+import Chip from "@material-ui/core/Chip";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -140,7 +146,35 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "30px",
     color: "black",
   },
+  autoComplete: {
+    "& > * + *": {
+      marginTop: theme.spacing(3),
+    },
+  },
+  formControl: {
+    width: "100%",
+  },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  chip: {
+    margin: 2,
+  },
+  label: {
+    fontSize: "larger",
+  },
 }));
+
+const IndustryLabels = [];
+for (let i = 0; i < Industries.length; ++i) {
+  IndustryLabels.push(Industries[i]["name"]);
+}
+
+const IndustryTagsLabels = [];
+for (let i = 0; i < IndustryTags.length; ++i) {
+  IndustryTagsLabels.push(IndustryTags[i]["name"]);
+}
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -167,7 +201,33 @@ class EditProfile extends Component {
       country: "",
       states: "",
     };
-    this.handlePhoneChange = this.handlePhoneChange.bind(this);
+  }
+
+  componentDidMount() {
+    const userData = jwtDecode(localStorage.getItem("idToken"));
+    var country;
+    const formattedLocation = JSON.parse(userData.address.formatted);
+    if (formattedLocation.country === "Canada") {
+      country = "CA";
+    } else if (formattedLocation.country === "United States") {
+      country = "USA";
+    }
+
+    this.setState({
+      firstName: userData.given_name,
+      lastName: userData.family_name,
+      phone: userData.phone_number,
+      year_of_birth: userData.birthdate,
+      industry: "", // userData["custom:industry_tags"], TODO: need to format different
+      industry_tags: [], // find where this is stored
+      title: userData["custom:position"],
+      company: userData["custom:company"],
+      education: "", //find where this is stored
+      province: "", // userData.address.formatted.region, TODO: need to format different (ie. Ontario to ON)
+      city: "", //find where this is stored
+      country: country,
+      states: "", //find where this is stored
+    });
   }
 
   fieldStateChanged = (field) => (state) => {
@@ -273,20 +333,20 @@ class EditProfile extends Component {
     this.props.history.push(Routes.Login);
   };
 
-  handlePhoneChange(value) {
+  handlePhoneChange = (value) => {
     this.setState({
       phone: value,
     });
-  }
+  };
 
   render() {
     const classes = this.props.classes;
     return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
-            Registration
+            Edit User Profile
           </Typography>
           <div className={classes.form}>
             <Grid container spacing={2}>
@@ -357,61 +417,166 @@ class EditProfile extends Component {
                 />
               </Grid>
               <Grid item xs={12}>
-                <EmailField
-                  fieldId="email"
-                  label="Email"
-                  placeholder="Enter Email Address*"
-                  onStateChanged={this.emailChanged}
+                <TextField
+                  id="outlined-select-education"
                   required
+                  fullWidth
+                  select
+                  label="Industry"
+                  value={this.state.industry}
+                  onChange={this.handleIndustryChange}
+                  variant="outlined"
+                >
+                  {IndustryLabels.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={12}>
+                <Autocomplete
+                  multiple
+                  id="tags-filled"
+                  fullWidth
+                  options={IndustryTags.map((option) => option.name)}
+                  defaultValue={[]}
+                  freeSolo
+                  onChange={this.onTagsChange}
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip
+                        variant="outlined"
+                        label={option}
+                        {...getTagProps({ index })}
+                      />
+                    ))
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="Select Tags (Up to 3)"
+                      error={this.state.showError}
+                      helperText={this.state.errorText}
+                    />
+                  )}
                 />
               </Grid>
-
               <Grid item xs={12}>
-                <PasswordField
-                  fieldId="password"
-                  label="Password"
-                  placeholder="Enter Password*"
-                  onStateChanged={this.passwordChanged}
-                  thresholdLength={7}
-                  minStrength={3}
-                  required
-                />
-                <Tooltip
-                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long. Recommended:
-                    Contain a combination of at least 1 lowercase, uppercase, number, special
-                    characters`}
-                >
-                  <Typography
-                    variant="caption"
-                    style={{ color: "grey", cursor: "pointer" }}
-                    display="block"
-                    gutterBottom
-                  >
-                    Hover here for Password Requirements
-                  </Typography>
-                </Tooltip>
                 <TextField
                   variant="outlined"
                   required
                   fullWidth
-                  name="confirm password"
-                  label="Confirm Password"
-                  placeholder="Enter Password"
-                  type="password"
-                  id="password-confirm"
-                  autoComplete="current-password"
-                  onChange={this.handleConfirmCheck}
+                  id="title"
+                  label="Title/Position"
+                  name="title"
+                  autoComplete="title"
+                  value={this.state.title}
+                  onChange={this.handleTitleChange}
                 />
-                <FormHelperText
-                  style={{
-                    display: this.state.errorDisplay,
-                    color: "red",
-                  }}
-                  id="component-error-text"
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="company"
+                  label="Company"
+                  name="company"
+                  autoComplete="company"
+                  value={this.state.company}
+                  onChange={this.handleCompanyChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="outlined-select-education"
+                  required
+                  fullWidth
+                  select
+                  label="Highest Level of Education"
+                  value={this.state.education}
+                  onChange={this.handleEducationChange}
+                  variant="outlined"
                 >
-                  {" "}
-                  <b>Error! Passwords don't match </b>
-                </FormHelperText>
+                  {Education.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="outlined-select-education"
+                  required
+                  fullWidth
+                  select
+                  label="Country"
+                  value={this.state.country}
+                  onChange={this.handleCountryChange}
+                  variant="outlined"
+                >
+                  {Country.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid style={{ display: this.state.displayStates }} item xs={12}>
+                <TextField
+                  id="outlined-select-education"
+                  required
+                  fullWidth
+                  select
+                  label="States"
+                  value={this.state.states}
+                  onChange={this.handleStateChange}
+                  variant="outlined"
+                >
+                  {States.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid
+                style={{ display: this.state.displayProvince }}
+                item
+                xs={12}
+              >
+                <TextField
+                  id="outlined-select-education"
+                  required
+                  fullWidth
+                  select
+                  label="Province/Territories"
+                  value={this.state.province}
+                  onChange={this.handleProvinceChange}
+                  variant="outlined"
+                >
+                  {Province.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="city"
+                  label="City"
+                  name="city"
+                  autoComplete="city"
+                  value={this.state.city}
+                  onChange={this.handleCityChange}
+                />
               </Grid>
             </Grid>
             <Button
