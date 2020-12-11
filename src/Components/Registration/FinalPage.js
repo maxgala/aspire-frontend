@@ -243,6 +243,7 @@ class FinalPage extends Component {
         phone_number: phone_val,
         birthdate: this.state.year_of_birth,
         address: address,
+        gender: "U", // TODO: Add a form field to accept Gender with values Male, Female and Other
         "custom:industry": this.state.industry,
         "custom:industry_tags": this.state.industry_tags.toString(),
         "custom:position": this.state.title,
