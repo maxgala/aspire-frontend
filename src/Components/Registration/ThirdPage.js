@@ -3,7 +3,6 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import LinearWithValueLabel from "./linearprogress";
@@ -21,7 +20,7 @@ import { Routes } from "../../entry/routes/Routes";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: "15vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -87,11 +86,63 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#F1F1F1",
       color: "#484848",
     },
-  },
-  textAlignment: {
-    marginLeft: "10%",
-    margin: theme.spacing(1, 0, 1),
-    textAlign: "left",
+    uploadText: {
+      margin: theme.spacing(2, 0, 1),
+      "@media (max-width: 480px)": { width: "180px" },
+      width: "200px",
+    },
+    uploadImage: {
+      marginLeft: theme.spacing(1, 0, 1),
+      backgroundColor: "#6EA0B5",
+      height: 50,
+      color: "white",
+      "&:hover": {
+        backgroundColor: "#F1F1F1",
+        color: "#484848",
+      },
+    },
+    submit_back: {
+      margin: theme.spacing(3, 0, 2),
+      marginTop: "5%",
+      marginRight: "5%",
+      height: 50,
+      width: "30%",
+      borderRadius: 50,
+      backgroundColor: "#1A1A1A",
+      borderStyle: "solid",
+      color: "#F1F1F1",
+      borderColor: "#484848",
+      "&:hover": {
+        backgroundColor: "#F1F1F1",
+        color: "#484848",
+      },
+    },
+    profilePic: {
+      margin: theme.spacing(3, 0, 2),
+      width: "120px",
+      height: "auto",
+      borderRadius: "50%",
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+      marginTop: "5%",
+      height: 50,
+      width: "30%",
+      borderStyle: "solid",
+      borderRadius: 50,
+      backgroundColor: "#b5a165",
+      color: "white",
+      borderColor: "#484848",
+      "&:hover": {
+        backgroundColor: "#F1F1F1",
+        color: "#484848",
+      },
+    },
+    textAlignment: {
+      marginLeft: "10%",
+      margin: theme.spacing(1, 0, 1),
+      textAlign: "left",
+    },
   },
 }));
 
@@ -115,13 +166,18 @@ class ThirdPage extends Component {
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
       password: this.props.prev ? this.props.prev.password : "",
+      passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
-      industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+      industry_tags:
+        this.props.prev.industry_tags !== undefined
+          ? this.props.prev.industry_tags
+          : [],
       title: this.props.prev ? this.props.prev.title : "",
       company: this.props.prev ? this.props.prev.company : "",
       education: this.props.prev ? this.props.prev.education : "",
       province: this.props.prev ? this.props.prev.province : "",
+      city: this.props.prev ? this.props.prev.city : "",
       country: this.props.prev ? this.props.prev.country : "",
       states: this.props.prev ? this.props.prev.states : "",
       senior_executive: this.props.prev
@@ -221,6 +277,9 @@ class ThirdPage extends Component {
     this.props.history.push(`${Routes.Register}/2`);
   };
   changeToFinalPage = (event) => {
+    // TODO Bug-fix: Add a loader for UI so they know to wait for their files to upload
+    // Currently if the file does not upload, and the user attempts to click next they will be
+    // met with the pop-up error
     if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
       this.setState({
         dialogueOpen: true,
@@ -237,7 +296,7 @@ class ThirdPage extends Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+          {/* <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} /> */}
           <Typography component="h1" variant="h5">
             Registration
           </Typography>
