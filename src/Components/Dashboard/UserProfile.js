@@ -377,12 +377,10 @@ class Landing extends Component {
 
   async componentDidMount() {
     const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
-    console.log(idTokeninfo);
     let idToken = (await Auth.currentSession())
       .getIdToken()
       .getJwtToken()
       .toString();
-    console.log(await Auth.currentSession());
 
     await httpGet("jobs?user_id=" + idTokeninfo.email, idToken).then((jobs) => {
       this.setState({
