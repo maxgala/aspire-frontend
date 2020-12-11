@@ -230,69 +230,6 @@ class EditProfile extends Component {
     });
   }
 
-  fieldStateChanged = (field) => (state) => {
-    if (field !== "passwordStrength") {
-      this.setState({ [field]: state.errors.length === 0 });
-    } else if (field === "passwordStrength") {
-      this.setState({
-        passwordStrength: state.errors.length === 0,
-        password: state.value,
-      });
-    }
-    if (field !== "emailStrength") {
-      this.setState({ [field]: state.errors.length === 0 });
-    } else if (field === "emailStrength") {
-      this.setState({
-        emailStrength: state.errors.length === 0,
-        email: state.value,
-      });
-    }
-  };
-
-  emailChanged = this.fieldStateChanged("emailStrength");
-  passwordChanged = this.fieldStateChanged("passwordStrength");
-
-  changeToPage2 = (event) => {
-    const {
-      emailStrength,
-      passwordStrength,
-      email,
-      firstName,
-      password,
-      lastName,
-      phone,
-      year_of_birth,
-      errorDisplay,
-    } = this.state;
-
-    const formValidated = emailStrength && passwordStrength;
-
-    if (
-      firstName === "" ||
-      firstName === undefined ||
-      password === "" ||
-      password === undefined ||
-      lastName === "" ||
-      lastName === undefined ||
-      email === "" ||
-      email === undefined ||
-      phone === "" ||
-      phone === undefined ||
-      year_of_birth === "" ||
-      year_of_birth === undefined ||
-      errorDisplay !== "None" ||
-      errorDisplay === undefined ||
-      !formValidated
-    ) {
-      this.setState({
-        dialogueOpen: true,
-      });
-      return;
-    }
-    this.props.setPrev(this.state);
-    this.props.history.push(`${Routes.Register}/2`);
-  };
-
   handleFirstNameChange = (event) => {
     this.setState({
       firstName: event.target.value,
@@ -305,38 +242,21 @@ class EditProfile extends Component {
     });
   };
 
-  handleDialog = (event) => {
-    this.setState({
-      dialogueOpen: !this.state.dialogueOpen,
-    });
-  };
-
-  handleConfirmCheck = (event) => {
-    if (event.target.value === this.state.password) {
-      this.setState({
-        errorDisplay: "None",
-      });
-    } else {
-      this.setState({
-        errorDisplay: "",
-      });
-    }
-  };
-
   handleYearChange = (event) => {
     this.setState({
       year_of_birth: event.target.value,
     });
   };
 
-  changeToSignIn = (event) => {
-    this.props.history.push(Routes.Login);
-  };
-
   handlePhoneChange = (value) => {
     this.setState({
       phone: value,
     });
+  };
+
+  submitChanges = () => {
+    // TODO: propogate changes to cognito user
+    this.props.history.push(`${Routes.Dashboard}`);
   };
 
   render() {
@@ -584,7 +504,7 @@ class EditProfile extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={this.changeToPage2}
+              onClick={this.submitChanges}
             >
               <b>SUBMIT</b>
             </Button>
