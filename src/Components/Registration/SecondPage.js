@@ -207,29 +207,41 @@ class SecondPage extends Component {
   };
 
   changeToPage3 = (event) => {
-    if (this.state.industry_tags.length > 3) {
+    const {
+      industry_tags,
+      industry,
+      title,
+      company,
+      education,
+      country,
+      city,
+      province,
+      states,
+    } = this.state;
+    console.log(this.state);
+    if (industry_tags.length > 3) {
       this.setState({
         dialogueOpen: true,
       });
       return;
     }
     if (
-      this.state.industry === "" ||
-      this.state.industry === undefined ||
-      this.state.title === "" ||
-      this.state.title === undefined ||
-      this.state.company === "" ||
-      this.state.company === undefined ||
-      this.state.education === "" ||
-      this.state.education === undefined ||
-      this.state.country === "" ||
-      this.state.country === undefined ||
-      this.state.city === "" ||
-      this.state.city === undefined ||
-      this.state.province === "" ||
-      this.state.province === undefined ||
-      (this.state.country === "Other" && this.state.city === "") ||
-      (this.state.country === "Other" && this.state.city === undefined)
+      industry === "" ||
+      industry === undefined ||
+      title === "" ||
+      title === undefined ||
+      company === "" ||
+      company === undefined ||
+      education === "" ||
+      education === undefined ||
+      country === "" ||
+      country === undefined ||
+      city === "" ||
+      city === undefined ||
+      (country === "CA" && province === "") ||
+      (country === "CA" && province === undefined) ||
+      (country === "USA" && states === "") ||
+      (country === "USA" && states === undefined)
     ) {
       this.setState({
         dialogueOpen: true,
