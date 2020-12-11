@@ -128,7 +128,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     display: "block",
     objectFit: "cover",
-
   },
 
   button: {
@@ -374,6 +373,8 @@ class Landing extends Component {
         can_contact: false,
       },
     };
+
+    this.submitJob = this.submitJob.bind(this);
   }
 
   async componentDidMount() {
@@ -436,7 +437,7 @@ class Landing extends Component {
     });
   };
 
-  submitJob = () => {
+  async submitJob() {
     // check that all the required fields are set / properly set
     if (this.state.jobsData.job_tags.length > 3) {
       alert("There are more than 3 job tags selected.");
@@ -467,6 +468,11 @@ class Landing extends Component {
       return;
     }
 
+    let idToken = (await Auth.currentSession())
+      .getIdToken()
+      .getJwtToken()
+      .toString();
+
     // get user info and update jobs data
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
     var jobsDataObj = { ...this.state.jobsData };
@@ -475,11 +481,7 @@ class Landing extends Component {
     jobsDataObj.poster_given_name = userProfile.given_name;
 
     // post job and close popup
-    httpPost(
-      "jobs",
-      Auth.currentSession().getIdToken().getJwtToken(),
-      jobsDataObj
-    )
+    httpPost("jobs", idToken, jobsDataObj)
       .then((res) => {
         this.props.enqueueSnackbar("Successfully submitted a job posting:", {
           variant: "success",
@@ -493,7 +495,7 @@ class Landing extends Component {
     this.setState({
       openPostJob: false,
     });
-  };
+  }
 
   purchaseCredits = (event) => {
     this.setState({
