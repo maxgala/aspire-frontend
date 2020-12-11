@@ -373,8 +373,6 @@ class Landing extends Component {
         can_contact: false,
       },
     };
-
-    this.submitJob = this.submitJob.bind(this);
   }
 
   async componentDidMount() {
@@ -437,7 +435,7 @@ class Landing extends Component {
     });
   };
 
-  async submitJob() {
+  submitJob = async () => {
     // check that all the required fields are set / properly set
     if (this.state.jobsData.job_tags.length > 3) {
       alert("There are more than 3 job tags selected.");
@@ -495,7 +493,7 @@ class Landing extends Component {
     this.setState({
       openPostJob: false,
     });
-  }
+  };
 
   purchaseCredits = (event) => {
     this.setState({
