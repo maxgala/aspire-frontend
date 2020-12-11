@@ -7,16 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { withRouter } from "react-router-dom";
 import EmailField from "../Registration/EmailField";
 import PasswordField from "../Registration/PasswordField";
-import Slide from "@material-ui/core/Slide";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Routes } from "../../entry/routes/Routes";
 import { withSnackbar } from "notistack";
@@ -147,10 +141,6 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
 }));
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
