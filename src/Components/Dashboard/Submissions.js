@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import JobApplicationCard from "./Cards/JobApplicationCard";
+import JobSubmissionCard from "./Cards/JobSubmissionCard";
 // TODO: Hiding filters until they get implemented
 // import Filter from "./Cards/FilterCard";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
@@ -10,6 +10,7 @@ import CardTypes from "./CardTypes";
 import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { Auth } from "aws-amplify";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -76,7 +77,7 @@ function withMyHook(Component) {
   };
 }
 
-class JobBoard extends Component {
+class Submissions extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,13 +86,32 @@ class JobBoard extends Component {
   }
 
   fetchJobs = async () => {
-    const existingJobsData = await httpGet(
-      "jobs",
+    const idTokeninfo = jwtDecode(
       (await Auth.currentSession()).getIdToken().getJwtToken()
     );
-    if (existingJobsData.data.jobs !== undefined) {
+    const jobsData = await httpGet(
+      "job-applications?userId=" + idTokeninfo.email,
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
+
+    console.log(jobsData);
+
+    const data = jobsData.data;
+    const jobAppData = [];
+    // data should never return an empty string, but it is currently
+    // backend team should fix this so it returns either undefined or [], [] being more preferred
+    if (data !== undefined && data !== "") {
+      for (let i = 0; i < data.length; i++) {
+        const jobData = await httpGet(
+          "jobs/" + data[i].job_id,
+          (await Auth.currentSession()).getIdToken().getJwtToken()
+        );
+        if (jobData.data) {
+          jobAppData.push(jobData.data);
+        }
+      }
       this.setState({
-        jobs: existingJobsData.data.jobs,
+        jobs: jobAppData,
       });
     }
   };
@@ -106,8 +126,8 @@ class JobBoard extends Component {
       <div>
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
-          <h1 className={classes.JobBoard}>Job Board</h1>
-          {/* TODO: Hiding filters until they get implemented 
+          <h1 className={classes.JobBoard}>Submissions Board</h1>
+          {/* TODO: Hiding filters until they get implemented
           <Grid
             container
             item
@@ -281,7 +301,7 @@ class JobBoard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <JobApplicationCard data={jobData} />
+                  <JobSubmissionCard data={jobData} />
                 </Grid>
               ))
             ) : (
@@ -304,6 +324,6 @@ class JobBoard extends Component {
   }
 }
 
-JobBoard = withMyHook(JobBoard);
-JobBoard = withRouter(JobBoard);
-export default JobBoard;
+Submissions = withMyHook(Submissions);
+Submissions = withRouter(Submissions);
+export default Submissions;
