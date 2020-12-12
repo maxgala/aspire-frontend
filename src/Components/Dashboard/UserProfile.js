@@ -407,6 +407,7 @@ class Landing extends Component {
         numJobs: jobs.data.count ? jobs.data.count : 0,
       });
     });
+
     await httpGet("chats?email=" + idTokeninfo.email, idToken).then((chats) => {
       this.setState({
         numChats: chats.data.count ? chats.data.count : 0,
@@ -456,7 +457,7 @@ class Landing extends Component {
     });
   };
 
-  submitJob = () => {
+  submitJob = async () => {
     // check that all the required fields are set / properly set
     if (this.state.jobsData.job_tags.length > 3) {
       alert("There are more than 3 job tags selected.");
@@ -487,6 +488,11 @@ class Landing extends Component {
       return;
     }
 
+    let idToken = (await Auth.currentSession())
+      .getIdToken()
+      .getJwtToken()
+      .toString();
+
     // get user info and update jobs data
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
     var jobsDataObj = { ...this.state.jobsData };
@@ -495,11 +501,7 @@ class Landing extends Component {
     jobsDataObj.poster_given_name = userProfile.given_name;
 
     // post job and close popup
-    httpPost(
-      "jobs",
-      Auth.currentSession().getIdToken().getJwtToken(),
-      jobsDataObj
-    )
+    await httpPost("jobs", idToken, jobsDataObj)
       .then((res) => {
         this.props.enqueueSnackbar("Successfully submitted a job posting:", {
           variant: "success",
@@ -700,7 +702,8 @@ class Landing extends Component {
             </div>
           </span>
 
-          {this.state.userType !== "MENTOR" ? (
+          {this.state.userType !== "MENTOR" ||
+          this.state.userType !== "FREE" ? (
             <span>
               <Button
                 className={classes.button}
