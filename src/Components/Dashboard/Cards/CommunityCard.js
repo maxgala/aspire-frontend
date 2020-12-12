@@ -188,17 +188,17 @@ class JobApplicationCard extends Component {
               {this.state.showConnect === false ? (
                 ""
               ) : (
-                  <span className={classes.button_container}>
-                    <Button
-                      className={classes.button}
-                      variant="contained"
-                      color="primary"
-                      disabled={!this.state.showConnect}
-                    >
-                      Connect
+                <span className={classes.button_container}>
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                    disabled={!this.state.showConnect}
+                  >
+                    Connect
                   </Button>
-                  </span>
-                )}
+                </span>
+              )}
             </Grid>
           </Grid>
         </div>

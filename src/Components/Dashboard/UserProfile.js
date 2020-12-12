@@ -24,6 +24,8 @@ import jwtDecode from "jwt-decode";
 // import Chip from "@material-ui/core/Chip";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
+import Stripe from "../Payment/StripeCredits";
+import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 
 const useStyles = makeStyles((theme) => ({
   root1: {
@@ -105,6 +107,17 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
 
+  infinite: {
+    fontFamily: "minion-pro, serif",
+    fontWeight: "bolder",
+    fontSize: "40px",
+    color: "#FFFFFF",
+    margin: "30px 20px 0px 20px",
+    textAlign: "center",
+    display: "inline-block",
+    width: "65%",
+  },
+
   available: {
     fontFamily: "minion-pro, serif",
     fontWeight: "bolder",
@@ -128,7 +141,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
     display: "block",
     objectFit: "cover",
-
   },
 
   button: {
@@ -373,15 +385,23 @@ class Landing extends Component {
         deadline: 0,
         can_contact: false,
       },
+      credits: jwtDecode(localStorage.getItem("idToken"))["custom:credits"],
+      userType: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
     };
   }
 
   async componentDidMount() {
-    const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
+    Auth.currentUserInfo().then((res) => {
+      this.setState({
+        credits: res.attributes["custom:credits"],
+      });
+    });
+
     let idToken = (await Auth.currentSession())
       .getIdToken()
       .getJwtToken()
       .toString();
+    const idTokeninfo = jwtDecode(idToken);
     await httpGet("jobs?user_id=" + idTokeninfo.email, idToken).then((jobs) => {
       this.setState({
         numJobs: jobs.data.count ? jobs.data.count : 0,
@@ -516,6 +536,18 @@ class Landing extends Component {
   handleFaqClose = (event) => {
     this.setState({
       openFaq: false,
+    });
+  };
+
+  handleCreditsClose = () => {
+    this.setState({
+      openCredits: false,
+    });
+  };
+
+  handleCreditsOpen = () => {
+    this.setState({
+      openCredits: true,
     });
   };
 
@@ -659,18 +691,38 @@ class Landing extends Component {
               {userProfile.numJobApplications} Jobs Applied To
             </p>
             <div className={classes.circle}>
-              <p className={classes.credits}>{userProfile.numCredits}</p>
+              {this.state.userType === "MENTOR" ? (
+                <AllInclusiveIcon className={classes.infinite} />
+              ) : (
+                <p className={classes.credits}>{this.state.credits}</p>
+              )}
               <p className={classes.available}>Credits Available</p>
             </div>
           </span>
 
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={this.changeToSignUp}
-          >
-            Purchase Credits
-          </Button>
+          {this.state.userType !== "MENTOR" ? (
+            <span>
+              <Button
+                className={classes.button}
+                variant="contained"
+                onClick={this.handleCreditsOpen}
+              >
+                Purchase Credits
+              </Button>
+              <Dialog
+                maxWidth={"md"}
+                fullWidth={true}
+                disableEscapeKeyDown
+                disableBackdropClick
+                onClose={this.handleCreditsClose}
+                aria-labelledby="stripe-dialog"
+                open={this.state.openCredits}
+              >
+                <Stripe appContext={this.props.appContext} landing={this} />
+              </Dialog>
+            </span>
+          ) : null}
+
           <Button
             className={classes.button1}
             variant="contained"

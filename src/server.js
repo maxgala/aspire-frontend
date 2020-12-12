@@ -49,7 +49,39 @@ app.post("/app/*", async (req, res) => {
   }
 });
 
+app.post("/register/*", async (req, res) => {
+  const headers = {
+    "content-type": req.headers["content-type"]
+      ? req.headers["content-type"]
+      : "application/json",
+  };
+
+  try {
+    const resultFromReq = await httpPost(req.path, headers, req.body);
+    res.send(resultFromReq);
+  } catch (err) {
+    console.error(err);
+    res.status(err.response.status).send(err.response.data.message);
+  }
+});
+
 app.put("/app/*", async (req, res) => {
+  const headers = {
+    authorization: req.headers.authorization,
+    "content-type": req.headers["content-type"]
+      ? req.headers["content-type"]
+      : "application/json",
+  };
+  try {
+    const resultFromReq = await httpPut(req.path, headers, req.body);
+    res.send(resultFromReq);
+  } catch (err) {
+    console.error(err);
+    res.status(err.response.status).send(err.response.data.message);
+  }
+});
+
+app.put("/register/*", async (req, res) => {
   const headers = {
     authorization: req.headers.authorization,
     "content-type": req.headers["content-type"]

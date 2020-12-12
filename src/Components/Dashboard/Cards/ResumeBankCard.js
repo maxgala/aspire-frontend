@@ -49,7 +49,6 @@ const useStyles = makeStyles(() => ({
     marginRight: "20px",
     display: "inline-block",
     objectFit: "cover",
-
   },
 
   cardInfo: {
