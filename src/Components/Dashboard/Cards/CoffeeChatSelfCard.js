@@ -16,6 +16,7 @@ import Moment from "react-moment";
 import { withSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Auth } from "aws-amplify";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -366,6 +367,7 @@ class CoffeeChatSelfCard extends Component {
       open: false,
       chat_status: this.props.data.chat_status,
       barDisplay: false,
+      userType: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
     };
   }
 
@@ -412,7 +414,7 @@ class CoffeeChatSelfCard extends Component {
     this.setState({
       barDisplay: true,
     });
-    httpPut(
+    await httpPut(
       "chats/" + this.props.data.chat_id + "/unreserve",
       (await Auth.currentSession()).getIdToken().getJwtToken()
     )
@@ -562,15 +564,24 @@ class CoffeeChatSelfCard extends Component {
                   justify="flex-start"
                 >
                   <span className={classes.button_container}>
-                    {this.state.chat_status === "RESERVED" ||
-                    this.state.chat_status === "RESERVED_PARTIAL" ? (
+                    {this.state.userType === "MENTOR" ? (
                       <Button
                         onClick={this.openCoffeeChat}
                         className={classes.button}
                         variant="contained"
                         color="primary"
                       >
-                        <h3>UNRESERVE</h3>
+                        <h3>VIEW DETAILS</h3>
+                      </Button>
+                    ) : this.state.chat_status === "RESERVED" ||
+                      this.state.chat_status === "RESERVED_PARTIAL" ? (
+                      <Button
+                        onClick={this.openCoffeeChat}
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <h3>VIEW DETAILS</h3>
                       </Button>
                     ) : this.state.chat_status === "UNRESERVED" ? (
                       <h3 className={classes.reservedText}>UNRESERVED</h3>
@@ -712,15 +723,32 @@ class CoffeeChatSelfCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    {this.props.data.chat_type === ChatTypes.fourOnOne ? (
+                    {this.props.data.chat_type === ChatTypes.fourOnOne &&
+                    this.props.data.aspiring_professionals !== null ? (
                       <span className={classes.subtitle2}>
                         Available spots:{" "}
-                        {/* {4 - this.props.data.aspiring_professionals.length} */}
+                        {4 - this.props.data.aspiring_professionals.length}
                       </span>
                     ) : (
                       ""
                     )}
                   </Grid>
+                  <span className={classes.subtitle2}>
+                    Reserved with:{" "}
+                    {this.props.data.aspiring_professionals.map((ap, i) => (
+                      <p className={classes.subtitle2}>
+                        {i + 1}. {ap},{" "}
+                      </p>
+                    ))}
+                  </span>
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  ></Grid>
 
                   <Grid
                     container
@@ -745,7 +773,8 @@ class CoffeeChatSelfCard extends Component {
                 justify="center"
               >
                 <DialogActions>
-                  {this.state.barDisplay === false ? (
+                  {this.state.userType === "MENTOR" ? null : this.state
+                      .barDisplay === false ? (
                     <Button
                       className={classes.button2}
                       variant="contained"

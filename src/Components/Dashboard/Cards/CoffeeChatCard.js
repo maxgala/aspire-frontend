@@ -420,7 +420,7 @@ class CoffeeChatCard extends Component {
         });
       })
       .catch((err) => {
-        this.props.enqueueSnackbar("Failed:" + err, {
+        this.props.enqueueSnackbar("Failed:" + err.message, {
           variant: "error",
         });
         this.setState({
