@@ -16,6 +16,7 @@ import Moment from "react-moment";
 import { withSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Auth } from "aws-amplify";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -387,6 +388,7 @@ class CoffeeChatCard extends Component {
       open: false,
       chat_status: this.props.data.chat_status,
       barDisplay: false,
+      userType: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
     };
   }
 
@@ -752,7 +754,8 @@ class CoffeeChatCard extends Component {
                 justify="center"
               >
                 <DialogActions>
-                  {this.state.barDisplay === false ? (
+                  {this.state.userType === "MENTOR" ? null : this.state
+                      .barDisplay === false ? (
                     <Button
                       className={classes.button2}
                       variant="contained"
