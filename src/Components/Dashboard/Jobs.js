@@ -9,6 +9,7 @@ import EmptyCard from "./Cards/EmptyCard";
 import CardTypes from "./CardTypes";
 import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -86,7 +87,7 @@ class JobBoard extends Component {
   fetchJobs = async () => {
     const existingJobsData = await httpGet(
       "jobs",
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
     if (existingJobsData.data.jobs !== undefined) {
       this.setState({

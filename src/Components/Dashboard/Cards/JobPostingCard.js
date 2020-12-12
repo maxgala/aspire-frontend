@@ -10,9 +10,10 @@ const useStyles = makeStyles(() => ({
   card: {
     width: "100%",
     minHeight: "130px",
-    maxWidth: "400px",
+    maxWidth: "350px",
     height: "180px",
     marginBottom: "20px",
+    marginRight: "10px",
     borderRadius: "20px",
     backgroundColor: "#58595B",
     boxShadow: "0px 6px 6px #00000029",

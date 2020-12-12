@@ -23,13 +23,13 @@ app.get("/app/*", async (req, res) => {
       : "application/json",
   };
   const params = req.query;
-  res.send(
-    await httpGet(req.method, req.path, headers, params).catch((err) => {
-      if (err) {
-        console.error(err);
-      }
-    })
-  );
+  try {
+    const resultFromReq = await httpGet(req.method, req.path, headers, params);
+    res.send(resultFromReq);
+  } catch (err) {
+    console.error(err);
+    res.status(err.response.status).send(err.response.data.message);
+  }
 });
 
 app.post("/app/*", async (req, res) => {
@@ -39,13 +39,14 @@ app.post("/app/*", async (req, res) => {
       ? req.headers["content-type"]
       : "application/json",
   };
-  res.send(
-    await httpPost(req.path, headers, req.body).catch((err) => {
-      if (err) {
-        console.error(err);
-      }
-    })
-  );
+
+  try {
+    const resultFromReq = await httpPost(req.path, headers, req.body);
+    res.send(resultFromReq);
+  } catch (err) {
+    console.error(err);
+    res.status(err.response.status).send(err.response.data.message);
+  }
 });
 
 app.put("/app/*", async (req, res) => {
@@ -55,13 +56,13 @@ app.put("/app/*", async (req, res) => {
       ? req.headers["content-type"]
       : "application/json",
   };
-  res.send(
-    await httpPut(req.path, headers, req.body).catch((err) => {
-      if (err) {
-        console.error(err);
-      }
-    })
-  );
+  try {
+    const resultFromReq = await httpPut(req.path, headers, req.body);
+    res.send(resultFromReq);
+  } catch (err) {
+    console.error(err);
+    res.status(err.response.status).send(err.response.data.message);
+  }
 });
 
 // The "catchall" handler: for any request that doesn't
@@ -75,8 +76,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV !== "development") {
 
 function httpGet(method, path, headers, params) {
   let localDevPath = path.substring(path.indexOf("/api"), path.length);
-  let url =
-    "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
+  let url = "https://services-d.aspire.maxgala.com" + localDevPath;
   return new Promise((resolve, reject) => {
     return axios[method.toLowerCase()](url, {
       headers: headers,
@@ -96,8 +96,7 @@ function httpPost(endPoint, headers, data) {
     endPoint.indexOf("/api"),
     endPoint.length
   );
-  let url =
-    "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
+  let url = "https://services-d.aspire.maxgala.com" + localDevPath;
   return new Promise((resolve, reject) => {
     return axios
       .post(url, data, {
@@ -117,8 +116,7 @@ function httpPut(endPoint, headers, data) {
     endPoint.indexOf("/api"),
     endPoint.length
   );
-  let url =
-    "https://30jb0z13zk.execute-api.us-east-1.amazonaws.com" + localDevPath;
+  let url = "https://services-d.aspire.maxgala.com" + localDevPath;
   return new Promise((resolve, reject) => {
     return axios
       .put(url, data, {

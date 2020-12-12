@@ -6,7 +6,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import MaxBrand from "../Images/max_brand_logo.png";
 import LinearWithValueLabel from "./linearprogress";
 import MenuItem from "@material-ui/core/MenuItem";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -46,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: "15vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -126,14 +125,19 @@ class SecondPage extends Component {
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
       password: this.props.prev ? this.props.prev.password : "",
+      passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       progress: 50,
       industry: this.props.prev ? this.props.prev.industry : "",
-      industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+      industry_tags:
+        this.props.prev.industry_tags !== undefined
+          ? this.props.prev.industry_tags
+          : [],
       title: this.props.prev ? this.props.prev.title : "",
       company: this.props.prev ? this.props.prev.company : "",
       education: this.props.prev ? this.props.prev.education : "",
       province: this.props.prev ? this.props.prev.province : "",
+      city: this.props.prev ? this.props.prev.city : "",
       country: this.props.prev ? this.props.prev.country : "",
       states: this.props.prev ? this.props.prev.states : "",
       senior_executive: this.props.prev
@@ -168,6 +172,11 @@ class SecondPage extends Component {
       displayProvince: event.target.value === "CA" ? "" : "None",
     });
   };
+  handleCityChange = (event) => {
+    this.setState({
+      city: event.target.value,
+    });
+  };
 
   handleIndustryChange = (event) => {
     this.setState({
@@ -198,23 +207,41 @@ class SecondPage extends Component {
   };
 
   changeToPage3 = (event) => {
-    if (this.state.industry_tags.length > 3) {
+    const {
+      industry_tags,
+      industry,
+      title,
+      company,
+      education,
+      country,
+      city,
+      province,
+      states,
+    } = this.state;
+    console.log(this.state);
+    if (industry_tags.length > 3) {
       this.setState({
         dialogueOpen: true,
       });
       return;
     }
     if (
-      this.state.industry === "" ||
-      this.state.industry === undefined ||
-      this.state.title === "" ||
-      this.state.title === undefined ||
-      this.state.company === "" ||
-      this.state.company === undefined ||
-      this.state.education === "" ||
-      this.state.education === undefined ||
-      this.state.country === "" ||
-      this.state.country === undefined
+      industry === "" ||
+      industry === undefined ||
+      title === "" ||
+      title === undefined ||
+      company === "" ||
+      company === undefined ||
+      education === "" ||
+      education === undefined ||
+      country === "" ||
+      country === undefined ||
+      city === "" ||
+      city === undefined ||
+      (country === "CA" && province === "") ||
+      (country === "CA" && province === undefined) ||
+      (country === "USA" && states === "") ||
+      (country === "USA" && states === undefined)
     ) {
       this.setState({
         dialogueOpen: true,
@@ -268,7 +295,7 @@ class SecondPage extends Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
+          {/* <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} /> */}
           <Typography component="h1" variant="h5">
             Registration
           </Typography>
@@ -422,6 +449,19 @@ class SecondPage extends Component {
                     </MenuItem>
                   ))}
                 </TextField>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="city"
+                  label="City"
+                  name="city"
+                  autoComplete="city"
+                  value={this.state.city}
+                  onChange={this.handleCityChange}
+                />
               </Grid>
             </Grid>
             <LinearWithValueLabel progress={this.state.progress} />

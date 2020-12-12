@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppRoutes } from "./routes/AppRoutes";
 import Amplify from "aws-amplify";
+import { SnackbarProvider } from "notistack";
 
 Amplify.configure({
   Auth: {
@@ -20,11 +21,19 @@ Amplify.configure({
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
-          <AppRoutes />
-        </div>
-      </Router>
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <Router>
+          <div className="App">
+            <AppRoutes />
+          </div>
+        </Router>
+      </SnackbarProvider>
     );
   }
 }

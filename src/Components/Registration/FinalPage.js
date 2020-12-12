@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import MaxBrand from "../Images/max_brand_logo.png";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -23,12 +22,13 @@ import { Document, Page, pdfjs } from "react-pdf";
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 import { withRouter } from "react-router-dom";
 import { Routes } from "../../entry/routes/Routes";
+import { withSnackbar } from "notistack";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: "15vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -147,7 +147,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "Bold",
     fontSize: "48px",
     margin: "0px",
-    paddingTop: "30px",
+    paddingTop: "60px",
     paddingBottom: "30px",
     color: "black",
   },
@@ -169,6 +169,7 @@ class FinalPage extends Component {
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
       password: this.props.prev ? this.props.prev.password : "",
+      passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
       industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
@@ -176,6 +177,7 @@ class FinalPage extends Component {
       company: this.props.prev ? this.props.prev.company : "",
       education: this.props.prev ? this.props.prev.education : "",
       province: this.props.prev ? this.props.prev.province : "",
+      city: this.props.prev ? this.props.prev.city : "",
       country: this.props.prev ? this.props.prev.country : "",
       states: this.props.prev ? this.props.prev.states : "",
       resumeURL: this.props.prev ? this.props.prev.resumeURL : "",
@@ -216,11 +218,20 @@ class FinalPage extends Component {
   signUp(credits, user_type) {
     let address = {};
     if (this.state.country === "CA") {
-      address = { region: this.state.province, country: this.state.country };
+      address = {
+        locality: this.state.city,
+
+        region: this.state.province,
+        country: this.state.country,
+      };
     } else if (this.state.country === "USA") {
-      address = { region: this.state.states, country: this.state.country };
+      address = {
+        locality: this.state.city,
+        region: this.state.states,
+        country: this.state.country,
+      };
     } else {
-      address = { region: "Other", country: "Other" };
+      address = { city: "Other", region: "Other", country: "Other" };
     }
     address = JSON.stringify(address);
     let phone_val = this.state.phone
@@ -242,6 +253,7 @@ class FinalPage extends Component {
         phone_number: phone_val,
         birthdate: this.state.year_of_birth,
         address: address,
+        gender: "U", // TODO: Add a form field to accept Gender with values Male, Female and Other
         "custom:industry": this.state.industry,
         "custom:industry_tags": this.state.industry_tags.toString(),
         "custom:position": this.state.title,
@@ -256,21 +268,35 @@ class FinalPage extends Component {
       },
     })
       .then(() => {
-        window.alert("Successfully signed up");
+        this.props.enqueueSnackbar("Successfully signed up", {
+          variant: "success",
+        });
       })
       .catch((err) => {
-        window.alert(`Error signing up: ${err.message.toString()}`);
+        this.props.enqueueSnackbar(
+          `Error signing up: ${err.message.toString()}`,
+          {
+            variant: "error",
+          }
+        );
       });
   }
 
   confirmSignUp() {
     Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
       .then(() => {
-        window.alert("Successfully confirmed signed up");
+        this.props.enqueueSnackbar("Successfully confirmed signed up", {
+          variant: "success",
+        });
       })
-      .catch((err) =>
-        window.alert(`Error confirming sign up - ${err.message.toString()}`)
-      );
+      .catch((err) => {
+        this.props.enqueueSnackbar(
+          `Error signing up: ${err.message.toString()}`,
+          {
+            variant: "error",
+          }
+        );
+      });
   }
 
   handleClose = (event) => {
@@ -369,7 +395,6 @@ class FinalPage extends Component {
         <Container component="main" maxWidth="sm">
           <CssBaseline />
           <div className={classes.paper}>
-            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
             <Typography component="h1" variant="h5">
               Registration
             </Typography>
@@ -415,7 +440,6 @@ class FinalPage extends Component {
         <Container component="main" maxWidth="lg">
           <CssBaseline />
           <div className={classes.paper}>
-            <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
             <Typography component="h1" variant="h5">
               Registration
             </Typography>
@@ -622,4 +646,4 @@ class FinalPage extends Component {
 
 FinalPage = withMyHook(FinalPage);
 FinalPage = withRouter(FinalPage);
-export default FinalPage;
+export default withSnackbar(FinalPage);

@@ -7,7 +7,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import MaxBrand from "../Images/max_brand_logo.png";
 import LinearWithValueLabel from "./linearprogress";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Dialog from "@material-ui/core/Dialog";
@@ -19,10 +18,13 @@ import Slide from "@material-ui/core/Slide";
 import MuiPhoneNumber from "material-ui-phone-number";
 import { Routes } from "../../entry/routes/Routes";
 import { withRouter } from "react-router-dom";
+import EmailField from "./EmailField";
+import PasswordField from "./PasswordField";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: "15vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -75,14 +77,20 @@ class FirstPage extends Component {
       lastName: this.props.prev ? this.props.prev.lastName : "",
       phone: this.props.prev ? this.props.prev.phone : "",
       email: this.props.prev ? this.props.prev.email : "",
+      emailStrength: this.props.prev ? this.props.prev.emailStrength : "",
       password: this.props.prev ? this.props.prev.password : "",
+      passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
       industry: this.props.prev ? this.props.prev.industry : "",
-      industry_tags: this.props.prev ? this.props.prev.industry_tags : [],
+      industry_tags:
+        this.props.prev.industry_tags !== undefined
+          ? this.props.prev.industry_tags
+          : [],
       title: this.props.prev ? this.props.prev.title : "",
       company: this.props.prev ? this.props.prev.company : "",
       education: this.props.prev ? this.props.prev.education : "",
       province: this.props.prev ? this.props.prev.province : "",
+      city: this.props.prev ? this.props.prev.city : "",
       country: this.props.prev ? this.props.prev.country : "",
       states: this.props.prev ? this.props.prev.states : "",
       senior_executive: this.props.prev
@@ -90,34 +98,65 @@ class FirstPage extends Component {
         : false,
       showEmailError: false,
       progress: 25,
-      errorDisplay: "None",
+      errorDisplay: "",
       dialogueOpen: false,
     };
     this.handlePhoneChange = this.handlePhoneChange.bind(this);
   }
 
-  changeToPage2 = (event) => {
-    if (!this.state.email.includes("@")) {
+  fieldStateChanged = (field) => (state) => {
+    if (field !== "passwordStrength") {
+      this.setState({ [field]: state.errors.length === 0 });
+    } else if (field === "passwordStrength") {
       this.setState({
-        dialogueOpen: true,
-        showEmailError: true,
+        passwordStrength: state.errors.length === 0,
+        password: state.value,
       });
-      return;
     }
+    if (field !== "emailStrength") {
+      this.setState({ [field]: state.errors.length === 0 });
+    } else if (field === "emailStrength") {
+      this.setState({
+        emailStrength: state.errors.length === 0,
+        email: state.value,
+      });
+    }
+  };
+
+  emailChanged = this.fieldStateChanged("emailStrength");
+  passwordChanged = this.fieldStateChanged("passwordStrength");
+
+  changeToPage2 = (event) => {
+    const {
+      emailStrength,
+      passwordStrength,
+      email,
+      firstName,
+      password,
+      lastName,
+      phone,
+      year_of_birth,
+      errorDisplay,
+    } = this.state;
+
+    const formValidated = emailStrength && passwordStrength;
+
     if (
-      this.state.firstName === "" ||
-      this.state.firstName === undefined ||
-      this.state.password === "" ||
-      this.state.password === undefined ||
-      this.state.lastName === "" ||
-      this.state.lastName === undefined ||
-      this.state.email === "" ||
-      this.state.email === undefined ||
-      this.state.phone === "" ||
-      this.state.phone === undefined ||
-      this.state.year_of_birth === "" ||
-      this.state.year_of_birth === undefined ||
-      this.state.errorDisplay !== "None"
+      firstName === "" ||
+      firstName === undefined ||
+      password === "" ||
+      password === undefined ||
+      lastName === "" ||
+      lastName === undefined ||
+      email === "" ||
+      email === undefined ||
+      phone === "" ||
+      phone === undefined ||
+      year_of_birth === "" ||
+      year_of_birth === undefined ||
+      errorDisplay !== "None" ||
+      errorDisplay === undefined ||
+      !formValidated
     ) {
       this.setState({
         dialogueOpen: true,
@@ -126,10 +165,6 @@ class FirstPage extends Component {
     }
     this.props.setPrev(this.state);
     this.props.history.push(`${Routes.Register}/2`);
-  };
-
-  handlePasswordChange = (event) => {
-    this.setState({ password: event.target.value });
   };
 
   handleFirstNameChange = (event) => {
@@ -141,13 +176,6 @@ class FirstPage extends Component {
   handleLastNameChange = (event) => {
     this.setState({
       lastName: event.target.value,
-    });
-  };
-
-  handleEmailChange = (event) => {
-    this.setState({
-      showEmailError: false,
-      email: event.target.value,
     });
   };
 
@@ -176,7 +204,7 @@ class FirstPage extends Component {
   };
 
   changeToSignIn = (event) => {
-    this.props.history.push(Routes.SignIn);
+    this.props.history.push(Routes.Login);
   };
 
   handlePhoneChange(value) {
@@ -187,11 +215,11 @@ class FirstPage extends Component {
 
   render() {
     const classes = this.props.classes;
+
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <img src={MaxBrand} alt="MAX_brand" className={classes.avatar} />
           <Typography component="h1" variant="h5">
             Registration
           </Typography>
@@ -206,6 +234,9 @@ class FirstPage extends Component {
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   value={this.state.firstName}
                   onChange={this.handleFirstNameChange}
                 />
@@ -218,23 +249,12 @@ class FirstPage extends Component {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                   autoComplete="lastName"
                   value={this.state.lastName}
                   onChange={this.handleLastNameChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  error={this.state.showEmailError}
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -254,9 +274,13 @@ class FirstPage extends Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  InputProps={{
+                    inputProps: { min: "1900-01-01", max: "3000-12-30" },
+                  }}
                   id="date"
-                  label="Birthday"
+                  label="Date of birth"
                   type="date"
+                  format="MM/dd/yyyy"
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -268,26 +292,46 @@ class FirstPage extends Component {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
+                <EmailField
+                  fieldId="email"
+                  label="Email"
+                  placeholder="Enter Email Address*"
+                  onStateChanged={this.emailChanged}
                   required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  value={this.state.password}
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={this.handlePasswordChange}
                 />
               </Grid>
+
               <Grid item xs={12}>
+                <PasswordField
+                  fieldId="password"
+                  label="Password"
+                  placeholder="Enter Password*"
+                  onStateChanged={this.passwordChanged}
+                  thresholdLength={7}
+                  minStrength={3}
+                  required
+                />
+                <Tooltip
+                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long. Recommended:
+                    Contain a combination of at least 1 lowercase, uppercase, number, special
+                    characters`}
+                >
+                  <Typography
+                    variant="caption"
+                    style={{ color: "grey", cursor: "pointer" }}
+                    display="block"
+                    gutterBottom
+                  >
+                    Hover here for Password Requirements
+                  </Typography>
+                </Tooltip>
                 <TextField
                   variant="outlined"
                   required
                   fullWidth
                   name="confirm password"
                   label="Confirm Password"
+                  placeholder="Enter Password"
                   type="password"
                   id="password-confirm"
                   autoComplete="current-password"
@@ -317,7 +361,7 @@ class FirstPage extends Component {
             </Button>
             <Grid container justify="center">
               <Grid item>
-                <Link href="#" variant="body1" onClick={this.changeToSignIn}>
+                <Link variant="body1" onClick={this.changeToSignIn}>
                   <b>Already have an account? Sign in</b>
                 </Link>
               </Grid>

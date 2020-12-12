@@ -19,9 +19,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import { httpGet, httpPost } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
-import IndustryTags from "../Registration/industry_tags";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import Chip from "@material-ui/core/Chip";
+// import IndustryTags from "../Registration/industry_tags";
+// import Autocomplete from "@material-ui/lab/Autocomplete";
+// import Chip from "@material-ui/core/Chip";
+import { withSnackbar } from "notistack";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles((theme) => ({
   root1: {
@@ -125,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
     display: "block",
+    objectFit: "cover",
   },
 
   button: {
@@ -372,20 +375,20 @@ class Landing extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const idTokeninfo = jwtDecode(localStorage.getItem("idToken"));
-    httpGet(
-      "jobs?user_id=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
-    ).then((jobs) => {
+    let idToken = (await Auth.currentSession())
+      .getIdToken()
+      .getJwtToken()
+      .toString();
+
+    await httpGet("jobs?user_id=" + idTokeninfo.email, idToken).then((jobs) => {
       this.setState({
         numJobs: jobs.data.count ? jobs.data.count : 0,
       });
     });
-    httpGet(
-      "chats?email=" + idTokeninfo.email,
-      localStorage.getItem("idToken")
-    ).then((chats) => {
+
+    await httpGet("chats?email=" + idTokeninfo.email, idToken).then((chats) => {
       this.setState({
         numChats: chats.data.count ? chats.data.count : 0,
       });
@@ -434,7 +437,7 @@ class Landing extends Component {
     });
   };
 
-  submitJob = () => {
+  submitJob = async () => {
     // check that all the required fields are set / properly set
     if (this.state.jobsData.job_tags.length > 3) {
       alert("There are more than 3 job tags selected.");
@@ -456,11 +459,19 @@ class Landing extends Component {
       this.state.jobsData.requirements === "" ||
       this.state.jobsData.requirements === undefined
     ) {
-      alert(
-        "One of the required fields is not set (title, company, country, region, city, description or requirements)."
+      this.props.enqueueSnackbar(
+        "One of the required fields is not set (title, company, country, region, city, description or requirements).",
+        {
+          variant: "warning",
+        }
       );
       return;
     }
+
+    let idToken = (await Auth.currentSession())
+      .getIdToken()
+      .getJwtToken()
+      .toString();
 
     // get user info and update jobs data
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
@@ -470,7 +481,17 @@ class Landing extends Component {
     jobsDataObj.poster_given_name = userProfile.given_name;
 
     // post job and close popup
-    httpPost("jobs", localStorage.getItem("idToken"), jobsDataObj);
+    await httpPost("jobs", idToken, jobsDataObj)
+      .then((res) => {
+        this.props.enqueueSnackbar("Successfully submitted a job posting:", {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        this.props.enqueueSnackbar("Failed:" + err, {
+          variant: "error",
+        });
+      });
     this.setState({
       openPostJob: false,
     });
@@ -652,13 +673,16 @@ class Landing extends Component {
           >
             Purchase Credits
           </Button>
-          <Button
-            className={classes.button1}
-            variant="contained"
-            onClick={this.postJob}
-          >
-            Post a Job
-          </Button>
+          {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
+          "FREE" ? (
+            <Button
+              className={classes.button1}
+              variant="contained"
+              onClick={this.postJob}
+            >
+              Post a Job
+            </Button>
+          ) : null}
           <EscalationsCard />
           <p className={classes.updateProfile}>Update your profile</p>
           <p className={classes.contact}>Contact Admin Support</p>
@@ -937,7 +961,7 @@ class Landing extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <Grid
+                  {/* <Grid
                     container
                     item
                     xs={12}
@@ -974,7 +998,7 @@ class Landing extends Component {
                         )}
                       />
                     </div>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Grid
                   container
@@ -1362,4 +1386,4 @@ class Landing extends Component {
 }
 
 Landing = withMyHook(Landing);
-export default Landing;
+export default withSnackbar(Landing);
