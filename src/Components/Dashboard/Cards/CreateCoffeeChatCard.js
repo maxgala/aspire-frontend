@@ -11,12 +11,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import AddIcon from "@material-ui/icons/Add";
 import { httpPost } from "../../../lib/dataAccess";
-
-// import FormControl from "@material-ui/core/FormControl";
-// import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
-// import MenuItem from "@material-ui/core/MenuItem";
-// import InputLabel from "@material-ui/core/InputLabel";
 import AWS from "aws-sdk";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
@@ -295,12 +290,8 @@ class CreateCoffeeChatCard extends Component {
   };
 
   submitCoffeeChat = async () => {
-    // Validate to make sure data is valid
-
-    console.log(this.state);
+    // Ensure that all required fields are filled.
     if (
-      this.state.title === "" ||
-      this.state.title === undefined ||
       this.state.type === "" ||
       this.state.type === undefined ||
       this.state.seniorExecEmail === "" ||
@@ -316,15 +307,21 @@ class CreateCoffeeChatCard extends Component {
       return;
     }
 
-    // Keep track of current context of this for nested function to be able to access state
-    const self = this;
-
     // Get data for Coffee Chat creation
     let coffeeChatPostData = {};
     coffeeChatPostData.chat_type = this.state.type;
     coffeeChatPostData.senior_executive = this.state.seniorExecEmail;
-    coffeeChatPostData.fixed_date = Date.parse(this.state.dateFormatted);
+
+    // Convert formatted date to unix timestamp
+    coffeeChatPostData.fixed_date = Date.parse(this.state.dateFormatted) / 1000;
     coffeeChatPostData.description = this.state.description;
+    if (this.state.tags.length > 0) {
+      coffeeChatPostData.tags = this.state.tags;
+    }
+
+    // Keep track of current context of this for nested function to be able to access state
+    const self = this;
+
     await httpPost("chats", localStorage.getItem("idToken"), coffeeChatPostData)
       .then((res) => {
         // Display successful creation
@@ -385,8 +382,8 @@ class CreateCoffeeChatCard extends Component {
         <IconButton
           onClick={this.openChatCreate}
           aria-label="Create Coffee Chat"
-          color="primary"
         >
+          Create Coffee Chat
           <AddIcon />
         </IconButton>
 
@@ -529,8 +526,8 @@ class CreateCoffeeChatCard extends Component {
                     >
                       <div className={classes.radioButton}>
                         <FormControlLabel
-                          checked={this.state.type === "ONE_ON_FOUR"}
-                          value="ONE_ON_FOUR"
+                          checked={this.state.type === "FOUR_ON_ONE"}
+                          value="FOUR_ON_ONE"
                           control={<Radio color="primary" />}
                           label="One On Four"
                           onChange={this.handleCoffeeChatTypeChange()}
@@ -632,7 +629,7 @@ class CreateCoffeeChatCard extends Component {
                       <Button
                         className={classes.button2}
                         variant="contained"
-                        onClick={this.handleEscalation}
+                        onClick={this.submitCoffeeChat}
                       >
                         Create
                       </Button>

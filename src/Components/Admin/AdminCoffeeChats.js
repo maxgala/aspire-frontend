@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { httpGet, httpPut } from "../../lib/dataAccess";
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
-import ReactDOM from 'react-dom';
 import { AddBox, ArrowUpward } from "@material-ui/icons";
 
 import Check from "@material-ui/icons/Check";
@@ -11,7 +10,6 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import Clear from "@material-ui/icons/Clear";
 import DeleteOutline from "@material-ui/icons/DeleteOutline";
-import AddIcon from '@material-ui/icons/Add';
 import Edit from "@material-ui/icons/Edit";
 import FilterList from "@material-ui/icons/FilterList";
 import FirstPage from "@material-ui/icons/FirstPage";
@@ -23,7 +21,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 
 import Moment from "react-moment";
 import CreateCoffeeChatCard from "./../Dashboard/Cards/CreateCoffeeChatCard";
-
+import RefreshIcon from "@material-ui/icons/Refresh";
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -119,7 +117,6 @@ class CoffeeChats extends Component {
             return <Moment unix>{rowData.created_on}</Moment>;
           },
         },
-        // { title: "Applications", field: "applicantCount" },
       ],
     };
   }
@@ -131,56 +128,55 @@ class CoffeeChats extends Component {
     );
 
     let coffeeChatsData = [];
-    // console.log(existingCoffeeChatsData);
-    if(existingCoffeeChatsData.data.chats !== undefined){
-
-      // Go through every coffeeChat and derive the # of applicants to fill in table
-      Object.keys(existingCoffeeChatsData.data.chats).forEach(function (coffeeChatID) {
-        let currentCoffeeChat = existingCoffeeChatsData.data.chats[coffeeChatID];
-        console.log(currentCoffeeChat);
-        // currentCoffeeChat.applicantCount = currentCoffeeChat.coffeeChat_applications.length;
+    if (existingCoffeeChatsData.data.chats !== undefined) {
+      Object.keys(existingCoffeeChatsData.data.chats).forEach(function (
+        coffeeChatID
+      ) {
+        let currentCoffeeChat =
+          existingCoffeeChatsData.data.chats[coffeeChatID];
 
         coffeeChatsData.push(currentCoffeeChat);
       });
 
-      // console.log(coffeeChatsData);
       this.setState({
         coffeeChats: coffeeChatsData,
       });
-  
     }
   };
 
   /**
    * This function will set the status of a coffeeChat to rejected
-   * @param {int} coffeeChatID the ID of the coffeeChat to have it's status set to rejected
+   * @param {int} coffeeChatID the ID of the coffeeChat to have its status set to rejected
    */
   removeCoffeeChat = async (coffeeChatID) => {
-    await httpPut(`chats/${coffeeChatID}/CANCELLED`, localStorage.getItem("idToken"));
-    this.fetchCoffeeChats();
+    await httpPut(
+      `chats/${coffeeChatID}/CANCELLED`,
+      localStorage.getItem("idToken")
+    );
+    // this.fetchCoffeeChats();
   };
 
   /**
    * This function will set the approve a chat if the status is RESERVED_CONFIRMED
-   * @param {int} coffeeChatID the ID of the coffeeChat to be approved
+   * @param {int} coffeeChatID the ID of the coffeeChat to have its status set to approved
    */
   approveCoffeeChat = async (coffeeChatID, coffeeChatStatus) => {
-
-    if(coffeeChatStatus === "RESERVE_CONFIRMED"){
+    if (coffeeChatStatus === "RESERVE_CONFIRMED") {
       await httpPut(
         `chats/${coffeeChatID}/DONE`,
         localStorage.getItem("idToken")
       );
-      this.fetchCoffeeChats();  
+      // this.fetchCoffeeChats();
     } else {
-      alert("Only Coffee Chat's with the RESERVED_CONFIRMED status may be approved from the Admin Dashboard");
+      alert(
+        "Only Coffee Chat's with the RESERVED_CONFIRMED status may be approved from the Admin Dashboard"
+      );
     }
   };
 
   componentDidMount() {
     this.fetchCoffeeChats();
   }
-
 
   render() {
     // Use Moment library to format timestamp returned from API.
@@ -212,47 +208,38 @@ class CoffeeChats extends Component {
           });
         },
       },
-      // {
-      //   icon: () => <AddIcon />,
-      //   tooltip: "Add Coffee Chat",
-      //   isFreeAction:true,
-      //   onClick: (event) => {
-      //       console.log("Test");
-      //       this.setState({
-      //         modalOpen: true
-      //       });
-
-      //       console.log(this.state)
-      //       // Send PUT request to set coffeeChat status to Rejected.
-      //       // this.removeCoffeeChat(rowData.chat_id);
-
-      //   },
-      // },
-
+      {
+        icon: () => <RefreshIcon />,
+        tooltip: "Update Coffee Chats displayed below",
+        onClick: (event, rowData) => {
+          new Promise((resolve, reject) => {
+            // To save on expensive and large lambda GET calls, admin's manually fetch for new requests.
+            this.fetchCoffeeChats();
+          });
+        },
+        isFreeAction: true,
+      },
     ];
 
-    console.log("State is ");
-    console.log(this.state);
     return (
       <div>
-      <CreateCoffeeChatCard />
+        <CreateCoffeeChatCard />
 
-      <MaterialTable
-        title="Global Coffee Chat Postings"
-        actions={actions}
-        columns={this.state.columns}
-        icons={tableIcons}
-        data={this.state.coffeeChats}
-        options={{
-          paging: true,
-          pageSize: 15,
-          emptyRowsWhenPaging: true,
-          pageSizeOptions: [5, 10, 15, 30, 50],
-          exportButton: true,
-          exportTrue: true,
-        }}
-      />
-
+        <MaterialTable
+          title="Global Coffee Chat Postings"
+          actions={actions}
+          columns={this.state.columns}
+          icons={tableIcons}
+          data={this.state.coffeeChats}
+          options={{
+            paging: true,
+            pageSize: 15,
+            emptyRowsWhenPaging: true,
+            pageSizeOptions: [5, 10, 15, 30, 50],
+            exportButton: true,
+            exportTrue: true,
+          }}
+        />
       </div>
     );
   }
