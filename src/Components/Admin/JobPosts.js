@@ -127,8 +127,7 @@ class JobPosts extends Component {
       "jobs",
       (await Auth.currentSession()).getIdToken().getJwtToken()
     );
-    if(existingJobsData.data.jobs !== undefined){
-
+    if (existingJobsData.data.jobs !== undefined) {
       // Go through every job and derive the # of applicants to fill in table
       Object.keys(existingJobsData.data.jobs).forEach(function (jobID) {
         let currentJob = existingJobsData.data.jobs[jobID];
@@ -139,7 +138,6 @@ class JobPosts extends Component {
       this.setState({
         jobs: existingJobsData.data.jobs,
       });
-  
     }
   };
 
