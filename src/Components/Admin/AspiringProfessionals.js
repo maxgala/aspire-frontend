@@ -100,10 +100,6 @@ class AspiringProfessionals extends Component {
     super(props);
     this.state = {
       aspiringProfessionals: [],
-      // show a lot more information 
-      // usecase status LinkedIn URL vets 
-      // cognito date of birth
-      // to do 
       columns: [
         { title: 'Name', field: 'name' },
         { title: "Age", field: 'age'},
@@ -134,26 +130,23 @@ class AspiringProfessionals extends Component {
   }
 
   fetchAspiringProfessionals = async () => {
-
     
+    // TODO: Need to have two calls where type=PAID as well and merge the data 
     const existingAspiringProfessionalsData = await httpGet("users/?type=FREE&status=DISABLED", localStorage.getItem("idToken"));
-
     const aspiringProfessionalData = [];
-    console.log(existingAspiringProfessionalsData);
+    
     // Added sanity check incase API returns broken response
     if(existingAspiringProfessionalsData.data.users !== undefined){
 
       let tempThis = this;
-      // console.log("hi");
+
       // Go through every aspiring professionalutive data and derive the # of applicants to fill in table
       Object.keys(existingAspiringProfessionalsData.data.users).forEach(function(aspiringProfessionalID){
 
-        // console.log(existingAspiringProfessionalsData.data.users[aspiringProfessionalID]);
         let currentExecObject = existingAspiringProfessionalsData.data.users[aspiringProfessionalID].attributes;
+
         let aspiringProfessional = {};
         aspiringProfessional.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
-
-        console.log(currentExecObject);
         aspiringProfessional.age =  tempThis.calculate_age(currentExecObject.birthdate);
       
         aspiringProfessional.company = (currentExecObject['custom:company'] !== undefined ?currentExecObject['custom:company'] : "N/A" );
@@ -161,16 +154,12 @@ class AspiringProfessionals extends Component {
         aspiringProfessional.region =  (JSON.parse(currentExecObject['address']).region !== undefined ?JSON.parse(currentExecObject['address']).region : "N/A" );
         aspiringProfessional.country =  (JSON.parse(currentExecObject['address']).country !== undefined ?JSON.parse(currentExecObject['address']).country : "N/A" );
 
-        aspiringProfessional.email = (currentExecObject['email'] !== undefined ?currentExecObject['email'] : "N/A" );
-
+        aspiringProfessional.email = (currentExecObject['email'] !== undefined ? currentExecObject['email'] : "N/A" );
         aspiringProfessional.created_on = currentExecObject['custom:start_date'];
-
         aspiringProfessionalData.push(aspiringProfessional);
-
 
       });
 
-      console.log(aspiringProfessionalData);
       this.setState({
         aspiringProfessionals: aspiringProfessionalData
       })

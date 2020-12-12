@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { httpGet, httpPut } from "../../lib/dataAccess";
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
-
+import ReactDOM from 'react-dom';
 import { AddBox, ArrowUpward } from "@material-ui/icons";
 
 import Check from "@material-ui/icons/Check";
@@ -11,7 +11,8 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import Clear from "@material-ui/icons/Clear";
 import DeleteOutline from "@material-ui/icons/DeleteOutline";
-import AddIcon from '@material-ui/icons/Add';import Edit from "@material-ui/icons/Edit";
+import AddIcon from '@material-ui/icons/Add';
+import Edit from "@material-ui/icons/Edit";
 import FilterList from "@material-ui/icons/FilterList";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
@@ -104,9 +105,9 @@ class CoffeeChats extends Component {
       coffeeChats: [],
       modalOpen: true,
       columns: [
-        { title: "Senior Exec", field: "seniorExec" },
-        { title: "Status", field: "coffeeChat_status" },
-        { title: "Type", field: "type" },
+        { title: "Senior Exec", field: "senior_executive" },
+        { title: "Status", field: "chat_status" },
+        { title: "Type", field: "chat_type" },
         { title: "Description", field: "description" },
         { title: "Tags", field: "tags" },
         {
@@ -118,27 +119,33 @@ class CoffeeChats extends Component {
             return <Moment unix>{rowData.created_on}</Moment>;
           },
         },
-        { title: "Applications", field: "applicantCount" },
+        // { title: "Applications", field: "applicantCount" },
       ],
     };
   }
 
   fetchCoffeeChats = async () => {
     const existingCoffeeChatsData = await httpGet(
-      "coffeeChats",
+      "chats",
       localStorage.getItem("idToken")
     );
-    if(existingCoffeeChatsData.data.coffeeChats !== undefined){
+
+    let coffeeChatsData = [];
+    // console.log(existingCoffeeChatsData);
+    if(existingCoffeeChatsData.data.chats !== undefined){
 
       // Go through every coffeeChat and derive the # of applicants to fill in table
-      Object.keys(existingCoffeeChatsData.data.coffeeChats).forEach(function (coffeeChatID) {
-        let currentCoffeeChat = existingCoffeeChatsData.data.coffeeChats[coffeeChatID];
+      Object.keys(existingCoffeeChatsData.data.chats).forEach(function (coffeeChatID) {
+        let currentCoffeeChat = existingCoffeeChatsData.data.chats[coffeeChatID];
+        console.log(currentCoffeeChat);
+        // currentCoffeeChat.applicantCount = currentCoffeeChat.coffeeChat_applications.length;
 
-        currentCoffeeChat.applicantCount = currentCoffeeChat.coffeeChat_applications.length;
+        coffeeChatsData.push(currentCoffeeChat);
       });
 
+      // console.log(coffeeChatsData);
       this.setState({
-        coffeeChats: existingCoffeeChatsData.data.coffeeChats,
+        coffeeChats: coffeeChatsData,
       });
   
     }
@@ -149,27 +156,25 @@ class CoffeeChats extends Component {
    * @param {int} coffeeChatID the ID of the coffeeChat to have it's status set to rejected
    */
   removeCoffeeChat = async (coffeeChatID) => {
-    let removedCoffeeChat = {
-      coffeeChat_status: "REJECTED",
-    };
-    await httpPut(`coffeeChats/${coffeeChatID}`, localStorage.getItem("idToken"), removedCoffeeChat);
+    await httpPut(`chats/${coffeeChatID}/CANCELLED`, localStorage.getItem("idToken"));
     this.fetchCoffeeChats();
   };
 
   /**
-   * This function will set the status of a coffeeChat to active
-   * @param {int} coffeeChatID the ID of the coffeeChat to have it's status set to active
+   * This function will set the approve a chat if the status is RESERVED_CONFIRMED
+   * @param {int} coffeeChatID the ID of the coffeeChat to be approved
    */
-  approveCoffeeChat = async (coffeeChatID) => {
-    let approvedCoffeeChat = {
-      coffeeChat_status: "ACTIVE",
-    };
-    await httpPut(
-      `coffeeChats/${coffeeChatID}`,
-      localStorage.getItem("idToken"),
-      approvedCoffeeChat
-    );
-    this.fetchCoffeeChats();
+  approveCoffeeChat = async (coffeeChatID, coffeeChatStatus) => {
+
+    if(coffeeChatStatus === "RESERVE_CONFIRMED"){
+      await httpPut(
+        `chats/${coffeeChatID}/DONE`,
+        localStorage.getItem("idToken")
+      );
+      this.fetchCoffeeChats();  
+    } else {
+      alert("Only Coffee Chat's with the RESERVED_CONFIRMED status may be approved from the Admin Dashboard");
+    }
   };
 
   componentDidMount() {
@@ -189,7 +194,7 @@ class CoffeeChats extends Component {
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
             // Send PUT request to set coffeeChat status to Active.
-            this.approveCoffeeChat(rowData.coffeeChat_id);
+            this.approveCoffeeChat(rowData.chat_id);
 
             resolve();
           });
@@ -201,33 +206,36 @@ class CoffeeChats extends Component {
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
             // Send PUT request to set coffeeChat status to Rejected.
-            this.removeCoffeeChat(rowData.coffeeChat_id);
+            this.removeCoffeeChat(rowData.chat_id);
 
             resolve();
           });
         },
       },
-      {
-        icon: () => <AddIcon />,
-        tooltip: "Add Coffee Chat",
-        isFreeAction:true,
-        onClick: (event) => {
-            console.log("Test");
-            this.setState({
-              modalOpen: true
-            });
+      // {
+      //   icon: () => <AddIcon />,
+      //   tooltip: "Add Coffee Chat",
+      //   isFreeAction:true,
+      //   onClick: (event) => {
+      //       console.log("Test");
+      //       this.setState({
+      //         modalOpen: true
+      //       });
 
-            console.log(this.state)
-            // Send PUT request to set coffeeChat status to Rejected.
-            // this.removeCoffeeChat(rowData.coffeeChat_id);
+      //       console.log(this.state)
+      //       // Send PUT request to set coffeeChat status to Rejected.
+      //       // this.removeCoffeeChat(rowData.chat_id);
 
-        },
-      },
+      //   },
+      // },
 
     ];
+
+    console.log("State is ");
+    console.log(this.state);
     return (
       <div>
-      <CreateCoffeeChatCard open={this.modalOpen}/>
+      <CreateCoffeeChatCard />
 
       <MaterialTable
         title="Global Coffee Chat Postings"

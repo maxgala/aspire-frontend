@@ -9,6 +9,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
+import AddIcon from '@material-ui/icons/Add';
+import { httpPost } from "../../../lib/dataAccess";
+
 // import FormControl from "@material-ui/core/FormControl";
 // import Select from "@material-ui/core/Select";
 import Snackbar from '@material-ui/core/Snackbar';
@@ -17,6 +20,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import AWS from "aws-sdk";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+
+import { IconButton } from '@material-ui/core';
 
 AWS.config.update(
     {
@@ -238,11 +243,9 @@ function withMyHook(Component) {
 
 class CreateCoffeeChatCard extends Component {
   constructor(props) {
-
     super(props);
-    console.log(this.props);
     this.state = {
-      open: this.props.open,
+      open: false,
       type: "",
       description: "",
       title: "",
@@ -351,24 +354,28 @@ class CreateCoffeeChatCard extends Component {
       // Validate to make sure data is valid
 
       console.log(this.state);
-    //   if (
-    //     this.state.title === "" ||
-    //     this.state.title === undefined ||
-    //     this.state.type === "" ||
-    //     this.state.type === undefined ||
-    //     this.state.seniorExecEmail === "" ||
-    //     this.state.seniorExecEmail === undefined ||
-    //     this.state.description === "" ||
-    //     this.state.description === undefined ||
-    //     this.state.dateFormatted === "" ||
-    //     this.state.dateFormatted === undefined
-    //   ) {
-    //     alert(
-    //       "One of the required fields is not set (title, type, senior exec email, date)."
-    //     );
-    //     return;
-    //   }
+      if (
+        this.state.title === "" ||
+        this.state.title === undefined ||
+        this.state.type === "" ||
+        this.state.type === undefined ||
+        this.state.seniorExecEmail === "" ||
+        this.state.seniorExecEmail === undefined ||
+        this.state.description === "" ||
+        this.state.description === undefined ||
+        this.state.dateFormatted === "" ||
+        this.state.dateFormatted === undefined
+      ) {
+        alert(
+          "One of the required fields is not set (title, type, senior exec email, date)."
+        );
+        return;
+      }
 
+      let coffeeChatData = { ...this.state};
+      httpPost("chats", localStorage.getItem("idToken"), coffeeChatData);
+
+      
 
 
     }
@@ -416,18 +423,17 @@ class CreateCoffeeChatCard extends Component {
     const { classes } = this.props;
     return (
       <div>
-        {/* <Button
+        <IconButton
           onClick={this.openEscalation}
-          className={classes.button}
-          variant="contained"
+          aria-label="Create Coffee Chat"
           color="primary"
         >
-          Create Coffee Chat
-        </Button> */}
+            <AddIcon/>
+        </IconButton>
 
         <Dialog
           className={classes.translate}
-          open={this.open}
+          open={this.state.open}
           onClose={this.handleClose}
           scroll={"paper"}
           aria-labelledby="scroll-dialog-title"
@@ -626,7 +632,7 @@ class CreateCoffeeChatCard extends Component {
                         }}
                         variant="outlined"
                         required
-                        fullWidth
+                        fullWidth={true}
                         value={this.state.dateFormatted}
                         onChange={this.handleDateChange}
                     />
