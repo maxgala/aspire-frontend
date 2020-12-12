@@ -408,6 +408,33 @@ class CoffeeChatSelfCard extends Component {
     });
   };
 
+  unreserve = async () => {
+    this.setState({
+      barDisplay: true,
+    });
+    httpPut(
+      "chats/" + this.props.data.chat_id + "/unreserve",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    )
+      .then(() => {
+        this.props.enqueueSnackbar("Successfully unregistered for chat", {
+          variant: "success",
+        });
+        this.setState({
+          open: false,
+          chat_status: "UNRESERVED",
+        });
+      })
+      .catch((err) => {
+        this.props.enqueueSnackbar("Failed:" + err, {
+          variant: "error",
+        });
+      });
+    this.setState({
+      barDisplay: false,
+    });
+  };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -535,7 +562,21 @@ class CoffeeChatSelfCard extends Component {
                   justify="flex-start"
                 >
                   <span className={classes.button_container}>
-                    <h3>RESERVED</h3>
+                    {this.state.chat_status === "RESERVED" ||
+                    this.state.chat_status === "RESERVED_PARTIAL" ? (
+                      <Button
+                        onClick={this.openCoffeeChat}
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <h3>UNRESERVE</h3>
+                      </Button>
+                    ) : this.state.chat_status === "UNRESERVED" ? (
+                      <h3 className={classes.reservedText}>UNRESERVED</h3>
+                    ) : (
+                      (<h3 className={classes.reservedText}>RESERVED</h3>)("")
+                    )}
                   </span>
                 </Grid>
               </Grid>
@@ -558,9 +599,7 @@ class CoffeeChatSelfCard extends Component {
         >
           <Toolbar className={classes.toolbar}>
             <div>
-              <h2 className={classes.dialogLabel}>
-                Register for a Coffee Chat
-              </h2>
+              <h2 className={classes.dialogLabel}>Unreserve Coffee Chat</h2>
             </div>
             <img
               onClick={this.handleClose}
@@ -710,9 +749,9 @@ class CoffeeChatSelfCard extends Component {
                     <Button
                       className={classes.button2}
                       variant="contained"
-                      onClick={this.registerForChat}
+                      onClick={this.unreserve}
                     >
-                      Register
+                      Unreserve
                     </Button>
                   ) : (
                     <CircularProgress className={classes.circleProgress} />
