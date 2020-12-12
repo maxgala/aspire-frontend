@@ -9,27 +9,25 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from "@material-ui/icons/Add";
 import { httpPost } from "../../../lib/dataAccess";
 
 // import FormControl from "@material-ui/core/FormControl";
 // import Select from "@material-ui/core/Select";
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from "@material-ui/core/Snackbar";
 // import MenuItem from "@material-ui/core/MenuItem";
 // import InputLabel from "@material-ui/core/InputLabel";
 import AWS from "aws-sdk";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 
-import { IconButton } from '@material-ui/core';
+import { IconButton } from "@material-ui/core";
 
-AWS.config.update(
-    {
-        accessKeyId : process.env.REACT_APP_SES_ACCESS_KEY_ID,
-        secretAccessKey : process.env.REACT_APP_AWS_SES_SECRET_ACCESS_KEY,
-        region : process.env.REACT_APP_SES_REGION
-      }
-);
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_SES_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_SES_SECRET_ACCESS_KEY,
+  region: process.env.REACT_APP_SES_REGION,
+});
 
 const useStyles = makeStyles((theme) => ({
   cardEscalation: {
@@ -150,25 +148,25 @@ const useStyles = makeStyles((theme) => ({
     justify: "flex-end",
   },
   button: {
-    textTransform: 'none',
+    textTransform: "none",
     backgroundColor: "#A9A9A9",
-    marginBottom:"1vh",
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop:'1.5vh',
+    marginBottom: "1vh",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "1.5vh",
     borderRadius: 50,
     color: "#white",
-    position: 'relative',
-    display: 'block',
-    '&:hover': {
+    position: "relative",
+    display: "block",
+    "&:hover": {
       backgroundColor: "#F1F1F1",
-      color: '#484848'
+      color: "#484848",
     },
-    fontSize: '15px',
-    fontWeight: 'bold',
-    fontFamily: 'myriad-pro, sans-serif',
-    paddingLeft: '50px',
-    paddingRight: '50px'
+    fontSize: "15px",
+    fontWeight: "bold",
+    fontFamily: "myriad-pro, sans-serif",
+    paddingLeft: "50px",
+    paddingRight: "50px",
   },
   bar: {
     width: "90%",
@@ -240,7 +238,6 @@ function withMyHook(Component) {
   };
 }
 
-
 class CreateCoffeeChatCard extends Component {
   constructor(props) {
     super(props);
@@ -253,71 +250,18 @@ class CreateCoffeeChatCard extends Component {
       seniorExecEmail: "",
       dateTimeStamp: 0,
       dateFormatted: "",
-      snackBarOpen : false,
+      snackBarOpen: false,
       snackBarText: "",
-      maxCharacters : 150,
+      maxCharacters: 150,
     };
   }
 
-/**
- * This function will handle the create escalation event.
- * @return void
- */
- handleEscalation = (event) => {
-  // Build the email information object from state.
-  let emailData = {};
-  if(this.state.title !== null) {
-    emailData.subject = "[ESCALATIONS] " + this.state.title; 
-  } else {
-    emailData.subject = "[ESCALATIONS] TITLE N/A"
-  }
-
-  if(this.state.type !== null){
-    emailData.body = "Type:" + this.state.type;
-  }
-
-  if(this.state.description != null){
-    emailData.body += "<br>Description<br>" + this.state.description;
-  }
-
-  // For now we're just going to hard code the address to mine, otherwise it is the support email.
-  emailData.ccAddress = 'ammarhaq13@gmail.com';
-  emailData.toAddress = 'ammarhaq13@gmail.com';
-  emailData.source = 'ammarhaq13@gmail.com';
-
-  // Get and store data from where the escalation is being created.
-  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-  let emailFrom = `${userProfile.given_name} ${userProfile.family_name} ${userProfile.email}`;
-
-  if(emailFrom !== null){
-    emailData.body += "<br><br>From:" + emailFrom;
-  }
-
-  // Keep track of current context of this for nested function to be able to access state
-  const self = this;
-
-//   sendEmail(emailData).then( function(emailSendSuccess) {
-//     // If we sent the email successfully, hide the modal.
-//     if(emailSendSuccess){
-//       self.handleClose();
-//       self.setSnackBarMessage("Coffee Chat created successfully!");
-//       self.openSnackBar();
-//       } else {
-//       self.handleClose();
-//       self.setSnackBarMessage("Failed to create Coffee Chat.");
-//       self.openSnackBar();
-
-//     }
-//   });
-}
-
-
   handleTagsChange = (event) => {
-      this.setState({
-          tags : event.target.value.split('')
-      })
-  }
-  openEscalation = (event) => {
+    this.setState({
+      tags: event.target.value.split(""),
+    });
+  };
+  openChatCreate = (event) => {
     this.setState({
       open: true,
     });
@@ -331,86 +275,101 @@ class CreateCoffeeChatCard extends Component {
 
   handleCoffeeChatTypeChange = () => (event) => {
     this.setState({
-      type : event.target.value
+      type: event.target.value,
     });
   };
 
   handleClose = (event) => {
     this.setState({
-        open: false,
-        type: "",
-        dateFormatted : "",
-        description: "",
-        title: "",
-        tags: [],
-        seniorExecEmail: "",
-        fixedDate: 0,
-        snackBarOpen : false,
-        snackBarText: ""  
+      open: false,
+      type: "",
+      dateFormatted: "",
+      description: "",
+      title: "",
+      tags: [],
+      seniorExecEmail: "",
+      fixedDate: 0,
+      snackBarOpen: false,
+      snackBarText: "",
     });
   };
 
-  submitCoffeeChat = () => {
-      // Validate to make sure data is valid
+  submitCoffeeChat = async () => {
+    // Validate to make sure data is valid
 
-      console.log(this.state);
-      if (
-        this.state.title === "" ||
-        this.state.title === undefined ||
-        this.state.type === "" ||
-        this.state.type === undefined ||
-        this.state.seniorExecEmail === "" ||
-        this.state.seniorExecEmail === undefined ||
-        this.state.description === "" ||
-        this.state.description === undefined ||
-        this.state.dateFormatted === "" ||
-        this.state.dateFormatted === undefined
-      ) {
-        alert(
-          "One of the required fields is not set (title, type, senior exec email, date)."
-        );
-        return;
-      }
-
-      let coffeeChatData = { ...this.state};
-      httpPost("chats", localStorage.getItem("idToken"), coffeeChatData);
-
-      
-
-
+    console.log(this.state);
+    if (
+      this.state.title === "" ||
+      this.state.title === undefined ||
+      this.state.type === "" ||
+      this.state.type === undefined ||
+      this.state.seniorExecEmail === "" ||
+      this.state.seniorExecEmail === undefined ||
+      this.state.description === "" ||
+      this.state.description === undefined ||
+      this.state.dateFormatted === "" ||
+      this.state.dateFormatted === undefined
+    ) {
+      alert(
+        "One of the required fields is not set (title, type, senior exec email, date)."
+      );
+      return;
     }
 
-    handleDateChange = (event) => {
-        this.setState({
-            dateFormatted: event.target.value
-            })  
-    }
+    // Keep track of current context of this for nested function to be able to access state
+    const self = this;
 
-    handleSeniorExecChange = (event) => {
-        this.setState({
-            seniorExecEmail: event.target.value
-            })  
-        }
+    // Get data for Coffee Chat creation
+    let coffeeChatPostData = {};
+    coffeeChatPostData.chat_type = this.state.type;
+    coffeeChatPostData.senior_executive = this.state.seniorExecEmail;
+    coffeeChatPostData.fixed_date = Date.parse(this.state.dateFormatted);
+    coffeeChatPostData.description = this.state.description;
+    await httpPost("chats", localStorage.getItem("idToken"), coffeeChatPostData)
+      .then((res) => {
+        // Display successful creation
+        self.handleClose();
+        self.setSnackBarMessage("Coffee Chat created successfully!");
+        self.openSnackBar();
+      })
+      .catch((err) => {
+        // Display failed creation
+        self.handleClose();
+        self.setSnackBarMessage("Coffee Chat failed to create.");
+        self.openSnackBar();
+      });
+  };
 
-    handleTagsChange = (event) => {
-        let tags = event.target.value.split(',');
-        this.setState({
-            tags: tags
-            })  
-        }
+  handleDateChange = (event) => {
+    this.setState({
+      dateFormatted: event.target.value,
+    });
+  };
 
+  handleSeniorExecChange = (event) => {
+    this.setState({
+      seniorExecEmail: event.target.value,
+    });
+  };
 
-    handleSnackBarClose = (event) => {
-        this.setState({
-        snackBarOpen: false
-        })
-    }
+  handleTagsChange = (event) => {
+    let tags = event.target.value.split(",");
+    this.setState({
+      tags: tags,
+    });
+  };
+
+  handleSnackBarClose = (event) => {
+    this.setState({
+      snackBarOpen: false,
+    });
+  };
 
   setSnackBarMessage = (message) => {
     this.setState({
-      snackBarText : message
-    })
-  }
+      snackBarText: message,
+    });
+  };
   handleChange = (event) => {
     const value = event.target.value;
     this.setState({
@@ -424,11 +383,11 @@ class CreateCoffeeChatCard extends Component {
     return (
       <div>
         <IconButton
-          onClick={this.openEscalation}
+          onClick={this.openChatCreate}
           aria-label="Create Coffee Chat"
           color="primary"
         >
-            <AddIcon/>
+          <AddIcon />
         </IconButton>
 
         <Dialog
@@ -464,81 +423,76 @@ class CreateCoffeeChatCard extends Component {
               id="scroll-dialog-description"
               component={"span"}
             >
-          <div className={classes.grid}>
-            <Grid container item xs={12} spacing={3}>
-                {/* Grid for Senior Exec */}
-                <Grid
+              <div className={classes.grid}>
+                <Grid container item xs={12} spacing={3}>
+                  {/* Grid for Senior Exec */}
+                  <Grid
                     container
                     item
-                    xs ={12}
+                    xs={12}
                     sm={6}
                     spacing={1}
                     alignItems="flex-start"
                     justify="flex-start"
                     style={{ marginTop: "10px" }}
                     fullWidth={true}
-
-                >
-
+                  >
                     <Grid
-                        container
-                        item
-                        xs={12}
-                        spacing={1}
-                        alignItems="flex-start"
-                        justify="flex-start"
+                      container
+                      item
+                      xs={12}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
                     >
-
-                    <TextField
+                      <TextField
                         id="titleTextField"
                         variant="outlined"
                         label="Senior Exec Email"
                         value={this.state.seniorExecEmail}
                         onChange={this.handleSeniorExecChange}
                         inputProps={{
-                            name: "title",
-                            id: "titleTextField",
+                          name: "title",
+                          id: "titleTextField",
                         }}
                         fullWidth={true}
-                    />
-
+                      />
                     </Grid>
-                </Grid>
-                {/* Grid for Tags */}
-                <Grid
+                  </Grid>
+                  {/* Grid for Tags */}
+                  <Grid
                     container
                     item
-                    xs ={12}
+                    xs={12}
                     sm={6}
                     spacing={1}
                     alignItems="flex-start"
                     justify="flex-start"
                     style={{ marginTop: "10px" }}
-
-                >
-                    <Grid       
-                        container
-                        item
-                        xs={12}
-                        spacing={1}
-                        alignItems="flex-start"
-                        justify="flex-start"
+                  >
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
                     >
-                    <TextField
+                      <TextField
                         id="titleTextField"
                         variant="outlined"
                         label="Tags ( separate by comma)"
                         value={this.state.tags.join()}
                         onChange={this.handleTagsChange}
                         inputProps={{
-                            name: "title",
-                            id: "titleTextField",
+                          name: "title",
+                          id: "titleTextField",
                         }}
                         fullWidth={true}
-                    />
-                    </Grid>        
-                </Grid>
-                <Grid
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid
                     container
                     item
                     xs={12}
@@ -546,67 +500,63 @@ class CreateCoffeeChatCard extends Component {
                     spacing={1}
                     alignItems="flex-end"
                     justify="flex-end"
-                    >
+                  >
                     <Grid
-                        container
-                        item
-                        xs={4}
-                        spacing={0}
-                        alignItems="center"
-                        justify="center"
+                      container
+                      item
+                      xs={4}
+                      spacing={0}
+                      alignItems="center"
+                      justify="center"
                     >
-                        <div className={classes.radioButton}>
+                      <div className={classes.radioButton}>
                         <FormControlLabel
-                            checked={this.state.type === "ONE_ON_ONE"}
-                            value="ONE_ON_ONE"
-                            control={<Radio color="primary" />}
-                            label="One on One"
-                            onChange={this.handleCoffeeChatTypeChange()}
+                          checked={this.state.type === "ONE_ON_ONE"}
+                          value="ONE_ON_ONE"
+                          control={<Radio color="primary" />}
+                          label="One on One"
+                          onChange={this.handleCoffeeChatTypeChange()}
                         />
-                        </div>
+                      </div>
                     </Grid>
                     <Grid
-                        container
-                        item
-                        xs={4}
-                        spacing={0}
-                        alignItems="center"
-                        justify="center"
+                      container
+                      item
+                      xs={4}
+                      spacing={0}
+                      alignItems="center"
+                      justify="center"
                     >
-                        <div className={classes.radioButton}>
+                      <div className={classes.radioButton}>
                         <FormControlLabel
-                            checked={
-                            this.state.type === "ONE_ON_FOUR"
-                            }
-                            value="ONE_ON_FOUR"
-                            control={<Radio color="primary" />}
-                            label="One On Four"
-                            onChange={this.handleCoffeeChatTypeChange()}
+                          checked={this.state.type === "ONE_ON_FOUR"}
+                          value="ONE_ON_FOUR"
+                          control={<Radio color="primary" />}
+                          label="One On Four"
+                          onChange={this.handleCoffeeChatTypeChange()}
                         />
-                        </div>
+                      </div>
                     </Grid>
                     <Grid
-                        container
-                        item
-                        xs={4}
-                        spacing={0}
-                        alignItems="center"
-                        justify="center"
+                      container
+                      item
+                      xs={4}
+                      spacing={0}
+                      alignItems="center"
+                      justify="center"
                     >
-                        <div className={classes.radioButton}>
+                      <div className={classes.radioButton}>
                         <FormControlLabel
-                            checked={
-                            this.state.type === "MOCK_INTERVIEW"
-                            }
-                            value="MOCK_INTERVIEW"
-                            control={<Radio color="primary" />}
-                            label="Mock Interview"
-                            onChange={this.handleCoffeeChatTypeChange()}
+                          checked={this.state.type === "MOCK_INTERVIEW"}
+                          value="MOCK_INTERVIEW"
+                          control={<Radio color="primary" />}
+                          label="Mock Interview"
+                          onChange={this.handleCoffeeChatTypeChange()}
                         />
-                        </div>
+                      </div>
                     </Grid>
-                </Grid>
-                <Grid
+                  </Grid>
+                  <Grid
                     container
                     item
                     xs={12}
@@ -614,31 +564,31 @@ class CreateCoffeeChatCard extends Component {
                     spacing={1}
                     alignItems="flex-start"
                     justify="flex-start"
-                    >
+                  >
                     <Grid
-                        container
-                        item
-                        xs={12}
-                        spacing={1}
-                        alignItems="flex-start"
-                        justify="flex-start"
+                      container
+                      item
+                      xs={12}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
                     >
-                    <TextField
+                      <TextField
                         id="date"
                         label="Date"
                         type="date"
                         InputLabelProps={{
-                            shrink: true,
+                          shrink: true,
                         }}
                         variant="outlined"
                         required
                         fullWidth={true}
                         value={this.state.dateFormatted}
                         onChange={this.handleDateChange}
-                    />
+                      />
                     </Grid>
-                    </Grid>
-                <Grid
+                  </Grid>
+                  <Grid
                     container
                     item
                     xs={12}
@@ -646,63 +596,60 @@ class CreateCoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                     style={{ marginBottom: "15px", marginTop: "10px" }}
-                >
+                  >
                     <TextField
-                    fullWidth={true}
-                    rows={4}
-                    id="descriptionTextField"
-                    variant="outlined"
-                    label="Description"
-                    multiline={true}
-                    value={this.state.description}
-                    onChange={this.handleChange}
-                    helperText={`${this.state.description.length}/${this.state.maxCharacters} Characters`}
-                    inputProps={{
+                      fullWidth={true}
+                      rows={4}
+                      id="descriptionTextField"
+                      variant="outlined"
+                      label="Description"
+                      multiline={true}
+                      value={this.state.description}
+                      onChange={this.handleChange}
+                      helperText={`${this.state.description.length}/${this.state.maxCharacters} Characters`}
+                      inputProps={{
                         maxLength: this.state.maxCharacters,
                         style: { height: 100 },
                         name: "description",
                         id: "titleTdescriptionTextFieldextField",
                         classes: {
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.notchedOutline,
-                          },  
-                    }}
+                          root: classes.cssOutlinedInput,
+                          focused: classes.cssFocused,
+                          notchedOutline: classes.notchedOutline,
+                        },
+                      }}
                     />
-                </Grid>
-                <Grid
+                  </Grid>
+                  <Grid
                     container
                     item
                     xs={12}
                     spacing={0}
                     alignItems="flex-end"
                     justify="flex-end"
-                >
+                  >
                     <DialogActions style={{ marginRight: "5%" }}>
-                    <Button
+                      <Button
                         className={classes.button2}
                         variant="contained"
                         onClick={this.handleEscalation}
-                    >
+                      >
                         Create
-                    </Button>
+                      </Button>
                     </DialogActions>
+                  </Grid>
                 </Grid>
-                </Grid>
-            </div>
-
-                </DialogContentText>
-            </DialogContent>
-
+              </div>
+            </DialogContentText>
+          </DialogContent>
         </Dialog>
         <Snackbar
-        anchorOrigin={{ vertical : 'bottom', horizontal : 'right'}}
-        open={this.state.snackBarOpen}
-        onClose={this.handleSnackBarClose}
-        message={this.state.snackBarText}
-        autoHideDuration={6000}
-      />
-
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          open={this.state.snackBarOpen}
+          onClose={this.handleSnackBarClose}
+          message={this.state.snackBarText}
+          autoHideDuration={6000}
+        />
       </div>
     );
   }
