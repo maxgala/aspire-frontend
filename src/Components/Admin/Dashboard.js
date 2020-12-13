@@ -168,13 +168,6 @@ class Dashboard extends Component {
           </div>
           <Button
             variant="outlined"
-            className={classes.coffee_chat_text}
-            onClick={this.changeToEscalations}
-          >
-            <b>Escalations</b>
-          </Button>
-          <Button
-            variant="outlined"
             className={classes.text}
             onClick={this.changeToAdminCoffeeChats}
           >
