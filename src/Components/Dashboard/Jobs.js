@@ -10,6 +10,7 @@ import CardTypes from "./CardTypes";
 import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { Auth } from "aws-amplify";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -18,6 +19,27 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     alignItems: "center",
     height: "90vh",
+  },
+
+  cardAppLoader: {
+    width: "100%",
+    maxWidth: "350px",
+    height: "180px",
+    borderStyle: "solid",
+    borderRadius: "20px",
+    backgroundColor: "#6EA0B5",
+    color: "white",
+    borderColor: "#6EA0B5",
+    textAlign: "left",
+    fontWeight: "100",
+    fontFamily: "Arial",
+    marginBottom: "5%",
+    marginRight: "5%",
+    "@media (max-width: 480px)": {
+      marginRight: "0px",
+    },
+    boxShadow: "0px 6px 6px #00000029",
+    overflow: "hidden",
   },
 
   JobBoard: {
@@ -81,6 +103,7 @@ class JobBoard extends Component {
     super(props);
     this.state = {
       jobs: [],
+      isJobAppsLoaded: false,
     };
   }
 
@@ -92,6 +115,7 @@ class JobBoard extends Component {
     if (existingJobsData.data.jobs !== undefined) {
       this.setState({
         jobs: existingJobsData.data.jobs,
+        isJobAppsLoaded: true,
       });
     }
   };
@@ -267,33 +291,46 @@ class JobBoard extends Component {
             alignItems="center"
             justify="flex-start"
           >
-            {this.state.jobs && this.state.jobs.length > 0 ? (
-              this.state.jobs.map((jobData, key) => (
+            {this.state.isJobAppsLoaded === true ? (
+              this.state.jobs && this.state.jobs.length > 0 ? (
+                this.state.jobs.map((jobData, key) => (
+                  <Grid
+                    key={jobData.job_id}
+                    container
+                    item
+                    xs={12}
+                    sm={6}
+                    md={6}
+                    lg={4}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <JobApplicationCard data={jobData} />
+                  </Grid>
+                ))
+              ) : (
                 <Grid
-                  key={jobData.job_id}
                   container
                   item
                   xs={12}
-                  sm={6}
-                  md={6}
-                  lg={4}
                   spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
+                  alignItems="center"
+                  justify="center"
                 >
-                  <JobApplicationCard data={jobData} />
+                  <EmptyCard type={CardTypes.jobApplication} />
                 </Grid>
-              ))
+              )
             ) : (
               <Grid
                 container
                 item
                 xs={12}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
-                <EmptyCard type={CardTypes.jobApplication} />
+                <Skeleton variant="rect" className={classes.cardAppLoader} />
               </Grid>
             )}
           </Grid>

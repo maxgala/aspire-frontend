@@ -16,6 +16,7 @@ import Moment from "react-moment";
 import { withSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Auth } from "aws-amplify";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -366,6 +367,7 @@ class CoffeeChatSelfCard extends Component {
       open: false,
       chat_status: this.props.data.chat_status,
       barDisplay: false,
+      userType: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
     };
   }
 
@@ -396,6 +398,33 @@ class CoffeeChatSelfCard extends Component {
         this.setState({
           open: false,
           chat_status: "RESERVED",
+        });
+      })
+      .catch((err) => {
+        this.props.enqueueSnackbar("Failed:" + err, {
+          variant: "error",
+        });
+      });
+    this.setState({
+      barDisplay: false,
+    });
+  };
+
+  unreserve = async () => {
+    this.setState({
+      barDisplay: true,
+    });
+    await httpPut(
+      "chats/" + this.props.data.chat_id + "/unreserve",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    )
+      .then(() => {
+        this.props.enqueueSnackbar("Successfully unregistered for chat", {
+          variant: "success",
+        });
+        this.setState({
+          open: false,
+          chat_status: "UNRESERVED",
         });
       })
       .catch((err) => {
@@ -535,7 +564,30 @@ class CoffeeChatSelfCard extends Component {
                   justify="flex-start"
                 >
                   <span className={classes.button_container}>
-                    <h3>RESERVED</h3>
+                    {this.state.userType === "MENTOR" ? (
+                      <Button
+                        onClick={this.openCoffeeChat}
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <h3>VIEW DETAILS</h3>
+                      </Button>
+                    ) : this.state.chat_status === "RESERVED" ||
+                      this.state.chat_status === "RESERVED_PARTIAL" ? (
+                      <Button
+                        onClick={this.openCoffeeChat}
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <h3>VIEW DETAILS</h3>
+                      </Button>
+                    ) : this.state.chat_status === "UNRESERVED" ? (
+                      <h3 className={classes.reservedText}>UNRESERVED</h3>
+                    ) : (
+                      (<h3 className={classes.reservedText}>RESERVED</h3>)("")
+                    )}
                   </span>
                 </Grid>
               </Grid>
@@ -558,9 +610,7 @@ class CoffeeChatSelfCard extends Component {
         >
           <Toolbar className={classes.toolbar}>
             <div>
-              <h2 className={classes.dialogLabel}>
-                Register for a Coffee Chat
-              </h2>
+              <h2 className={classes.dialogLabel}>Unreserve Coffee Chat</h2>
             </div>
             <img
               onClick={this.handleClose}
@@ -673,16 +723,25 @@ class CoffeeChatSelfCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    {this.props.data.chat_type === ChatTypes.fourOnOne ? (
+                    {this.props.data.chat_type === ChatTypes.fourOnOne &&
+                    this.props.data.aspiring_professionals !== null ? (
                       <span className={classes.subtitle2}>
                         Available spots:{" "}
-                        {/* {4 - this.props.data.aspiring_professionals.length} */}
+                        {4 - this.props.data.aspiring_professionals.length}
                       </span>
                     ) : (
                       ""
                     )}
                   </Grid>
-
+                  <span className={classes.subtitle2}>
+                    Reserved with:{" "}
+                    {this.props.data.aspiring_professionals &&
+                      this.props.data.aspiring_professionals.map((ap, i) => (
+                        <p className={classes.subtitle2}>
+                          {i + 1}. {ap},{" "}
+                        </p>
+                      ))}
+                  </span>
                   <Grid
                     container
                     item
@@ -706,13 +765,14 @@ class CoffeeChatSelfCard extends Component {
                 justify="center"
               >
                 <DialogActions>
-                  {this.state.barDisplay === false ? (
+                  {this.state.userType === "MENTOR" ? null : this.state
+                      .barDisplay === false ? (
                     <Button
                       className={classes.button2}
                       variant="contained"
-                      onClick={this.registerForChat}
+                      onClick={this.unreserve}
                     >
-                      Register
+                      Unreserve
                     </Button>
                   ) : (
                     <CircularProgress className={classes.circleProgress} />

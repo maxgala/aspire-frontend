@@ -9,6 +9,8 @@ import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
+import Skeleton from "@material-ui/lab/Skeleton";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -18,6 +20,19 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     height: "90vh",
     paddingBottom: "8%",
+  },
+
+  communitycard: {
+    width: "95%",
+    maxWidth: "400px",
+    height: "450px",
+    marginBottom: "10px",
+    marginLeft: "7px",
+    borderRadius: "20px",
+    textAlign: "left",
+    backgroundColor: "#455e69",
+    color: "black",
+    boxShadow: "0px 6px 6px #00000029",
   },
 
   JobBoard: {
@@ -80,8 +95,29 @@ class JobBoard extends Component {
     this.state = {
       // temporary - just wanted more test data to fill the page
       community_data: [],
+      isCommunityLoaded: false,
+      requesteeResponse: [],
+      currentUserEmail: jwtDecode(localStorage.getItem("idToken"))["email"],
     };
   }
+
+  fetchConnects = async () => {
+    await httpGet(
+      "connect?requestee=" + this.state.currentUserEmail,
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    )
+      .then((res) => {
+        this.setState({
+          requesteeResponse: res.data["connect_ses"],
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.enqueueSnackbar("Failed to fetch connections: " + err, {
+          variant: "err",
+        });
+      });
+  };
 
   fetchUsers = async () => {
     const paidUsers = await httpGet(
@@ -120,10 +156,12 @@ class JobBoard extends Component {
     );
     this.setState({
       community_data: full,
+      isCommunityLoaded: true,
     });
   };
 
   componentDidMount() {
+    this.fetchConnects();
     this.fetchUsers();
   }
 
@@ -235,22 +273,30 @@ class JobBoard extends Component {
             alignItems="flex-start"
             justify="flex-start"
           >
-            {this.state.community_data.map((chat, key) => (
-              <Grid
-                key={key}
-                container
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <CommunityCard data={chat} />
-              </Grid>
-            ))}
+            {this.state.isCommunityLoaded === true ? (
+              this.state.community_data.map((chat, key) => (
+                <Grid
+                  key={key}
+                  container
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <CommunityCard
+                    data={chat}
+                    currentUserEmail={this.state.currentUserEmail}
+                    requesteeResponse={this.state.requesteeResponse}
+                  />
+                </Grid>
+              ))
+            ) : (
+              <Skeleton variant="rect" className={classes.communitycard} />
+            )}
           </Grid>
         </div>
         {/* </PerfectScrollbar> */}
