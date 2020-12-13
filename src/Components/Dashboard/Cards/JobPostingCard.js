@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import EditIcon from "@material-ui/icons/Edit";
-import Tooltip from "@material-ui/core/Tooltip";
+// import VisibilityIcon from "@material-ui/icons/Visibility";
+// import EditIcon from "@material-ui/icons/Edit";
+// import Tooltip from "@material-ui/core/Tooltip";
 import Moment from "react-moment";
 
 const useStyles = makeStyles(() => ({
@@ -190,7 +190,7 @@ class JobPostingCard extends Component {
               </Grid>
             </Grid>
 
-            <Grid
+            {/* <Grid
               container
               item
               xs={2}
@@ -238,7 +238,7 @@ class JobPostingCard extends Component {
                   />
                 </Tooltip>
               </Grid>
-            </Grid>
+            </Grid> */}
           </Grid>
         </div>
       </div>
