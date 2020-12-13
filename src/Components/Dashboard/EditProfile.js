@@ -200,17 +200,32 @@ class EditProfile extends Component {
       city: "",
       country: "",
       states: "",
+      displayProvince: "none",
+      displayStates: "",
     };
   }
 
   componentDidMount() {
     const userData = jwtDecode(localStorage.getItem("idToken"));
-    var country;
-    const formattedLocation = JSON.parse(userData.address.formatted);
-    if (formattedLocation.country === "Canada") {
-      country = "CA";
-    } else if (formattedLocation.country === "United States") {
-      country = "USA";
+
+    console.log(userData);
+    let addressData = JSON.parse(userData.address.formatted);
+
+    if (addressData.country === "CA") {
+      // Show Provinces if Canada
+      this.setState({
+        province: addressData.region,
+        displayProvince: "",
+        displayStates: "none",
+      });
+    } else if (addressData.country === "USA") {
+      // Show states by if USA
+      this.setState({
+        displayProvince: "none",
+        displayStates: "",
+        states: addressData.region,
+      });
+      console.log(addressData);
     }
 
     this.setState({
@@ -218,16 +233,16 @@ class EditProfile extends Component {
       lastName: userData.family_name,
       phone: userData.phone_number,
       year_of_birth: userData.birthdate,
-      industry: "", // userData["custom:industry_tags"], TODO: need to format different
-      industry_tags: [], // find where this is stored
+      industry: userData["custom:industry"],
+      industry_tags: userData["custom:industry_tags"].split(","),
       title: userData["custom:position"],
       company: userData["custom:company"],
-      education: "", //find where this is stored
-      province: "", // userData.address.formatted.region, TODO: need to format different (ie. Ontario to ON)
-      city: "", //find where this is stored
-      country: country,
-      states: "", //find where this is stored
+      education: userData["custom:education_level"],
+      city: addressData.locality,
+      country: addressData.country,
     });
+
+    console.log(this.state);
   }
 
   handleFirstNameChange = (event) => {
@@ -362,6 +377,7 @@ class EditProfile extends Component {
                   options={IndustryTags.map((option) => option.name)}
                   defaultValue={[]}
                   freeSolo
+                  value={this.state.industry_tags}
                   onChange={this.onTagsChange}
                   renderTags={(value, getTagProps) =>
                     value.map((option, index) => (
@@ -451,7 +467,7 @@ class EditProfile extends Component {
                   required
                   fullWidth
                   select
-                  label="States"
+                  label="State"
                   value={this.state.states}
                   onChange={this.handleStateChange}
                   variant="outlined"
