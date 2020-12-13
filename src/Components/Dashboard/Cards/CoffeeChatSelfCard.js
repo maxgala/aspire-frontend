@@ -735,21 +735,13 @@ class CoffeeChatSelfCard extends Component {
                   </Grid>
                   <span className={classes.subtitle2}>
                     Reserved with:{" "}
-                    {this.props.data.aspiring_professionals.map((ap, i) => (
-                      <p className={classes.subtitle2}>
-                        {i + 1}. {ap},{" "}
-                      </p>
-                    ))}
+                    {this.props.data.aspiring_professionals &&
+                      this.props.data.aspiring_professionals.map((ap, i) => (
+                        <p className={classes.subtitle2}>
+                          {i + 1}. {ap},{" "}
+                        </p>
+                      ))}
                   </span>
-                  <Grid
-                    container
-                    item
-                    xs={6}
-                    spacing={0}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  ></Grid>
-
                   <Grid
                     container
                     item

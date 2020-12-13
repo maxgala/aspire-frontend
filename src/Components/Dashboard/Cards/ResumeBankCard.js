@@ -161,6 +161,9 @@ class JobApplicationCard extends Component {
     this.state = {
       resume_popup: false,
       num_pages: 0,
+      user_type: JSON.parse(localStorage.getItem("userProfile"))[
+        "custom:user_type"
+      ],
     };
   }
 
@@ -253,14 +256,16 @@ class JobApplicationCard extends Component {
             justify="center"
           >
             <span className={classes.button_container}>
-              <Button
-                className={classes.button}
-                variant="contained"
-                color="primary"
-                onClick={() => this.renderResume()}
-              >
-                View Resume
-              </Button>
+              {this.state.user_type === "MENTOR" ? (
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => this.renderResume()}
+                >
+                  View Resume
+                </Button>
+              ) : null}
             </span>
           </Grid>
         </Grid>

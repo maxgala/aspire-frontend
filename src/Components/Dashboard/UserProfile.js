@@ -702,8 +702,7 @@ class Landing extends Component {
             </div>
           </span>
 
-          {this.state.userType !== "MENTOR" ||
-          this.state.userType !== "FREE" ? (
+          {this.state.userType !== "MENTOR" ? (
             <span>
               <Button
                 className={classes.button}
@@ -726,16 +725,18 @@ class Landing extends Component {
             </span>
           ) : null}
 
-          <Button
-            className={classes.button1}
-            variant="contained"
-            onClick={this.postJob}
-          >
-            Post a Job
-          </Button>
+          {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
+          "FREE" ? (
+            <Button
+              className={classes.button1}
+              variant="contained"
+              onClick={this.postJob}
+            >
+              Post a Job
+            </Button>
+          ) : null}
+
           <EscalationsCard />
-          <p className={classes.updateProfile}>Update your profile</p>
-          <p className={classes.contact}>Contact Admin Support</p>
           <p className={classes.faq} onClick={this.openFaq}>
             FAQ
           </p>
