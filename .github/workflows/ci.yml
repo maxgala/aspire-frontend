@@ -1,4 +1,4 @@
-name: Deploy to S3
+name: PR Build Check
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Setup
-          run:|
+        run: |
           touch .env
           echo "REACT_APP_AWS_SECRET_ACCESS_KEY=$REACT_APP_AWS_SECRET_ACCESS_KEY" >> .env
           echo "REACT_APP_ACCESS_KEY_ID=$REACT_APP_ACCESS_KEY_ID" >> .env
