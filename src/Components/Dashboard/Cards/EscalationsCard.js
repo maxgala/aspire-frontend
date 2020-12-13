@@ -301,9 +301,9 @@ class EscalationsCard extends Component {
     }
 
     // For now we're just going to hard code the address to mine, otherwise it is the support email.
-    emailData.ccAddress = "ammarhaq13@gmail.com";
-    emailData.toAddress = "ammarhaq13@gmail.com";
-    emailData.source = "ammarhaq13@gmail.com";
+    emailData.ccAddress = "aspire@maxgala.com";
+    emailData.toAddress = "aspire@maxgala.com";
+    emailData.source = "aspire@maxgala.com";
 
     // Get and store data from where the escalation is being created.
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
