@@ -38,6 +38,8 @@ jobs:
           echo "REACT_APP_SES_ACCESS_KEY_ID=$REACT_APP_SES_ACCESS_KEY_ID" >> .env
           echo "REACT_APP_AWS_SES_SECRET_ACCESS_KEY=$REACT_APP_AWS_SES_SECRET_ACCESS_KEY" >> .env
           echo "REACT_APP_SES_REGION=$REACT_APP_SES_REGION" >> .env
+          echo "REACT_APP_CLIENT_ID=$REACT_APP_CLIENT_ID" >> .env
+          echo "REACT_APP_USER_POOL_ID=$REACT_APP_USER_POOL_ID" >> .env
       - name: Clean
         run: rm -rf build
       - name: Install
