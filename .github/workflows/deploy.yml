@@ -22,7 +22,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ca-central-1
       - name: Setup
-          run:|
+        run: |
           touch .env
           echo "REACT_APP_AWS_SECRET_ACCESS_KEY=$REACT_APP_AWS_SECRET_ACCESS_KEY" >> .env
           echo "REACT_APP_ACCESS_KEY_ID=$REACT_APP_ACCESS_KEY_ID" >> .env
