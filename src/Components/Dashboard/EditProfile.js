@@ -245,6 +245,75 @@ class EditProfile extends Component {
     console.log(this.state);
   }
 
+  onTagsChange = (event, values) => {
+    this.setState({
+      industry_tags: values,
+    });
+    if (values.length > 3) {
+      this.setState({
+        showError: true,
+        errorText: "Please pick up to 3 tags",
+      });
+    } else {
+      this.setState({
+        showError: false,
+        errorText: "",
+      });
+    }
+  };
+
+  handleProvinceChange = (event) => {
+    this.setState({
+      states: "",
+      province: event.target.value,
+    });
+  };
+
+  handleStateChange = (event) => {
+    this.setState({
+      states: event.target.value,
+      province: "",
+    });
+  };
+
+  handleCountryChange = (event) => {
+    this.setState({
+      country: event.target.value,
+      displayStates: event.target.value === "USA" ? "" : "None",
+      displayProvince: event.target.value === "CA" ? "" : "None",
+    });
+  };
+
+  handleCityChange = (event) => {
+    this.setState({
+      city: event.target.value,
+    });
+  };
+
+  handleIndustryChange = (event) => {
+    this.setState({
+      industry: event.target.value,
+    });
+  };
+
+  handleEducationChange = (event) => {
+    this.setState({
+      education: event.target.value,
+    });
+  };
+
+  handleTitleChange = (event) => {
+    this.setState({
+      title: event.target.value,
+    });
+  };
+
+  handleCompanyChange = (event) => {
+    this.setState({
+      company: event.target.value,
+    });
+  };
+
   handleFirstNameChange = (event) => {
     this.setState({
       firstName: event.target.value,
@@ -271,6 +340,8 @@ class EditProfile extends Component {
 
   submitChanges = () => {
     // TODO: propogate changes to cognito user
+
+    console.log(this.state);
     this.props.history.push(`${Routes.Dashboard}`);
   };
 
