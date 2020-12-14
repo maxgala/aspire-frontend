@@ -19,7 +19,7 @@ import Education from "../Registration/Education";
 import Province from "../Registration/Provinces";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import jwtDecode from "jwt-decode";
+import { Auth } from "aws-amplify";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -206,43 +206,42 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
-    const userData = jwtDecode(localStorage.getItem("idToken"));
+    // Get the latest user's data, then parse and store it into state.
+    this.getUser().then((userResponseData) => {
+      const userData = userResponseData.attributes;
 
-    console.log(userData);
-    let addressData = JSON.parse(userData.address.formatted);
+      let addressData = JSON.parse(userData.address);
 
-    if (addressData.country === "CA") {
-      // Show Provinces if Canada
+      if (addressData.country === "CA") {
+        // Show Provinces if Canada
+        this.setState({
+          province: addressData.region,
+          displayProvince: "",
+          displayStates: "none",
+        });
+      } else if (addressData.country === "USA") {
+        // Show states by if USA
+        this.setState({
+          displayProvince: "none",
+          displayStates: "",
+          states: addressData.region,
+        });
+      }
+
       this.setState({
-        province: addressData.region,
-        displayProvince: "",
-        displayStates: "none",
+        firstName: userData.given_name,
+        lastName: userData.family_name,
+        phone: userData.phone_number,
+        year_of_birth: userData.birthdate,
+        industry: userData["custom:industry"],
+        industry_tags: userData["custom:industry_tags"].split(","),
+        title: userData["custom:position"],
+        company: userData["custom:company"],
+        education: userData["custom:education_level"],
+        city: addressData.locality,
+        country: addressData.country,
       });
-    } else if (addressData.country === "USA") {
-      // Show states by if USA
-      this.setState({
-        displayProvince: "none",
-        displayStates: "",
-        states: addressData.region,
-      });
-      console.log(addressData);
-    }
-
-    this.setState({
-      firstName: userData.given_name,
-      lastName: userData.family_name,
-      phone: userData.phone_number,
-      year_of_birth: userData.birthdate,
-      industry: userData["custom:industry"],
-      industry_tags: userData["custom:industry_tags"].split(","),
-      title: userData["custom:position"],
-      company: userData["custom:company"],
-      education: userData["custom:education_level"],
-      city: addressData.locality,
-      country: addressData.country,
     });
-
-    console.log(this.state);
   }
 
   onTagsChange = (event, values) => {
@@ -338,11 +337,60 @@ class EditProfile extends Component {
     });
   };
 
-  submitChanges = () => {
-    // TODO: propogate changes to cognito user
+  /**
+   * This function will get the latest information from the currently logged in user.
+   * @return object user
+   */
+  getUser = async () => {
+    let user = await Auth.currentAuthenticatedUser();
 
-    console.log(this.state);
-    this.props.history.push(`${Routes.Dashboard}`);
+    return user;
+  };
+
+  /**
+   * This function will submit the user profile changes provided in the form.
+   */
+  submitChanges = async () => {
+    let updateUserData = {};
+
+    // Translate data from state to Cognito object
+    updateUserData.given_name = this.state.firstName;
+    updateUserData.family_name = this.state.lastName;
+    updateUserData.phone_number = this.state.phone;
+    updateUserData.birthdate = this.state.year_of_birth;
+    updateUserData["custom:company"] = this.state.company;
+    updateUserData["custom:industry_tags"] = this.state.industry_tags.join(",");
+    updateUserData["custom:industry"] = this.state.industry;
+    updateUserData["custom:position"] = this.state.title;
+    updateUserData["custom:education_level"] = this.state.education;
+
+    // Data formatted for Cognito
+    let formatted = {};
+
+    formatted.locality = this.state.city;
+    if (this.state.province.length > 0) {
+      formatted.region = this.state.province;
+    } else {
+      formatted.region = this.state.states;
+    }
+    formatted.country = this.state.country;
+
+    updateUserData["address"] = JSON.stringify(formatted);
+
+    // Get the current authenticated user
+    let user = await Auth.currentAuthenticatedUser();
+
+    // Update the current user with data stored in the state
+    Auth.updateUserAttributes(user, updateUserData)
+      .then(() => {
+        // Update was success, redirect user.
+        this.props.history.push(`${Routes.Dashboard}`);
+      })
+      .catch((e) =>
+        // Update failed alert user with error info.
+        alert(`There was issue updating the User data, please create an escalation with the following message
+    '${JSON.stringify(e)}'`)
+      );
   };
 
   render() {
