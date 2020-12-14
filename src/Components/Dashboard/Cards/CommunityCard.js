@@ -294,6 +294,11 @@ class JobApplicationCard extends Component {
                 </span>
                 {this.props.data.attributes["custom:company"]}
               </span>
+              <p className={classes.title}>
+                {this.props.data.attributes["custom:user_type"] === "MENTOR"
+                  ? "Senior Executive"
+                  : "Aspiring Professional"}
+              </p>
             </Grid>
             <Grid
               container

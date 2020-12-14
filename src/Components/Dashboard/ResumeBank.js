@@ -124,7 +124,7 @@ class JobBoard extends Component {
       });
     });
 
-    const full = paidUsers.data.users.concat(freeUsers.data.users);
+    const full = freeUsers.data.users.concat(paidUsers.data.users);
     this.setState({
       job_board_data: full,
       isResumebankLoaded: true,

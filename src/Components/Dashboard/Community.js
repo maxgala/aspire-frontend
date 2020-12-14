@@ -150,9 +150,9 @@ class JobBoard extends Component {
       });
     });
 
-    const full = paidUsers.data.users.concat(
+    const full = mentorUsers.data.users.concat(
       freeUsers.data.users,
-      mentorUsers.data.users
+      paidUsers.data.users
     );
     this.setState({
       community_data: full,
