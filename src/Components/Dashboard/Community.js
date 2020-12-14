@@ -141,7 +141,7 @@ class JobBoard extends Component {
     });
 
     const mentorUsers = await httpGet(
-      "users?type=MENTORS",
+      "users?type=MENTOR",
       (await Auth.currentSession()).getIdToken().getJwtToken()
     ).catch((err) => {
       console.log(err);
