@@ -141,7 +141,7 @@ class JobBoard extends Component {
     });
 
     const mentorUsers = await httpGet(
-      "users?type=MENTORS",
+      "users?type=MENTOR",
       (await Auth.currentSession()).getIdToken().getJwtToken()
     ).catch((err) => {
       console.log(err);
@@ -150,9 +150,9 @@ class JobBoard extends Component {
       });
     });
 
-    const full = paidUsers.data.users.concat(
+    const full = mentorUsers.data.users.concat(
       freeUsers.data.users,
-      mentorUsers.data.users
+      paidUsers.data.users
     );
     this.setState({
       community_data: full,
