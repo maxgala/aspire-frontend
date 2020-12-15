@@ -573,7 +573,7 @@ class FinalPage extends Component {
                 <div style={{ margin: "auto" }}>
                   <p>Terms and Conditions File</p>
                   <Document
-                    file="./Files/terms_and_conditions.pdf"
+                    file="../Files/terms_and_conditions.pdf"
                     onLoadSuccess={this.onTocDocumentLoad}
                   >
                     {Array.from(
@@ -590,7 +590,7 @@ class FinalPage extends Component {
                 </div>
                 <p>Privacy Policy File</p>
                 <Document
-                  file="./Files/privacy_policy_no_cookie_policy.pdf"
+                  file="../Files/privacy_policy_no_cookie_policy.pdf"
                   onLoadSuccess={this.onPrivacyDocumentLoad}
                 >
                   {Array.from(

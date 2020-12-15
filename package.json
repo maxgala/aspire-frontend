@@ -36,6 +36,7 @@
     "material-ui-dropzone": "^3.1.0",
     "material-ui-phone-number": "^2.2.6",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
     "node": "^14.8.0",
     "notistack": "^1.0.2",
     "prettier": "^2.2.0",

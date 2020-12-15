@@ -138,6 +138,7 @@ class CheckoutForm extends React.Component {
       this.setState({
         errorMessage: payload.error.message,
         paymentMethod: null,
+        isPaying: false,
       });
     } else {
       this.setState({
