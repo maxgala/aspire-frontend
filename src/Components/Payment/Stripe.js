@@ -138,6 +138,7 @@ class CheckoutForm extends React.Component {
       this.setState({
         errorMessage: payload.error.message,
         paymentMethod: null,
+        isPaying: false,
       });
     } else {
       this.setState({
@@ -164,14 +165,8 @@ class CheckoutForm extends React.Component {
 
         if (this.props.finalPage.state.aspire_premium === true) {
           this.props.finalPage.signUp(25, "PAID");
-          this.props.finalPage.setState({
-            verified: true,
-          });
         } else {
           this.props.finalPage.signUp(25, "MENTOR");
-          this.props.finalPage.setState({
-            verified: true,
-          });
         }
       }
       this.setState({

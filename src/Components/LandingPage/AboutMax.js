@@ -157,8 +157,7 @@ class AboutContent extends Component {
           <img src={icon2} alt="access" />
           <span className={classes.f3}>
             <b>
-              Privileged access to Senior Level Professionals, including curated
-              meetings
+              Privileged access to Senior Executives, including curated meetings
             </b>
           </span>
         </p>

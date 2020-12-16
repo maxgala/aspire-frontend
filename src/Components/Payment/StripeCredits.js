@@ -250,6 +250,20 @@ class CreditsForm extends React.Component {
         </Select>
 
         <label style={labelStyle} htmlFor="name">
+          Cost
+        </label>
+
+        <h3>
+          {"$"}
+          {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] ===
+            "PAID" ||
+          jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] ===
+            "MENTORS"
+            ? this.state.credits * 1.0
+            : this.state.credits * 2.0}
+        </h3>
+
+        <label style={labelStyle} htmlFor="name">
           Full Name
         </label>
         <input

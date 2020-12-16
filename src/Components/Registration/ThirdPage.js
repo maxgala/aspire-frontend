@@ -17,6 +17,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { withRouter } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Routes } from "../../entry/routes/Routes";
+import InfoIcon from "@material-ui/icons/Info";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -322,7 +323,14 @@ class ThirdPage extends Component {
                     variant="subtitle2"
                   >
                     <b>{this.state.profilePicPreviewText}</b>
-                    <Tooltip title={"For various reasons"}>
+                    <Tooltip title="For best results, we recommend using a BMP, JPG or PNG file">
+                      <InfoIcon />
+                    </Tooltip>
+                    <Tooltip
+                      title={
+                        "A picture allows for a higher chance of successful networking by putting a face to a name"
+                      }
+                    >
                       <Typography
                         variant="caption"
                         style={{ color: "grey", cursor: "pointer" }}
@@ -360,7 +368,14 @@ class ThirdPage extends Component {
                     variant="subtitle2"
                   >
                     <b>{this.state.resumeUploadText}</b>
-                    <Tooltip title={"For various reasons"}>
+                    <Tooltip title="Supported file types are: PDF, DOCX and DOC">
+                      <InfoIcon />
+                    </Tooltip>
+                    <Tooltip
+                      title={
+                        "Resumes are used for the Resume Bank to allow hiring managers to find talent"
+                      }
+                    >
                       <Typography
                         variant="caption"
                         style={{ color: "grey", cursor: "pointer" }}
@@ -384,7 +399,7 @@ class ThirdPage extends Component {
                   acceptedFiles={[
                     "application/pdf",
                     "application/msword",
-                    "application/vnd.openxmlformats-officedocument.wordprocessing",
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                   ]}
                   maxFileSize={5000000}
                   onClose={(event) => {

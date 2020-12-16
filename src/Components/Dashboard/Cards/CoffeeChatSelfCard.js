@@ -13,6 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import { httpPut } from "../../../lib/dataAccess";
 import Moment from "react-moment";
+import "moment-timezone";
 import { withSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Auth } from "aws-amplify";
@@ -546,7 +547,7 @@ class CoffeeChatSelfCard extends Component {
                   {this.props.data.fixed_date ? (
                     <span className={classes.date}>
                       Date:{" "}
-                      <Moment unix local>
+                      <Moment unix local format="ddd, MMM Do YYYY, hh:mm A">
                         {this.props.data.fixed_date}
                       </Moment>
                     </span>
@@ -708,7 +709,10 @@ class CoffeeChatSelfCard extends Component {
                   >
                     {this.props.data.fixed_date ? (
                       <span className={classes.subtitle2}>
-                        Date: <Moment unix>{this.props.data.fixed_date}</Moment>
+                        Date:{" "}
+                        <Moment unix local format="ddd, MMM Do YYYY, hh:mm A">
+                          {this.props.data.fixed_date}
+                        </Moment>
                       </span>
                     ) : (
                       ""
