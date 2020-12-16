@@ -323,6 +323,9 @@ class ThirdPage extends Component {
                     variant="subtitle2"
                   >
                     <b>{this.state.profilePicPreviewText}</b>
+                    <Tooltip title="For best results, we recommend using a BMP, JPG or PNG file">
+                      <InfoIcon />
+                    </Tooltip>
                     <Tooltip
                       title={
                         "A picture allows for a higher chance of successful networking by putting a face to a name"

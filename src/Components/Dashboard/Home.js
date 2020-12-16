@@ -163,10 +163,7 @@ class Home extends Component {
     if (chatsData.data.chats !== undefined) {
       this.setState({
         isChatsLoaded: true,
-        coffee_chats:
-          chatsData.data.chats.length > 4
-            ? chatsData.data.chats.slice(0, 4)
-            : chatsData.data.chats,
+        coffee_chats: chatsData.data.chats,
       });
     }
   };

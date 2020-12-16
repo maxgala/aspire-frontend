@@ -24,6 +24,8 @@ import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { withRouter } from "react-router-dom";
 import { Routes } from "../../entry/routes/Routes";
+import InfoIcon from "@material-ui/icons/Info";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const IndustryLabels = [];
 for (let i = 0; i < Industries.length; ++i) {
@@ -347,6 +349,9 @@ class SecondPage extends Component {
                     />
                   )}
                 />
+                <Tooltip title="Custom tags can be added by typing and hitting Enter">
+                  <InfoIcon />
+                </Tooltip>
               </Grid>
               <Grid item xs={12}>
                 <TextField

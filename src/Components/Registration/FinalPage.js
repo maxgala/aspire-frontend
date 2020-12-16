@@ -271,6 +271,9 @@ class FinalPage extends Component {
         this.props.enqueueSnackbar("Successfully signed up", {
           variant: "success",
         });
+        this.setState({
+          verified: true,
+        });
       })
       .catch((err) => {
         this.props.enqueueSnackbar(
@@ -351,9 +354,6 @@ class FinalPage extends Component {
         });
       } else {
         this.signUp(0, "FREE");
-        this.setState({
-          verified: true,
-        });
       }
     }
   };
