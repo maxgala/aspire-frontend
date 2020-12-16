@@ -10,14 +10,14 @@ if (
 
 export const httpGet = (endPoint, accessToken) => {
   let url = baseURL + "api/" + endPoint;
-  // let offset = new Date().getTimezoneOffset();
+  let offset = new Date().getTimezoneOffset();
 
   return axios
     .get(url, {
       headers: {
         Authorization: "Bearer " + accessToken,
         "Content-Type": "application/json",
-        // "Aspire-Client-Timezone-Offset": offset.toString(),
+        "Aspire-Client-Timezone-Offset": offset.toString(),
       },
     })
     .catch((error) => {
@@ -27,7 +27,7 @@ export const httpGet = (endPoint, accessToken) => {
 
 export const httpPost = (endPoint, accessToken, body) => {
   let url = baseURL + "api/" + endPoint;
-  // let offset = new Date().getTimezoneOffset();
+  let offset = new Date().getTimezoneOffset();
 
   return new Promise(async (resolve, reject) => {
     axios
@@ -35,7 +35,7 @@ export const httpPost = (endPoint, accessToken, body) => {
         headers: {
           Authorization: "Bearer " + accessToken,
           "Content-Type": "application/json",
-          // "Aspire-Client-Timezone-Offset": offset.toString(),
+          "Aspire-Client-Timezone-Offset": offset.toString(),
         },
       })
       .then((response) => {
@@ -49,7 +49,7 @@ export const httpPost = (endPoint, accessToken, body) => {
 
 export const httpPut = (endPoint, accessToken, body) => {
   let url = baseURL + "api/" + endPoint;
-  // let offset = new Date().getTimezoneOffset();
+  let offset = new Date().getTimezoneOffset();
 
   return new Promise(async (resolve, reject) => {
     axios
@@ -57,7 +57,7 @@ export const httpPut = (endPoint, accessToken, body) => {
         headers: {
           Authorization: "Bearer " + accessToken,
           "Content-Type": "application/json",
-          // "Aspire-Client-Timezone-Offset": offset.toString(),
+          "Aspire-Client-Timezone-Offset": offset.toString(),
         },
       })
       .then((response) => {
