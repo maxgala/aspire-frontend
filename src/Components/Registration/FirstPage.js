@@ -312,9 +312,9 @@ class FirstPage extends Component {
                   required
                 />
                 <Tooltip
-                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long. Recommended:
-                    Contain a combination of at least 1 lowercase, uppercase, number, special
-                    characters`}
+                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long and
+                    contain a combination of at least 1 lowercase, uppercase, number, & special
+                    character`}
                 >
                   <Typography
                     variant="caption"
