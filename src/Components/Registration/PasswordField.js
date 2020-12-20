@@ -28,36 +28,46 @@ class PasswordField extends Component {
   }
 
   stateChanged = (state) => {
-    // update the internal state using the updated state from the form field
-
-    this.setState(
-      {
-        passwordStrength: state.value,
-        strength: zxcvbn(state.value).score,
-      },
-      () => this.props.onStateChanged(state)
-    );
+    // updating the state
+    // If password does not meet our requirements, score meter will show user a green 4/5 bar
+    if (!this.checkPasswordForAWS(state.value)) {
+      this.setState(
+        {
+          passwordStrength: state.value,
+          strength: zxcvbn(state.value).score - 2,
+        },
+        () => this.props.onStateChanged(state)
+      );
+    } else {
+      this.setState(
+        {
+          passwordStrength: state.value,
+          strength: zxcvbn(state.value).score,
+        },
+        () => this.props.onStateChanged(state)
+      );
+    }
   };
 
-  checkPassword = (value) => {
-    //Regex for contains digit, special char, lower case, upper case, min length of 7
-    const regex = /^(?=.*\d)(?=.*[!@#$%^&*<>-])(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
+  checkPasswordForAWS = (value) => {
+    //Regex for contains lower case, upper case, digit, AWS cognito special chars, no white space, min length of 7, max length of 99
+    //Will return true if it meets criteria
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`])\S{7,99}$/;
     return regex.test(value);
   };
 
   validatePasswordStrong = (value) => {
     // ensure password is long enough
-    if (value.length <= this.thresholdLength) {
-      console.log(value);
+    if (value.length <= this.thresholdLength)
       throw new Error("Password is short");
-    }
 
     // ensure password is strong enough using the zxcvbn library
     if (zxcvbn(value).score < this.minStrength)
       throw new Error("Password is weak");
 
-    if (!this.checkPassword(value))
+    if (!this.checkPasswordForAWS(value)) {
       throw new Error("Password does not meet our criteria");
+    }
   };
 
   render() {
