@@ -29,7 +29,7 @@ class PasswordField extends Component {
 
   stateChanged = (state) => {
     // updating the state
-    // If password does not meet our requirements, score meter will show user a green 4/5 bar
+    // If password does not meet our requirements, score meter will not show user a green 4/5 bar
     if (!this.checkPasswordForAWS(state.value)) {
       this.setState(
         {
