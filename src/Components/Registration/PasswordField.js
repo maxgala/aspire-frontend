@@ -37,17 +37,29 @@ class PasswordField extends Component {
       },
       () => this.props.onStateChanged(state)
     );
-    // console.log(state.value);
+  };
+
+  checkPassword = (value) => {
+    //Regex for contains digit, special char, lower case, upper case, min length of 7
+    const regex = /^(?=.*\d)(?=.*[!@#$%^&*<>-])(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
+    return regex.test(value);
   };
 
   validatePasswordStrong = (value) => {
     // ensure password is long enough
-    if (value.length <= this.thresholdLength)
+    if (value.length <= this.thresholdLength) {
+      console.log(value);
       throw new Error("Password is short");
+    }
 
     // ensure password is strong enough using the zxcvbn library
     if (zxcvbn(value).score < this.minStrength)
       throw new Error("Password is weak");
+
+    if (!this.checkPassword(value))
+      throw new Error(
+        "Password is missing a special character, number, lower case letter, or upper case letter"
+      );
   };
 
   render() {
