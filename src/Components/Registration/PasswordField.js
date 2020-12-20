@@ -57,9 +57,7 @@ class PasswordField extends Component {
       throw new Error("Password is weak");
 
     if (!this.checkPassword(value))
-      throw new Error(
-        "Password is missing a special character, number, lower case letter, or upper case letter"
-      );
+      throw new Error("Password does not meet our criteria");
   };
 
   render() {
