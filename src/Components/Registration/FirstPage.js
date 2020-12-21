@@ -322,7 +322,7 @@ class FirstPage extends Component {
                     display="block"
                     gutterBottom
                   >
-                    Hover here for Password Requirements
+                    Hover here to view our Password Criteria
                   </Typography>
                 </Tooltip>
                 <TextField
@@ -340,12 +340,13 @@ class FirstPage extends Component {
                 <FormHelperText
                   style={{
                     display: this.state.errorDisplay,
-                    color: "red",
+                    color: "#c00",
+                    marginLeft: "30%",
                   }}
                   id="component-error-text"
                 >
                   {" "}
-                  <b>Error! Passwords don't match </b>
+                  <b>Passwords do not match </b>
                 </FormHelperText>
               </Grid>
             </Grid>
