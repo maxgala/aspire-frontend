@@ -49,9 +49,13 @@ class PasswordField extends Component {
     }
   };
 
+  // Will return true if it meets our password criteria
   checkPasswordForAWS = (value) => {
-    //Regex for contains lower case, upper case, digit, AWS cognito special chars, no white space, min length of 7, max length of 99
-    //Will return true if it meets criteria
+    // Regex for contains lower case, upper case, digit, AWS cognito special chars, no white space, min length of 7, max length of 99
+
+    // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.\[\]{}\(\)?\-“!@#%&\/,><\’:;|_~`])\S{7,99}$/;
+    // Above regex is giving lint warning errors for unneccesary escape character \.
+
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\^$*.[\]{}()?\-“!@#%&/,><’:;|_~`])\S{7,99}$/;
     return regex.test(value);
   };
