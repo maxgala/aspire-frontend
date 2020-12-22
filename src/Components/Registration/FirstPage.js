@@ -312,9 +312,9 @@ class FirstPage extends Component {
                   required
                 />
                 <Tooltip
-                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long. Recommended:
-                    Contain a combination of at least 1 lowercase, uppercase, number, special
-                    characters`}
+                  title={`Password strength-bar must be 4/5 filled. Passwords need to be at least 7 characters long and
+                    contain a combination of at least 1 lowercase, uppercase, number, & special
+                    character`}
                 >
                   <Typography
                     variant="caption"
@@ -322,7 +322,7 @@ class FirstPage extends Component {
                     display="block"
                     gutterBottom
                   >
-                    Hover here for Password Requirements
+                    Hover here to view our Password Criteria
                   </Typography>
                 </Tooltip>
                 <TextField
@@ -340,12 +340,13 @@ class FirstPage extends Component {
                 <FormHelperText
                   style={{
                     display: this.state.errorDisplay,
-                    color: "red",
+                    color: "#c00",
+                    marginLeft: "30%",
                   }}
                   id="component-error-text"
                 >
                   {" "}
-                  <b>Error! Passwords don't match </b>
+                  <b>Passwords do not match </b>
                 </FormHelperText>
               </Grid>
             </Grid>
