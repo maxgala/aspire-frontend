@@ -362,7 +362,7 @@ class Membership extends Component {
                     </td>
                     <td className={classes.table_element_plat}>Yes, leading</td>
                   </tr>
-                  <tr>
+                  {/*<tr>
                     <td className={classes.table_element}>
                       4-on-1 Coffee Chats with Senior Executives
                     </td>
@@ -371,7 +371,7 @@ class Membership extends Component {
                       Yes, can request
                     </td>
                     <td className={classes.table_element_plat}>Yes, leading</td>
-                  </tr>
+                  </tr>*/}
                   <tr>
                     <td className={classes.table_element}>
                       Mock Interviews with Senior Executives

@@ -195,27 +195,6 @@ function FAQPopup({ openFaq, handleFaqClose }) {
             chats.
           </p>
           <br />
-          <h3 style={{ color: "#B5A165" }}>4 on 1:</h3>
-          <p>
-            <b>How should I prepare for a 4 on 1 session?</b>
-          </p>
-          <p>
-            Set clear goals of what you are looking to achieve in this session.
-          </p>
-          <p>
-            <b>How many credits does it take to book a 4 on 1?</b>
-          </p>
-          <p>3 credits are required.</p>
-          <p>
-            <b>What is the process for scheduling a 4 on 1?</b>
-          </p>
-          <p>
-            Once you create a premium account and sign in, you will have access
-            to get started with 4 on 1 chats. Alternatively, you can create a
-            Free account and then use the pay per use model to book coffee
-            chats.
-          </p>
-          <br />
           <h3 style={{ color: "#B5A165" }}>Board of Directors:</h3>
           <p>
             <b>Who can apply for a board role?</b>
