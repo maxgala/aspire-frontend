@@ -11,8 +11,12 @@ import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
+import jwtDecode from "jwt-decode";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import PostJobPopup from "./Popups/PostJobPopup";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   mainPage: {
     paddingLeft: "8%",
     paddingRight: "8%",
@@ -49,6 +53,15 @@ const useStyles = makeStyles(() => ({
     color: "#58595B",
     fontWeight: "bold",
     marginTop: "40px",
+  },
+
+  addJobButton: {
+    marginTop: "30px",
+    textAlign: "right",
+  },
+
+  extendedIcon: {
+    marginRight: theme.spacing(1),
   },
 
   padding: {
@@ -104,8 +117,21 @@ class JobBoard extends Component {
     this.state = {
       jobs: [],
       isJobAppsLoaded: false,
+      openPostJob: false,
     };
   }
+
+  postJob = (event) => {
+    this.setState({
+      openPostJob: true,
+    });
+  };
+
+  handlePostJobClose = (event) => {
+    this.setState({
+      openPostJob: false,
+    });
+  };
 
   fetchJobs = async () => {
     const existingJobsData = await httpGet(
@@ -130,7 +156,46 @@ class JobBoard extends Component {
       <div>
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
-          <h1 className={classes.JobBoard}>Job Board</h1>
+          <Grid
+            container
+            item
+            xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            <Grid
+              container
+              item
+              xs={9}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <h1 className={classes.JobBoard}>Job Board</h1>
+            </Grid>
+            {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
+            "FREE" ? (
+              <Grid
+                container
+                item
+                xs={3}
+                spacing={1}
+                alignItems="flex-end"
+                justify="flex-end"
+                className={classes.addJobButton}
+              >
+                <Fab variant="extended" onClick={this.postJob}>
+                  <AddIcon className={classes.extendedIcon} />
+                  Post Job
+                </Fab>
+              </Grid>
+            ) : null}
+            <PostJobPopup
+              openPostJob={this.state.openPostJob}
+              handlePostJobClose={this.handlePostJobClose}
+            />
+          </Grid>
           {/* TODO: Hiding filters until they get implemented
           <Grid
             container
