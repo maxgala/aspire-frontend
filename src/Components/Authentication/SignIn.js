@@ -398,6 +398,11 @@ class SignIn extends Component {
               autoComplete="current-password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  this.handleClick();
+                }
+              }}
             />
             <CircularProgress
               style={{ display: this.state.barDisplay }}

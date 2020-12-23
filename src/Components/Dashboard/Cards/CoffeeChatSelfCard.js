@@ -15,7 +15,6 @@ import { httpPut } from "../../../lib/dataAccess";
 import Moment from "react-moment";
 import "moment-timezone";
 import { withSnackbar } from "notistack";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { Auth } from "aws-amplify";
 import jwtDecode from "jwt-decode";
 
