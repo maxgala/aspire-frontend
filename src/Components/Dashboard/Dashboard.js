@@ -48,8 +48,9 @@ const useStyles = makeStyles((theme) => ({
   img: {
     float: "left",
     align: "left",
-    "@media (max-width: 480px)": { width: "125px" },
+    "@media (max-width: 480px)": { width: "125px", height: "42px" },
     width: "150px",
+    height: "50.21px",
     cursor: "pointer",
   },
   content: {
