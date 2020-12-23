@@ -438,6 +438,12 @@ class CoffeeChatSelfCard extends Component {
     });
   };
 
+  dismiss = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -611,7 +617,7 @@ class CoffeeChatSelfCard extends Component {
         >
           <Toolbar className={classes.toolbar}>
             <div>
-              <h2 className={classes.dialogLabel}>Unreserve Coffee Chat</h2>
+              <h2 className={classes.dialogLabel}>Coffee Chat Details</h2>
             </div>
             <img
               onClick={this.handleClose}
@@ -769,18 +775,13 @@ class CoffeeChatSelfCard extends Component {
                 justify="center"
               >
                 <DialogActions>
-                  {this.state.userType === "MENTOR" ? null : this.state
-                      .barDisplay === false ? (
-                    <Button
-                      className={classes.button2}
-                      variant="contained"
-                      onClick={this.unreserve}
-                    >
-                      Unreserve
-                    </Button>
-                  ) : (
-                    <CircularProgress className={classes.circleProgress} />
-                  )}
+                  <Button
+                    className={classes.button2}
+                    variant="contained"
+                    onClick={this.dismiss}
+                  >
+                    OK
+                  </Button>
                 </DialogActions>
               </Grid>
             </DialogContentText>
