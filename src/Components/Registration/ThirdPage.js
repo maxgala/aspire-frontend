@@ -18,6 +18,7 @@ import { withRouter } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Routes } from "../../entry/routes/Routes";
 import InfoIcon from "@material-ui/icons/Info";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -198,6 +199,7 @@ class ThirdPage extends Component {
       progress: 75,
       filePreview: [],
       dialogueOpen: false,
+      loader: false,
     };
   }
 
@@ -227,10 +229,12 @@ class ThirdPage extends Component {
         if (!resume) {
           page.setState({
             profilePicURL: data.location,
+            open: false,
           });
         } else {
           page.setState({
             resumeURL: data.location,
+            fileDialogOpen: false,
           });
         }
       })
@@ -238,13 +242,12 @@ class ThirdPage extends Component {
   }
 
   handleResumeSave(resume) {
+    this.uploadToS3(resume[0], "resumes", true);
     this.setState({
       resumeUploadText: resume[0]["name"],
       resumeButtonText: "Upload Again",
-      fileDialogOpen: false,
       resumeFiles: resume,
     });
-    this.uploadToS3(resume[0], "resumes", true);
   }
 
   handleSave(files) {
@@ -255,13 +258,12 @@ class ThirdPage extends Component {
     reader.onload = function () {
       // Saving files to state for further use and closing Modal.
       document = reader.result;
+      page.uploadToS3(files[0], "pictures", false);
       page.setState({
         profilePicPreviewText: files[0].name,
         profilePicButtonText: "Upload Again",
         imageFiles: [document],
-        open: false,
       });
-      page.uploadToS3(files[0], "pictures", false);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
