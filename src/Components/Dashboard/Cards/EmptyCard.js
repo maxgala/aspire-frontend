@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+import { Button } from "@material-ui/core";
+import jwtDecode from "jwt-decode";
 import CardTypes from "../CardTypes";
+import PostJobPopup from "../Popups/PostJobPopup";
 
 const useStyles = makeStyles(() => ({
   cardCoffee: {
@@ -96,6 +99,25 @@ function withMyHook(Component) {
 }
 
 class EmptyCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openPostJob: false,
+    };
+  }
+
+  postJob = (event) => {
+    this.setState({
+      openPostJob: true,
+    });
+  };
+
+  handlePostJobClose = (event) => {
+    this.setState({
+      openPostJob: false,
+    });
+  };
+
   render() {
     const classes = this.props.classes;
     return (
@@ -127,20 +149,29 @@ class EmptyCard extends Component {
               ? "To book one, click the Coffee Chats tab above."
               : this.props.type === CardTypes.jobApplication
               ? "To view job applications, click the Jobs tab above."
-              : "To post one, open the left nav and click the Post a Job button."}
+              : jwtDecode(localStorage.getItem("idToken"))[
+                  "custom:user_type"
+                ] !== "FREE"
+              ? "To post a job, click the button below or post a job from the left nav."
+              : "Free users cannot post jobs. Upgrade to get access to this feature!"}
           </p>
           <span className={classes.button_container}>
-            {/* <Button
-              className={classes.button}
-              variant="contained"
-              color="primary"
-            >
-              {this.props.type === CardTypes.coffeeChat
-                ? "View coffee chats"
-                : this.props.type === CardTypes.jobApplication
-                ? "View job applications"
-                : "Create job posting"}
-            </Button> */}
+            {this.props.type === CardTypes.jobPosting &&
+            jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
+              "FREE" ? (
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="primary"
+                onClick={this.postJob}
+              >
+                Create job posting
+              </Button>
+            ) : null}
+            <PostJobPopup
+              openPostJob={this.state.openPostJob}
+              handlePostJobClose={this.handlePostJobClose}
+            />
           </span>
         </div>
       </Grid>
