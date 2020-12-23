@@ -11,6 +11,10 @@ import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
+import jwtDecode from "jwt-decode";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PostJobPopup from "./Popups/PostJobPopup";
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -49,6 +53,11 @@ const useStyles = makeStyles(() => ({
     color: "#58595B",
     fontWeight: "bold",
     marginTop: "40px",
+  },
+
+  addJobButton: {
+    marginTop: "50px",
+    textAlign: "right",
   },
 
   padding: {
@@ -104,8 +113,21 @@ class JobBoard extends Component {
     this.state = {
       jobs: [],
       isJobAppsLoaded: false,
+      openPostJob: false,
     };
   }
+
+  postJob = (event) => {
+    this.setState({
+      openPostJob: true,
+    });
+  };
+
+  handlePostJobClose = (event) => {
+    this.setState({
+      openPostJob: false,
+    });
+  };
 
   fetchJobs = async () => {
     const existingJobsData = await httpGet(
@@ -130,7 +152,52 @@ class JobBoard extends Component {
       <div>
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
-          <h1 className={classes.JobBoard}>Job Board</h1>
+          <Grid
+            container
+            item
+            xs={12}
+            spacing={1}
+            alignItems="flex-start"
+            justify="flex-start"
+          >
+            <Grid
+              container
+              item
+              xs={9}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <h1 className={classes.JobBoard}>Job Board</h1>
+            </Grid>
+            {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
+            "FREE" ? (
+              <Grid
+                container
+                item
+                xs={3}
+                spacing={1}
+                alignItems="flex-end"
+                justify="flex-end"
+                className={classes.addJobButton}
+              >
+                <FontAwesomeIcon
+                  title={"Post a Job"}
+                  icon={faPlus}
+                  onClick={this.postJob}
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    cursor: "pointer",
+                  }}
+                />
+              </Grid>
+            ) : null}
+            <PostJobPopup
+              openPostJob={this.state.openPostJob}
+              handlePostJobClose={this.handlePostJobClose}
+            />
+          </Grid>
           {/* TODO: Hiding filters until they get implemented
           <Grid
             container
