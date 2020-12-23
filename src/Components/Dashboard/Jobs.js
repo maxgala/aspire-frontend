@@ -12,11 +12,11 @@ import { httpGet } from "../../lib/dataAccess";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
 import jwtDecode from "jwt-decode";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 import PostJobPopup from "./Popups/PostJobPopup";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   mainPage: {
     paddingLeft: "8%",
     paddingRight: "8%",
@@ -56,8 +56,12 @@ const useStyles = makeStyles(() => ({
   },
 
   addJobButton: {
-    marginTop: "50px",
+    marginTop: "30px",
     textAlign: "right",
+  },
+
+  extendedIcon: {
+    marginRight: theme.spacing(1),
   },
 
   padding: {
@@ -181,16 +185,10 @@ class JobBoard extends Component {
                 justify="flex-end"
                 className={classes.addJobButton}
               >
-                <FontAwesomeIcon
-                  title={"Post a Job"}
-                  icon={faPlus}
-                  onClick={this.postJob}
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    cursor: "pointer",
-                  }}
-                />
+                <Fab variant="extended" onClick={this.postJob}>
+                  <AddIcon className={classes.extendedIcon} />
+                  Post Job
+                </Fab>
               </Grid>
             ) : null}
             <PostJobPopup
