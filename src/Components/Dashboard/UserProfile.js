@@ -412,7 +412,6 @@ class Landing extends Component {
           <PostJobPopup
             openPostJob={this.state.openPostJob}
             handlePostJobClose={this.handlePostJobClose}
-            classes={classes}
           />
           <FAQPopup
             openFaq={this.state.openFaq}
