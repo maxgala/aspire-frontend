@@ -176,6 +176,7 @@ class Home extends Component {
       "jobs?user_id=" + idTokeninfo.email,
       (await Auth.currentSession()).getIdToken().getJwtToken()
     );
+
     const cutOff = this.props.isSeniorExec ? 5 : 3;
     if (jobsData.data.jobs !== undefined) {
       this.setState({

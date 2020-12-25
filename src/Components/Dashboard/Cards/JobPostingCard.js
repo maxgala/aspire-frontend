@@ -6,6 +6,22 @@ import Grid from "@material-ui/core/Grid";
 // import Tooltip from "@material-ui/core/Tooltip";
 import Moment from "react-moment";
 
+import Button from "@material-ui/core/Button";
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Toolbar from "@material-ui/core/Toolbar";
+import close from "../../Images/close.png";
+
+import { Auth } from "aws-amplify";
+// import jwtDecode from "jwt-decode";
+import { httpGet } from "../../../lib/dataAccess";
+import MaterialTable from "material-table";
+import Save from "@material-ui/icons/SaveAlt";
+
 const useStyles = makeStyles(() => ({
   card: {
     width: "100%",
@@ -94,6 +110,37 @@ const useStyles = makeStyles(() => ({
     marginBottom: "8px",
     cursor: "pointer",
   },
+
+  button: {
+    fontSize: "10px",
+    "@media (max-width: 350px)": {
+      fontSize: "8px",
+      marginTop: "10px",
+      paddingLeft: "10px",
+      paddingRight: "10px",
+    },
+    position: "absolute",
+    fontWeight: "400",
+    borderRadius: 50,
+    backgroundColor: "white",
+    color: "#58595B",
+    display: "flex",
+    marginTop: "10px",
+    paddingLeft: "20px",
+    paddingRight: "20px",
+    paddingTop: "5px",
+    paddingBottom: "5px",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
+    },
+  },
+  toolbar: {
+    height: "8vh",
+    backgroundColor: "black",
+    boxShadow: "0px 0px 0px",
+    width: "100%",
+  },
 }));
 
 function withMyHook(Component) {
@@ -104,10 +151,69 @@ function withMyHook(Component) {
 }
 
 class JobPostingCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      submissions: [],
+      columns: [{ title: "Email", field: "applicant_id" }],
+    };
+  }
+
+  openApplication = async (event) => {
+    // const idTokeninfo = jwtDecode(
+    //   (await Auth.currentSession()).getIdToken().getJwtToken()
+    // );
+    const jobId = this.props.data.job_id;
+
+    const submissions = await httpGet(
+      "job-applications?jobId=" + jobId,
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
+
+    this.setState({
+      open: true,
+      submissions: submissions.data,
+    });
+    console.log(this.state.submissions);
+  };
+
+  handleClose = (event) => {
+    this.setState({
+      open: false,
+    });
+  };
+
+  // viewSubmissions = async () => {
+  //   const idTokeninfo = jwtDecode(
+  //     (await Auth.currentSession()).getIdToken().getJwtToken()
+  //   );
+  //   const jobId = this.props.data.job_id;
+
+  //   const submissions = await httpGet(
+  //     "job-applications?jobId=" + jobId,
+  //     (await Auth.currentSession()).getIdToken().getJwtToken()
+  //   );
+  // }
+
   render() {
     Moment.globalFormat = "MMM DD, YYYY";
     const classes = this.props.classes;
 
+    const actions = [
+      {
+        icon: () => <Save />,
+        tooltip: "Download Resume",
+        onClick: (event, rowData) => {
+          const link = document.createElement("a");
+          link.setAttribute("download", rowData.resumes);
+          link.href = rowData.resumes;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        },
+      },
+    ];
     return (
       <div className={classes.card}>
         <div className={classes.innerMargin}>
@@ -239,6 +345,233 @@ class JobPostingCard extends Component {
                 </Tooltip>
               </Grid>
             </Grid> */}
+            <Grid
+              container
+              item
+              xs={5}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <div className={classes.divStyle}>
+                <Button
+                  className={classes.button}
+                  onClick={this.openApplication}
+                  variant="contained"
+                  color="primary"
+                >
+                  View Submissions
+                </Button>
+              </div>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={10}
+              spacing={0}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              {this.props.data &&
+                this.props.data.job_tags &&
+                this.props.data.job_tags.map((tag, key) => (
+                  <Grid
+                    key={key}
+                    container
+                    item
+                    xs={4}
+                    sm={4}
+                    md={3}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <div className={classes.divStyle}>
+                      <span className={classes.tag1}>{tag}</span>
+                    </div>
+                  </Grid>
+                ))}
+            </Grid>
+            <Dialog
+              className={classes.translate}
+              open={this.state.open}
+              onClose={this.handleClose}
+              scroll={"paper"}
+              aria-labelledby="scroll-dialog-title"
+              aria-describedby="scroll-dialog-description"
+              fullWidth={true}
+              maxWidth={"md"}
+              PaperProps={{
+                style: { borderRadius: 12 },
+              }}
+            >
+              <Toolbar className={classes.toolbar}>
+                <div>
+                  <h2
+                    style={{ margin: "0px", marginTop: "10px", color: "white" }}
+                  >
+                    {this.props.data.title}
+                  </h2>
+                </div>
+                <img
+                  onClick={this.handleClose}
+                  className={classes.closes}
+                  style={{ width: "14px", height: "14px", cursor: "pointer" }}
+                  src={close}
+                  alt="Close button"
+                />
+              </Toolbar>
+
+              <DialogContent>
+                <DialogContentText
+                  id="scroll-dialog-description"
+                  component={"span"}
+                >
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                    style={{ marginBottom: "15px", marginTop: "10px" }}
+                  >
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={3}
+                      spacing={0}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <span className={classes.textpopup}>
+                        <span style={{ marginLeft: "5px" }}>
+                          <FontAwesomeIcon
+                            icon={faBuilding}
+                            style={{
+                              width: "15px",
+                              height: "15px",
+                              marginRight: "7px",
+                            }}
+                          />
+                        </span>
+                        {this.props.data && this.props.data.company}
+                      </span>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={3}
+                      spacing={0}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <span className={classes.textpopup2}>
+                        {this.props.data && this.props.data.city},
+                        {this.props.data && this.props.data.region}
+                      </span>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xs={12}
+                      sm={3}
+                      spacing={0}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <span className={classes.textpopup2}>
+                        {this.props.data &&
+                        this.props.data.job_type &&
+                        this.props.data.job_type === "REGULAR_JOB"
+                          ? "Regular Job"
+                          : "Board Position"}
+                      </span>
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <h2 className={classes.header}>Job Description:</h2>
+                    <h2 className={classes.descrip}>
+                      {this.props.data && this.props.data.description}
+                    </h2>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <h2 className={classes.header}>Job Requirements:</h2>
+                    <h2 className={classes.descrip}>
+                      {this.props.data && this.props.data.requirements}
+                    </h2>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <Grid
+                      container
+                      item
+                      xs={8}
+                      spacing={0}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      {this.props.data &&
+                        this.props.data.job_tags &&
+                        this.props.data.job_tags.map((tag, key) => (
+                          <span key={key} className={classes.tagpopup}>
+                            {tag}
+                          </span>
+                        ))}
+                    </Grid>
+                    <MaterialTable
+                      title="Job Applications"
+                      actions={actions}
+                      columns={this.state.columns}
+                      // icons={tableIcons}
+                      data={this.state.submissions}
+                      options={{
+                        paging: true,
+                        pageSize: 15,
+                        emptyRowsWhenPaging: true,
+                        pageSizeOptions: [5, 10, 15, 30, 50],
+                        exportButton: true,
+                        exportTrue: true,
+                        search: false,
+                        actionsColumnIndex: -1,
+                      }}
+                    />
+                    <Grid
+                      container
+                      item
+                      xs={4}
+                      spacing={0}
+                      alignItems="flex-end"
+                      justify="flex-end"
+                    ></Grid>
+                  </Grid>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions />
+            </Dialog>
           </Grid>
         </div>
       </div>
