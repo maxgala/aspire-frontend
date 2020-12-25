@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-// import VisibilityIcon from "@material-ui/icons/Visibility";
-// import EditIcon from "@material-ui/icons/Edit";
-// import Tooltip from "@material-ui/core/Tooltip";
 import Moment from "react-moment";
 
 import Button from "@material-ui/core/Button";
@@ -17,7 +14,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 
 import { Auth } from "aws-amplify";
-// import jwtDecode from "jwt-decode";
 import { httpGet } from "../../../lib/dataAccess";
 import MaterialTable from "material-table";
 import Save from "@material-ui/icons/SaveAlt";
@@ -141,6 +137,58 @@ const useStyles = makeStyles(() => ({
     boxShadow: "0px 0px 0px",
     width: "100%",
   },
+  textpopup: {
+    fontSize: "15px",
+    marginTop: "6px",
+    fontWeight: "100",
+    marginRight: "16%",
+  },
+  textpopup2: {
+    fontSize: "15px",
+    marginLeft: "4%",
+    marginRight: "16%",
+    marginTop: "6px",
+    fontWeight: "100",
+  },
+  header: {
+    textAlign: "left",
+    marginLeft: "20px",
+    fontWeight: "100",
+    fontSize: "18px",
+    "@media (max-width: 480px)": {
+      marginLeft: "0px",
+    },
+  },
+  descrip: {
+    textAlign: "left",
+    marginLeft: "20px",
+    marginRight: "0px",
+    fontWeight: "100",
+    fontSize: "15px",
+    "@media (max-width: 480px)": {
+      fontSize: "12px",
+      marginLeft: "0px",
+    },
+  },
+  tagpopup: {
+    float: "left",
+    borderStyle: "solid",
+    fontSize: "12px",
+    fontWeight: "100",
+    color: "black",
+    borderWidth: "0.5px",
+    borderRadius: 50,
+    marginLeft: "4%",
+    marginTop: "1%",
+    borderColor: "black",
+    display: "flex",
+    paddingLeft: "3%",
+    paddingRight: "3%",
+  },
+  closes: {
+    position: "absolute",
+    right: "5%",
+  },
 }));
 
 function withMyHook(Component) {
@@ -161,9 +209,6 @@ class JobPostingCard extends Component {
   }
 
   openApplication = async (event) => {
-    // const idTokeninfo = jwtDecode(
-    //   (await Auth.currentSession()).getIdToken().getJwtToken()
-    // );
     const jobId = this.props.data.job_id;
 
     const submissions = await httpGet(
@@ -183,18 +228,6 @@ class JobPostingCard extends Component {
       open: false,
     });
   };
-
-  // viewSubmissions = async () => {
-  //   const idTokeninfo = jwtDecode(
-  //     (await Auth.currentSession()).getIdToken().getJwtToken()
-  //   );
-  //   const jobId = this.props.data.job_id;
-
-  //   const submissions = await httpGet(
-  //     "job-applications?jobId=" + jobId,
-  //     (await Auth.currentSession()).getIdToken().getJwtToken()
-  //   );
-  // }
 
   render() {
     Moment.globalFormat = "MMM DD, YYYY";
@@ -295,56 +328,6 @@ class JobPostingCard extends Component {
                 </p>
               </Grid>
             </Grid>
-
-            {/* <Grid
-              container
-              item
-              xs={2}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
-              >
-                <Tooltip title="Edit" arrow>
-                  <EditIcon
-                    style={{ color: "white", cursor: "pointer" }}
-                    fontSize="large"
-                  />
-                </Tooltip>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              item
-              xs={2}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Tooltip title="View" arrow>
-                  <VisibilityIcon
-                    style={{ color: "white", cursor: "pointer" }}
-                    fontSize="large"
-                  />
-                </Tooltip>
-              </Grid>
-            </Grid> */}
             <Grid
               container
               item
