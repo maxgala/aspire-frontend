@@ -59,11 +59,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "30px",
     textAlign: "right",
     marginLeft: "200px",
-    "@media (max-width: 580px)": {
-      marginLeft: "150px",
+    "@media (max-width: 1270px)": {
+      marginLeft: "140px",
     },
-    "@media (max-width: 480px)": {
-      marginLeft: "150px",
+    "@media (max-width: 600px)": {
+      marginLeft: "50%",
     },
     "@media (max-width: 420px)": {
       marginLeft: "50px",
