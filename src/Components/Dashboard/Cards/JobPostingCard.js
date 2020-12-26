@@ -4,8 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import Moment from "react-moment";
 
 import Button from "@material-ui/core/Button";
-import { faBuilding } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
@@ -17,6 +15,46 @@ import { Auth } from "aws-amplify";
 import { httpGet } from "../../../lib/dataAccess";
 import MaterialTable from "material-table";
 import Save from "@material-ui/icons/SaveAlt";
+
+import { forwardRef } from "react";
+import Check from "@material-ui/icons/Check";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import Clear from "@material-ui/icons/Clear";
+import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import Edit from "@material-ui/icons/Edit";
+import FilterList from "@material-ui/icons/FilterList";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
+import Remove from "@material-ui/icons/Remove";
+import SaveAlt from "@material-ui/icons/SaveAlt";
+import Search from "@material-ui/icons/Search";
+import ViewColumn from "@material-ui/icons/ViewColumn";
+import { AddBox, ArrowUpward } from "@material-ui/icons";
+
+const tableIcons = {
+  Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
+  DetailPanel: forwardRef((props, ref) => (
+    <ChevronRight {...props} ref={ref} />
+  )),
+  Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
+  Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
+  Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
+  FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
+  LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
+  NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
+  PreviousPage: forwardRef((props, ref) => (
+    <ChevronLeft {...props} ref={ref} />
+  )),
+  ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+  Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
+  ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+};
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -204,7 +242,12 @@ class JobPostingCard extends Component {
     this.state = {
       open: false,
       submissions: [],
-      columns: [{ title: "Email", field: "applicant_id" }],
+      columns: [
+        {
+          title: "Email",
+          field: "applicant_id",
+        },
+      ],
     };
   }
 
@@ -220,7 +263,6 @@ class JobPostingCard extends Component {
       open: true,
       submissions: submissions.data,
     });
-    console.log(this.state.submissions);
   };
 
   handleClose = (event) => {
@@ -417,124 +459,19 @@ class JobPostingCard extends Component {
                     xs={12}
                     spacing={0}
                     alignItems="flex-start"
-                    justify="flex-start"
-                    style={{ marginBottom: "15px", marginTop: "10px" }}
+                    justify="center"
+                    // style={{ marginBottom: "15px", marginTop: "10px", marginLeft:"25%" }}
                   >
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sm={3}
-                      spacing={0}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <span className={classes.textpopup}>
-                        <span style={{ marginLeft: "5px" }}>
-                          <FontAwesomeIcon
-                            icon={faBuilding}
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                              marginRight: "7px",
-                            }}
-                          />
-                        </span>
-                        {this.props.data && this.props.data.company}
-                      </span>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sm={3}
-                      spacing={0}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <span className={classes.textpopup2}>
-                        {this.props.data && this.props.data.city},
-                        {this.props.data && this.props.data.region}
-                      </span>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={12}
-                      sm={3}
-                      spacing={0}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      <span className={classes.textpopup2}>
-                        {this.props.data &&
-                        this.props.data.job_type &&
-                        this.props.data.job_type === "REGULAR_JOB"
-                          ? "Regular Job"
-                          : "Board Position"}
-                      </span>
-                    </Grid>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={0}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <h2 className={classes.header}>Job Description:</h2>
-                    <h2 className={classes.descrip}>
-                      {this.props.data && this.props.data.description}
-                    </h2>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={0}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <h2 className={classes.header}>Job Requirements:</h2>
-                    <h2 className={classes.descrip}>
-                      {this.props.data && this.props.data.requirements}
-                    </h2>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={0}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <Grid
-                      container
-                      item
-                      xs={8}
-                      spacing={0}
-                      alignItems="flex-start"
-                      justify="flex-start"
-                    >
-                      {this.props.data &&
-                        this.props.data.job_tags &&
-                        this.props.data.job_tags.map((tag, key) => (
-                          <span key={key} className={classes.tagpopup}>
-                            {tag}
-                          </span>
-                        ))}
-                    </Grid>
                     <MaterialTable
                       title="Job Applications"
                       actions={actions}
                       columns={this.state.columns}
-                      // icons={tableIcons}
+                      icons={tableIcons}
                       data={this.state.submissions}
                       options={{
                         paging: true,
                         pageSize: 15,
-                        emptyRowsWhenPaging: true,
+                        emptyRowsWhenPaging: false,
                         pageSizeOptions: [5, 10, 15, 30, 50],
                         exportButton: true,
                         exportTrue: true,
@@ -542,14 +479,6 @@ class JobPostingCard extends Component {
                         actionsColumnIndex: -1,
                       }}
                     />
-                    <Grid
-                      container
-                      item
-                      xs={4}
-                      spacing={0}
-                      alignItems="flex-end"
-                      justify="flex-end"
-                    ></Grid>
                   </Grid>
                 </DialogContentText>
               </DialogContent>

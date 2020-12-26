@@ -133,19 +133,6 @@ class JobBoard extends Component {
     });
   };
 
-  //   fetchJobs = async () => {
-  //     const existingJobsData = await httpGet(
-  //       "jobs",
-  //       (await Auth.currentSession()).getIdToken().getJwtToken()
-  //     );
-  //     if (existingJobsData.data.jobs !== undefined) {
-  //       this.setState({
-  //         jobs: existingJobsData.data.jobs,
-  //         isJobAppsLoaded: true,
-  //       });
-  //     }
-  //   };
-
   fetchPostings = async () => {
     const idTokeninfo = jwtDecode(
       (await Auth.currentSession()).getIdToken().getJwtToken()
@@ -161,18 +148,6 @@ class JobBoard extends Component {
         isJobAppsLoaded: true,
       });
     }
-
-    console.log(jobsData);
-    // const cutOff = this.props.isSeniorExec ? 5 : 3;
-    // if (jobsData.data.jobs !== undefined) {
-    //   this.setState({
-    //     isJobpostsLoaded: true,
-    //     job_postings:
-    //       jobsData.data.jobs.length > cutOff
-    //         ? jobsData.data.jobs.slice(0, cutOff)
-    //         : jobsData.data.jobs,
-    //   });
-    // }
   };
 
   componentDidMount() {
