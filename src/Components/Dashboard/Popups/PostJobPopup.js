@@ -258,7 +258,10 @@ class PostJobPopup extends Component {
         .toString()
         .slice(0, this.state.max_characters);
     } else if (id === "salary") {
-      jobsDataObj.salary = event.target.value;
+      const re = /^[0-9\b]+$/;
+      if (event.target.value === "" || re.test(event.target.value)) {
+        jobsDataObj.salary = event.target.value;
+      }
     } else if (id === "city") {
       jobsDataObj.city = event.target.value;
     } else if (id === "region") {
@@ -488,6 +491,7 @@ class PostJobPopup extends Component {
                 <div className={classes.radioMarginSecond}>
                   <TextField
                     label="Salary (optional)"
+                    value={this.state.jobsData.salary}
                     fullWidth
                     className={classes.textbox}
                     InputProps={{
