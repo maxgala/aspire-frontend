@@ -28,13 +28,13 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Hidden } from "@material-ui/core";
 import { Auth } from "aws-amplify";
-
 import CoffeeChats from "./CoffeeChats";
 import JobBoard from "./Jobs";
 import ResumeBank from "./ResumeBank";
 import Community from "./Community";
 import Submissions from "./Submissions";
 import { Routes } from "../../entry/routes/Routes";
+import jwtDecode from "jwt-decode";
 
 const drawerWidth = 300;
 
@@ -239,6 +239,7 @@ class Dashboard extends Component {
       jobsAnchorEl: null,
       communityAnchorEl: null,
       signoutAnchorEl: null,
+      user_type: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
     };
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -459,9 +460,11 @@ class Dashboard extends Component {
               <MenuItem key={"community"} onClick={this.changeToCommunity}>
                 Show Members
               </MenuItem>
-              <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>
-                Resume Bank
-              </MenuItem>
+              {this.state.user_type === "MENTOR" ? (
+                <MenuItem key={"resume_bank"} onClick={this.changeToResumeBank}>
+                  Resume Bank
+                </MenuItem>
+              ) : null}
             </Menu>
             <Button
               variant="outlined"

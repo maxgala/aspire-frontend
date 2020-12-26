@@ -190,8 +190,28 @@ class PostJobPopup extends Component {
 
   submitJob = async () => {
     // check that all the required fields are set / properly set
+    if (this.state.jobsData.description.length > this.state.max_characters) {
+      this.props.enqueueSnackbar(
+        "The job description exceeds the character limit of 2000 characters.",
+        {
+          variant: "warning",
+        }
+      );
+      return;
+    }
+    if (this.state.jobsData.requirements.length > this.state.max_characters) {
+      this.props.enqueueSnackbar(
+        "The job requirements exceeds the character limit of 2000 characters.",
+        {
+          variant: "warning",
+        }
+      );
+      return;
+    }
     if (this.state.jobsData.job_tags.length > 3) {
-      alert("There are more than 3 job tags selected.");
+      this.props.enqueueSnackbar("There are more than 3 job tags selected.", {
+        variant: "warning",
+      });
       return;
     }
     if (
@@ -250,15 +270,14 @@ class PostJobPopup extends Component {
     var jobsDataObj = { ...this.state.jobsData };
 
     if (id === "requirements") {
-      jobsDataObj.requirements = event.target.value
-        .toString()
-        .slice(0, this.state.max_characters);
+      jobsDataObj.requirements = event.target.value;
     } else if (id === "description") {
-      jobsDataObj.description = event.target.value
-        .toString()
-        .slice(0, this.state.max_characters);
+      jobsDataObj.description = event.target.value;
     } else if (id === "salary") {
-      jobsDataObj.salary = event.target.value;
+      const re = /^[0-9\b]+$/;
+      if (event.target.value === "" || re.test(event.target.value)) {
+        jobsDataObj.salary = event.target.value;
+      }
     } else if (id === "city") {
       jobsDataObj.city = event.target.value;
     } else if (id === "region") {
@@ -488,6 +507,7 @@ class PostJobPopup extends Component {
                 <div className={classes.radioMarginSecond}>
                   <TextField
                     label="Salary (optional)"
+                    value={this.state.jobsData.salary}
                     fullWidth
                     className={classes.textbox}
                     InputProps={{
@@ -617,7 +637,6 @@ class PostJobPopup extends Component {
                   variant="outlined"
                   fullWidth
                   InputProps={{
-                    // maxLength: this.state.max_characters,
                     classes: {
                       root: classes.cssOutlinedInput,
                       focused: classes.cssFocused,
@@ -625,8 +644,7 @@ class PostJobPopup extends Component {
                     },
                   }}
                   value={this.state.jobsData.description}
-                  // helperText={`${this.state.jobsData.description.length}/${this.state.max_characters} Characters`}
-                  helperText={`${this.state.max_characters} Max Characters`}
+                  helperText={`${this.state.jobsData.description.length}/${this.state.max_characters} Characters`}
                   className={classes.textField}
                   onChange={this.handleFormDataChange("description")}
                 />
@@ -655,7 +673,6 @@ class PostJobPopup extends Component {
                   variant="outlined"
                   fullWidth
                   InputProps={{
-                    // maxLength: this.state.max_characters,
                     classes: {
                       root: classes.cssOutlinedInput,
                       focused: classes.cssFocused,
@@ -663,8 +680,7 @@ class PostJobPopup extends Component {
                     },
                   }}
                   value={this.state.jobsData.requirement}
-                  // helperText={`${jobsData.requirements.length}/${maxCharacters} Characters`}
-                  helperText={`${this.state.max_characters} Max Characters`}
+                  helperText={`${this.state.jobsData.requirements.length}/${this.state.max_characters} Characters`}
                   className={classes.textField}
                   onChange={this.handleFormDataChange("requirements")}
                 />

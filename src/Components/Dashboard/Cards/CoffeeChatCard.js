@@ -572,7 +572,7 @@ class CoffeeChatCard extends Component {
                         variant="contained"
                         color="primary"
                       >
-                        View Booking
+                        Book Now
                       </Button>
                     ) : (
                       <h3 className={classes.reservedText}>
