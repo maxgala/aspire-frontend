@@ -460,25 +460,28 @@ class JobPostingCard extends Component {
                     spacing={0}
                     alignItems="flex-start"
                     justify="center"
-                    // style={{ marginBottom: "15px", marginTop: "10px", marginLeft:"25%" }}
+                  // style={{ marginBottom: "15px", marginTop: "10px", marginLeft:"25%" }}
                   >
-                    <MaterialTable
-                      title="Job Applications"
-                      actions={actions}
-                      columns={this.state.columns}
-                      icons={tableIcons}
-                      data={this.state.submissions}
-                      options={{
-                        paging: true,
-                        pageSize: 15,
-                        emptyRowsWhenPaging: false,
-                        pageSizeOptions: [5, 10, 15, 30, 50],
-                        exportButton: true,
-                        exportTrue: true,
-                        search: false,
-                        actionsColumnIndex: -1,
-                      }}
-                    />
+
+                    <div style={{ width: "100%" }}>
+                      <MaterialTable
+                        title="Job Applications"
+                        actions={actions}
+                        columns={this.state.columns}
+                        icons={tableIcons}
+                        data={this.state.submissions}
+                        options={{
+                          paging: true,
+                          pageSize: 15,
+                          emptyRowsWhenPaging: false,
+                          pageSizeOptions: [5, 10, 15, 30, 50],
+                          exportButton: true,
+                          exportTrue: true,
+                          search: false,
+                          actionsColumnIndex: -1,
+                        }}
+                      />
+                    </div>
                   </Grid>
                 </DialogContentText>
               </DialogContent>
