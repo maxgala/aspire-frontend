@@ -460,9 +460,7 @@ class JobPostingCard extends Component {
                     spacing={0}
                     alignItems="flex-start"
                     justify="center"
-                  // style={{ marginBottom: "15px", marginTop: "10px", marginLeft:"25%" }}
                   >
-
                     <div style={{ width: "100%" }}>
                       <MaterialTable
                         title="Job Applications"

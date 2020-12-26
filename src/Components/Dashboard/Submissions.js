@@ -176,7 +176,7 @@ class JobBoard extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <h1 className={classes.JobBoard}>Job Board</h1>
+              <h1 className={classes.JobBoard}>View Job Submissions</h1>
             </Grid>
             {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
             "FREE" ? (
