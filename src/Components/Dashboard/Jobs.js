@@ -58,10 +58,35 @@ const useStyles = makeStyles((theme) => ({
   addJobButton: {
     marginTop: "30px",
     textAlign: "right",
+    marginLeft: "200px",
+    "@media (max-width: 1270px)": {
+      marginLeft: "140px",
+    },
+    "@media (max-width: 600px)": {
+      marginLeft: "50%",
+    },
+    "@media (max-width: 420px)": {
+      marginLeft: "50px",
+    },
+  },
+
+  PostJobText: {
+    fontSize: "14px",
+    textAlign: "left",
+    "@media (max-width: 730px)": {
+      fontSize: "9px",
+    },
+    "@media (max-width: 420px)": {
+      display: "none",
+    },
+
   },
 
   extendedIcon: {
     marginRight: theme.spacing(1),
+    "@media (max-width: 420px)": {
+      marginRight: "0px",
+    },
   },
 
   padding: {
@@ -167,7 +192,9 @@ class JobBoard extends Component {
             <Grid
               container
               item
-              xs={9}
+              xs={8}
+              sm={6}
+              md={8}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -175,22 +202,24 @@ class JobBoard extends Component {
               <h1 className={classes.JobBoard}>Job Board</h1>
             </Grid>
             {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
-            "FREE" ? (
-              <Grid
-                container
-                item
-                xs={3}
-                spacing={1}
-                alignItems="flex-end"
-                justify="flex-end"
-                className={classes.addJobButton}
-              >
-                <Fab variant="extended" onClick={this.postJob}>
-                  <AddIcon className={classes.extendedIcon} />
-                  Post Job
-                </Fab>
-              </Grid>
-            ) : null}
+              "FREE" ? (
+                <Grid
+                  container
+                  item
+                  xs={4}
+                  sm={6}
+                  md={4}
+                  spacing={1}
+                  alignItems="center"
+                  justify="flex-start"
+
+                >
+                  <Fab className={classes.addJobButton} variant="extended" onClick={this.postJob}>
+                    <AddIcon className={classes.extendedIcon} />
+                    <span className={classes.PostJobText}>Post Job</span>
+                  </Fab>
+                </Grid>
+              ) : null}
             <PostJobPopup
               openPostJob={this.state.openPostJob}
               handlePostJobClose={this.handlePostJobClose}
@@ -375,29 +404,29 @@ class JobBoard extends Component {
                   </Grid>
                 ))
               ) : (
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <EmptyCard type={CardTypes.jobApplication} />
+                  </Grid>
+                )
+            ) : (
                 <Grid
                   container
                   item
                   xs={12}
                   spacing={1}
-                  alignItems="center"
-                  justify="center"
+                  alignItems="flex-start"
+                  justify="flex-start"
                 >
-                  <EmptyCard type={CardTypes.jobApplication} />
+                  <Skeleton variant="rect" className={classes.cardAppLoader} />
                 </Grid>
-              )
-            ) : (
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Skeleton variant="rect" className={classes.cardAppLoader} />
-              </Grid>
-            )}
+              )}
           </Grid>
         </div>
         {/* </PerfectScrollbar> */}
