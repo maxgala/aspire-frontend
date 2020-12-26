@@ -576,8 +576,8 @@ class PostJobPopup extends Component {
                 item
                 xs={6}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <div className={classes.radioButton}>
                   <FormControlLabel
