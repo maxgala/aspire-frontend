@@ -114,7 +114,6 @@ class MembershipCard extends Component {
           <div>
 
             {membImg}
-            {/* <img className={classes.image} src={Membership} alt="Membership" /> */}
             <h2 className={classes.membership_type_text}>
               {this.props.membership_type_text}
             </h2>
