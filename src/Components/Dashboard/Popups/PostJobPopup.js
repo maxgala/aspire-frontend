@@ -164,6 +164,7 @@ class PostJobPopup extends Component {
         job_tags: [],
         salary: 0,
         deadline: 0,
+        deadline_string: "",
         can_contact: false,
       },
     };
@@ -295,6 +296,11 @@ class PostJobPopup extends Component {
       this.setState({
         checkedBox: event.target.checked,
       });
+    } else if (id === "expiration_date") {
+      jobsDataObj.deadline = parseInt(
+        (new Date(event.target.value).getTime() / 1000).toFixed(0)
+      );
+      jobsDataObj.deadline_string = event.target.value;
     }
 
     this.setState({
@@ -526,6 +532,42 @@ class PostJobPopup extends Component {
               xs={12}
               sm={6}
               spacing={1}
+              alignItems="flex-start"
+              justify="flex-start"
+            >
+              <Grid
+                container
+                item
+                xs={11}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <TextField
+                  className={classes.textbox}
+                  style={{ marginTop: "20px", marginLeft: "30px" }}
+                  InputProps={{
+                    inputProps: { min: "1900-01-01", max: "3000-12-30" },
+                  }}
+                  id="date"
+                  label="Expiration Date (optional)"
+                  type="date"
+                  format="MM/dd/yyyy"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  fullWidth
+                  value={this.state.jobsData.deadline_string}
+                  onChange={this.handleFormDataChange("expiration_date")}
+                />
+              </Grid>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={12}
+              sm={6}
+              spacing={1}
               alignItems="flex-end"
               justify="flex-end"
             >
@@ -534,8 +576,8 @@ class PostJobPopup extends Component {
                 item
                 xs={6}
                 spacing={1}
-                alignItems="center"
-                justify="center"
+                alignItems="flex-start"
+                justify="flex-start"
               >
                 <div className={classes.radioButton}>
                   <FormControlLabel
