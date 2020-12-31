@@ -4,13 +4,10 @@ import SeniorExec from "./SeniorExec.js";
 import { makeStyles } from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
 
-// import SmallSeniorExecImgHover from "../Images/senior/Latafat_Faran2.jpg";
 import uzma_picture from "../Images/senior/Jalaluddin_Uzma.jpg";
 import cheick_picture from "../Images/senior/Diop_Cheikh.jpeg";
 import salman_picture from "../Images/senior/Salman_Zahid (1).jpg";
 import ali_picture from "../Images/senior/Ali_Ammar.jpg";
-// import abdulgaffor_picture from "../Images/senior/Abdul Gaffor_ Thouheed.jpeg";
-// import Three from "../Images/senior/Hadibhai_Aly.jpg";
 import mohammed_picture from "../Images/senior/Chahdi_Mohammed.jpg";
 import aaron_picture from "../Images/senior/Emes_Aaron.png";
 import drhind_picture from "../Images/senior/Al-Abadleh_Dr. Hind (1).jpg";
