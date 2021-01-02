@@ -35,6 +35,7 @@ jobs:
           echo "REACT_APP_ENV=$REACT_APP_ENV" >> .env
           echo "REACT_APP_S3_BUCKET_NAME=$REACT_APP_S3_BUCKET_NAME" >> .env
           echo "REACT_APP_SES_REGION=$REACT_APP_SES_REGION" >> .env
+          cat .env
       - name: Clean
         run: rm -rf build
       - name: Install
