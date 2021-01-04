@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Membership from "../Images/membership.jpg";
 import freeMembership from "../Images/free-membership.jpg";
 import premiumMembership from "../Images/premium-membership.jpg";
 import platinumMembership from "../Images/platinum-membership.jpg";
