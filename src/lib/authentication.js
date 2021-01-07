@@ -10,8 +10,8 @@ export const authenticate = (username, password) => {
     authenticationData
   );
   var poolData = {
-    UserPoolId: config.REACT_APP_USER_POOL_ID,
-    ClientId: config.REACT_APP_CLIENT_ID,
+    UserPoolId: config.REACT_APP_COGNITO_USER_POOL_ID,
+    ClientId: config.REACT_APP_COGNITO_APP_CLIENT_ID,
   };
   var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   var userData = {

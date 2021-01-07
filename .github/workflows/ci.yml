@@ -33,6 +33,7 @@ jobs:
           echo "REACT_APP_SES_ACCESS_KEY_ID=$REACT_APP_SES_ACCESS_KEY_ID" >> .env
           echo "REACT_APP_AWS_SES_SECRET_ACCESS_KEY=$REACT_APP_AWS_SES_SECRET_ACCESS_KEY" >> .env
           echo "REACT_APP_SES_REGION=$REACT_APP_SES_REGION" >> .env
+          export NODE_OPTIONS="--max_old_space_size=4096"
       - name: Clean
         run: rm -rf build
       - name: Install

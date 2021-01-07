@@ -17,8 +17,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import AWS from "aws-sdk";
 
 AWS.config.update({
-  accessKeyId: process.env.REACT_APP_SES_ACCESS_KEY_ID,
-  secretAccessKey: process.env.REACT_APP_AWS_SES_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
   region: process.env.REACT_APP_SES_REGION,
 });
 
