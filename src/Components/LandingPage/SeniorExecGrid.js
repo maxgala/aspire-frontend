@@ -17,15 +17,25 @@ import amir_picture from "../Images/senior/Hameed_Amir.jpg";
 import pouneh_picture from "../Images/senior/Hanafi_Pouneh.jpeg";
 import farhan_picture from "../Images/senior/Hamidani_Farhan.jpeg";
 import ghaleb_picture from "../Images/senior/El Masri_Ghaleb.png";
-import { Hidden } from "@material-ui/core";
+// TODO: display more than one senior exec on larger screens
+// import { Hidden } from "@material-ui/core";
 
 import left from "../Images/arrow_left.png";
 import right from "../Images/arrow_right.png";
 import { Swipeable } from "react-swipeable";
-// TODO: move off emotion. The previous carousal was implemented with this so leaving for now.
-import { css } from "emotion";
 
 const useStyles = makeStyles(() => ({
+  rightArrow: {
+    cursor: "pointer",
+    position: "absolute",
+    align: "left",
+    "@media (max-width: 660px)": { display: "None" },
+  },
+  leftArrow: {
+    cursor: "pointer",
+    position: "absolute",
+    "@media (max-width: 660px)": { display: "None" },
+  },
   background_lg: {
     backgroundColor: "white",
   },
@@ -126,7 +136,7 @@ let images = [
  * Deprecated: using a carousal to show images now
  * May come back to this in the future
  */
-function shuffledImages() {
+/*function shuffledImages() {
   let shuffledImages = [];
   while (shuffledImages.length < 4) {
     let num = Math.floor(Math.random() * (images.length - 1));
@@ -139,7 +149,7 @@ function shuffledImages() {
     execImages.push(images[i]);
   }
   return execImages;
-}
+}*/
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -155,21 +165,35 @@ class SeniorExecGrid extends Component {
       isHover: false,
       phone: "",
       desktop: "None",
-      displayImages: images[0],
+      current: images[0],
       active: 0,
-      numImages: images.length,
+      numImages: 13,
     };
   }
 
+  timer() {
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   HandleRightArrowClick = (event) => {
-    if (this.state.active < 6) {
+    if (this.state.active < 12) {
       this.setState({
         current: images[parseInt(this.state.active) + 1],
         active: parseInt(this.state.active) + 1,
       });
-    } else if (this.state.active === 6) {
+    } else if (this.state.active === 12) {
       this.setState({ current: images[0], active: 0 });
     }
+    this.timer();
   };
 
   HandleLeftArrowClick = (event) => {
@@ -184,6 +208,15 @@ class SeniorExecGrid extends Component {
         active: this.state.numImages - 1,
       });
     }
+    this.timer();
+  };
+
+  HandleSetClick = (event) => {
+    this.setState({
+      active: event.target.getAttribute("data-image"),
+      current: images[event.target.getAttribute("data-image")],
+    });
+    this.timer();
   };
 
   render() {
@@ -237,10 +270,10 @@ class SeniorExecGrid extends Component {
                   justify="center"
                 >
                   <SeniorExec
-                    name_text={this.state.displayImages.name}
-                    extra_text={this.state.displayImages.title}
-                    image={this.state.displayImages.photo}
-                    hover_image={this.state.displayImages.photo}
+                    name_text={this.state.current.name}
+                    extra_text={this.state.current.title}
+                    image={this.state.current.photo}
+                    hover_image={this.state.current.photo}
                   />
                 </Grid>
 
