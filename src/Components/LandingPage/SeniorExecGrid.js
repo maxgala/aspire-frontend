@@ -19,6 +19,12 @@ import farhan_picture from "../Images/senior/Hamidani_Farhan.jpeg";
 import ghaleb_picture from "../Images/senior/El Masri_Ghaleb.png";
 import { Hidden } from "@material-ui/core";
 
+import left from "../Images/arrow_left.png";
+import right from "../Images/arrow_right.png";
+import { Swipeable } from "react-swipeable";
+// TODO: move off emotion. The previous carousal was implemented with this so leaving for now.
+import { css } from "emotion";
+
 const useStyles = makeStyles(() => ({
   background_lg: {
     backgroundColor: "white",
@@ -116,6 +122,10 @@ let images = [
   },
 ];
 
+/*
+ * Deprecated: using a carousal to show images now
+ * May come back to this in the future
+ */
 function shuffledImages() {
   let shuffledImages = [];
   while (shuffledImages.length < 4) {
@@ -145,107 +155,161 @@ class SeniorExecGrid extends Component {
       isHover: false,
       phone: "",
       desktop: "None",
-      displayImages: images,
+      displayImages: images[0],
+      active: 0,
+      numImages: images.length,
     };
-    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      displayImages: shuffledImages(),
-    });
-  }
+  HandleRightArrowClick = (event) => {
+    if (this.state.active < 6) {
+      this.setState({
+        current: images[parseInt(this.state.active) + 1],
+        active: parseInt(this.state.active) + 1,
+      });
+    } else if (this.state.active === 6) {
+      this.setState({ current: images[0], active: 0 });
+    }
+  };
 
-  forceUpdateHandler() {
-    this.forceUpdate();
-  }
+  HandleLeftArrowClick = (event) => {
+    if (this.state.active > 0) {
+      this.setState({
+        current: images[this.state.active - 1],
+        active: this.state.active - 1,
+      });
+    } else if (this.state.active === 0) {
+      this.setState({
+        current: images[this.state.numImages - 1],
+        active: this.state.numImages - 1,
+      });
+    }
+  };
 
   render() {
     const classes = this.props.classes;
     return (
-      <div className={classes.seniorexec}>
-        <div className={classes.background_lg}>
-          <Grid
-            container
-            spacing={2}
-            alignItems="center"
-            justify="center"
-            className={classes.grid}
-            id="seniors"
-          >
+      <Swipeable
+        onSwipedRight={this.HandleLeftArrowClick}
+        onSwipedLeft={this.HandleRightArrowClick}
+      >
+        <div className={classes.seniorexec}>
+          <div className={classes.background_lg}>
             <Grid
               container
-              item
-              xs={12}
-              spacing={4}
+              spacing={2}
               alignItems="center"
               justify="center"
+              className={classes.grid}
+              id="seniors"
             >
               <Grid
                 container
                 item
                 xs={12}
-                sm={9}
-                md={6}
-                lg={4}
+                spacing={4}
                 alignItems="center"
                 justify="center"
               >
-                <SeniorExec
-                  name_text={this.state.displayImages[0].name}
-                  extra_text={this.state.displayImages[0].title}
-                  image={this.state.displayImages[0].photo}
-                  hover_image={this.state.displayImages[0].photo}
-                />
+                <Grid
+                  container
+                  item
+                  xs={1}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <img
+                    className={classes.leftArrow}
+                    src={left}
+                    onClick={this.HandleLeftArrowClick}
+                    alt={"Testimonial Left Arrow"}
+                  />
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={10}
+                  sm={9}
+                  md={6}
+                  lg={4}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <SeniorExec
+                    name_text={this.state.displayImages.name}
+                    extra_text={this.state.displayImages.title}
+                    image={this.state.displayImages.photo}
+                    hover_image={this.state.displayImages.photo}
+                  />
+                </Grid>
+
+                {/*
+                <Hidden smDown>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={9}
+                    md={6}
+                    lg={4}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <SeniorExec
+                      name_text={this.state.displayImages.name}
+                      extra_text={this.state.displayImages.title}
+                      id="theimage"
+                      image={this.state.displayImages.photo}
+                      hover_image={this.state.displayImages.photo}
+                    />
+                  </Grid>
+                </Hidden>
+
+                <Hidden mdDown>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={9}
+                    md={6}
+                    lg={4}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <SeniorExec
+                      name_text={this.state.displayImages.name}
+                      extra_text={this.state.displayImages.title}
+                      id="theimage"
+                      image={this.state.displayImages.photo}
+                      hover_image={this.state.displayImages.photo}
+                    />
+                  </Grid>
+                </Hidden>
+                */}
+                <Grid
+                  container
+                  item
+                  xs={1}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                  className={classes.testimonialSmall}
+                >
+                  <img
+                    className={classes.rightArrow}
+                    src={right}
+                    onClick={this.HandleRightArrowClick}
+                    alt={"Testimonial Right Arrow"}
+                  />
+                </Grid>
+
+                <SeniorExecText appContext={this.props.appContext} />
               </Grid>
-
-              <Hidden smDown>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  sm={9}
-                  md={6}
-                  lg={4}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <SeniorExec
-                    name_text={this.state.displayImages[1].name}
-                    extra_text={this.state.displayImages[1].title}
-                    id="theimage"
-                    image={this.state.displayImages[1].photo}
-                    hover_image={this.state.displayImages[1].photo}
-                  />
-                </Grid>
-              </Hidden>
-
-              <Hidden mdDown>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  sm={9}
-                  md={6}
-                  lg={4}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <SeniorExec
-                    name_text={this.state.displayImages[2].name}
-                    extra_text={this.state.displayImages[2].title}
-                    id="theimage"
-                    image={this.state.displayImages[2].photo}
-                    hover_image={this.state.displayImages[2].photo}
-                  />
-                </Grid>
-              </Hidden>
-
-              <SeniorExecText appContext={this.props.appContext} />
             </Grid>
-          </Grid>
+          </div>
         </div>
-      </div>
+      </Swipeable>
     );
   }
 }
