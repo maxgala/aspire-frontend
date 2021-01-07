@@ -23,7 +23,7 @@ jobs:
           aws-region: us-east-1
       - name: Setup
         env:
-          REACT_APP_AWS_SECRET_ACCESS_KEY: ${{secrets.REACT_APP_AWS_SECRET_ACCESS_KEY.SSH_KEY}}
+          REACT_APP_AWS_SECRET_ACCESS_KEY: ${{secrets.REACT_APP_AWS_SECRET_ACCESS_KEY}}
           REACT_APP_ACCESS_KEY_ID: ${{secrets.REACT_APP_ACCESS_KEY_ID}}
           REACT_APP_MAILCHIMP_URL: ${{secrets.REACT_APP_MAILCHIMP_URL}}
           REACT_APP_STRIPE_SECRET_KEY: ${{secrets.REACT_APP_STRIPE_SECRET_KEY}}
