@@ -236,6 +236,7 @@ class Dashboard extends Component {
       jobsAnchorEl: null,
       communityAnchorEl: null,
       signoutAnchorEl: null,
+      editUserProfileAnchorEl: null,
     };
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -246,6 +247,7 @@ class Dashboard extends Component {
     this.setOpen = this.setOpen.bind(this);
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.changeToEditProfile = this.changeToEditProfile.bind(this);
   }
 
   handleJobsClick = (event) => {
@@ -263,6 +265,7 @@ class Dashboard extends Component {
   handleSelect = () => {
     this.setState({ jobsAnchorEl: null });
     this.setState({ communityAnchorEl: null });
+    this.setState({ editUserProfileAnchorEl: null });
   };
 
   setOpen(toggleValue) {
@@ -302,7 +305,8 @@ class Dashboard extends Component {
     this.props.history.push(Routes.Dashboard);
   }
 
-  userprofile = () => {
+  changeToEditProfile = () => {
+    this.handleSelect();
     this.props.history.push(Routes.EditProfile);
   };
 
@@ -472,7 +476,7 @@ class Dashboard extends Component {
               }}
               style={{ marginTop: "45px" }}
             >
-              <MenuItem key={"userprofile"} onClick={this.userprofile}>
+              <MenuItem key={"userprofile"} onClick={this.changeToEditProfile}>
                 User Profile
               </MenuItem>
               <MenuItem key={"signout"} onClick={this.signout}>
@@ -525,7 +529,7 @@ class Dashboard extends Component {
                 <Home />
               </Route>
               <Route exact={true} path={Routes.EditProfile}>
-                <EditProfile />
+                <EditProfile appContext={this} />
               </Route>
               <Redirect to={Routes.Dashboard} />
             </Switch>
