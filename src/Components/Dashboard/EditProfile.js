@@ -275,6 +275,8 @@ class EditProfile extends Component {
         education: userData["custom:education_level"],
         city: addressData.locality,
         country: addressData.country,
+        resume: userData["custom:resume"],
+        picture: userData["picture"],
       });
     });
   }
