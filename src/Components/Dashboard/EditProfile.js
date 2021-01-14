@@ -234,8 +234,8 @@ class EditProfile extends Component {
       resumeUploadText: "Upload your Resume ",
       resumeButtonText: "Upload",
       filePreview: [],
-      resumeURL: "",
-      profilePicURL: "",
+      resume: "",
+      picture: "",
     };
   }
 
@@ -385,11 +385,11 @@ class EditProfile extends Component {
       .then((data) => {
         if (!resume) {
           page.setState({
-            profilePicURL: data.location,
+            picture: data.location,
           });
         } else {
           page.setState({
-            resumeURL: data.location,
+            resume: data.location,
           });
         }
       })
@@ -471,6 +471,8 @@ class EditProfile extends Component {
     updateUserData["custom:industry"] = this.state.industry;
     updateUserData["custom:position"] = this.state.title;
     updateUserData["custom:education_level"] = this.state.education;
+    updateUserData["picture"] = this.state.picture;
+    updateUserData["custom:resume"] = this.state.resume;
 
     // Data formatted for Cognito
     let formatted = {};
