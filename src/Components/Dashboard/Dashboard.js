@@ -265,7 +265,7 @@ class Dashboard extends Component {
   handleSelect = () => {
     this.setState({ jobsAnchorEl: null });
     this.setState({ communityAnchorEl: null });
-    this.setState({ editUserProfileAnchorEl: null });
+    this.setState({ signoutAnchorEl: null });
   };
 
   setOpen(toggleValue) {
