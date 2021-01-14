@@ -20,6 +20,9 @@ import Province from "../Registration/Provinces";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Auth } from "aws-amplify";
+import Tooltip from "@material-ui/core/Tooltip";
+import S3FileUpload from "react-s3";
+import { DropzoneDialog } from "material-ui-dropzone";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -164,6 +167,27 @@ const useStyles = makeStyles((theme) => ({
   label: {
     fontSize: "larger",
   },
+  uploadText: {
+    margin: theme.spacing(2, 0, 1),
+    "@media (max-width: 480px)": { width: "180px" },
+    width: "200px",
+  },
+  uploadImage: {
+    marginLeft: theme.spacing(1, 0, 1),
+    backgroundColor: "#6EA0B5",
+    height: 50,
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
+    },
+  },
+  profilePic: {
+    margin: theme.spacing(3, 0, 2),
+    width: "120px",
+    height: "auto",
+    borderRadius: "50%",
+  },
 }));
 
 const IndustryLabels = [];
@@ -187,6 +211,7 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: "",
       firstName: "",
       lastName: "",
       phone: "",
@@ -202,6 +227,15 @@ class EditProfile extends Component {
       states: "",
       displayProvince: "none",
       displayStates: "",
+      imageFiles: [],
+      resumeFiles: [],
+      profilePicPreviewText: "Upload your Profile Photo",
+      profilePicButtonText: "Upload",
+      resumeUploadText: "Upload your Resume ",
+      resumeButtonText: "Upload",
+      filePreview: [],
+      resumeURL: "",
+      profilePicURL: "",
     };
   }
 
@@ -229,6 +263,7 @@ class EditProfile extends Component {
       }
 
       this.setState({
+        email: userData.email,
         firstName: userData.given_name,
         lastName: userData.family_name,
         phone: userData.phone_number,
@@ -336,6 +371,79 @@ class EditProfile extends Component {
       phone: value,
     });
   };
+
+  uploadToS3(file, folder, resume = true) {
+    let config = {
+      bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
+      dirName: this.state.email + "/" + folder /* will change based on users */,
+      region: "us-east-1",
+      accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    };
+    let page = this;
+    S3FileUpload.uploadFile(file, config)
+      .then((data) => {
+        if (!resume) {
+          page.setState({
+            profilePicURL: data.location,
+          });
+        } else {
+          page.setState({
+            resumeURL: data.location,
+          });
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  handleResumeSave(resume) {
+    this.setState({
+      resumeUploadText: resume[0]["name"],
+      resumeButtonText: "Upload Again",
+      fileDialogOpen: false,
+      resumeFiles: resume,
+    });
+    this.uploadToS3(resume[0], "resumes", true);
+  }
+
+  handlePicSave(files) {
+    let document = "";
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    let page = this;
+    reader.onload = function () {
+      // Saving files to state for further use and closing Modal.
+      document = reader.result;
+      page.setState({
+        profilePicPreviewText: files[0].name,
+        profilePicButtonText: "Upload Again",
+        imageFiles: [document],
+        open: false,
+      });
+      page.uploadToS3(files[0], "pictures", false);
+    };
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
+    };
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  handleDialog = (event) => {
+    this.setState({
+      dialogueOpen: !this.state.dialogueOpen,
+    });
+  };
+
+  handleOpen() {
+    this.setState({
+      open: true,
+    });
+  }
 
   /**
    * This function will get the latest information from the currently logged in user.
@@ -634,6 +742,110 @@ class EditProfile extends Component {
                 />
               </Grid>
             </Grid>
+
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                {this.state.imageFiles.map((file, i) => {
+                  return (
+                    <img
+                      key={i}
+                      src={file}
+                      alt={"profile-pic"}
+                      className={classes.profilePic}
+                    />
+                  );
+                })}
+              </Grid>
+              <Grid item xs={12} className={classes.textAlignment}>
+                <div style={{ display: "inline-flex" }}>
+                  <Typography
+                    className={classes.uploadText}
+                    component="h6"
+                    variant="subtitle2"
+                  >
+                    <b>{this.state.profilePicPreviewText}</b>
+                    <Tooltip
+                      title={
+                        "It will be displayed along with your profile for our community members to see"
+                      }
+                    >
+                      <Typography
+                        variant="caption"
+                        style={{ color: "grey", cursor: "pointer" }}
+                        display="block"
+                        gutterBottom
+                      >
+                        Why am I being asked about this?
+                      </Typography>
+                    </Tooltip>
+                  </Typography>
+                  <Button
+                    className={classes.uploadImage}
+                    onClick={this.handleOpen.bind(this)}
+                  >
+                    <b>{this.state.profilePicButtonText}</b>
+                  </Button>
+                </div>
+                <DropzoneDialog
+                  open={this.state.open}
+                  onSave={this.handlePicSave.bind(this)}
+                  acceptedFiles={["image/*"]}
+                  showPreviews={true}
+                  maxFileSize={5000000}
+                  onClose={this.handleClose.bind(this)}
+                  filesLimit={1}
+                  fileObjects={this.state.files}
+                />
+              </Grid>
+
+              <Grid item xs={12} className={classes.textAlignment}>
+                <div style={{ display: "inline-flex" }}>
+                  <Typography
+                    className={classes.uploadText}
+                    component="h6"
+                    variant="subtitle2"
+                  >
+                    <b>{this.state.resumeUploadText}</b>
+                    <Tooltip
+                      title={
+                        "It will be used when you apply for jobs and for hosting on our resume bank"
+                      }
+                    >
+                      <Typography
+                        variant="caption"
+                        style={{ color: "grey", cursor: "pointer" }}
+                        display="block"
+                        gutterBottom
+                      >
+                        Why am I being asked about this?
+                      </Typography>
+                    </Tooltip>
+                  </Typography>
+                  <Button
+                    className={classes.uploadImage}
+                    onClick={(event) => this.setState({ fileDialogOpen: true })}
+                  >
+                    <b>{this.state.resumeButtonText}</b>
+                  </Button>
+                </div>
+                <DropzoneDialog
+                  open={this.state.fileDialogOpen}
+                  onSave={this.handleResumeSave.bind(this)}
+                  acceptedFiles={[
+                    "application/pdf",
+                    "application/msword",
+                    "application/vnd.openxmlformats-officedocument.wordprocessing",
+                  ]}
+                  maxFileSize={5000000}
+                  onClose={(event) => {
+                    this.setState({ fileDialogOpen: false });
+                  }}
+                  filesLimit={1}
+                  fileObjects={this.state.resumeFiles}
+                />
+              </Grid>
+            </Grid>
+
             <Button
               type="submit"
               variant="contained"
