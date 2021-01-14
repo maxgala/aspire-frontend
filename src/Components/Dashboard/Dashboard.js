@@ -496,6 +496,7 @@ class Dashboard extends Component {
           variant="temporary"
           anchor="left"
           open={this.state.open}
+          onClose={this.handleDrawerClose}
           classes={{
             paper: classes.drawerPaper,
           }}
