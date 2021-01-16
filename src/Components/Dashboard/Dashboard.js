@@ -32,6 +32,7 @@ import CoffeeChats from "./CoffeeChats";
 import JobBoard from "./Jobs";
 import ResumeBank from "./ResumeBank";
 import Community from "./Community";
+import Submissions from "./Submissions";
 import { Routes } from "../../entry/routes/Routes";
 import jwtDecode from "jwt-decode";
 
@@ -243,6 +244,7 @@ class Dashboard extends Component {
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
     this.changeToJobs = this.changeToJobs.bind(this);
+    this.changeToSubmissions = this.changeToSubmissions.bind(this);
     this.changeToDashboard = this.changeToDashboard.bind(this);
     this.changeToCommunity = this.changeToCommunity.bind(this);
     this.changeToResumeBank = this.changeToResumeBank.bind(this);
@@ -298,6 +300,11 @@ class Dashboard extends Component {
   changeToJobs() {
     this.handleSelect();
     this.props.history.push(Routes.Jobs);
+  }
+
+  changeToSubmissions() {
+    this.handleSelect();
+    this.props.history.push(Routes.Submissions);
   }
 
   changeToDashboard() {
@@ -416,9 +423,12 @@ class Dashboard extends Component {
               <MenuItem key={"postings"} onClick={this.changeToJobs}>
                 Postings
               </MenuItem>
-              {/* <MenuItem key={"view_submissions"} onClick={this.changeToJobs}>
+              <MenuItem
+                key={"view_submissions"}
+                onClick={this.changeToSubmissions}
+              >
                 View Submissions
-              </MenuItem> */}
+              </MenuItem>
             </Menu>
             <Button
               variant="outlined"
@@ -513,9 +523,9 @@ class Dashboard extends Component {
               <Route exact={true} path={Routes.Jobs}>
                 <JobBoard appContext={this} />
               </Route>
-              {/* <Route exact={true} path={Routes.Submissions}>
-                < appContext={this}/>
-              </Route> */}
+              <Route exact={true} path={Routes.Submissions}>
+                <Submissions appContext={this} />
+              </Route>
               <Route exact={true} path={Routes.Members}>
                 <Community appContext={this} />
               </Route>
