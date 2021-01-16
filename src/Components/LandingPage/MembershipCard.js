@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Membership from "../Images/membership.jpg";
+import freeMembership from "../Images/free-membership.jpg";
+import premiumMembership from "../Images/premium-membership.jpg";
+import platinumMembership from "../Images/platinum-membership.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
@@ -92,11 +94,25 @@ function withMyHook(Component) {
 class MembershipCard extends Component {
   render() {
     const classes = this.props.classes;
+
+    const membType = this.props.membership_type_text;
+    let membImg;
+    if (membType === "Free") {
+      membImg = <img className={classes.image} src={freeMembership} alt="Membership" />;
+    } else if (membType === "Premium") {
+      membImg = <img className={classes.image} src={premiumMembership} alt="Membership" />;
+    } else {
+      membImg = <img className={classes.image} src={platinumMembership} alt="Membership" />;
+    }
+
+
+
     return (
       <div id="membership">
         <div className={classes.card}>
           <div>
-            <img className={classes.image} src={Membership} alt="Membership" />
+
+            {membImg}
             <h2 className={classes.membership_type_text}>
               {this.props.membership_type_text}
             </h2>
