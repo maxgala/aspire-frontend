@@ -23,6 +23,7 @@ import { Auth } from "aws-amplify";
 import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from "react-s3";
 import { DropzoneDialog } from "material-ui-dropzone";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -457,6 +458,17 @@ class EditProfile extends Component {
     return user;
   };
 
+  refreshUserProfile = async () => {
+    await Auth.currentSession().then((res) => {
+      let jwt = res.getAccessToken().getJwtToken();
+      localStorage.setItem("idToken", res.getIdToken().getJwtToken());
+      localStorage.setItem("accessToken", jwt);
+
+      let userProfile = jwtDecode(localStorage.getItem("idToken"));
+      localStorage.setItem("userProfile", JSON.stringify(userProfile));
+    });
+  };
+
   /**
    * This function will submit the user profile changes provided in the form.
    */
@@ -496,7 +508,10 @@ class EditProfile extends Component {
     Auth.updateUserAttributes(user, updateUserData)
       .then(() => {
         // Update was success, redirect user.
-        this.props.history.push(`${Routes.Dashboard}`);
+        Auth.currentUserInfo().then((res) => {
+          this.refreshUserProfile();
+          this.props.history.push(`${Routes.Dashboard}`);
+        });
       })
       .catch((e) =>
         // Update failed alert user with error info.
