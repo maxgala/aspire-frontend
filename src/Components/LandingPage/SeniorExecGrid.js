@@ -4,22 +4,48 @@ import SeniorExec from "./SeniorExec.js";
 import { makeStyles } from "@material-ui/core/styles";
 import SeniorExecText from "./SeniorExecText";
 
-import uzma_picture from "../Images/senior/Jalaluddin_Uzma.jpg";
-import cheick_picture from "../Images/senior/Diop_Cheikh.jpeg";
-import salman_picture from "../Images/senior/Salman_Zahid (1).jpg";
-import ali_picture from "../Images/senior/Ali_Ammar.jpg";
-import mohammed_picture from "../Images/senior/Chahdi_Mohammed.jpg";
-import aaron_picture from "../Images/senior/Emes_Aaron.png";
-import drhind_picture from "../Images/senior/Al-Abadleh_Dr. Hind (1).jpg";
-import farah_picture from "../Images/senior/Ahmad_Farah.jpeg";
-import hali_picture from "../Images/senior/Hali.jpg";
-import amir_picture from "../Images/senior/Hameed_Amir.jpg";
-import pouneh_picture from "../Images/senior/Hanafi_Pouneh.jpeg";
-import farhan_picture from "../Images/senior/Hamidani_Farhan.jpeg";
-import ghaleb_picture from "../Images/senior/El Masri_Ghaleb.png";
-import { Hidden } from "@material-ui/core";
+import Attia_Afnan from "../Images/senior/Attia_Afnan.jpg";
+import Benkhouya_Saloua from "../Images/senior/Benkhouya_Saloua.jpg";
+import Ebrahim_Salima from "../Images/senior/Ebrahim_Salima.jpg";
+import Dorias_Osama from "../Images/senior/Dorias_Osama.jpg";
+import Gulam_Moosah from "../Images/senior/Gulam_Moosah.jpg";
+import Hashmi_Seema from "../Images/senior/Hashmi_Seema.jpg";
+import Jalaluddin_Uzma from "../Images/senior/Jalaluddin_Uzma.jpg";
+import Jama_Robleh from "../Images/senior/Jama_Robleh.jpg";
+import Khan_Samir from "../Images/senior/Khan_Samir.jpg";
+import Mahmood_Safdar from "../Images/senior/Mahmood_Safdar.jpeg";
+import Malik_Nadia from "../Images/senior/Malik_Nadia.jpeg";
+import Mitchell_Axelle from "../Images/senior/Mitchell_Axelle.png";
+import Rahman_Ebad from "../Images/senior/Rahman_Ebad.jpg";
+import Rooney_Richard from "../Images/senior/Rooney_Richard.jpg";
+import Salman_Zahid from "../Images/senior/Salman_Zahid.jpg";
+import Shahsamand_Asma from "../Images/senior/Shahsamand_Asma.jpg";
+import Soliman_Doha from "../Images/senior/Soliman_Doha.jpg";
+import Soliman_Osama from "../Images/senior/Soliman_Osama.jpg";
+import Soliman_Walied from "../Images/senior/Soliman_Walied.jpg";
+import Thomas_Benji from "../Images/senior/Thomas_Benji.jpg";
+import Yusuf_Danish from "../Images/senior/Yusuf_Danish.jpg";
+import Yusuf_Mustafa from "../Images/senior/Yusuf_Mustafa.jpg";
+import Zaman_Sadia from "../Images/senior/Zaman_Sadia.jpg";
+// TODO: display more than one senior exec on larger screens
+// import { Hidden } from "@material-ui/core";
+
+import left from "../Images/arrow_left.png";
+import right from "../Images/arrow_right.png";
+import { Swipeable } from "react-swipeable";
 
 const useStyles = makeStyles(() => ({
+  rightArrow: {
+    cursor: "pointer",
+    position: "absolute",
+    align: "left",
+    "@media (max-width: 660px)": { display: "None" },
+  },
+  leftArrow: {
+    cursor: "pointer",
+    position: "absolute",
+    "@media (max-width: 660px)": { display: "None" },
+  },
   background_lg: {
     backgroundColor: "white",
   },
@@ -47,76 +73,131 @@ const useStyles = makeStyles(() => ({
 
 let images = [
   {
-    photo: uzma_picture,
-    name: "Uzma Jalaluddin",
-    title: "Author af Ayesha at Last and Columnist at Toronto Star",
+    photo: Hashmi_Seema,
+    name: "Seema Hashmi",
+    title:
+      "Diagnostic & Non-Vascular Interventional Radiologist; Adjunct Professor at Bluewater Health; University of Western Ontario",
   },
   {
-    photo: cheick_picture,
-    name: "Diop Cheikh",
-    title: "VP Corporate Client Group at RBC",
+    photo: Thomas_Benji,
+    name: "Benjie Thomas",
+    title: "Canadian Managing Partner at KPMG",
   },
   {
-    photo: salman_picture,
-    name: "Salman Zahid",
+    photo: Soliman_Walied,
+    name: "Walied Soliman",
+    title: "Partner and Chair at Norton Rose",
+  },
+  {
+    photo: Dorias_Osama,
+    name: "Osama Doria",
+    title: "Lead Game Designer at Warner Brothers",
+  },
+  {
+    photo: Rooney_Richard,
+    name: "Richard Rooney",
+    title: "President and CIO at Burgundy Asset Management",
+  },
+  {
+    photo: Salman_Zahid,
+    name: "Zahid Salman",
     title: "President & CEO at Green Shield Canada",
   },
   {
-    photo: ali_picture,
-    name: "Ali Ammar",
-    title: "Partner at Van Berkom and Associates",
-  },
-  // { photo: abdulgaffor_picture },
-  // { photo: Three },
-  {
-    photo: mohammed_picture,
-    name: "Mohammed Chahdi",
-    title: "Director and Head of Americas HR Operations at Dell Technologies",
+    photo: Benkhouya_Saloua,
+    name: "Saloua Benkhouya",
+    title: "VP Business Financial Services at RBC",
   },
   {
-    photo: aaron_picture,
-    name: "Emes Aaron",
-    title: "Senior Partner & Head of Opinions and Research at Torys",
+    photo: Shahsamand_Asma,
+    name: "Asma Shahsamand",
+    title: "Head of Canada Ventures at Accenture",
   },
   {
-    photo: drhind_picture,
-    name: "Dr.Hind Al Abadleh",
+    photo: Zaman_Sadia,
+    name: "Sadia Zaman",
+    title: "CEO at Inspirit Foundation",
+  },
+  {
+    photo: Gulam_Moosah,
+    name: "Moosah Gulam",
     title:
-      "Professor in Department of Chemistry and Biochemistry at Wilfrid Laurier University",
+      "President and CEO and Head of the Medical Technology Segment at ZEISS Canada",
   },
   {
-    photo: farah_picture,
-    name: "Farah Ahmad",
-    title: "Chief Commercial Officer at Clinical Maestro by Strategikon",
+    photo: Rahman_Ebad,
+    name: "Ebad Rahman",
+    title: "Partner at Torys",
   },
   {
-    photo: hali_picture,
-    name: "Hali Farah",
-    title: "Senior HR Consultant at City of Toronto",
+    photo: Khan_Samir,
+    name: "Samir Khan",
+    title:
+      "CFO & CCO for Canada and General Counsel for Americas at Russell Investments",
   },
   {
-    photo: amir_picture,
-    name: "Amir Hameed",
-    title: "VP Global Solutions Engineering at RingCentral",
+    photo: Malik_Nadia,
+    name: "Nadia Mailk",
+    title: "Director Program Management & Corporate Initiatives at Bombardier",
   },
   {
-    photo: pouneh_picture,
-    name: "Pouneh Hanafi",
-    title: "VP Marketing at Tulip Retail",
+    photo: Jama_Robleh,
+    name: "Robleh Jama",
+    title: "Director at Shopify",
   },
   {
-    photo: farhan_picture,
-    name: "Farhan Hamidani",
-    title: "Co-CEO at TF Global Inc.",
+    photo: Yusuf_Mustafa,
+    name: "Mustafa Yusuf",
+    title:
+      "President & CoFounder; President & Founder at FLOCK rotisserie+greens; Big Smoke Burger",
   },
   {
-    photo: ghaleb_picture,
-    name: "Ghaled El Masri",
-    title: "Managing Director at Adaptovate",
+    photo: Jalaluddin_Uzma,
+    name: "Uzma Jalaluddin",
+    title: "Author; Columnist at Ayesha At Last; Toronto Star",
+  },
+  {
+    photo: Mahmood_Safdar,
+    name: "Safdar Mahmood",
+    title: "Managing Vice President at Pariveda Solutions",
+  },
+  {
+    photo: Ebrahim_Salima,
+    name: "Salima Ebrahim",
+    title: "Chief of Staff at City of Edmonton",
+  },
+  {
+    photo: Yusuf_Danish,
+    name: "Danish Yusuf",
+    title: "CEO and Founder; Principal at Zensurance; McKinsey",
+  },
+  {
+    photo: Attia_Afnan,
+    name: "Afnan Attia",
+    title: "Director of Strategy and Corporate Development at Morneau Shepell",
+  },
+  {
+    photo: Soliman_Doha,
+    name: "Doha Soliman",
+    title: "Finance Director at Blueridge OMS (Oral and Maxillofacial Surgeon)",
+  },
+  {
+    photo: Soliman_Osama,
+    name: "Osama Soliman",
+    title: "Oral and Maxillofacial Surgeon at Blueridge OMS",
+  },
+  {
+    photo: Mitchell_Axelle,
+    name: "Axelle Mitchel",
+    title: "Director, Strategy & Transformation at RBC",
   },
 ];
 
-function shuffledImages() {
+/*
+ * Deprecated: using a carousal to show images now
+ * May come back to this in the future
+ */
+/*function shuffledImages() {
   let shuffledImages = [];
   while (shuffledImages.length < 4) {
     let num = Math.floor(Math.random() * (images.length - 1));
@@ -129,7 +210,7 @@ function shuffledImages() {
     execImages.push(images[i]);
   }
   return execImages;
-}
+}*/
 
 function withMyHook(Component) {
   return function WrappedComponent(props) {
@@ -145,107 +226,184 @@ class SeniorExecGrid extends Component {
       isHover: false,
       phone: "",
       desktop: "None",
-      displayImages: images,
+      current: images[0],
+      active: 0,
+      numImages: 23,
     };
-    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+  }
+
+  timer() {
+    clearInterval(this.interval);
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
   }
 
   componentDidMount() {
-    this.setState({
-      displayImages: shuffledImages(),
-    });
+    this.interval = setInterval(() => this.HandleRightArrowClick(), 3000);
   }
 
-  forceUpdateHandler() {
-    this.forceUpdate();
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
+
+  HandleRightArrowClick = (event) => {
+    if (this.state.active < 22) {
+      this.setState({
+        current: images[parseInt(this.state.active) + 1],
+        active: parseInt(this.state.active) + 1,
+      });
+    } else if (this.state.active === 22) {
+      this.setState({ current: images[0], active: 0 });
+    }
+    this.timer();
+  };
+
+  HandleLeftArrowClick = (event) => {
+    if (this.state.active > 0) {
+      this.setState({
+        current: images[this.state.active - 1],
+        active: this.state.active - 1,
+      });
+    } else if (this.state.active === 0) {
+      this.setState({
+        current: images[this.state.numImages - 1],
+        active: this.state.numImages - 1,
+      });
+    }
+    this.timer();
+  };
+
+  HandleSetClick = (event) => {
+    this.setState({
+      active: event.target.getAttribute("data-image"),
+      current: images[event.target.getAttribute("data-image")],
+    });
+    this.timer();
+  };
 
   render() {
     const classes = this.props.classes;
     return (
-      <div className={classes.seniorexec}>
-        <div className={classes.background_lg}>
-          <Grid
-            container
-            spacing={2}
-            alignItems="center"
-            justify="center"
-            className={classes.grid}
-            id="seniors"
-          >
+      <Swipeable
+        onSwipedRight={this.HandleLeftArrowClick}
+        onSwipedLeft={this.HandleRightArrowClick}
+      >
+        <div className={classes.seniorexec}>
+          <div className={classes.background_lg}>
             <Grid
               container
-              item
-              xs={12}
-              spacing={4}
+              spacing={2}
               alignItems="center"
               justify="center"
+              className={classes.grid}
+              id="seniors"
             >
               <Grid
                 container
                 item
                 xs={12}
-                sm={9}
-                md={6}
-                lg={4}
+                spacing={4}
                 alignItems="center"
                 justify="center"
               >
-                <SeniorExec
-                  name_text={this.state.displayImages[0].name}
-                  extra_text={this.state.displayImages[0].title}
-                  image={this.state.displayImages[0].photo}
-                  hover_image={this.state.displayImages[0].photo}
-                />
+                <Grid
+                  container
+                  item
+                  xs={1}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <img
+                    className={classes.leftArrow}
+                    src={left}
+                    onClick={this.HandleLeftArrowClick}
+                    alt={"Testimonial Left Arrow"}
+                  />
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={10}
+                  sm={9}
+                  md={6}
+                  lg={4}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <SeniorExec
+                    name_text={this.state.current.name}
+                    extra_text={this.state.current.title}
+                    image={this.state.current.photo}
+                    hover_image={this.state.current.photo}
+                  />
+                </Grid>
+
+                {/*
+                <Hidden smDown>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={9}
+                    md={6}
+                    lg={4}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <SeniorExec
+                      name_text={this.state.displayImages.name}
+                      extra_text={this.state.displayImages.title}
+                      id="theimage"
+                      image={this.state.displayImages.photo}
+                      hover_image={this.state.displayImages.photo}
+                    />
+                  </Grid>
+                </Hidden>
+
+                <Hidden mdDown>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={9}
+                    md={6}
+                    lg={4}
+                    alignItems="center"
+                    justify="center"
+                  >
+                    <SeniorExec
+                      name_text={this.state.displayImages.name}
+                      extra_text={this.state.displayImages.title}
+                      id="theimage"
+                      image={this.state.displayImages.photo}
+                      hover_image={this.state.displayImages.photo}
+                    />
+                  </Grid>
+                </Hidden>
+                */}
+                <Grid
+                  container
+                  item
+                  xs={1}
+                  spacing={1}
+                  alignItems="center"
+                  justify="center"
+                  className={classes.testimonialSmall}
+                >
+                  <img
+                    className={classes.rightArrow}
+                    src={right}
+                    onClick={this.HandleRightArrowClick}
+                    alt={"Testimonial Right Arrow"}
+                  />
+                </Grid>
+
+                <SeniorExecText appContext={this.props.appContext} />
               </Grid>
-
-              <Hidden smDown>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  sm={9}
-                  md={6}
-                  lg={4}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <SeniorExec
-                    name_text={this.state.displayImages[1].name}
-                    extra_text={this.state.displayImages[1].title}
-                    id="theimage"
-                    image={this.state.displayImages[1].photo}
-                    hover_image={this.state.displayImages[1].photo}
-                  />
-                </Grid>
-              </Hidden>
-
-              <Hidden mdDown>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  sm={9}
-                  md={6}
-                  lg={4}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <SeniorExec
-                    name_text={this.state.displayImages[2].name}
-                    extra_text={this.state.displayImages[2].title}
-                    id="theimage"
-                    image={this.state.displayImages[2].photo}
-                    hover_image={this.state.displayImages[2].photo}
-                  />
-                </Grid>
-              </Hidden>
-
-              <SeniorExecText appContext={this.props.appContext} />
             </Grid>
-          </Grid>
+          </div>
         </div>
-      </div>
+      </Swipeable>
     );
   }
 }
