@@ -17,6 +17,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import { withRouter } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { Routes } from "../../entry/routes/Routes";
+import InfoIcon from "@material-ui/icons/Info";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -197,6 +198,7 @@ class ThirdPage extends Component {
       progress: 75,
       filePreview: [],
       dialogueOpen: false,
+      loader: false,
     };
   }
 
@@ -226,10 +228,12 @@ class ThirdPage extends Component {
         if (!resume) {
           page.setState({
             profilePicURL: data.location,
+            open: false,
           });
         } else {
           page.setState({
             resumeURL: data.location,
+            fileDialogOpen: false,
           });
         }
       })
@@ -237,13 +241,12 @@ class ThirdPage extends Component {
   }
 
   handleResumeSave(resume) {
+    this.uploadToS3(resume[0], "resumes", true);
     this.setState({
       resumeUploadText: resume[0]["name"],
       resumeButtonText: "Upload Again",
-      fileDialogOpen: false,
       resumeFiles: resume,
     });
-    this.uploadToS3(resume[0], "resumes", true);
   }
 
   handleSave(files) {
@@ -254,13 +257,12 @@ class ThirdPage extends Component {
     reader.onload = function () {
       // Saving files to state for further use and closing Modal.
       document = reader.result;
+      page.uploadToS3(files[0], "pictures", false);
       page.setState({
         profilePicPreviewText: files[0].name,
         profilePicButtonText: "Upload Again",
         imageFiles: [document],
-        open: false,
       });
-      page.uploadToS3(files[0], "pictures", false);
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -322,7 +324,14 @@ class ThirdPage extends Component {
                     variant="subtitle2"
                   >
                     <b>{this.state.profilePicPreviewText}</b>
-                    <Tooltip title={"For various reasons"}>
+                    <Tooltip title="For best results, we recommend using a BMP, JPG or PNG file">
+                      <InfoIcon />
+                    </Tooltip>
+                    <Tooltip
+                      title={
+                        "A picture allows for a higher chance of successful networking by putting a face to a name"
+                      }
+                    >
                       <Typography
                         variant="caption"
                         style={{ color: "grey", cursor: "pointer" }}
@@ -360,7 +369,14 @@ class ThirdPage extends Component {
                     variant="subtitle2"
                   >
                     <b>{this.state.resumeUploadText}</b>
-                    <Tooltip title={"For various reasons"}>
+                    <Tooltip title="Supported file types are: PDF, DOCX and DOC">
+                      <InfoIcon />
+                    </Tooltip>
+                    <Tooltip
+                      title={
+                        "Resumes are used for the Resume Bank to allow hiring managers to find talent"
+                      }
+                    >
                       <Typography
                         variant="caption"
                         style={{ color: "grey", cursor: "pointer" }}
@@ -384,7 +400,7 @@ class ThirdPage extends Component {
                   acceptedFiles={[
                     "application/pdf",
                     "application/msword",
-                    "application/vnd.openxmlformats-officedocument.wordprocessing",
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                   ]}
                   maxFileSize={5000000}
                   onClose={(event) => {

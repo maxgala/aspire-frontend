@@ -127,17 +127,18 @@ class JobPosts extends Component {
       "jobs",
       (await Auth.currentSession()).getIdToken().getJwtToken()
     );
+    if (existingJobsData.data.jobs !== undefined) {
+      // Go through every job and derive the # of applicants to fill in table
+      Object.keys(existingJobsData.data.jobs).forEach(function (jobID) {
+        let currentJob = existingJobsData.data.jobs[jobID];
 
-    // Go through every job and derive the # of applicants to fill in table
-    Object.keys(existingJobsData.data.jobs).forEach(function (jobID) {
-      let currentJob = existingJobsData.data.jobs[jobID];
+        currentJob.applicantCount = currentJob.job_applications.length;
+      });
 
-      currentJob.applicantCount = currentJob.job_applications.length;
-    });
-
-    this.setState({
-      jobs: existingJobsData.data.jobs,
-    });
+      this.setState({
+        jobs: existingJobsData.data.jobs,
+      });
+    }
   };
 
   /**

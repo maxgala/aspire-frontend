@@ -11,7 +11,10 @@ import { logEvent, Result, ErrorResult } from "./util";
 import "./cardStyle.css";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { httpPost } from "../../lib/dataAccess";
+import { httpPost, httpPut } from "../../lib/dataAccess";
+import Select from "@material-ui/core/Select";
+import jwtDecode from "jwt-decode";
+import { Auth } from "aws-amplify";
 import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +80,7 @@ const ELEMENT_OPTIONS = {
   },
 };
 
-class CheckoutForm extends React.Component {
+class CreditsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,30 +89,17 @@ class CheckoutForm extends React.Component {
       postal: "",
       errorMessage: null,
       paymentMethod: null,
+      paymentSuccess: false,
+      credits: 0,
       isPaying: false,
     };
   }
-
-  submitPayment = async (amount) => {
-    let paymentRequest = {
-      payment_method_id: this.state.paymentMethod.id,
-      amount: amount,
-    };
-
-    await httpPost("payment", null, paymentRequest)
-      .then((res) => {
-        return true;
-      })
-      .catch((err) => {
-        console.error(err);
-        return false;
-      });
-  };
 
   handleSubmit = async (event) => {
     event.preventDefault();
     const { stripe, elements } = this.props;
     const { name, postal } = this.state;
+
     this.setState({
       isPaying: true,
     });
@@ -121,6 +111,26 @@ class CheckoutForm extends React.Component {
     }
 
     const cardElement = elements.getElement(CardNumberElement);
+
+    if (this.state.credits === 0) {
+      this.setState({
+        errorMessage:
+          "Please select how many credits you would like to purchase",
+        paymentMethod: null,
+      });
+      return;
+    }
+
+    let userProfile = jwtDecode(localStorage.getItem("idToken"));
+    let amount = 0;
+    if (
+      userProfile["custom:user_type"] === "PAID" ||
+      userProfile["custom:user_type"] === "MENTOR"
+    ) {
+      amount = 1 * this.state.credits;
+    } else {
+      amount = 2 * this.state.credits;
+    }
 
     const payload = await stripe.createPaymentMethod({
       type: "card",
@@ -140,6 +150,7 @@ class CheckoutForm extends React.Component {
         paymentMethod: null,
         isPaying: false,
       });
+      return;
     } else {
       this.setState({
         paymentMethod: payload.paymentMethod,
@@ -147,27 +158,53 @@ class CheckoutForm extends React.Component {
       });
       // add logic here to the final page for user type
 
-      let amount = 75;
-      if (this.props.finalPage.state.aspire_premium === true) {
-        amount = 49;
-      }
+      let paymentRequest = {
+        payment_method_id: this.state.paymentMethod.id,
+        amount: amount,
+      };
 
-      let paymentSuccess = this.submitPayment(amount);
-      if (paymentSuccess === false) {
+      await httpPost("payment", null, paymentRequest)
+        .then((res) => {
+          this.setState({
+            paymentSuccess: true,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          this.setState({
+            paymentSuccess: false,
+          });
+        });
+
+      if (this.state.paymentSuccess === false) {
         this.setState({
           errorMessage: "Unable to process payment",
           paymentMethod: null,
         });
       } else {
-        this.props.finalPage.setState({
-          openStripe: false,
-        });
-
-        if (this.props.finalPage.state.aspire_premium === true) {
-          this.props.finalPage.signUp(25, "PAID");
-        } else {
-          this.props.finalPage.signUp(25, "MENTOR");
-        }
+        let creditsPayload = {
+          email: userProfile["email"],
+          credits: parseInt(this.state.credits),
+        };
+        let idToken = (await Auth.currentSession())
+          .getIdToken()
+          .getJwtToken()
+          .toString();
+        await httpPut("users/credits", idToken, creditsPayload)
+          .then((res) => {
+            Auth.currentUserInfo().then((res) => {
+              this.props.landing.setState({
+                credits: res.attributes["custom:credits"],
+                openCredits: false,
+              });
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+            this.setState({
+              errorMessage: err.message,
+            });
+          });
       }
       this.setState({
         isPaying: false,
@@ -176,8 +213,13 @@ class CheckoutForm extends React.Component {
   };
 
   goBackPrev = (event) => {
-    this.props.finalPage.setState({
-      openStripe: false,
+    console.log(this.props.landing);
+    this.props.landing.handleCreditsClose();
+  };
+
+  handleChange = (event) => {
+    this.setState({
+      credits: event.target.value,
     });
   };
 
@@ -187,6 +229,40 @@ class CheckoutForm extends React.Component {
     const classes = this.props.classes;
     return (
       <form onSubmit={this.handleSubmit}>
+        <label style={labelStyle} htmlFor="name">
+          Credits
+        </label>
+        <Select
+          native
+          value={this.state.credits}
+          onChange={this.handleChange}
+          inputProps={{
+            name: "Credits",
+            id: "age-native-simple",
+          }}
+        >
+          <option aria-label="None" value="" />
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={15}>15</option>
+          <option value={20}>20</option>
+          <option value={25}>25</option>
+        </Select>
+
+        <label style={labelStyle} htmlFor="name">
+          Cost
+        </label>
+
+        <h3>
+          {"$"}
+          {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] ===
+            "PAID" ||
+          jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] ===
+            "MENTORS"
+            ? this.state.credits * 1.0
+            : this.state.credits * 2.0}
+        </h3>
+
         <label style={labelStyle} htmlFor="name">
           Full Name
         </label>
@@ -283,18 +359,20 @@ class Stripe extends Component {
       <Elements stripe={stripePromise} appContext={this.props.appContext}>
         <ElementsConsumer>
           {({ stripe, elements }) => (
-            <CheckoutForm
+            <CreditsForm
               stripe={stripe}
               elements={elements}
               appContext={this.props.appContext}
-              finalPage={this.props.finalPage}
-            />
+              landing={this.props.landing}
+            >
+              {console.log(this.props.landing)}
+            </CreditsForm>
           )}
         </ElementsConsumer>
       </Elements>
     );
   }
 }
-CheckoutForm = withMyHook(CheckoutForm);
+CreditsForm = withMyHook(CreditsForm);
 
 export default Stripe;

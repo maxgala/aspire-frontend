@@ -1,0 +1,62 @@
+name: Deploy to Prod
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ASPIRE_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ASPIRE_AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Setup
+        env:
+          REACT_APP_AWS_SECRET_ACCESS_KEY: ${{secrets.REACT_APP_AWS_SECRET_ACCESS_KEY}}
+          REACT_APP_ACCESS_KEY_ID: ${{secrets.REACT_APP_ACCESS_KEY_ID}}
+          REACT_APP_MAILCHIMP_URL: ${{secrets.REACT_APP_MAILCHIMP_URL}}
+          REACT_APP_STRIPE_SECRET_KEY: ${{secrets.REACT_APP_STRIPE_SECRET_KEY}}
+          REACT_APP_COGNITO_REGION: ${{secrets.REACT_APP_COGNITO_REGION}}
+          REACT_APP_COGNITO_USER_POOL_ID: ${{secrets.REACT_APP_COGNITO_USER_POOL_ID}}
+          REACT_APP_COGNITO_APP_CLIENT_ID: ${{secrets.REACT_APP_COGNITO_APP_CLIENT_ID}}
+          REACT_APP_BACKEND_URL: ${{secrets.REACT_APP_BACKEND_URL}}
+          REACT_APP_ENV: ${{secrets.REACT_APP_ENV}}
+          REACT_APP_S3_BUCKET_NAME: ${{secrets.REACT_APP_S3_BUCKET_NAME}}
+          REACT_APP_SES_REGION: ${{secrets.REACT_APP_SES_REGION}}
+        run: |
+          touch .env
+          echo "REACT_APP_AWS_SECRET_ACCESS_KEY=$REACT_APP_AWS_SECRET_ACCESS_KEY" >> .env
+          echo "REACT_APP_ACCESS_KEY_ID=$REACT_APP_ACCESS_KEY_ID" >> .env
+          echo "REACT_APP_MAILCHIMP_URL=$REACT_APP_MAILCHIMP_URL" >> .env
+          echo "REACT_APP_STRIPE_PUBLISHABLE_KEY=$REACT_APP_STRIPE_SECRET_KEY" >> .env
+          echo "REACT_APP_COGNITO_REGION=$REACT_APP_COGNITO_REGION" >> .env
+          echo "REACT_APP_COGNITO_USER_POOL_ID=$REACT_APP_COGNITO_USER_POOL_ID" >> .env
+          echo "REACT_APP_COGNITO_APP_CLIENT_ID=$REACT_APP_COGNITO_APP_CLIENT_ID" >> .env
+          echo "REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL" >> .env
+          echo "REACT_APP_ENV=$REACT_APP_ENV" >> .env
+          echo "REACT_APP_S3_BUCKET_NAME=$REACT_APP_S3_BUCKET_NAME" >> .env
+          echo "REACT_APP_SES_REGION=$REACT_APP_SES_REGION" >> .env
+          cat .env
+      - name: Clean
+        run: rm -rf build
+      - name: Install
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Prepare S3
+        run: aws s3 rm s3://aspire-app/ --recursive
+      - name: Copy to S3
+        run: aws s3 cp ./build/ s3://aspire-app/ --recursive
+      - name: Invalidate CDN
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_ID }} --paths "/*"

@@ -39,8 +39,9 @@ const useStyles = makeStyles((theme) => ({
   img: {
     float: "left",
     align: "left",
-    "@media (max-width: 480px)": { width: "125px" },
+    "@media (max-width: 480px)": { width: "125px", height: "42px" },
     width: "175px",
+    height: "58.58px",
     "&:hover": {
       cursor: "pointer",
       filter: "sepia(60%)",
@@ -397,6 +398,11 @@ class SignIn extends Component {
               autoComplete="current-password"
               value={this.state.password}
               onChange={this.handlePasswordChange}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  this.handleClick();
+                }
+              }}
             />
             <CircularProgress
               style={{ display: this.state.barDisplay }}

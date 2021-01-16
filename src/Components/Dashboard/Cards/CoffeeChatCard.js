@@ -13,9 +13,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 import { httpPut } from "../../../lib/dataAccess";
 import Moment from "react-moment";
+import "moment-timezone";
 import { withSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Auth } from "aws-amplify";
+import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -89,7 +91,6 @@ const useStyles = makeStyles(() => ({
     marginRight: "20px",
     display: "inline-block",
     objectFit: "cover",
-
   },
   image2: {
     width: "20vw",
@@ -105,7 +106,6 @@ const useStyles = makeStyles(() => ({
     marginRight: "20px",
     display: "inline-block",
     objectFit: "cover",
-
   },
   title: {
     fontFamily: "PT Sans",
@@ -389,6 +389,7 @@ class CoffeeChatCard extends Component {
       open: false,
       chat_status: this.props.data.chat_status,
       barDisplay: false,
+      userType: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
     };
   }
 
@@ -422,7 +423,7 @@ class CoffeeChatCard extends Component {
         });
       })
       .catch((err) => {
-        this.props.enqueueSnackbar("Failed:" + err, {
+        this.props.enqueueSnackbar("Failed:" + err.message, {
           variant: "error",
         });
         this.setState({
@@ -439,14 +440,12 @@ class CoffeeChatCard extends Component {
           this.props.data.chat_status === "ChatStatus.RESERVED"
             ? classes.cardBooked
             : this.props.data.chat_type === ChatTypes.oneOnOne
-              ? classes.cardOne
-              : this.props.data.chat_type === ChatTypes.fourOnOne
-                ? classes.cardFour
-                : classes.cardInterview
+            ? classes.cardOne
+            : this.props.data.chat_type === ChatTypes.fourOnOne
+            ? classes.cardFour
+            : classes.cardInterview
         }
       >
-        {/* need to get image from s3 bucket --  */}
-
         <div className={classes.container}>
           <Grid
             container
@@ -513,8 +512,8 @@ class CoffeeChatCard extends Component {
                   {this.props.data.chat_type === ChatTypes.oneOnOne
                     ? "One on One"
                     : this.props.data.chat_type === ChatTypes.fourOnOne
-                      ? "Four on One"
-                      : "Mock Interview"}
+                    ? "Four on One"
+                    : "Mock Interview"}
                 </span>
 
                 {this.props.data &&
@@ -547,13 +546,13 @@ class CoffeeChatCard extends Component {
                   {this.props.data.fixed_date ? (
                     <span className={classes.date}>
                       Date:{" "}
-                      <Moment unix local>
+                      <Moment unix local format="ddd, MMM Do YYYY, hh:mm A">
                         {this.props.data.fixed_date}
                       </Moment>
                     </span>
                   ) : (
-                      ""
-                    )}
+                    ""
+                  )}
                 </Grid>
                 <Grid
                   container
@@ -566,23 +565,23 @@ class CoffeeChatCard extends Component {
                 >
                   <span className={classes.button_container}>
                     {this.state.chat_status === "ACTIVE" ||
-                      this.state.chat_status === "RESERVED_PARTIAL" ? (
-                        <Button
-                          onClick={this.openCoffeeChat}
-                          className={classes.button}
-                          variant="contained"
-                          color="primary"
-                        >
-                          View Booking
-                        </Button>
-                      ) : (
-                        <h3 className={classes.reservedText}>
-                          {this.state.chat_status === "RESERVED" ||
-                            this.state.chat_status === "RESERVED_CONFIRMED"
-                            ? "RESERVED"
-                            : this.state.chat_status}
-                        </h3>
-                      )}
+                    this.state.chat_status === "RESERVED_PARTIAL" ? (
+                      <Button
+                        onClick={this.openCoffeeChat}
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                      >
+                        Book Now
+                      </Button>
+                    ) : (
+                      <h3 className={classes.reservedText}>
+                        {this.state.chat_status === "RESERVED" ||
+                        this.state.chat_status === "RESERVED_CONFIRMED"
+                          ? "RESERVED"
+                          : this.state.chat_status}
+                      </h3>
+                    )}
                   </span>
                 </Grid>
               </Grid>
@@ -669,13 +668,13 @@ class CoffeeChatCard extends Component {
                       {this.props.data.chat_type === ChatTypes.oneOnOne
                         ? "One on One"
                         : this.props.data.chat_type === ChatTypes.fourOnOne
-                          ? "Four on One"
-                          : "Mock Interview"}
+                        ? "Four on One"
+                        : "Mock Interview"}
                       {this.props.data.booked ? (
                         <span className={classes.booked}>booked</span>
                       ) : (
-                          ""
-                        )}{" "}
+                        ""
+                      )}{" "}
                       with&nbsp;
                       <span className={classes.name2}>
                         {this.props.data.given_name}{" "}
@@ -703,13 +702,32 @@ class CoffeeChatCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
+                    <span className={classes.subtitle2}>
+                      Price:{" "}
+                      {this.props.data.chat_type === ChatTypes.fourOnOne
+                        ? "3 Credits"
+                        : "5 Credits"}
+                    </span>
+                  </Grid>
+
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
                     {this.props.data.fixed_date ? (
                       <span className={classes.subtitle2}>
-                        Date: <Moment unix>{this.props.data.fixed_date}</Moment>
+                        Date:{" "}
+                        <Moment unix local format="ddd, MMM Do YYYY, hh:mm A">
+                          {this.props.data.fixed_date}
+                        </Moment>
                       </span>
                     ) : (
-                        ""
-                      )}
+                      ""
+                    )}
                   </Grid>
 
                   <Grid
@@ -721,14 +739,14 @@ class CoffeeChatCard extends Component {
                     justify="flex-start"
                   >
                     {this.props.data.chat_type === ChatTypes.fourOnOne &&
-                      this.props.data.aspiring_professionals !== null ? (
-                        <span className={classes.subtitle2}>
-                          Available spots:{" "}
-                          {4 - this.props.data.aspiring_professionals.length}
-                        </span>
-                      ) : (
-                        ""
-                      )}
+                    this.props.data.aspiring_professionals !== null ? (
+                      <span className={classes.subtitle2}>
+                        Available spots:{" "}
+                        {4 - this.props.data.aspiring_professionals.length}
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </Grid>
 
                   <Grid
@@ -754,7 +772,8 @@ class CoffeeChatCard extends Component {
                 justify="center"
               >
                 <DialogActions>
-                  {this.state.barDisplay === false ? (
+                  {this.state.userType === "MENTOR" ? null : this.state
+                      .barDisplay === false ? (
                     <Button
                       className={classes.button2}
                       variant="contained"
@@ -763,8 +782,8 @@ class CoffeeChatCard extends Component {
                       Register
                     </Button>
                   ) : (
-                      <CircularProgress className={classes.circleProgress} />
-                    )}
+                    <CircularProgress className={classes.circleProgress} />
+                  )}
                 </DialogActions>
               </Grid>
             </DialogContentText>

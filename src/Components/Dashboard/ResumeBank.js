@@ -9,8 +9,29 @@ import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles(() => ({
+  resumebankcard: {
+    width: "100%",
+    maxWidth: "370px",
+    height: "230px",
+    margin: "auto",
+    marginBottom: "10px",
+    borderRadius: "20px",
+    textAlign: "center",
+    backgroundColor: "#455e69",
+    color: "black",
+    boxShadow: "0px 6px 6px #00000029",
+    paddingTop: "5%",
+    paddingLeft: "5%",
+    paddingRight: "5%",
+    "@media (max-width: 480px)": {
+      marginRight: "0px",
+    },
+    overflow: "hidden",
+  },
+
   mainPage: {
     paddingLeft: "8%",
     paddingRight: "8%",
@@ -78,6 +99,7 @@ class JobBoard extends Component {
     this.state = {
       // temporary - just wanted more test data to fill the page
       job_board_data: [],
+      isResumebankLoaded: false,
     };
   }
 
@@ -102,9 +124,10 @@ class JobBoard extends Component {
       });
     });
 
-    const full = paidUsers.data.users.concat(freeUsers.data.users);
+    const full = freeUsers.data.users.concat(paidUsers.data.users);
     this.setState({
       job_board_data: full,
+      isResumebankLoaded: true,
     });
   };
 
@@ -247,9 +270,26 @@ class JobBoard extends Component {
             alignItems="flex-start"
             justify="flex-start"
           >
-            {this.state.job_board_data.map((chat, key) => (
+            {this.state.isResumebankLoaded ? (
+              this.state.job_board_data.map((chat, key) => (
+                <Grid
+                  key={key}
+                  container
+                  item
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  spacing={1}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <ResumeBankCard data={chat} />
+                </Grid>
+              ))
+            ) : (
               <Grid
-                key={key}
                 container
                 item
                 xs={12}
@@ -261,9 +301,9 @@ class JobBoard extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <ResumeBankCard data={chat} />
+                <Skeleton variant="rect" className={classes.resumebankcard} />
               </Grid>
-            ))}
+            )}
           </Grid>
         </div>
         {/* </PerfectScrollbar> */}

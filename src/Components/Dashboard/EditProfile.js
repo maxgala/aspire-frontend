@@ -19,6 +19,10 @@ import Education from "../Registration/Education";
 import Province from "../Registration/Provinces";
 import Chip from "@material-ui/core/Chip";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { Auth } from "aws-amplify";
+import Tooltip from "@material-ui/core/Tooltip";
+import S3FileUpload from "react-s3";
+import { DropzoneDialog } from "material-ui-dropzone";
 import jwtDecode from "jwt-decode";
 
 const useStyles = makeStyles((theme) => ({
@@ -164,6 +168,27 @@ const useStyles = makeStyles((theme) => ({
   label: {
     fontSize: "larger",
   },
+  uploadText: {
+    margin: theme.spacing(2, 0, 1),
+    "@media (max-width: 480px)": { width: "180px" },
+    width: "200px",
+  },
+  uploadImage: {
+    marginLeft: theme.spacing(1, 0, 1),
+    backgroundColor: "#6EA0B5",
+    height: 50,
+    color: "white",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
+    },
+  },
+  profilePic: {
+    margin: theme.spacing(3, 0, 2),
+    width: "120px",
+    height: "auto",
+    borderRadius: "50%",
+  },
 }));
 
 const IndustryLabels = [];
@@ -187,6 +212,7 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: "",
       firstName: "",
       lastName: "",
       phone: "",
@@ -200,35 +226,130 @@ class EditProfile extends Component {
       city: "",
       country: "",
       states: "",
+      displayProvince: "none",
+      displayStates: "",
+      imageFiles: [],
+      resumeFiles: [],
+      profilePicPreviewText: "Upload your Profile Photo",
+      profilePicButtonText: "Upload",
+      resumeUploadText: "Upload your Resume ",
+      resumeButtonText: "Upload",
+      filePreview: [],
+      resume: "",
+      picture: "",
     };
   }
 
   componentDidMount() {
-    const userData = jwtDecode(localStorage.getItem("idToken"));
-    var country;
-    const formattedLocation = JSON.parse(userData.address.formatted);
-    if (formattedLocation.country === "Canada") {
-      country = "CA";
-    } else if (formattedLocation.country === "United States") {
-      country = "USA";
-    }
+    // Get the latest user's data, then parse and store it into state.
+    this.getUser().then((userResponseData) => {
+      const userData = userResponseData.attributes;
 
-    this.setState({
-      firstName: userData.given_name,
-      lastName: userData.family_name,
-      phone: userData.phone_number,
-      year_of_birth: userData.birthdate,
-      industry: "", // userData["custom:industry_tags"], TODO: need to format different
-      industry_tags: [], // find where this is stored
-      title: userData["custom:position"],
-      company: userData["custom:company"],
-      education: "", //find where this is stored
-      province: "", // userData.address.formatted.region, TODO: need to format different (ie. Ontario to ON)
-      city: "", //find where this is stored
-      country: country,
-      states: "", //find where this is stored
+      let addressData = JSON.parse(userData.address);
+
+      if (addressData.country === "CA") {
+        // Show Provinces if Canada
+        this.setState({
+          province: addressData.region,
+          displayProvince: "",
+          displayStates: "none",
+        });
+      } else if (addressData.country === "USA") {
+        // Show states by if USA
+        this.setState({
+          displayProvince: "none",
+          displayStates: "",
+          states: addressData.region,
+        });
+      }
+
+      this.setState({
+        email: userData.email,
+        firstName: userData.given_name,
+        lastName: userData.family_name,
+        phone: userData.phone_number,
+        year_of_birth: userData.birthdate,
+        industry: userData["custom:industry"],
+        industry_tags: userData["custom:industry_tags"].split(","),
+        title: userData["custom:position"],
+        company: userData["custom:company"],
+        education: userData["custom:education_level"],
+        city: addressData.locality,
+        country: addressData.country,
+        resume: userData["custom:resume"],
+        picture: userData["picture"],
+      });
     });
   }
+
+  onTagsChange = (event, values) => {
+    this.setState({
+      industry_tags: values,
+    });
+    if (values.length > 3) {
+      this.setState({
+        showError: true,
+        errorText: "Please pick up to 3 tags",
+      });
+    } else {
+      this.setState({
+        showError: false,
+        errorText: "",
+      });
+    }
+  };
+
+  handleProvinceChange = (event) => {
+    this.setState({
+      states: "",
+      province: event.target.value,
+    });
+  };
+
+  handleStateChange = (event) => {
+    this.setState({
+      states: event.target.value,
+      province: "",
+    });
+  };
+
+  handleCountryChange = (event) => {
+    this.setState({
+      country: event.target.value,
+      displayStates: event.target.value === "USA" ? "" : "None",
+      displayProvince: event.target.value === "CA" ? "" : "None",
+    });
+  };
+
+  handleCityChange = (event) => {
+    this.setState({
+      city: event.target.value,
+    });
+  };
+
+  handleIndustryChange = (event) => {
+    this.setState({
+      industry: event.target.value,
+    });
+  };
+
+  handleEducationChange = (event) => {
+    this.setState({
+      education: event.target.value,
+    });
+  };
+
+  handleTitleChange = (event) => {
+    this.setState({
+      title: event.target.value,
+    });
+  };
+
+  handleCompanyChange = (event) => {
+    this.setState({
+      company: event.target.value,
+    });
+  };
 
   handleFirstNameChange = (event) => {
     this.setState({
@@ -254,9 +375,149 @@ class EditProfile extends Component {
     });
   };
 
-  submitChanges = () => {
-    // TODO: propogate changes to cognito user
-    this.props.history.push(`${Routes.Dashboard}`);
+  uploadToS3(file, folder, resume = true) {
+    let config = {
+      bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
+      dirName: this.state.email + "/" + folder /* will change based on users */,
+      region: "us-east-1",
+      accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    };
+    let page = this;
+    S3FileUpload.uploadFile(file, config)
+      .then((data) => {
+        if (!resume) {
+          page.setState({
+            picture: data.location,
+          });
+        } else {
+          page.setState({
+            resume: data.location,
+          });
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  handleResumeSave(resume) {
+    this.setState({
+      resumeUploadText: resume[0]["name"],
+      resumeButtonText: "Upload Again",
+      fileDialogOpen: false,
+      resumeFiles: resume,
+    });
+    this.uploadToS3(resume[0], "resumes", true);
+  }
+
+  handlePicSave(files) {
+    let document = "";
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    let page = this;
+    reader.onload = function () {
+      // Saving files to state for further use and closing Modal.
+      document = reader.result;
+      page.setState({
+        profilePicPreviewText: files[0].name,
+        profilePicButtonText: "Upload Again",
+        imageFiles: [document],
+        open: false,
+      });
+      page.uploadToS3(files[0], "pictures", false);
+    };
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
+    };
+  }
+
+  handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+
+  handleDialog = (event) => {
+    this.setState({
+      dialogueOpen: !this.state.dialogueOpen,
+    });
+  };
+
+  handleOpen() {
+    this.setState({
+      open: true,
+    });
+  }
+
+  /**
+   * This function will get the latest information from the currently logged in user.
+   * @return object user
+   */
+  getUser = async () => {
+    let user = await Auth.currentAuthenticatedUser();
+
+    return user;
+  };
+
+  refreshUserProfile = async () => {
+    await Auth.currentSession().then((res) => {
+      let jwt = res.getAccessToken().getJwtToken();
+      localStorage.setItem("idToken", res.getIdToken().getJwtToken());
+      localStorage.setItem("accessToken", jwt);
+
+      let userProfile = jwtDecode(localStorage.getItem("idToken"));
+      localStorage.setItem("userProfile", JSON.stringify(userProfile));
+    });
+  };
+
+  /**
+   * This function will submit the user profile changes provided in the form.
+   */
+  submitChanges = async () => {
+    let updateUserData = {};
+
+    // Translate data from state to Cognito object
+    updateUserData.given_name = this.state.firstName;
+    updateUserData.family_name = this.state.lastName;
+    updateUserData.phone_number = this.state.phone;
+    updateUserData.birthdate = this.state.year_of_birth;
+    updateUserData["custom:company"] = this.state.company;
+    updateUserData["custom:industry_tags"] = this.state.industry_tags.join(",");
+    updateUserData["custom:industry"] = this.state.industry;
+    updateUserData["custom:position"] = this.state.title;
+    updateUserData["custom:education_level"] = this.state.education;
+    updateUserData["picture"] = this.state.picture;
+    updateUserData["custom:resume"] = this.state.resume;
+
+    // Data formatted for Cognito
+    let formatted = {};
+
+    formatted.locality = this.state.city;
+    if (this.state.province.length > 0) {
+      formatted.region = this.state.province;
+    } else {
+      formatted.region = this.state.states;
+    }
+    formatted.country = this.state.country;
+
+    updateUserData["address"] = JSON.stringify(formatted);
+
+    // Get the current authenticated user
+    let user = await Auth.currentAuthenticatedUser();
+
+    // Update the current user with data stored in the state
+    Auth.updateUserAttributes(user, updateUserData)
+      .then(() => {
+        // Update was success, redirect user.
+        Auth.currentUserInfo().then((res) => {
+          this.refreshUserProfile();
+          this.props.history.push(`${Routes.Dashboard}`);
+        });
+      })
+      .catch((e) =>
+        // Update failed alert user with error info.
+        alert(`There was issue updating the User data, please create an escalation with the following message
+    '${JSON.stringify(e)}'`)
+      );
   };
 
   render() {
@@ -362,6 +623,7 @@ class EditProfile extends Component {
                   options={IndustryTags.map((option) => option.name)}
                   defaultValue={[]}
                   freeSolo
+                  value={this.state.industry_tags}
                   onChange={this.onTagsChange}
                   renderTags={(value, getTagProps) =>
                     value.map((option, index) => (
@@ -451,7 +713,7 @@ class EditProfile extends Component {
                   required
                   fullWidth
                   select
-                  label="States"
+                  label="State"
                   value={this.state.states}
                   onChange={this.handleStateChange}
                   variant="outlined"
@@ -499,6 +761,110 @@ class EditProfile extends Component {
                 />
               </Grid>
             </Grid>
+
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                {this.state.imageFiles.map((file, i) => {
+                  return (
+                    <img
+                      key={i}
+                      src={file}
+                      alt={"profile-pic"}
+                      className={classes.profilePic}
+                    />
+                  );
+                })}
+              </Grid>
+              <Grid item xs={12} className={classes.textAlignment}>
+                <div style={{ display: "inline-flex" }}>
+                  <Typography
+                    className={classes.uploadText}
+                    component="h6"
+                    variant="subtitle2"
+                  >
+                    <b>{this.state.profilePicPreviewText}</b>
+                    <Tooltip
+                      title={
+                        "It will be displayed along with your profile for our community members to see"
+                      }
+                    >
+                      <Typography
+                        variant="caption"
+                        style={{ color: "grey", cursor: "pointer" }}
+                        display="block"
+                        gutterBottom
+                      >
+                        Why am I being asked about this?
+                      </Typography>
+                    </Tooltip>
+                  </Typography>
+                  <Button
+                    className={classes.uploadImage}
+                    onClick={this.handleOpen.bind(this)}
+                  >
+                    <b>{this.state.profilePicButtonText}</b>
+                  </Button>
+                </div>
+                <DropzoneDialog
+                  open={this.state.open}
+                  onSave={this.handlePicSave.bind(this)}
+                  acceptedFiles={["image/*"]}
+                  showPreviews={true}
+                  maxFileSize={5000000}
+                  onClose={this.handleClose.bind(this)}
+                  filesLimit={1}
+                  fileObjects={this.state.files}
+                />
+              </Grid>
+
+              <Grid item xs={12} className={classes.textAlignment}>
+                <div style={{ display: "inline-flex" }}>
+                  <Typography
+                    className={classes.uploadText}
+                    component="h6"
+                    variant="subtitle2"
+                  >
+                    <b>{this.state.resumeUploadText}</b>
+                    <Tooltip
+                      title={
+                        "It will be used when you apply for jobs and for hosting on our resume bank"
+                      }
+                    >
+                      <Typography
+                        variant="caption"
+                        style={{ color: "grey", cursor: "pointer" }}
+                        display="block"
+                        gutterBottom
+                      >
+                        Why am I being asked about this?
+                      </Typography>
+                    </Tooltip>
+                  </Typography>
+                  <Button
+                    className={classes.uploadImage}
+                    onClick={(event) => this.setState({ fileDialogOpen: true })}
+                  >
+                    <b>{this.state.resumeButtonText}</b>
+                  </Button>
+                </div>
+                <DropzoneDialog
+                  open={this.state.fileDialogOpen}
+                  onSave={this.handleResumeSave.bind(this)}
+                  acceptedFiles={[
+                    "application/pdf",
+                    "application/msword",
+                    "application/vnd.openxmlformats-officedocument.wordprocessing",
+                  ]}
+                  maxFileSize={5000000}
+                  onClose={(event) => {
+                    this.setState({ fileDialogOpen: false });
+                  }}
+                  filesLimit={1}
+                  fileObjects={this.state.resumeFiles}
+                />
+              </Grid>
+            </Grid>
+
             <Button
               type="submit"
               variant="contained"

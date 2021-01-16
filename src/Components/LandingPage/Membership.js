@@ -248,7 +248,7 @@ class Membership extends Component {
                 number="$75"
                 payment={{ color: "black" }}
                 membership_type_text="Platinum"
-                front_text="Senior Professionals"
+                front_text="Senior Executives"
                 inner_text="Pricing Plan"
                 description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
                 type="senior_professional"
@@ -362,7 +362,7 @@ class Membership extends Component {
                     </td>
                     <td className={classes.table_element_plat}>Yes, leading</td>
                   </tr>
-                  <tr>
+                  {/*<tr>
                     <td className={classes.table_element}>
                       4-on-1 Coffee Chats with Senior Executives
                     </td>
@@ -371,7 +371,7 @@ class Membership extends Component {
                       Yes, can request
                     </td>
                     <td className={classes.table_element_plat}>Yes, leading</td>
-                  </tr>
+                  </tr>*/}
                   <tr>
                     <td className={classes.table_element}>
                       Mock Interviews with Senior Executives

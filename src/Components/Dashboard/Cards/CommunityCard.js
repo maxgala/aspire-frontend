@@ -5,6 +5,10 @@ import Button from "@material-ui/core/Button";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { blankProfile } from "../../Images/faceShot/blank_profile.png";
+import { Auth } from "aws-amplify";
+import { httpPost } from "../../../lib/dataAccess";
+import jwtDecode from "jwt-decode";
+import { withSnackbar } from "notistack";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -115,6 +119,8 @@ class JobApplicationCard extends Component {
     super(props);
     this.state = {
       showConnect: false,
+      showAccept: false,
+      connect_status: "",
     };
   }
 
@@ -127,8 +133,120 @@ class JobApplicationCard extends Component {
     }
   };
 
+  findRequestor = () => {
+    if (this.props.requesteeResponse) {
+      for (let i = 0; i < this.props.requesteeResponse.length; i++) {
+        if (
+          this.props.requesteeResponse[i].requestor ===
+          this.props.data.attributes.email
+        ) {
+          if (this.props.requesteeResponse[i].connect_status === "ACCEPTED") {
+            this.setState({
+              showConnect: false,
+              showAccept: false,
+              connect_status: this.props.requesteeResponse[i].connect_status,
+            });
+          } else {
+            this.setState({
+              showConnect: false,
+              showAccept: true,
+              connect_status: this.props.requesteeResponse[i].connect_status,
+            });
+          }
+        }
+      }
+    }
+  };
+
+  handleConnect = async () => {
+    let connectPayload = {
+      requestor: {
+        email: jwtDecode(localStorage.getItem("idToken"))["email"],
+        user_type: "MENTOR",
+        name:
+          jwtDecode(localStorage.getItem("idToken"))["given_name"] +
+          " " +
+          jwtDecode(localStorage.getItem("idToken"))["family_name"],
+      },
+      requestee: {
+        email: this.props.data.attributes["email"],
+        user_type: this.props.data.attributes["custom:user_type"],
+        name:
+          this.props.data.attributes["given_name"] +
+          " " +
+          this.props.data.attributes["custom:family_name"],
+      },
+    };
+    await httpPost(
+      "connect",
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
+      connectPayload
+    )
+      .then((res) => {
+        this.setState({
+          showConnect: false,
+        });
+        this.props.enqueueSnackbar("Connection request sent!", {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.enqueueSnackbar(
+          "Failed to send connection request: " + err.message,
+          {
+            variant: "error",
+          }
+        );
+      });
+  };
+
+  handleAccept = async () => {
+    let acceptPayload = {
+      requestor: {
+        email: jwtDecode(localStorage.getItem("idToken"))["email"],
+        user_type: "MENTOR",
+        name:
+          jwtDecode(localStorage.getItem("idToken"))["given_name"] +
+          " " +
+          jwtDecode(localStorage.getItem("idToken"))["family_name"],
+      },
+      requestee: {
+        email: this.props.data.attributes["email"],
+        user_type: this.props.data.attributes["custom:user_type"],
+        name:
+          this.props.data.attributes["given_name"] +
+          " " +
+          this.props.data.attributes["custom:family_name"],
+      },
+    };
+    await httpPost(
+      "connect",
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
+      acceptPayload
+    )
+      .then((res) => {
+        this.setState({
+          showAccept: false,
+        });
+        this.props.enqueueSnackbar("Connection request accepted!", {
+          variant: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.enqueueSnackbar(
+          "Failed to accept connection request: " + err.message,
+          {
+            variant: "error",
+          }
+        );
+      });
+  };
+
   componentDidMount() {
     this.checkUserType();
+    this.findRequestor();
   }
 
   render() {
@@ -176,6 +294,11 @@ class JobApplicationCard extends Component {
                 </span>
                 {this.props.data.attributes["custom:company"]}
               </span>
+              <p className={classes.title}>
+                {this.props.data.attributes["custom:user_type"] === "MENTOR"
+                  ? "Senior Executive"
+                  : "Aspiring Professional"}
+              </p>
             </Grid>
             <Grid
               container
@@ -186,19 +309,42 @@ class JobApplicationCard extends Component {
               justify="center"
             >
               {this.state.showConnect === false ? (
-                ""
-              ) : (
+                this.state.showAccept === true ? (
                   <span className={classes.button_container}>
                     <Button
                       className={classes.button}
                       variant="contained"
                       color="primary"
-                      disabled={!this.state.showConnect}
+                      onClick={this.handleAccept}
                     >
-                      Connect
-                  </Button>
+                      Accept Connection
+                    </Button>
                   </span>
-                )}
+                ) : (
+                  <span className={classes.button_container}>
+                    <Button
+                      className={classes.button}
+                      variant="contained"
+                      color="primary"
+                      disabled
+                    >
+                      {this.state.connect_status}
+                    </Button>
+                  </span>
+                )
+              ) : (
+                <span className={classes.button_container}>
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                    disabled={!this.state.showConnect}
+                    onClick={this.handleConnect}
+                  >
+                    Connect
+                  </Button>
+                </span>
+              )}
             </Grid>
           </Grid>
         </div>
@@ -208,4 +354,4 @@ class JobApplicationCard extends Component {
 }
 
 JobApplicationCard = withMyHook(JobApplicationCard);
-export default JobApplicationCard;
+export default withSnackbar(JobApplicationCard);
