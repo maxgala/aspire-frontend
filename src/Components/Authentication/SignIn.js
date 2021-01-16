@@ -131,6 +131,10 @@ class SignIn extends Component {
     this.props.history.push(Routes.Register);
   };
 
+  changeToForgotPoassword = (event) => {
+    this.props.history.push(Routes.ForgotPassword);
+  };
+
   handleVerififedCodeChange = (event) => {
     this.setState({ verfiedCode: event.target.value });
   };
@@ -425,7 +429,11 @@ class SignIn extends Component {
                 </Typography>
               </Grid>
               <Grid style={{ display: this.state.buttonDisplay }} item xs={12}>
-                <Link href="#" variant="body1">
+                <Link
+                  href="#"
+                  variant="body1"
+                  onClick={this.changeToForgotPoassword}
+                >
                   <b>Forgot your password?</b>
                 </Link>
               </Grid>
