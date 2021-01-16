@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
   },
-  appBarSpacer: theme.mixins.toolbar,
-  // appBar background restrictions for transparency
   appBar: {
     backgroundColor: "rgba(0,0,0, 0.9)",
     boxShadow: "none",
@@ -68,9 +66,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100px",
     height: "100px",
     padding: "1vw",
-  },
-  circleProgress: {
-    marginTop: "2%",
   },
   toolbar: {
     display: "flex",
