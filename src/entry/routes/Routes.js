@@ -8,6 +8,7 @@ export const Routes = {
   Submissions: `${ApplicationPrefix}/dashboard/submissions`,
   Members: `${ApplicationPrefix}/dashboard/members`,
   ResumeBank: `${ApplicationPrefix}/dashboard/resumebank`,
+  EditProfile: `${ApplicationPrefix}/dashboard/editprofile`,
   Landpage: "/",
   Login: "/signup",
   Register: "/register",

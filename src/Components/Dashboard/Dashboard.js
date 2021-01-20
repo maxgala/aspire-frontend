@@ -4,11 +4,11 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
 import { Route, Switch, Redirect } from "react-router-dom";
-
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import MaxLogo from "../Images/max_logo.png";
 import UserProfile from "./UserProfile";
+import EditProfile from "./EditProfile";
 import Home from "./Home";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
@@ -240,6 +240,7 @@ class Dashboard extends Component {
       communityAnchorEl: null,
       signoutAnchorEl: null,
       user_type: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
+      editUserProfileAnchorEl: null,
     };
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -251,6 +252,7 @@ class Dashboard extends Component {
     this.setOpen = this.setOpen.bind(this);
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.changeToEditProfile = this.changeToEditProfile.bind(this);
   }
 
   handleJobsClick = (event) => {
@@ -268,6 +270,7 @@ class Dashboard extends Component {
   handleSelect = () => {
     this.setState({ jobsAnchorEl: null });
     this.setState({ communityAnchorEl: null });
+    this.setState({ signoutAnchorEl: null });
   };
 
   setOpen(toggleValue) {
@@ -311,6 +314,11 @@ class Dashboard extends Component {
     this.handleSelect();
     this.props.history.push(Routes.Dashboard);
   }
+
+  changeToEditProfile = () => {
+    this.handleSelect();
+    this.props.history.push(Routes.EditProfile);
+  };
 
   signout = async () => {
     try {
@@ -483,7 +491,7 @@ class Dashboard extends Component {
               }}
               style={{ marginTop: "45px" }}
             >
-              <MenuItem key={"userprofile"} onClick={this.userprofile}>
+              <MenuItem key={"userprofile"} onClick={this.changeToEditProfile}>
                 User Profile
               </MenuItem>
               <MenuItem key={"signout"} onClick={this.signout}>
@@ -498,6 +506,7 @@ class Dashboard extends Component {
           variant="temporary"
           anchor="left"
           open={this.state.open}
+          onClose={this.handleDrawerClose}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -534,6 +543,9 @@ class Dashboard extends Component {
               </Route>
               <Route exact={true} path={Routes.Dashboard}>
                 <Home />
+              </Route>
+              <Route exact={true} path={Routes.EditProfile}>
+                <EditProfile appContext={this} />
               </Route>
               <Redirect to={Routes.Dashboard} />
             </Switch>
