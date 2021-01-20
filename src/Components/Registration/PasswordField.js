@@ -122,7 +122,7 @@ class PasswordField extends Component {
           >
             {children}
             {/** Render the password strength meter **/}
-            <div className={strengthClass}>
+            <div className={strengthClass} style={{ marginBottom: "15px" }}>
               <div
                 className="strength-meter-fill"
                 data-strength={strength}
