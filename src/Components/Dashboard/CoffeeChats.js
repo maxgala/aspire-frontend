@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CoffeeChatCard from "./Cards/CoffeeChatCard";
-// TODO: Hiding filters until they get implemented
-// import Filter from "./Cards/FilterCard";
 import CardTypes from "./CardTypes";
 import { httpGet } from "../../lib/dataAccess";
 // import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
@@ -11,6 +9,20 @@ import EmptyCard from "./Cards/EmptyCard";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { withRouter } from "react-router";
 import { Auth } from "aws-amplify";
+import TextField from "@material-ui/core/TextField";
+import Industries from "../Registration/industry";
+import MenuItem from "@material-ui/core/MenuItem";
+
+const IndustryLabels = [];
+IndustryLabels.push("All");
+for (let i = 0; i < Industries.length; ++i) {
+  IndustryLabels.push(Industries[i]["name"]);
+}
+
+const ChatTypeLabels = [];
+ChatTypeLabels.push("All");
+ChatTypeLabels.push("One on One");
+ChatTypeLabels.push("Mock Interview");
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -77,6 +89,22 @@ const useStyles = makeStyles(() => ({
     fontSize: "15px",
     fontWeight: "bold",
   },
+
+  filter: {
+    marginBottom: "40px",
+  },
+
+  filterText: {
+    fontFamily: "PT Sans",
+    fontSize: "18px",
+    textAlign: "left",
+    color: "#58595B",
+    fontWeight: "bold",
+  },
+
+  filterOption: {
+    padding: "12px",
+  },
 }));
 
 function withMyHook(Component) {
@@ -92,6 +120,9 @@ class CoffeeChats extends Component {
     this.state = {
       chats: [],
       isChatsLoaded: false,
+      industry: "",
+      unfilteredChats: [],
+      chatType: "",
     };
   }
 
@@ -110,7 +141,44 @@ class CoffeeChats extends Component {
     this.setState({
       isChatsLoaded: true,
       chats: full,
+      unfilteredChats: full,
     });
+  };
+
+  filterChats = async () => {
+    let industry = this.state.industry;
+    let type = this.state.chatType;
+    let filteredChats = this.state.unfilteredChats;
+
+    if (industry !== "" && industry !== "All") {
+      filteredChats = this.state.unfilteredChats.filter(
+        (chat) => chat.industry === this.state.industry
+      );
+    }
+
+    if (type !== "" && type !== "All") {
+      if (type === "One on One") {
+        type = "ONE_ON_ONE";
+      } else {
+        type = "MOCK_INTERVIEW";
+      }
+      filteredChats = filteredChats.filter((chat) => chat.chat_type === type);
+    }
+
+    this.setState({
+      isChatsLoaded: true,
+      chats: filteredChats,
+    });
+  };
+
+  handleIndustryChange = async (event) => {
+    await this.setState({ industry: event.target.value });
+    this.filterChats();
+  };
+
+  handleChatTypeChange = async (event) => {
+    await this.setState({ chatType: event.target.value });
+    this.filterChats();
   };
 
   componentDidMount() {
@@ -119,118 +187,62 @@ class CoffeeChats extends Component {
 
   render() {
     const classes = this.props.classes;
-    //const userProfile = this.getUserProfile();
     return (
       <div>
         {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
           <h1 className={classes.coffeeChat}>Available Coffee Chats</h1>
-          {/* TODO: Hiding filters until they get implemented
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Industry</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Title</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
 
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Additional Filters</p>
-                <p className={classes.section_title}>Random Company</p>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <Grid item xs={12}>
+              <h1 className={classes.filterText}>Filter by</h1>
+            </Grid>
+            <Grid container item xs={12} className={classes.filter}>
+              <Grid item xs={4} className={classes.filterOption}>
+                <TextField
+                  id="outlined-select-education"
+                  fullWidth
+                  select
+                  label="Industry"
+                  value={this.state.industry}
+                  onChange={this.handleIndustryChange}
+                  variant="outlined"
+                >
+                  {IndustryLabels.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
+              <Grid item xs={4} className={classes.filterOption}>
+                <TextField
+                  id="outlined-select-education"
+                  fullWidth
+                  select
+                  label="Type"
+                  value={this.state.chatType}
+                  onChange={this.handleChatTypeChange}
+                  variant="outlined"
+                >
+                  {ChatTypeLabels.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
             </Grid>
           </Grid>
-           <div className={classes.sort}>
-              <p className={classes.date}> Sort date posted by:
-            <select className={classes.select}>
-                  <option value="Ascending">Ascending</option>
-                  <option value="descending">Descending</option>
-                </select>
-              </p>
-            </div>
-            */}
 
           <Grid
             container
