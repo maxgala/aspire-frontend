@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import TextField from "@material-ui/core/TextField";
 import PropTypes from "prop-types";
 
 class FormField extends Component {
@@ -70,7 +71,14 @@ class FormField extends Component {
           </div>
           {/** Render the children nodes passed to component **/}
           {children}
-          <input
+          <TextField
+            variant="outlined"
+            required
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            label={label}
             type={type}
             className={controlClass}
             id={fieldId}
