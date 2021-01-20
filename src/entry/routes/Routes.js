@@ -11,4 +11,5 @@ export const Routes = {
   Landpage: "/",
   Login: "/signup",
   Register: "/register",
+  ForgotPassword: "/password",
 };
