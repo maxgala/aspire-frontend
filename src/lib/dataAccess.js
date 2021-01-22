@@ -25,6 +25,20 @@ export const httpGet = (endPoint, accessToken) => {
     });
 };
 
+export const S3Get = (endPoint) => {
+  let url = endPoint;
+
+  return axios
+    .get(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const httpPost = (endPoint, accessToken, body) => {
   let url = baseURL + "api/" + endPoint;
   let offset = new Date().getTimezoneOffset();
