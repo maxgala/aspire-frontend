@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import JobApplicationCard from "./Cards/JobApplicationCard";
-// TODO: Hiding filters until they get implemented
-// import Filter from "./Cards/FilterCard";
-// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import EmptyCard from "./Cards/EmptyCard";
 import CardTypes from "./CardTypes";
 import { withRouter } from "react-router";
@@ -15,6 +12,13 @@ import jwtDecode from "jwt-decode";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import PostJobPopup from "./Popups/PostJobPopup";
+import TextField from "@material-ui/core/TextField";
+import MenuItem from "@material-ui/core/MenuItem";
+
+const JobTypeLabels = [];
+JobTypeLabels.push("All");
+JobTypeLabels.push("Regular Jobs");
+JobTypeLabels.push("Board Roles");
 
 const useStyles = makeStyles((theme) => ({
   mainPage: {
@@ -79,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width: 420px)": {
       display: "none",
     },
-
   },
 
   extendedIcon: {
@@ -127,6 +130,23 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "15px",
     fontWeight: "bold",
   },
+
+  filter: {
+    marginBottom: "40px",
+  },
+
+  filterText: {
+    fontFamily: "PT Sans",
+    fontSize: "18px",
+    textAlign: "left",
+    color: "#58595B",
+    fontWeight: "bold",
+  },
+
+  filterOption: {
+    padding: "12px",
+    margin: "0px",
+  },
 }));
 
 function withMyHook(Component) {
@@ -143,6 +163,9 @@ class JobBoard extends Component {
       jobs: [],
       isJobAppsLoaded: false,
       openPostJob: false,
+      jobType: "",
+      unfilteredJobs: [],
+      jobTitle: "",
     };
   }
 
@@ -167,8 +190,43 @@ class JobBoard extends Component {
       this.setState({
         jobs: existingJobsData.data.jobs,
         isJobAppsLoaded: true,
+        filteredJobs: existingJobsData.data.jobs,
       });
     }
+  };
+
+  filterJobs = async () => {
+    let jobType = this.state.jobType;
+    let jobTitle = this.state.jobTitle;
+    let filteredJobs = this.state.filteredJobs;
+
+    if (jobType !== "" && jobType !== "All") {
+      if (jobType === "Regular Jobs") {
+        jobType = "REGULAR_JOB";
+      } else {
+        jobType = "BOARD_POSITION";
+      }
+      filteredJobs = filteredJobs.filter((job) => job.job_type === jobType);
+    }
+
+    if (jobTitle !== "") {
+      filteredJobs = filteredJobs.filter((job) => job.title.includes(jobTitle));
+    }
+
+    this.setState({
+      isChatsLoaded: true,
+      jobs: filteredJobs,
+    });
+  };
+
+  handleTypeChange = async (event) => {
+    await this.setState({ jobType: event.target.value });
+    this.filterJobs();
+  };
+
+  handleJobTitleChange = async (event) => {
+    await this.setState({ jobTitle: event.target.value });
+    this.filterJobs();
   };
 
   componentDidMount() {
@@ -179,7 +237,6 @@ class JobBoard extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
           <Grid
             container
@@ -202,181 +259,81 @@ class JobBoard extends Component {
               <h1 className={classes.JobBoard}>Job Board</h1>
             </Grid>
             {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
-              "FREE" ? (
-                <Grid
-                  container
-                  item
-                  xs={4}
-                  sm={6}
-                  md={4}
-                  spacing={1}
-                  alignItems="center"
-                  justify="flex-start"
-
+            "FREE" ? (
+              <Grid
+                container
+                item
+                xs={4}
+                sm={6}
+                md={4}
+                spacing={1}
+                alignItems="center"
+                justify="flex-start"
+              >
+                <Fab
+                  className={classes.addJobButton}
+                  variant="extended"
+                  onClick={this.postJob}
                 >
-                  <Fab className={classes.addJobButton} variant="extended" onClick={this.postJob}>
-                    <AddIcon className={classes.extendedIcon} />
-                    <span className={classes.PostJobText}>Post Job</span>
-                  </Fab>
-                </Grid>
-              ) : null}
+                  <AddIcon className={classes.extendedIcon} />
+                  <span className={classes.PostJobText}>Post Job</span>
+                </Fab>
+              </Grid>
+            ) : null}
             <PostJobPopup
               openPostJob={this.state.openPostJob}
               handlePostJobClose={this.handlePostJobClose}
             />
           </Grid>
-          {/* TODO: Hiding filters until they get implemented
+
           <Grid
             container
             item
             xs={12}
+            sm={12}
+            md={12}
             spacing={1}
-            alignItems="flex-start"
-            justify="flex-start"
+            alignItems="center"
+            justify="center"
           >
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Title</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
+            <Grid item xs={12}>
+              <h1 className={classes.filterText}>Filter by</h1>
             </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Location</p>
+            <Grid container item xs={12} className={classes.filter}>
+              <Grid item xs={4} className={classes.filterOption}>
+                <TextField
+                  id="outlined-select-education"
+                  fullWidth
+                  select
+                  label="Type"
+                  value={this.state.jobType}
+                  onChange={this.handleTypeChange}
+                  variant="outlined"
+                >
+                  {JobTypeLabels.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
 
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Type</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Additional Filters</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
+              <Grid item xs={4} className={classes.filterOption}>
+                <TextField
+                  variant="outlined"
+                  margin="0"
+                  fullWidth
+                  id="job_title"
+                  label="Job Title"
+                  name="job_title"
+                  autoComplete="Job Title"
+                  autoFocus
+                  value={this.state.job_title}
+                  onChange={this.handleJobTitleChange}
+                />
               </Grid>
             </Grid>
           </Grid>
-
-          <div className={classes.sort}>
-            <p className={classes.date}>
-              {" "}
-              Sort date posted by:
-              <select className={classes.select}>
-                <option value="Ascending">Ascending</option>
-                <option value="descending">Descending</option>
-              </select>
-            </p>
-          </div>
-          */}
-
           <Grid
             container
             item
@@ -404,18 +361,6 @@ class JobBoard extends Component {
                   </Grid>
                 ))
               ) : (
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <EmptyCard type={CardTypes.jobApplication} />
-                  </Grid>
-                )
-            ) : (
                 <Grid
                   container
                   item
@@ -424,12 +369,23 @@ class JobBoard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <Skeleton variant="rect" className={classes.cardAppLoader} />
+                  <EmptyCard type={CardTypes.jobApplication} />
                 </Grid>
-              )}
+              )
+            ) : (
+              <Grid
+                container
+                item
+                xs={12}
+                spacing={1}
+                alignItems="flex-start"
+                justify="flex-start"
+              >
+                <Skeleton variant="rect" className={classes.cardAppLoader} />
+              </Grid>
+            )}
           </Grid>
         </div>
-        {/* </PerfectScrollbar> */}
       </div>
     );
   }
