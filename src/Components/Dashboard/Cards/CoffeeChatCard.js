@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { faBuilding } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ChatTypes from "../ChatTypes";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,6 +16,8 @@ import { withSnackbar } from "notistack";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Auth } from "aws-amplify";
 import jwtDecode from "jwt-decode";
+import WorkIcon from "@material-ui/icons/Work";
+import BusinessIcon from "@material-ui/icons/Business";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -286,7 +286,7 @@ const useStyles = makeStyles(() => ({
     borderStyle: "solid",
     borderWidth: "0.5px",
     borderRadius: 50,
-    borderColor: "white",
+    borderColor: "black",
     margin: "5px",
     marginLeft: "0px",
   },
@@ -298,9 +298,9 @@ const useStyles = makeStyles(() => ({
     left: "15px",
     right: "15px",
     float: "left",
-    fontSize: "8px",
+    fontSize: "15px",
     fontWeight: "100",
-    color: "white",
+    color: "black",
     display: "flex",
   },
   bar: {
@@ -313,7 +313,7 @@ const useStyles = makeStyles(() => ({
     paddingBottom: "0",
   },
   container: {
-    paddingTop: "20px",
+    paddingTop: "5px",
   },
   company_icon: {
     width: "18px",
@@ -498,10 +498,16 @@ class CoffeeChatCard extends Component {
                 </h1>
                 <p className={classes.subtitle}>
                   <span>
-                    <FontAwesomeIcon
-                      icon={faBuilding}
-                      className={classes.company_icon}
-                    />
+                    <WorkIcon className={classes.company_icon} />
+                  </span>{" "}
+                  <span className={classes.overflowText}>
+                    {this.props.data["position"]}
+                  </span>
+                  {this.props.data.title}
+                </p>
+                <p className={classes.subtitle}>
+                  <span>
+                    <BusinessIcon className={classes.company_icon} />
                   </span>{" "}
                   <span className={classes.overflowText}>
                     {this.props.data["custom:company"]}
@@ -516,13 +522,13 @@ class CoffeeChatCard extends Component {
                     : "Mock Interview"}
                 </span>
 
-                {this.props.data &&
-                  this.props.data.chat_tags &&
-                  this.props.data.chat_tags.map((tag, key) => (
+                {/* {this.props.data &&
+                  this.props.data["industry_tags"] &&
+                  this.props.data["industry_tags"].split(";").map((tag, key) => (
                     <span key={key} className={classes.tag_container}>
                       <span className={classes.tag}>{tag}</span>
                     </span>
-                  ))}
+                  ))} */}
               </Grid>
 
               <Grid
@@ -545,8 +551,7 @@ class CoffeeChatCard extends Component {
                   <hr className={classes.bar}></hr>
                   {this.props.data.fixed_date ? (
                     <span className={classes.date}>
-                      Date:{" "}
-                      <Moment unix local format="ddd, MMM Do YYYY, hh:mm A">
+                      <Moment unix local format="MMM Do YYYY, hh:mmA">
                         {this.props.data.fixed_date}
                       </Moment>
                     </span>
@@ -605,7 +610,13 @@ class CoffeeChatCard extends Component {
           <Toolbar className={classes.toolbar}>
             <div>
               <h2 className={classes.dialogLabel}>
-                Register for a Coffee Chat
+                Register for a{" "}
+                {this.props.data.chat_type === ChatTypes.oneOnOne
+                  ? "One on One"
+                  : this.props.data.chat_type === ChatTypes.fourOnOne
+                  ? "Four on One"
+                  : "Mock Interview"}{" "}
+                Coffee Chat
               </h2>
             </div>
             <img
@@ -682,6 +693,7 @@ class CoffeeChatCard extends Component {
                       </span>
                     </h1>
                   </Grid>
+
                   <Grid
                     container
                     item
@@ -694,10 +706,50 @@ class CoffeeChatCard extends Component {
                       Company: {this.props.data["custom:company"]}
                     </span>
                   </Grid>
+
                   <Grid
                     container
                     item
                     xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}>
+                      Title: {this.props.data["position"]}
+                    </span>
+                  </Grid>
+
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}>
+                      Industry: {this.props.data["industry"]}
+                    </span>
+                  </Grid>
+
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}>
+                      Region: {this.props.data["region"]}
+                    </span>
+                  </Grid>
+
+                  <Grid
+                    container
+                    item
+                    xs={12}
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
@@ -713,7 +765,7 @@ class CoffeeChatCard extends Component {
                   <Grid
                     container
                     item
-                    xs={6}
+                    xs={12}
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
@@ -733,7 +785,7 @@ class CoffeeChatCard extends Component {
                   <Grid
                     container
                     item
-                    xs={6}
+                    xs={12}
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
@@ -754,12 +806,18 @@ class CoffeeChatCard extends Component {
                     item
                     xs={12}
                     spacing={0}
-                    alignItems="flex-start"
+                    alignItems="center"
                     justify="flex-start"
                   >
-                    <span className={classes.date2}>
-                      {this.props.data.description}
-                    </span>
+                    {this.props.data &&
+                      this.props.data["industry_tags"] &&
+                      this.props.data["industry_tags"]
+                        .split(";")
+                        .map((tag, key) => (
+                          <span key={key} className={classes.tag_container}>
+                            <span className={classes.tag}>{tag}</span>
+                          </span>
+                        ))}
                   </Grid>
                 </Grid>
               </Grid>
