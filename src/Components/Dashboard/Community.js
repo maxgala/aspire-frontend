@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-// TODO: Hiding filters until they get implemented
-// import Filter from "./Cards/FilterCard";
-// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import CommunityCard from "./Cards/CommunityCard";
 import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
@@ -11,6 +8,15 @@ import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
 import jwtDecode from "jwt-decode";
+import TextField from "@material-ui/core/TextField";
+import Industries from "../Registration/industry";
+import MenuItem from "@material-ui/core/MenuItem";
+
+const IndustryLabels = [];
+IndustryLabels.push("All");
+for (let i = 0; i < Industries.length; ++i) {
+  IndustryLabels.push(Industries[i]["name"]);
+}
 
 const useStyles = makeStyles(() => ({
   mainPage: {
@@ -80,6 +86,23 @@ const useStyles = makeStyles(() => ({
     fontSize: "15px",
     fontWeight: "bold",
   },
+
+  filter: {
+    marginBottom: "40px",
+  },
+
+  filterText: {
+    fontFamily: "PT Sans",
+    fontSize: "18px",
+    textAlign: "left",
+    color: "#58595B",
+    fontWeight: "bold",
+  },
+
+  filterOption: {
+    padding: "12px",
+    margin: "0px",
+  },
 }));
 
 function withMyHook(Component) {
@@ -98,6 +121,8 @@ class JobBoard extends Component {
       isCommunityLoaded: false,
       requesteeResponse: [],
       currentUserEmail: jwtDecode(localStorage.getItem("idToken"))["email"],
+      industry: "",
+      unfilteredMembers: [],
     };
   }
 
@@ -157,7 +182,29 @@ class JobBoard extends Component {
     this.setState({
       community_data: full,
       isCommunityLoaded: true,
+      unfilteredMembers: full,
     });
+  };
+
+  filterMembers = async () => {
+    let industry = this.state.industry;
+    let filteredMembers = this.state.unfilteredMembers;
+
+    if (industry !== "" && industry !== "All") {
+      filteredMembers = this.state.unfilteredMembers.filter(
+        (member) => member.attributes["custom:industry"] === this.state.industry
+      );
+    }
+
+    this.setState({
+      community_data: filteredMembers,
+      isCommunityLoaded: true,
+    });
+  };
+
+  handleIndustryChange = async (event) => {
+    await this.setState({ industry: event.target.value });
+    this.filterMembers();
   };
 
   componentDidMount() {
@@ -169,93 +216,44 @@ class JobBoard extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
           <div className={classes.padding}>
             <h1 className={classes.JobBoard}>Members</h1>
           </div>
 
-          {/* TODO: Hiding filters until they get implemented
           <Grid
             container
             item
             xs={12}
+            sm={12}
+            md={12}
             spacing={1}
-            alignItems="flex-start"
-            justify="flex-start"
+            alignItems="center"
+            justify="center"
           >
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Title</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
+            <Grid item xs={12}>
+              <h1 className={classes.filterText}>Filter by</h1>
+            </Grid>
+            <Grid container item xs={12} className={classes.filter}>
+              <Grid item xs={4} className={classes.filterOption}>
+                <TextField
+                  id="outlined-select-education"
+                  fullWidth
+                  select
+                  label="Industry"
+                  value={this.state.industry}
+                  onChange={this.handleIndustryChange}
+                  variant="outlined"
+                >
+                  {IndustryLabels.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
             </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Location</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-
-            <div className={classes.sort}>
-              <p className={classes.date}> Sort date posted by:
-                <select className={classes.select}>
-                  <option value="Ascending">Ascending</option>
-                  <option value="descending">Descending</option>
-                </select>
-              </p>
-            </div>
-          */}
+          </Grid>
 
           <Grid
             container
@@ -299,7 +297,6 @@ class JobBoard extends Component {
             )}
           </Grid>
         </div>
-        {/* </PerfectScrollbar> */}
       </div>
     );
   }
