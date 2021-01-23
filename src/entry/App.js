@@ -24,8 +24,8 @@ class App extends Component {
       <SnackbarProvider
         maxSnack={3}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "center",
+          vertical: "bottom",
+          horizontal: "right",
         }}
       >
         <Router>
