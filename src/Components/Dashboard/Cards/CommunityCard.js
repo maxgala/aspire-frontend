@@ -161,9 +161,9 @@ const useStyles = makeStyles(() => ({
     marginTop: "5px",
   },
   subtitle3: {
-    fontSize: "20px",
+    fontSize: "16px",
     "@media (max-width: 480px)": {
-      fontSize: "16px",
+      fontSize: "14px",
       marginLeft: "0px",
     },
     fontFamily: "PT Sans",
@@ -184,6 +184,9 @@ const useStyles = makeStyles(() => ({
     color: "black",
     margin: "0px",
     float: "left",
+  },
+  translate: {
+    transform: "translate(0%, 0%)",
   },
 }));
 
