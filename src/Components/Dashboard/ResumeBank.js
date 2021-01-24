@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-// import PerfectScrollbar from "@opuscapita/react-perfect-scrollbar";
 import ResumeBankCard from "./Cards/ResumeBankCard";
-// TODO: Hiding filters until they get implemented
-// import Filter from "./Cards/FilterCard";
 import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
+import TextField from "@material-ui/core/TextField";
+import Industries from "../Registration/industry";
+import MenuItem from "@material-ui/core/MenuItem";
+
+const IndustryLabels = [];
+IndustryLabels.push("All");
+for (let i = 0; i < Industries.length; ++i) {
+  IndustryLabels.push(Industries[i]["name"]);
+}
 
 const useStyles = makeStyles(() => ({
   resumebankcard: {
@@ -84,6 +90,22 @@ const useStyles = makeStyles(() => ({
     fontSize: "15px",
     fontWeight: "bold",
   },
+
+  filter: {
+    marginBottom: "40px",
+  },
+
+  filterText: {
+    fontFamily: "PT Sans",
+    fontSize: "18px",
+    textAlign: "left",
+    color: "#58595B",
+    fontWeight: "bold",
+  },
+
+  filterOption: {
+    padding: "12px",
+  },
 }));
 
 function withMyHook(Component) {
@@ -100,6 +122,8 @@ class JobBoard extends Component {
       // temporary - just wanted more test data to fill the page
       job_board_data: [],
       isResumebankLoaded: false,
+      industry: "",
+      unfilteredData: [],
     };
   }
 
@@ -128,7 +152,29 @@ class JobBoard extends Component {
     this.setState({
       job_board_data: full,
       isResumebankLoaded: true,
+      unfilteredData: full,
     });
+  };
+
+  filterChats = async () => {
+    let industry = this.state.industry;
+    let filteredData = this.state.unfilteredData;
+
+    if (industry !== "" && industry !== "All") {
+      filteredData = this.state.unfilteredData.filter(
+        (member) => member.attributes["custom:industry"] === this.state.industry
+      );
+    }
+
+    this.setState({
+      job_board_data: filteredData,
+      isResumebankLoaded: true,
+    });
+  };
+
+  handleIndustryChange = async (event) => {
+    await this.setState({ industry: event.target.value });
+    this.filterChats();
   };
 
   componentDidMount() {
@@ -143,124 +189,39 @@ class JobBoard extends Component {
         <div className={classes.mainPage}>
           <h1 className={classes.JobBoard}>Resume Bank</h1>
 
-          {/* TODO: Hiding filters until they get implemented
           <Grid
             container
             item
             xs={12}
+            sm={12}
+            md={12}
             spacing={1}
-            alignItems="flex-start"
-            justify="flex-start"
+            alignItems="center"
+            justify="center"
           >
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Title</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
+            <Grid item xs={12}>
+              <h1 className={classes.filterText}>Filter by</h1>
             </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Location</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Additional Filters</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
+            <Grid container item xs={12} className={classes.filter}>
+              <Grid item xs={4} className={classes.filterOption}>
+                <TextField
+                  id="outlined-select-education"
+                  fullWidth
+                  select
+                  label="Industry"
+                  value={this.state.industry}
+                  onChange={this.handleIndustryChange}
+                  variant="outlined"
+                >
+                  {IndustryLabels.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
             </Grid>
           </Grid>
-
-          <div className={classes.sort}>
-            <p className={classes.date}>
-              {" "}
-              Sort date posted by:
-              <select className={classes.select}>
-                <option value="Ascending">Ascending</option>
-                <option value="descending">Descending</option>
-              </select>
-            </p>
-          </div>
-          */}
 
           <Grid
             container
@@ -306,7 +267,6 @@ class JobBoard extends Component {
             )}
           </Grid>
         </div>
-        {/* </PerfectScrollbar> */}
       </div>
     );
   }
