@@ -189,7 +189,6 @@ class CoffeeChats extends Component {
     const classes = this.props.classes;
     return (
       <div>
-        {/* <PerfectScrollbar> */}
         <div className={classes.mainPage}>
           <h1 className={classes.coffeeChat}>Available Coffee Chats</h1>
 
@@ -287,7 +286,6 @@ class CoffeeChats extends Component {
             )}
           </Grid>
         </div>
-        {/* </PerfectScrollbar> */}
       </div>
     );
   }
