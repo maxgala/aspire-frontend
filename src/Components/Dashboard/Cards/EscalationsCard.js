@@ -379,7 +379,7 @@ class EscalationsCard extends Component {
           variant="contained"
           color="primary"
         >
-          Create Escalation
+          Contact Us
         </Button>
 
         <Dialog
@@ -398,7 +398,7 @@ class EscalationsCard extends Component {
           <Toolbar className={classes.toolbar}>
             <div>
               <h2 style={{ margin: "0px", marginTop: "10px", color: "white" }}>
-                Create Escalation
+                Contact Us
               </h2>
             </div>
             <img
@@ -459,6 +459,7 @@ class EscalationsCard extends Component {
                     }}
                   >
                     <MenuItem aria-label="None" value="" />
+                    <MenuItem value={"coffechat"}>Account</MenuItem>
                     <MenuItem value={"coffechat"}>Coffee Chat</MenuItem>
                     <MenuItem value={"resume"}>Resume </MenuItem>
                     <MenuItem value={"payment"}>Payment</MenuItem>
