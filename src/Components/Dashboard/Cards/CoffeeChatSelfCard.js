@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { faBuilding } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ChatTypes from "../ChatTypes";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -17,6 +15,8 @@ import "moment-timezone";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
 import jwtDecode from "jwt-decode";
+import WorkIcon from "@material-ui/icons/Work";
+import BusinessIcon from "@material-ui/icons/Business";
 
 const useStyles = makeStyles(() => ({
   cardOne: {
@@ -89,6 +89,7 @@ const useStyles = makeStyles(() => ({
     marginLeft: "10px",
     marginRight: "20px",
     display: "inline-block",
+    objectFit: "cover",
   },
   image2: {
     width: "20vw",
@@ -103,6 +104,7 @@ const useStyles = makeStyles(() => ({
     marginLeft: "20px",
     marginRight: "20px",
     display: "inline-block",
+    objectFit: "cover",
   },
   title: {
     fontFamily: "PT Sans",
@@ -143,19 +145,30 @@ const useStyles = makeStyles(() => ({
     fontFamily: "PT Sans",
     fontWeight: "bold",
     "@media (max-width: 520px)": {
+      width: "80%",
       fontSize: "12px",
     },
     "@media (max-width: 320px)": {
       fontSize: "10px",
       marginTop: "3px",
     },
-    width: "100%",
+    width: "50%",
     textAlign: "left",
+    display: "flex",
     color: "white",
     margin: "0px",
     marginLeft: "5px",
     marginTop: "5px",
   },
+
+  //to be applied to span elements to avoid overflow
+  overflowText: {
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+
   subtitle2: {
     fontSize: "16px",
     "@media (max-width: 480px)": {
@@ -272,7 +285,7 @@ const useStyles = makeStyles(() => ({
     borderStyle: "solid",
     borderWidth: "0.5px",
     borderRadius: 50,
-    borderColor: "white",
+    borderColor: "black",
     margin: "5px",
     marginLeft: "0px",
   },
@@ -284,9 +297,9 @@ const useStyles = makeStyles(() => ({
     left: "15px",
     right: "15px",
     float: "left",
-    fontSize: "8px",
+    fontSize: "15px",
     fontWeight: "100",
-    color: "white",
+    color: "black",
     display: "flex",
   },
   bar: {
@@ -299,7 +312,7 @@ const useStyles = makeStyles(() => ({
     paddingBottom: "0",
   },
   container: {
-    paddingTop: "20px",
+    paddingTop: "5px",
   },
   company_icon: {
     width: "18px",
@@ -350,6 +363,14 @@ const useStyles = makeStyles(() => ({
     fontFamily: "myriad-pro, sans-serif",
     paddingLeft: "50px",
     paddingRight: "50px",
+  },
+
+  reservedText: {
+    fontFamily: "PT Sans",
+    fontSize: "15px",
+    "@media (max-width: 480px)": {
+      fontSize: "12px",
+    },
   },
 }));
 
@@ -506,12 +527,20 @@ class CoffeeChatSelfCard extends Component {
                 </h1>
                 <p className={classes.subtitle}>
                   <span>
-                    <FontAwesomeIcon
-                      icon={faBuilding}
-                      className={classes.company_icon}
-                    />
+                    <WorkIcon className={classes.company_icon} />
                   </span>{" "}
-                  {this.props.data["custom:company"]}
+                  <span className={classes.overflowText}>
+                    {this.props.data["position"]}
+                  </span>
+                  {this.props.data.title}
+                </p>
+                <p className={classes.subtitle}>
+                  <span>
+                    <BusinessIcon className={classes.company_icon} />
+                  </span>{" "}
+                  <span className={classes.overflowText}>
+                    {this.props.data["custom:company"]}
+                  </span>
                   {this.props.data.title}
                 </p>
                 <span className={classes.subtitle}>
@@ -522,13 +551,13 @@ class CoffeeChatSelfCard extends Component {
                     : "Mock Interview"}
                 </span>
 
-                {this.props.data &&
+                {/* {this.props.data &&
                   this.props.data.chat_tags &&
                   this.props.data.chat_tags.map((tag, key) => (
                     <span key={key} className={classes.tag_container}>
                       <span className={classes.tag}>{tag}</span>
                     </span>
-                  ))}
+                  ))} */}
               </Grid>
 
               <Grid
@@ -551,8 +580,7 @@ class CoffeeChatSelfCard extends Component {
                   <hr className={classes.bar}></hr>
                   {this.props.data.fixed_date ? (
                     <span className={classes.date}>
-                      Date:{" "}
-                      <Moment unix local format="ddd, MMM Do YYYY, hh:mm A">
+                      <Moment unix local format="MMM Do YYYY, hh:mmA">
                         {this.props.data.fixed_date}
                       </Moment>
                     </span>
@@ -704,10 +732,49 @@ class CoffeeChatSelfCard extends Component {
                       Company: {this.props.data["custom:company"]}
                     </span>
                   </Grid>
+
                   <Grid
                     container
                     item
                     xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}>
+                      Title: {this.props.data["position"]}
+                    </span>
+                  </Grid>
+
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}>
+                      Industry: {this.props.data["industry"]}
+                    </span>
+                  </Grid>
+
+                  <Grid
+                    container
+                    item
+                    xs={6}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.subtitle2}>
+                      Region: {this.props.data["region"]}
+                    </span>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
@@ -724,33 +791,6 @@ class CoffeeChatSelfCard extends Component {
                     )}
                   </Grid>
 
-                  <Grid
-                    container
-                    item
-                    xs={6}
-                    spacing={0}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    {this.props.data.chat_type === ChatTypes.fourOnOne &&
-                    this.props.data.aspiring_professionals !== null ? (
-                      <span className={classes.subtitle2}>
-                        Available spots:{" "}
-                        {4 - this.props.data.aspiring_professionals.length}
-                      </span>
-                    ) : (
-                      ""
-                    )}
-                  </Grid>
-                  <span className={classes.subtitle2}>
-                    Reserved with:{" "}
-                    {this.props.data.aspiring_professionals &&
-                      this.props.data.aspiring_professionals.map((ap, i) => (
-                        <p className={classes.subtitle2}>
-                          {i + 1}. {ap},{" "}
-                        </p>
-                      ))}
-                  </span>
                   <Grid
                     container
                     item

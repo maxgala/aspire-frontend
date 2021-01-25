@@ -211,7 +211,7 @@ class Home extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <p className={classes.section_title}>Registered Coffee Chats</p>
+              <p className={classes.section_title}>Coffee Chats</p>
               {this.state.isChatsLoaded ? (
                 this.state.coffee_chats &&
                 this.state.coffee_chats.length > 0 ? (

@@ -61,6 +61,10 @@ const useStyles = makeStyles(() => ({
     margin: "0px",
     marginLeft: "5px",
     marginTop: "5px",
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   subtitle: {
     fontFamily: "myriad-pro, sans-serif",
@@ -72,6 +76,10 @@ const useStyles = makeStyles(() => ({
     margin: "0px",
     marginLeft: "5px",
     marginTop: "5px",
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
   company: {
     fontFamily: "myriad-pro, sans-serif",
@@ -188,6 +196,12 @@ const useStyles = makeStyles(() => ({
   translate: {
     transform: "translate(0%, 0%)",
   },
+  overflowText: {
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
 }));
 
 function withMyHook(Component) {
@@ -271,7 +285,6 @@ class JobApplicationCard extends Component {
           });
         })
         .catch((err) => {
-          console.log(this.props.data.attributes.email);
           console.log(err);
         });
     }
@@ -505,7 +518,7 @@ class JobApplicationCard extends Component {
           fullWidth={true}
           maxWidth={"md"}
           PaperProps={{
-            style: { borderRadius: 12 },
+            style: { borderRadius: 12, height: "60vh" },
           }}
         >
           <Toolbar className={classes.toolbar}>
