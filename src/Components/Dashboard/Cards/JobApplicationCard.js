@@ -15,6 +15,7 @@ import { httpPost, httpGet } from "../../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -239,6 +240,8 @@ class JobApplicationCard extends Component {
     super(props);
     this.state = {
       open: false,
+      openConfirmApply: false,
+      showSpinner: false,
     };
   }
 
@@ -260,6 +263,9 @@ class JobApplicationCard extends Component {
   };
 
   applyJob = async () => {
+    this.setState({
+      showSpinner: true,
+    });
     const idTokeninfo = jwtDecode(
       (await Auth.currentSession()).getIdToken().getJwtToken()
     );
@@ -305,6 +311,21 @@ class JobApplicationCard extends Component {
     }
     this.setState({
       open: false,
+      showSpinner: false,
+      openConfirmApply: false,
+    });
+  };
+
+  areYouSureYouWantToApply = () => {
+    this.setState({
+      open: false,
+      openConfirmApply: true,
+    });
+  };
+
+  handleCloseConfirmApply = (event) => {
+    this.setState({
+      openConfirmApply: false,
     });
   };
 
@@ -647,10 +668,167 @@ class JobApplicationCard extends Component {
                       <Button
                         className={classes.button1}
                         variant="contained"
-                        onClick={this.applyJob}
+                        onClick={this.areYouSureYouWantToApply}
                       >
                         Apply
                       </Button>
+                    </DialogActions>
+                  </Grid>
+                </Grid>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions />
+          </Dialog>
+
+          <Dialog
+            className={classes.translate}
+            open={this.state.openConfirmApply}
+            onClose={this.handleCloseConfirmApply}
+            scroll={"paper"}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+            fullWidth={true}
+            maxWidth={"md"}
+            PaperProps={{
+              style: { borderRadius: 12 },
+            }}
+          >
+            <Toolbar className={classes.toolbar}>
+              <div>
+                <h2
+                  style={{ margin: "0px", marginTop: "10px", color: "white" }}
+                >
+                  Are you sure?
+                </h2>
+              </div>
+              <img
+                onClick={this.handleCloseConfirmApply}
+                className={classes.closes}
+                style={{ width: "14px", height: "14px", cursor: "pointer" }}
+                src={close}
+                alt="Close button"
+              />
+            </Toolbar>
+
+            <DialogContent>
+              <DialogContentText
+                id="scroll-dialog-description"
+                component={"span"}
+              >
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                  style={{ marginBottom: "15px", marginTop: "10px" }}
+                >
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={3}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.textpopup}>
+                      <span style={{ marginLeft: "5px" }}>
+                        <FontAwesomeIcon
+                          icon={faBuilding}
+                          style={{
+                            width: "15px",
+                            height: "15px",
+                            marginRight: "7px",
+                          }}
+                        />
+                      </span>
+                      {this.props.data && this.props.data.company}
+                    </span>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={3}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.textpopup2}>
+                      {this.props.data && this.props.data.city},
+                      {this.props.data && this.props.data.region}
+                    </span>
+                  </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    sm={3}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <span className={classes.textpopup2}>
+                      {this.props.data &&
+                      this.props.data.job_type &&
+                      this.props.data.job_type === "REGULAR_JOB"
+                        ? "Regular Job"
+                        : "Board Position"}
+                    </span>
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <h2 className={classes.header}>
+                    Are you sure you want to apply to {this.props.data.title} at{" "}
+                    {this.props.data.company}
+                  </h2>
+                  <h2 className={classes.descrip}>
+                    We will be using the resume on your user profile. If you
+                    wish to use a different resume, you can update your resume
+                    by heading over to the{" "}
+                    <a href="/app/dashboard/editprofile">
+                      user profile section
+                    </a>
+                  </h2>
+                </Grid>
+
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-end"
+                    justify="flex-end"
+                  >
+                    <DialogActions>
+                      {this.state.showSpinner ? (
+                        <CircularProgress className={classes.circleProgress} />
+                      ) : (
+                        <Button
+                          className={classes.button1}
+                          variant="contained"
+                          onClick={this.applyJob}
+                        >
+                          Apply
+                        </Button>
+                      )}
                     </DialogActions>
                   </Grid>
                 </Grid>
