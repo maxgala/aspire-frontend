@@ -288,7 +288,6 @@ class JobApplicationCard extends Component {
           console.log(err);
         });
     }
-    console.log(this.state.bio);
   };
 
   handleConnect = async () => {
