@@ -2,6 +2,7 @@
 
 The directory hierarchy will be as following:
 
+
 - frontend
   - public
   - src
