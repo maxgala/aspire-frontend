@@ -1,4 +1,4 @@
-## Aspire Frontend Dashboard
+## Aspire Frontend
 
 The directory hierarchy will be as following:
 
