@@ -214,7 +214,7 @@ class Landing extends Component {
       openPostJob: false,
       openFaq: false,
       active: 0,
-      max_characters: 2000,
+      max_characters: 3000,
       numJobs: 0,
       numChats: 0,
       credits: jwtDecode(localStorage.getItem("idToken"))["custom:credits"],
