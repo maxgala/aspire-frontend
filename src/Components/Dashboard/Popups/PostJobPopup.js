@@ -148,7 +148,7 @@ class PostJobPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      max_characters: 2000,
+      max_characters: 3000,
       checkedBox: false,
       showError: false,
       errorText: "",
