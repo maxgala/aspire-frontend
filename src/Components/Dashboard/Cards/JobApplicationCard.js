@@ -150,6 +150,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "12px",
       marginLeft: "0px",
     },
+    color: "black",
   },
   header: {
     textAlign: "left",
@@ -159,6 +160,7 @@ const useStyles = makeStyles(() => ({
     "@media (max-width: 480px)": {
       marginLeft: "0px",
     },
+    color: "black",
   },
   writeup: {
     textAlign: "left",
@@ -179,6 +181,7 @@ const useStyles = makeStyles(() => ({
     marginTop: "6px",
     fontWeight: "100",
     marginRight: "16%",
+    color: "black",
   },
   textpopup2: {
     fontSize: "15px",
@@ -186,6 +189,7 @@ const useStyles = makeStyles(() => ({
     marginRight: "16%",
     marginTop: "6px",
     fontWeight: "100",
+    color: "black",
   },
   tagpopup: {
     float: "left",
