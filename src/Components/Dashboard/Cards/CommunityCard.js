@@ -306,7 +306,7 @@ class JobApplicationCard extends Component {
         name:
           this.props.data.attributes["given_name"] +
           " " +
-          this.props.data.attributes["custom:family_name"],
+          this.props.data.attributes["family_name"],
       },
     };
     await httpPost(
@@ -349,7 +349,7 @@ class JobApplicationCard extends Component {
         name:
           this.props.data.attributes["given_name"] +
           " " +
-          this.props.data.attributes["custom:family_name"],
+          this.props.data.attributes["family_name"],
       },
     };
     await httpPost(
