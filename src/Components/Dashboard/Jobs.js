@@ -369,7 +369,7 @@ class JobBoard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <EmptyCard type={CardTypes.jobApplication} />
+                  <EmptyCard type={CardTypes.jobApplication} filtered={true} />
                 </Grid>
               )
             ) : (
