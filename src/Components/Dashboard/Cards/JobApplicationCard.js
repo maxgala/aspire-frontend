@@ -239,6 +239,10 @@ function withMyHook(Component) {
   };
 }
 
+function NewlineText(string) {
+  return string.split("\n").map((str) => <p>{str}</p>);
+}
+
 class JobApplicationCard extends Component {
   constructor(props) {
     super(props);
@@ -620,7 +624,8 @@ class JobApplicationCard extends Component {
                 >
                   <h2 className={classes.header}>Job Description:</h2>
                   <h2 className={classes.descrip}>
-                    {this.props.data && this.props.data.description}
+                    {this.props.data &&
+                      NewlineText(this.props.data.description)}
                   </h2>
                 </Grid>
                 <Grid
@@ -633,7 +638,8 @@ class JobApplicationCard extends Component {
                 >
                   <h2 className={classes.header}>Job Requirements:</h2>
                   <h2 className={classes.descrip}>
-                    {this.props.data && this.props.data.requirements}
+                    {this.props.data &&
+                      NewlineText(this.props.data.requirements)}
                   </h2>
                 </Grid>
                 <Grid
