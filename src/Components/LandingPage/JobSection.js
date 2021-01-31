@@ -37,12 +37,14 @@ const useStyles = makeStyles((theme) => ({
     left: "65%",
     transform: "translate(-50%, 0%)",
     wordWrap: "break-word",
-    width: "65%",
+    width: "85%",
+    paddingRight: "5%",
     height: "100%",
   },
   image: {
-    width: "7vw",
-    height: "7vw",
+    width: "5vw",
+    height: "5vw",
+    marginTop: "1vw",
     display: "block",
     transform: "translate(0%, -5%)",
   },
@@ -63,7 +65,21 @@ const useStyles = makeStyles((theme) => ({
   },
   role: {
     fontFamily: "Nunito Sans",
-    fontSize: "2vw",
+    fontSize: "1.5vw",
+    marginTop: "0.5vw",
+    marginBottom: "0vw",
+    textAlign: "left",
+  },
+  role_long1: {
+    fontFamily: "Nunito Sans",
+    fontSize: "1.4vw",
+    marginTop: "0vw",
+    marginBottom: "0vw",
+    textAlign: "left",
+  },
+  role_long2: {
+    fontFamily: "Nunito Sans",
+    fontSize: "1.2vw",
     marginTop: "0vw",
     marginBottom: "0vw",
     textAlign: "left",
@@ -124,8 +140,8 @@ class JobSection extends Component {
             <div className={classes.box}>
               <img className={classes.image} src={Globe} alt="Role Icon" />
               <div className={classes.boxInner}>
-                <h6 className={classes.role}>Role Name</h6>
-                <h6 className={classes.companyName}>Company Name</h6>
+                <h6 className={classes.role}>Senior Software Developer</h6>
+                <h6 className={classes.companyName}>Zensurance</h6>
               </div>
             </div>
           </Grid>
@@ -134,8 +150,9 @@ class JobSection extends Component {
             <div className={classes.box2}>
               <img className={classes.image} src={Globe} alt="Role Icon" />
               <div className={classes.boxInner}>
-                <h6 className={classes.role}>Role Name</h6>
-                <h6 className={classes.companyName}>Company Name</h6>
+                <h6 className={classes.role_long1}>Senior Manager</h6>
+                <h6 className={classes.role_long2}>Brokerage Operations</h6>
+                <h6 className={classes.companyName}>DHL Express Ltd.</h6>
               </div>
             </div>
           </Grid>
@@ -163,8 +180,9 @@ class JobSection extends Component {
             <div className={classes.box}>
               <img className={classes.image} src={Globe} alt="Role Icon" />
               <div className={classes.boxInner}>
-                <h6 className={classes.role}>Role Name</h6>
-                <h6 className={classes.companyName}>Company Name</h6>
+                <h6 className={classes.role_long1}>Manager</h6>
+                <h6 className={classes.role_long2}>Private Markets Risk</h6>
+                <h6 className={classes.companyName}>OPTrust</h6>
               </div>
             </div>
           </Grid>
@@ -173,8 +191,8 @@ class JobSection extends Component {
             <div className={classes.box2}>
               <img className={classes.image} src={Globe} alt="Role Icon" />
               <div className={classes.boxInner}>
-                <h6 className={classes.role}>Role Name</h6>
-                <h6 className={classes.companyName}>Company Name</h6>
+                <h6 className={classes.role}>Operations Supervisor</h6>
+                <h6 className={classes.companyName}>DHL Express Ltd.</h6>
               </div>
             </div>
           </Grid>
