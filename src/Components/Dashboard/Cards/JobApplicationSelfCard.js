@@ -148,6 +148,7 @@ const useStyles = makeStyles(() => ({
       fontSize: "12px",
       marginLeft: "0px",
     },
+    color: "black",
   },
   descrip: {
     textAlign: "left",
