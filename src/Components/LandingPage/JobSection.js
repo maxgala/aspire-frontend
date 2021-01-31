@@ -162,8 +162,9 @@ class JobSection extends Component {
               <h1 className={classes.header1}>Our Jobs</h1>
               <p className={classes.header2}>
                 <b>
-                  Apply directly to Full Time Jobs, Internships, or Board
-                  Positions posted by MAX Aspire members
+                  Join now to view more opportunities and apply directly to Full
+                  Time Jobs, Internships, or Board Positions posted by MAX
+                  Aspire members
                 </b>
               </p>
               <Button
