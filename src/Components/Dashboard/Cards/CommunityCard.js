@@ -620,7 +620,7 @@ class JobApplicationCard extends Component {
                     <span className={classes.subtitle2}>
                       Current:
                       <span className={classes.subtitle3}>
-                        {this.state.bio["cuurent_company"]}
+                        {this.state.bio["current_company"]}
                       </span>
                     </span>
                     {this.state.bio["company_2"] === "" ||
