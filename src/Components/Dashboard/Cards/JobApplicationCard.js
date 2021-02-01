@@ -312,9 +312,12 @@ class JobApplicationCard extends Component {
           });
         })
         .catch((err) => {
-          this.props.enqueueSnackbar("Failed to apply for this job!: " + err, {
-            variant: "error",
-          });
+          this.props.enqueueSnackbar(
+            "Failed to apply for this job!: " + err.response.data.message,
+            {
+              variant: "error",
+            }
+          );
         });
     }
     this.setState({

@@ -98,20 +98,31 @@ class MembershipCard extends Component {
     const membType = this.props.membership_type_text;
     let membImg;
     if (membType === "Free") {
-      membImg = <img className={classes.image} src={freeMembership} alt="Membership" />;
+      membImg = (
+        <img className={classes.image} src={freeMembership} alt="Membership" />
+      );
     } else if (membType === "Premium") {
-      membImg = <img className={classes.image} src={premiumMembership} alt="Membership" />;
+      membImg = (
+        <img
+          className={classes.image}
+          src={premiumMembership}
+          alt="Membership"
+        />
+      );
     } else {
-      membImg = <img className={classes.image} src={platinumMembership} alt="Membership" />;
+      membImg = (
+        <img
+          className={classes.image}
+          src={platinumMembership}
+          alt="Membership"
+        />
+      );
     }
-
-
 
     return (
       <div id="membership">
         <div className={classes.card}>
           <div>
-
             {membImg}
             <h2 className={classes.membership_type_text}>
               {this.props.membership_type_text}

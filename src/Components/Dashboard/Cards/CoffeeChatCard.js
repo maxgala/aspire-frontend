@@ -423,7 +423,7 @@ class CoffeeChatCard extends Component {
         });
       })
       .catch((err) => {
-        this.props.enqueueSnackbar("Failed:" + err.message, {
+        this.props.enqueueSnackbar("Failed: " + err.response.data.message, {
           variant: "error",
         });
         this.setState({
