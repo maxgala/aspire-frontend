@@ -429,7 +429,7 @@ class Dashboard extends Component {
               style={{ marginTop: "45px" }}
             >
               <MenuItem key={"postings"} onClick={this.changeToJobs}>
-                Postings
+                Job Board
               </MenuItem>
               <MenuItem
                 key={"view_submissions"}

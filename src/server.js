@@ -28,7 +28,7 @@ app.get("/app/*", async (req, res) => {
     res.send(resultFromReq);
   } catch (err) {
     console.error(err);
-    res.status(err.response.status).send(err.response.data.message);
+    res.status(err.response.status).send(err);
   }
 });
 
@@ -45,7 +45,7 @@ app.post("/app/*", async (req, res) => {
     res.send(resultFromReq);
   } catch (err) {
     console.error(err);
-    res.status(err.response.status).send(err.response.data.message);
+    res.status(err.response.status).send(err);
   }
 });
 
@@ -61,7 +61,7 @@ app.post("/register/*", async (req, res) => {
     res.send(resultFromReq);
   } catch (err) {
     console.error(err);
-    res.status(err.response.status).send(err.response.data.message);
+    res.status(err.response.status).send(err);
   }
 });
 
@@ -77,7 +77,7 @@ app.put("/app/*", async (req, res) => {
     res.send(resultFromReq);
   } catch (err) {
     console.error(err);
-    res.status(err.response.status).send(err.response.data.message);
+    res.status(err.response.status).send(err);
   }
 });
 
@@ -93,7 +93,7 @@ app.put("/register/*", async (req, res) => {
     res.send(resultFromReq);
   } catch (err) {
     console.error(err);
-    res.status(err.response.status).send(err.response.data.message);
+    res.status(err.response.status).send(err);
   }
 });
 
