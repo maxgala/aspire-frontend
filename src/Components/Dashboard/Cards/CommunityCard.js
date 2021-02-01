@@ -180,7 +180,7 @@ const useStyles = makeStyles(() => ({
       marginLeft: "0px",
     },
     fontFamily: "PT Sans",
-    fontWeight: "bold",
+    fontWeight: "normal",
     width: "100%",
     textAlign: "left",
     color: "black",
@@ -599,6 +599,7 @@ class JobApplicationCard extends Component {
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
+                    style={{ paddingBottom: "10px" }}
                   >
                     {this.state.bio["designation"] === "" ||
                       this.state.bio["designation"] === "N/A" ? (
@@ -621,19 +622,25 @@ class JobApplicationCard extends Component {
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
+                    style={{ paddingBottom: "10px" }}
                   >
                     <span className={classes.subtitle2}>
                       Current:
                       <span className={classes.subtitle3}>
-                        {this.state.bio["cuurent_company"]}
+                        {this.state.bio["current_company"]}
                       </span>
                     </span>
                     {this.state.bio["company_2"] === "" ||
-                      this.state.bio["company_2"] === "N/A" ? (
-                        ""
-                      ) : (
-                        <span className={classes.subtitle2}>Previous:</span>
-                      )}
+                    this.state.bio["company_2"] === "N/A" ? (
+                      ""
+                    ) : (
+                      <span
+                        className={classes.subtitle2}
+                        style={{ paddingTop: "10px" }}
+                      >
+                        Previous:
+                      </span>
+                    )}
                     {this.state.bio["company_2"] === "" ||
                       this.state.bio["company_2"] === "N/A" ? (
                         ""
@@ -660,6 +667,7 @@ class JobApplicationCard extends Component {
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
+                    style={{ paddingBottom: "10px" }}
                   >
                     <span className={classes.subtitle2}>Education:</span>
                     <span className={classes.subtitle3}>
@@ -682,6 +690,7 @@ class JobApplicationCard extends Component {
                     spacing={0}
                     alignItems="flex-start"
                     justify="flex-start"
+                    style={{ paddingBottom: "40px" }}
                   >
                     {this.state.bio["bio"] === "" ||
                       this.state.bio["bio"] === "N/A" ? (
