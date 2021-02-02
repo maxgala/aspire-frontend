@@ -137,7 +137,7 @@ class MainImage extends Component {
 
   handleClick2(e) {
     e.preventDefault();
-    document.getElementById("seniors").scrollIntoView({
+    document.getElementById("seniorexecs").scrollIntoView({
       behavior: "smooth",
     });
   }
