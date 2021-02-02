@@ -577,7 +577,9 @@ class CoffeeChatCard extends Component {
                         variant="contained"
                         color="primary"
                       >
-                        Book Now
+                        {this.state.userType === "MENTOR"
+                          ? "View Details"
+                          : "Book Now"}
                       </Button>
                     ) : (
                       <h3 className={classes.reservedText}>
