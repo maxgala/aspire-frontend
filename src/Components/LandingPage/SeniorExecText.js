@@ -64,7 +64,7 @@ class SeniorExecText extends Component {
     const classes = this.props.classes;
 
     return (
-      <div>
+      <div style={{ width: "70%" }}>
         <h1 className={classes.senior_prof_title}> Our Senior Executives</h1>
         <h3 className={classes.subheading}>
           We have over 200 Senior Executives commited to the MAX Aspire
