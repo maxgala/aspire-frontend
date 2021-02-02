@@ -14,6 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -222,6 +223,7 @@ class JobApplicationCard extends Component {
     this.state = {
       showConnect: false,
       showAccept: false,
+      showLoader: false,
       connect_status: "",
       open: false,
       bio: {},
@@ -243,10 +245,27 @@ class JobApplicationCard extends Component {
 
   checkUserType = () => {
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-    if (userProfile["custom:user_type"] === "MENTOR") {
+    if (
+      userProfile["custom:user_type"] === "MENTOR" &&
+      this.props.data.attributes["custom:user_type"] === "MENTOR"
+    ) {
       this.setState({
         showConnect: true,
       });
+    }
+  };
+
+  fetchConnectsRequests = async () => {
+    for (let i = 0; i < this.props.requestorResponse.length; i++) {
+      if (
+        this.props.requestorResponse[i].requestee ===
+        this.props.data.attributes.email
+      ) {
+        this.setState({
+          showConnect: false,
+          connect_status: this.props.requestorResponse[i].connection_status,
+        });
+      }
     }
   };
 
@@ -257,17 +276,19 @@ class JobApplicationCard extends Component {
           this.props.requesteeResponse[i].requestor ===
           this.props.data.attributes.email
         ) {
-          if (this.props.requesteeResponse[i].connect_status === "ACCEPTED") {
+          if (
+            this.props.requesteeResponse[i].connection_status === "ACCEPTED"
+          ) {
             this.setState({
               showConnect: false,
               showAccept: false,
-              connect_status: this.props.requesteeResponse[i].connect_status,
+              connect_status: this.props.requesteeResponse[i].connection_status,
             });
           } else {
             this.setState({
               showConnect: false,
               showAccept: true,
-              connect_status: this.props.requesteeResponse[i].connect_status,
+              connect_status: this.props.requesteeResponse[i].connection_status,
             });
           }
         }
@@ -296,6 +317,9 @@ class JobApplicationCard extends Component {
   };
 
   handleConnect = async () => {
+    this.setState({
+      showLoader: true,
+    });
     let connectPayload = {
       requestor: {
         email: jwtDecode(localStorage.getItem("idToken"))["email"],
@@ -322,12 +346,17 @@ class JobApplicationCard extends Component {
       .then((res) => {
         this.setState({
           showConnect: false,
+          showLoader: false,
+          connect_status: "PENDING",
         });
         this.props.enqueueSnackbar("Connection request sent!", {
           variant: "success",
         });
       })
       .catch((err) => {
+        this.setState({
+          showLoader: false,
+        });
         console.log(err);
         this.props.enqueueSnackbar(
           "Failed to send connection request: " + err.response.data.message,
@@ -339,6 +368,9 @@ class JobApplicationCard extends Component {
   };
 
   handleAccept = async () => {
+    this.setState({
+      showLoader: true,
+    });
     let acceptPayload = {
       requestor: {
         email: jwtDecode(localStorage.getItem("idToken"))["email"],
@@ -365,15 +397,20 @@ class JobApplicationCard extends Component {
       .then((res) => {
         this.setState({
           showAccept: false,
+          showLoader: false,
+          connect_status: "ACCEPTED",
         });
         this.props.enqueueSnackbar("Connection request accepted!", {
           variant: "success",
         });
       })
       .catch((err) => {
+        this.setState({
+          showLoader: false,
+        });
         console.log(err);
         this.props.enqueueSnackbar(
-          "Failed to accept connection request: " + err.message,
+          "Failed to accept connection request: " + err.response.data.message,
           {
             variant: "error",
           }
@@ -383,6 +420,7 @@ class JobApplicationCard extends Component {
 
   componentDidMount() {
     this.checkUserType();
+    this.fetchConnectsRequests();
     this.findRequestor();
     this.fetchBio();
   }
@@ -471,7 +509,9 @@ class JobApplicationCard extends Component {
               alignItems="center"
               justify="center"
             >
-              {this.state.showConnect === false ? (
+              {this.state.showLoader ? (
+                <CircularProgress className={classes.circleProgress} />
+              ) : this.state.showConnect === false ? (
                 this.state.showAccept === true ? (
                   <span className={classes.button_container}>
                     <Button
@@ -508,6 +548,7 @@ class JobApplicationCard extends Component {
                   </Button>
                 </span>
               )}
+              {}
             </Grid>
           </Grid>
         </div>
