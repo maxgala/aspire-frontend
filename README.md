@@ -1,5 +1,7 @@
 ## Aspire Frontend
 
+![Deploy to Prod](https://github.com/maxgala/aspire-frontend/workflows/Deploy%20to%20Prod/badge.svg)
+
 The directory hierarchy will be as following:
 
 
