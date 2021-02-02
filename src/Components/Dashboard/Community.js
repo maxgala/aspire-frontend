@@ -120,6 +120,7 @@ class JobBoard extends Component {
       community_data: [],
       isCommunityLoaded: false,
       requesteeResponse: [],
+      requestorResponse: [],
       currentUserEmail: jwtDecode(localStorage.getItem("idToken"))["email"],
       industry: "",
       unfilteredMembers: [],
@@ -133,7 +134,25 @@ class JobBoard extends Component {
     )
       .then((res) => {
         this.setState({
-          requesteeResponse: res.data["connect_ses"],
+          requesteeResponse: res.data["connections"],
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.enqueueSnackbar("Failed to fetch connections: " + err, {
+          variant: "err",
+        });
+      });
+  };
+
+  fetchConnectRequests = async () => {
+    await httpGet(
+      "connect?requestor=" + this.state.currentUserEmail,
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    )
+      .then((res) => {
+        this.setState({
+          requestorResponse: res.data["connections"],
         });
       })
       .catch((err) => {
@@ -209,6 +228,7 @@ class JobBoard extends Component {
 
   componentDidMount() {
     this.fetchConnects();
+    this.fetchConnectRequests();
     this.fetchUsers();
   }
 
@@ -289,6 +309,7 @@ class JobBoard extends Component {
                     data={chat}
                     currentUserEmail={this.state.currentUserEmail}
                     requesteeResponse={this.state.requesteeResponse}
+                    requestorResponse={this.state.requestorResponse}
                   />
                 </Grid>
               ))

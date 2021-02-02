@@ -14,6 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#f5f5f5",
     color: "black",
     boxShadow: "0px 6px 6px #00000029",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   image: {
     width: "154px",
@@ -222,6 +223,7 @@ class JobApplicationCard extends Component {
     this.state = {
       showConnect: false,
       showAccept: false,
+      showLoader: false,
       connect_status: "",
       open: false,
       bio: {},
@@ -243,10 +245,27 @@ class JobApplicationCard extends Component {
 
   checkUserType = () => {
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
-    if (userProfile["custom:user_type"] === "MENTOR") {
+    if (
+      userProfile["custom:user_type"] === "MENTOR" &&
+      this.props.data.attributes["custom:user_type"] === "MENTOR"
+    ) {
       this.setState({
         showConnect: true,
       });
+    }
+  };
+
+  fetchConnectsRequests = async () => {
+    for (let i = 0; i < this.props.requestorResponse.length; i++) {
+      if (
+        this.props.requestorResponse[i].requestee ===
+        this.props.data.attributes.email
+      ) {
+        this.setState({
+          showConnect: false,
+          connect_status: this.props.requestorResponse[i].connection_status,
+        });
+      }
     }
   };
 
@@ -257,17 +276,19 @@ class JobApplicationCard extends Component {
           this.props.requesteeResponse[i].requestor ===
           this.props.data.attributes.email
         ) {
-          if (this.props.requesteeResponse[i].connect_status === "ACCEPTED") {
+          if (
+            this.props.requesteeResponse[i].connection_status === "ACCEPTED"
+          ) {
             this.setState({
               showConnect: false,
               showAccept: false,
-              connect_status: this.props.requesteeResponse[i].connect_status,
+              connect_status: this.props.requesteeResponse[i].connection_status,
             });
           } else {
             this.setState({
               showConnect: false,
               showAccept: true,
-              connect_status: this.props.requesteeResponse[i].connect_status,
+              connect_status: this.props.requesteeResponse[i].connection_status,
             });
           }
         }
@@ -296,6 +317,9 @@ class JobApplicationCard extends Component {
   };
 
   handleConnect = async () => {
+    this.setState({
+      showLoader: true,
+    });
     let connectPayload = {
       requestor: {
         email: jwtDecode(localStorage.getItem("idToken"))["email"],
@@ -322,15 +346,20 @@ class JobApplicationCard extends Component {
       .then((res) => {
         this.setState({
           showConnect: false,
+          showLoader: false,
+          connect_status: "PENDING",
         });
         this.props.enqueueSnackbar("Connection request sent!", {
           variant: "success",
         });
       })
       .catch((err) => {
+        this.setState({
+          showLoader: false,
+        });
         console.log(err);
         this.props.enqueueSnackbar(
-          "Failed to send connection request: " + err.message,
+          "Failed to send connection request: " + err.response.data.message,
           {
             variant: "error",
           }
@@ -339,6 +368,9 @@ class JobApplicationCard extends Component {
   };
 
   handleAccept = async () => {
+    this.setState({
+      showLoader: true,
+    });
     let acceptPayload = {
       requestor: {
         email: jwtDecode(localStorage.getItem("idToken"))["email"],
@@ -365,15 +397,20 @@ class JobApplicationCard extends Component {
       .then((res) => {
         this.setState({
           showAccept: false,
+          showLoader: false,
+          connect_status: "ACCEPTED",
         });
         this.props.enqueueSnackbar("Connection request accepted!", {
           variant: "success",
         });
       })
       .catch((err) => {
+        this.setState({
+          showLoader: false,
+        });
         console.log(err);
         this.props.enqueueSnackbar(
-          "Failed to accept connection request: " + err.message,
+          "Failed to accept connection request: " + err.response.data.message,
           {
             variant: "error",
           }
@@ -383,6 +420,7 @@ class JobApplicationCard extends Component {
 
   componentDidMount() {
     this.checkUserType();
+    this.fetchConnectsRequests();
     this.findRequestor();
     this.fetchBio();
   }
@@ -459,8 +497,8 @@ class JobApplicationCard extends Component {
                   </Button>
                 </span>
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </Grid>
 
             <Grid
@@ -471,7 +509,9 @@ class JobApplicationCard extends Component {
               alignItems="center"
               justify="center"
             >
-              {this.state.showConnect === false ? (
+              {this.state.showLoader ? (
+                <CircularProgress className={classes.circleProgress} />
+              ) : this.state.showConnect === false ? (
                 this.state.showAccept === true ? (
                   <span className={classes.button_container}>
                     <Button
@@ -484,30 +524,31 @@ class JobApplicationCard extends Component {
                     </Button>
                   </span>
                 ) : (
-                    <span className={classes.button_container}>
-                      <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                        disabled
-                      >
-                        {this.state.connect_status}
-                      </Button>
-                    </span>
-                  )
-              ) : (
                   <span className={classes.button_container}>
                     <Button
                       className={classes.button}
                       variant="contained"
                       color="primary"
-                      disabled={!this.state.showConnect}
-                      onClick={this.handleConnect}
+                      disabled
                     >
-                      Connect
-                  </Button>
+                      {this.state.connect_status}
+                    </Button>
                   </span>
-                )}
+                )
+              ) : (
+                <span className={classes.button_container}>
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    color="primary"
+                    disabled={!this.state.showConnect}
+                    onClick={this.handleConnect}
+                  >
+                    Connect
+                  </Button>
+                </span>
+              )}
+              {}
             </Grid>
           </Grid>
         </div>
@@ -602,18 +643,18 @@ class JobApplicationCard extends Component {
                     style={{ paddingBottom: "10px" }}
                   >
                     {this.state.bio["designation"] === "" ||
-                      this.state.bio["designation"] === "N/A" ? (
-                        ""
-                      ) : (
-                        <h3 className={classes.subtitle2}>
-                          <span className={classes.name2}>
-                            Designation:{" "}
-                            <span className={classes.subtitle3}>
-                              {this.state.bio["designation"]}
-                            </span>
+                    this.state.bio["designation"] === "N/A" ? (
+                      ""
+                    ) : (
+                      <h3 className={classes.subtitle2}>
+                        <span className={classes.name2}>
+                          Designation:{" "}
+                          <span className={classes.subtitle3}>
+                            {this.state.bio["designation"]}
                           </span>
-                        </h3>
-                      )}
+                        </span>
+                      </h3>
+                    )}
                   </Grid>
                   <Grid
                     container
@@ -642,23 +683,23 @@ class JobApplicationCard extends Component {
                       </span>
                     )}
                     {this.state.bio["company_2"] === "" ||
-                      this.state.bio["company_2"] === "N/A" ? (
-                        ""
-                      ) : (
-                        <span className={classes.subtitle3}>
-                          {"   - "}
-                          {this.state.bio["company_2"]}
-                        </span>
-                      )}
+                    this.state.bio["company_2"] === "N/A" ? (
+                      ""
+                    ) : (
+                      <span className={classes.subtitle3}>
+                        {"   - "}
+                        {this.state.bio["company_2"]}
+                      </span>
+                    )}
                     {this.state.bio["company_3"] === "" ||
-                      this.state.bio["company_3"] === "N/A" ? (
-                        ""
-                      ) : (
-                        <span className={classes.subtitle3}>
-                          {"   - "}
-                          {this.state.bio["company_3"]}
-                        </span>
-                      )}
+                    this.state.bio["company_3"] === "N/A" ? (
+                      ""
+                    ) : (
+                      <span className={classes.subtitle3}>
+                        {"   - "}
+                        {this.state.bio["company_3"]}
+                      </span>
+                    )}
                   </Grid>
                   <Grid
                     container
@@ -674,14 +715,14 @@ class JobApplicationCard extends Component {
                       {"  - "} {this.state.bio["education_highest"]}
                     </span>
                     {this.state.bio["education_2"] === "" ||
-                      this.state.bio["education_2"] === "N/A" ? (
-                        ""
-                      ) : (
-                        <span className={classes.subtitle3}>
-                          {"   - "}
-                          {this.state.bio["education_2"]}
-                        </span>
-                      )}
+                    this.state.bio["education_2"] === "N/A" ? (
+                      ""
+                    ) : (
+                      <span className={classes.subtitle3}>
+                        {"   - "}
+                        {this.state.bio["education_2"]}
+                      </span>
+                    )}
                   </Grid>
                   <Grid
                     container
@@ -693,19 +734,19 @@ class JobApplicationCard extends Component {
                     style={{ paddingBottom: "40px" }}
                   >
                     {this.state.bio["bio"] === "" ||
-                      this.state.bio["bio"] === "N/A" ? (
-                        ""
-                      ) : (
-                        <span className={classes.subtitle2}>Bio:</span>
-                      )}
+                    this.state.bio["bio"] === "N/A" ? (
+                      ""
+                    ) : (
+                      <span className={classes.subtitle2}>Bio:</span>
+                    )}
                     {this.state.bio["bio"] === "" ||
-                      this.state.bio["bio"] === "N/A" ? (
-                        ""
-                      ) : (
-                        <span className={classes.subtitle3}>
-                          {this.state.bio["bio"]}
-                        </span>
-                      )}
+                    this.state.bio["bio"] === "N/A" ? (
+                      ""
+                    ) : (
+                      <span className={classes.subtitle3}>
+                        {this.state.bio["bio"]}
+                      </span>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>
