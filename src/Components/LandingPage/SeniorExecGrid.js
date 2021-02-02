@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import SeniorExec from "./SeniorExec.js";
 import { makeStyles } from "@material-ui/core/styles";
-import SeniorExecText from "./SeniorExecText";
+import SeniorExecText from "./SeniorExecText.js";
 
 import Attia_Afnan from "../Images/senior/Attia_Afnan.jpg";
 import Benkhouya_Saloua from "../Images/senior/Benkhouya_Saloua.jpg";
@@ -58,9 +57,25 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "white",
     "@media (min-width: 550px)": { display: "None" },
   },
+  picture: {
+    width: "200px",
+    height: "200px",
+    "@media (max-width: 480px)": {
+      width: "150px",
+      height: "150px",
+    },
+    justify: "left",
+    borderRadius: "50%",
+  },
   seniorexec: {
     paddingTop: "10vh",
     backgroundColor: "white",
+  },
+  seniorExecSmall: {
+    "@media (min-width: 960px)": { display: "None" },
+  },
+  seniorExecLarge: {
+    "@media (max-width: 959px)": { display: "None" },
   },
   grid: {
     paddingLeft: "15%",
@@ -68,6 +83,55 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     alignItems: "start",
     paddingBottom: "10vh",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    padding: "2%",
+    borderRadius: "50%",
+    "@media (min-width: 960px)": { textAlign: "center" },
+    objectFit: "cover",
+  },
+  header: {
+    fontFamily: "Nunito Sans",
+    fontSize: "48px",
+    "@media (max-width: 480px)": {
+      fontSize: "25px",
+    },
+    fontWeight: "bolder",
+    textAlign: "center",
+    paddingLeft: "30px",
+    paddingRight: "30px",
+  },
+  carousal: {
+    alignItems: "center",
+    paddingTop: "4%",
+    paddingBottom: "8%",
+    backgroundColor: "#f1f1f1",
+  },
+  paragraph: {
+    margin: "auto",
+    fontFamily: "Nunito",
+    fontSize: "20px",
+    "@media (max-width: 480px)": {
+      fontSize: "15px",
+    },
+    paddingLeft: "40px",
+    paddingRight: "40px",
+    fontStyle: "italic",
+    color: "#484848",
+  },
+  title: {
+    fontSize: "22px",
+    "@media (max-width: 480px)": {
+      fontSize: "18px",
+      paddingLeft: "20px",
+      paddingRight: "20px",
+    },
+    fontFamily: "Nunito",
+    fontWeight: "bold",
+    color: "#484848",
+    width: "100%",
   },
 }));
 
@@ -287,122 +351,97 @@ class SeniorExecGrid extends Component {
         onSwipedRight={this.HandleLeftArrowClick}
         onSwipedLeft={this.HandleRightArrowClick}
       >
-        <div className={classes.seniorexec}>
-          <div className={classes.background_lg}>
-            <Grid
-              container
-              spacing={2}
-              alignItems="center"
-              justify="center"
-              className={classes.grid}
-              id="seniors"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={4}
-                alignItems="center"
-                justify="center"
-              >
-                <Grid
-                  container
-                  item
-                  xs={1}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <img
-                    className={classes.leftArrow}
-                    src={left}
-                    onClick={this.HandleLeftArrowClick}
-                    alt={"Testimonial Left Arrow"}
-                  />
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={10}
-                  sm={9}
-                  md={6}
-                  lg={4}
-                  alignItems="center"
-                  justify="center"
-                >
-                  <SeniorExec
-                    name_text={this.state.current.name}
-                    extra_text={this.state.current.title}
-                    image={this.state.current.photo}
-                    hover_image={this.state.current.photo}
-                  />
-                </Grid>
+        <Grid
+          container
+          item
+          alignItems="center"
+          justify="center"
+          id="seniorexecs"
+          style={{ marginTop: "40px", marginBottom: "60px" }}
+        >
+          <Grid
+            container
+            item
+            xs={1}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <img
+              className={classes.leftArrow}
+              src={left}
+              onClick={this.HandleLeftArrowClick}
+              alt={"Senior Exec Left Arrow"}
+            />
+          </Grid>
+          <Grid
+            container
+            item
+            xs={9}
+            sm={9}
+            md={4}
+            lg={3}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+          >
+            <p className={classes.picture}>
+              <img
+                className={classes.image}
+                src={this.state.current.photo}
+                alt="Senior Exec"
+              />
+            </p>
+          </Grid>
+          <Grid
+            container
+            item
+            xs={1}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+            className={classes.seniorExecSmall}
+          >
+            <img
+              className={classes.rightArrow}
+              src={right}
+              onClick={this.HandleRightArrowClick}
+              alt={"Testimonial Right Arrow"}
+            />
+          </Grid>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={9}
+            md={6}
+            lg={5}
+            spacing={1}
+            justify="center"
+            style={{ marginBottom: "40px" }}
+          >
+            <p className={classes.title}>{this.state.current.name}</p>
+            <p className={classes.paragraph}>{this.state.current.title}</p>
+          </Grid>
+          <Grid
+            container
+            item
+            xs={1}
+            spacing={1}
+            alignItems="center"
+            justify="center"
+            className={classes.seniorExecLarge}
+          >
+            <img
+              className={classes.rightArrow}
+              src={right}
+              onClick={this.HandleRightArrowClick}
+              alt={"Testimonial Right Arrow"}
+            />
+          </Grid>
 
-                {/*
-                <Hidden smDown>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    sm={9}
-                    md={6}
-                    lg={4}
-                    alignItems="center"
-                    justify="center"
-                  >
-                    <SeniorExec
-                      name_text={this.state.displayImages.name}
-                      extra_text={this.state.displayImages.title}
-                      id="theimage"
-                      image={this.state.displayImages.photo}
-                      hover_image={this.state.displayImages.photo}
-                    />
-                  </Grid>
-                </Hidden>
-
-                <Hidden mdDown>
-                  <Grid
-                    container
-                    item
-                    xs={12}
-                    sm={9}
-                    md={6}
-                    lg={4}
-                    alignItems="center"
-                    justify="center"
-                  >
-                    <SeniorExec
-                      name_text={this.state.displayImages.name}
-                      extra_text={this.state.displayImages.title}
-                      id="theimage"
-                      image={this.state.displayImages.photo}
-                      hover_image={this.state.displayImages.photo}
-                    />
-                  </Grid>
-                </Hidden>
-                */}
-                <Grid
-                  container
-                  item
-                  xs={1}
-                  spacing={1}
-                  alignItems="center"
-                  justify="center"
-                  className={classes.testimonialSmall}
-                >
-                  <img
-                    className={classes.rightArrow}
-                    src={right}
-                    onClick={this.HandleRightArrowClick}
-                    alt={"Testimonial Right Arrow"}
-                  />
-                </Grid>
-
-                <SeniorExecText appContext={this.props.appContext} />
-              </Grid>
-            </Grid>
-          </div>
-        </div>
+          <SeniorExecText appContext={this.props.appContext} />
+        </Grid>
       </Swipeable>
     );
   }
