@@ -149,6 +149,7 @@ class PostJobPopup extends Component {
     super(props);
     this.state = {
       max_characters: 3000,
+      min_characters: 350,
       checkedBox: false,
       showError: false,
       errorText: "",
@@ -193,7 +194,9 @@ class PostJobPopup extends Component {
     // check that all the required fields are set / properly set
     if (this.state.jobsData.description.length > this.state.max_characters) {
       this.props.enqueueSnackbar(
-        "The job description exceeds the character limit of 2000 characters.",
+        "The job description exceeds the character limit of " +
+          this.state.max_characters +
+          " characters.",
         {
           variant: "warning",
         }
@@ -202,7 +205,31 @@ class PostJobPopup extends Component {
     }
     if (this.state.jobsData.requirements.length > this.state.max_characters) {
       this.props.enqueueSnackbar(
-        "The job requirements exceeds the character limit of 2000 characters.",
+        "The job requirements exceeds the character limit of " +
+          this.state.max_characters +
+          " characters.",
+        {
+          variant: "warning",
+        }
+      );
+      return;
+    }
+    if (this.state.jobsData.description.length < this.state.min_characters) {
+      this.props.enqueueSnackbar(
+        "The job description needs to be at least " +
+          this.state.min_characters +
+          " characters.",
+        {
+          variant: "warning",
+        }
+      );
+      return;
+    }
+    if (this.state.jobsData.requirements.length < this.state.min_characters) {
+      this.props.enqueueSnackbar(
+        "The job requirements needs to be at least " +
+          this.state.min_characters +
+          " characters.",
         {
           variant: "warning",
         }
@@ -260,7 +287,7 @@ class PostJobPopup extends Component {
         });
       })
       .catch((err) => {
-        this.props.enqueueSnackbar("Failed:" + err, {
+        this.props.enqueueSnackbar("Failed:" + err.response.data.message, {
           variant: "error",
         });
       });
@@ -760,7 +787,7 @@ class PostJobPopup extends Component {
                       }}
                     />
                   }
-                  label="Allow candidates to contact me about the posting (maximum of 4) "
+                  label="Would you be interested in candidates contacting you in the future?"
                 />
               </div>
             </Grid>

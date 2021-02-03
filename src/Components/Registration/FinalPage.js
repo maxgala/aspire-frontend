@@ -495,13 +495,17 @@ class FinalPage extends Component {
                   label={
                     <b>
                       I agree to the{" "}
-                      <Tooltip title={"Click to read the Terms and Conditions"}>
+                      <Tooltip
+                        title={
+                          "Click to read the Terms & Conditions and Privacy Policy"
+                        }
+                      >
                         <u
                           onClick={this.readConditions}
                           style={{ color: "red" }}
                         >
                           {" "}
-                          terms and conditions{" "}
+                          terms & conditions and privacy policy{" "}
                         </u>
                       </Tooltip>{" "}
                     </b>
@@ -590,7 +594,7 @@ class FinalPage extends Component {
                 </div>
                 <p>Privacy Policy File</p>
                 <Document
-                  file="../Files/privacy_policy_no_cookie_policy.pdf"
+                  file="../Files/privacy_policy.pdf"
                   onLoadSuccess={this.onPrivacyDocumentLoad}
                 >
                   {Array.from(
