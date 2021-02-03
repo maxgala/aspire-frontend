@@ -15,6 +15,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import AWS from "aws-sdk";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
+import { Auth } from "aws-amplify";
 
 import { IconButton } from "@material-ui/core";
 
@@ -295,15 +296,20 @@ class CreateCoffeeChatCard extends Component {
       this.state.type === "" ||
       this.state.type === undefined ||
       this.state.seniorExecEmail === "" ||
-      this.state.seniorExecEmail === undefined ||
-      this.state.description === "" ||
-      this.state.description === undefined ||
-      this.state.dateFormatted === "" ||
-      this.state.dateFormatted === undefined
+      this.state.seniorExecEmail === undefined
     ) {
       alert(
         "One of the required fields is not set (title, type, senior exec email, date)."
       );
+      return;
+    }
+
+    if (
+      this.state.type === "MOCK_INTERVIEW" &&
+      (this.state.dateFormatted === undefined ||
+        this.state.dateFormatted === "")
+    ) {
+      alert("Mock interview cannot be created without a date!");
       return;
     }
 
@@ -322,7 +328,11 @@ class CreateCoffeeChatCard extends Component {
     // Keep track of current context of this for nested function to be able to access state
     const self = this;
 
-    await httpPost("chats", localStorage.getItem("idToken"), coffeeChatPostData)
+    await httpPost(
+      "chats",
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
+      coffeeChatPostData
+    )
       .then((res) => {
         // Display successful creation
         self.handleClose();
@@ -526,24 +536,6 @@ class CreateCoffeeChatCard extends Component {
                     >
                       <div className={classes.radioButton}>
                         <FormControlLabel
-                          checked={this.state.type === "FOUR_ON_ONE"}
-                          value="FOUR_ON_ONE"
-                          control={<Radio color="primary" />}
-                          label="One On Four"
-                          onChange={this.handleCoffeeChatTypeChange()}
-                        />
-                      </div>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={4}
-                      spacing={0}
-                      alignItems="center"
-                      justify="center"
-                    >
-                      <div className={classes.radioButton}>
-                        <FormControlLabel
                           checked={this.state.type === "MOCK_INTERVIEW"}
                           value="MOCK_INTERVIEW"
                           control={<Radio color="primary" />}
@@ -578,7 +570,6 @@ class CreateCoffeeChatCard extends Component {
                           shrink: true,
                         }}
                         variant="outlined"
-                        required
                         fullWidth={true}
                         value={this.state.dateFormatted}
                         onChange={this.handleDateChange}
