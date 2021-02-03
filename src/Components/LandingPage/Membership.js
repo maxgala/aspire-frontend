@@ -319,6 +319,7 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>Yes</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
+                  {/* TODO: reanable when complete post MVP
                   <tr>
                     <td className={classes.table_element}>
                       Ability to Contact Person who Posted the Job
@@ -327,6 +328,7 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>Yes</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
+                  */}
                   <tr>
                     <td className={classes.table_element}>
                       Post Resume/CV on Jobs Bank (accessible by Senior
@@ -362,7 +364,8 @@ class Membership extends Component {
                     </td>
                     <td className={classes.table_element_plat}>Yes, leading</td>
                   </tr>
-                  {/*<tr>
+                  {/* TODO: reanable when complete post MVP
+                  <tr>
                     <td className={classes.table_element}>
                       4-on-1 Coffee Chats with Senior Executives
                     </td>
@@ -371,7 +374,8 @@ class Membership extends Component {
                       Yes, can request
                     </td>
                     <td className={classes.table_element_plat}>Yes, leading</td>
-                  </tr>*/}
+                  </tr>
+                  */}
                   <tr>
                     <td className={classes.table_element}>
                       Mock Interviews with Senior Executives
@@ -390,6 +394,7 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>Yes</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
+                  {/* TODO: reanable when complete post MVP
                   <tr>
                     <td className={classes.table_element}>
                       Ability to Contact Individual who Posted Board Role
@@ -398,6 +403,7 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>Yes</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
+                  */}
                   <tr>
                     <td className={classes.table_element}>
                       Access to Resume Bank
@@ -406,6 +412,7 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>No</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
+                  {/* TODO: reanable when complete post MVP
                   <tr>
                     <td className={classes.table_element}>
                       Option to Sponsor an Aspiring Professional who is
@@ -419,6 +426,7 @@ class Membership extends Component {
                       Yes ($49 or more)
                     </td>
                   </tr>
+                  */}
                   <tr>
                     <td className={classes.table_element}>
                       Starting Credits Received
@@ -437,6 +445,7 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>$5</td>
                     <td className={classes.table_element_plat}>$5</td>
                   </tr>
+                  {/* TODO: reanable when complete post MVP
                   <tr>
                     <td className={classes.table_element}>
                       Refer a Friend Signup Bonus
@@ -447,6 +456,7 @@ class Membership extends Component {
                     </td>
                     <td className={classes.table_element_plat}>10 credits</td>
                   </tr>
+                  */}
                   <tr>
                     <th
                       style={{ borderTop: "4px solid #dddddd" }}
