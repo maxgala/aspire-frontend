@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { httpGet, httpPut } from "../../lib/dataAccess";
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
+import { Auth } from "aws-amplify";
 
 import { AddBox, ArrowUpward } from "@material-ui/icons";
 
@@ -107,6 +108,7 @@ class SeniorExecs extends Component {
       // to do
       columns: [
         { title: "Name", field: "name" },
+        { title: "Enabled", field: "enabled" },
         { title: "Age", field: "age" },
         { title: "Email", field: "email" },
         { title: "Company", field: "company" },
@@ -139,11 +141,23 @@ class SeniorExecs extends Component {
   }
 
   fetchSeniorExecs = async () => {
-    const existingSeniorExecsData = await httpGet(
-      "users/?type=MENTOR&status=DISABLED",
-      localStorage.getItem("idToken")
+    const existingSeniorExecsDataDisabled = await httpGet(
+      "users/?type=MENTOR&status=Disabled",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
 
+    const existingSeniorExecsDataEnabled = await httpGet(
+      "users/?type=MENTOR",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
+    );
+
+    let existingSeniorExecsData = {
+      data: {
+        users: existingSeniorExecsDataEnabled.data.users.concat(
+          existingSeniorExecsDataDisabled.data.users
+        ),
+      },
+    };
     const seniorExecData = [];
 
     // Sanity check incase API returns broken response
@@ -158,6 +172,13 @@ class SeniorExecs extends Component {
           existingSeniorExecsData.data.users[seniorExecID].attributes;
         let seniorExec = {};
         seniorExec.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
+
+        seniorExec.enabled =
+          existingSeniorExecsData.data.users[seniorExecID].enabled !== undefined
+            ? existingSeniorExecsData.data.users[seniorExecID].enabled === true
+              ? "Active"
+              : "Rejected"
+            : "N/A";
 
         seniorExec.age = tempThis.calculate_age(currentExecObject.birthdate);
 
@@ -204,7 +225,7 @@ class SeniorExecs extends Component {
     };
     await httpPut(
       "users/disable",
-      localStorage.getItem("idToken"),
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
       disableSeniorExec
     );
     this.fetchSeniorExecs();
@@ -214,14 +235,18 @@ class SeniorExecs extends Component {
    * This function will approve a senior execs application
    * @param {string} seniorExecEmail the email of the senior executive to approve
    */
-  approveSeniorExec = async (seniorExecEmail) => {
-    let disableSeniorExec = {
+  approveSeniorExec = async (seniorExecEmail, seniorExecStatus) => {
+    if (seniorExecStatus === "CONFIRMED") {
+      alert("Already approved");
+      return;
+    }
+    let enableSeniorExec = {
       email: `${seniorExecEmail}`,
     };
     await httpPut(
-      "users/disable",
-      localStorage.getItem("idToken"),
-      disableSeniorExec
+      "users/enable",
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
+      enableSeniorExec
     );
     this.fetchSeniorExecs();
   };
@@ -242,7 +267,7 @@ class SeniorExecs extends Component {
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
             // Send PUT request to approve senior exec.
-            this.approveSeniorExec(rowData.email);
+            this.approveSeniorExec(rowData.email, rowData.status);
 
             resolve();
           });
@@ -272,7 +297,7 @@ class SeniorExecs extends Component {
           paging: true,
           pageSize: 15,
           emptyRowsWhenPaging: true,
-          pageSizeOptions: [5, 10, 15, 30, 50],
+          pageSizeOptions: [5, 10, 15, 30, 50, 100, 200],
           exportButton: true,
           exportTrue: true,
         }}

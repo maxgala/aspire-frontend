@@ -183,7 +183,7 @@ class JobBoard extends Component {
 
   fetchJobs = async () => {
     const existingJobsData = await httpGet(
-      "jobs",
+      "jobs?status=ACTIVE",
       (await Auth.currentSession()).getIdToken().getJwtToken()
     );
     if (existingJobsData.data.jobs !== undefined) {

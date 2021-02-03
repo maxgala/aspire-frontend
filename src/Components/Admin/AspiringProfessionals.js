@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { httpGet, httpPut } from "../../lib/dataAccess";
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
+import { Auth } from "aws-amplify";
 
 import { AddBox, ArrowUpward } from "@material-ui/icons";
 
@@ -103,6 +104,7 @@ class AspiringProfessionals extends Component {
       aspiringProfessionals: [],
       columns: [
         { title: "Name", field: "name" },
+        { title: "Enabled", field: "enabled" },
         { title: "Age", field: "age" },
         { title: "Email", field: "email" },
         { title: "Company", field: "company" },
@@ -136,16 +138,16 @@ class AspiringProfessionals extends Component {
 
   fetchAspiringProfessionals = async () => {
     let existingAspiringProfessionalsData = await httpGet(
-      "users/?type=FREE&status=DISABLED",
-      localStorage.getItem("idToken")
+      "users/?type=FREE,PAID",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
-    const existingAspiringProfessionalsDataPAID = await httpGet(
-      "users/?type=PAID&status=DISABLED",
-      localStorage.getItem("idToken")
+    let existingAspiringProfessionalsDataDisabled = await httpGet(
+      "users/?type=FREE,PAID&status=Disabled",
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
 
     existingAspiringProfessionalsData = existingAspiringProfessionalsData.data.users.concat(
-      existingAspiringProfessionalsDataPAID.data.users
+      existingAspiringProfessionalsDataDisabled.data.users
     );
 
     const aspiringProfessionalData = [];
@@ -163,6 +165,16 @@ class AspiringProfessionals extends Component {
 
         let aspiringProfessional = {};
         aspiringProfessional.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
+
+        aspiringProfessional.enabled =
+          existingAspiringProfessionalsData[aspiringProfessionalID].enabled !==
+          undefined
+            ? existingAspiringProfessionalsData[aspiringProfessionalID]
+                .enabled === true
+              ? "ACTIVE"
+              : "REJECTED"
+            : "N/A";
+
         aspiringProfessional.age = tempThis.calculate_age(
           currentExecObject.birthdate
         );
@@ -209,7 +221,7 @@ class AspiringProfessionals extends Component {
     };
     await httpPut(
       "users/disable",
-      localStorage.getItem("idToken"),
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
       disableAspiringProfessional
     );
     this.fetchAspiringProfessionals();
@@ -219,14 +231,21 @@ class AspiringProfessionals extends Component {
    * This function will approve a aspiring professionals application
    * @param {string} aspiringProfessionalEmail the email of the aspiring professionalutive to approve
    */
-  approveAspiringProfessional = async (aspiringProfessionalEmail) => {
-    let disableAspiringProfessional = {
+  approveAspiringProfessional = async (
+    aspiringProfessionalEmail,
+    aspiringProfessionalStatus
+  ) => {
+    if (aspiringProfessionalStatus === "CONFIRMED") {
+      alert("Already approved");
+      return;
+    }
+    let enableAspiringProfessional = {
       email: `${aspiringProfessionalEmail}`,
     };
     await httpPut(
-      "users/disable",
-      localStorage.getItem("idToken"),
-      disableAspiringProfessional
+      "users/enable",
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
+      enableAspiringProfessional
     );
     this.fetchAspiringProfessionals();
   };
@@ -247,7 +266,7 @@ class AspiringProfessionals extends Component {
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
             // Send PUT request to approve aspiring professional.
-            this.approveAspiringProfessional(rowData.email);
+            this.approveAspiringProfessional(rowData.email, rowData.status);
 
             resolve();
           });
@@ -277,7 +296,7 @@ class AspiringProfessionals extends Component {
           paging: true,
           pageSize: 15,
           emptyRowsWhenPaging: true,
-          pageSizeOptions: [5, 10, 15, 30, 50],
+          pageSizeOptions: [5, 10, 15, 30, 50, 100, 200],
           exportButton: true,
           exportTrue: true,
         }}
