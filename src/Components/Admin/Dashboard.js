@@ -4,8 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import MaxLogo from "../Images/max_logo.png";
-import { faReact } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Auth } from "aws-amplify";
 
 import Home from "./SeniorExecs";
 import Professionals from "./AspiringProfessionals";
@@ -107,10 +106,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#F1F1F1",
     borderRadius: "100%",
-    width: "60px",
-    height: "60px",
+    align: "right",
     "&:hover": {
-      backgroundColor: "#F1F1F1",
+      backgroundColor: "red",
       color: "#484848",
     },
   },
@@ -152,6 +150,15 @@ class Dashboard extends Component {
   changeToSeniorExecs() {
     this.props.history.push(`${Routes.AdminDashboard}`);
   }
+
+  signout = async () => {
+    try {
+      await Auth.signOut();
+      this.props.history.push(Routes.Landpage);
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  };
 
   render() {
     const classes = this.props.classes;
@@ -198,12 +205,9 @@ class Dashboard extends Component {
           <Button
             variant="outlined"
             className={classes.user_profile}
-            onClick={this.openUserProfile}
+            onClick={this.signout}
           >
-            <FontAwesomeIcon
-              icon={faReact}
-              style={{ width: "40px", height: "40px" }}
-            />
+            <b>Log out</b>
           </Button>
         </Toolbar>
         <Switch>

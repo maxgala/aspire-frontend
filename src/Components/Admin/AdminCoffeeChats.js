@@ -4,6 +4,7 @@ import { httpGet, httpPut } from "../../lib/dataAccess";
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
 import { AddBox, ArrowUpward } from "@material-ui/icons";
+import { Auth } from "aws-amplify";
 
 import Check from "@material-ui/icons/Check";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
@@ -124,7 +125,7 @@ class CoffeeChats extends Component {
   fetchCoffeeChats = async () => {
     const existingCoffeeChatsData = await httpGet(
       "chats",
-      localStorage.getItem("idToken")
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
 
     let coffeeChatsData = [];
@@ -150,10 +151,10 @@ class CoffeeChats extends Component {
    */
   removeCoffeeChat = async (coffeeChatID) => {
     await httpPut(
-      `chats/${coffeeChatID}/CANCELLED`,
-      localStorage.getItem("idToken")
+      `chats/${coffeeChatID}/cancel`,
+      (await Auth.currentSession()).getIdToken().getJwtToken()
     );
-    // this.fetchCoffeeChats();
+    this.fetchCoffeeChats();
   };
 
   /**
@@ -164,7 +165,7 @@ class CoffeeChats extends Component {
     if (coffeeChatStatus === "RESERVE_CONFIRMED") {
       await httpPut(
         `chats/${coffeeChatID}/DONE`,
-        localStorage.getItem("idToken")
+        (await Auth.currentSession()).getIdToken().getJwtToken()
       );
       // this.fetchCoffeeChats();
     } else {
@@ -172,6 +173,7 @@ class CoffeeChats extends Component {
         "Only Coffee Chat's with the RESERVED_CONFIRMED status may be approved from the Admin Dashboard"
       );
     }
+    this.fetchCoffeeChats();
   };
 
   componentDidMount() {
