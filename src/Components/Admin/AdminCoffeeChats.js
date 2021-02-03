@@ -237,7 +237,7 @@ class CoffeeChats extends Component {
             paging: true,
             pageSize: 15,
             emptyRowsWhenPaging: true,
-            pageSizeOptions: [5, 10, 15, 30, 50],
+            pageSizeOptions: [5, 10, 15, 30, 50, 100, 200],
             exportButton: true,
             exportTrue: true,
           }}
