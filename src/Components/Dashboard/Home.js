@@ -244,7 +244,7 @@ class Home extends Component {
                     alignItems="center"
                     justify="flex-start"
                   >
-                    <EmptyCard type={CardTypes.coffeeChat} />
+                    <EmptyCard type={CardTypes.coffeeChat} filtered={false} />
                   </Grid>
                 )
               ) : (
@@ -313,7 +313,10 @@ class Home extends Component {
                       alignItems="flex-start"
                       justify="flex-start"
                     >
-                      <EmptyCard type={CardTypes.jobApplication} />
+                      <EmptyCard
+                        type={CardTypes.jobApplication}
+                        filtered={false}
+                      />
                     </Grid>
                   )
                 ) : (
@@ -369,7 +372,7 @@ class Home extends Component {
                       alignItems="flex-start"
                       justify="flex-start"
                     >
-                      <EmptyCard type={CardTypes.jobPosting} />
+                      <EmptyCard type={CardTypes.jobPosting} filtered={false} />
                     </Grid>
                   )
                 ) : (
@@ -433,7 +436,10 @@ class Home extends Component {
                       alignItems="flex-start"
                       justify="flex-start"
                     >
-                      <EmptyCard type={CardTypes.jobApplication} />
+                      <EmptyCard
+                        type={CardTypes.jobApplication}
+                        filtered={false}
+                      />
                     </Grid>
                   )
                 ) : (
@@ -488,7 +494,7 @@ class Home extends Component {
                       alignItems="flex-start"
                       justify="flex-start"
                     >
-                      <EmptyCard type={CardTypes.jobPosting} />
+                      <EmptyCard type={CardTypes.jobPosting} filtered={false} />
                     </Grid>
                   )
                 ) : (
