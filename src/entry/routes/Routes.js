@@ -13,4 +13,5 @@ export const Routes = {
   Login: "/signup",
   Register: "/register",
   ForgotPassword: "/password",
+  TempPasswordChange: "/changepassword",
 };

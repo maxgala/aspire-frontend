@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import SignIn from "../../Components/Authentication/SignIn";
 import ForgotPassword from "../../Components/Authentication/ForgotPassword";
+import TempPasswordChange from "../../Components/Authentication/TempPasswordChange";
 import Dashboard from "../../Components/Dashboard/Dashboard";
 import Landing from "../../Components/LandingPage/Landing";
 import Registration from "../../Components/Registration/Registration";
@@ -34,6 +35,9 @@ export class AppRoutes extends React.Component {
         </Route>
         <Route exact={true} path={Routes.ForgotPassword}>
           <ForgotPassword appContext={this} />
+        </Route>
+        <Route exact={true} path={Routes.TempPasswordChange}>
+          <TempPasswordChange appContext={this} />
         </Route>
       </Switch>
     );

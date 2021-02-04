@@ -106,6 +106,7 @@ class ForgotPassword extends Component {
     this.state = {
       username: "",
       password: "",
+      confirm_password: "",
       verification_code: "",
       code_sent: false,
       passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
@@ -130,6 +131,9 @@ class ForgotPassword extends Component {
   };
 
   handleConfirmCheck = (event) => {
+    this.setState({
+      confirm_password: event.target.value,
+    });
     if (event.target.value === this.state.password) {
       this.setState({
         errorDisplay: "None",
@@ -150,6 +154,15 @@ class ForgotPassword extends Component {
   };
 
   resetPassword = async () => {
+    if (this.state.password !== this.state.confirm_password) {
+      this.props.enqueueSnackbar(
+        "New password and confirm password fields do not match!",
+        {
+          variant: "error",
+        }
+      );
+      return;
+    }
     await Auth.forgotPasswordSubmit(
       this.state.username,
       this.state.verification_code,
