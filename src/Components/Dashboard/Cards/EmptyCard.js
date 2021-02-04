@@ -138,22 +138,28 @@ class EmptyCard extends Component {
       >
         <div className={classes.container}>
           <h1 className={classes.title}>
-            {this.props.type === CardTypes.coffeeChat
+            {this.props.filtered
+              ? ""
+              : this.props.type === CardTypes.coffeeChat
               ? "No booked coffee chats"
               : this.props.type === CardTypes.jobApplication
               ? "No submitted job applications"
               : "No jobs posted"}
           </h1>
           <p className={classes.subtitle}>
-            {this.props.type === CardTypes.coffeeChat
-              ? "To book one, click the Coffee Chats tab above."
-              : this.props.type === CardTypes.jobApplication
-              ? "To view job applications, click the Jobs tab above."
-              : jwtDecode(localStorage.getItem("idToken"))[
-                  "custom:user_type"
-                ] !== "FREE"
-              ? "To post a job, click the button below or post a job from the left nav."
-              : "Free users cannot post jobs. Upgrade to get access to this feature!"}
+            {!this.props.filtered
+              ? this.props.type === CardTypes.coffeeChat
+                ? "To book one, click the Coffee Chats tab above."
+                : this.props.type === CardTypes.jobApplication
+                ? "To view job applications, click the Jobs tab above."
+                : jwtDecode(localStorage.getItem("idToken"))[
+                    "custom:user_type"
+                  ] !== "FREE"
+                ? "To post a job, click the button below or post a job from the left nav."
+                : "Free users cannot post jobs. Upgrade to get access to this feature!"
+              : this.props.type === CardTypes.coffeeChat
+              ? "No coffee chats meet the applied filter"
+              : "No jobs meet the applied filter"}
           </p>
           <span className={classes.button_container}>
             {this.props.type === CardTypes.jobPosting &&

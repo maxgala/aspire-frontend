@@ -278,7 +278,7 @@ class CoffeeChats extends Component {
                   alignItems="center"
                   justify="flex-start"
                 >
-                  <EmptyCard type={CardTypes.coffeeChat} />
+                  <EmptyCard type={CardTypes.coffeeChat} filtered={true} />
                 </Grid>
               )
             ) : (

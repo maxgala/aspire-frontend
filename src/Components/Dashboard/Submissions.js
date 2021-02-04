@@ -387,7 +387,7 @@ class JobBoard extends Component {
                   alignItems="center"
                   justify="center"
                 >
-                  <EmptyCard type={CardTypes.jobApplication} />
+                  <EmptyCard type={CardTypes.jobApplication} filtered={true} />
                 </Grid>
               )
             ) : (
