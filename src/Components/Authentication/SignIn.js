@@ -135,6 +135,12 @@ class SignIn extends Component {
     this.props.history.push(Routes.ForgotPassword);
   };
 
+  changeToTempPassword = (event) => {
+    this.props.history.push(Routes.TempPasswordChange, {
+      username: this.state.username,
+    });
+  };
+
   handleVerififedCodeChange = (event) => {
     this.setState({ verfiedCode: event.target.value });
   };
@@ -154,7 +160,10 @@ class SignIn extends Component {
       username: username,
       password: password,
     })
-      .then(async () => {
+      .then(async (res) => {
+        if (res.challengeName) {
+          return "TEMP";
+        }
         await Auth.currentSession().then((res) => {
           let jwt = res.getAccessToken().getJwtToken();
           localStorage.setItem("idToken", res.getIdToken().getJwtToken());
@@ -176,7 +185,6 @@ class SignIn extends Component {
         });
       })
       .catch((err) => {
-        console.log(err);
         if (err.code === "UserNotConfirmedException") {
           this.setState({
             verified: false,
@@ -248,6 +256,13 @@ class SignIn extends Component {
       });
       await this.signIn().then((val) => {
         if (val === null) {
+          return;
+        } else if (val === "TEMP") {
+          this.changeToTempPassword();
+          this.setState({
+            barDisplay: "None",
+            buttonDisplay: "",
+          });
           return;
         }
         this.setState({ signedIn: true });
