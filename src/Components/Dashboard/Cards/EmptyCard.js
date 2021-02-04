@@ -159,6 +159,8 @@ class EmptyCard extends Component {
                 : "Free users cannot post jobs. Upgrade to get access to this feature!"
               : this.props.type === CardTypes.coffeeChat
               ? "No coffee chats meet the applied filter"
+              : this.props.type === CardTypes.community
+              ? "No community members meet the applied filter"
               : "No jobs meet the applied filter"}
           </p>
           <span className={classes.button_container}>
