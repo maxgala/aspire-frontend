@@ -249,9 +249,18 @@ class JobApplicationCard extends Component {
       userProfile["custom:user_type"] === "MENTOR" &&
       this.props.data.attributes["custom:user_type"] === "MENTOR"
     ) {
-      this.setState({
-        showConnect: true,
-      });
+      if (
+        jwtDecode(localStorage.getItem("idToken"))["email"] !==
+        this.props.data.attributes["email"]
+      ) {
+        this.setState({
+          showConnect: true,
+        });
+      } else {
+        this.setState({
+          connect_status: "",
+        });
+      }
     }
   };
 
