@@ -61,6 +61,7 @@ const useStyles = makeStyles(() => ({
     padding: "8px",
   },
   table_element_free: {
+    width: "200px",
     border: "1px solid #dddddd",
     textAlign: "center",
     padding: "8px",
@@ -68,6 +69,7 @@ const useStyles = makeStyles(() => ({
     color: "white",
   },
   table_element_premium: {
+    width: "200px",
     border: "1px solid #dddddd",
     textAlign: "center",
     padding: "8px",
@@ -75,6 +77,7 @@ const useStyles = makeStyles(() => ({
     color: "white",
   },
   table_element_plat: {
+    width: "200px",
     border: "1px solid #dddddd",
     textAlign: "center",
     padding: "8px",
