@@ -61,27 +61,31 @@ const useStyles = makeStyles(() => ({
     padding: "8px",
   },
   table_element_free: {
+    width: "200px",
     border: "1px solid #dddddd",
-    textAlign: "left",
-    padding: "8px",
-    backgroundColor: "#daa067",
-    color: "white",
-  },
-  table_element_premium: {
-    border: "1px solid #dddddd",
-    textAlign: "left",
+    textAlign: "center",
     padding: "8px",
     backgroundColor: "#A9A9A9",
     color: "white",
   },
-  table_element_plat: {
+  table_element_premium: {
+    width: "200px",
     border: "1px solid #dddddd",
-    textAlign: "left",
+    textAlign: "center",
     padding: "8px",
     backgroundColor: "#B5A165",
     color: "white",
   },
+  table_element_plat: {
+    width: "200px",
+    border: "1px solid #dddddd",
+    textAlign: "center",
+    padding: "8px",
+    backgroundColor: "#6EA0B5",
+    color: "white",
+  },
   tooltip: {
+    cursor: "pointer",
     display: "inline-block",
     marginLeft: "10px",
   },
@@ -292,13 +296,19 @@ class Membership extends Component {
                   <tr>
                     <th className={classes.table_element}>Feature</th>
                     <th className={classes.table_element_free}>
-                      Aspiring Professional - Free
+                      Aspiring Professional
+                      <br />
+                      Free
                     </th>
                     <th className={classes.table_element_premium}>
-                      Aspiring Professional - Premium
+                      Aspiring Professional
+                      <br />
+                      Premium
                     </th>
                     <th className={classes.table_element_plat}>
-                      Senior Executive - Platinum
+                      Senior Executive
+                      <br />
+                      Platinum
                     </th>
                   </tr>
                 </thead>
@@ -462,7 +472,7 @@ class Membership extends Component {
                       style={{ borderTop: "4px solid #dddddd" }}
                       className={classes.table_element}
                     >
-                      Membership Price
+                      Annual Membership Price
                     </th>
                     <th
                       style={{ borderTop: "4px solid #dddddd" }}
