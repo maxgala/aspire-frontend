@@ -133,7 +133,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   creditsButton: {
-    width: "80%",
     textTransform: "none",
     backgroundColor: "#B5A165",
     marginBottom: "1vh",
@@ -155,7 +154,6 @@ const useStyles = makeStyles((theme) => ({
   },
 
   postButton: {
-    width: "80%",
     textTransform: "none",
     backgroundColor: "#000000",
     marginBottom: "1vh",
@@ -188,26 +186,13 @@ const useStyles = makeStyles((theme) => ({
   },
 
   faq: {
-    width: "80%",
-    textTransform: "none",
-    backgroundColor: "#A9A9A9",
-    marginBottom: "1vh",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: "1.5vh",
-    borderRadius: 50,
-    color: "white",
-    position: "relative",
-    display: "block",
-    "&:hover": {
-      backgroundColor: "#F1F1F1",
-      color: "#484848",
-    },
-    fontSize: "15px",
-    fontWeight: "bold",
+    margin: "1vh 40px 1vh 40px",
     fontFamily: "myriad-pro, sans-serif",
-    paddingLeft: "50px",
-    paddingRight: "50px",
+    fontSize: "12px",
+    textAlign: "center",
+    display: "block",
+    color: "#6EA0B5",
+    cursor: "pointer",
   },
 }));
 
@@ -418,13 +403,9 @@ class Landing extends Component {
           ) : null}
 
           <EscalationsCard />
-          <Button
-            className={classes.faq}
-            variant="contained"
-            onClick={this.openFaq}
-          >
+          <p className={classes.faq} onClick={this.openFaq}>
             FAQ
-          </Button>
+          </p>
           <PostJobPopup
             openPostJob={this.state.openPostJob}
             handlePostJobClose={this.handlePostJobClose}
