@@ -130,6 +130,7 @@ const useStyles = makeStyles((theme) => ({
     justify: "flex-end",
   },
   button: {
+    width: "80%",
     textTransform: "none",
     backgroundColor: "#A9A9A9",
     marginBottom: "1vh",
