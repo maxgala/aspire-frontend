@@ -120,11 +120,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   image: {
-    width: "60%",
-    height: "auto",
-    "@media (max-width: 480px)": {
-      width: "120px",
-    },
+    width: "170px",
+    height: "170px",
     padding: "1vh",
     left: "10%",
     borderRadius: "50%",
@@ -136,6 +133,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   creditsButton: {
+    width: "80%",
     textTransform: "none",
     backgroundColor: "#B5A165",
     marginBottom: "1vh",
@@ -157,6 +155,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   postButton: {
+    width: "80%",
     textTransform: "none",
     backgroundColor: "#000000",
     marginBottom: "1vh",
@@ -189,13 +188,26 @@ const useStyles = makeStyles((theme) => ({
   },
 
   faq: {
-    margin: "1vh 40px 1vh 40px",
-    fontFamily: "myriad-pro, sans-serif",
-    fontSize: "12px",
-    textAlign: "center",
+    width: "80%",
+    textTransform: "none",
+    backgroundColor: "#A9A9A9",
+    marginBottom: "1vh",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "1.5vh",
+    borderRadius: 50,
+    color: "white",
+    position: "relative",
     display: "block",
-    color: "#6EA0B5",
-    cursor: "pointer",
+    "&:hover": {
+      backgroundColor: "#F1F1F1",
+      color: "#484848",
+    },
+    fontSize: "15px",
+    fontWeight: "bold",
+    fontFamily: "myriad-pro, sans-serif",
+    paddingLeft: "50px",
+    paddingRight: "50px",
   },
 }));
 
@@ -406,9 +418,13 @@ class Landing extends Component {
           ) : null}
 
           <EscalationsCard />
-          <p className={classes.faq} onClick={this.openFaq}>
+          <Button
+            className={classes.faq}
+            variant="contained"
+            onClick={this.openFaq}
+          >
             FAQ
-          </p>
+          </Button>
           <PostJobPopup
             openPostJob={this.state.openPostJob}
             handlePostJobClose={this.handlePostJobClose}
