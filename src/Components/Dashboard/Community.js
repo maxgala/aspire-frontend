@@ -11,6 +11,8 @@ import jwtDecode from "jwt-decode";
 import TextField from "@material-ui/core/TextField";
 import Industries from "../Registration/industry";
 import MenuItem from "@material-ui/core/MenuItem";
+import CardTypes from "./CardTypes";
+import EmptyCard from "./Cards/EmptyCard";
 
 const IndustryLabels = [];
 IndustryLabels.push("All");
@@ -292,27 +294,32 @@ class JobBoard extends Component {
             justify="flex-start"
           >
             {this.state.isCommunityLoaded === true ? (
-              this.state.community_data.map((chat, key) => (
-                <Grid
-                  key={key}
-                  container
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  spacing={1}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
-                  <CommunityCard
-                    data={chat}
-                    currentUserEmail={this.state.currentUserEmail}
-                    requesteeResponse={this.state.requesteeResponse}
-                    requestorResponse={this.state.requestorResponse}
-                  />
-                </Grid>
-              ))
+              this.state.community_data &&
+              this.state.community_data.length > 0 ? (
+                this.state.community_data.map((chat, key) => (
+                  <Grid
+                    key={key}
+                    container
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    spacing={1}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    <CommunityCard
+                      data={chat}
+                      currentUserEmail={this.state.currentUserEmail}
+                      requesteeResponse={this.state.requesteeResponse}
+                      requestorResponse={this.state.requestorResponse}
+                    />
+                  </Grid>
+                ))
+              ) : (
+                <EmptyCard type={CardTypes.community} filtered={true} />
+              )
             ) : (
               <Skeleton variant="rect" className={classes.communitycard} />
             )}
