@@ -39,18 +39,6 @@ const useStyles = makeStyles(() => ({
     paddingBottom: "30px",
     color: "black",
   },
-  more_info: {
-    fontSize: "15px",
-    fontFamily: "myriad-pro, sans-serif",
-    color: "#6ea0b5",
-    cursor: "pointer",
-    display: "inline",
-    padding: "5px",
-    "&:hover": {
-      backgroundColor: "#F1F1F1",
-      color: "#484848",
-    },
-  },
   membership_table: {
     width: "100%",
     border: "4px solid #dddddd",
@@ -167,7 +155,10 @@ class Membership extends Component {
         <h1 className={classes.features_title}>
           Memberships
           <div className={classes.tooltip} onClick={this.openMemberships}>
-            <Tooltip title="More information about the membership options">
+            <Tooltip
+              title="More information about the membership options"
+              style={{ width: "35px", height: "35px", marginLeft: "10px" }}
+            >
               <InfoOutlinedIcon size="x2" />
             </Tooltip>
           </div>
