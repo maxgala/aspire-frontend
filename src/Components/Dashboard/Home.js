@@ -190,10 +190,14 @@ class Home extends Component {
   };
 
   componentDidMount() {
+    this.fecthData();
+  }
+  fecthData = () => {
+    console.log("RAn");
     this.fetchJobs();
     this.fetchChats();
     this.fetchPostings();
-  }
+  };
 
   render() {
     const classes = this.props.classes;
@@ -360,7 +364,10 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobPostingCard data={posting} />
+                        <JobPostingCard
+                          refresh={() => this.fecthData()}
+                          data={posting}
+                        />
                       </Grid>
                     ))
                   ) : (
@@ -482,7 +489,10 @@ class Home extends Component {
                         alignItems="flex-start"
                         justify="flex-start"
                       >
-                        <JobPostingCard data={posting} />
+                        <JobPostingCard
+                          refresh={() => this.fecthData()}
+                          data={posting}
+                        />
                       </Grid>
                     ))
                   ) : (

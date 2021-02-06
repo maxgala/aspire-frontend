@@ -7,6 +7,8 @@ import { httpGet } from "../../lib/dataAccess";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
+import StarIcon from "@material-ui/icons/Star";
+
 import jwtDecode from "jwt-decode";
 import TextField from "@material-ui/core/TextField";
 import Industries from "../Registration/industry";
@@ -241,6 +243,10 @@ class JobBoard extends Component {
         <div className={classes.mainPage}>
           <div className={classes.padding}>
             <h1 className={classes.JobBoard}>Members</h1>
+            <p style={{ textAlign: "left" }}>
+              All Senior Executives are marked with a star:{" "}
+              <StarIcon style={{ paddingTop: 5 }} htmlColor={"#B5A165"} />
+            </p>
           </div>
 
           <Grid
@@ -321,16 +327,7 @@ class JobBoard extends Component {
                 <EmptyCard type={CardTypes.community} filtered={true} />
               )
             ) : (
-              <>
-                {Array(30)
-                  .fill(null)
-                  .map((_, i) => (
-                    <Skeleton
-                      variant="rect"
-                      className={classes.communitycard}
-                    />
-                  ))}
-              </>
+              <Skeleton variant="rect" className={classes.communitycard} />
             )}
           </Grid>
         </div>

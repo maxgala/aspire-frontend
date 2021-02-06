@@ -257,9 +257,12 @@ class JobPostingCard extends Component {
   }
 
   handlePostJobClose = (event) => {
+    openPostJobData = {};
     this.setState({
       openPostJob: false,
     });
+    console.log(this.props);
+    this.props.refresh();
   };
 
   openApplication = async (event) => {
@@ -284,7 +287,6 @@ class JobPostingCard extends Component {
   };
 
   handleClose = (event) => {
-    openPostJobData = {};
     this.setState({
       open: false,
     });

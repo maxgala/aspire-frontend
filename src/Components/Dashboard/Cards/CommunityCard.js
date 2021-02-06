@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { blankProfile } from "../../Images/faceShot/blank_profile.png";
+import StarIcon from "@material-ui/icons/Star";
 import { Auth } from "aws-amplify";
 import { httpPost, S3Get } from "../../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
@@ -436,9 +436,24 @@ class JobApplicationCard extends Component {
 
   render() {
     const classes = this.props.classes;
+    console.log(this.props);
     return (
       <div className={classes.card}>
         <div className={classes.container}>
+          <div
+            style={{
+              position: "relative",
+              top: 0,
+              right: 0,
+              display: "flex",
+              justifyContent: "flex-end",
+              paddingTop: 5,
+              paddingRight: 5,
+            }}
+          >
+            {this.props?.data?.attributes?.["custom:user_type"] ===
+              "MENTOR" && <StarIcon htmlColor={"#B5A165"} />}
+          </div>
           <Grid
             container
             item

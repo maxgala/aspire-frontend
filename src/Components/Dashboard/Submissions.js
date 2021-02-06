@@ -210,22 +210,29 @@ class JobBoard extends Component {
           >
             {this.state.isJobAppsLoaded === true ? (
               this.state.jobs && this.state.jobs.length > 0 ? (
-                this.state.jobs.map((jobData, key) => (
-                  <Grid
-                    key={key}
-                    container
-                    item
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    lg={4}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <JobPostingCard data={jobData} />
-                  </Grid>
-                ))
+                this.state.jobs
+                  .sort((a, b) => {
+                    return a.created_on - b.created_on;
+                  })
+                  .map((jobData, key) => (
+                    <Grid
+                      key={key}
+                      container
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      lg={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <JobPostingCard
+                        data={jobData}
+                        refresh={() => this.fetchPostings()}
+                      />
+                    </Grid>
+                  ))
               ) : (
                 <Grid
                   container
