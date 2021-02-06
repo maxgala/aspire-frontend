@@ -267,7 +267,11 @@ class PostJobPopup extends Component {
     // post job and close popup
     if (this.props.editMode) {
       delete jobsDataObj.updated_on;
-      await httpPut("jobs", idToken, jobsDataObj)
+      const { job_id } = jobsDataObj;
+      delete jobsDataObj.job_id;
+      delete jobsDataObj.created_on;
+
+      await httpPut(`jobs/${job_id}`, idToken, jobsDataObj)
         .then((res) => {
           this.props.enqueueSnackbar("Successfully submitted a job posting:", {
             variant: "success",
@@ -336,17 +340,6 @@ class PostJobPopup extends Component {
   };
 
   render() {
-    function formatDate(date) {
-      var d = new Date(date),
-        month = "" + (d.getMonth() + 1),
-        day = "" + d.getDate(),
-        year = d.getFullYear();
-
-      if (month.length < 2) month = "0" + month;
-      if (day.length < 2) day = "0" + day;
-
-      return [year, month, day].join("-");
-    }
     const classes = this.props.classes;
 
     return (
