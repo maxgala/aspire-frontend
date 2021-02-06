@@ -321,9 +321,7 @@ class CreditsForm extends React.Component {
           }}
         />
         {errorMessage && <ErrorResult>{errorMessage}</ErrorResult>}
-        {paymentMethod && (
-          <Result>Got PaymentMethod: {paymentMethod.id}</Result>
-        )}
+        {paymentMethod && <Result>Processing payment</Result>}
         <br />
         <Button
           variant="contained"

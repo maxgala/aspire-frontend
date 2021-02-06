@@ -321,7 +321,16 @@ class JobBoard extends Component {
                 <EmptyCard type={CardTypes.community} filtered={true} />
               )
             ) : (
-              <Skeleton variant="rect" className={classes.communitycard} />
+              <>
+                {Array(30)
+                  .fill(null)
+                  .map((_, i) => (
+                    <Skeleton
+                      variant="rect"
+                      className={classes.communitycard}
+                    />
+                  ))}
+              </>
             )}
           </Grid>
         </div>

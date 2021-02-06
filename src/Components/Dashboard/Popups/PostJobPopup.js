@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { httpPost } from "../../../lib/dataAccess";
+import { httpPost, httpPut } from "../../../lib/dataAccess";
 import { Auth } from "aws-amplify";
 import { withSnackbar } from "notistack";
 /* TODO: add back when industry tags is working
@@ -148,6 +148,7 @@ class PostJobPopup extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      editMode: !!this.props.editMode,
       max_characters: 3000,
       min_characters: 350,
       checkedBox: false,
@@ -167,28 +168,12 @@ class PostJobPopup extends Component {
         deadline: 0,
         deadline_string: "",
         can_contact: false,
+        ...props.prefilledData,
       },
     };
-  }
 
-  onTagsChange = (event, values) => {
-    var jobsDataObj = { ...this.state.jobsData };
-    jobsDataObj.job_tags = values;
-    this.setState({
-      jobsData: jobsDataObj,
-    });
-    if (values.length > 3) {
-      this.setState({
-        showError: true,
-        errorText: "Please pick up to 3 tags",
-      });
-    } else {
-      this.setState({
-        showError: false,
-        errorText: "",
-      });
-    }
-  };
+    console.log("STATE", this.state);
+  }
 
   submitJob = async () => {
     // check that all the required fields are set / properly set
@@ -280,17 +265,32 @@ class PostJobPopup extends Component {
     jobsDataObj.poster_given_name = userProfile.given_name;
 
     // post job and close popup
-    await httpPost("jobs", idToken, jobsDataObj)
-      .then((res) => {
-        this.props.enqueueSnackbar("Successfully submitted a job posting:", {
-          variant: "success",
+    if (this.props.editMode) {
+      delete jobsDataObj.updated_on;
+      await httpPut("jobs", idToken, jobsDataObj)
+        .then((res) => {
+          this.props.enqueueSnackbar("Successfully submitted a job posting:", {
+            variant: "success",
+          });
+        })
+        .catch((err) => {
+          this.props.enqueueSnackbar("Failed:" + err.response.data.message, {
+            variant: "error",
+          });
         });
-      })
-      .catch((err) => {
-        this.props.enqueueSnackbar("Failed:" + err.response.data.message, {
-          variant: "error",
+    } else {
+      await httpPost("jobs", idToken, jobsDataObj)
+        .then((res) => {
+          this.props.enqueueSnackbar("Successfully submitted a job posting:", {
+            variant: "success",
+          });
+        })
+        .catch((err) => {
+          this.props.enqueueSnackbar("Failed:" + err.response.data.message, {
+            variant: "error",
+          });
         });
-      });
+    }
     this.props.handlePostJobClose();
   };
 
@@ -336,6 +336,17 @@ class PostJobPopup extends Component {
   };
 
   render() {
+    function formatDate(date) {
+      var d = new Date(date),
+        month = "" + (d.getMonth() + 1),
+        day = "" + d.getDate(),
+        year = d.getFullYear();
+
+      if (month.length < 2) month = "0" + month;
+      if (day.length < 2) day = "0" + day;
+
+      return [year, month, day].join("-");
+    }
     const classes = this.props.classes;
 
     return (
@@ -387,6 +398,7 @@ class PostJobPopup extends Component {
                 <div className={classes.radioMarginFirst}>
                   <TextField
                     label="Job Title"
+                    defaultValue={this.state.jobsData?.title || ""}
                     fullWidth
                     className={classes.textbox}
                     InputProps={{
@@ -431,6 +443,7 @@ class PostJobPopup extends Component {
                     <TextField
                       label="Country"
                       fullWidth
+                      defaultValue={this.state.jobsData?.country || ""}
                       className={classes.textbox}
                       InputProps={{
                         classes: {
@@ -454,6 +467,7 @@ class PostJobPopup extends Component {
                       label="Region"
                       fullWidth
                       className={classes.textbox}
+                      defaultValue={this.state.jobsData?.region}
                       InputProps={{
                         classes: {
                           input: classes.input,
@@ -476,6 +490,7 @@ class PostJobPopup extends Component {
                       label="City"
                       fullWidth
                       className={classes.textbox}
+                      defaultValue={this.state.jobsData?.city}
                       InputProps={{
                         classes: {
                           input: classes.input,
@@ -509,6 +524,7 @@ class PostJobPopup extends Component {
                   <TextField
                     label="Company"
                     fullWidth
+                    defaultValue={this.state.jobsData?.company}
                     className={classes.textbox}
                     InputProps={{
                       classes: {
@@ -584,7 +600,9 @@ class PostJobPopup extends Component {
                     shrink: true,
                   }}
                   fullWidth
-                  value={this.state.jobsData.deadline_string}
+                  defaultValue={new Date(this.state.jobsData.deadline * 1000)
+                    .toISOString()
+                    .slice(0, 10)}
                   onChange={this.handleFormDataChange("expiration_date")}
                 />
               </Grid>
@@ -635,54 +653,7 @@ class PostJobPopup extends Component {
                 </div>
               </Grid>
             </Grid>
-            {/*<Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              spacing={1}
-              alignItems="flex-start"
-              justify="flex-start"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <div className={classes.radioMarginFirst}>
-                  <Autocomplete
-                    multiple
-                    id="tags-filled"
-                    fullWidth
-                    options={IndustryTags.map((option) => option.name)}
-                    defaultValue={[]}
-                    freeSolo
-                    onChange={this.onTagsChange}
-                    renderTags={(value, getTagProps) =>
-                      value.map((option, index) => (
-                        <Chip
-                          variant="outlined"
-                          label={option}
-                          {...getTagProps({ index })}
-                        />
-                      ))
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Select Tags (Up to 3)"
-                        error={showError}
-                        helperText={errorText}
-                        className={classes.textbox}
-                      />
-                    )}
-                  />
-                </div>
-              </Grid>
-            </Grid>*/}
+
             <Grid
               container
               item
@@ -748,6 +719,7 @@ class PostJobPopup extends Component {
                       notchedOutline: classes.notchedOutline,
                     },
                   }}
+                  defaultValue={this.state.jobsData.requirements}
                   value={this.state.jobsData.requirement}
                   helperText={`${this.state.jobsData.requirements.length}/${this.state.max_characters} Characters`}
                   className={classes.textField}

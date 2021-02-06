@@ -753,7 +753,8 @@ class JobApplicationCard extends Component {
                       ""
                     ) : (
                       <span className={classes.subtitle3}>
-                        {this.state.bio["bio"]}
+                        {this.state.bio["bio"] &&
+                          this.state.bio["bio"].replace("↵", "\n")}
                       </span>
                     )}
                   </Grid>

@@ -12,7 +12,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 
 import { Auth } from "aws-amplify";
-import { httpGet } from "../../../lib/dataAccess";
+import { httpGet, httpPost } from "../../../lib/dataAccess";
 import MaterialTable from "material-table";
 import Save from "@material-ui/icons/SaveAlt";
 
@@ -31,6 +31,7 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import { AddBox, ArrowUpward } from "@material-ui/icons";
+import PostJobPopup from "../Popups/PostJobPopup";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -236,12 +237,16 @@ function withMyHook(Component) {
   };
 }
 
+let openPostJobData = {};
 class JobPostingCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
       submissions: [],
+      openPostJob: false,
+      openPostJobLoading: false,
+      openPostJobData: {},
       columns: [
         {
           title: "Email",
@@ -250,6 +255,12 @@ class JobPostingCard extends Component {
       ],
     };
   }
+
+  handlePostJobClose = (event) => {
+    this.setState({
+      openPostJob: false,
+    });
+  };
 
   openApplication = async (event) => {
     const jobId = this.props.data.job_id;
@@ -265,7 +276,15 @@ class JobPostingCard extends Component {
     });
   };
 
+  postJob = async (data) => {
+    openPostJobData = data;
+    this.setState({
+      openPostJob: true,
+    });
+  };
+
   handleClose = (event) => {
+    openPostJobData = {};
     this.setState({
       open: false,
     });
@@ -292,7 +311,16 @@ class JobPostingCard extends Component {
     return (
       <div className={classes.card}>
         <div className={classes.innerMargin}>
-          <p className={classes.title}>{this.props.data.title}</p>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <p className={classes.title}>{this.props.data.title}</p>
+            </div>
+            <div>
+              <a onClick={() => this.postJob(this.props.data)}>
+                <p className={classes.title}>Edit</p>
+              </a>
+            </div>
+          </div>
           <hr className={classes.line}></hr>
           <p className={classes.datePosted}>
             Date Posted:{" "}
@@ -487,6 +515,14 @@ class JobPostingCard extends Component {
             </Dialog>
           </Grid>
         </div>
+        {this.state.openPostJob && (
+          <PostJobPopup
+            openPostJob={this.state.openPostJob}
+            editMode={true}
+            prefilledData={openPostJobData}
+            handlePostJobClose={this.handlePostJobClose}
+          />
+        )}
       </div>
     );
   }

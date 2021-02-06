@@ -24,6 +24,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import S3FileUpload from "react-s3";
 import { DropzoneDialog } from "material-ui-dropzone";
 import jwtDecode from "jwt-decode";
+import blankProfile from "../Images/faceShot/blank_profile.png";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -183,6 +184,21 @@ const useStyles = makeStyles((theme) => ({
       color: "#484848",
     },
   },
+  image: {
+    width: "60%",
+    height: "auto",
+    "@media (max-width: 480px)": {
+      width: "120px",
+    },
+    padding: "1vh",
+    left: "10%",
+    borderRadius: "50%",
+    marginTop: "2vh",
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "block",
+    objectFit: "cover",
+  },
   profilePic: {
     margin: theme.spacing(3, 0, 2),
     width: "120px",
@@ -230,9 +246,9 @@ class EditProfile extends Component {
       displayStates: "",
       imageFiles: [],
       resumeFiles: [],
-      profilePicPreviewText: "Upload your Profile Photo",
+      profilePicPreviewText: "Edit your Profile Photo",
       profilePicButtonText: "Upload",
-      resumeUploadText: "Upload your Resume ",
+      resumeUploadText: "Upload your Resume",
       resumeButtonText: "Upload",
       filePreview: [],
       resume: "",
@@ -520,7 +536,35 @@ class EditProfile extends Component {
       );
   };
 
+  getUserProfile = () => {
+    const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    let userLocation = "N/A";
+    if (userProfile.address && userProfile.address.formatted) {
+      const address = JSON.parse(userProfile.address.formatted);
+      if (!address.country.includes("Other")) {
+        userLocation = address.region + ", " + address.country;
+      }
+    }
+
+    let profilePicture = blankProfile;
+    if (userProfile["picture"]) {
+      profilePicture = userProfile["picture"];
+    }
+
+    return {
+      name: userProfile.given_name + " " + userProfile.family_name,
+      occupation: userProfile["custom:position"],
+      location: userLocation,
+      company: userProfile["custom:company"] ?? "N/A",
+      numCoffeeChats: this.state.numChats,
+      numJobApplications: this.state.numJobs,
+      numCredits: userProfile["custom:credits"],
+      profilePicture: profilePicture,
+    };
+  };
+
   render() {
+    const userProfile = this.getUserProfile();
     const classes = this.props.classes;
     return (
       <Container component="main" maxWidth="sm">
@@ -529,6 +573,12 @@ class EditProfile extends Component {
           <Typography component="h1" variant="h5">
             Edit User Profile
           </Typography>
+          <img
+            className={classes.image}
+            src={userProfile.profilePicture}
+            alt={"User Profile"}
+          />
+
           <div className={classes.form}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -761,7 +811,52 @@ class EditProfile extends Component {
                 />
               </Grid>
             </Grid>
-
+            <Grid
+              item
+              xs={12}
+              className={classes.textAlignment}
+              style={{ paddingTop: 20 }}
+            >
+              <div style={{ display: "inline-flex" }}>
+                <Typography
+                  className={classes.uploadText}
+                  component="h6"
+                  variant="subtitle2"
+                >
+                  <b>{this.state.profilePicPreviewText}</b>
+                  <Tooltip
+                    title={
+                      "It will be displayed along with your profile for our community members to see"
+                    }
+                  >
+                    <Typography
+                      variant="caption"
+                      style={{ color: "grey", cursor: "pointer" }}
+                      display="block"
+                      gutterBottom
+                    >
+                      Why am I being asked about this?
+                    </Typography>
+                  </Tooltip>
+                </Typography>
+                <Button
+                  className={classes.uploadImage}
+                  onClick={this.handleOpen.bind(this)}
+                >
+                  <b>{this.state.profilePicButtonText}</b>
+                </Button>
+              </div>
+              <DropzoneDialog
+                open={this.state.open}
+                onSave={this.handlePicSave.bind(this)}
+                acceptedFiles={["image/*"]}
+                showPreviews={true}
+                maxFileSize={5000000}
+                onClose={this.handleClose.bind(this)}
+                filesLimit={1}
+                fileObjects={this.state.files}
+              />
+            </Grid>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 {this.state.imageFiles.map((file, i) => {
@@ -775,48 +870,6 @@ class EditProfile extends Component {
                   );
                 })}
               </Grid>
-              <Grid item xs={12} className={classes.textAlignment}>
-                <div style={{ display: "inline-flex" }}>
-                  <Typography
-                    className={classes.uploadText}
-                    component="h6"
-                    variant="subtitle2"
-                  >
-                    <b>{this.state.profilePicPreviewText}</b>
-                    <Tooltip
-                      title={
-                        "It will be displayed along with your profile for our community members to see"
-                      }
-                    >
-                      <Typography
-                        variant="caption"
-                        style={{ color: "grey", cursor: "pointer" }}
-                        display="block"
-                        gutterBottom
-                      >
-                        Why am I being asked about this?
-                      </Typography>
-                    </Tooltip>
-                  </Typography>
-                  <Button
-                    className={classes.uploadImage}
-                    onClick={this.handleOpen.bind(this)}
-                  >
-                    <b>{this.state.profilePicButtonText}</b>
-                  </Button>
-                </div>
-                <DropzoneDialog
-                  open={this.state.open}
-                  onSave={this.handlePicSave.bind(this)}
-                  acceptedFiles={["image/*"]}
-                  showPreviews={true}
-                  maxFileSize={5000000}
-                  onClose={this.handleClose.bind(this)}
-                  filesLimit={1}
-                  fileObjects={this.state.files}
-                />
-              </Grid>
-
               <Grid item xs={12} className={classes.textAlignment}>
                 <div style={{ display: "inline-flex" }}>
                   <Typography
