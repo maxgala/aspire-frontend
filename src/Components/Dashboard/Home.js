@@ -193,7 +193,6 @@ class Home extends Component {
     this.fecthData();
   }
   fecthData = () => {
-    console.log("RAn");
     this.fetchJobs();
     this.fetchChats();
     this.fetchPostings();

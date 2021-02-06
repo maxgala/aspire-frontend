@@ -261,7 +261,6 @@ class JobPostingCard extends Component {
     this.setState({
       openPostJob: false,
     });
-    console.log(this.props);
     this.props.refresh();
   };
 
