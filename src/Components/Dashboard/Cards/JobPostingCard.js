@@ -12,7 +12,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
 
 import { Auth } from "aws-amplify";
-import { httpGet, httpPost } from "../../../lib/dataAccess";
+import { httpGet } from "../../../lib/dataAccess";
 import MaterialTable from "material-table";
 import Save from "@material-ui/icons/SaveAlt";
 
@@ -317,11 +317,6 @@ class JobPostingCard extends Component {
             <div>
               <p className={classes.title}>{this.props.data.title}</p>
             </div>
-            <div>
-              <a onClick={() => this.postJob(this.props.data)}>
-                <p className={classes.title}>Edit</p>
-              </a>
-            </div>
           </div>
           <hr className={classes.line}></hr>
           <p className={classes.datePosted}>
@@ -403,7 +398,7 @@ class JobPostingCard extends Component {
             <Grid
               container
               item
-              xs={5}
+              xs={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -418,6 +413,23 @@ class JobPostingCard extends Component {
                   View Submissions
                 </Button>
               </div>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-end"
+            >
+              <Button
+                className={classes.button}
+                onClick={() => this.postJob(this.props.data)}
+                variant="contained"
+                color="primary"
+              >
+                Edit
+              </Button>
             </Grid>
             <Grid
               container
