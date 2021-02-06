@@ -200,158 +200,6 @@ class JobBoard extends Component {
               handlePostJobClose={this.handlePostJobClose}
             />
           </Grid>
-          {/* TODO: Hiding filters until they get implemented
-          <Grid
-            container
-            item
-            xs={12}
-            spacing={1}
-            alignItems="flex-start"
-            justify="flex-start"
-          >
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Title</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Location</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Job Type</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              item
-              xs={12}
-              sm={6}
-              md={6}
-              lg={3}
-              spacing={1}
-              alignItems="center"
-              justify="center"
-            >
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <p className={classes.section_title}>Additional Filters</p>
-              </Grid>
-              <Grid
-                container
-                item
-                xs={12}
-                spacing={1}
-                alignItems="flex-start"
-                justify="flex-start"
-              >
-                <Filter />
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <div className={classes.sort}>
-            <p className={classes.date}>
-              {" "}
-              Sort date posted by:
-              <select className={classes.select}>
-                <option value="Ascending">Ascending</option>
-                <option value="descending">Descending</option>
-              </select>
-            </p>
-          </div>
-          */}
-
           <Grid
             container
             item
@@ -362,22 +210,29 @@ class JobBoard extends Component {
           >
             {this.state.isJobAppsLoaded === true ? (
               this.state.jobs && this.state.jobs.length > 0 ? (
-                this.state.jobs.map((jobData, key) => (
-                  <Grid
-                    key={key}
-                    container
-                    item
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    lg={4}
-                    spacing={1}
-                    alignItems="flex-start"
-                    justify="flex-start"
-                  >
-                    <JobPostingCard data={jobData} />
-                  </Grid>
-                ))
+                this.state.jobs
+                  .sort((a, b) => {
+                    return a.created_on - b.created_on;
+                  })
+                  .map((jobData, key) => (
+                    <Grid
+                      key={key}
+                      container
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      lg={4}
+                      spacing={1}
+                      alignItems="flex-start"
+                      justify="flex-start"
+                    >
+                      <JobPostingCard
+                        data={jobData}
+                        refresh={() => this.fetchPostings()}
+                      />
+                    </Grid>
+                  ))
               ) : (
                 <Grid
                   container

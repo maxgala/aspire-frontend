@@ -9,11 +9,9 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Toolbar from "@material-ui/core/Toolbar";
 import close from "../../Images/close.png";
-import { httpPut } from "../../../lib/dataAccess";
 import Moment from "react-moment";
 import "moment-timezone";
 import { withSnackbar } from "notistack";
-import { Auth } from "aws-amplify";
 import jwtDecode from "jwt-decode";
 import WorkIcon from "@material-ui/icons/Work";
 import BusinessIcon from "@material-ui/icons/Business";
@@ -404,60 +402,6 @@ class CoffeeChatSelfCard extends Component {
     });
   };
 
-  registerForChat = () => {
-    this.setState({
-      barDisplay: true,
-    });
-    httpPut(
-      "chats/" + this.props.data.chat_id + "/reserve",
-      Auth.currentSession().getIdToken().getJwtToken()
-    )
-      .then(() => {
-        this.props.enqueueSnackbar("Successfully registered for coffee chat", {
-          variant: "success",
-        });
-        this.setState({
-          open: false,
-          chat_status: "RESERVED",
-        });
-      })
-      .catch((err) => {
-        this.props.enqueueSnackbar("Failed:" + err, {
-          variant: "error",
-        });
-      });
-    this.setState({
-      barDisplay: false,
-    });
-  };
-
-  unreserve = async () => {
-    this.setState({
-      barDisplay: true,
-    });
-    await httpPut(
-      "chats/" + this.props.data.chat_id + "/unreserve",
-      (await Auth.currentSession()).getIdToken().getJwtToken()
-    )
-      .then(() => {
-        this.props.enqueueSnackbar("Successfully unregistered for chat", {
-          variant: "success",
-        });
-        this.setState({
-          open: false,
-          chat_status: "UNRESERVED",
-        });
-      })
-      .catch((err) => {
-        this.props.enqueueSnackbar("Failed:" + err, {
-          variant: "error",
-        });
-      });
-    this.setState({
-      barDisplay: false,
-    });
-  };
-
   dismiss = () => {
     this.setState({
       open: false,
@@ -478,8 +422,6 @@ class CoffeeChatSelfCard extends Component {
             : classes.cardInterview
         }
       >
-        {/* need to get image from s3 bucket --  */}
-
         <div className={classes.container}>
           <Grid
             container
@@ -620,7 +562,7 @@ class CoffeeChatSelfCard extends Component {
                     ) : this.state.chat_status === "UNRESERVED" ? (
                       <h3 className={classes.reservedText}>UNRESERVED</h3>
                     ) : (
-                      (<h3 className={classes.reservedText}>RESERVED</h3>)("")
+                      <h3 className={classes.reservedText}>RESERVED</h3>
                     )}
                   </span>
                 </Grid>

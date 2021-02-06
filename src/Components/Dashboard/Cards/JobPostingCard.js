@@ -31,6 +31,7 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import { AddBox, ArrowUpward } from "@material-ui/icons";
+import PostJobPopup from "../Popups/PostJobPopup";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -236,12 +237,16 @@ function withMyHook(Component) {
   };
 }
 
+let openPostJobData = {};
 class JobPostingCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
       submissions: [],
+      openPostJob: false,
+      openPostJobLoading: false,
+      openPostJobData: {},
       columns: [
         {
           title: "Email",
@@ -250,6 +255,15 @@ class JobPostingCard extends Component {
       ],
     };
   }
+
+  handlePostJobClose = (event) => {
+    openPostJobData = {};
+    this.setState({
+      openPostJob: false,
+    });
+    console.log(this.props);
+    this.props.refresh();
+  };
 
   openApplication = async (event) => {
     const jobId = this.props.data.job_id;
@@ -262,6 +276,13 @@ class JobPostingCard extends Component {
     this.setState({
       open: true,
       submissions: submissions.data,
+    });
+  };
+
+  postJob = async (data) => {
+    openPostJobData = data;
+    this.setState({
+      openPostJob: true,
     });
   };
 
@@ -292,7 +313,11 @@ class JobPostingCard extends Component {
     return (
       <div className={classes.card}>
         <div className={classes.innerMargin}>
-          <p className={classes.title}>{this.props.data.title}</p>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <p className={classes.title}>{this.props.data.title}</p>
+            </div>
+          </div>
           <hr className={classes.line}></hr>
           <p className={classes.datePosted}>
             Date Posted:{" "}
@@ -373,7 +398,7 @@ class JobPostingCard extends Component {
             <Grid
               container
               item
-              xs={5}
+              xs={6}
               spacing={1}
               alignItems="flex-start"
               justify="flex-start"
@@ -388,6 +413,23 @@ class JobPostingCard extends Component {
                   View Submissions
                 </Button>
               </div>
+            </Grid>
+            <Grid
+              container
+              item
+              xs={6}
+              spacing={1}
+              alignItems="flex-start"
+              justify="flex-end"
+            >
+              <Button
+                className={classes.button}
+                onClick={() => this.postJob(this.props.data)}
+                variant="contained"
+                color="primary"
+              >
+                Edit
+              </Button>
             </Grid>
             <Grid
               container
@@ -487,6 +529,14 @@ class JobPostingCard extends Component {
             </Dialog>
           </Grid>
         </div>
+        {this.state.openPostJob && (
+          <PostJobPopup
+            openPostJob={this.state.openPostJob}
+            editMode={true}
+            prefilledData={openPostJobData}
+            handlePostJobClose={this.handlePostJobClose}
+          />
+        )}
       </div>
     );
   }
