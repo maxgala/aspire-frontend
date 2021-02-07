@@ -171,8 +171,6 @@ class PostJobPopup extends Component {
         ...props.prefilledData,
       },
     };
-
-    console.log("STATE", this.state);
   }
 
   submitJob = async () => {
