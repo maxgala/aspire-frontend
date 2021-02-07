@@ -200,6 +200,7 @@ class FinalPage extends Component {
       tocNumPages: null,
       privacyNumPages: null,
       url: process.env.REACT_APP_MAILCHIMP_URL,
+      isDialogOpen: false,
     };
   }
 
@@ -288,9 +289,16 @@ class FinalPage extends Component {
   confirmSignUp() {
     Auth.confirmSignUp(this.state.email, this.state.confirmationCode)
       .then(() => {
-        this.props.enqueueSnackbar("Successfully confirmed signed up", {
-          variant: "success",
-        });
+        if (!this.state.senior_executive) {
+          this.props.enqueueSnackbar("Successfully confirmed signed up", {
+            variant: "success",
+          });
+          this.props.history.push(`${Routes.Login}`);
+        } else {
+          this.setState({
+            isDialogOpen: true,
+          });
+        }
       })
       .catch((err) => {
         this.props.enqueueSnackbar(
@@ -316,16 +324,10 @@ class FinalPage extends Component {
     });
   };
 
-  handleUserChoice = (event) => {
-    if (this.state.senior_executive === false) {
-      this.setState({
-        senior_executive: true,
-      });
-    } else {
-      this.setState({
-        senior_executive: false,
-      });
-    }
+  handleUserChoice = () => {
+    this.setState({
+      senior_executive: !this.state.senior_executive,
+    });
   };
 
   handleConfirmationCodeChange = (event) => {
@@ -343,7 +345,6 @@ class FinalPage extends Component {
   handleSubmit = (event) => {
     if (this.state.verified) {
       this.confirmSignUp();
-      this.props.history.push(`${Routes.Login}`);
     } else {
       if (
         this.state.aspire_premium === true ||
@@ -433,6 +434,42 @@ class FinalPage extends Component {
               </div>
             </Grid>
           </div>
+          {this.state.isDialogOpen && (
+            <Dialog
+              open
+              keepMounted
+              onClose={() => {
+                this.props.history.push(`/`);
+              }}
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle id="alert-dialog-slide-title">
+                Thank you for signing up as a Senior Executive.
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <b>
+                    There is a 48 to 72 hour review process, and we will notify
+                    you via email within this timeframe if you have been
+                    accepted as a Senior Executive.{" "}
+                  </b>
+                  <br />
+                  <b>Thank you kindly for your interest in MAX Aspire.</b>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={() => {
+                    this.props.history.push(`/`);
+                  }}
+                  color="primary"
+                >
+                  <b>Close</b>
+                </Button>
+              </DialogActions>
+            </Dialog>
+          )}
         </Container>
       );
     } else {
@@ -631,6 +668,7 @@ class FinalPage extends Component {
               </Button>
             </DialogActions>
           </Dialog>
+
           <Dialog
             maxWidth={"md"}
             fullWidth={true}

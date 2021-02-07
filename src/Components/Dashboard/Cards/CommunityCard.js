@@ -767,10 +767,17 @@ class JobApplicationCard extends Component {
                     this.state.bio["bio"] === "N/A" ? (
                       ""
                     ) : (
-                      <span className={classes.subtitle3}>
-                        {this.state.bio["bio"] &&
-                          this.state.bio["bio"].replace("↵", "\n")}
-                      </span>
+                      <span
+                        className={classes.subtitle3}
+                        dangerouslySetInnerHTML={{
+                          __html:
+                            (this.state.bio["bio"] &&
+                              this.state.bio["bio"]
+                                .replace("↵", "\n")
+                                .replace("\n", "<br/>")) ||
+                            "",
+                        }}
+                      ></span>
                     )}
                   </Grid>
                 </Grid>

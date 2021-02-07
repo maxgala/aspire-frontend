@@ -189,6 +189,14 @@ class Membership extends Component {
                 inner_text="Pricing Plan:"
                 description="With the free membership plan, you will able to view jobs on the platform and, schedule coffee chats and mock interviews on a pay per use basis"
                 type="aspiring_professional"
+                dialogBoxContent={
+                  "An Aspiring Professional membership allows access to the following features: <br />" +
+                  "<ul><li>View job postings and post your resume within the platform’s resume bank</li>" +
+                  "<li>View profiles of all Senior Executives committed to MAX Aspire</li>" +
+                  "<li>Ability to purchase credits on a pay-per-use basis to schedule 1-1 Coffee Chats or Mock Interviews with Senior Executives</li>" +
+                  "<li>Starting credits: <b>0. Cost to purchase 5 credits: $5</b></li></ul>"
+                }
+                dialogBoxTitle={"Aspiring Professional: Bronze | $0/yr"}
                 buttonText={this.props.freeButtonText}
                 buttonFunction={
                   this.props.landing
@@ -218,6 +226,18 @@ class Membership extends Component {
                 inner_text="Pricing Plan:"
                 description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
                 type="aspiring_professional"
+                dialogBoxContent={
+                  "An Aspiring Professional Premium membership allows access to the following features: <br />" +
+                  "<ul><li>Receive 25 Credits*.</li>" +
+                  "<li>Schedule Coffee Chats with Senior Executives</li>" +
+                  "<li>Post resume within resume bank to be seen by Senior professionals</li>" +
+                  "<li>View the profiles of Senior professionals</li>" +
+                  "<li>View and post jobs</li>" +
+                  "<li>Ability to apply to open roles and contact poster</li>" +
+                  "<li>Ability to apply to board roles and contact poster</li>" +
+                  "<li>Starting credits: <b>25. Cost to purchase 5 additional credits: $5</b></li></ul>"
+                }
+                dialogBoxTitle={"Aspiring Professional: Premium | $49/yr"}
                 buttonText={this.props.premiumButtonText}
                 buttonFunction={
                   this.props.landing
@@ -248,6 +268,17 @@ class Membership extends Component {
                 description="The Platinum plan gives you exclusive access to board positions, the opportunity to mentor aspiring professionals, hire great talent, and connect with fellow senior professionals!"
                 type="senior_professional"
                 buttonText={this.props.platinumButtonText}
+                dialogBoxContent={
+                  "A Senior Executive Platinum membership allows access to the following features: <br />" +
+                  "<ul><li>Post jobs on the platform</li>" +
+                  "<li>Access to resume bank</li>" +
+                  "<li>Access to aspiring professional talent pool</li>" +
+                  "<li>View profiles of Senior Executives committed to MAX</li>" +
+                  "<li>1-1 Coffee Chats and Mock Interviews with Aspiring Professionals</li>" +
+                  "<li>Ability to apply to board roles and contact poster</li>" +
+                  "<li>Ability to sponsor an Aspiring professional who is financially constrained </li></ul>"
+                }
+                dialogBoxTitle={"Senior Executive: Platinum | $75/yr\n"}
                 buttonFunction={
                   this.props.landing
                     ? this.props.platinumFunction
