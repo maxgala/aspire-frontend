@@ -233,8 +233,8 @@ class Membership extends Component {
                   "<li>Post resume within resume bank to be seen by Senior professionals</li>" +
                   "<li>View the profiles of Senior professionals</li>" +
                   "<li>View and post jobs</li>" +
-                  "<li>Ability to apply to open roles and contact poster</li>" +
-                  "<li>Ability to apply to board roles and contact poster</li>" +
+                  "<li>Ability to apply to open roles</li>" +
+                  "<li>Ability to apply to board roles</li>" +
                   "<li>Starting credits: <b>25. Cost to purchase 5 additional credits: $5</b></li></ul>"
                 }
                 dialogBoxTitle={"Aspiring Professional: Premium | $49/yr"}
