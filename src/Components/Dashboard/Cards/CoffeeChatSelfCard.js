@@ -743,7 +743,8 @@ class CoffeeChatSelfCard extends Component {
                     {console.log(this.props.data.aspiring_professionals)}
                     {this.props.data?.aspiring_professionals?.length > 0 ? (
                       <span className={classes.subtitle2}>
-                        Booked with: {this.props.data.aspiring_professionals}
+                        Registered with:{" "}
+                        {this.props.data.aspiring_professionals}
                       </span>
                     ) : (
                       ""
