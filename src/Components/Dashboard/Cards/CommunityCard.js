@@ -436,7 +436,6 @@ class JobApplicationCard extends Component {
 
   render() {
     const classes = this.props.classes;
-    console.log(this.props);
     return (
       <div className={classes.card}>
         <div className={classes.container}>
