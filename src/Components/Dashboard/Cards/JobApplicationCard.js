@@ -639,6 +639,34 @@ class JobApplicationCard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
+                  <h2 className={classes.header}>
+                    Salary: ${this.props.data.salary} annual
+                  </h2>
+                  <br />
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <h2 className={classes.header}>
+                    Expiration Date:{" "}
+                    {new Date((this.props.data.deadline || 0) * 1000)
+                      .toISOString()
+                      .slice(0, 10)}
+                  </h2>
+                </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
                   <h2 className={classes.header}>Job Requirements:</h2>
                   <h2 className={classes.descrip}>
                     {this.props.data &&
