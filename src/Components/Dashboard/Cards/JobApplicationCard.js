@@ -625,20 +625,6 @@ class JobApplicationCard extends Component {
                   alignItems="flex-start"
                   justify="flex-start"
                 >
-                  <h2 className={classes.header}>Job Description:</h2>
-                  <h2 className={classes.descrip}>
-                    {this.props.data &&
-                      NewlineText(this.props.data.description)}
-                  </h2>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xs={12}
-                  spacing={0}
-                  alignItems="flex-start"
-                  justify="flex-start"
-                >
                   <h2 className={classes.header}>
                     Salary: ${this.props.data.salary} annual
                   </h2>
@@ -659,6 +645,21 @@ class JobApplicationCard extends Component {
                       .slice(0, 10)}
                   </h2>
                 </Grid>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  <h2 className={classes.header}>Job Description:</h2>
+                  <h2 className={classes.descrip}>
+                    {this.props.data &&
+                      NewlineText(this.props.data.description)}
+                  </h2>
+                </Grid>
+
                 <Grid
                   container
                   item
