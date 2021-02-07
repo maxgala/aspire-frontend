@@ -409,6 +409,7 @@ class CoffeeChatSelfCard extends Component {
   };
 
   render() {
+    console.log(this.props.data);
     const classes = this.props.classes;
     return (
       <div
@@ -547,7 +548,11 @@ class CoffeeChatSelfCard extends Component {
                         variant="contained"
                         color="primary"
                       >
-                        <h3>VIEW DETAILS</h3>
+                        <h3>
+                          {this.props.data.chat_status === "RESERVED"
+                            ? "VIEW DETAILS"
+                            : "TO BE RESERVED"}
+                        </h3>
                       </Button>
                     ) : this.state.chat_status === "RESERVED" ||
                       this.state.chat_status === "RESERVED_PARTIAL" ? (
@@ -557,7 +562,11 @@ class CoffeeChatSelfCard extends Component {
                         variant="contained"
                         color="primary"
                       >
-                        <h3>VIEW DETAILS</h3>
+                        <h3>
+                          {this.props.data.chat_status === "RESERVED"
+                            ? "VIEW DETAILS"
+                            : "TO BE RESERVED"}
+                        </h3>
                       </Button>
                     ) : this.state.chat_status === "UNRESERVED" ? (
                       <h3 className={classes.reservedText}>UNRESERVED</h3>

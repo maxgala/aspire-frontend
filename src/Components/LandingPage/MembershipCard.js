@@ -4,6 +4,11 @@ import premiumMembership from "../Images/premium-membership.jpg";
 import platinumMembership from "../Images/platinum-membership.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -92,6 +97,19 @@ function withMyHook(Component) {
 }
 
 class MembershipCard extends Component {
+  state = {
+    isDialogOpen: false,
+    dialogBoxContent: undefined,
+    dialogBoxTitle: undefined,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...props,
+    };
+  }
+
   render() {
     const classes = this.props.classes;
 
@@ -121,6 +139,34 @@ class MembershipCard extends Component {
 
     return (
       <div id="membership">
+        <Dialog
+          open={this.state.isDialogOpen && this.state.dialogBoxContent}
+          keepMounted
+          onClose={() => this.setState({ isDialogOpen: false })}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+            {this.state.dialogBoxTitle}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              <b
+                dangerouslySetInnerHTML={{
+                  __html: this.state.dialogBoxContent,
+                }}
+              ></b>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => this.setState({ isDialogOpen: false })}
+              color="primary"
+            >
+              <b>Close</b>
+            </Button>
+          </DialogActions>
+        </Dialog>
         <div className={classes.card}>
           <div>
             {membImg}
@@ -136,13 +182,24 @@ class MembershipCard extends Component {
             </div>
           </div>
           <h2 className={classes.small_text}>{this.props.description}</h2>
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={this.props.buttonFunction}
-          >
-            <b>{this.props.buttonText}</b>
-          </Button>
+          <div>
+            <Button
+              className={classes.button}
+              variant="contained"
+              onClick={() => this.setState({ isDialogOpen: true })}
+            >
+              <b>View Details</b>
+            </Button>
+          </div>
+          <div>
+            <Button
+              className={classes.button}
+              variant="contained"
+              onClick={this.props.buttonFunction}
+            >
+              <b>{this.props.buttonText}</b>
+            </Button>
+          </div>
         </div>
       </div>
     );
