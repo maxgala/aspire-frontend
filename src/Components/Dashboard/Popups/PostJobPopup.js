@@ -591,9 +591,12 @@ class PostJobPopup extends Component {
                     shrink: true,
                   }}
                   fullWidth
-                  defaultValue={new Date(this.state.jobsData.deadline * 1000)
-                    .toISOString()
-                    .slice(0, 10)}
+                  defaultValue={
+                    this.state.jobsData.deadline &&
+                    new Date(this.state.jobsData.deadline * 1000)
+                      .toISOString()
+                      .slice(0, 10)
+                  }
                   onChange={this.handleFormDataChange("expiration_date")}
                 />
               </Grid>
