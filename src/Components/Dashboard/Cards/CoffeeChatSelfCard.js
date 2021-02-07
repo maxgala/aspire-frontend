@@ -732,6 +732,23 @@ class CoffeeChatSelfCard extends Component {
                       ""
                     )}
                   </Grid>
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={0}
+                    alignItems="flex-start"
+                    justify="flex-start"
+                  >
+                    {console.log(this.props.data.aspiring_professionals)}
+                    {this.props.data?.aspiring_professionals?.length > 0 ? (
+                      <span className={classes.subtitle2}>
+                        Booked with: {this.props.data.aspiring_professionals}
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                  </Grid>
 
                   <Grid
                     container

@@ -198,14 +198,14 @@ class CoffeeChats extends Component {
           </p>
 
           <p style={{ textAlign: "left" }}>
-            One on One coffee chats are undated. You will receive an email with
-            the Senior Executives email address. Please reach out to the Senior
-            Executive to book a time.
+            1) One on One coffee chats are undated. You will receive an email
+            with the Senior Executives email address. Please reach out to the
+            Senior Executive to book a time.
           </p>
 
           <p style={{ textAlign: "left" }}>
-            All mock interview coffee chats have a predetermined time and date.
-            Upon booking, you will receive an email and calendar invite.
+            2) All mock interview coffee chats have a predetermined time and
+            date. Upon booking, you will receive an email and calendar invite.
           </p>
 
           <p style={{ textAlign: "left" }}>

@@ -114,6 +114,7 @@ class Home extends Component {
       isJobappsLoaded: false,
       job_postings: [],
       isJobpostsLoaded: false,
+      user_type: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
     };
   }
 
@@ -214,7 +215,24 @@ class Home extends Component {
               alignItems="flex-start"
               justify="flex-start"
             >
-              <p className={classes.section_title}>Coffee Chats</p>
+              <h5 className={classes.section_title}>Coffee Chats</h5>
+              {this.state.user_type === "MENTOR" ? (
+                <div>
+                  <p style={{ textAlign: "left" }}>
+                    Once every two to three months, your coffee chat will be
+                    made available to MAX Aspiring Professionals.
+                  </p>
+                  <p style={{ textAlign: "left" }}>
+                    Once you have been booked, the details will appear where you
+                    click 'View Details'. You will also receive an email
+                    notification when a Coffee Chat is booked with you by an
+                    Aspiring Professional
+                  </p>
+                </div>
+              ) : (
+                ""
+              )}
+
               {this.state.isChatsLoaded ? (
                 this.state.coffee_chats &&
                 this.state.coffee_chats.length > 0 ? (
@@ -346,7 +364,7 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <p className={classes.section_title}>Job Postings</p>
+                <h5 className={classes.section_title}>Job Postings</h5>
 
                 {this.state.isJobpostsLoaded ? (
                   this.state.job_postings &&
@@ -414,7 +432,7 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <p className={classes.section_title}>Your Job Application</p>
+                <h5 className={classes.section_title}>Your Job Application</h5>
                 {this.state.isJobappsLoaded ? (
                   this.state.job_applications &&
                   this.state.job_applications.length > 0 ? (
@@ -472,7 +490,7 @@ class Home extends Component {
                 alignItems="flex-start"
                 justify="flex-start"
               >
-                <p className={classes.section_title}>Job Postings</p>
+                <h5 className={classes.section_title}>Job Postings</h5>
                 {this.state.isJobpostsLoaded ? (
                   this.state.job_postings &&
                   this.state.job_postings.length > 0 ? (
