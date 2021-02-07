@@ -217,18 +217,23 @@ class Home extends Component {
             >
               <h5 className={classes.section_title}>Coffee Chats</h5>
               {this.state.user_type === "MENTOR" ? (
-                <div>
-                  <p style={{ textAlign: "left" }}>
-                    Once every two to three months, your coffee chat will be
-                    made available to MAX Aspiring Professionals.
-                  </p>
-                  <p style={{ textAlign: "left" }}>
-                    Once you have been booked, the details will appear where you
-                    click 'View Details'. You will also receive an email
-                    notification when a Coffee Chat is booked with you by an
-                    Aspiring Professional
-                  </p>
-                </div>
+                <Grid
+                  container
+                  item
+                  xs={12}
+                  spacing={0}
+                  alignItems="flex-start"
+                  justify="flex-start"
+                >
+                  {console.log(this.props.data.aspiring_professionals)}
+                  {this.props.data?.aspiring_professionals?.length > 0 ? (
+                    <span className={classes.subtitle2}>
+                      Registered with: {this.props.data.aspiring_professionals}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </Grid>
               ) : (
                 ""
               )}
