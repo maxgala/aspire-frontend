@@ -154,8 +154,8 @@ class SignIn extends Component {
   };
 
   signIn() {
-    const username = this.state.username;
-    const password = this.state.password;
+    const username = this.state.username.trim();
+    const password = this.state.password.trim();
     return Auth.signIn({
       username: username,
       password: password,
