@@ -144,130 +144,130 @@ let images = [
   {
     photo: Hashmi_Seema,
     name: "Seema Hashmi",
-    title: "Chief of Staff to Group Head of Business Banking TD",
+    title: "Chief of Staff to Group Head of Business Banking @ TD",
   },
   {
     photo: Thomas_Benji,
     name: "Benjie Thomas",
-    title: "Canadian Managing Partner at KPMG",
+    title: "Canadian Managing Partner @ KPMG",
   },
   {
     photo: Soliman_Walied,
     name: "Walied Soliman",
-    title: "Partner and Chair at Norton Rose",
+    title: "Partner and Chair @ Norton Rose",
   },
   {
     photo: Dorias_Osama,
     name: "Osama Doria",
-    title: "Lead Game Designer at Warner Brothers",
+    title: "Lead Game Designer @ Warner Brothers",
   },
   {
     photo: Rooney_Richard,
     name: "Richard Rooney",
-    title: "President and CIO at Burgundy Asset Management",
+    title: "President and CIO @ Burgundy Asset Management",
   },
   {
     photo: Salman_Zahid,
     name: "Zahid Salman",
-    title: "President & CEO at Green Shield Canada",
+    title: "President & CEO @ Green Shield Canada",
   },
   {
     photo: Benkhouya_Saloua,
     name: "Saloua Benkhouya",
-    title: "VP Business Financial Services at RBC",
+    title: "VP Business Financial Services @ RBC",
   },
   {
     photo: Shahsamand_Asma,
     name: "Asma Shahsamand",
-    title: "Head of Canada Ventures at Accenture",
+    title: "Head of Canada Ventures @ Accenture",
   },
   {
     photo: Zaman_Sadia,
     name: "Sadia Zaman",
-    title: "CEO at Inspirit Foundation",
+    title: "CEO @ Inspirit Foundation",
   },
   {
     photo: Gulam_Moosah,
     name: "Moosah Gulam",
     title:
-      "President and CEO and Head of the Medical Technology Segment at ZEISS Canada",
+      "President and CEO and Head of the Medical Technology Segment @ ZEISS Canada",
   },
   {
     photo: Rahman_Ebad,
     name: "Ebad Rahman",
-    title: "Partner at Torys",
+    title: "Partner @ Torys",
   },
   {
     photo: Khan_Samir,
     name: "Samir Khan",
     title:
-      "CFO & CCO for Canada and General Counsel for Americas at Russell Investments",
+      "CFO & CCO for Canada and General Counsel for Americas @ Russell Investments",
   },
   {
     photo: Malik_Nadia,
     name: "Nadia Mailk",
-    title: "Director Program Management & Corporate Initiatives at Bombardier",
+    title: "Director Program Management & Corporate Initiatives @ Bombardier",
   },
   {
     photo: Jama_Robleh,
     name: "Robleh Jama",
-    title: "Director at Shopify",
+    title: "Director @ Shopify",
   },
   {
     photo: Yusuf_Mustafa,
     name: "Mustafa Yusuf",
     title:
-      "President & CoFounder; President & Founder at FLOCK rotisserie+greens; Big Smoke Burger",
+      "President & CoFounder @ FLOCK rotisserie+greens;President & Founder @ Big Smoke Burger",
   },
   {
     photo: Jalaluddin_Uzma,
     name: "Uzma Jalaluddin",
-    title: "Author; Columnist at Ayesha At Last; Toronto Star",
+    title: "Author @ Ayesha At Last;Columnist @ Toronto Star",
   },
   {
     photo: Mahmood_Safdar,
     name: "Safdar Mahmood",
-    title: "Managing Vice President at Pariveda Solutions",
+    title: "Managing Vice President @ Pariveda Solutions",
   },
   {
     photo: Ebrahim_Salima,
     name: "Salima Ebrahim",
-    title: "Chief of Staff at City of Edmonton",
+    title: "Chief of Staff @ City of Edmonton",
   },
   {
     photo: Yusuf_Danish,
     name: "Danish Yusuf",
-    title: "CEO and Founder; Principal at Zensurance; McKinsey",
+    title: "CEO and Founder @ Zensurance;Principal @ McKinsey",
   },
   {
     photo: Attia_Afnan,
     name: "Afnan Attia",
-    title: "Director of Strategy and Corporate Development at Morneau Shepell",
+    title: "Director of Strategy and Corporate Development @ Morneau Shepell",
   },
   {
     photo: Soliman_Doha,
     name: "Doha Soliman",
-    title: "Finance Director at Blueridge OMS (Oral and Maxillofacial Surgeon)",
+    title: "Finance Director @ Blueridge OMS (Oral and Maxillofacial Surgeon)",
   },
   {
     photo: Soliman_Osama,
     name: "Osama Soliman",
-    title: "Oral and Maxillofacial Surgeon at Blueridge OMS",
+    title: "Oral and Maxillofacial Surgeon @ Blueridge OMS",
   },
   {
     photo: Mitchell_Axelle,
     name: "Axelle Mitchel",
-    title: "Director, Strategy & Transformation at RBC",
+    title: "Director, Strategy & Transformation @ RBC",
   },
   {
     photo: Saba_Tariq,
     name: "Saba Tariq",
-    title: "Partner at Deloitte",
+    title: "Partner @ Deloitte",
   },
   {
     photo: Yusuf_Moore,
     name: "Yusuf Moore",
-    title: "General Counsel at League Inc.",
+    title: "General Counsel @ League Inc.",
   },
   {
     photo: Kefaya_Raji,
@@ -278,13 +278,13 @@ let images = [
     photo: Vajid,
     name: "Dr. Vajid Khan",
     title:
-      "Diagnostic & Non-Vascular Interventional Radiologist; Adjunct Professor at Bluewater Health; University of Western Ontario",
+      "Diagnostic & Non-Vascular Interventional Radiologist @ Bluewater Health;Adjunct Professor @ University of Western Ontario",
   },
   {
     photo: Abadhleh,
     name: "Dr. Hind Al Abadleh",
     title:
-      "Professor in Department of Chemistry and Biochemistry at Wilfred Laurier Univeristy",
+      "Professor in Department of Chemistry and Biochemistry @ Wilfred Laurier Univeristy",
   },
 ];
 
@@ -312,6 +312,10 @@ function withMyHook(Component) {
     const classes = useStyles();
     return <Component {...props} classes={classes} />;
   };
+}
+
+function SplitJobRoles(string) {
+  return string.split(";").map((str) => <p>{str}</p>);
 }
 
 class SeniorExecGrid extends Component {
@@ -452,7 +456,9 @@ class SeniorExecGrid extends Component {
             style={{ marginBottom: "40px" }}
           >
             <p className={classes.title}>{this.state.current.name}</p>
-            <p className={classes.paragraph}>{this.state.current.title}</p>
+            <p className={classes.paragraph}>
+              {SplitJobRoles(this.state.current.title)}
+            </p>
           </Grid>
           <Grid
             container
