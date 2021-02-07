@@ -4,6 +4,19 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AppRoutes } from "./routes/AppRoutes";
 import Amplify from "aws-amplify";
 import { SnackbarProvider } from "notistack";
+import ReactGA from "react-ga";
+import { createBrowserHistory } from "history";
+
+const trackingId = "G-P5DKCQGZQ6"; // Replace with your Google Analytics tracking ID
+ReactGA.initialize(trackingId);
+
+const history = createBrowserHistory();
+
+// Initialize google analytics page view tracking
+history.listen((location) => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 Amplify.configure({
   Auth: {
@@ -28,7 +41,7 @@ class App extends Component {
           horizontal: "right",
         }}
       >
-        <Router>
+        <Router history={history}>
           <div className="App">
             <AppRoutes />
           </div>

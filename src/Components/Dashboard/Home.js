@@ -12,6 +12,15 @@ import jwtDecode from "jwt-decode";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
+import ReactGA from "react-ga";
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
+
+history.listen((location) => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {

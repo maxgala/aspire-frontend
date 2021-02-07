@@ -15,6 +15,15 @@ import Industries from "../Registration/industry";
 import MenuItem from "@material-ui/core/MenuItem";
 import CardTypes from "./CardTypes";
 import EmptyCard from "./Cards/EmptyCard";
+import ReactGA from "react-ga";
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
+
+history.listen((location) => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 const IndustryLabels = [];
 IndustryLabels.push("All");
