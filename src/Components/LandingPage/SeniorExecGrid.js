@@ -317,7 +317,7 @@ class SeniorExecGrid extends Component {
       desktop: "None",
       current: images[0],
       active: 0,
-      numImages: 27,
+      numImages: images.length,
     };
   }
 
@@ -335,12 +335,12 @@ class SeniorExecGrid extends Component {
   }
 
   HandleRightArrowClick = (event) => {
-    if (this.state.active < 22) {
+    if (this.state.active < images.length - 1) {
       this.setState({
         current: images[parseInt(this.state.active) + 1],
         active: parseInt(this.state.active) + 1,
       });
-    } else if (this.state.active === 22) {
+    } else if (this.state.active === images.length - 1) {
       this.setState({ current: images[0], active: 0 });
     }
     this.timer();
