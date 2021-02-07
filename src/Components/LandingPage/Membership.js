@@ -444,6 +444,14 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>No</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
+                  <tr>
+                    <td className={classes.table_element}>
+                      Ability to connect with other senior executives
+                    </td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>No</td>
+                    <td className={classes.table_element_plat}>Yes</td>
+                  </tr>
                   {/* TODO: reanable when complete post MVP
                   <tr>
                     <td className={classes.table_element}>
@@ -467,7 +475,9 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>
                       25 credits
                     </td>
-                    <td className={classes.table_element_plat}>25 credits</td>
+                    <td className={classes.table_element_plat}>
+                      Infinite credits
+                    </td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>
@@ -475,7 +485,7 @@ class Membership extends Component {
                     </td>
                     <td className={classes.table_element_free}>$10</td>
                     <td className={classes.table_element_premium}>$5</td>
-                    <td className={classes.table_element_plat}>$5</td>
+                    <td className={classes.table_element_plat}>N/A</td>
                   </tr>
                   {/* TODO: reanable when complete post MVP
                   <tr>
