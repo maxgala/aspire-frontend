@@ -196,6 +196,7 @@ class CreditsForm extends React.Component {
               this.props.landing.setState({
                 credits: res.attributes["custom:credits"],
                 openCredits: false,
+                paymentCompleted: true,
               });
             });
           })
