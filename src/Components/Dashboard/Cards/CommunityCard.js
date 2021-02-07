@@ -773,8 +773,8 @@ class JobApplicationCard extends Component {
                           __html:
                             (this.state.bio["bio"] &&
                               this.state.bio["bio"]
-                                .replace("↵", "\n")
-                                .replace("\n", "<br/>")) ||
+                                .replaceAll("↵", "\n")
+                                .replaceAll("\n", "<br/>")) ||
                             "",
                         }}
                       ></span>
