@@ -423,9 +423,12 @@ class CoffeeChatCard extends Component {
         });
       })
       .catch((err) => {
-        this.props.enqueueSnackbar("Failed: " + err.response.data.message, {
-          variant: "error",
-        });
+        this.props.enqueueSnackbar(
+          "Thank-you so kindly for being a MAX Aspire member. To support our operational costs, this specific feature is available if you sign up for a paid plan or purchase credits",
+          {
+            variant: "error",
+          }
+        );
         this.setState({
           barDisplay: false,
         });
