@@ -486,9 +486,9 @@ class FinalPage extends Component {
               <Membership
                 appContext={this.props.appContext}
                 landing={false}
-                freeButtonText={"Try for Free"}
-                premiumButtonText={"Sign Up for Premium"}
-                platinumButtonText={"Sign Up for Platinum"}
+                freeButtonText={"Select Free Tier"}
+                premiumButtonText={"Select Premium Tier"}
+                platinumButtonText={"Select Platinum Tier"}
                 freeFunction={this.handleAspireFreeClick}
                 premiumFunction={this.handleAspirePremiumClick}
                 platinumFunction={this.handleAspirePlatimumClick}
