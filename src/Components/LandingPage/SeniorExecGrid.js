@@ -26,6 +26,10 @@ import Thomas_Benji from "../Images/senior/Thomas_Benji.jpg";
 import Yusuf_Danish from "../Images/senior/Yusuf_Danish.jpg";
 import Yusuf_Mustafa from "../Images/senior/Yusuf_Mustafa.jpg";
 import Zaman_Sadia from "../Images/senior/Zaman_Sadia.jpg";
+import Saba_Tariq from "../Images/faceShot/Tariq_Saba.jpg";
+import Yusuf_Moore from "../Images/faceShot/Moore_Yusuf.jpg";
+import Kefaya_Raji from "../Images/faceShot/Raji_Kefaya.jpg";
+import Abadhleh from "../Images/faceShot/Al-Abadleh_Dr.Hind.jpg";
 // TODO: display more than one senior exec on larger screens
 // import { Hidden } from "@material-ui/core";
 
@@ -255,6 +259,27 @@ let images = [
     name: "Axelle Mitchel",
     title: "Director, Strategy & Transformation at RBC",
   },
+  {
+    photo: Saba_Tariq,
+    name: "Saba Tariq",
+    title: "Partner at Deloitte",
+  },
+  {
+    photo: Yusuf_Moore,
+    name: "Yusuf Moore",
+    title: "General Counsel at League Inc.",
+  },
+  {
+    photo: Kefaya_Raji,
+    name: "Kefaya Raji",
+    title: "Head of HR",
+  },
+  {
+    photo: Abadhleh,
+    name: "Dr. Hind Al Abadleh",
+    title:
+      "Professor in Department of Chemistry and Biochemistry at Wilfred Laurier Univeristy",
+  },
 ];
 
 /*
@@ -292,7 +317,7 @@ class SeniorExecGrid extends Component {
       desktop: "None",
       current: images[0],
       active: 0,
-      numImages: 23,
+      numImages: 27,
     };
   }
 
