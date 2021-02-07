@@ -8,9 +8,10 @@ import EscalationsCard from "./Cards/EscalationsCard";
 import { httpGet } from "../../lib/dataAccess";
 import jwtDecode from "jwt-decode";
 import Dialog from "@material-ui/core/Dialog";
-// import IndustryTags from "../Registration/industry_tags";
-// import Autocomplete from "@material-ui/lab/Autocomplete";
-// import Chip from "@material-ui/core/Chip";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
 import Stripe from "../Payment/StripeCredits";
@@ -226,6 +227,7 @@ class Landing extends Component {
     super(props);
     this.state = {
       openCredits: false,
+      paymentCompleted: false,
       openPostJob: false,
       openFaq: false,
       active: 0,
@@ -301,6 +303,12 @@ class Landing extends Component {
   handleCreditsOpen = () => {
     this.setState({
       openCredits: true,
+    });
+  };
+
+  handlePaymentDialogClose = () => {
+    this.setState({
+      paymentCompleted: false,
     });
   };
 
@@ -408,6 +416,33 @@ class Landing extends Component {
               </Dialog>
             </span>
           ) : null}
+
+          {this.state.paymentCompleted && (
+            <Dialog
+              open
+              keepMounted
+              onClose={this.handlePaymentDialogClose}
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle id="alert-dialog-slide-title">
+                Payment Completed
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <b>
+                    Thank-you kindly for your purchase. Please see your updated
+                    credits on the left side panel. Happy MAX Aspire'ing!
+                  </b>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handlePaymentDialogClose} color="primary">
+                  <b>Close</b>
+                </Button>
+              </DialogActions>
+            </Dialog>
+          )}
 
           {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
           "FREE" ? (
