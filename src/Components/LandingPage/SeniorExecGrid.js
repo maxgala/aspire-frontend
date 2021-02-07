@@ -30,6 +30,7 @@ import Saba_Tariq from "../Images/faceShot/Tariq_Saba.jpg";
 import Yusuf_Moore from "../Images/faceShot/Moore_Yusuf.jpg";
 import Kefaya_Raji from "../Images/faceShot/Raji_Kefaya.jpg";
 import Abadhleh from "../Images/faceShot/Al-Abadleh_Dr.Hind.jpg";
+import Vajid from "../Images/faceShot/Khan_Dr. Vajid.jpg";
 // TODO: display more than one senior exec on larger screens
 // import { Hidden } from "@material-ui/core";
 
@@ -143,8 +144,7 @@ let images = [
   {
     photo: Hashmi_Seema,
     name: "Seema Hashmi",
-    title:
-      "Diagnostic & Non-Vascular Interventional Radiologist; Adjunct Professor at Bluewater Health; University of Western Ontario",
+    title: "Chief of Staff to Group Head of Business Banking TD",
   },
   {
     photo: Thomas_Benji,
@@ -273,6 +273,12 @@ let images = [
     photo: Kefaya_Raji,
     name: "Kefaya Raji",
     title: "Head of HR",
+  },
+  {
+    photo: Vajid,
+    name: "Dr. Vajid Khan",
+    title:
+      "Diagnostic & Non-Vascular Interventional Radiologist; Adjunct Professor at Bluewater Health; University of Western Ontario",
   },
   {
     photo: Abadhleh,
