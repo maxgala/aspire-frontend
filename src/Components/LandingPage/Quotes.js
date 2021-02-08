@@ -56,11 +56,11 @@ const Quotes = [
   {
     testimonial:
       "MAX’s admirable mission of accelerating the advancement of students and professionals in our community has produced tremendous results already in a short period. I am excited to contribute further inspiration and leadership to help MAX Aspire members broaden their networks and grow both personally and professionally.",
-    name: "Ali Mutaza",
+    name: "Ali Murtaza",
     role: "IoT Sales Leader for Canada",
     company: "Amazon Web Services",
     image_path: require("../Images/faceShot/Murtaza_Ali.jpg"),
-    alt_text: "Ali Mutaza Testimonial",
+    alt_text: "Ali Murtaza Testimonial",
   },
 ];
 

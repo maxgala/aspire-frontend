@@ -233,8 +233,8 @@ class Membership extends Component {
                   "<li>Post resume within resume bank to be seen by Senior professionals</li>" +
                   "<li>View the profiles of Senior professionals</li>" +
                   "<li>View and post jobs</li>" +
-                  "<li>Ability to apply to open roles and contact poster</li>" +
-                  "<li>Ability to apply to board roles and contact poster</li>" +
+                  "<li>Ability to apply to open roles</li>" +
+                  "<li>Ability to apply to board roles</li>" +
                   "<li>Starting credits: <b>25. Cost to purchase 5 additional credits: $5</b></li></ul>"
                 }
                 dialogBoxTitle={"Aspiring Professional: Premium | $49/yr"}
@@ -444,6 +444,14 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>No</td>
                     <td className={classes.table_element_plat}>Yes</td>
                   </tr>
+                  <tr>
+                    <td className={classes.table_element}>
+                      Ability to connect with other senior executives
+                    </td>
+                    <td className={classes.table_element_free}>No</td>
+                    <td className={classes.table_element_premium}>No</td>
+                    <td className={classes.table_element_plat}>Yes</td>
+                  </tr>
                   {/* TODO: reanable when complete post MVP
                   <tr>
                     <td className={classes.table_element}>
@@ -467,7 +475,9 @@ class Membership extends Component {
                     <td className={classes.table_element_premium}>
                       25 credits
                     </td>
-                    <td className={classes.table_element_plat}>25 credits</td>
+                    <td className={classes.table_element_plat}>
+                      Infinite credits
+                    </td>
                   </tr>
                   <tr>
                     <td className={classes.table_element}>
@@ -475,7 +485,7 @@ class Membership extends Component {
                     </td>
                     <td className={classes.table_element_free}>$10</td>
                     <td className={classes.table_element_premium}>$5</td>
-                    <td className={classes.table_element_plat}>$5</td>
+                    <td className={classes.table_element_plat}>N/A</td>
                   </tr>
                   {/* TODO: reanable when complete post MVP
                   <tr>
