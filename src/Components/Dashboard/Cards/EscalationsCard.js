@@ -509,7 +509,7 @@ class EscalationsCard extends Component {
                     variant="contained"
                     onClick={this.handleEscalation}
                   >
-                    Create
+                    Send
                   </Button>
                 </DialogActions>
               </Grid>
