@@ -25,15 +25,6 @@ import S3FileUpload from "react-s3";
 import { DropzoneDialog } from "material-ui-dropzone";
 import jwtDecode from "jwt-decode";
 import blankProfile from "../Images/faceShot/blank_profile.png";
-import ReactGA from "react-ga";
-import { createBrowserHistory } from "history";
-
-const history = createBrowserHistory();
-
-history.listen((location) => {
-  ReactGA.set({ page: location.pathname }); // Update the user's current page
-  ReactGA.pageview(location.pathname); // Record a pageview for the given page
-});
 
 const useStyles = makeStyles((theme) => ({
   paper: {
