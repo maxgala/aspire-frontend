@@ -539,7 +539,7 @@ class EditProfile extends Component {
       })
       .catch((e) =>
         // Update failed alert user with error info.
-        alert(`There was issue updating the User data, please create an escalation with the following message
+        alert(`There was issue updating the User data, please use the Contact Us button on the sidebar with the following message
     '${JSON.stringify(e)}'`)
       );
   };
