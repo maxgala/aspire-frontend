@@ -491,10 +491,18 @@ class EditProfile extends Component {
   submitChanges = async () => {
     let updateUserData = {};
 
+    let phone_val = this.state.phone
+      .replace(/\s/g, "")
+      .replace("(", "")
+      .replace(")", "")
+      .replace("-", "");
+    phone_val = phone_val.replace("(", "");
+    phone_val = phone_val.replace(")", "");
+
     // Translate data from state to Cognito object
     updateUserData.given_name = this.state.firstName;
     updateUserData.family_name = this.state.lastName;
-    updateUserData.phone_number = this.state.phone;
+    updateUserData.phone_number = phone_val;
     updateUserData.birthdate = this.state.year_of_birth;
     updateUserData["custom:company"] = this.state.company;
     updateUserData["custom:industry_tags"] = this.state.industry_tags.join(",");
