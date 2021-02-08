@@ -10,15 +10,6 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import TextField from "@material-ui/core/TextField";
 import Industries from "../Registration/industry";
 import MenuItem from "@material-ui/core/MenuItem";
-import ReactGA from "react-ga";
-import { createBrowserHistory } from "history";
-
-const history = createBrowserHistory();
-
-history.listen((location) => {
-  ReactGA.set({ page: location.pathname }); // Update the user's current page
-  ReactGA.pageview(location.pathname); // Record a pageview for the given page
-});
 
 const IndustryLabels = [];
 IndustryLabels.push("All");
