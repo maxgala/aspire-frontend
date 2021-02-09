@@ -194,26 +194,13 @@ class CoffeeChats extends Component {
 
           <p style={{ textAlign: "left" }}>Dear MAX Aspiring Professional:</p>
           <p style={{ textAlign: "left" }}>
-            Every Monday we release 25 new One on One Coffee Chats. All coffee
-            chats booked are first come, first serve. Each one costs 5 credits
+            Every Monday, 25 new Coffee Chats are released and will be reserved
+            on a first come first serve basis. The cost to reserve is 5 credits.
           </p>
 
           <p style={{ textAlign: "left" }}>
-            1) One on One coffee chats are undated. You will receive an email
-            with the Senior Executives email address. Please reach out to the
-            Senior Executive to book a time.
-          </p>
-
-          <p style={{ textAlign: "left" }}>
-            2) All mock interview coffee chats have a predetermined time and
-            date. Upon booking, you will receive an email and calendar invite.
-          </p>
-
-          <p style={{ textAlign: "left" }}>
-            Overall, please be professional and respect the Senior Executive's
-            time for all coffee chats. They have committed their time to MAX
-            Aspiring Professionals and we hope you have a mutually beneficial
-            experience.
+            Upon booking, please check your email and schedule a time with the
+            Senior Executive and edit the invitation accordingly.
           </p>
 
           <Grid
