@@ -19,7 +19,7 @@ export class AppRoutes extends React.Component {
           component={AuthApplicationRouter}
         />
         <Route component={LandpageRouter} /> */}
-        <Analytics id="G-P5DKCQGZQ6">
+        <Analytics id="UA-189103108-1">
           <Route path={Routes.AdminDashboard}>
             <AdminDashboard appContext={this} />
           </Route>
