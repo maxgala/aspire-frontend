@@ -14,7 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Tooltip from "@material-ui/core/Tooltip";
-import Membership from "../LandingPage/Membership";
+import MembershipRegistration from "../LandingPage/MembershipRegistration";
 import Stripe from "../Payment/Stripe";
 import { Auth } from "aws-amplify";
 import TextField from "@material-ui/core/TextField";
@@ -182,9 +182,7 @@ class FinalPage extends Component {
       states: this.props.prev ? this.props.prev.states : "",
       resumeURL: this.props.prev ? this.props.prev.resumeURL : "",
       profilePicURL: this.props.prev ? this.props.prev.profilePicURL : "",
-      senior_executive: this.props.prev
-        ? this.props.prev.senior_executive
-        : false,
+      senior_executive: false,
       aspire_email_consent: this.props.prev
         ? this.props.prev.aspire_email_consent
         : false,
@@ -324,10 +322,23 @@ class FinalPage extends Component {
     });
   };
 
-  handleUserChoice = () => {
-    this.setState({
+  handleUserChoice = async () => {
+    await this.setState({
       senior_executive: !this.state.senior_executive,
     });
+    if (this.state.senior_executive === true) {
+      this.setState({
+        aspire_free: false,
+        aspire_premium: false,
+        aspire_platinum: true,
+      });
+    } else {
+      this.setState({
+        aspire_free: true,
+        aspire_premium: false,
+        aspire_platinum: false,
+      });
+    }
   };
 
   handleConfirmationCodeChange = (event) => {
@@ -483,16 +494,6 @@ class FinalPage extends Component {
           </div>
           <div className={classes.form}>
             <Grid container spacing={2}>
-              <Membership
-                appContext={this.props.appContext}
-                landing={false}
-                freeButtonText={"Select Free Tier"}
-                premiumButtonText={"Select Premium Tier"}
-                platinumButtonText={"Select Platinum Tier"}
-                freeFunction={this.handleAspireFreeClick}
-                premiumFunction={this.handleAspirePremiumClick}
-                platinumFunction={this.handleAspirePlatimumClick}
-              />
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
@@ -518,6 +519,18 @@ class FinalPage extends Component {
                   }
                 />
               </Grid>
+              <MembershipRegistration
+                appContext={this.props.appContext}
+                landing={false}
+                freeButtonText={"Select Free Tier"}
+                premiumButtonText={"Select Premium Tier"}
+                platinumButtonText={"Select Platinum Tier"}
+                freeFunction={this.handleAspireFreeClick}
+                premiumFunction={this.handleAspirePremiumClick}
+                platinumFunction={this.handleAspirePlatimumClick}
+                senior_executive={this.state.senior_executive}
+                from_registration={true}
+              />
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
