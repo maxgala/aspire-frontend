@@ -192,7 +192,6 @@ class CoffeeChats extends Component {
         <div className={classes.mainPage}>
           <h1 className={classes.coffeeChat}>Available Coffee Chats</h1>
 
-          <p style={{ textAlign: "left" }}>Dear MAX Aspiring Professional:</p>
           <p style={{ textAlign: "left" }}>
             Every Monday, 25 new Coffee Chats are released and will be reserved
             on a first come first serve basis. The cost to reserve is 5 credits.
