@@ -219,6 +219,10 @@ class JobBoard extends Component {
       );
     }
 
+    await this.setState({
+      community_data: [],
+    });
+
     this.setState({
       community_data: filteredMembers,
       isCommunityLoaded: true,
