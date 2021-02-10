@@ -108,6 +108,23 @@ class CoffeeChats extends Component {
         { title: "Status", field: "chat_status" },
         { title: "Type", field: "chat_type" },
         { title: "Description", field: "description" },
+        { title: "Aspiring Professional", field: "aspiring_professionals" },
+        {
+          title: "Fixed Date",
+          field: "fixed_date",
+          render: (rowData) => {
+            // Format unix Timestamp to date time
+            if (rowData.fixed_date) {
+              return (
+                <Moment unix format="MMM Do YYYY, hh:mmA">
+                  {rowData.fixed_date}
+                </Moment>
+              );
+            } else {
+              return "N/A";
+            }
+          },
+        },
         { title: "Tags", field: "tags" },
         {
           title: "Created",
@@ -115,7 +132,11 @@ class CoffeeChats extends Component {
           defaultSort: "desc",
           render: (rowData) => {
             // Format unix Timestamp to date time
-            return <Moment unix>{rowData.created_on}</Moment>;
+            return (
+              <Moment unix format="MMM Do YYYY, hh:mmA">
+                {rowData.created_on}
+              </Moment>
+            );
           },
         },
       ],

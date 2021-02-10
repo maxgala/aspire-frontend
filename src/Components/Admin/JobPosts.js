@@ -108,13 +108,33 @@ class JobPosts extends Component {
         { title: "Company", field: "company" },
         { title: "Region", field: "region" },
         { title: "City", field: "city" },
+        { title: "Poster Email", field: "posted_by" },
+        { title: "Poster First Name", field: "poster_given_name" },
+        { title: "Poster Last Name", field: "poster_family_name" },
+        {
+          title: "Expired date",
+          field: "deadline",
+          defaultSort: "desc",
+          render: (rowData) => {
+            // Format unix Timestamp to date time
+            return (
+              <Moment unix format="MMM Do YYYY, hh:mmA">
+                {rowData.deadline}
+              </Moment>
+            );
+          },
+        },
         {
           title: "Created",
           field: "created_on",
           defaultSort: "desc",
           render: (rowData) => {
             // Format unix Timestamp to date time
-            return <Moment unix>{rowData.created_on}</Moment>;
+            return (
+              <Moment unix format="MMM Do YYYY, hh:mmA">
+                {rowData.created_on}
+              </Moment>
+            );
           },
         },
         { title: "Applications", field: "applicantCount" },

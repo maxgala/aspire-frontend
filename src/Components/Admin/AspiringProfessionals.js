@@ -105,10 +105,12 @@ class AspiringProfessionals extends Component {
       columns: [
         { title: "Name", field: "name" },
         { title: "Enabled", field: "enabled" },
+        { title: "User Type", field: "usertype" },
         { title: "Age", field: "age" },
         { title: "Email", field: "email" },
         { title: "Company", field: "company" },
         { title: "Industry", field: "industry" },
+        { title: "Resume", field: "resume" },
         { title: "Region", field: "region" },
         { title: "Country", field: "country" },
         {
@@ -179,6 +181,11 @@ class AspiringProfessionals extends Component {
           currentExecObject.birthdate
         );
 
+        aspiringProfessional.usertype =
+          currentExecObject["custom:user_type"] !== undefined
+            ? currentExecObject["custom:user_type"]
+            : "N/A";
+
         aspiringProfessional.company =
           currentExecObject["custom:company"] !== undefined
             ? currentExecObject["custom:company"]
@@ -187,6 +194,18 @@ class AspiringProfessionals extends Component {
           currentExecObject["custom:industry"] !== undefined
             ? currentExecObject["custom:industry"]
             : "N/A";
+        aspiringProfessional.resume =
+          currentExecObject["custom:resume"] !== undefined ? (
+            <a
+              href={currentExecObject["custom:resume"]}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              link
+            </a>
+          ) : (
+            "N/A"
+          );
         aspiringProfessional.region =
           JSON.parse(currentExecObject["address"]).region !== undefined
             ? JSON.parse(currentExecObject["address"]).region
@@ -256,7 +275,7 @@ class AspiringProfessionals extends Component {
 
   render() {
     // Use Moment library to format timestamp returned from API.
-    Moment.globalFormat = "MMM DD, YYYY";
+    Moment.globalFormat = "MMM Do YYYY, hh:mmA";
 
     // These are the actions on the left of every column in the table.
     const actions = [

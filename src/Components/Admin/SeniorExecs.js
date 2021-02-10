@@ -113,6 +113,7 @@ class SeniorExecs extends Component {
         { title: "Email", field: "email" },
         { title: "Company", field: "company" },
         { title: "Industry", field: "industry" },
+        { title: "Resume", field: "resume" },
         { title: "Region", field: "region" },
         { title: "Country", field: "country" },
         {
@@ -121,7 +122,11 @@ class SeniorExecs extends Component {
           defaultSort: "desc",
           render: (rowData) => {
             // Format unix Timestamp to date time
-            return <Moment unix>{rowData.created_on}</Moment>;
+            return (
+              <Moment unix format="MMM Do YYYY, hh:mmA">
+                {rowData.created_on}
+              </Moment>
+            );
           },
         },
       ],
@@ -190,6 +195,18 @@ class SeniorExecs extends Component {
           currentExecObject["custom:industry"] !== undefined
             ? currentExecObject["custom:industry"]
             : "N/A";
+        seniorExec.resume =
+          currentExecObject["custom:resume"] !== undefined ? (
+            <a
+              href={currentExecObject["custom:resume"]}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              link
+            </a>
+          ) : (
+            "N/A"
+          );
         seniorExec.region =
           JSON.parse(currentExecObject["address"]).region !== undefined
             ? JSON.parse(currentExecObject["address"]).region
