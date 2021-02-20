@@ -224,7 +224,7 @@ class Membership extends Component {
                 membership_type_text="Premium"
                 front_text="Aspiring Professionals"
                 inner_text="Pricing Plan:"
-                description="With the premium membership plan, you can view and apply to jobs, and get 30 credits to schedule coffee chats and mock interviews with senior executives"
+                description="With the premium membership plan, you can view and apply to jobs, and get 25 credits to schedule coffee chats and mock interviews with senior executives"
                 type="aspiring_professional"
                 dialogBoxContent={
                   "An Aspiring Professional Premium membership allows access to the following features: <br />" +
