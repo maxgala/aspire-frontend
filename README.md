@@ -31,9 +31,17 @@ export REACT_APP_BACKEND_URL=""
 Or you can add a file named `.env` in the root directory of this project, containing the following:
 
 ```
-REACT_APP_CLIENT_ID=""
-REACT_APP_USER_POOL_ID=""
-REACT_APP_BACKEND_URL=""
+REACT_APP_AWS_SECRET_ACCESS_KEY=PoKgD95SKCF39m3lY6MIS5mqWYI3CWfJrkMGyzVV
+REACT_APP_ACCESS_KEY_ID=AKIAJ2NABUOYQ4KKWE7A
+REACT_APP_MAILCHIMP_URL=https://maxgala.us11.list-manage.com/subscribe/post?u=c170e62e41c55cfbc5b7e6d33&id=ee816450c3
+REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_51Gug4qLfzbEt5UVhauq1BUNsK43H4mkdAChHAGxumOZ6Jpks8VaGIbGlbxG0bP0v2n3V5nl31yJG3ewzPzEs5N6E00wcmCJI8p
+REACT_APP_COGNITO_REGION=us-east-1
+REACT_APP_COGNITO_USER_POOL_ID=us-east-1_dq5r8O2SO
+REACT_APP_COGNITO_APP_CLIENT_ID=4s92l0dlpq9ccultcj2kkpr1mg
+REACT_APP_BACKEND_URL=https://services-d.aspire.maxgala.com
+REACT_APP_ENV=prod
+REACT_APP_S3_BUCKET_NAME=aspire-user-profile
+REACT_APP_SES_REGION=us-east-2
 ```
 
 ### Deployment
@@ -46,25 +54,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm install`
+
+### `npm run dev`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
-
-### `npm run dev`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
