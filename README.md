@@ -33,7 +33,7 @@ Or you can add a file named `.env` in the root directory of this project, contai
 ```
 REACT_APP_AWS_SECRET_ACCESS_KEY=xyz
 REACT_APP_ACCESS_KEY_ID=xyz
-REACT_APP_MAILCHIMP_URL=https://maxgala.us11.list-manage.com/subscribe/post?u=c170e62e41c55cfbc5b7e6d33&id=ee816450c3
+REACT_APP_MAILCHIMP_URL=xyz
 REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_51Gug4qLfzbEt5UVhauq1BUNsK43H4mkdAChHAGxumOZ6Jpks8VaGIbGlbxG0bP0v2n3V5nl31yJG3ewzPzEs5N6E00wcmCJI8p
 REACT_APP_COGNITO_REGION=us-east-1
 REACT_APP_COGNITO_USER_POOL_ID=xyz
