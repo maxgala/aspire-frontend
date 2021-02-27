@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import image from "../../Images/faceShot/pic1.png";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +9,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
+import IconButton from "@material-ui/core/IconButton";
+import GetApp from "@material-ui/icons/GetApp";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -183,7 +184,6 @@ class JobApplicationCard extends Component {
     const classes = this.props.classes;
     return (
       <div className={classes.card}>
-        {/* <div className={classes.container}> */}
         <Grid
           container
           item
@@ -234,7 +234,6 @@ class JobApplicationCard extends Component {
                 <p className={classes.title}>
                   {this.props.data.attributes["custom:position"]}
                 </p>
-                {/* <p className={classes.subtitle}>Calgary, AB</p> */}
                 <span className={classes.subtitle}>
                   <span>
                     <FontAwesomeIcon
@@ -282,8 +281,23 @@ class JobApplicationCard extends Component {
           <DialogTitle id="scroll-dialog-title">
             <div>
               <h2>
-                {this.props.data.attributes["given_name"]}{" "}
-                {this.props.data.attributes["family_name"]}'s Resume
+                <span>
+                  {this.props.data.attributes["given_name"]}{" "}
+                  {this.props.data.attributes["family_name"]}'s Resume
+                </span>
+                <a
+                  href={this.props.data.attributes["custom:resume"]}
+                  download
+                  target="_blank"
+                >
+                  <IconButton
+                    color="primary"
+                    aria-label="Download Resume"
+                    component="span"
+                  >
+                    <GetApp />
+                  </IconButton>
+                </a>
               </h2>
             </div>
           </DialogTitle>
