@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { httpGet, httpPut } from "../../lib/dataAccess";
+import { httpGet, httpPut, httpPost } from "../../lib/dataAccess";
 import MaterialTable from "material-table";
 import { forwardRef } from "react";
 import { Auth } from "aws-amplify";
 
 import { AddBox, ArrowUpward } from "@material-ui/icons";
 
+import ThumbsUp from "@material-ui/icons/ThumbUp";
+import NotInterested from "@material-ui/icons/NotInterested";
 import Check from "@material-ui/icons/Check";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
@@ -25,6 +27,10 @@ import Moment from "react-moment";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  ThumbsUp: forwardRef((props, ref) => <ThumbsUp {...props} ref={ref} />),
+  NotInterested: forwardRef((props, ref) => (
+    <NotInterested {...props} ref={ref} />
+  )),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
   Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -181,8 +187,8 @@ class SeniorExecs extends Component {
         seniorExec.enabled =
           existingSeniorExecsData.data.users[seniorExecID].enabled !== undefined
             ? existingSeniorExecsData.data.users[seniorExecID].enabled === true
-              ? "Active"
-              : "Rejected"
+              ? "Enabled"
+              : "Disabled"
             : "N/A";
 
         seniorExec.age = tempThis.calculate_age(currentExecObject.birthdate);
@@ -257,6 +263,22 @@ class SeniorExecs extends Component {
       alert("Already approved");
       return;
     }
+    let approveSeniorExec = {
+      email: `${seniorExecEmail}`,
+    };
+    await httpPost(
+      "users/accept-se",
+      (await Auth.currentSession()).getIdToken().getJwtToken(),
+      approveSeniorExec
+    );
+    this.fetchSeniorExecs();
+  };
+
+  enableSeniorExec = async (seniorExecEmail, seniorExecStatus) => {
+    if (seniorExecStatus === "CONFIRMED") {
+      alert("Already enabled");
+      return;
+    }
     let enableSeniorExec = {
       email: `${seniorExecEmail}`,
     };
@@ -279,7 +301,7 @@ class SeniorExecs extends Component {
     // These are the actions on the left of every column in the table.
     const actions = [
       {
-        icon: () => <Check />,
+        icon: () => <ThumbsUp />,
         tooltip: "Approve Senior Executive posting",
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
@@ -291,7 +313,19 @@ class SeniorExecs extends Component {
         },
       },
       {
-        icon: () => <DeleteOutline />,
+        icon: () => <Check />,
+        tooltip: "Enable Senior Executive",
+        onClick: (event, rowData) => {
+          new Promise((resolve, reject) => {
+            // Send PUT request to approve senior exec.
+            this.enableSeniorExec(rowData.email, rowData.status);
+
+            resolve();
+          });
+        },
+      },
+      {
+        icon: () => <NotInterested />,
         tooltip: "Reject Senior Executive Posting",
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
