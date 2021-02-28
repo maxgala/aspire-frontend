@@ -108,6 +108,7 @@ class SeniorExecs extends Component {
     super(props);
     this.state = {
       seniorExecs: [],
+      approvalSubmitted: false,
       // show a lot more information
       // usecase status LinkedIn URL vets
       // cognito date of birth
@@ -263,6 +264,16 @@ class SeniorExecs extends Component {
       alert("Already approved");
       return;
     }
+
+    if (this.state.approvalSubmitted) {
+      alert("Please wait for your last action to be processed");
+      return;
+    }
+
+    this.setState({
+      approvalSubmitted: true,
+    });
+
     let approveSeniorExec = {
       email: `${seniorExecEmail}`,
     };
@@ -272,6 +283,10 @@ class SeniorExecs extends Component {
       approveSeniorExec
     );
     this.fetchSeniorExecs();
+
+    this.setState({
+      approvalSubmitted: false,
+    });
   };
 
   enableSeniorExec = async (seniorExecEmail, seniorExecStatus) => {
@@ -326,7 +341,7 @@ class SeniorExecs extends Component {
       },
       {
         icon: () => <NotInterested />,
-        tooltip: "Reject Senior Executive Posting",
+        tooltip: "Disable Senior Executive",
         onClick: (event, rowData) => {
           new Promise((resolve, reject) => {
             // Send PUT request to reject senior exec
