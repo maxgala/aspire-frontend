@@ -289,6 +289,7 @@ class JobApplicationCard extends Component {
                   href={this.props.data.attributes["custom:resume"]}
                   download
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <IconButton
                     color="primary"
