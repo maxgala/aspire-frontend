@@ -158,6 +158,9 @@ class CheckoutForm extends React.Component {
           errorMessage: "Unable to process payment",
           paymentMethod: null,
         });
+        this.setState({
+          isPaying: false,
+        });
       } else {
         this.props.finalPage.setState({
           openStripe: false,
@@ -169,9 +172,6 @@ class CheckoutForm extends React.Component {
           this.props.finalPage.signUp(25, "MENTOR");
         }
       }
-      this.setState({
-        isPaying: false,
-      });
     }
   };
 
