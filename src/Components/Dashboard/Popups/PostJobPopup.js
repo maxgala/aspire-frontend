@@ -150,7 +150,7 @@ class PostJobPopup extends Component {
     this.state = {
       editMode: !!this.props.editMode,
       max_characters: 3000,
-      min_characters: 350,
+      min_characters: 5,
       checkedBox: false,
       showError: false,
       errorText: "",
