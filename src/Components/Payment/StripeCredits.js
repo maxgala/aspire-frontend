@@ -122,6 +122,7 @@ class CreditsForm extends React.Component {
     }
 
     let userProfile = jwtDecode(localStorage.getItem("idToken"));
+    let email = userProfile["email"];
     let amount = 0;
     if (
       userProfile["custom:user_type"] === "PAID" ||
@@ -161,6 +162,7 @@ class CreditsForm extends React.Component {
       let paymentRequest = {
         payment_method_id: this.state.paymentMethod.id,
         amount: amount,
+        email: email,
       };
 
       await httpPost("payment", null, paymentRequest)

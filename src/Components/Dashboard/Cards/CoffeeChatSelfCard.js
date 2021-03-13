@@ -409,7 +409,6 @@ class CoffeeChatSelfCard extends Component {
   };
 
   render() {
-    console.log(this.props.data);
     const classes = this.props.classes;
     return (
       <div
@@ -749,7 +748,6 @@ class CoffeeChatSelfCard extends Component {
                     alignItems="flex-start"
                     justify="flex-start"
                   >
-                    {console.log(this.props.data.aspiring_professionals)}
                     {this.props.data?.aspiring_professionals?.length > 0 ? (
                       <span className={classes.subtitle2}>
                         Registered with:{" "}
