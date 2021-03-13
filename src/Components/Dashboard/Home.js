@@ -232,9 +232,9 @@ class Home extends Component {
                   <p style={{ textAlign: "left" }}>
                     <pre>
                       Once you have been booked, the details will appear where
-                      you click 'View Details'.{"\n"}
-                      You will also receive an email notification when a Coffee
-                      Chat is booked with you by an Aspiring Professional
+                      you click 'View Details'. You will also receive{"\n"}an
+                      email notification when a Coffee Chat is booked with you
+                      by an Aspiring Professional
                     </pre>
                   </p>
                 </Grid>
