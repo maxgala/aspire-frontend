@@ -230,10 +230,12 @@ class Home extends Component {
                     made available to MAX Aspiring Professionals.
                   </p>
                   <p style={{ textAlign: "left" }}>
-                    Once you have been booked, the details will appear where you
-                    click 'View Details'. <br />
-                    You will also receive an email notification when a Coffee
-                    Chat is booked with you by an Aspiring Professional
+                    <pre>
+                      Once you have been booked, the details will appear where
+                      you click 'View Details'.{"\n"}
+                      You will also receive an email notification when a Coffee
+                      Chat is booked with you by an Aspiring Professional
+                    </pre>
                   </p>
                 </Grid>
               ) : (
