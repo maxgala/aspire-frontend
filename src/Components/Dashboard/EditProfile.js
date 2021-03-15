@@ -425,12 +425,12 @@ class EditProfile extends Component {
     let page = this;
     S3FileUpload.uploadFile(file, config)
       .then((data) => {
-        if (folder == "pictures") {
+        if (folder === "pictures") {
           page.setState({
             picture: data.location,
           });
         }
-        if (folder == "resumes") {
+        if (folder === "resumes") {
           page.setState({
             resume: data.location,
           });
@@ -870,7 +870,6 @@ class EditProfile extends Component {
                   fullWidth
                   multiline={true}
                   rows={5}
-                  required
                   id="bio"
                   label="Bio"
                   name="bio"
