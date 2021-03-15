@@ -25,6 +25,7 @@ import S3FileUpload from "react-s3";
 import { DropzoneDialog } from "material-ui-dropzone";
 import jwtDecode from "jwt-decode";
 import blankProfile from "../Images/faceShot/blank_profile.png";
+import { S3Get } from "../../lib/dataAccess";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -253,6 +254,7 @@ class EditProfile extends Component {
       filePreview: [],
       resume: "",
       picture: "",
+      info: {},
     };
   }
 
@@ -278,6 +280,17 @@ class EditProfile extends Component {
           states: addressData.region,
         });
       }
+
+      this.fetchBio(userData).then(
+        (value) => {
+          this.setState({
+            info: value.data,
+          });
+        },
+        (errorReason) => {
+          console.log(errorReason);
+        }
+      );
 
       this.setState({
         email: userData.email,
@@ -391,10 +404,20 @@ class EditProfile extends Component {
     });
   };
 
-  uploadToS3(file, folder, resume = true) {
+  handleBioChange = (event) => {
+    //spread operator to keep all info.json the same except the bio part.
+    let newInfo = { ...this.state.info, bio: event.target.value };
+    this.setState({
+      info: newInfo,
+    });
+  };
+
+  uploadToS3(file, folder) {
     let config = {
       bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
-      dirName: this.state.email + "/" + folder /* will change based on users */,
+      dirName:
+        this.state.email +
+        `${folder ? "/" + folder : ""}` /* will change based on users */,
       region: "us-east-1",
       accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
       secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
@@ -402,11 +425,12 @@ class EditProfile extends Component {
     let page = this;
     S3FileUpload.uploadFile(file, config)
       .then((data) => {
-        if (!resume) {
+        if (folder === "pictures") {
           page.setState({
             picture: data.location,
           });
-        } else {
+        }
+        if (folder === "resumes") {
           page.setState({
             resume: data.location,
           });
@@ -422,7 +446,7 @@ class EditProfile extends Component {
       fileDialogOpen: false,
       resumeFiles: resume,
     });
-    this.uploadToS3(resume[0], "resumes", true);
+    this.uploadToS3(resume[0], "resumes");
   }
 
   handlePicSave(files) {
@@ -439,7 +463,7 @@ class EditProfile extends Component {
         imageFiles: [document],
         open: false,
       });
-      page.uploadToS3(files[0], "pictures", false);
+      page.uploadToS3(files[0], "pictures");
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -472,6 +496,20 @@ class EditProfile extends Component {
     let user = await Auth.currentAuthenticatedUser();
 
     return user;
+  };
+
+  fetchBio = async (userDataParam) => {
+    let bioURL =
+      "https://aspire-user-profile.s3.amazonaws.com/" +
+      userDataParam.email +
+      "/info.json";
+
+    if (userDataParam["custom:user_type"] === "MENTOR") {
+      let bioResponse = await S3Get(bioURL);
+      return bioResponse;
+    } else {
+      return "failure";
+    }
   };
 
   refreshUserProfile = async () => {
@@ -527,6 +565,13 @@ class EditProfile extends Component {
 
     // Get the current authenticated user
     let user = await Auth.currentAuthenticatedUser();
+
+    let jsonString = JSON.stringify(this.state.info);
+    // write JSON string to a file
+    var file = new File([jsonString], "info.json", {
+      type: "application/json",
+    });
+    this.uploadToS3(file, null);
 
     // Update the current user with data stored in the state
     Auth.updateUserAttributes(user, updateUserData)
@@ -816,6 +861,24 @@ class EditProfile extends Component {
                   autoComplete="city"
                   value={this.state.city}
                   onChange={this.handleCityChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  multiline={true}
+                  rows={5}
+                  id="bio"
+                  label="Bio"
+                  name="bio"
+                  autoComplete="bio"
+                  value={this.state.info.bio}
+                  onChange={this.handleBioChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </Grid>
             </Grid>
