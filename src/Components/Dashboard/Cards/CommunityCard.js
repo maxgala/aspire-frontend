@@ -238,9 +238,7 @@ class JobApplicationCard extends Component {
   };
 
   openBio = (event) => {
-    this.setState({
-      open: true,
-    });
+    this.fetchBio();
   };
 
   checkUserType = () => {
@@ -318,8 +316,14 @@ class JobApplicationCard extends Component {
             bio: res.data,
             showProfile: true,
           });
+          this.setState({
+            open: true,
+          });
         })
         .catch((err) => {
+          this.setState({
+            open: true,
+          });
           console.log(err);
         });
     }
@@ -431,7 +435,6 @@ class JobApplicationCard extends Component {
     this.checkUserType();
     this.fetchConnectsRequests();
     this.findRequestor();
-    this.fetchBio();
   }
 
   render() {
@@ -508,7 +511,7 @@ class JobApplicationCard extends Component {
               alignItems="center"
               justify="center"
             >
-              {this.state.showProfile ? (
+              {this.props.data.attributes["custom:user_type"] === "MENTOR" ? (
                 <span className={classes.button_container}>
                   <Button
                     className={classes.button}
@@ -584,14 +587,18 @@ class JobApplicationCard extends Component {
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
           fullWidth={true}
-          maxWidth={"md"}
+          maxWidth={this.state.showProfile ?"md":"xs"}
           PaperProps={{
             style: { borderRadius: 12, height: "60vh" },
           }}
         >
           <Toolbar className={classes.toolbar}>
             <div>
-              <h2 className={classes.dialogLabel}>Senior Executive Bio</h2>
+              <h2 className={classes.dialogLabel}>
+              {this.state.showProfile &&<span>Senior Executive Bio</span>}
+              {!this.state.showProfile &&<span>No Profile.</span>}
+
+              </h2>
             </div>
             <img
               onClick={this.handleClose}
@@ -601,7 +608,7 @@ class JobApplicationCard extends Component {
               alt="Close button"
             />
           </Toolbar>
-
+          {this.state.showProfile &&
           <DialogContent dividers>
             <DialogContentText
               id="scroll-dialog-description"
@@ -783,6 +790,7 @@ class JobApplicationCard extends Component {
               </Grid>
             </DialogContentText>
           </DialogContent>
+          }
         </Dialog>
       </div>
     );
