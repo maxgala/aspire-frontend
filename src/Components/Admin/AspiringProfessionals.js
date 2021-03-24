@@ -165,9 +165,7 @@ class AspiringProfessionals extends Component {
         let currentExecObject =
           existingAspiringProfessionalsData[aspiringProfessionalID].attributes;
         
-        if (currentExecObject == undefined) {
-          continue;
-        }
+        if (currentExecObject != undefined) {
 
         let aspiringProfessional = {};
         aspiringProfessional.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
@@ -227,6 +225,7 @@ class AspiringProfessionals extends Component {
           currentExecObject["custom:start_date"];
         aspiringProfessionalData.push(aspiringProfessional);
       });
+      }
 
       this.setState({
         aspiringProfessionals: aspiringProfessionalData,
