@@ -164,7 +164,10 @@ class AspiringProfessionals extends Component {
       ) {
         let currentExecObject =
           existingAspiringProfessionalsData[aspiringProfessionalID].attributes;
-        console.log(currentExecObject);
+        
+        if (currentExecObject == undefined) {
+          continue;
+        }
 
         let aspiringProfessional = {};
         aspiringProfessional.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
