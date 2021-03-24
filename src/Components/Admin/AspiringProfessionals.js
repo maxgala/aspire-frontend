@@ -167,65 +167,65 @@ class AspiringProfessionals extends Component {
         
         if (currentExecObject != undefined) {
 
-        let aspiringProfessional = {};
-        aspiringProfessional.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
+          let aspiringProfessional = {};
+          aspiringProfessional.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
 
-        aspiringProfessional.enabled =
-          existingAspiringProfessionalsData[aspiringProfessionalID].enabled !==
-          undefined
-            ? existingAspiringProfessionalsData[aspiringProfessionalID]
-                .enabled === true
-              ? "ACTIVE"
-              : "REJECTED"
-            : "N/A";
+          aspiringProfessional.enabled =
+            existingAspiringProfessionalsData[aspiringProfessionalID].enabled !==
+            undefined
+              ? existingAspiringProfessionalsData[aspiringProfessionalID]
+                  .enabled === true
+                ? "ACTIVE"
+                : "REJECTED"
+              : "N/A";
 
-        aspiringProfessional.age = tempThis.calculate_age(
-          currentExecObject.birthdate
-        );
-
-        aspiringProfessional.usertype =
-          currentExecObject["custom:user_type"] !== undefined
-            ? currentExecObject["custom:user_type"]
-            : "N/A";
-
-        aspiringProfessional.company =
-          currentExecObject["custom:company"] !== undefined
-            ? currentExecObject["custom:company"]
-            : "N/A";
-        aspiringProfessional.industry =
-          currentExecObject["custom:industry"] !== undefined
-            ? currentExecObject["custom:industry"]
-            : "N/A";
-        aspiringProfessional.resume =
-          currentExecObject["custom:resume"] !== undefined ? (
-            <a
-              href={currentExecObject["custom:resume"]}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              link
-            </a>
-          ) : (
-            "N/A"
+          aspiringProfessional.age = tempThis.calculate_age(
+            currentExecObject.birthdate
           );
-        aspiringProfessional.region =
-          JSON.parse(currentExecObject["address"]).region !== undefined
-            ? JSON.parse(currentExecObject["address"]).region
-            : "N/A";
-        aspiringProfessional.country =
-          JSON.parse(currentExecObject["address"]).country !== undefined
-            ? JSON.parse(currentExecObject["address"]).country
-            : "N/A";
 
-        aspiringProfessional.email =
-          currentExecObject["email"] !== undefined
-            ? currentExecObject["email"]
-            : "N/A";
-        aspiringProfessional.created_on =
-          currentExecObject["custom:start_date"];
-        aspiringProfessionalData.push(aspiringProfessional);
+          aspiringProfessional.usertype =
+            currentExecObject["custom:user_type"] !== undefined
+              ? currentExecObject["custom:user_type"]
+              : "N/A";
+
+          aspiringProfessional.company =
+            currentExecObject["custom:company"] !== undefined
+              ? currentExecObject["custom:company"]
+              : "N/A";
+          aspiringProfessional.industry =
+            currentExecObject["custom:industry"] !== undefined
+              ? currentExecObject["custom:industry"]
+              : "N/A";
+          aspiringProfessional.resume =
+            currentExecObject["custom:resume"] !== undefined ? (
+              <a
+                href={currentExecObject["custom:resume"]}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                link
+              </a>
+            ) : (
+              "N/A"
+            );
+          aspiringProfessional.region =
+            JSON.parse(currentExecObject["address"]).region !== undefined
+              ? JSON.parse(currentExecObject["address"]).region
+              : "N/A";
+          aspiringProfessional.country =
+            JSON.parse(currentExecObject["address"]).country !== undefined
+              ? JSON.parse(currentExecObject["address"]).country
+              : "N/A";
+
+          aspiringProfessional.email =
+            currentExecObject["email"] !== undefined
+              ? currentExecObject["email"]
+              : "N/A";
+          aspiringProfessional.created_on =
+            currentExecObject["custom:start_date"];
+          aspiringProfessionalData.push(aspiringProfessional);
+        }
       });
-      }
 
       this.setState({
         aspiringProfessionals: aspiringProfessionalData,
