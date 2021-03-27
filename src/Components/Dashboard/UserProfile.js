@@ -15,6 +15,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
 import Stripe from "../Payment/StripeCredits";
+import StripeMembershipUpgrade from "../Payment/StripeMembershipUpgrade";
 import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import FAQPopup from "./Popups/FAQPopup";
 import PostJobPopup from "./Popups/PostJobPopup";
@@ -227,6 +228,7 @@ class Landing extends Component {
     super(props);
     this.state = {
       openCredits: false,
+      openMembershipUpgrade: false,
       paymentCompleted: false,
       openPostJob: false,
       openFaq: false,
@@ -236,6 +238,7 @@ class Landing extends Component {
       numChats: 0,
       credits: jwtDecode(localStorage.getItem("idToken"))["custom:credits"],
       userType: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
+      upgradeSuccessful: false,
     };
   }
 
@@ -294,6 +297,25 @@ class Landing extends Component {
     });
   };
 
+  handleMembershipUpgradeOpen = () => {
+    this.setState({
+      openMembershipUpgrade: true,
+    });
+  };
+
+  handleMembershipUpgradeClose = () => {
+    this.setState({
+      openMembershipUpgrade: false,
+    });
+  };
+
+  handleMembershipUpgradeCompletion = (res) => {
+    this.setState({
+      openMembershipUpgrade: false,
+      upgradeSuccessful: res,
+    });
+  };
+
   handleCreditsClose = () => {
     this.setState({
       openCredits: false,
@@ -309,6 +331,7 @@ class Landing extends Component {
   handlePaymentDialogClose = () => {
     this.setState({
       paymentCompleted: false,
+      upgradeSuccessful: false,
     });
   };
 
@@ -399,6 +422,32 @@ class Landing extends Component {
               <Button
                 className={classes.creditsButton}
                 variant="contained"
+                onClick={this.handleMembershipUpgradeOpen}
+              >
+                Upgrade Membership
+              </Button>
+              <Dialog
+                maxWidth={"md"}
+                fullWidth={true}
+                disableEscapeKeyDown
+                disableBackdropClick
+                onClose={this.handleMembershipUpgradeClose}
+                aria-labelledby="stripe-dialog"
+                open={this.state.openMembershipUpgrade}
+              >
+                <StripeMembershipUpgrade
+                  appContext={this.props.appContext}
+                  landing={this}
+                />
+              </Dialog>
+            </span>
+          ) : null}
+
+          {this.state.userType !== "MENTOR" ? (
+            <span>
+              <Button
+                className={classes.creditsButton}
+                variant="contained"
                 onClick={this.handleCreditsOpen}
               >
                 Purchase Credits
@@ -433,6 +482,36 @@ class Landing extends Component {
                   <b>
                     Thank-you kindly for your purchase. Please see your updated
                     credits on the left side panel. Happy MAX Aspire'ing!
+                  </b>
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handlePaymentDialogClose} color="primary">
+                  <b>Close</b>
+                </Button>
+              </DialogActions>
+            </Dialog>
+          )}
+
+          {this.state.upgradeSuccessful && (
+            <Dialog
+              open
+              keepMounted
+              onClose={this.handlePaymentDialogClose}
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+            >
+              <DialogTitle id="alert-dialog-slide-title">
+                Request Successful
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                  <b>
+                    Your request has successfully been submitted. If this was a
+                    request to upgrade to PREMIUM, then please log out and log
+                    back in. If this was a request to upgrade to PLATINUM, then
+                    we will get back to you after carefully considering your
+                    profile.
                   </b>
                 </DialogContentText>
               </DialogContent>
