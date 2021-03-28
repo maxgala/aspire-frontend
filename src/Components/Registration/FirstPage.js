@@ -21,6 +21,7 @@ import { withRouter } from "react-router-dom";
 import EmailField from "./EmailField";
 import PasswordField from "./PasswordField";
 import Tooltip from "@material-ui/core/Tooltip";
+import S3FileUpload from "react-s3";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -81,6 +82,7 @@ class FirstPage extends Component {
       password: this.props.prev ? this.props.prev.password : "",
       passwordStrength: this.props.prev ? this.props.prev.passwordStrength : "",
       year_of_birth: this.props.prev ? this.props.prev.year_of_birth : "",
+      bio: this.props.prev ? this.props.prev.bio : "",
       industry: this.props.prev ? this.props.prev.industry : "",
       industry_tags:
         this.props.prev.industry_tags !== undefined
@@ -165,7 +167,33 @@ class FirstPage extends Component {
     }
     this.props.setPrev(this.state);
     this.props.history.push(`${Routes.Register}/2`);
+    this.bioUpload();
   };
+
+  uploadToS3(file) {
+    let config = {
+      bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
+      dirName: this.state.email,
+      region: "us-east-1",
+      accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
+      secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+    };
+    S3FileUpload.uploadFile(file, config);
+  }
+
+  bioUpload() {
+    var obj = {};
+    obj.name = this.state.firstName + " " + this.state.lastName;
+    obj.bio = this.state.bio;
+    let jsonString = JSON.stringify(obj);
+
+    // write JSON string to a file
+    var file = new File([jsonString], "info.json", {
+      type: "application/json",
+    });
+
+    this.uploadToS3(file, null);
+  }
 
   handleFirstNameChange = (event) => {
     this.setState({
@@ -176,6 +204,12 @@ class FirstPage extends Component {
   handleLastNameChange = (event) => {
     this.setState({
       lastName: event.target.value,
+    });
+  };
+
+  handleBioChange = (event) => {
+    this.setState({
+      bio: event.target.value,
     });
   };
 
@@ -289,6 +323,24 @@ class FirstPage extends Component {
                   fullWidth
                   value={this.state.year_of_birth}
                   onChange={this.handleYearChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  multiline={true}
+                  rows={5}
+                  id="bio"
+                  label="Bio"
+                  name="bio"
+                  autoComplete="bio"
+                  value={this.state.bio}
+                  onChange={this.handleBioChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
