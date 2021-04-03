@@ -182,7 +182,7 @@ class SeniorExecs extends Component {
       ) {
         let currentExecObject =
           existingSeniorExecsData.data.users[seniorExecID].attributes;
-        console.log(currentExecObject);
+        if(currentExecObject != undefined) {
         let seniorExec = {};
         seniorExec.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
 
@@ -232,6 +232,7 @@ class SeniorExecs extends Component {
         seniorExec.created_on = currentExecObject["custom:start_date"];
 
         seniorExecData.push(seniorExec);
+        }
       });
 
       this.setState({
