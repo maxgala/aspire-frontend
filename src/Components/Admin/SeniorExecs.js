@@ -182,6 +182,7 @@ class SeniorExecs extends Component {
       ) {
         let currentExecObject =
           existingSeniorExecsData.data.users[seniorExecID].attributes;
+        console.log(currentExecObject);
         let seniorExec = {};
         seniorExec.name = `${currentExecObject.given_name} ${currentExecObject.family_name}`;
 
