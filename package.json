@@ -48,6 +48,7 @@
     "react-file-base64": "^1.0.3",
     "react-ga": "^3.3.0",
     "react-image-filter": "^0.1.2",
+    "react-infinite-scroll-component": "^6.0.0",
     "react-mailchimp-subscribe": "^2.1.0",
     "react-moment": "^0.9.7",
     "react-pdf": "^5.0.0",

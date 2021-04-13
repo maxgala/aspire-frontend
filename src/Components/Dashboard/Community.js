@@ -8,6 +8,7 @@ import { withSnackbar } from "notistack";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
 import StarIcon from "@material-ui/icons/Star";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import jwtDecode from "jwt-decode";
 import TextField from "@material-ui/core/TextField";
@@ -128,6 +129,7 @@ class JobBoard extends Component {
       currentUserEmail: jwtDecode(localStorage.getItem("idToken"))["email"],
       industry: "",
       unfilteredMembers: [],
+      pagination_token:""
     };
   }
 
@@ -168,28 +170,9 @@ class JobBoard extends Component {
   };
 
   fetchUsers = async () => {
-    const paidUsers = await httpGet(
-      "users?type=PAID",
-      (await Auth.currentSession()).getIdToken().getJwtToken()
-    ).catch((err) => {
-      console.log(err);
-      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
-        variant: "err",
-      });
-    });
-
-    const freeUsers = await httpGet(
-      "users?type=FREE",
-      (await Auth.currentSession()).getIdToken().getJwtToken()
-    ).catch((err) => {
-      console.log(err);
-      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
-        variant: "err",
-      });
-    });
-
     const mentorUsers = await httpGet(
-      "users?type=MENTOR",
+      //"users?type=MENTOR",
+      "users?limit=8&pagination_token="+this.state.pagination_token,
       (await Auth.currentSession()).getIdToken().getJwtToken()
     ).catch((err) => {
       console.log(err);
@@ -198,14 +181,17 @@ class JobBoard extends Component {
       });
     });
 
-    const full = mentorUsers.data.users.concat(
-      freeUsers.data.users,
-      paidUsers.data.users
-    );
+    let full = [];
+    if(this.state.community_data && this.state.community_data.length > 0){
+      full = mentorUsers.data.users.concat(this.state.community_data);
+    }else{
+      full = mentorUsers.data.users;
+    }
     this.setState({
       community_data: full,
       isCommunityLoaded: true,
       unfilteredMembers: full,
+      pagination_token:mentorUsers.data.pagination_token
     });
   };
 
@@ -295,7 +281,14 @@ class JobBoard extends Component {
             alignItems="flex-start"
             justify="flex-start"
           ></Grid>
-          <Grid
+          
+          <InfiniteScroll
+            dataLength={this.state.community_data.length}
+            next={this.fetchUsers}
+            hasMore={true}
+            loader={<h4>Loading...</h4>}
+          >
+            <Grid
             container
             item
             xs={12}
@@ -334,6 +327,7 @@ class JobBoard extends Component {
               <Skeleton variant="rect" className={classes.communitycard} />
             )}
           </Grid>
+          </InfiniteScroll>
         </div>
       </div>
     );
