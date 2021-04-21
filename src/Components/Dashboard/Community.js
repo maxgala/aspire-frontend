@@ -193,7 +193,7 @@ class JobBoard extends Component {
       isCommunityLoaded: true,
       unfilteredMembers: full,
       pagination_token:mentorUsers.data.pagination_token,
-      hasMore:mentorUsers.data.pagination_token==null?false:true
+      hasMore:!(mentorUsers.data.pagination_token==null)
     });
   };
 
