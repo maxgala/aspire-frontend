@@ -129,7 +129,8 @@ class JobBoard extends Component {
       currentUserEmail: jwtDecode(localStorage.getItem("idToken"))["email"],
       industry: "",
       unfilteredMembers: [],
-      pagination_token:""
+      pagination_token:"",
+      hasMore: true
     };
   }
 
@@ -172,7 +173,7 @@ class JobBoard extends Component {
   fetchUsers = async () => {
     const mentorUsers = await httpGet(
       //"users?type=MENTOR",
-      "users?limit=8&pagination_token="+this.state.pagination_token,
+      "users?limit=8&token="+encodeURIComponent(this.state.pagination_token),
       (await Auth.currentSession()).getIdToken().getJwtToken()
     ).catch((err) => {
       console.log(err);
@@ -191,7 +192,8 @@ class JobBoard extends Component {
       community_data: full,
       isCommunityLoaded: true,
       unfilteredMembers: full,
-      pagination_token:mentorUsers.data.pagination_token
+      pagination_token:mentorUsers.data.pagination_token,
+      hasMore:mentorUsers.data.pagination_token==null?false:true
     });
   };
 
@@ -285,7 +287,7 @@ class JobBoard extends Component {
           <InfiniteScroll
             dataLength={this.state.community_data.length}
             next={this.fetchUsers}
-            hasMore={true}
+            hasMore={this.state.hasMore}
             loader={<h4>Loading...</h4>}
           >
             <Grid
