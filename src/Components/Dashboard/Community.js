@@ -182,9 +182,10 @@ class JobBoard extends Component {
       });
     });
 
+    let community_data = this.state.community_data;
     let full = [];
-    if(this.state.community_data && this.state.community_data.length > 0){
-      full = mentorUsers.data.users.concat(this.state.community_data);
+    if(community_data && community_data.length > 0){
+      full = community_data.concat(mentorUsers.data.users);
     }else{
       full = mentorUsers.data.users;
     }
