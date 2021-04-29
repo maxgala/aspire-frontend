@@ -604,6 +604,7 @@ class EditProfile extends Component {
       profilePicture = userProfile["picture"];
     }
 
+    console.log(userProfile);
     return {
       name: userProfile.given_name + " " + userProfile.family_name,
       occupation: userProfile["custom:position"],
