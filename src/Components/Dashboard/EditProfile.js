@@ -864,7 +864,7 @@ class EditProfile extends Component {
                   onChange={this.handleCityChange}
                 />
               </Grid>
-              {userProfile.type == "MENTOR" ? (
+              {userProfile.type === "MENTOR" ? (
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
