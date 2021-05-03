@@ -604,7 +604,6 @@ class EditProfile extends Component {
       profilePicture = userProfile["picture"];
     }
 
-    console.log(userProfile);
     return {
       name: userProfile.given_name + " " + userProfile.family_name,
       occupation: userProfile["custom:position"],
@@ -614,6 +613,7 @@ class EditProfile extends Component {
       numJobApplications: this.state.numJobs,
       numCredits: userProfile["custom:credits"],
       profilePicture: profilePicture,
+      type: userProfile["custom:user_type"]
     };
   };
 
@@ -864,6 +864,7 @@ class EditProfile extends Component {
                   onChange={this.handleCityChange}
                 />
               </Grid>
+              {userProfile.type == "MENTOR" ? (
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -882,6 +883,7 @@ class EditProfile extends Component {
                   }}
                 />
               </Grid>
+              ) : null}
             </Grid>
             <Grid
               item
