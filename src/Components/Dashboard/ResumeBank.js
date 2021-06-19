@@ -10,6 +10,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import TextField from "@material-ui/core/TextField";
 import Industries from "../Registration/industry";
 import MenuItem from "@material-ui/core/MenuItem";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const IndustryLabels = [];
 IndustryLabels.push("All");
@@ -124,12 +125,14 @@ class JobBoard extends Component {
       isResumebankLoaded: false,
       industry: "",
       unfilteredData: [],
+      pagination_token:"",
+      hasMore: true
     };
   }
 
   fetchUsers = async () => {
     const paidUsers = await httpGet(
-      "users?type=PAID",
+      "users?type=PAID,FREE&limit=6&token="+encodeURIComponent(this.state.pagination_token),
       (await Auth.currentSession()).getIdToken().getJwtToken()
     ).catch((err) => {
       console.log(err);
@@ -138,21 +141,20 @@ class JobBoard extends Component {
       });
     });
 
-    const freeUsers = await httpGet(
-      "users?type=FREE",
-      (await Auth.currentSession()).getIdToken().getJwtToken()
-    ).catch((err) => {
-      console.log(err);
-      this.props.enqueueSnackbar("Failed to fetch users: " + err, {
-        variant: "err",
-      });
-    });
+    let job_board_data = this.state.job_board_data;
+    let full = [];
+    if(job_board_data && job_board_data.length > 0){
+      full = job_board_data.concat(paidUsers.data.users);
+    }else{
+      full = paidUsers.data.users;
+    }
 
-    const full = freeUsers.data.users.concat(paidUsers.data.users);
     this.setState({
       job_board_data: full,
       isResumebankLoaded: true,
       unfilteredData: full,
+      pagination_token:paidUsers.data.pagination_token,
+      hasMore:!(paidUsers.data.pagination_token==null)
     });
   };
 
@@ -223,7 +225,13 @@ class JobBoard extends Component {
             </Grid>
           </Grid>
 
-          <Grid
+          <InfiniteScroll
+            dataLength={this.state.job_board_data.length}
+            next={this.fetchUsers}
+            hasMore={this.state.hasMore}
+            loader={<h4>Loading...</h4>}
+          >
+            <Grid
             container
             item
             xs={12}
@@ -265,7 +273,8 @@ class JobBoard extends Component {
                 <Skeleton variant="rect" className={classes.resumebankcard} />
               </Grid>
             )}
-          </Grid>
+            </Grid>
+          </InfiniteScroll>
         </div>
       </div>
     );
