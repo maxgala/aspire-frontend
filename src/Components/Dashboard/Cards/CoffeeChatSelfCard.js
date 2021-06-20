@@ -549,8 +549,8 @@ class CoffeeChatSelfCard extends Component {
                       >
                         <h3>
                           {this.props.data.chat_status === "RESERVED"
-                            ? "VIEW DETAILS"
-                            : "RESERVED"}
+                            ? "RESERVED"
+                            : "TO BE RESERVED"}
                         </h3>
                       </Button>
                     ) : this.state.chat_status === "RESERVED" ||
@@ -563,8 +563,8 @@ class CoffeeChatSelfCard extends Component {
                       >
                         <h3>
                           {this.props.data.chat_status === "RESERVED"
-                            ? "VIEW DETAILS"
-                            : "RESERVED"}
+                            ? "RESERVED"
+                            : "TO BE RESERVED"}
                         </h3>
                       </Button>
                     ) : this.state.chat_status === "UNRESERVED" ? (
