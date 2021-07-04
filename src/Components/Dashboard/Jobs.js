@@ -8,7 +8,6 @@ import { withRouter } from "react-router";
 import { httpGet } from "../../lib/dataAccess";
 import { Auth } from "aws-amplify";
 import Skeleton from "@material-ui/lab/Skeleton";
-import jwtDecode from "jwt-decode";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import PostJobPopup from "./Popups/PostJobPopup";
@@ -258,28 +257,25 @@ class JobBoard extends Component {
             >
               <h1 className={classes.JobBoard}>Job Board</h1>
             </Grid>
-            {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
-            "FREE" ? (
-              <Grid
-                container
-                item
-                xs={4}
-                sm={6}
-                md={4}
-                spacing={1}
-                alignItems="center"
-                justify="flex-start"
+            <Grid
+              container
+              item
+              xs={4}
+              sm={6}
+              md={4}
+              spacing={1}
+              alignItems="center"
+              justify="flex-start"
+            >
+              <Fab
+                className={classes.addJobButton}
+                variant="extended"
+                onClick={this.postJob}
               >
-                <Fab
-                  className={classes.addJobButton}
-                  variant="extended"
-                  onClick={this.postJob}
-                >
-                  <AddIcon className={classes.extendedIcon} />
-                  <span className={classes.PostJobText}>Post Job</span>
-                </Fab>
-              </Grid>
-            ) : null}
+                <AddIcon className={classes.extendedIcon} />
+                <span className={classes.PostJobText}>Post Job</span>
+              </Fab>
+            </Grid>
             <PostJobPopup
               openPostJob={this.state.openPostJob}
               handlePostJobClose={this.handlePostJobClose}
