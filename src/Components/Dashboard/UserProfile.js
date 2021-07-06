@@ -523,16 +523,13 @@ class Landing extends Component {
             </Dialog>
           )}
 
-          {jwtDecode(localStorage.getItem("idToken"))["custom:user_type"] !==
-          "FREE" ? (
-            <Button
-              className={classes.postButton}
-              variant="contained"
-              onClick={this.postJob}
-            >
-              Post a Job
+          <Button
+            className={classes.postButton}
+            variant="contained"
+            onClick={this.postJob}
+          >
+            Post a Job
             </Button>
-          ) : null}
 
           <EscalationsCard />
           <Button
