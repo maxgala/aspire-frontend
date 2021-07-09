@@ -20,6 +20,9 @@ const useStyles = makeStyles(() => ({
   card: {
     width: "95%",
     maxWidth: "400px",
+    "@media (max-width: 480px)": {
+      maxWidth: "320px",
+    },
     height: "450px",
     marginBottom: "10px",
     marginLeft: "7px",
@@ -33,6 +36,10 @@ const useStyles = makeStyles(() => ({
   image: {
     width: "154px",
     height: "154px",
+    "@media (max-width: 480px)": {
+      width: "130px",
+      height: "130px",
+    },
     borderRadius: "50%",
     margin: "auto",
     marginTop: "30px",
@@ -47,6 +54,9 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     textAlign: "center",
     paddingTop: "5px",
+    "@media (max-width: 480px)": {
+      fontSize: "22px",
+    },
     fontSize: "25px",
     color: "#58595B",
     margin: "0px",
@@ -62,6 +72,9 @@ const useStyles = makeStyles(() => ({
     fontWeight: "semi-bold",
     width: "100%",
     textAlign: "center",
+    "@media (max-width: 480px)": {
+      fontSize: "18px",
+    },
     fontSize: "20px",
     color: "#58595B",
     margin: "0px",
@@ -523,8 +536,8 @@ class JobApplicationCard extends Component {
                   </Button>
                 </span>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </Grid>
 
             <Grid
@@ -550,31 +563,31 @@ class JobApplicationCard extends Component {
                     </Button>
                   </span>
                 ) : (
-                  <span className={classes.button_container}>
-                    <Button
-                      className={classes.button}
-                      variant="contained"
-                      color="primary"
-                      disabled
-                    >
-                      {this.state.connect_status}
-                    </Button>
-                  </span>
-                )
+                    <span className={classes.button_container}>
+                      <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        disabled
+                      >
+                        {this.state.connect_status}
+                      </Button>
+                    </span>
+                  )
               ) : (
-                <span className={classes.button_container}>
-                  <Button
-                    className={classes.button}
-                    variant="contained"
-                    color="primary"
-                    disabled={!this.state.showConnect}
-                    onClick={this.handleConnect}
-                  >
-                    Connect
+                    <span className={classes.button_container}>
+                      <Button
+                        className={classes.button}
+                        variant="contained"
+                        color="primary"
+                        disabled={!this.state.showConnect}
+                        onClick={this.handleConnect}
+                      >
+                        Connect
                   </Button>
-                </span>
-              )}
-              {}
+                    </span>
+                  )}
+              { }
             </Grid>
           </Grid>
         </div>
@@ -673,18 +686,18 @@ class JobApplicationCard extends Component {
                     style={{ paddingBottom: "10px" }}
                   >
                     {this.state.bio["designation"] === "" ||
-                    this.state.bio["designation"] === "N/A" ? (
-                      ""
-                    ) : (
-                      <h3 className={classes.subtitle2}>
-                        <span className={classes.name2}>
-                          Designation:{" "}
-                          <span className={classes.subtitle3}>
-                            {this.state.bio["designation"]}
+                      this.state.bio["designation"] === "N/A" ? (
+                        ""
+                      ) : (
+                        <h3 className={classes.subtitle2}>
+                          <span className={classes.name2}>
+                            Designation:{" "}
+                            <span className={classes.subtitle3}>
+                              {this.state.bio["designation"]}
+                            </span>
                           </span>
-                        </span>
-                      </h3>
-                    )}
+                        </h3>
+                      )}
                   </Grid>
                   <Grid
                     container
@@ -702,34 +715,34 @@ class JobApplicationCard extends Component {
                       </span>
                     </span>
                     {this.state.bio["company_2"] === "" ||
-                    this.state.bio["company_2"] === "N/A" ? (
-                      ""
-                    ) : (
-                      <span
-                        className={classes.subtitle2}
-                        style={{ paddingTop: "10px" }}
-                      >
-                        Previous:
-                      </span>
-                    )}
+                      this.state.bio["company_2"] === "N/A" ? (
+                        ""
+                      ) : (
+                        <span
+                          className={classes.subtitle2}
+                          style={{ paddingTop: "10px" }}
+                        >
+                          Previous:
+                        </span>
+                      )}
                     {this.state.bio["company_2"] === "" ||
-                    this.state.bio["company_2"] === "N/A" ? (
-                      ""
-                    ) : (
-                      <span className={classes.subtitle3}>
-                        {"   - "}
-                        {this.state.bio["company_2"]}
-                      </span>
-                    )}
+                      this.state.bio["company_2"] === "N/A" ? (
+                        ""
+                      ) : (
+                        <span className={classes.subtitle3}>
+                          {"   - "}
+                          {this.state.bio["company_2"]}
+                        </span>
+                      )}
                     {this.state.bio["company_3"] === "" ||
-                    this.state.bio["company_3"] === "N/A" ? (
-                      ""
-                    ) : (
-                      <span className={classes.subtitle3}>
-                        {"   - "}
-                        {this.state.bio["company_3"]}
-                      </span>
-                    )}
+                      this.state.bio["company_3"] === "N/A" ? (
+                        ""
+                      ) : (
+                        <span className={classes.subtitle3}>
+                          {"   - "}
+                          {this.state.bio["company_3"]}
+                        </span>
+                      )}
                   </Grid>
                   <Grid
                     container
@@ -745,14 +758,14 @@ class JobApplicationCard extends Component {
                       {"  - "} {this.state.bio["education_highest"]}
                     </span>
                     {this.state.bio["education_2"] === "" ||
-                    this.state.bio["education_2"] === "N/A" ? (
-                      ""
-                    ) : (
-                      <span className={classes.subtitle3}>
-                        {"   - "}
-                        {this.state.bio["education_2"]}
-                      </span>
-                    )}
+                      this.state.bio["education_2"] === "N/A" ? (
+                        ""
+                      ) : (
+                        <span className={classes.subtitle3}>
+                          {"   - "}
+                          {this.state.bio["education_2"]}
+                        </span>
+                      )}
                   </Grid>
                   <Grid
                     container
@@ -764,27 +777,27 @@ class JobApplicationCard extends Component {
                     style={{ paddingBottom: "40px" }}
                   >
                     {this.state.bio["bio"] === "" ||
-                    this.state.bio["bio"] === "N/A" ? (
-                      ""
-                    ) : (
-                      <span className={classes.subtitle2}>Bio:</span>
-                    )}
+                      this.state.bio["bio"] === "N/A" ? (
+                        ""
+                      ) : (
+                        <span className={classes.subtitle2}>Bio:</span>
+                      )}
                     {this.state.bio["bio"] === "" ||
-                    this.state.bio["bio"] === "N/A" ? (
-                      ""
-                    ) : (
-                      <span
-                        className={classes.subtitle3}
-                        dangerouslySetInnerHTML={{
-                          __html:
-                            (this.state.bio["bio"] &&
-                              this.state.bio["bio"]
-                                .replaceAll("↵", "\n")
-                                .replaceAll("\n", "<br/>")) ||
-                            "",
-                        }}
-                      ></span>
-                    )}
+                      this.state.bio["bio"] === "N/A" ? (
+                        ""
+                      ) : (
+                        <span
+                          className={classes.subtitle3}
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              (this.state.bio["bio"] &&
+                                this.state.bio["bio"]
+                                  .replaceAll("↵", "\n")
+                                  .replaceAll("\n", "<br/>")) ||
+                              "",
+                          }}
+                        ></span>
+                      )}
                   </Grid>
                 </Grid>
               </Grid>
