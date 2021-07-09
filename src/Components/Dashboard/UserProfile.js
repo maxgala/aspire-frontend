@@ -122,11 +122,8 @@ const useStyles = makeStyles((theme) => ({
   },
 
   image: {
-    width: "60%",
-    height: "auto",
-    "@media (max-width: 480px)": {
-      width: "120px",
-    },
+    width: "170px",
+    height: "170px",
     padding: "1vh",
     left: "10%",
     borderRadius: "50%",
