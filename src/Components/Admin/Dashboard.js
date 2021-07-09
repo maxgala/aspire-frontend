@@ -243,6 +243,7 @@ class Dashboard extends Component {
             <Route path={`${Routes.AdminDashboard}/onboarding`}>
               <Onboarding appContext={this} />
             </Route>
+            <Redirect to={`${Routes.AdminDashboard}`} />
           </div>
         </Switch>
       </div>
