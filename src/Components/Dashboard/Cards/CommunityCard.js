@@ -217,6 +217,13 @@ function withMyHook(Component) {
   };
 }
 
+function FilterConfidential(string) {
+  if (string.includes("Confidential")) {
+    return <em>Confidential</em>;
+  }
+  return string;
+}
+
 class JobApplicationCard extends Component {
   constructor(props) {
     super(props);
@@ -479,12 +486,14 @@ class JobApplicationCard extends Component {
                 alt={"Community Chat Card"}
               />
               <h1 className={classes.name}>
-                {this.props.data.attributes["prefix"]}
+                {this.props.data.attributes["prefix"]}{" "}
                 {this.props.data.attributes["given_name"]}{" "}
                 {this.props.data.attributes["family_name"]}
               </h1>
               <p className={classes.title}>
-                {this.props.data.attributes["custom:position"]}
+                {FilterConfidential(
+                  this.props.data.attributes["custom:position"]
+                )}
               </p>
               {/* <p className={classes.subtitle}>{this.props.data.attributes["custom:industry"]}</p> */}
               <span className={classes.subtitle}>
@@ -494,7 +503,9 @@ class JobApplicationCard extends Component {
                     className={classes.company_icon}
                   />
                 </span>
-                {this.props.data.attributes["custom:company"]}
+                {FilterConfidential(
+                  this.props.data.attributes["custom:company"]
+                )}
               </span>
               {/* <p className={classes.title}>
                 {this.props.data.attributes["custom:user_type"] === "MENTOR"
