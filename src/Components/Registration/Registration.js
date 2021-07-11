@@ -63,6 +63,7 @@ function withMyHook(Component) {
     return <Component {...props} classes={classes} />;
   };
 }
+
 class Registration extends Component {
   constructor(props) {
     super(props);
@@ -94,6 +95,13 @@ class Registration extends Component {
           </Toolbar>
         </AppBar>
         <Switch>
+          <Route exact={true} path={Routes.Register}>
+            <FirstPage
+              appContext={this}
+              prev={this.state.prev}
+              setPrev={(prev) => this.setState({ prev })}
+            />
+          </Route>
           <Route exact={true} path={`${Routes.Register}/2`}>
             <SecondPage
               appContext={this}
@@ -110,13 +118,6 @@ class Registration extends Component {
           </Route>
           <Route exact={true} path={`${Routes.Register}/4`}>
             <FinalPage
-              appContext={this}
-              prev={this.state.prev}
-              setPrev={(prev) => this.setState({ prev })}
-            />
-          </Route>
-          <Route exact={true} path={Routes.Register}>
-            <FirstPage
               appContext={this}
               prev={this.state.prev}
               setPrev={(prev) => this.setState({ prev })}

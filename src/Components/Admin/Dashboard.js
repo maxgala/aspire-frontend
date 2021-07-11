@@ -11,6 +11,7 @@ import Professionals from "./AspiringProfessionals";
 import Jobs from "./JobPosts";
 import AdminCoffeeChats from "./AdminCoffeeChats";
 import Escalations from "./Escalations";
+import Onboarding from "./Onboarding";
 import { withRouter } from "react-router";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { Routes } from "../../entry/routes/Routes";
@@ -129,6 +130,7 @@ class Dashboard extends Component {
     this.changeToSeniorExecs = this.changeToSeniorExecs.bind(this);
     this.changeToAdminCoffeeChats = this.changeToAdminCoffeeChats.bind(this);
     this.changeToEscalations = this.changeToEscalations.bind(this);
+    this.changeToOnboarding = this.changeToOnboarding.bind(this);
   }
 
   changeToEscalations() {
@@ -149,6 +151,10 @@ class Dashboard extends Component {
 
   changeToSeniorExecs() {
     this.props.history.push(`${Routes.AdminDashboard}`);
+  }
+
+  changeToOnboarding() {
+    this.props.history.push(`${Routes.AdminDashboard}/onboarding`);
   }
 
   signout = async () => {
@@ -204,6 +210,13 @@ class Dashboard extends Component {
           </Button>
           <Button
             variant="outlined"
+            className={classes.text}
+            onClick={this.changeToOnboarding}
+          >
+            <b>Onboarding</b>
+          </Button>
+          <Button
+            variant="outlined"
             className={classes.user_profile}
             onClick={this.signout}
           >
@@ -226,6 +239,9 @@ class Dashboard extends Component {
             </Route>
             <Route exact path={`${Routes.AdminDashboard}`}>
               <Home appContext={this} />
+            </Route>
+            <Route path={`${Routes.AdminDashboard}/onboarding`}>
+              <Onboarding appContext={this} />
             </Route>
             <Redirect to={`${Routes.AdminDashboard}`} />
           </div>

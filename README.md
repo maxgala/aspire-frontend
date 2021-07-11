@@ -4,7 +4,6 @@
 
 The directory hierarchy will be as following:
 
-
 - frontend
   - public
   - src
@@ -43,6 +42,8 @@ REACT_APP_ENV=prod
 REACT_APP_S3_BUCKET_NAME=xyz
 REACT_APP_SES_REGION=us-east-2
 ```
+
+You can find the .env variables values inside development slack channel under pinned messages.
 
 ### Deployment
 

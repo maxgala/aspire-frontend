@@ -59,9 +59,11 @@ class FormField extends Component {
       <Fragment>
         <div className="form-group px-3 pb-2">
           <div className="d-flex flex-row justify-content-between align-items-center">
+            {/*
             <label htmlFor={fieldId} className="control-label">
               {label}
             </label>
+  */}
             {/** Render the first error if there are any errors **/}
             {hasErrors && (
               <div className="error form-hint font-weight-bold text-right m-0 mb-2">
