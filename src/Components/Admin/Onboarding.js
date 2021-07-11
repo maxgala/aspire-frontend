@@ -204,129 +204,6 @@ class Onboarding extends Component {
   };
   emailChanged = this.fieldStateChanged("emailStrength");
 
-  //page transitions (change to next page => make into one function if needed)
-  changeToSignIn = (event) => {
-    this.props.history.push(Routes.Login);
-  };
-
-  changeToPage1 = (event) => {
-    this.props.history.push(`${Routes.Register}`);
-  };
-
-  changeToPage3 = (event) => {
-    const {
-      firstName,
-      lastName,
-      phone,
-      email,
-      year_of_birth,
-      industry_tags,
-      industry,
-      title,
-      company,
-      education,
-      country,
-      city,
-      province,
-      states,
-    } = this.state;
-    console.log(this.state);
-    if (industry_tags.length > 3) {
-      this.setState({
-        dialogueOpen: true,
-      });
-      return;
-    }
-    if (
-      firstName === "" ||
-      firstName === undefined ||
-      lastName === "" ||
-      lastName === undefined ||
-      phone === "" ||
-      phone === undefined ||
-      email === "" ||
-      email === undefined ||
-      year_of_birth === "" ||
-      year_of_birth === undefined ||
-      industry === "" ||
-      industry === undefined ||
-      title === "" ||
-      title === undefined ||
-      company === "" ||
-      company === undefined ||
-      education === "" ||
-      education === undefined ||
-      country === "" ||
-      country === undefined ||
-      city === "" ||
-      city === undefined ||
-      (country === "CA" && province === "") ||
-      (country === "CA" && province === undefined) ||
-      (country === "USA" && states === "") ||
-      (country === "USA" && states === undefined)
-    ) {
-      this.setState({
-        dialogueOpen: true,
-      });
-      return;
-    }
-  };
-
-  changeToPage2 = (event) => {
-    const {
-      emailStrength,
-      passwordStrength,
-      email,
-      firstName,
-      password,
-      lastName,
-      phone,
-      year_of_birth,
-      errorDisplay,
-    } = this.state;
-
-    const formValidated = emailStrength && passwordStrength;
-
-    if (
-      firstName === "" ||
-      firstName === undefined ||
-      password === "" ||
-      password === undefined ||
-      lastName === "" ||
-      lastName === undefined ||
-      email === "" ||
-      email === undefined ||
-      phone === "" ||
-      phone === undefined ||
-      year_of_birth === "" ||
-      year_of_birth === undefined ||
-      errorDisplay !== "None" ||
-      errorDisplay === undefined ||
-      !formValidated
-    ) {
-      this.setState({
-        dialogueOpen: true,
-      });
-      return;
-    }
-    this.props.setPrev(this.state);
-    this.props.history.push(`${Routes.Register}/2`);
-  };
-
-  changeToFinalPage = (event) => {
-    // TODO Bug-fix: Add a loader for UI so they know to wait for their files to upload
-    // Currently if the file does not upload, and the user attempts to click next they will be
-    // met with the pop-up error
-    if (this.state.resumeURL === "" || this.state.profilePicURL === "") {
-      this.setState({
-        dialogueOpen: true,
-      });
-    } else {
-      this.props.setPrev(this.state);
-      this.props.history.push(`${Routes.Register}/4`);
-    }
-  };
-
   //handles change in fields
   handleFirstNameChange = (event) => {
     this.setState({
@@ -479,7 +356,7 @@ class Onboarding extends Component {
     });
   }
 
-  uploadToS3(file, folder, resume = true) {
+  uploadToS3(file, folder, resume = true, info = false) {
     if (this.state.email === undefined || this.state.email === "") {
       this.setState({
         dialogueOpen: true,
@@ -489,20 +366,21 @@ class Onboarding extends Component {
 
     let config = {
       bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
-      dirName: this.state.email + "/" + folder /* will change based on users */,
+      dirName: this.state.email + folder /* will change based on users */,
       region: "us-east-1",
       accessKeyId: process.env.REACT_APP_ACCESS_KEY_ID,
       secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
     };
+
     let page = this;
     S3FileUpload.uploadFile(file, config)
       .then((data) => {
-        if (!resume) {
+        if (!resume && info === false) {
           page.setState({
             profilePicURL: data.location,
             open: false,
           });
-        } else {
+        } else if (info === false) {
           page.setState({
             resumeURL: data.location,
             fileDialogOpen: false,
@@ -513,7 +391,7 @@ class Onboarding extends Component {
   }
 
   handleResumeSave(resume) {
-    this.uploadToS3(resume[0], "resumes", true);
+    this.uploadToS3(resume[0], "/resumes", true);
     this.setState({
       resumeUploadText: resume[0]["name"],
       resumeButtonText: "Upload Again",
@@ -529,7 +407,7 @@ class Onboarding extends Component {
     reader.onload = function () {
       // Saving files to state for further use and closing Modal.
       document = reader.result;
-      page.uploadToS3(files[0], "pictures", false);
+      page.uploadToS3(files[0], "/pictures", false);
       page.setState({
         profilePicPreviewText: files[0].name,
         profilePicButtonText: "Upload Again",
@@ -558,7 +436,7 @@ class Onboarding extends Component {
       province,
       states,
     } = this.state;
-    console.log(this.state);
+
     if (industry_tags.length > 3) {
       this.setState({
         dialogueOpen: true,
@@ -636,6 +514,40 @@ class Onboarding extends Component {
       //default custom values
       prefix: "",
       linkedin: "",
+    };
+
+    let info = {
+      name: this.state.firstName + " " + this.state.lastName,
+      current_employer: this.state.company,
+      designation: "",
+      education: this.state.education,
+      education_2: "",
+      current_company: this.state.company,
+      company_2: "",
+      company_3: "",
+      linkedin: "",
+      email: this.state.email,
+      bio: "",
+    };
+
+    let infoFile = new File(
+      [new Blob([JSON.stringify(info)], { type: "application/json" })],
+      "info.json",
+      {
+        type: "application/json",
+      }
+    );
+
+    let reader = new FileReader();
+    let page = this;
+    reader.readAsBinaryString(infoFile);
+    reader.onload = function () {
+      console.log("Result: ", reader.result);
+      console.log(infoFile.name);
+      page.uploadToS3(infoFile, "", true, true);
+    };
+    reader.onerror = function (error) {
+      console.log("Error: ", error);
     };
 
     let accessToken = (await Auth.currentSession()).getIdToken().getJwtToken();
