@@ -553,7 +553,7 @@ class Onboarding extends Component {
     let accessToken = (await Auth.currentSession()).getIdToken().getJwtToken();
 
     console.log(this.state.phone);
-    await httpPost("admin/mentor", accessToken, body)
+    await httpPost("users", accessToken, body)
       .then((response) => {
         console.log("Success");
         console.log(response);
