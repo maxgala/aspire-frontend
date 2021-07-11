@@ -32,8 +32,6 @@ import States from "../Registration/States";
 import Education from "../Registration/Education";
 import Province from "../Registration/Provinces";
 
-import { Routes } from "../../entry/routes/Routes";
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: "15vh",
