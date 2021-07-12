@@ -135,15 +135,15 @@ class Onboarding extends Component {
       displayStates: "None",
 
       //resources
-      resumeURL: this.props.prev ? this.props.prev.resumeURL : "",
+      infoURL: this.props.prev ? this.props.prev.infoURL : "",
       profilePicURL: this.props.prev ? this.props.prev.profilePicURL : "",
       fileDialogOpen: false,
       imageFiles: [],
-      resumeFiles: [],
-      profilePicPreviewText: "Upload your Profile Photo *",
+      infoFiles: [],
+      profilePicPreviewText: "Upload a Profile Photo *",
       profilePicButtonText: "Upload",
-      resumeUploadText: "Upload your Resume *",
-      resumeButtonText: "Upload",
+      infoUploadText: "Upload a info.json file *",
+      infoButtonText: "Upload",
       filePreview: [],
       loader: false,
 
@@ -354,7 +354,7 @@ class Onboarding extends Component {
     });
   }
 
-  uploadToS3(file, folder, resume = true, info = false) {
+  uploadToS3(file, folder, info = true) {
     if (this.state.email === undefined || this.state.email === "") {
       this.setState({
         dialogueOpen: true,
@@ -373,14 +373,14 @@ class Onboarding extends Component {
     let page = this;
     S3FileUpload.uploadFile(file, config)
       .then((data) => {
-        if (!resume && info === false) {
+        if (!info) {
           page.setState({
             profilePicURL: data.location,
             open: false,
           });
-        } else if (info === false) {
+        } else {
           page.setState({
-            resumeURL: data.location,
+            infoURL: data.location,
             fileDialogOpen: false,
           });
         }
@@ -388,12 +388,12 @@ class Onboarding extends Component {
       .catch((err) => console.error(err));
   }
 
-  handleResumeSave(resume) {
-    this.uploadToS3(resume[0], "/resumes", true);
+  handleInfoSave(info) {
+    this.uploadToS3(info[0], "", true);
     this.setState({
-      resumeUploadText: resume[0]["name"],
-      resumeButtonText: "Upload Again",
-      resumeFiles: resume,
+      infoUploadText: info[0]["name"],
+      infoButtonText: "Upload Again",
+      infoFiles: info,
     });
   }
 
@@ -512,40 +512,6 @@ class Onboarding extends Component {
       //default custom values
       prefix: "",
       linkedin: "",
-    };
-
-    let info = {
-      name: this.state.firstName + " " + this.state.lastName,
-      current_employer: this.state.company,
-      designation: "",
-      education: this.state.education,
-      education_2: "",
-      current_company: this.state.company,
-      company_2: "",
-      company_3: "",
-      linkedin: "",
-      email: this.state.email,
-      bio: "",
-    };
-
-    let infoFile = new File(
-      [new Blob([JSON.stringify(info)], { type: "application/json" })],
-      "info.json",
-      {
-        type: "application/json",
-      }
-    );
-
-    let reader = new FileReader();
-    let page = this;
-    reader.readAsBinaryString(infoFile);
-    reader.onload = function () {
-      console.log("Result: ", reader.result);
-      console.log(infoFile.name);
-      page.uploadToS3(infoFile, "", true, true);
-    };
-    reader.onerror = function (error) {
-      console.log("Error: ", error);
     };
 
     let accessToken = (await Auth.currentSession()).getIdToken().getJwtToken();
@@ -866,6 +832,37 @@ class Onboarding extends Component {
                   onClose={this.handleClose.bind(this)}
                   filesLimit={1}
                   fileObjects={this.state.files}
+                />
+              </Grid>
+              <Grid item xs={12} className={classes.textAlignment}>
+                <div style={{ display: "inline-flex" }}>
+                  <Typography
+                    className={classes.uploadText}
+                    component="h6"
+                    variant="subtitle2"
+                  >
+                    <b>{this.state.infoUploadText}</b>
+                    <Tooltip title="Supported file types are: json">
+                      <InfoIcon />
+                    </Tooltip>
+                  </Typography>
+                  <Button
+                    className={classes.uploadImage}
+                    onClick={(event) => this.setState({ fileDialogOpen: true })}
+                  >
+                    <b>{this.state.infoButtonText}</b>
+                  </Button>
+                </div>
+                <DropzoneDialog
+                  open={this.state.fileDialogOpen}
+                  onSave={this.handleInfoSave.bind(this)}
+                  acceptedFiles={["application/json"]}
+                  maxFileSize={5000000}
+                  onClose={(event) => {
+                    this.setState({ fileDialogOpen: false });
+                  }}
+                  filesLimit={1}
+                  fileObjects={this.state.infoFiles}
                 />
               </Grid>
               <Grid item xs={12}>
