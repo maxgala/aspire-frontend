@@ -101,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
   },
+
   coffee_chats: {
     height: "80%",
     padding: "0px",
@@ -111,6 +112,19 @@ const useStyles = makeStyles((theme) => ({
       minWidth: "50px",
     },
   },
+
+  coffee_chats_focus: {
+    height: "80%",
+    padding: "0px",
+    backgroundColor: "#B5A165",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
+    },
+  },
+
   jobs: {
     height: "80%",
     padding: "0px",
@@ -121,6 +135,19 @@ const useStyles = makeStyles((theme) => ({
       minWidth: "50px",
     },
   },
+
+  jobs_focus: {
+    height: "80%",
+    padding: "0px",
+    backgroundColor: "#B5A165",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
+    },
+  },
+
   community: {
     height: "80%",
     padding: "0px",
@@ -131,11 +158,47 @@ const useStyles = makeStyles((theme) => ({
       minWidth: "50px",
     },
   },
+
+  community_focus: {
+    height: "80%",
+    padding: "0px",
+    backgroundColor: "#B5A165",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
+    },
+  },
+
   dashboard: {
     height: "80%",
     marginLeft: "auto",
     display: "inline-flex",
     alignItems: "center",
+
+    "@media (max-width: 480px)": {
+      marginLeft: "0px",
+    },
+    "@media (max-width: 320px)": {
+      minWidth: "50px",
+    },
+    padding: "0px",
+    "&:hover": {
+      backgroundColor: "#B5A165",
+    },
+    "&_focus": {
+      backgroundColor: "#B5A165",
+    },
+  },
+
+  dashboard_focus: {
+    height: "80%",
+    marginLeft: "auto",
+    display: "inline-flex",
+    alignItems: "center",
+    backgroundColor: "#B5A165",
+
     "@media (max-width: 480px)": {
       marginLeft: "0px",
     },
@@ -241,6 +304,7 @@ class Dashboard extends Component {
       signoutAnchorEl: null,
       user_type: jwtDecode(localStorage.getItem("idToken"))["custom:user_type"],
       editUserProfileAnchorEl: null,
+      onFocus: "dashboard",
     };
 
     this.changeToCoffeeChats = this.changeToCoffeeChats.bind(this);
@@ -287,21 +351,25 @@ class Dashboard extends Component {
 
   changeToResumeBank() {
     this.handleSelect();
+    this.state.onFocus = "community";
     this.props.history.push(Routes.ResumeBank);
   }
 
   changeToCommunity() {
     this.handleSelect();
+    this.state.onFocus = "community";
     this.props.history.push(Routes.Members);
   }
 
   changeToCoffeeChats() {
     this.handleSelect();
+    this.state.onFocus = "coffeechat";
     this.props.history.push(Routes.Coffee);
   }
 
   changeToJobs() {
     this.handleSelect();
+    this.state.onFocus = "jobs";
     this.props.history.push(Routes.Jobs);
   }
 
@@ -312,6 +380,7 @@ class Dashboard extends Component {
 
   changeToDashboard() {
     this.handleSelect();
+    this.state.onFocus = "dashboard";
     this.props.history.push(Routes.Dashboard);
   }
 
@@ -367,7 +436,11 @@ class Dashboard extends Component {
             </Hidden>
             <Button
               variant="outlined"
-              className={classes.dashboard}
+              className={
+                this.state.onFocus === "dashboard"
+                  ? classes.dashboard_focus
+                  : classes.dashboard
+              }
               onClick={this.changeToDashboard}
             >
               {/*Icons without labels appear only when screen width <= 480px */}
@@ -386,7 +459,11 @@ class Dashboard extends Component {
             </Button>
             <Button
               variant="outlined"
-              className={classes.coffee_chats}
+              className={
+                this.state.onFocus === "coffeechat"
+                  ? classes.coffee_chats_focus
+                  : classes.coffee_chats
+              }
               onClick={this.changeToCoffeeChats}
             >
               <img
@@ -403,7 +480,11 @@ class Dashboard extends Component {
             </Button>
             <Button
               variant="outlined"
-              className={classes.jobs}
+              className={
+                this.state.onFocus === "jobs"
+                  ? classes.jobs_focus
+                  : classes.jobs
+              }
               onClick={this.handleJobsClick}
             >
               <img
@@ -440,7 +521,11 @@ class Dashboard extends Component {
             </Menu>
             <Button
               variant="outlined"
-              className={classes.community}
+              className={
+                this.state.onFocus === "community"
+                  ? classes.community_focus
+                  : classes.community
+              }
               onClick={this.handleCommunityClick}
             >
               <img
